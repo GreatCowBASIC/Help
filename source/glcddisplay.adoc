@@ -1,0 +1,19 @@
+==== GLCDDisplay
+
+*Syntax:*
+----
+
+    GLCDDisplay Off | On
+
+----
+*Explanation:*
+
+Places the GLCD in sleep mode or enables the GLCD for normal operations.
+
+
+The options are:
+----
+    OFF
+    ON
+----
+

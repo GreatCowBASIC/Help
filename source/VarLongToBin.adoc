@@ -1,0 +1,27 @@
+==== LongToBin
+
+*Syntax:*
+[subs="quotes"]
+----
+    __stringvar__ = LongToBin(__longvar__)
+----
+
+*Command Availability:*
+
+Available on all microcontrollers
+
+*Explanation:*
+
+The `LongToBin` function creates a string of a ANSI (32) characters.
+The function converts a number to a string consisting of ones and zeros that represents the binary value.
+
+*Note:*
+Supports LONG variables only.  For BYTE variables use `VarToBin`, for WORD variables use `VarWToBinand` for INTEGER variables use `VarIntegerToBin`
+
+*Example:*
+----
+    string = LongToBin( 1 )   ' Returns "0000000000000001"
+
+    string = LongToBin( 254 ) ' Returns "0000000011111110"
+----
+*For more help, see* <<_vartobin,VarToBin>>, <<_varWtobin,VarWToBin>>, <<_varintegertobin,VarIntegerToBin>>

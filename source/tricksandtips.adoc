@@ -1,0 +1,163 @@
+== Tricks and Tips
+
+This is a collation of tricks and tips that may be useful to you.
+{empty} +
+{empty} +
+<<RAMVARIABLESANDRESETS,RAM, variables and resets>>
+
+<<FORNEXTLEGACY,Reverting the FOR-NEXT loop to the Legacy FOR-NEXT method>>
+
+<<REQUIRED,Change the compilers behaviour when the compiler states a capability is not available>>
+
+<<MINIMALASM,Create a minimal ASM source with no config and/or initsys>>
+
+<<PPSandUSARTs,PPS microconrollers and multiple USARTs>>
+{empty} +
+{empty} +
+
+
+[#RAMVARIABLESANDRESETS]
+*TIP: RAM, variables and resets*
+
+When you define a variable it will be mapped to a RAM location.&#160;&#160;
+As you develop your solution your should always do the following to ensure the variable are initialised correctly.&#160;&#160;
+
+- Always initialise variables to a known state
+
+A variable will not show up in the ASM source code unless it is used somewhere in code. &#160;&#160;
+Adding `Variable = 0`  will assure that the variable is initialised and will show up in the ASM.&#160;&#160;
+This is very useful for troubleshooting.&#160;&#160;
+This is essential when debugging ASM to look at variables that are defined using "EQU".&#160;&#160;
+If you do not initialise or use the variable then the variable will not be shown in the EQU list of variables.&#160;&#160;
+So, initialise all your variables.
+
+- Always power cycle the microcontroller after programming
+
+A soft reset when debugging/testing/programming will not reset the RAM to a known state.
+This is essential when debugging ASM to look at variables that are defined using "EQU".&#160;&#160;
+A soft reset  does not change the contents of RAM.&#160;&#160;
+Where a hard reset reverts ram back to an undefined /random state!&#160;&#160;
+So, a power cycle is good practice.&#160;&#160;
+{empty} +
+{empty} +
+
+
+[#FORNEXTLEGACY]
+*TRICK: Reverting the FOR-NEXT loop to the Legacy FOR-NEXT method ?*
+
+Why do this?  To reduce the PROGMEM size.&#160;&#160;
+But, you must assure yourself that the loop variable cannot overflow as the legacy FOR-NEXT does not prevent an overflow of the loop variable.
+
+Some background.&#160;&#160;
+In 2021 the Great Cow BASIC compiler was updated to improve the operation of the FOR-NEXT loop.&#160;&#160;
+The improvement did increase the size of the ASM generated.&#160;&#160;
+The legacy FOR-NEXT loop had some major issues that included never ending loops, incorrect end loop and unexpected operations.&#160;&#160;
+This was all caused by the compiler, not the user, and in 2021 the compiler was updated to resolve these issues.&#160;&#160;
+
+However, there is a risk that the new FOR-NEXT method causes 1) larger ASM that will not fit in small microcontrollers or 2) the new code does not operate as expected.&#160;&#160;
+In either case you can disable the new FOR-NEXT method by adding a constant as shown below.&#160;&#160;
+Adding this constant will revert the FOR-NEXT loop asm generated to the legacy method.&#160;&#160;
+
+----
+    #DEFINE USELEGACYFORNEXT
+----
+{empty} +
+{empty} +
+[#REQUIRED]
+*TRICK: How to change the compilers behaviour when the compiler states a capability is not available when I know it is ?*
+
+The compiler is issuing an error message that a EEPROM, HEF, SAF, PWM16 or hardware USART is not available... but, it is.&#160;&#160;
+
+This is caused by the microcontroller DAT file.&#160;&#160;
+The microcontroller DAT file is missing key information that informs the compiler that a specific capability is available.&#160;&#160;
+This information was added to prevent silent failures where you could use a capability when it is not available.&#160;&#160;
+
+The compiler thinks your microcontroller does not have the selected capability. &#160;&#160;
+Simply use the table below to resolve.&#160;&#160;
+Adding the constant defined to your source program.&#160;&#160;
+
+Then, let us know via the Forum so we can correct the source microcontroller DAT file.
+{empty} +
+{empty} +
+[horizontal]
+EEPROM:: `#DEFINE CHIPEEPROM = 1`
+HEF:: `#DEFINE  CHIPHEFWORDS = 128`
+SAF:: `#DEFINE  CHIPSAFWORDS = 128`
+PWM16:: `#DEFINE  CHIPPWM16TYPE  = 1`
+USART hardware:: `#DEFINE  CHIPUSART  = 1`
+
+{empty} +
+{empty} +
+[#MINIMALASM]
+*TRICK: How do I create a minimal ASM source with no config and/or initsys?*
+
+Very easy.&#160;&#160;
+Simple add two `#OPTION` statements.&#160;&#160;
+
+`#OPTION UserCodeOnly ENTERBOOTLOADER:` &#160;&#160;This will instruct the compiler to NOT call the INITSYS() method.&#160;&#160;
+And, to jump to a label.&#160;&#160;
+The label is mandated.&#160;&#160;The label specified will be included in the ASM generated.
+
+`#OPTION NoConfig`&#160;&#160;This will instruct the compiler to NOT add the microcontroller specific config statements.
+
+
+Example:
+----
+    #chip 16f877a, 4
+    #OPTION Explicit
+
+    #OPTION UserCodeOnly ENTERBOOTLOADER:
+    #OPTION NoConfig
+
+    ENTERBOOTLOADER:
+----
+
+The example above yields the following asm.&#160;&#160;
+Comment lines have been removed for clarity.
+
+----
+
+     LIST p=16F877A, r=DEC
+    #include <P16F877A.inc>
+
+    ;Vectors
+      ORG 0
+      pagesel ENTERBOOTLOADER
+      goto  ENTERBOOTLOADER
+
+    ;ORG 5
+
+
+    ENTERBOOTLOADER
+
+    ;ORG 2048
+    ;ORG 4096
+    ;ORG 6144
+
+     END
+
+----
+
+[#PPSandUSARTs]
+*TIP: PPS and multiple USARTs*
+
+You can set up multiple pins to simultaneously operate as a peripheral output on microcontrollers with Peripheral Pin Select (PPS).
+{empty} +
+{empty} +
+PPS microcontrollers can set up to simultaneously output specific modules.&#160;&#160;
+The example below shows the method to output two TX ports.&#160;&#160;
+Hardware Serial (TX1) data will now be output on both B.6 and C.6 
+{empty} +
+{empty} +
+----
+    Sub InitPPS
+            'Module: UART pin directions
+            Dir PORTC.6 Out    ' Make TX1 pin an output
+            Dir PORTB.6 Out    ' Make TX1 pin an output
+            'Module: UART1 to two ports
+            RC6PPS = 0x0020    'TX1 > RC6
+            RB6PPS = 0x0020    'TX1 > RB6
+
+    End Sub
+----
+  

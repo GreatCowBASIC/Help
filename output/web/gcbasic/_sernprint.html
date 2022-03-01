@@ -1,0 +1,890 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      
+      <title>SerNPrint -  - Great Cow BASIC documentation</title>
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
+      <link rel="up" href="_rs232_software_optimised.html" title="RS232 (software optimised)" />
+      <link rel="prev" href="_sernsend.html" title="SerNSend" />
+      <link rel="next" href="_sernreceive.html" title="SerNReceive" />
+      <meta name="Section-title" content="SerNPrint" /><script type="text/javascript">
+            //The id for tree cookie
+            var treeCookieId = "treeview-51260";
+            var language = "en";
+            var w = new Object();
+            //Localization
+            txt_filesfound = 'Results';
+            txt_enter_at_least_1_char = "You must enter at least one character.";
+            txt_browser_not_supported = "JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.";
+            txt_please_wait = "Please wait. Search in progress...";
+            txt_results_for = "Results for: ";
+        </script><link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+      <link rel="stylesheet" type="text/css" href="common/css/positioning.css" />
+      <link rel="stylesheet" type="text/css" href="common/jquery/theme-redmond/jquery-ui-1.8.2.custom.css" />
+      <link rel="stylesheet" type="text/css" href="common/jquery/treeview/jquery.treeview.css" /><style type="text/css">
+
+#noscript{
+    font-weight:bold;
+	background-color: #55AA55;
+    font-weight: bold;
+    height: 25spx;
+    z-index: 3000;
+	top:0px;
+	width:100%;
+	position: relative;
+	border-bottom: solid 5px black;
+	text-align:center;
+	color: white;
+}
+
+input {
+    margin-bottom: 5px;
+    margin-top: 2px;
+}
+.folder {
+    display: block;
+    height: 22px;
+    padding-left: 20px;
+    background: transparent url(common/jquery/treeview/images/folder.gif) 0 0px no-repeat;
+}
+span.contentsTab {
+    padding-left: 20px;
+    background: url(common/images/toc-icon.png) no-repeat 0 center;
+}
+span.searchTab {
+    padding-left: 20px;
+    background: url(common/images/search-icon.png) no-repeat 0 center;
+}
+
+/* Overide jquery treeview's defaults for ul. */
+.treeview ul {
+    background-color: transparent;
+    margin-top: 4px;
+}		
+#webhelp-currentid {
+    background-color: #D8D8D8 !important;
+}
+.treeview .hover { color: black; }
+.filetree li span a { text-decoration: none; font-size: 12px; color: #517291; }
+
+/* Override jquery-ui's default css customizations. These are supposed to take precedence over those.*/
+.ui-widget-content {
+    border: 0px; 
+    background: none; 
+    color: none;     
+}
+.ui-widget-header {
+    color: #e9e8e9;
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    border-bottom: 1px solid #bbc4c5;
+    border-top: 4px solid #e5e5e5;
+    border: medium none;
+    background: #F4F4F4; /* old browsers */
+    background: -moz-linear-gradient(top, #F4F4F4 0%, #E6E4E5 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F4F4F4), color-stop(100%,#E6E4E5)); /* webkit */    
+    font-weight: none;
+}
+.ui-widget-header a { color: none; }
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { 
+border: none; background: none; font-weight: none; color: none; }
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: black; text-decoration: none; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: none; background: none; font-weight: none; color: none; }
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: none; background: none; font-weight: none; color: none; }
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { 
+    color: black; text-decoration: none; 	
+    background: #C6C6C6; /* old browsers */
+    background: -moz-linear-gradient(top, #C6C6C6 0%, #D8D8D8 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#C6C6C6), color-stop(100%,#D8D8D8)); /* webkit */
+    -webkit-border-radius:15px; -moz-border-radius:10px;
+    border: 1px solid #f1f1f1;
+}    
+.ui-corner-all { border-radius: 0 0 0 0; }
+
+.ui-tabs { padding: .2em;}
+.ui-tabs .ui-tabs-nav li { top: 0px; margin: -2px 0 1px; text-transform: uppercase; font-size: 10.5px;}
+.ui-tabs .ui-tabs-nav li a { padding: .25em 2em .25em 1em; margin: .5em; text-shadow: 0 1px 0 rgba(255,255,255,.5); }
+       /**
+	 *	Basic Layout Theme
+	 * 
+	 *	This theme uses the default layout class-names for all classes
+	 *	Add any 'custom class-names', from options: paneClass, resizerClass, togglerClass
+	 */
+
+	.ui-layout-pane { /* all 'panes' */ 
+		background: #FFF; 
+		border: 1px solid #BBB; 
+		padding: 05x; 
+		overflow: auto;
+	} 
+        
+	.ui-layout-resizer { /* all 'resizer-bars' */ 
+		background: #DDD; 
+                top:100px
+	} 
+
+	.ui-layout-toggler { /* all 'toggler-buttons' */ 
+		background: #AAA; 
+	} 
+    
+       </style>
+      <!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="../common/css/ie.css"/>
+	<![endif]--><script type="text/javascript" src="common/browserDetect.js">
+         <!----></script><script type="text/javascript" src="common/jquery/jquery-1.7.2.min.js">
+         <!----></script><script type="text/javascript" src="common/jquery/jquery.ui.all.js">
+         <!----></script><script type="text/javascript" src="common/jquery/jquery.cookie.js">
+         <!----></script><script type="text/javascript" src="common/jquery/treeview/jquery.treeview.min.js">
+         <!----></script><script type="text/javascript" src="common/jquery/layout/jquery.layout.js">
+         <!----></script><script type="text/javascript" src="search/l10n.js">
+         <!----></script><script type="text/javascript" src="search/htmlFileInfoList.js">
+         <!----></script><script type="text/javascript" src="search/nwSearchFnt.js">
+         <!----></script><script type="text/javascript" src="search/stemmers/en_stemmer.js">
+         <!--//make this scalable to other languages as well.--></script><script type="text/javascript" src="search/index-1.js">
+         <!----></script><script type="text/javascript" src="search/index-2.js">
+         <!----></script><script type="text/javascript" src="search/index-3.js">
+         <!----></script></head>
+   <body>
+      <noscript>
+         <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
+      </noscript>
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />RS232 (software optimised)
+         </h1>
+         <div id="navheader">
+            <!---->
+            <table class="navLinks">
+               <tr>
+                  <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
+                                                    </a></td>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_sernsend.html">Prev</a>
+                                                             |
+                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="_rs232_software_optimised.html">Up</a>
+                                                         |
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_sernreceive.html">Next</a></td>
+               </tr>
+            </table>
+         </div>
+      </div>
+      <div id="content">
+         <!---->
+         <div class="section">
+            <div xmlns="" class="titlepage">
+               <div>
+                  <div>
+                     <h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="_sernprint"></a>SerNPrint
+                     </h5>
+                  </div>
+               </div>
+            </div>
+            <p><span class="strong"><strong>Ser1Print, Ser2Print, Ser3Print</strong></span></p>
+            <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    Ser1Print value
+    Ser2Print value
+    Ser3Print value</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
+            <p>Available on all microcontrollers.</p>
+            <p><span class="strong"><strong>Explanation:</strong></span></p>
+            <p>This command will send a value using the channel referred to as Ser1.. , Ser2…​ , Ser3…​ according to the rules set by the
+               related defines.
+               value can be a string, integer, long, word or byte.
+            </p>
+            <p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'This program will send text and an icrementing value using PORTB.1
+
+    ; ----- Configuration
+    #chip 16F886, 16
+    #option Explicit
+
+    ; ----- Include library
+    #include &lt;SoftSerial.h&gt;
+
+    ; ----- Config Serial UART :
+    #define SER1_BAUD 115200   ; baudrate must be defined
+    ; Config I/O ports for transmitting:
+    #define SER1_TXPORT PORTB  ; I/O port (without .bit) must be defined
+    #define SER1_TXPIN 1       ; portbit  must be defined
+
+    ; ----- Variables
+    Dim xx As Word
+    xx = 1000
+
+    ; ----- Main body of program commences here.
+    Do Forever
+      Wait 1 s       'time to enjoy the result
+      Ser1Send  13   'new line in Terminal
+      Ser1Send  10
+      Ser1Print "Software-UART: "  'send a text
+      Ser1Print xx   'send the value of xx
+      xx += 1
+    Loop</pre><p>Exposed in SoftSerial.h authored by Frank Steinberg</p>
+         </div><script type="text/javascript" src="common/main.js">
+            <!----></script><script type="text/javascript" src="common/splitterInit.js">
+            <!----></script><div class="navfooter">
+            <hr />
+            <table width="100%" summary="Navigation footer">
+               <tr>
+                  <td width="40%" align="left"><a accesskey="p" href="_sernsend.html">Prev</a> 
+                  </td>
+                  <td width="20%" align="center"><a accesskey="u" href="_rs232_software_optimised.html">Up</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="_sernreceive.html">Next</a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left" valign="top"> </td>
+                  <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+                  <td width="40%" align="right" valign="top"> </td>
+               </tr>
+            </table>
+         </div>
+      </div>
+      <div id="sidebar">
+         <div id="leftnavigation" style="padding-top:3px;">
+            <div id="tabs">
+               <ul>
+                  <li><a href="#treeDiv" style="outline:0;" tabindex="1"><span class="contentsTab">Contents</span></a></li>
+                  <li><a href="#searchDiv" style="outline:0;" tabindex="1" onclick="doSearch()"><span class="searchTab">Search</span></a></li>
+               </ul>
+               <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
+                     <ul id="tree" class="filetree">
+                        <li><span class="file"><a href="_introducing_great_cow_basic.html" tabindex="1">Introducing Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_using_great_cow_basic.html" tabindex="1">Using Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
+                        <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
+                        <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
+                        <li><span class="file"><a href="_frequent_errors.html" tabindex="1">Frequent errors</a></span></li>
+                        <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
+                        <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
+                        <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
+                        <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
+                        <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
+                        <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
+                        <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span></li>
+                        <li><span class="file"><a href="_microcontroller_fundamentals.html" tabindex="1">Microcontroller Fundamentals</a></span><ul>
+                              <li><span class="file"><a href="_inputs_outputs.html" tabindex="1">Inputs/Outputs</a></span></li>
+                              <li><span class="file"><a href="_configuration.html" tabindex="1">Configuration</a></span></li>
+                              <li><span class="file"><a href="_data_types.html" tabindex="1">Data Types</a></span></li>
+                              <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
+                              <li><span class="file"><a href="_variable_advanced_types.html" tabindex="1">Variable Advanced Types</a></span></li>
+                              <li><span class="file"><a href="_variable_memory_allocation.html" tabindex="1">Variable Memory Allocation</a></span></li>
+                              <li><span class="file"><a href="_usb_drivers_installer.html" tabindex="1">USB Drivers Installer</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_syntax.html" tabindex="1">Syntax</a></span><ul>
+                              <li><span class="file"><a href="_arrays.html" tabindex="1">Arrays</a></span></li>
+                              <li><span class="file"><a href="_comments.html" tabindex="1">Comments</a></span></li>
+                              <li><span class="file"><a href="_line_continuation.html" tabindex="1">Line Continuation</a></span></li>
+                              <li><span class="file"><a href="_conditions.html" tabindex="1">Conditions</a></span></li>
+                              <li><span class="file"><a href="_constants.html" tabindex="1">Constants</a></span></li>
+                              <li><span class="file"><a href="_functions.html" tabindex="1">Functions</a></span></li>
+                              <li><span class="file"><a href="_labels.html" tabindex="1">Labels</a></span></li>
+                              <li><span class="file"><a href="_lookup_tables.html" tabindex="1">Lookup Tables</a></span></li>
+                              <li><span class="file"><a href="_miscellaneous.html" tabindex="1">Miscellaneous</a></span></li>
+                              <li><span class="file"><a href="_readtable.html" tabindex="1">ReadTable</a></span></li>
+                              <li><span class="file"><a href="_scripts.html" tabindex="1">Scripts</a></span></li>
+                              <li><span class="file"><a href="_subroutines.html" tabindex="1">Subroutines</a></span></li>
+                              <li><span class="file"><a href="_converters.html" tabindex="1">Converters</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_command_references.html" tabindex="1">Command References</a></span><ul>
+                              <li><span class="file"><a href="_analog_digital_conversion.html" tabindex="1">Analog/Digital conversion</a></span><ul>
+                                    <li><span class="file"><a href="_analog_digital_conversion_overview.html" tabindex="1">Analog/Digital Conversion Overview</a></span></li>
+                                    <li><span class="file"><a href="_adformat_deprecated_do_not_use.html" tabindex="1">ADFormat (Deprecated - Do not use)</a></span></li>
+                                    <li><span class="file"><a href="_adoff.html" tabindex="1">ADOff</a></span></li>
+                                    <li><span class="file"><a href="_readad.html" tabindex="1">ReadAD</a></span></li>
+                                    <li><span class="file"><a href="_readad10.html" tabindex="1">ReadAD10</a></span></li>
+                                    <li><span class="file"><a href="_readad12.html" tabindex="1">ReadAD12</a></span></li>
+                                    <li><span class="file"><a href="_analog_digital_conversion_code_optimisation.html" tabindex="1">Analog/Digital Conversion Code Optimisation</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_bitwise.html" tabindex="1">Bitwise</a></span><ul>
+                                    <li><span class="file"><a href="_bitwise_operations_overview.html" tabindex="1">Bitwise Operations Overview</a></span></li>
+                                    <li><span class="file"><a href="_fnlsl.html" tabindex="1">FnLSL</a></span></li>
+                                    <li><span class="file"><a href="_fnlsr.html" tabindex="1">FnLSR</a></span></li>
+                                    <li><span class="file"><a href="_setwith.html" tabindex="1">SetWith</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_memory_devices.html" tabindex="1">Memory Devices</a></span><ul>
+                                    <li><span class="file"><a href="_eeprom.html" tabindex="1">Eeprom</a></span><ul>
+                                          <li><span class="file"><a href="_epread.html" tabindex="1">EPRead</a></span></li>
+                                          <li><span class="file"><a href="_epwrite.html" tabindex="1">EPWrite</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_hefm.html" tabindex="1">HEFM</a></span><ul>
+                                          <li><span class="file"><a href="_hefm_overview.html" tabindex="1">HEFM Overview</a></span></li>
+                                          <li><span class="file"><a href="_hefread.html" tabindex="1">HEFRead</a></span></li>
+                                          <li><span class="file"><a href="_hefreadword.html" tabindex="1">HEFReadWord</a></span></li>
+                                          <li><span class="file"><a href="_hefwrite.html" tabindex="1">HEFWrite</a></span></li>
+                                          <li><span class="file"><a href="_hefwriteword.html" tabindex="1">HEFWriteWord</a></span></li>
+                                          <li><span class="file"><a href="_hefreadblock.html" tabindex="1">HEFReadBlock</a></span></li>
+                                          <li><span class="file"><a href="_hefwriteblock.html" tabindex="1">HEFWriteBlock</a></span></li>
+                                          <li><span class="file"><a href="_heferaseblock.html" tabindex="1">HEFEraseBlock</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_eeram.html" tabindex="1">EERAM</a></span><ul>
+                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_progmem.html" tabindex="1">PROGMEM</a></span><ul>
+                                          <li><span class="file"><a href="_pfmread.html" tabindex="1">PFMRead</a></span></li>
+                                          <li><span class="file"><a href="_pfmwrite.html" tabindex="1">PFMWrite</a></span></li>
+                                          <li><span class="file"><a href="_programerase.html" tabindex="1">ProgramErase</a></span></li>
+                                          <li><span class="file"><a href="_programread.html" tabindex="1">ProgramRead</a></span></li>
+                                          <li><span class="file"><a href="_programwrite.html" tabindex="1">ProgramWrite</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_safm.html" tabindex="1">SAFM</a></span><ul>
+                                          <li><span class="file"><a href="_safm_overview.html" tabindex="1">SAFM Overview</a></span></li>
+                                          <li><span class="file"><a href="_safread.html" tabindex="1">SAFRead</a></span></li>
+                                          <li><span class="file"><a href="_safreadword.html" tabindex="1">SAFReadWord</a></span></li>
+                                          <li><span class="file"><a href="_safwrite.html" tabindex="1">SAFWrite</a></span></li>
+                                          <li><span class="file"><a href="_safwriteword.html" tabindex="1">SAFWriteWord</a></span></li>
+                                          <li><span class="file"><a href="_safreadblock.html" tabindex="1">SAFReadBlock</a></span></li>
+                                          <li><span class="file"><a href="_safwriteblock.html" tabindex="1">SAFWriteBlock</a></span></li>
+                                          <li><span class="file"><a href="_saferaseblock.html" tabindex="1">SAFEraseBlock</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_sram.html" tabindex="1">SRAM</a></span><ul>
+                                          <li><span class="file"><a href="_sram_overview.html" tabindex="1">SRAM Overview</a></span></li>
+                                          <li><span class="file"><a href="_sramread.html" tabindex="1">SRAMRead</a></span></li>
+                                          <li><span class="file"><a href="_sramwrite.html" tabindex="1">SRAMWrite</a></span></li>
+                                       </ul>
+                                    </li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_flow_control.html" tabindex="1">Flow control</a></span><ul>
+                                    <li><span class="file"><a href="_do.html" tabindex="1">Do</a></span></li>
+                                    <li><span class="file"><a href="_end.html" tabindex="1">End</a></span></li>
+                                    <li><span class="file"><a href="_exit.html" tabindex="1">Exit</a></span></li>
+                                    <li><span class="file"><a href="_for.html" tabindex="1">For</a></span></li>
+                                    <li><span class="file"><a href="_gosub.html" tabindex="1">Gosub</a></span></li>
+                                    <li><span class="file"><a href="_goto.html" tabindex="1">Goto</a></span></li>
+                                    <li><span class="file"><a href="_if.html" tabindex="1">If</a></span></li>
+                                    <li><span class="file"><a href="_indcall.html" tabindex="1">IndCall</a></span></li>
+                                    <li><span class="file"><a href="_pause.html" tabindex="1">Pause</a></span></li>
+                                    <li><span class="file"><a href="_repeat.html" tabindex="1">Repeat</a></span></li>
+                                    <li><span class="file"><a href="_select.html" tabindex="1">Select</a></span></li>
+                                    <li><span class="file"><a href="_wait.html" tabindex="1">Wait</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_fixed_voltage_reference.html" tabindex="1">Fixed Voltage Reference</a></span><ul>
+                                    <li><span class="file"><a href="_fvrinitialize.html" tabindex="1">FVRInitialize</a></span></li>
+                                    <li><span class="file"><a href="_fvrisoutputready.html" tabindex="1">FVRIsOutputReady</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_interrupts.html" tabindex="1">Interrupts</a></span><ul>
+                                    <li><span class="file"><a href="_interrupts_overview.html" tabindex="1">Interrupts overview</a></span></li>
+                                    <li><span class="file"><a href="_intoff.html" tabindex="1">IntOff</a></span></li>
+                                    <li><span class="file"><a href="_inton.html" tabindex="1">IntOn</a></span></li>
+                                    <li><span class="file"><a href="_on_interrupt.html" tabindex="1">On Interrupt</a></span></li>
+                                    <li><span class="file"><a href="_on_interrupt_the_default_handler.html" tabindex="1">On Interrupt: The default handler</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_keypad.html" tabindex="1">Keypad</a></span><ul>
+                                    <li><span class="file"><a href="_keypad_overview.html" tabindex="1">Keypad Overview</a></span></li>
+                                    <li><span class="file"><a href="_keypaddata.html" tabindex="1">KeypadData</a></span></li>
+                                    <li><span class="file"><a href="_keypadraw.html" tabindex="1">KeypadRaw</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_graphical_lcd.html" tabindex="1">Graphical LCD</a></span><ul>
+                                    <li><span class="file"><a href="_glcd_overview.html" tabindex="1">GLCD Overview</a></span><ul>
+                                          <li><span class="file"><a href="_e_paper_controllers.html" tabindex="1">e-Paper Controllers</a></span></li>
+                                          <li><span class="file"><a href="_hx8347g_controllers.html" tabindex="1">HX8347G Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ili9326_controllers.html" tabindex="1">ILI9326 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ili9340_controllers.html" tabindex="1">ILI9340 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ili9341_controllers.html" tabindex="1">ILI9341 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ili9481_controllers.html" tabindex="1">ILI9481 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ili9486_l_controllers.html" tabindex="1">ILI9486(L) Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ks0108_controllers.html" tabindex="1">KS0108 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_nextion_controllers.html" tabindex="1">NEXTION Controllers</a></span></li>
+                                          <li><span class="file"><a href="_nt7108c_controllers.html" tabindex="1">NT7108C Controllers</a></span></li>
+                                          <li><span class="file"><a href="_pcd8544_controllers.html" tabindex="1">PCD8544 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_sdd1289_controllers.html" tabindex="1">SDD1289 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_sh1106_controllers.html" tabindex="1">SH1106 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1351_controllers.html" tabindex="1">SSD1351 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_st7735_controllers.html" tabindex="1">ST7735 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_st7789_controllers.html" tabindex="1">ST7789 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_st7920_controllers.html" tabindex="1">ST7920 Controllers</a></span><ul>
+                                                <li><span class="file"><a href="_st7920glcdcleargraphics.html" tabindex="1">ST7920GLCDClearGraphics</a></span></li>
+                                                <li><span class="file"><a href="_st7920glcddisablegraphics.html" tabindex="1">ST7920GLCDDisableGraphics</a></span></li>
+                                                <li><span class="file"><a href="_st7920glcdenablegraphics.html" tabindex="1">ST7920GLCDEnableGraphics</a></span></li>
+                                                <li><span class="file"><a href="_st7920graphictest.html" tabindex="1">ST7920GraphicTest</a></span></li>
+                                                <li><span class="file"><a href="_st7920linehs.html" tabindex="1">ST7920LineHs</a></span></li>
+                                                <li><span class="file"><a href="_st7920locate.html" tabindex="1">ST7920Locate</a></span></li>
+                                                <li><span class="file"><a href="_st7920tile.html" tabindex="1">ST7920Tile</a></span></li>
+                                                <li><span class="file"><a href="_st7920ctile.html" tabindex="1">ST7920cTile</a></span></li>
+                                                <li><span class="file"><a href="_st7920glocate.html" tabindex="1">ST7920gLocate</a></span></li>
+                                                <li><span class="file"><a href="_st7920gtile.html" tabindex="1">ST7920gTile</a></span></li>
+                                                <li><span class="file"><a href="_st7920lineh.html" tabindex="1">ST7920lineh</a></span></li>
+                                                <li><span class="file"><a href="_st7920linev.html" tabindex="1">ST7920linev</a></span></li>
+                                                <li><span class="file"><a href="_st7920glcdreadbyte.html" tabindex="1">ST7920GLCDReadByte</a></span></li>
+                                                <li><span class="file"><a href="_st7920writebyte.html" tabindex="1">ST7920WriteByte</a></span></li>
+                                                <li><span class="file"><a href="_st7920writecommand.html" tabindex="1">ST7920WriteCommand</a></span></li>
+                                                <li><span class="file"><a href="_st7920writedata.html" tabindex="1">ST7920WriteData</a></span></li>
+                                                <li><span class="file"><a href="_st7920greaddata.html" tabindex="1">ST7920gReaddata</a></span></li>
+                                             </ul>
+                                          </li>
+                                          <li><span class="file"><a href="_t6963_controllers.html" tabindex="1">T6963 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_uc1601_controllers.html" tabindex="1">UC1601 Controllers</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_box.html" tabindex="1">Box</a></span></li>
+                                    <li><span class="file"><a href="_circle.html" tabindex="1">Circle</a></span></li>
+                                    <li><span class="file"><a href="_ellipse.html" tabindex="1">Ellipse</a></span></li>
+                                    <li><span class="file"><a href="_filledbox.html" tabindex="1">FilledBox</a></span></li>
+                                    <li><span class="file"><a href="_filledcircle.html" tabindex="1">FilledCircle</a></span></li>
+                                    <li><span class="file"><a href="_filledellipse.html" tabindex="1">FilledEllipse</a></span></li>
+                                    <li><span class="file"><a href="_filledtriangle.html" tabindex="1">FilledTriangle</a></span></li>
+                                    <li><span class="file"><a href="_glcdcls.html" tabindex="1">GLCDCLS</a></span></li>
+                                    <li><span class="file"><a href="_glcddisplay.html" tabindex="1">GLCDDisplay</a></span></li>
+                                    <li><span class="file"><a href="_glcddrawchar.html" tabindex="1">GLCDDrawChar</a></span></li>
+                                    <li><span class="file"><a href="_glcddrawstring.html" tabindex="1">GLCDDrawString</a></span></li>
+                                    <li><span class="file"><a href="_glcdprint.html" tabindex="1">GLCDPrint</a></span></li>
+                                    <li><span class="file"><a href="_glcdprintlargefont.html" tabindex="1">GLCDPrintLargeFont</a></span></li>
+                                    <li><span class="file"><a href="_glcdprintwithsize.html" tabindex="1">GLCDPrintWithSize</a></span></li>
+                                    <li><span class="file"><a href="_glcdlocatestring.html" tabindex="1">GLCDLocateString</a></span></li>
+                                    <li><span class="file"><a href="_glcdprintstring.html" tabindex="1">GLCDPrintString</a></span></li>
+                                    <li><span class="file"><a href="_glcdprintstringln.html" tabindex="1">GLCDPrintStringLn</a></span></li>
+                                    <li><span class="file"><a href="_glcdrotate.html" tabindex="1">GLCDRotate</a></span></li>
+                                    <li><span class="file"><a href="_glcdreadbyte.html" tabindex="1">GLCDReadByte</a></span></li>
+                                    <li><span class="file"><a href="_glcdtimedelay.html" tabindex="1">GLCDTimeDelay</a></span></li>
+                                    <li><span class="file"><a href="_glcdtransaction.html" tabindex="1">GLCDTransaction</a></span></li>
+                                    <li><span class="file"><a href="_glcdwritebyte.html" tabindex="1">GLCDWriteByte</a></span></li>
+                                    <li><span class="file"><a href="_line.html" tabindex="1">Line</a></span></li>
+                                    <li><span class="file"><a href="_hyperbole.html" tabindex="1">Hyperbole</a></span></li>
+                                    <li><span class="file"><a href="_parabola.html" tabindex="1">Parabola</a></span></li>
+                                    <li><span class="file"><a href="_pset.html" tabindex="1">Pset</a></span></li>
+                                    <li><span class="file"><a href="_triangle.html" tabindex="1">Triangle</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_touch_screen.html" tabindex="1">Touch Screen</a></span><ul>
+                                    <li><span class="file"><a href="_ads_7843_serial_driver.html" tabindex="1">ADS 7843 Serial Driver</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_liquid_crystal_display.html" tabindex="1">Liquid Crystal Display</a></span><ul>
+                                    <li><span class="file"><a href="_lcd_overview.html" tabindex="1">LCD Overview</a></span><ul>
+                                          <li><span class="file"><a href="_lcd_io_0.html" tabindex="1">LCD_IO 0</a></span></li>
+                                          <li><span class="file"><a href="_lcd_io_1.html" tabindex="1">LCD_IO 1</a></span></li>
+                                          <li><span class="file"><a href="_lcd_io_2_74xx164.html" tabindex="1">LCD_IO 2_74xx164</a></span></li>
+                                          <li><span class="file"><a href="_lcd_io_2.html" tabindex="1">LCD_IO 2</a></span></li>
+                                          <li><span class="file"><a href="_lcd_io_3.html" tabindex="1">LCD_IO 3</a></span></li>
+                                          <li><span class="file"><a href="_lcd_io_2_74xx174.html" tabindex="1">LCD_IO 2_74xx174</a></span></li>
+                                          <li><span class="file"><a href="_lcd_io_4.html" tabindex="1">LCD_IO 4</a></span></li>
+                                          <li><span class="file"><a href="_lcd_io_8.html" tabindex="1">LCD_IO 8</a></span></li>
+                                          <li><span class="file"><a href="_lcd_io_10.html" tabindex="1">LCD_IO 10</a></span><ul>
+                                                <li><span class="file"><a href="_lcd_io_10_port_configuration.html" tabindex="1">LCD_IO 10 Port Configuration</a></span></li>
+                                             </ul>
+                                          </li>
+                                          <li><span class="file"><a href="_lcd_io_12.html" tabindex="1">LCD_IO 12</a></span><ul>
+                                                <li><span class="file"><a href="_lcd_io_12_port_configuration.html" tabindex="1">LCD_IO 12 Port Configuration</a></span></li>
+                                             </ul>
+                                          </li>
+                                          <li><span class="file"><a href="_lcd_io_107.html" tabindex="1">LCD_IO 107</a></span></li>
+                                          <li><span class="file"><a href="_lcd_variant.html" tabindex="1">LCD_VARIANT</a></span></li>
+                                          <li><span class="file"><a href="_lcd_speed.html" tabindex="1">LCD_SPEED</a></span></li>
+                                          <li><span class="file"><a href="_lcd_width.html" tabindex="1">LCD_WIDTH</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_cls.html" tabindex="1">CLS</a></span></li>
+                                    <li><span class="file"><a href="_get.html" tabindex="1">Get</a></span></li>
+                                    <li><span class="file"><a href="_lcdbacklight.html" tabindex="1">LCDBacklight</a></span></li>
+                                    <li><span class="file"><a href="_lcdcreatechar.html" tabindex="1">LCDCreateChar</a></span></li>
+                                    <li><span class="file"><a href="_lcdcreategraph.html" tabindex="1">LCDCreateGraph</a></span></li>
+                                    <li><span class="file"><a href="_lcdcmd.html" tabindex="1">LCDCmd</a></span></li>
+                                    <li><span class="file"><a href="_lcdcursor.html" tabindex="1">LCDCursor</a></span></li>
+                                    <li><span class="file"><a href="_lcdhex.html" tabindex="1">LCDHex</a></span></li>
+                                    <li><span class="file"><a href="_lcdhome.html" tabindex="1">LCDHome</a></span></li>
+                                    <li><span class="file"><a href="_lcddisplayon.html" tabindex="1">LCDDisplayOn</a></span></li>
+                                    <li><span class="file"><a href="_lcddisplayoff.html" tabindex="1">LCDDisplayOff</a></span></li>
+                                    <li><span class="file"><a href="_lcdspace.html" tabindex="1">LCDSpace</a></span></li>
+                                    <li><span class="file"><a href="_lcdwritechar.html" tabindex="1">LCDWriteChar</a></span></li>
+                                    <li><span class="file"><a href="_locate.html" tabindex="1">Locate</a></span></li>
+                                    <li><span class="file"><a href="_print.html" tabindex="1">Print</a></span></li>
+                                    <li><span class="file"><a href="_put.html" tabindex="1">Put</a></span></li>
+                                    <li><span class="file"><a href="_examples.html" tabindex="1">Examples</a></span><ul>
+                                          <li><span class="file"><a href="_lcd_io_2_example.html" tabindex="1">LCD_IO 2 Example</a></span></li>
+                                          <li><span class="file"><a href="_lcd_io_4_example.html" tabindex="1">LCD_IO 4 Example</a></span></li>
+                                          <li><span class="file"><a href="_lcd_io_8_example.html" tabindex="1">LCD_IO 8 Example</a></span></li>
+                                          <li><span class="file"><a href="_lcd_io_10_example.html" tabindex="1">LCD_IO 10 Example</a></span></li>
+                                       </ul>
+                                    </li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_pulse_width_modulation.html" tabindex="1">Pulse width modulation</a></span><ul>
+                                    <li><span class="file"><a href="_microchip_pic_pwm_overview.html" tabindex="1">Microchip PIC PWM Overview</a></span><ul>
+                                          <li><span class="file"><a href="_pwm_software_mode.html" tabindex="1">PWM Software Mode</a></span><ul>
+                                                <li><span class="file"><a href="_pwmout.html" tabindex="1">PWMOut</a></span></li>
+                                             </ul>
+                                          </li>
+                                          <li><span class="file"><a href="_hpwm_ccp.html" tabindex="1">HPWM CCP</a></span><ul>
+                                                <li><span class="file"><a href="_hpwmupdate_for_ccp_pwm_modules_s.html" tabindex="1">HPWMUpdate for CCP/PWM Modules(s)</a></span></li>
+                                                <li><span class="file"><a href="_hpwmoff.html" tabindex="1">HPWMOff</a></span></li>
+                                             </ul>
+                                          </li>
+                                          <li><span class="file"><a href="_hpwm_ccptimern.html" tabindex="1">HPWM_CCPTimerN</a></span><ul>
+                                                <li><span class="file"><a href="_hpwmoff_2.html" tabindex="1">HPWMOff</a></span></li>
+                                             </ul>
+                                          </li>
+                                          <li><span class="file"><a href="_hpwm_10_bit.html" tabindex="1">HPWM 10 Bit</a></span><ul>
+                                                <li><span class="file"><a href="_hpwmupdate_for_pwm_module_s.html" tabindex="1">HPWMUpdate for PWM Module(s)</a></span></li>
+                                                <li><span class="file"><a href="_hpwmoff_3.html" tabindex="1">HPWMOff</a></span></li>
+                                             </ul>
+                                          </li>
+                                          <li><span class="file"><a href="_hpwm_16_bit.html" tabindex="1">HPWM 16 Bit</a></span></li>
+                                          <li><span class="file"><a href="_hpwm_fixed_mode.html" tabindex="1">HPWM Fixed Mode</a></span><ul>
+                                                <li><span class="file"><a href="_pwmon.html" tabindex="1">PWMOn</a></span></li>
+                                                <li><span class="file"><a href="_pwmoff.html" tabindex="1">PWMOff</a></span></li>
+                                             </ul>
+                                          </li>
+                                          <li><span class="file"><a href="_hardware_pwm_code_optimisation.html" tabindex="1">Hardware PWM Code Optimisation</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_atmel_avr_pwm_overview.html" tabindex="1">ATMEL AVR PWM Overview</a></span><ul>
+                                          <li><span class="file"><a href="_hpwm_avr_ocrnx.html" tabindex="1">HPWM AVR OCRnx</a></span></li>
+                                          <li><span class="file"><a href="_hpwm_fixed_mode_for_avr.html" tabindex="1">HPWM Fixed Mode for AVR</a></span><ul>
+                                                <li><span class="file"><a href="_pwmon_for_avr.html" tabindex="1">PWMOn for AVR</a></span></li>
+                                                <li><span class="file"><a href="_pwmoff_for_avr.html" tabindex="1">PWMOff for AVR</a></span></li>
+                                             </ul>
+                                          </li>
+                                       </ul>
+                                    </li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_random_numbers.html" tabindex="1">Random Numbers</a></span><ul>
+                                    <li><span class="file"><a href="_overview.html" tabindex="1">Overview</a></span></li>
+                                    <li><span class="file"><a href="_random.html" tabindex="1">Random</a></span></li>
+                                    <li><span class="file"><a href="_randomize.html" tabindex="1">Randomize</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_7_segment_displays.html" tabindex="1">7-Segment Displays</a></span><ul>
+                                    <li><span class="file"><a href="_7_segment_displays_overview.html" tabindex="1">7 Segment Displays Overview</a></span><ul>
+                                          <li><span class="file"><a href="_7_segment_displays_legacy.html" tabindex="1">7 Segment Displays - Legacy</a></span><ul>
+                                                <li><span class="file"><a href="_common_cathode.html" tabindex="1">Common Cathode</a></span></li>
+                                                <li><span class="file"><a href="_common_anode.html" tabindex="1">Common Anode</a></span></li>
+                                                <li><span class="file"><a href="_displayvalue.html" tabindex="1">DisplayValue</a></span></li>
+                                                <li><span class="file"><a href="_displaychar.html" tabindex="1">DisplayChar</a></span></li>
+                                                <li><span class="file"><a href="_displaysegment.html" tabindex="1">DisplaySegment</a></span></li>
+                                             </ul>
+                                          </li>
+                                          <li><span class="file"><a href="_7_segment_displays_tm1637_4_digits.html" tabindex="1">7 Segment Displays - TM1637 4 Digits</a></span><ul>
+                                                <li><span class="file"><a href="_tmwrite4dig.html" tabindex="1">TMWrite4Dig</a></span></li>
+                                                <li><span class="file"><a href="_tm_bright.html" tabindex="1">TM_Bright</a></span></li>
+                                                <li><span class="file"><a href="_tmdec.html" tabindex="1">TMDec</a></span></li>
+                                                <li><span class="file"><a href="_tmhex.html" tabindex="1">TMHex</a></span></li>
+                                                <li><span class="file"><a href="_tmwritechar.html" tabindex="1">TMWriteChar</a></span></li>
+                                             </ul>
+                                          </li>
+                                          <li><span class="file"><a href="_7_segment_displays_tm1637_6_digits.html" tabindex="1">7 Segment Displays - TM1637 6 Digits</a></span><ul>
+                                                <li><span class="file"><a href="_tmwrite6dig.html" tabindex="1">TMWrite6Dig</a></span></li>
+                                                <li><span class="file"><a href="_tm_bright_2.html" tabindex="1">TM_Bright</a></span></li>
+                                                <li><span class="file"><a href="_tmdec_2.html" tabindex="1">TMDec</a></span></li>
+                                                <li><span class="file"><a href="_tmhex_2.html" tabindex="1">TMHex</a></span></li>
+                                                <li><span class="file"><a href="_tmwritechar_2.html" tabindex="1">TMWriteChar</a></span></li>
+                                                <li><span class="file"><a href="_tm_point.html" tabindex="1">TM_Point</a></span></li>
+                                             </ul>
+                                          </li>
+                                       </ul>
+                                    </li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_one_wire_devices.html" tabindex="1">One Wire Devices</a></span><ul>
+                                    <li><span class="file"><a href="_ds18b20.html" tabindex="1">DS18B20</a></span></li>
+                                    <li><span class="file"><a href="_readdigitaltemp.html" tabindex="1">ReadDigitalTemp</a></span></li>
+                                    <li><span class="file"><a href="_readtemp.html" tabindex="1">ReadTemp</a></span></li>
+                                    <li><span class="file"><a href="_readtemp12.html" tabindex="1">ReadTemp12</a></span></li>
+                                    <li><span class="file"><a href="_ds18b20setresolution.html" tabindex="1">DS18B20SetResolution</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_serial_communications.html" tabindex="1">Serial Communications</a></span><ul>
+                                    <li><span class="file"><a href="_rs232_software.html" tabindex="1">RS232 (software)</a></span><ul>
+                                          <li><span class="file"><a href="_rs232_software_overview.html" tabindex="1">RS232 Software Overview</a></span></li>
+                                          <li><span class="file"><a href="_initser.html" tabindex="1">InitSer</a></span></li>
+                                          <li><span class="file"><a href="_sersend.html" tabindex="1">SerSend</a></span></li>
+                                          <li><span class="file"><a href="_serreceive.html" tabindex="1">SerReceive</a></span></li>
+                                          <li><span class="file"><a href="_serprint.html" tabindex="1">SerPrint</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_rs232_software_optimised.html" tabindex="1">RS232 (software optimised)</a></span><ul>
+                                          <li><span class="file"><a href="_rs232_software_overview_optimised.html" tabindex="1">RS232 Software Overview - Optimised</a></span></li>
+                                          <li><span class="file"><a href="_sernsend.html" tabindex="1">SerNSend</a></span></li>
+                                          <li id="webhelp-currentid"><span class="file"><a href="_sernprint.html" tabindex="1">SerNPrint</a></span></li>
+                                          <li><span class="file"><a href="_sernreceive.html" tabindex="1">SerNReceive</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_rs232_hardware.html" tabindex="1">RS232 (hardware)</a></span><ul>
+                                          <li><span class="file"><a href="_rs232_hardware_overview.html" tabindex="1">RS232 Hardware Overview</a></span></li>
+                                          <li><span class="file"><a href="_hsergetnum.html" tabindex="1">HSerGetNum</a></span></li>
+                                          <li><span class="file"><a href="_hsergetstring.html" tabindex="1">HSerGetString</a></span></li>
+                                          <li><span class="file"><a href="_hserprint.html" tabindex="1">HSerPrint</a></span></li>
+                                          <li><span class="file"><a href="_hserprintstringcrlf.html" tabindex="1">HSerPrintStringCRLF</a></span></li>
+                                          <li><span class="file"><a href="_hserreceive.html" tabindex="1">HSerReceive</a></span></li>
+                                          <li><span class="file"><a href="_hserreceivefrom.html" tabindex="1">HSerReceiveFrom</a></span></li>
+                                          <li><span class="file"><a href="_hsersend.html" tabindex="1">HSerSend</a></span></li>
+                                          <li><span class="file"><a href="_hserprintbytecrlf.html" tabindex="1">HserPrintByteCRLF</a></span></li>
+                                          <li><span class="file"><a href="_hserprintcrlf.html" tabindex="1">HserPrintCRLF</a></span></li>
+                                       </ul>
+                                    </li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_ps_2.html" tabindex="1">PS/2</a></span><ul>
+                                    <li><span class="file"><a href="_ps_2_overview.html" tabindex="1">PS/2 Overview</a></span></li>
+                                    <li><span class="file"><a href="_inkey.html" tabindex="1">InKey</a></span></li>
+                                    <li><span class="file"><a href="_ps2setkbleds.html" tabindex="1">PS2SetKBLeds</a></span></li>
+                                    <li><span class="file"><a href="_ps2readbyte.html" tabindex="1">PS2ReadByte</a></span></li>
+                                    <li><span class="file"><a href="_ps2writebyte.html" tabindex="1">PS2WriteByte</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_spi.html" tabindex="1">SPI</a></span><ul>
+                                    <li><span class="file"><a href="_spi_overview.html" tabindex="1">SPI Overview</a></span></li>
+                                    <li><span class="file"><a href="_spimode.html" tabindex="1">SPIMode</a></span></li>
+                                    <li><span class="file"><a href="_spitransfer.html" tabindex="1">SPITransfer</a></span></li>
+                                    <li><span class="file"><a href="_fasthwspitransfer.html" tabindex="1">FastHWSPITransfer</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_i2c_software.html" tabindex="1">I2C Software</a></span><ul>
+                                    <li><span class="file"><a href="_i2c_overview.html" tabindex="1">I2C Overview</a></span></li>
+                                    <li><span class="file"><a href="_i2cackpollstate.html" tabindex="1">I2CAckPollState</a></span></li>
+                                    <li><span class="file"><a href="_i2cackpoll.html" tabindex="1">I2CAckpoll</a></span></li>
+                                    <li><span class="file"><a href="_i2creceive.html" tabindex="1">I2CReceive</a></span></li>
+                                    <li><span class="file"><a href="_i2creset.html" tabindex="1">I2CReset</a></span></li>
+                                    <li><span class="file"><a href="_i2crestart.html" tabindex="1">I2CRestart</a></span></li>
+                                    <li><span class="file"><a href="_i2csend.html" tabindex="1">I2CSend</a></span></li>
+                                    <li><span class="file"><a href="_i2cstart.html" tabindex="1">I2CStart</a></span></li>
+                                    <li><span class="file"><a href="_i2cstartoccurred.html" tabindex="1">I2CStartoccurred</a></span></li>
+                                    <li><span class="file"><a href="_i2cstop.html" tabindex="1">I2CStop</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_i2c_twi_hardware_module.html" tabindex="1">I2C/TWI Hardware Module</a></span><ul>
+                                    <li><span class="file"><a href="_hi2c_overview.html" tabindex="1">HI2C Overview</a></span></li>
+                                    <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
+                                    <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
+                                    <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
+                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
+                                    <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
+                                    <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
+                                    <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
+                                    <li><span class="file"><a href="_hi2csetaddress.html" tabindex="1">HI2CSetAddress</a></span></li>
+                                    <li><span class="file"><a href="_hi2cstop.html" tabindex="1">HI2CStop</a></span></li>
+                                    <li><span class="file"><a href="_hi2cstopped.html" tabindex="1">HI2CStopped</a></span></li>
+                                    <li><span class="file"><a href="_hi2cwaitmssp.html" tabindex="1">HI2CWaitMSSP</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_sound.html" tabindex="1">Sound</a></span><ul>
+                                    <li><span class="file"><a href="_sound_overview.html" tabindex="1">Sound Overview</a></span></li>
+                                    <li><span class="file"><a href="_tone.html" tabindex="1">Tone</a></span></li>
+                                    <li><span class="file"><a href="_shorttone.html" tabindex="1">ShortTone</a></span></li>
+                                    <li><span class="file"><a href="_play.html" tabindex="1">Play</a></span></li>
+                                    <li><span class="file"><a href="_play_rtttl.html" tabindex="1">Play RTTTL</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_timers.html" tabindex="1">Timers</a></span><ul>
+                                    <li><span class="file"><a href="_timer_overview.html" tabindex="1">Timer Overview</a></span></li>
+                                    <li><span class="file"><a href="_cleartimer.html" tabindex="1">ClearTimer</a></span></li>
+                                    <li><span class="file"><a href="_inittimer0.html" tabindex="1">InitTimer0</a></span><ul>
+                                          <li><span class="file"><a href="_inittimer0_8bit_16bit.html" tabindex="1">InitTimer0 8bit/16bit</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_inittimer1.html" tabindex="1">InitTimer1</a></span></li>
+                                    <li><span class="file"><a href="_inittimer2.html" tabindex="1">InitTimer2</a></span></li>
+                                    <li><span class="file"><a href="_inittimer3.html" tabindex="1">InitTimer3</a></span></li>
+                                    <li><span class="file"><a href="_inittimer4.html" tabindex="1">InitTimer4</a></span></li>
+                                    <li><span class="file"><a href="_inittimer5.html" tabindex="1">InitTimer5</a></span></li>
+                                    <li><span class="file"><a href="_inittimer6.html" tabindex="1">InitTimer6</a></span></li>
+                                    <li><span class="file"><a href="_inittimer7.html" tabindex="1">InitTimer7</a></span></li>
+                                    <li><span class="file"><a href="_inittimer8.html" tabindex="1">InitTimer8</a></span></li>
+                                    <li><span class="file"><a href="_inittimer10.html" tabindex="1">InitTimer10</a></span></li>
+                                    <li><span class="file"><a href="_inittimer12.html" tabindex="1">InitTimer12</a></span></li>
+                                    <li><span class="file"><a href="_settimer.html" tabindex="1">Settimer</a></span></li>
+                                    <li><span class="file"><a href="_starttimer.html" tabindex="1">StartTimer</a></span></li>
+                                    <li><span class="file"><a href="_stoptimer.html" tabindex="1">StopTimer</a></span></li>
+                                    <li><span class="file"><a href="_reading_timers.html" tabindex="1">Reading Timers</a></span></li>
+                                    <li><span class="file"><a href="_smt_timers.html" tabindex="1">SMT Timers</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_variables_operations.html" tabindex="1">Variables Operations</a></span><ul>
+                                    <li><span class="file"><a href="_using_variables.html" tabindex="1">Using Variables</a></span></li>
+                                    <li><span class="file"><a href="_more_on_setting_variables_and_constants.html" tabindex="1">More on setting Variables and Constants</a></span></li>
+                                    <li><span class="file"><a href="_setting_variables.html" tabindex="1">Setting Variables</a></span></li>
+                                    <li><span class="file"><a href="_variable_lifecycle.html" tabindex="1">Variable Lifecycle</a></span></li>
+                                    <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span></li>
+                                    <li><span class="file"><a href="_alloc.html" tabindex="1">Alloc</a></span></li>
+                                    <li><span class="file"><a href="_bcdtodec_gcb.html" tabindex="1">BcdToDec_GCB</a></span></li>
+                                    <li><span class="file"><a href="_dectobcd_gcb.html" tabindex="1">DecToBcd_GCB</a></span></li>
+                                    <li><span class="file"><a href="_rotate.html" tabindex="1">Rotate</a></span></li>
+                                    <li><span class="file"><a href="_set.html" tabindex="1">Set</a></span></li>
+                                    <li><span class="file"><a href="_swap4.html" tabindex="1">SWAP4</a></span></li>
+                                    <li><span class="file"><a href="_swap.html" tabindex="1">SWAP</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_string_manipulation.html" tabindex="1">String Manipulation</a></span><ul>
+                                    <li><span class="file"><a href="_asc.html" tabindex="1">Asc</a></span></li>
+                                    <li><span class="file"><a href="_bytetobin.html" tabindex="1">ByteToBin</a></span></li>
+                                    <li><span class="file"><a href="_chr.html" tabindex="1">Chr</a></span></li>
+                                    <li><span class="file"><a href="_fill.html" tabindex="1">Fill</a></span></li>
+                                    <li><span class="file"><a href="_hex.html" tabindex="1">Hex</a></span></li>
+                                    <li><span class="file"><a href="_instr.html" tabindex="1">Instr</a></span></li>
+                                    <li><span class="file"><a href="_lcase.html" tabindex="1">LCase</a></span></li>
+                                    <li><span class="file"><a href="_left.html" tabindex="1">Left</a></span></li>
+                                    <li><span class="file"><a href="_leftpad.html" tabindex="1">LeftPad</a></span></li>
+                                    <li><span class="file"><a href="_len.html" tabindex="1">Len</a></span></li>
+                                    <li><span class="file"><a href="_ltrim.html" tabindex="1">Ltrim</a></span></li>
+                                    <li><span class="file"><a href="_mid.html" tabindex="1">Mid</a></span></li>
+                                    <li><span class="file"><a href="_pad.html" tabindex="1">Pad</a></span></li>
+                                    <li><span class="file"><a href="_right.html" tabindex="1">Right</a></span></li>
+                                    <li><span class="file"><a href="_rtrim.html" tabindex="1">Rtrim</a></span></li>
+                                    <li><span class="file"><a href="_str.html" tabindex="1">Str</a></span></li>
+                                    <li><span class="file"><a href="_trim.html" tabindex="1">Trim</a></span></li>
+                                    <li><span class="file"><a href="_ucase.html" tabindex="1">UCase</a></span></li>
+                                    <li><span class="file"><a href="_val.html" tabindex="1">Val</a></span></li>
+                                    <li><span class="file"><a href="_integertobin.html" tabindex="1">IntegerToBin</a></span></li>
+                                    <li><span class="file"><a href="_longtobin.html" tabindex="1">LongToBin</a></span></li>
+                                    <li><span class="file"><a href="_wordtobin.html" tabindex="1">WordToBin</a></span></li>
+                                    <li><span class="file"><a href="_concatenation.html" tabindex="1">Concatenation</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_miscellaneous_commands.html" tabindex="1">Miscellaneous Commands</a></span><ul>
+                                    <li><span class="file"><a href="_dir.html" tabindex="1">Dir</a></span></li>
+                                    <li><span class="file"><a href="_getuserid.html" tabindex="1">GetUserID</a></span></li>
+                                    <li><span class="file"><a href="_pot.html" tabindex="1">Pot</a></span></li>
+                                    <li><span class="file"><a href="_pulseout.html" tabindex="1">PulseOut</a></span></li>
+                                    <li><span class="file"><a href="_pulseoutinv.html" tabindex="1">PulseOutInv</a></span></li>
+                                    <li><span class="file"><a href="_pulsein.html" tabindex="1">PulseIn</a></span></li>
+                                    <li><span class="file"><a href="_pulseininv.html" tabindex="1">PulseInInv</a></span></li>
+                                    <li><span class="file"><a href="_peek.html" tabindex="1">Peek</a></span></li>
+                                    <li><span class="file"><a href="_poke.html" tabindex="1">Poke</a></span></li>
+                                    <li><span class="file"><a href="_weak_pullups.html" tabindex="1">Weak Pullups</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_maths.html" tabindex="1">Maths</a></span><ul>
+                                    <li><span class="file"><a href="_abs.html" tabindex="1">Abs</a></span></li>
+                                    <li><span class="file"><a href="_average.html" tabindex="1">Average</a></span></li>
+                                    <li><span class="file"><a href="_difference.html" tabindex="1">Difference</a></span></li>
+                                    <li><span class="file"><a href="_logarithms.html" tabindex="1">Logarithms</a></span><ul>
+                                          <li><span class="file"><a href="_log2.html" tabindex="1">Log2</a></span></li>
+                                          <li><span class="file"><a href="_loge.html" tabindex="1">Loge</a></span></li>
+                                          <li><span class="file"><a href="_log10.html" tabindex="1">Log10</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_power.html" tabindex="1">Power</a></span></li>
+                                    <li><span class="file"><a href="_scale.html" tabindex="1">Scale</a></span></li>
+                                    <li><span class="file"><a href="_sqrt.html" tabindex="1">Sqrt</a></span></li>
+                                    <li><span class="file"><a href="_trigonometry_sine_cosine_and_tangent.html" tabindex="1">Trigonometry Sine, Cosine and Tangent</a></span></li>
+                                    <li><span class="file"><a href="_trigonometry_atan.html" tabindex="1">Trigonometry ATAN</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_peripheral_pin_select.html" tabindex="1">Peripheral Pin Select</a></span><ul>
+                                    <li><span class="file"><a href="_peripheral_pin_select_for_microchip_microcontrollers.html" tabindex="1">Peripheral Pin Select for Microchip microcontrollers.</a></span></li>
+                                    <li><span class="file"><a href="_unlockpps.html" tabindex="1">UnLockPPS</a></span></li>
+                                    <li><span class="file"><a href="_lockpps.html" tabindex="1">LockPPS</a></span></li>
+                                 </ul>
+                              </li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_compiler_directives.html" tabindex="1">Compiler Directives</a></span><ul>
+                              <li><span class="file"><a href="__asmraw.html" tabindex="1">#asmraw</a></span></li>
+                              <li><span class="file"><a href="__chip.html" tabindex="1">#chip</a></span></li>
+                              <li><span class="file"><a href="__config.html" tabindex="1">#config</a></span></li>
+                              <li><span class="file"><a href="__define.html" tabindex="1">#define</a></span></li>
+                              <li><span class="file"><a href="__if.html" tabindex="1">#if</a></span></li>
+                              <li><span class="file"><a href="__ifdef.html" tabindex="1">#ifdef</a></span></li>
+                              <li><span class="file"><a href="__ifndef.html" tabindex="1">#ifndef</a></span></li>
+                              <li><span class="file"><a href="__include.html" tabindex="1">#include</a></span></li>
+                              <li><span class="file"><a href="__script.html" tabindex="1">#script</a></span></li>
+                              <li><span class="file"><a href="__startup.html" tabindex="1">#startup</a></span></li>
+                              <li><span class="file"><a href="__mem.html" tabindex="1">#mem</a></span></li>
+                              <li><span class="file"><a href="_other_directives.html" tabindex="1">Other directives</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_compiler_options.html" tabindex="1">Compiler Options</a></span><ul>
+                              <li><span class="file"><a href="__option_explicit.html" tabindex="1">#Option Explicit</a></span></li>
+                              <li><span class="file"><a href="__option_noconfig.html" tabindex="1">#Option NoConfig</a></span></li>
+                              <li><span class="file"><a href="__option_bootloader.html" tabindex="1">#Option Bootloader</a></span></li>
+                              <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
+                              <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
+                              <li><span class="file"><a href="__option_required.html" tabindex="1">#Option Required</a></span></li>
+                              <li><span class="file"><a href="__option_volatile.html" tabindex="1">#Option Volatile</a></span></li>
+                              <li><span class="file"><a href="__option_reservehighprog.html" tabindex="1">#Option ReserveHighProg</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_using_assembler.html" tabindex="1">Using Assembler</a></span><ul>
+                              <li><span class="file"><a href="_assembler_overview.html" tabindex="1">Assembler Overview</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_macros.html" tabindex="1">Macros</a></span><ul>
+                              <li><span class="file"><a href="_macros_overview.html" tabindex="1">Macros Overview</a></span></li>
+                              <li><span class="file"><a href="_example_macros.html" tabindex="1">Example Macros</a></span><ul>
+                                    <li><span class="file"><a href="_measuring_a_pulse_width.html" tabindex="1">Measuring a Pulse Width</a></span></li>
+                                    <li><span class="file"><a href="_implementing_a_method_with_a_pin_name_as_a_parameter.html" tabindex="1">Implementing a method with a Pin name as a parameter</a></span></li>
+                                 </ul>
+                              </li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_example_programs.html" tabindex="1">Example Programs</a></span><ul>
+                              <li><span class="file"><a href="_flashing_leds_and_an_interrupt.html" tabindex="1">Flashing LEDs and an Interrupt</a></span></li>
+                              <li><span class="file"><a href="_flashing_led_with_timing_parameters.html" tabindex="1">Flashing LED with timing parameters</a></span></li>
+                              <li><span class="file"><a href="_generate_accurate_pulses.html" tabindex="1">Generate Accurate Pulses</a></span></li>
+                              <li><span class="file"><a href="_graphical_lcd_demonstration.html" tabindex="1">Graphical LCD Demonstration</a></span></li>
+                              <li><span class="file"><a href="_infrared_remote.html" tabindex="1">InfraRed Remote</a></span><ul>
+                                    <li><span class="file"><a href="_sonyremote_h.html" tabindex="1">SonyRemote.h</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_midpoint_circle_algorithm.html" tabindex="1">Midpoint Circle Algorithm</a></span></li>
+                              <li><span class="file"><a href="_i2c_master_hardware.html" tabindex="1">I2C Master Hardware</a></span></li>
+                              <li><span class="file"><a href="_i2c_slave_hardware.html" tabindex="1">I2C Slave Hardware</a></span></li>
+                              <li><span class="file"><a href="_rgb_led_control.html" tabindex="1">RGB LED Control</a></span></li>
+                              <li><span class="file"><a href="_serial_rs232_buffer_ring.html" tabindex="1">Serial/RS232 Buffer Ring</a></span></li>
+                              <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                              <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
+                              <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_great_cow_basic_for_linux.html" tabindex="1">Great Cow BASIC for Linux</a></span><ul>
+                              <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_great_cow_basic_for_arm_pi.html" tabindex="1">Great Cow BASIC for ARM &amp; Pi</a></span><ul>
+                              <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_great_cow_basic_for_apple_macos.html" tabindex="1">Great Cow BASIC for Apple macOS</a></span><ul>
+                              <li><span class="file"><a href="_overview_apple_macos_great_cow_basic.html" tabindex="1">Overview - Apple macOS Great Cow BASIC</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_great_cow_basic_for_freebsd.html" tabindex="1">Great Cow BASIC for FreeBSD</a></span><ul>
+                              <li><span class="file"><a href="_overview_freebsd_great_cow_basic.html" tabindex="1">Overview - FreeBSD Great Cow BASIC</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_great_cow_basic_maintenance_and_development.html" tabindex="1">Great Cow BASIC Maintenance and Development</a></span><ul>
+                              <li><span class="file"><a href="_great_cow_basic_maintenance.html" tabindex="1">Great Cow BASIC Maintenance</a></span></li>
+                              <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_great_cow_basic_preferences_editor.html" tabindex="1">Development Guide for Great Cow BASIC Preferences Editor</a></span></li>
+                           </ul>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div id="searchDiv">
+                  <div id="search">
+                     <form onsubmit="Verifie(searchForm);return false" name="searchForm" class="searchForm">
+                        <div><input id="textToSearch" name="textToSearch" type="search" placeholder="Search" class="searchText" tabindex="1" /> &nbsp; <input onclick="Verifie(searchForm)" type="button" class="searchButton" value="Go" id="doSearch" tabindex="1" /></div>
+                     </form>
+                  </div>
+                  <div id="searchResults">
+                     <center></center>
+                  </div>
+                  <p class="searchHighlight"><a href="#" onclick="toggleHighlight()">Search Highlighter (On/Off)</a></p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,58 @@
+==== Dim
+
+*Syntax:*
+[subs="specialcharacters,quotes"]
+----
+    *_For Variables > 1 byte:_*
+    Dim _variable_[, _variable2_ [, _variable3_]] [As _type_] [Alias _othervar_ [, _othervar2_]] 
+
+    'or
+    
+    Dim _variable_[, _variable2_ [, _variable3_]] [As _type_] [At _location_]
+
+
+    *_For Arrays:_*
+    Dim _array_(_size_) [As _type_] [At _location_]
+----
+
+*Explanation:*
+
+Dim has two uses:{nbsp}{nbsp}It can be used to define 1) variables of many types and 2) arrays.
+
+*Command Availability:*
+
+Available on all microcontrollers.
+
+The `Dim` variable command is used to instruct Great Cow BASIC to allocate variables or to create alternate names for existing  variables (using Alias) or to create variables at a specific memory location (using At).
+
+The `Dim array` command also sets up array variables. The maximum array size is determined by the parameter `_size_` is dynamically allocated by the compiler and depends on the specific chip used, as well as the complexity of the program.
+
+The limit on array size varies dependent on the chip type.  See the *Maximum Array Size* section in <<_array,Arrays>> for more information.
+
+`_type_` specifies the type of variable that is to be created. Different variable types can hold values over different ranges, and use different amounts of RAM. See the <<_variables,Variables>> article for more information.
+
+When multiple variables are included on the one line, Great Cow BASIC will set them all to the type that is specified at the end of the line. If there is no type specified, then Great Cow BASIC will make the variable a byte.
+
+`Alias` creates a variable using the same memory location as one or more other variables. {nbsp}{nbsp}It is mainly used internally in Great Cow BASIC to treat system variables as a word.{nbsp}{nbsp} For example, this command is used to create a word variable, made up from the two memory locations used to store the result of an A/D conversion.{nbsp}{nbsp}`Alias` is mutually exclusive to `At` and therefore `Alias` and `At` on the same declaration line will cause an compiler error.
+
+`AT` a variable can be placed at a specific location in the data memory of the chip using the At option. {nbsp}{nbsp}`_location_` will be used whether it is a valid location or not, but a warning will be generated if Great Cow BASIC has already allocated the memory, or if the memory does not appear to be valid. {nbsp}{nbsp}This can be used for peripherals that have multi byte buffers in RAM.{nbsp}{nbsp}`At` is mutually exclusive to `Alias` and therefore `At` and `Alias` on the same declaration line will cause an compiler error.
+
+----
+    Dim ADResult As Word Alias ADRESH, ADRESL
+----
+
+*Example:*
+
+----
+    'This program will set up a array of ten bytes and a word variable
+
+    dim DataList(10)
+    dim Reading as word
+
+    Reading = 21978
+    DataList(1) = 15
+
+    dim stringvariable as string
+----
+
+*For more help, see:{nbsp}{nbsp}*<<_serprint,SerPrint>> articles as these articales show how to use Dim to create string variables and <<_variables,Variables>> for more details in creating and managing strings lengths.

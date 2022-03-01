@@ -1,0 +1,73 @@
+//erv 04110218
+==== HEFWriteWord
+
+
+*Syntax:*
+[subs="quotes"]
+----
+    HEFWriteWord ( location, data_word_value )
+----
+*Command Availability:*
+
+Available on all PIC micro-controllers with HEFM memory
+
+*Explanation:*
+{empty} +
+{empty} +
+HEFWriteWord is used to write information, word values, to HEFM, so that it can be accessed in a user program via the HEFReadWord command.
+{empty} +
+{empty} +
+`location` presents the location or relative address to write write. A data Word requires 2 HEF Locations, therefore the location will range from 0 to 126 in steps of 2. 
+{empty} +
+{empty} +
+`data` is the data that is to be written to the HEFM location.&#160;&#160;&#160;This can be a word value or a word variable.
+{empty} +
+{empty} +
+This method writes information to the HEFM given the specific location in the HEFM data storage .
+This method is similar to the methods for EEPROM but this method supports Word values.
+{empty} +
+{empty} +
+
+*Example 1:*
+----
+    '... code preamble to select part
+    '... code to setup serial
+
+    'The following example stores a word value in HEFM location 0
+       
+    HEFWrite( 0, 0x1234)
+----
+
+{empty} +
+{empty} +
+*Example 2:*
+----
+    '... code preamble to select part
+    '... code to setup serial
+
+    'This example will write two word values to two specific locations.
+    HEFWriteWord (16, 0xAA01)   
+    HEFWriteWord (18, 0xBB02)  
+----
+{empty} +
+{empty} +
+If example 2 were displayed on a serial terminal.&#160;&#160;&#160;The result would show, where `--` is the existing value.
+
+----
+    Block0  
+    3F00   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    3F10   01 AA 02 BB -- -- -- -- -- -- -- -- -- -- -- --
+    3F20   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    3F30   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+----
+{empty} +
+{empty} +
+See also
+<<_hefm_overview,HEFM Overview>>,
+<<_hefread,HEFRead>>,
+<<_hefreadword,HEFReadWord>>,
+<<_hefwrite,HEFWrite>>,
+<<_hefwriteword,HEFWriteWord>>,
+<<_hefreadblock,HEFReadBlock>>,
+<<_hefwriteblock,HEFWriteBlock>>,
+<<_heferaseblock,HEFEraseBlock>>

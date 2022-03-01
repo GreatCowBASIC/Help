@@ -1,0 +1,73 @@
+==== SAFReadBlock
+
+
+*Syntax:*
+[subs="quotes"]
+----
+    SAFReadBlock ( block_number,  buffer(), [,  num_bytes] )
+----
+*Command Availability:*
+
+Available on all PIC micro-controllers with SAFM memory.
+
+*Explanation:*
+{empty} +
+{empty} +
+HEFReadBlock is used to read information from the HEFM data storage into the buffer.&#160;&#160;&#160;
+Once the buffer is populated it can be accessed for use within a user program.
+{empty} +
+{empty} +
+The parameters are as follows:
+{empty} +
+{empty} +
+`block_number` represents the block to be written to.&#160;&#160;&#160;
+The block_number parameter is used to calculate the physical memory location(s) that are updated.
+{empty} +
+{empty} +
+`buffer()` represents an array or string.&#160;&#160;&#160;
+The buffer will be used as the data target for the block read operation.&#160;&#160;&#160;
+The  buffer is handled as a buffer of bytes values.&#160;&#160;&#160;
+In most cases the buffer should be the same size as a row/block of SAFM.&#160;&#160;&#160;
+For most PIC Microcontrollers with SAFM this will be 32 bytes.&#160;&#160;&#160;
+{empty} +
+{empty} +
+`num_bytes` is an optional parameter, and can be used to specify number of bytes to read from SAFM, starting at the first location in the selected SAFM block.&#160;&#160;&#160;
+This parameter is not normally required as the default is set to the Great Cow BASIC constant `SAF_ROWSIZE_BYTES`.
+{empty} +
+{empty} +
+*Example 1:*
+----
+    #chip 18F24K42, 16 
+    '... code preamble to setup PPS
+    '... code to setup serial
+      
+      Dim My_Buffer(HEF_ROWSIZE_BYTES)
+      Dim index as byte 
+      
+      ;Write some data to Block 2
+      My_Buffer = 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32
+      SAFWriteBlock(2, My_Buffer())
+      
+      ;Read the data back from SAFM using SAFReadBock
+      SAFReadBlock( 2 , My_buffer() )
+     
+     ;Send the data to a terminal in decimal format
+      index = 1  
+      Repeat SAF_ROWSIZE_BYTES  
+          Hserprint(My_Buffer(index))
+          HserPrint " " 
+          index++
+     End Repeat
+----
+
+{empty} +
+{empty} +
+See also
+<<_safm_overview,SAFM Overview>>,
+<<_safread,SAFRead>>,
+<<_safreadword,SAFReadWord>>,
+<<_safwrite,SAFWrite>>,
+<<_safwriteword,SAFWriteWord>>,
+<<_safreadblock,SAFReadBlock>>,
+<<_safwriteblock,SAFWriteBlock>>,
+<<_saferaseblock,SAFEraseBlock>>

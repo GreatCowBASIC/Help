@@ -1,0 +1,29 @@
+==== 7 Segment Displays Overview
+
+*Introduction*
+
+The 7 Segment Displays module provide a cheap red, green, blue or white bright LED Display.&#160;&#160;
+The Ebay modules can be had for $1 to $4 per piece, somtimes less.&#160;&#160;
+They only need 2 pins to control: CLK and DIO for control 4 digit 7 segment LED Display.&#160;&#160;
+They often have a  colon LED&#160;&#160;
+
+The Great Cow BASIC 7 segment display methods make it easier for Great Cow BASIC programs to display numbers and letters on 7 segment LED displays.
+
+There are two ways that the 7 segment display routines can be set up.
+
+* A pre 2020 method <<_7_segment_displays_legacy,7 segment legacy method>>
+
+* A revised method <<_7_segment_displays_tm1637,TM1637 method>>
+
+
+
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+
+*Also, see * <<_7_segment_displays_legacy,7 segment legacy method>> , <<_7_segment_displays_tm1637,TM1637 method>>
+
+
