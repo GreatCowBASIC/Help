@@ -1,6 +1,4 @@
 //Auto generated index for searching by xsl-webhelpindexer for DocBook Webhelp.# Kasun Gajasinghe, University of Moratuwa
-w["dsdec"]="58*2,332*2";
-w["dsint"]="58*2,332*2";
 w["dual"]="54*1,183*1";
 w["due"]="149*2,284*1,405*1,415*1,452*1";
 w["duemilanov"]="252*2";
@@ -3615,4 +3613,6 @@ w["pk2cmd"]="284*1,285*1";
 w["pk4"]="50*1";
 w["pk4_pic_ipecmd_program_release_from_reset"]="50*1";
 w["pkg"]="285*2";
+w["pkg2dmg"]="116*1";
+w["pkg2dmg.sh"]="116*1";
 
