@@ -7,11 +7,10 @@ pause
 goto fin
 )
 
-if NOT exit ..\prog\utils\installNote.txt (
+if NOT exist ..\prog\utils\installNote.txt (
 echo Unpack GCBdoc_TooChain.zip to create the "prog" folders
 pause
 goto fin
-
 )
 
 svn up ..\..\..\help.git
