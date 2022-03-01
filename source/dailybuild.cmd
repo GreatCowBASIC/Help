@@ -1,4 +1,5 @@
 echo off
+
 cls
 if exist ..\output\chm\gcbasic.chm t del ..\output\chm\gcbasic.chm
 if NOT exist "C:\Program Files\FileZilla FTP Client\psftp.exe"  (
