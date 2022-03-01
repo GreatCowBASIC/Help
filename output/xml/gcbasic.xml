@@ -4,10 +4,10 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>Great Cow BASIC documentation</title>
-<date>2022-02-06</date>
+<date>2022-03-01</date>
 <author>
 <personname>
-<firstname>The Great Cow BASIC development team @ 2021</firstname>
+<firstname>The Great Cow BASIC development team @ 2022</firstname>
 </personname>
 </author>
 <authorinitials>T</authorinitials>
@@ -131,12 +131,12 @@ The “Programmer Preferences” is a software tool to control and set-up the di
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
 <entry align="center" valign="top"><simpara>2022-03-01<?asciidoc-br?>
-18:05:17 GMT Standard Time</simpara></entry>
+21:46:12 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2022-02-06<?asciidoc-br?>
-15:34:59 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2022-03-01<?asciidoc-br?>
+21:39:41 GMT Standard Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>

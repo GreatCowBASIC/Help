@@ -1,7 +1,8 @@
 echo off
 
 cls
-if exist ..\output\chm\gcbasic.chm t del ..\output\chm\gcbasic.chm
+if exist ..\output\chm\gcbasic.chm del ..\output\chm\gcbasic.chm
+
 if NOT exist "C:\Program Files\FileZilla FTP Client\psftp.exe"  (
 echo C:\Program Files\FileZilla FTP Client\psftp.exe required
 pause

@@ -87,13 +87,18 @@ del *.md
 del *.mod > nul
 
 
-del D:\Great-Cow-BASIC-Help.wiki.git\trunk\*.* /Q
+
+delete the files for the Help.wiki.git
+del ..\..\..\..\Help.wiki.git\trunk\*.* /Q
+
 FOR /F "tokens=*" %%G IN ('dir/b /s ^"*.html^"') DO (
-	rem echo %%G
+	echo %%G
 	rem "%~d1%~p1%~n1.lst"
 
 	..\..\prog\pandoc\pandoc -f HTML -t GFM %%G  -o "%%~dG%%~pG%%~nG.md"
+
 	gawk -f ../../prog/reprocess.awk "%%~dG%%~pG%%~nG.md" > "%%~dG%%~pG%%~nG.mod"
+
 )		
 
 rename "_*.*" "/*.*"
@@ -101,15 +106,23 @@ copy *.mod ..\md\*.md
 del *.md
 ren *.mod *.md
 ren ..\md\index.md  "home.md"
-del /q D:\Great-Cow-BASIC-Help.wiki.git\trunk\*.*
-copy ..\md\*.* D:\Great-Cow-BASIC-Help.wiki.git\trunk
-del /q D:\Great-Cow-BASIC-Help.wiki.git\trunk\*.ht*
-del /q D:\Great-Cow-BASIC-Help.wiki.git\trunk\gcbasic.*
-del /q D:\Great-Cow-BASIC-Help.wiki.git\trunk\*.css
 
 
 
-copy  D:\Great-Cow-BASIC-Help.git\trunk\source\images D:\Great-Cow-BASIC-Help.wiki.git\trunk\images 
+REM delete the files for the Help.wiki.git - assuming it is the same folder
+del /q ..\..\..\..\Help.wiki.git\trunk\*.*
+copy ..\md\*.* ..\..\..\..\Help.wiki.git\trunk
+del /q ..\..\..\..\Help.wiki.git\trunk\*.ht*
+del /q ..\..\..\..\Help.wiki.git\trunk\gcbasic.*
+del /q ..\..\..\..\Help.wiki.git\trunk\*.css
+
+
+
+rem copy the files for the Help.wiki.git
+copy  ..\..\source\images ..\..\..\..\Help.wiki.git\trunk\images 
+
+
+
 
 del *.htm*
 del *.hh*
