@@ -8,6 +8,8 @@ The numbers can be bytes (the default), longs, integers, or words.  &#160;&#160;
 
 All the numbers stored in an array must be of the same type.  &#160;&#160;For instance, you cannot store bytes and words in the same array.
 
+Array are are 1-based. &#160;&#160;The first element is element zero.
+
 Examples of array names are:
 
 [cols=2, options="header",width="80%"]
@@ -129,4 +131,4 @@ Great Cow BASIC currently cannot split an array over banks, so if there are 6 by
 
 If there are many items in the array, it may be better to use a Lookup Table to store the items, and then copy some of the data items into a smaller array as needed.
 
-*For more help, see* <<_dim,Declaring arrays with DIM>>
+*For more help, see* <<_dim,Declaring arrays with DIM>>,<<_alloc,Declaring memory with ALLOC>>
