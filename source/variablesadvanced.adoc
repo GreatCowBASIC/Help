@@ -33,7 +33,7 @@ The advanced variable types that Great Cow BASIC supports are:
 |*Information that this variable can store*
 |*Example uses for this type of variable*
 
-|LontINT
+|LongINT
 |A list of whole numbers between - (2 ^ 63) and 2 ^ 63 - 1
 |Storing very, very big integer numbers that could be a negative number
 
