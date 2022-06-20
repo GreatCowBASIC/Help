@@ -4,10 +4,9 @@
 *Syntax*:
 [subs="quotes"]
 ----
+#include <maths.h>
 
-    #INCLUDE \<MATHS.H\>
-    #include <maths.h>
-    integer_variable = ATan (_x_vector_,_y_vector_)
+integer_variable = ATan (_x_vector_,_y_vector_)
 ----
 
 *Explanation*:
