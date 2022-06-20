@@ -6,7 +6,7 @@
 ----
 
     #INCLUDE \<MATHS.H\>
-
+    #include <maths.h>
     integer_variable = ATan (_x_vector_,_y_vector_)
 ----
 
