@@ -3,18 +3,19 @@
 *Syntax*:
 [subs="quotes"]
 ----
-    integer_variable = sin( __word_variable__ )
+    integer_variable = sin( __integer_variable__ )
 
-    integer_variable = cos( __word_variable__ )
+    integer_variable = cos( __integer_variable__ )
 
-    integer_variable = tan( __word_variable__ )
+    integer_variable = tan( __integer_variable__ )
 ----
 
 *Explanation*:
 
 Great Cow BASIC supports Three Primary Trigonometric Functions
 
-Great Cow BASIC supports the following functions, sin(x), cos(x), tan(x), where x is a signed integer representing an angle measured in a whole number of degrees. The output values are also integers, represented as fixed point decimal fractions.
+Great Cow BASIC supports the following functions, sin(x), cos(x), tan(x), where x is a signed integer representing an angle measured in a whole number of degrees.&#160;&#160;
+The output values are also integers, represented as fixed point decimal fractions.
 
 *Details:*
 
