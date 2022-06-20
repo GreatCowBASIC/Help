@@ -11,7 +11,7 @@
 
 *Explanation*:
 
-Great Cow BASIC supports the trigonometric functions of ATan.&#160;&#160;
+Great Cow BASIC supports the trigonometric function for ATan.&#160;&#160;
 
 
 *Details:*
