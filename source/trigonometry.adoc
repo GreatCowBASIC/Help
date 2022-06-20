@@ -87,29 +87,29 @@ These routines are completely general. The input argument may be positive, negat
     next i
 
     sub printTrig(in value as integer)
-    ;print decently formatted trig results
+        ;print decently formatted trig results
 
-    outStr = ""                   ;assume positive (no sign)
+        outStr = ""                   ;assume positive (no sign)
 
-    if value < 0 then             ;handle negatives
-        outStr = "-"                ;prefix a minus sign
-        value = -1 * value          ;but work with positives
-    end if
+        if value < 0 then             ;handle negatives
+            outStr = "-"                ;prefix a minus sign
+            value = -1 * value          ;but work with positives
+        end if
 
-    valStr = str(value)
-    length = len(valStr)
-    select case length
-        case 1:
-        outStr = outStr + "0.00" + valStr
-        case 2:
-        outStr = outStr + "0.0" + valStr
-        case 3:
-        outStr = outStr + "0." + valStr
-        case 4:
-        outStr = outStr + left(valStr,1) + "." + right(valStr,3)
-        case 5:
-        outStr = outStr + left(valStr,2) + "." + right(valStr,3)
-    end select
-    print outStr
+        valStr = str(value)
+        length = len(valStr)
+        select case length
+            case 1:
+            outStr = outStr + "0.00" + valStr
+            case 2:
+            outStr = outStr + "0.0" + valStr
+            case 3:
+            outStr = outStr + "0." + valStr
+            case 4:
+            outStr = outStr + left(valStr,1) + "." + right(valStr,3)
+            case 5:
+            outStr = outStr + left(valStr,2) + "." + right(valStr,3)
+        end select
+        print outStr
     end sub
 ----
