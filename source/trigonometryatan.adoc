@@ -5,7 +5,7 @@
 [subs="quotes"]
 ----
 
-    #INCLUDE <MATHS.H>
+    #INCLUDE \<MATHS.H\>
 
     integer_variable = ATan (_x_vector_,_y_vector_)
 ----
