@@ -2,7 +2,7 @@
 
 
 *Syntax*:
-[subs="quotes"]
+
 ----
 #include <maths.h>
 
