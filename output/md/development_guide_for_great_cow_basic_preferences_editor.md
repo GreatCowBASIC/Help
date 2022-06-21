@@ -65,8 +65,11 @@ The settings are in the INI section called \[gcbasic\].  
     'Mute banners when compiling. This can be changed in the INI or by a command line switch. There is no support in Prefs Editor to change this parameter.
     mutebanners = n
 
-    'Show the extended verbose messages when compiling. his can only be changed in the INI. There is no support in Prefs Editor or a command line switch to change this parameter.
+    'Show the extended verbose messages when compiling. his can only be changed in the INI. There is no support in Prefs Editor or a command line switch to change this parameter.  Not managed by Prefs Editor.
     evbs = n
+
+    'Use LAXSYNTAX insupport lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
+    laxsyntax = y
 ```
 
 The section shows an example \[tool\] assembler section.  

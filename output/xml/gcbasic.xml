@@ -130,13 +130,13 @@ The “Programmer Preferences” is a software tool to control and set-up the di
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2022-03-01<?asciidoc-br?>
-21:46:12 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2022-06-20<?asciidoc-br?>
+15:48:36 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
 <entry align="center" valign="top"><simpara>2022-03-01<?asciidoc-br?>
-21:39:41 GMT Standard Time</simpara></entry>
+22:39:41 GMT Standard Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -2008,7 +2008,7 @@ The advanced variable types that Great Cow BASIC supports are:</simpara>
 </thead>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>LontINT</simpara></entry>
+<entry align="left" valign="top"><simpara>LongINT</simpara></entry>
 <entry align="left" valign="top"><simpara>A list of whole numbers between - (2 ^ 63) and 2 ^ 63 - 1</simpara></entry>
 <entry align="left" valign="top"><simpara>Storing very, very big integer numbers that could be a negative number</simpara></entry>
 </row>
@@ -2519,6 +2519,7 @@ On 18Fs, it will guess based on where the lowest SFR is, and from what the total
 <simpara>An array is a special type of variable - one which can store several values at once.&#160;&#160;It is essentially a list of numbers in which each one can be addressed individually through the use of an "index".</simpara>
 <simpara>The numbers can be bytes (the default), longs, integers, or words.  &#160;&#160;The index is a value in brackets immediately after the name of the array.</simpara>
 <simpara>All the numbers stored in an array must be of the same type.  &#160;&#160;For instance, you cannot store bytes and words in the same array.</simpara>
+<simpara>Array are are 1-based. &#160;&#160;The first element is element zero.</simpara>
 <simpara>Examples of array names are:</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <?dbhtml table-width="80%"?>
@@ -2610,7 +2611,7 @@ The compiler allocates RAM for arrays at compile time, and therefore you cannot 
 <simpara>Great Cow BASIC currently cannot split an array over banks, so if there are 6 bytes free in one bank and 5 in another, you cannot have an array of 7 bytes. &#160;&#160; This would be very hard to do efficiently on 12F/16F as there would be a series of special function registers in the middle of the array when using a 12F or 16F.   &#160;&#160;This constraint is not the case on 16F1/18F as linear addressing makes it easy to span banks because the SFRs are not making the problem (as with 12F/16F).</simpara>
 <simpara><emphasis role="strong">Using Tables as an alternative.</emphasis></simpara>
 <simpara>If there are many items in the array, it may be better to use a Lookup Table to store the items, and then copy some of the data items into a smaller array as needed.</simpara>
-<simpara><emphasis role="strong">For more help, see</emphasis> <link linkend="_dim">Declaring arrays with DIM</link></simpara>
+<simpara><emphasis role="strong">For more help, see</emphasis> <link linkend="_dim">Declaring arrays with DIM</link>,<link linkend="_alloc">Declaring memory with ALLOC</link></simpara>
 </section>
 <section xml:id="_comments">
 <title>Comments</title>
@@ -33841,29 +33842,30 @@ Non-negative numbers are assumed throughout.</simpara>
 <section xml:id="_trigonometry_sine_cosine_and_tangent">
 <title>Trigonometry Sine, Cosine and Tangent</title>
 <simpara><emphasis role="strong">Syntax</emphasis>:</simpara>
-<screen>    byte_variable = sin( <emphasis>word_variable</emphasis> )
+<screen>    integer_variable = sin( <emphasis>integer_variable</emphasis> )
 
-    byte_variable = cos( <emphasis>word_variable</emphasis> )
+    integer_variable = cos( <emphasis>integer_variable</emphasis> )
 
-    byte_variable = tan( <emphasis>word_variable</emphasis> )</screen>
+    integer_variable = tan( <emphasis>integer_variable</emphasis> )</screen>
 <simpara><emphasis role="strong">Explanation</emphasis>:</simpara>
 <simpara>Great Cow BASIC supports Three Primary Trigonometric Functions</simpara>
-<simpara>Great Cow BASIC supports the following functions, sin(x), cos(x), tan(x), where x is a signed integer representing an angle measured in a whole number of degrees. The output values are also integers, represented as fixed point decimal fractions.</simpara>
+<simpara>Great Cow BASIC supports the following functions, sin(x), cos(x), tan(x), where x is a signed integer representing an angle measured in a whole number of degrees.&#160;&#160;
+The output values are also integers, represented as fixed point decimal fractions.</simpara>
 <simpara><emphasis role="strong">Details:</emphasis></simpara>
 <simpara>The sine, cosine and tangent functions are available for your programs simply by including the header file offering the precision you need.</simpara>
 <screen>    #INCLUDE &lt;TRIG2PLACES.H&gt; gives two decimal places
     #INCLUDE &lt;TRIG3PLACES.H&gt; gives three decimal places
     #INCLUDE &lt;TRIG4PLACES.H&gt; gives four decimal places</screen>
-<simpara>In fixed point representation, the decimal point is assumed. For example, with two places of accuracy, sin(60) returns 87, which you would interpret as 0.87. With three places, 866 is returned, to be interpreted as 0.866, and so on. Another way of thinking of this is to consider the two-place values as scaled up by 100, the three-place values scaled up by 1000 and the four-place values scaled up by 10,000.</simpara>
-<simpara>Sine and cosine are always defined, but remember that tangent fails to exist at 90 degrees, 270 degrees and all their coterminal angles. It is the responsibility of the calling program to avoid these special values.</simpara>
+<simpara>In fixed point representation, the decimal point is assumed.&#160;&#160;For example, with two places of accuracy, sin(60) returns 87, which you would interpret as 0.87.&#160;&#160;With three places, 866 is returned, to be interpreted as 0.866, and so on.&#160;&#160;Another way of thinking of this is to consider the two-place values as scaled up by 100, the three-place values scaled up by 1000 and the four-place values scaled up by 10,000.</simpara>
+<simpara>Sine and Cosine are always defined, but remember that tangent fails to exist at 90 degrees, 270 degrees and all their coterminal angles.&#160;&#160;It is the responsibility of the calling program to avoid these special values.</simpara>
 <simpara>Note that the tangent function is not available to four decimal places, since its value grows so rapidly, exceeding what the Integer data type can represent.</simpara>
-<simpara>These routines are completely general. The input argument may be positive, negative or zero, with no restriction on the size. Further observe that lookup tables are used, so the routines are very fast, efficient and accurate.</simpara>
-<simpara><emphasis role="strong">Example:_Show the trigonometric values to three decimal places.</emphasis></simpara>
+<simpara>These routines are completely general. The input argument may be positive, negative or zero, with no restriction on the size.&#160;&#160;Further observe that lookup tables are used, so the routines are very fast, efficient and accurate.</simpara>
+<simpara><emphasis role="strong">Example: Show the trigonometric values to three decimal places.</emphasis></simpara>
 <screen>    ;----- Configuration
-    #chip 16F88, 8                  ;PIC16F88 running at 8 MHz
-    #config mclr=off                ;reset handled internally
+    #CHIP 16F88, 8                  ;PIC16F88 RUNNING AT 8 MHZ
+    #CONFIG MCLR=OFF                ;RESET HANDLED INTERNALLY
 
-    #include &lt;Trig3Places.h&gt;
+    #INCLUDE &lt;TRIG3PLACES.H&gt;
 
     ;----- Constants
 
@@ -33872,87 +33874,91 @@ Non-negative numbers are assumed throughout.</simpara>
     #define LCD_Enable  PortB.3     ;pin 9 is LCD Enable
     #define LCD_DB4     PortB.4     ;DB4 on pin 10
     #define LCD_DB5     PortB.5     ;DB5 on pin 11
-    #define LCD_DB6     PortB.6     ;DB6 on pin 12
+    #define LCD_DB6     PortB.6     ;DB6a on pin 12
     #define LCD_DB7     PortB.7     ;DB7 on pin 13
     #define LCD_NO_RW   1           ;ground the RW line on LCD
 
     ;----- Variables
 
-    dim i as integer
+    dim ii as integer
     dim outStr, valStr as string
 
     ;----- Program
 
     dir PortB out                   ;all outputs to the LCD
 
-    for i = -720 to 720             ;arguments from -720 to 720
-      cls
-      print "sin("                  ;print the label
-      print i                       ;and the argument
-      print ")="                    ;and closing parenthesis
-      locate 1,0
-      printTrig(sin(i))             ;print value of the sine
-      wait 500 mS                   ;pause to view
+    for ii = -720 to 720             ;arguments from -720 to 720
+    cls
+    print "sin("                  ;print the label
+    print ii                      ;and the argument
+    print ")="                    ;and closing parenthesis
+    locate 1,0
+    printTrig(sin(ii))             ;print value of the sine
+    wait 500 mS                   ;pause to view
 
-      cls                           ;do likewise for cosine
-      print "cos("
-      print i
-      print ")="
-      locate 1,0
-      printTrig(cos(i))
-      wait 500 mS                   ;pause to view
-      cls                           ;do likewise for tangent
-      print "tan("
-      print i
-      print ")="
-      locate 1,0
-      printTrig(tan(i))
-      wait 500 mS                   ;pause to view
+    cls                           ;do likewise for cosine
+    print "cos("
+    print ii
+    print ")="
+    locate 1,0
+    printTrig(cos(ii))
+    wait 500 mS                   ;pause to view
+    cls                           ;do likewise for tangent
+    print "tan("
+    print ii
+    print ")="
+    locate 1,0
+    printTrig(tan(ii))
+    wait 500 mS                   ;pause to view
     next i
 
     sub printTrig(in value as integer)
-      ;print decently formatted trig results
+        ;print decently formatted trig results
 
-      outStr = ""                   ;assume positive (no sign)
+        outStr = ""                   ;assume positive (no sign)
 
-      if value &lt; 0 then             ;handle negatives
-        outStr = "-"                ;prefix a minus sign
-        value = -1 * value          ;but work with positives
-      end if
+        if value &lt; 0 then             ;handle negatives
+            outStr = "-"                ;prefix a minus sign
+            value = -1 * value          ;but work with positives
+        end if
 
-      valStr = str(value)
-      length = len(valStr)
-      select case length
-        case 1:
-          outStr = outStr + "0.00" + valStr
-        case 2:
-          outStr = outStr + "0.0" + valStr
-        case 3:
-          outStr = outStr + "0." + valStr
-        case 4:
-          outStr = outStr + left(valStr,1) + "." + right(valStr,3)
-        case 5:
-          outStr = outStr + left(valStr,2) + "." + right(valStr,3)
-      end select
-      print outStr
+        valStr = str(value)
+        length = len(valStr)
+        select case length
+            case 1:
+            outStr = outStr + "0.00" + valStr
+            case 2:
+            outStr = outStr + "0.0" + valStr
+            case 3:
+            outStr = outStr + "0." + valStr
+            case 4:
+            outStr = outStr + left(valStr,1) + "." + right(valStr,3)
+            case 5:
+            outStr = outStr + left(valStr,2) + "." + right(valStr,3)
+        end select
+        print outStr
     end sub</screen>
 </section>
 <section xml:id="_trigonometry_atan">
 <title>Trigonometry ATAN</title>
 <simpara><emphasis role="strong">Syntax</emphasis>:</simpara>
-<screen>    byte_variable = atan (<emphasis>x_vector</emphasis>,<emphasis>y_vector</emphasis>)</screen>
+<screen>    #include &lt;maths.h&gt;
+
+    integer_variable = ATan (_x_vector_,_y_vector_)</screen>
 <simpara><emphasis role="strong">Explanation</emphasis>:</simpara>
-<simpara>Great Cow BASIC supports Three Primary Trigonometric Functions.</simpara>
+<simpara>Great Cow BASIC supports the trigonometric function for ATan.&#160;&#160;</simpara>
 <simpara><emphasis role="strong">Details:</emphasis></simpara>
-<simpara>Great Cow BASIC supports the following functions ATan( x, y) where x and y are the vectors.  The function returns a word representing the angle measured in a whole number of degrees.</simpara>
-<simpara>The function also returns a global variable NegFlag with returns the quadrant of the angle.</simpara>
-<literallayout class="monospaced">Quadrant 1 = 0 to 89 +
-Quadrant 2 = 90 to 179 +
-Quadrant 3 = 180 to 269 +
-Quadrant 4 = 270 to 359 +</literallayout>
-<simpara>This ATan function is a fast XY vector to integer degree algorithm developed in Jan 2011, see www.RomanBlack.com and sSee <link xlink:href="http://www.romanblack.com/integer_degree.htm">http://www.romanblack.com/integer_degree.htm</link></simpara>
-<simpara>The function converts any XY values including 0 to a degree value that should be within +/- 1 degree of the accurate value without needing large slow trig functions like ArcTan() or ArcCos().</simpara>
-<simpara>At least one of the X or Y values must be non-zero. This is the full version, for all 4 quadrants and will generate the angle in integer degrees from 0-360. Any values of X and Y are usable including negative values provided they are between -1456 and 1456 so the 16bit multiply does not overflow.</simpara>
+<simpara>Great Cow BASIC supports the following functions ATan( x, y) where x and y are the vectors.  The function returns an Integer result representing the angle measured in a whole number of degrees.</simpara>
+<simpara>The function also returns a global byte variable NegFlag with returns the quadrant of the angle.</simpara>
+<literallayout class="monospaced">Quadrant 1 = 0 to 89
+Quadrant 2 = 90 to 179
+Quadrant 3 = 180 to 269
+Quadrant 4 = 270 to 359</literallayout>
+<simpara>This ATan function is a fast XY vector to integer degree algorithm developed in Jan 2011, see www.RomanBlack.com and see <link xlink:href="http://www.romanblack.com/integer_degree.htm">http://www.romanblack.com/integer_degree.htm</link></simpara>
+<simpara>The function converts any XY vectors including 0 to a degree value that should be within +/- 1 degree of the accurate value without needing large slow trig functions like ArcTan() or ArcCos().</simpara>
+<simpara>At least one of the X or Y values must be non-zero.&#160;&#160;
+This is the full version, for all 4 quadrants and will generate the angle in integer degrees from 0-360.&#160;&#160;
+Any values of X and Y are usable including negative values provided they are between -1456 and 1456 so the 16bit multiply does not overflow.</simpara>
 </section>
 </section>
 <section xml:id="_peripheral_pin_select">
@@ -34639,12 +34645,16 @@ If any of the variables do not exist, the compiler will create a constant mappin
 <entry align="left" valign="top"><simpara>AVR core version V2E class microcontrollers</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>121</simpara></entry>
+<entry align="left" valign="top"><simpara>-120 Subtype: 121</simpara></entry>
 <entry align="left" valign="top"><simpara>AVR core version AVR8L, also called AVRrc, reduced core class microcontrollers.  ATTiny4-5-9-10 and ATTiny102-104 with only 16 GPR&#8217;s from r16-r31 and only 54 instructions.</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>122</simpara></entry>
+<entry align="left" valign="top"><simpara>-120 Subtype: 122</simpara></entry>
 <entry align="left" valign="top"><simpara>LGT microcontrollers.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>-120 Subtype: 123</simpara></entry>
+<entry align="left" valign="top"><simpara>AVR core version V2E class microcontrollers with one USART like the mega32u4, mega16u4 - they have different registers for the usart.</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>130</simpara></entry>
@@ -36362,7 +36372,7 @@ The algorithm is a variant of <link xlink:href="https://en.wikipedia.org/wiki/Br
 <section xml:id="_trigonometry_circle">
 <title>Trigonometry Circle</title>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
-<simpara>Great Cow BASIC can draw circles on a Graphical LCD devcie using Great Cow BASIC library functions.</simpara>
+<simpara>Great Cow BASIC can draw circles on a Graphical LCD device using Great Cow BASIC library functions.</simpara>
 <informalfigure>
 <mediaobject>
 <imageobject>
@@ -36375,15 +36385,14 @@ The algorithm is a variant of <link xlink:href="https://en.wikipedia.org/wiki/Br
 <screen>    ;Circle and filled circle commands on a graphic LCD.
     ;This uses the 2-place trigonometric routines found in the include file.
 
-    ;Thomas Henry -- 4/17/2014
-
     ;----- Configuration
+    #CHIP 16F88, 8              ;PIC16F88 RUNNING AT 8 MHZ
+    #CONFIG MCLR=OFF            ;RESET HANDLED INTERNALLY
+    #OPTION EXPLICIT
+    #DEFINE USELEGACYFORNEXT    ;WILL ENSURE THE OLD FOR-NEXT Loop is used just to save some memory as this is a very simple FOR-NEXT loop
 
-    #chip 16F88, 8              ;PIC16F88 running at 8 MHz
-    #config mclr=off            ;reset handled internally
-
-    #include &lt;GLCD.h&gt;
-    #include &lt;Trig2Places.h&gt;
+    #INCLUDE &lt;GLCD.H&gt;
+    #INCLUDE &lt;TRIG2PLACES.H&gt;
 
     ;----- Constants
 
@@ -36415,20 +36424,53 @@ The algorithm is a variant of <link xlink:href="https://en.wikipedia.org/wiki/Br
     #define GLCD_WIDTH 128
     #define GLCD_HEIGHT 64
 
+
     ;----- Variables
 
-    'None required.
+    dim cx, cy, edge, jj as byte
+    dim ii as word
 
     ;----- Program
 
-    GLCDCLS
+    myCircle(10,10,10)
+    ;upper left
+    myCircle(117,10,10)                 ;upper right
+    myCircleFilled(63,31,10)            ;center
+    myCircle(63,31,20)                  ;center
+    myCircleFilled(10,53,10)            ;lower left
+    myCircleFilled(117,53,10)           ;lower right
 
-    circle(10,10,10)                  ;upper left
-    circle(117,10,10)                 ;upper right
-    filledcircle(63,31,10)            ;center
-    circle(63,31,20)                  ;center
-    filledcircle(10,53,10)            ;lower left
-    filledcircle(117,53,10)           ;lower right</screen>
+    ;----- Subroutines
+
+    sub myCircle(cenX, cenY, rad)
+        ;Center of circle = (cenX,cenY), radius = rad
+
+        for ii = 0 to 358 step 2                 ;every two degrees
+            cx = cenX -((10*rad*cos(ii))/100+5)/10  ;properly rounded x value
+            cy = cenY -((10*rad*sin(ii))/100+5)/10  ;properly rounded y value
+
+            ;the following ignores the pixel if off the screen
+            if (cx&gt;=0 and cx&lt;=GLCD_WIDTH and cy&gt;=0 and cy&lt;=GLCD_HEIGHT) then
+            Pset(cx, cy, on)
+            end if
+        next ii
+    end sub
+
+    sub myCircleFilled(cenX, cenY, rad)
+        ;Center of circle = (cenX,cenY), radius = rad
+
+        for ii = 0 to 358 step 2
+            cx = cenX -((10*rad*cos(ii))/100+5)/10
+            cy = cenY -((10*rad*sin(ii))/100+5)/10
+            edge = 2 * cenX - cx                  ;compute right edge
+
+            for jj = cx to edge                    ;fill entire line, uses legacy for next permitting CX to be less than edge
+                if (jj&gt;=0 and jj&lt;=GLCD_WIDTH and cy&gt;=0 and cy&lt;=GLCD_HEIGHT) then
+                    Pset(jj,cy,on)
+                end if
+            next jj
+        next ii
+    end sub</screen>
 <simpara><emphasis role="strong">See also</emphasis> <link linkend="_trigonometry_sine_cosine_and_tangent">Trigonometry</link>, <link linkend="_circle">Circle</link>, <link linkend="_filledcircle">FilledCircle</link>,</simpara>
 </section>
 </section>
@@ -37444,8 +37486,11 @@ The comments are NOT part of an INI file.&#160;&#160;</simpara>
     'Mute banners when compiling. This can be changed in the INI or by a command line switch. There is no support in Prefs Editor to change this parameter.
     mutebanners = n
 
-    'Show the extended verbose messages when compiling. his can only be changed in the INI. There is no support in Prefs Editor or a command line switch to change this parameter.
-    evbs = n</screen>
+    'Show the extended verbose messages when compiling. his can only be changed in the INI. There is no support in Prefs Editor or a command line switch to change this parameter.  Not managed by Prefs Editor.
+    evbs = n
+
+    'Use LAXSYNTAX insupport lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
+    laxsyntax = y</screen>
 <simpara>The section shows an example [tool] assembler section.&#160;&#160;</simpara>
 <screen>    [tool=pic-as]
     'An assember

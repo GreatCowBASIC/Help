@@ -227,30 +227,34 @@ architecture.
 <td style="text-align: left;"><p>AVR core version V2E class microcontrollers</p></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><p>121</p></td>
+<td style="text-align: left;"><p>-120 Subtype: 121</p></td>
 <td style="text-align: left;"><p>AVR core version AVR8L, also called AVRrc, reduced core class microcontrollers. ATTiny4-5-9-10 and ATTiny102-104 with only 16 GPR’s from r16-r31 and only 54 instructions.</p></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><p>122</p></td>
+<td style="text-align: left;"><p>-120 Subtype: 122</p></td>
 <td style="text-align: left;"><p>LGT microcontrollers.</p></td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"><p>-120 Subtype: 123</p></td>
+<td style="text-align: left;"><p>AVR core version V2E class microcontrollers with one USART like the mega32u4, mega16u4 - they have different registers for the usart.</p></td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;"><p>130</p></td>
 <td style="text-align: left;"><p>AVR core version V3E class microcontrollers but essentially the mega32u6 only</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p>12</p></td>
 <td style="text-align: left;"><p>Baseline devices. 12 Bit instruction set</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p>15</p></td>
 <td style="text-align: left;"><p>Mid-range core devices. 14 Bit instruction set with enhanced instruction set class</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p>15 plus familyVariant=1</p></td>
 <td style="text-align: left;"><p>Mid-range core devices. 14 Bit instruction set with enhanced instruction set and with large memory capability class</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p>16</p></td>
 <td style="text-align: left;"><p>High end core devices. 16 Bit instruction set, memory addressing architecture and an extended instruction set.</p>
 <p>Chip family 16 also have a sub chip family Constant.   These constants are shown below:</p>

@@ -16,7 +16,7 @@
       <link rel="next" href="_peripheral_pin_select.html" title="Peripheral Pin Select" />
       <meta name="Section-title" content="Trigonometry ATAN" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-51260";
+            var treeCookieId = "treeview-51266";
             var language = "en";
             var w = new Object();
             //Localization
@@ -185,24 +185,26 @@ border: none; background: none; font-weight: none; color: none; }
                </div>
             </div>
             <p><span class="strong"><strong>Syntax</strong></span>:
-            </p><pre class="screen">    byte_variable = atan (<span class="emphasis"><em>x_vector</em></span>,<span class="emphasis"><em>y_vector</em></span>)</pre><p><span class="strong"><strong>Explanation</strong></span>:
+            </p><pre class="screen">    #include &lt;maths.h&gt;
+
+    integer_variable = ATan (_x_vector_,_y_vector_)</pre><p><span class="strong"><strong>Explanation</strong></span>:
             </p>
-            <p>Great Cow BASIC supports Three Primary Trigonometric Functions.</p>
+            <p>Great Cow BASIC supports the trigonometric function for ATan.  </p>
             <p><span class="strong"><strong>Details:</strong></span></p>
-            <p>Great Cow BASIC supports the following functions ATan( x, y) where x and y are the vectors.  The function returns a word representing
-               the angle measured in a whole number of degrees.
+            <p>Great Cow BASIC supports the following functions ATan( x, y) where x and y are the vectors.  The function returns an Integer
+               result representing the angle measured in a whole number of degrees.
             </p>
-            <p>The function also returns a global variable NegFlag with returns the quadrant of the angle.</p><pre class="literallayout">Quadrant 1 = 0 to 89 +
-Quadrant 2 = 90 to 179 +
-Quadrant 3 = 180 to 269 +
-Quadrant 4 = 270 to 359 +</pre><p>This ATan function is a fast XY vector to integer degree algorithm developed in Jan 2011, see www.RomanBlack.com and sSee
-               <a class="link" href="http://www.romanblack.com/integer_degree.htm" target="_top">http://www.romanblack.com/integer_degree.htm</a></p>
-            <p>The function converts any XY values including 0 to a degree value that should be within +/- 1 degree of the accurate value
+            <p>The function also returns a global byte variable NegFlag with returns the quadrant of the angle.</p><pre class="literallayout">Quadrant 1 = 0 to 89
+Quadrant 2 = 90 to 179
+Quadrant 3 = 180 to 269
+Quadrant 4 = 270 to 359</pre><p>This ATan function is a fast XY vector to integer degree algorithm developed in Jan 2011, see www.RomanBlack.com and see <a class="link" href="http://www.romanblack.com/integer_degree.htm" target="_top">http://www.romanblack.com/integer_degree.htm</a></p>
+            <p>The function converts any XY vectors including 0 to a degree value that should be within +/- 1 degree of the accurate value
                without needing large slow trig functions like ArcTan() or ArcCos().
             </p>
-            <p>At least one of the X or Y values must be non-zero. This is the full version, for all 4 quadrants and will generate the angle
-               in integer degrees from 0-360. Any values of X and Y are usable including negative values provided they are between -1456
-               and 1456 so the 16bit multiply does not overflow.
+            <p>At least one of the X or Y values must be non-zero.  
+               This is the full version, for all 4 quadrants and will generate the angle in integer degrees from 0-360.  
+               Any values of X and Y are usable including negative values provided they are between -1456 and 1456 so the 16bit multiply
+               does not overflow.
             </p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">

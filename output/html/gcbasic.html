@@ -582,13 +582,13 @@ The “Programmer Preferences” is a software tool to control and set-up the di
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2022-03-01<br>
-21:46:13 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2022-06-20<br>
+15:48:38 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">2022-03-01<br>
-21:39:41 GMT Standard Time</p></td>
+22:39:41 GMT Standard Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -3529,7 +3529,7 @@ The advanced variable types that Great Cow BASIC supports are:</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LontINT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LongINT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A list of whole numbers between - (2 ^ 63) and 2 ^ 63 - 1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Storing very, very big integer numbers that could be a negative number</p></td>
 </tr>
@@ -4320,6 +4320,9 @@ In the case where your computer has Secure Boot enabled, the installer will advi
 <p>All the numbers stored in an array must be of the same type.  &#160;&#160;For instance, you cannot store bytes and words in the same array.</p>
 </div>
 <div class="paragraph">
+<p>Array are are 1-based. &#160;&#160;The first element is element zero.</p>
+</div>
+<div class="paragraph">
 <p>Examples of array names are:</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width: 80%;">
@@ -4488,7 +4491,7 @@ The compiler allocates RAM for arrays at compile time, and therefore you cannot 
 <p>If there are many items in the array, it may be better to use a Lookup Table to store the items, and then copy some of the data items into a smaller array as needed.</p>
 </div>
 <div class="paragraph">
-<p><strong>For more help, see</strong> <a href="#_dim">Declaring arrays with DIM</a></p>
+<p><strong>For more help, see</strong> <a href="#_dim">Declaring arrays with DIM</a>,<a href="#_alloc">Declaring memory with ALLOC</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -46679,11 +46682,11 @@ Non-negative numbers are assumed throughout.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    byte_variable = sin( <em>word_variable</em> )
+<pre>    integer_variable = sin( <em>integer_variable</em> )
 
-    byte_variable = cos( <em>word_variable</em> )
+    integer_variable = cos( <em>integer_variable</em> )
 
-    byte_variable = tan( <em>word_variable</em> )</pre>
+    integer_variable = tan( <em>integer_variable</em> )</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -46693,7 +46696,8 @@ Non-negative numbers are assumed throughout.</p>
 <p>Great Cow BASIC supports Three Primary Trigonometric Functions</p>
 </div>
 <div class="paragraph">
-<p>Great Cow BASIC supports the following functions, sin(x), cos(x), tan(x), where x is a signed integer representing an angle measured in a whole number of degrees. The output values are also integers, represented as fixed point decimal fractions.</p>
+<p>Great Cow BASIC supports the following functions, sin(x), cos(x), tan(x), where x is a signed integer representing an angle measured in a whole number of degrees.&#160;&#160;
+The output values are also integers, represented as fixed point decimal fractions.</p>
 </div>
 <div class="paragraph">
 <p><strong>Details:</strong></p>
@@ -46709,27 +46713,27 @@ Non-negative numbers are assumed throughout.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In fixed point representation, the decimal point is assumed. For example, with two places of accuracy, sin(60) returns 87, which you would interpret as 0.87. With three places, 866 is returned, to be interpreted as 0.866, and so on. Another way of thinking of this is to consider the two-place values as scaled up by 100, the three-place values scaled up by 1000 and the four-place values scaled up by 10,000.</p>
+<p>In fixed point representation, the decimal point is assumed.&#160;&#160;For example, with two places of accuracy, sin(60) returns 87, which you would interpret as 0.87.&#160;&#160;With three places, 866 is returned, to be interpreted as 0.866, and so on.&#160;&#160;Another way of thinking of this is to consider the two-place values as scaled up by 100, the three-place values scaled up by 1000 and the four-place values scaled up by 10,000.</p>
 </div>
 <div class="paragraph">
-<p>Sine and cosine are always defined, but remember that tangent fails to exist at 90 degrees, 270 degrees and all their coterminal angles. It is the responsibility of the calling program to avoid these special values.</p>
+<p>Sine and Cosine are always defined, but remember that tangent fails to exist at 90 degrees, 270 degrees and all their coterminal angles.&#160;&#160;It is the responsibility of the calling program to avoid these special values.</p>
 </div>
 <div class="paragraph">
 <p>Note that the tangent function is not available to four decimal places, since its value grows so rapidly, exceeding what the Integer data type can represent.</p>
 </div>
 <div class="paragraph">
-<p>These routines are completely general. The input argument may be positive, negative or zero, with no restriction on the size. Further observe that lookup tables are used, so the routines are very fast, efficient and accurate.</p>
+<p>These routines are completely general. The input argument may be positive, negative or zero, with no restriction on the size.&#160;&#160;Further observe that lookup tables are used, so the routines are very fast, efficient and accurate.</p>
 </div>
 <div class="paragraph">
-<p><strong>Example:_Show the trigonometric values to three decimal places.</strong></p>
+<p><strong>Example: Show the trigonometric values to three decimal places.</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre>    ;----- Configuration
-    #chip 16F88, 8                  ;PIC16F88 running at 8 MHz
-    #config mclr=off                ;reset handled internally
+    #CHIP 16F88, 8                  ;PIC16F88 RUNNING AT 8 MHZ
+    #CONFIG MCLR=OFF                ;RESET HANDLED INTERNALLY
 
-    #include &lt;Trig3Places.h&gt;
+    #INCLUDE &lt;TRIG3PLACES.H&gt;
 
     ;----- Constants
 
@@ -46738,69 +46742,69 @@ Non-negative numbers are assumed throughout.</p>
     #define LCD_Enable  PortB.3     ;pin 9 is LCD Enable
     #define LCD_DB4     PortB.4     ;DB4 on pin 10
     #define LCD_DB5     PortB.5     ;DB5 on pin 11
-    #define LCD_DB6     PortB.6     ;DB6 on pin 12
+    #define LCD_DB6     PortB.6     ;DB6a on pin 12
     #define LCD_DB7     PortB.7     ;DB7 on pin 13
     #define LCD_NO_RW   1           ;ground the RW line on LCD
 
     ;----- Variables
 
-    dim i as integer
+    dim ii as integer
     dim outStr, valStr as string
 
     ;----- Program
 
     dir PortB out                   ;all outputs to the LCD
 
-    for i = -720 to 720             ;arguments from -720 to 720
-      cls
-      print "sin("                  ;print the label
-      print i                       ;and the argument
-      print ")="                    ;and closing parenthesis
-      locate 1,0
-      printTrig(sin(i))             ;print value of the sine
-      wait 500 mS                   ;pause to view
+    for ii = -720 to 720             ;arguments from -720 to 720
+    cls
+    print "sin("                  ;print the label
+    print ii                      ;and the argument
+    print ")="                    ;and closing parenthesis
+    locate 1,0
+    printTrig(sin(ii))             ;print value of the sine
+    wait 500 mS                   ;pause to view
 
-      cls                           ;do likewise for cosine
-      print "cos("
-      print i
-      print ")="
-      locate 1,0
-      printTrig(cos(i))
-      wait 500 mS                   ;pause to view
-      cls                           ;do likewise for tangent
-      print "tan("
-      print i
-      print ")="
-      locate 1,0
-      printTrig(tan(i))
-      wait 500 mS                   ;pause to view
+    cls                           ;do likewise for cosine
+    print "cos("
+    print ii
+    print ")="
+    locate 1,0
+    printTrig(cos(ii))
+    wait 500 mS                   ;pause to view
+    cls                           ;do likewise for tangent
+    print "tan("
+    print ii
+    print ")="
+    locate 1,0
+    printTrig(tan(ii))
+    wait 500 mS                   ;pause to view
     next i
 
     sub printTrig(in value as integer)
-      ;print decently formatted trig results
+        ;print decently formatted trig results
 
-      outStr = ""                   ;assume positive (no sign)
+        outStr = ""                   ;assume positive (no sign)
 
-      if value &lt; 0 then             ;handle negatives
-        outStr = "-"                ;prefix a minus sign
-        value = -1 * value          ;but work with positives
-      end if
+        if value &lt; 0 then             ;handle negatives
+            outStr = "-"                ;prefix a minus sign
+            value = -1 * value          ;but work with positives
+        end if
 
-      valStr = str(value)
-      length = len(valStr)
-      select case length
-        case 1:
-          outStr = outStr + "0.00" + valStr
-        case 2:
-          outStr = outStr + "0.0" + valStr
-        case 3:
-          outStr = outStr + "0." + valStr
-        case 4:
-          outStr = outStr + left(valStr,1) + "." + right(valStr,3)
-        case 5:
-          outStr = outStr + left(valStr,2) + "." + right(valStr,3)
-      end select
-      print outStr
+        valStr = str(value)
+        length = len(valStr)
+        select case length
+            case 1:
+            outStr = outStr + "0.00" + valStr
+            case 2:
+            outStr = outStr + "0.0" + valStr
+            case 3:
+            outStr = outStr + "0." + valStr
+            case 4:
+            outStr = outStr + left(valStr,1) + "." + right(valStr,3)
+            case 5:
+            outStr = outStr + left(valStr,2) + "." + right(valStr,3)
+        end select
+        print outStr
     end sub</pre>
 </div>
 </div>
@@ -46812,40 +46816,44 @@ Non-negative numbers are assumed throughout.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    byte_variable = atan (<em>x_vector</em>,<em>y_vector</em>)</pre>
+<pre>    #include &lt;maths.h&gt;
+
+    integer_variable = ATan (_x_vector_,_y_vector_)</pre>
 </div>
 </div>
 <div class="paragraph">
 <p><strong>Explanation</strong>:</p>
 </div>
 <div class="paragraph">
-<p>Great Cow BASIC supports Three Primary Trigonometric Functions.</p>
+<p>Great Cow BASIC supports the trigonometric function for ATan.&#160;&#160;</p>
 </div>
 <div class="paragraph">
 <p><strong>Details:</strong></p>
 </div>
 <div class="paragraph">
-<p>Great Cow BASIC supports the following functions ATan( x, y) where x and y are the vectors.  The function returns a word representing the angle measured in a whole number of degrees.</p>
+<p>Great Cow BASIC supports the following functions ATan( x, y) where x and y are the vectors.  The function returns an Integer result representing the angle measured in a whole number of degrees.</p>
 </div>
 <div class="paragraph">
-<p>The function also returns a global variable NegFlag with returns the quadrant of the angle.</p>
+<p>The function also returns a global byte variable NegFlag with returns the quadrant of the angle.</p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>Quadrant 1 = 0 to 89 +
-Quadrant 2 = 90 to 179 +
-Quadrant 3 = 180 to 269 +
-Quadrant 4 = 270 to 359 +</pre>
+<pre>Quadrant 1 = 0 to 89
+Quadrant 2 = 90 to 179
+Quadrant 3 = 180 to 269
+Quadrant 4 = 270 to 359</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This ATan function is a fast XY vector to integer degree algorithm developed in Jan 2011, see www.RomanBlack.com and sSee <a href="http://www.romanblack.com/integer_degree.htm" class="bare">http://www.romanblack.com/integer_degree.htm</a></p>
+<p>This ATan function is a fast XY vector to integer degree algorithm developed in Jan 2011, see www.RomanBlack.com and see <a href="http://www.romanblack.com/integer_degree.htm" class="bare">http://www.romanblack.com/integer_degree.htm</a></p>
 </div>
 <div class="paragraph">
-<p>The function converts any XY values including 0 to a degree value that should be within +/- 1 degree of the accurate value without needing large slow trig functions like ArcTan() or ArcCos().</p>
+<p>The function converts any XY vectors including 0 to a degree value that should be within +/- 1 degree of the accurate value without needing large slow trig functions like ArcTan() or ArcCos().</p>
 </div>
 <div class="paragraph">
-<p>At least one of the X or Y values must be non-zero. This is the full version, for all 4 quadrants and will generate the angle in integer degrees from 0-360. Any values of X and Y are usable including negative values provided they are between -1456 and 1456 so the 16bit multiply does not overflow.</p>
+<p>At least one of the X or Y values must be non-zero.&#160;&#160;
+This is the full version, for all 4 quadrants and will generate the angle in integer degrees from 0-360.&#160;&#160;
+Any values of X and Y are usable including negative values provided they are between -1456 and 1456 so the 16bit multiply does not overflow.</p>
 </div>
 </div>
 </div>
@@ -47977,12 +47985,16 @@ If any of the variables do not exist, the compiler will create a constant mappin
 <td class="tableblock halign-left valign-top"><p class="tableblock">AVR core version V2E class microcontrollers</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">121</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-120 Subtype: 121</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AVR core version AVR8L, also called AVRrc, reduced core class microcontrollers.  ATTiny4-5-9-10 and ATTiny102-104 with only 16 GPR&#8217;s from r16-r31 and only 54 instructions.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">122</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-120 Subtype: 122</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LGT microcontrollers.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-120 Subtype: 123</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVR core version V2E class microcontrollers with one USART like the mega32u4, mega16u4 - they have different registers for the usart.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">130</p></td>
@@ -50208,7 +50220,7 @@ The algorithm is a variant of <a href="https://en.wikipedia.org/wiki/Bresenham%2
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p>Great Cow BASIC can draw circles on a Graphical LCD devcie using Great Cow BASIC library functions.</p>
+<p>Great Cow BASIC can draw circles on a Graphical LCD device using Great Cow BASIC library functions.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -50223,15 +50235,14 @@ The algorithm is a variant of <a href="https://en.wikipedia.org/wiki/Bresenham%2
 <pre>    ;Circle and filled circle commands on a graphic LCD.
     ;This uses the 2-place trigonometric routines found in the include file.
 
-    ;Thomas Henry -- 4/17/2014
-
     ;----- Configuration
+    #CHIP 16F88, 8              ;PIC16F88 RUNNING AT 8 MHZ
+    #CONFIG MCLR=OFF            ;RESET HANDLED INTERNALLY
+    #OPTION EXPLICIT
+    #DEFINE USELEGACYFORNEXT    ;WILL ENSURE THE OLD FOR-NEXT Loop is used just to save some memory as this is a very simple FOR-NEXT loop
 
-    #chip 16F88, 8              ;PIC16F88 running at 8 MHz
-    #config mclr=off            ;reset handled internally
-
-    #include &lt;GLCD.h&gt;
-    #include &lt;Trig2Places.h&gt;
+    #INCLUDE &lt;GLCD.H&gt;
+    #INCLUDE &lt;TRIG2PLACES.H&gt;
 
     ;----- Constants
 
@@ -50263,20 +50274,53 @@ The algorithm is a variant of <a href="https://en.wikipedia.org/wiki/Bresenham%2
     #define GLCD_WIDTH 128
     #define GLCD_HEIGHT 64
 
+
     ;----- Variables
 
-    'None required.
+    dim cx, cy, edge, jj as byte
+    dim ii as word
 
     ;----- Program
 
-    GLCDCLS
+    myCircle(10,10,10)
+    ;upper left
+    myCircle(117,10,10)                 ;upper right
+    myCircleFilled(63,31,10)            ;center
+    myCircle(63,31,20)                  ;center
+    myCircleFilled(10,53,10)            ;lower left
+    myCircleFilled(117,53,10)           ;lower right
 
-    circle(10,10,10)                  ;upper left
-    circle(117,10,10)                 ;upper right
-    filledcircle(63,31,10)            ;center
-    circle(63,31,20)                  ;center
-    filledcircle(10,53,10)            ;lower left
-    filledcircle(117,53,10)           ;lower right</pre>
+    ;----- Subroutines
+
+    sub myCircle(cenX, cenY, rad)
+        ;Center of circle = (cenX,cenY), radius = rad
+
+        for ii = 0 to 358 step 2                 ;every two degrees
+            cx = cenX -((10*rad*cos(ii))/100+5)/10  ;properly rounded x value
+            cy = cenY -((10*rad*sin(ii))/100+5)/10  ;properly rounded y value
+
+            ;the following ignores the pixel if off the screen
+            if (cx&gt;=0 and cx&lt;=GLCD_WIDTH and cy&gt;=0 and cy&lt;=GLCD_HEIGHT) then
+            Pset(cx, cy, on)
+            end if
+        next ii
+    end sub
+
+    sub myCircleFilled(cenX, cenY, rad)
+        ;Center of circle = (cenX,cenY), radius = rad
+
+        for ii = 0 to 358 step 2
+            cx = cenX -((10*rad*cos(ii))/100+5)/10
+            cy = cenY -((10*rad*sin(ii))/100+5)/10
+            edge = 2 * cenX - cx                  ;compute right edge
+
+            for jj = cx to edge                    ;fill entire line, uses legacy for next permitting CX to be less than edge
+                if (jj&gt;=0 and jj&lt;=GLCD_WIDTH and cy&gt;=0 and cy&lt;=GLCD_HEIGHT) then
+                    Pset(jj,cy,on)
+                end if
+            next jj
+        next ii
+    end sub</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -52001,8 +52045,11 @@ The comments are NOT part of an INI file.&#160;&#160;</p>
     'Mute banners when compiling. This can be changed in the INI or by a command line switch. There is no support in Prefs Editor to change this parameter.
     mutebanners = n
 
-    'Show the extended verbose messages when compiling. his can only be changed in the INI. There is no support in Prefs Editor or a command line switch to change this parameter.
-    evbs = n</pre>
+    'Show the extended verbose messages when compiling. his can only be changed in the INI. There is no support in Prefs Editor or a command line switch to change this parameter.  Not managed by Prefs Editor.
+    evbs = n
+
+    'Use LAXSYNTAX insupport lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
+    laxsyntax = y</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -52153,7 +52200,7 @@ The list shows the installation of the Sharp Develop IDE.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-01 21:39:41 GMT Standard Time
+Last updated 2022-03-01 22:39:41 GMT Standard Time
 </div>
 </div>
 </body>

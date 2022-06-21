@@ -26,6 +26,8 @@ index is a value in brackets immediately after the name of the array.
 All the numbers stored in an array must be of the same type.   For
 instance, you cannot store bytes and words in the same array.
 
+Array are are 1-based.   The first element is element zero.
+
 Examples of array names are:
 
 <div class="informaltable">
@@ -182,6 +184,6 @@ Table to store the items, and then copy some of the data items into a
 smaller array as needed.
 
 <span class="strong">**For more help, see**</span>
-<a href="dim" class="link" title="Dim">Declaring arrays with DIM</a>
+<a href="dim" class="link" title="Dim">Declaring arrays with DIM</a>,<a href="alloc" class="link" title="Alloc">Declaring memory with ALLOC</a>
 
 </div>
