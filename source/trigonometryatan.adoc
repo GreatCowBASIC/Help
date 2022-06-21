@@ -1,7 +1,7 @@
-// "name": "atan",
-// "available": "All Microcontrollers",
-// "description": "integer_variable = atan (x_vector,y_vector)",
-// "funcdesc": "Great Cow BASIC supports the following functions ATan( x, y) where x and y are the vectors. The function returns an Integer representing the angle measured in a whole number of degrees.\n\nThe function also returns a global variable NegFlag with returns the quadrant of the angle.\n\nRequires #include <maths.h> to enable this function."
+//"name": "atan",
+//"available": "All Microcontrollers",
+//"description": "integer_variable = atan (x_vector,y_vector)",
+//"funcdesc": "Great Cow BASIC supports the following functions ATan( x, y) where x and y are the vectors. The function returns an Integer representing the angle measured in a whole number of degrees.\n\nThe function also returns a global variable NegFlag with returns the quadrant of the angle.\n\nRequires #include <maths.h> to enable this function."
 ==== Trigonometry ATAN
 
 
