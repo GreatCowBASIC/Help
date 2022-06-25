@@ -305,7 +305,7 @@ This example tests the CONSTANT CHIPUSART for both the PIC and AVR microcontroll
 
 From build 1131 the compiler now supports raising a compiler error message.
 
-The method uses the `RaiseCompilerError` method to pass error message to the assembler (not the compilation process).
+The method uses the `RaiseCompilerError` method to pass an error message to the assembler process (not the compilation process - the user will not know this).
 
 An example from USART.H/INITUSART subroutine is shown below.&#160;&#160;This example tests for the existence of one of the three supported baud rate constants.&#160;&#160;If none of the constants exist and the constant (in this example) `STOPCOMPILERERRORHANDLER` does not exist the `RaiseCompilerError` with the string will be passed to the assembler for error processing.&#160;&#160;
 This permits the inspect of the user program with appropriate messages to inform the user.
