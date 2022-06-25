@@ -300,3 +300,33 @@ This example tests the CONSTANT CHIPUSART for both the PIC and AVR microcontroll
     #option REQUIRED PIC CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."
     #option REQUIRED AVR CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."
 ----
+
+*RAISING COMPILER ERROR CONDITIONS*
+
+From build 1131 the compiler now supports raising a compiler error message.
+
+The method uses the `RaiseCompilerError` method to pass error message to the assembler (not the compilation process).
+
+An example from USART.H/INITUSART subroutine is shown below.&#160;&#160;This example tests for the existence of one of the three supported baud rate constants.&#160;&#160;If none of the constants exist and the constant (in this example) `STOPCOMPILERERRORHANDLER` does not exist the `RaiseCompilerError` with the string will be passed to the assembler for error processing.&#160;&#160;
+This permits the inspect of the user program with appropriate messages to inform the user.
+
+----
+  ....
+  #IFNDEF ONEOF(USART_BAUD_RATE,USART1_BAUD_RATE,USART2_BAUD_RATE) THEN
+    'Look for one of the baud rates CONSTANTS
+    #IFNDEF STOPCOMPILERERRORHANDLER
+      RaiseCompilerError "USART not setup correctly. No baud rate specified - please correct USART setup"
+    #ENDIF
+  #ENDIF
+  ....
+----
+The `RaiseCompilerError` handler can be stopped using the constant STOPCOMPILERERRORHANDLER as shown above.
+{empty} +
+{empty} +
+*LCD ERROR HANDLING*
+
+The setup of an LCD is inspected and an appropriate error message is displayed.&#160;&#160;
+The Compiler now controls error messages when LCD is not setup up correctly.&#160;&#160;
+This is hard coded into the compiler (at build 1131).
+{empty} +
+{empty} +
