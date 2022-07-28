@@ -328,6 +328,11 @@ The settings are in the INI section called [gcbasic].&#160;&#160;
     'Use LAXSYNTAX insupport lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
     laxsyntax = y
 
+    'Use the system temp directory for compiler temp files.  Options are "tempdir" or "instdir" or remove the option.
+    workingdir = "tempdir"
+    
+    'Display conditional statement debug for the specified file.  Options are any valid source file or nothing. The enry will be remove if a prefixed by a comment ( a single quote ).
+    conditionaldebugfile = 
 
 ----
 
