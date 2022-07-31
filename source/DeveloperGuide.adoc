@@ -305,7 +305,7 @@ This example tests the CONSTANT CHIPUSART for both the PIC and AVR microcontroll
 
 From build 1131 the compiler now supports raising a compiler error message.
 
-The method uses the `RaiseCompilerError` method to pass an error message to the assembler process (not the compilation process - the user will not know this).
+The method uses the `RaiseCompilerError  ""<string>""|%string%" ` method to pass an error message to the compilation process.
 
 An example from USART.H/INITUSART subroutine is shown below.&#160;&#160;This example tests for the existence of one of the three supported baud rate constants.&#160;&#160;If none of the constants exist and the constant (in this example) `STOPCOMPILERERRORHANDLER` does not exist the `RaiseCompilerError` with the string will be passed to the assembler for error processing.&#160;&#160;
 This permits the inspect of the user program with appropriate messages to inform the user.
@@ -315,7 +315,16 @@ This permits the inspect of the user program with appropriate messages to inform
   #IFNDEF ONEOF(USART_BAUD_RATE,USART1_BAUD_RATE,USART2_BAUD_RATE) THEN
     'Look for one of the baud rates CONSTANTS
     #IFNDEF STOPCOMPILERERRORHANDLER
-      RaiseCompilerError "USART not setup correctly. No baud rate specified - please correct USART setup"
+      'Use one of the following - the string MUST be start and end with a double quote
+
+        ' Use the message.dat file
+        ' RaiseCompilerError "%USART_NO_BAUD_RATE%"
+
+        ' Use hard code text
+        ' RaiseCompilerError "USART not setup correctly. No baud rate specified - please correct USART setup"
+
+        RaiseCompilerError "%USART_NO_BAUD_RATE%"
+
     #ENDIF
   #ENDIF
   ....
@@ -327,6 +336,6 @@ The `RaiseCompilerError` handler can be stopped using the constant STOPCOMPILERE
 
 The setup of an LCD is inspected and an appropriate error message is displayed.&#160;&#160;
 The Compiler now controls error messages when LCD is not setup up correctly.&#160;&#160;
-This is hard coded into the compiler (at build 1131).
+This the text displayed is held in the messages.dat file - LCD_Not_Setup entry.
 {empty} +
 {empty} +
