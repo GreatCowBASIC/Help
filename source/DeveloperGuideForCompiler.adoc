@@ -420,7 +420,19 @@ The following program shows the impact of nested conditions..&#160;&#160;Each ne
 {empty} +
 {empty} +
 
-'''
+
+The resulting ASM from the about code is as expected.&#160;&#160;The assignment of `VAR1 = 0`.&#160;&#160; 
+
+----
+        ;DIM _VAR1
+        ;_VAR1 = 0
+            clrf	_VAR1,ACCESS
+        ;Do
+        SysDoLoop_S1
+        ;Loop
+            bra	SysDoLoop_S1
+        SysDoLoop_E1
+----
 
 {empty} +
 {empty} +
