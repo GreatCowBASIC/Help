@@ -121,7 +121,26 @@ The process, shown below, generates the ASM source and the HEX file from the use
 ----
     1. Create the indexes
     2. Declare the methods, arrays and variables
-    3. Process the user source programs using PreProcessor method
+    3. Process the user source programs using PreProcessor method. This includes
+        i.     Loading of all source files including including files
+        ii.    Translate files, if needed
+        iii.   Examine source for comments, tables, asm, rawasm, functions;subs;macros, set origin of valid code
+                    Origin = ";?F" + Str(RF) + "L" + Str(LC) + "S" + Str(SBC) + "?"
+                    RF = File number 
+                    L  = Line number in source file
+                    S  = Sub Routine number
+        iv.    Find compiler directives, except SCRIPT, ENDSCRIPT, IFDEF and ENDIF
+        v.     ReadChipData
+        vi.    CheckClockSpeed
+        viii.  ReadOptions
+        ix.    PreparePageData
+        x.     PrepareBuiltIn.  Initialise built-in data, and prepare built-in subs
+        xi.    RunScripts
+        xii.   BuildMemoryMap
+        xiii.  Process samevar and samebit
+        xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program. Prepare programmer, need to know chip model and need to do this before checking config
+        xv.    Replace Constants
+        xvi.   Replace table value.  Replace constants and calculations in tables with actual values
     4. Compile the program using the CompileProgram method
          i.    Compile calls to other subroutines, insert macros
          ii.   Compile DIMs again, in case any come through from macros
@@ -256,11 +275,147 @@ _There are many very useful methods_, a lot of methods, look at existing code be
 The compiler is mature from a functionality standpoint.&#160;&#160;
 Just immature in terms of documentation.&#160;&#160;
 
-_To isolate a specific issue_ use a binary chop and lots of debug using PRINT.&#160;&#160;
-Whilst, this may not be ideal this is the best approach.&#160;&#160;
+*COMPILER DEBUGGING*
 
-_Revert_ code using SVN to remove all debug!.&#160;&#160;Do not leave debug in the source code.&#160;&#160;
 
+_To debug or isolate a specific issue_ use lots of messages using PRINT or HSERPRINT&#160;&#160;Both of these methods are easy to setup and use.
+
+_Specific to #SCRIPT_ you can use WARNING messages to display results of calculations or assignments.
+
+_Specific to CONDITIONAL Compilation_ use `conditionaldebugfile` (se above) to display conditional statement debug for the specified file. &#160;&#160; Options are any valid source file or nothing. &#160;&#160;
+Nested conditions are evaluated sequentially, therefor the first, second, third etc etc.  &#160;&#160; 
+The compiler does not at this point rationalised the hierarchy of nested conditions.&#160;&#160;  It simply finds a condition and then matches to an #ENDIF.&#160;&#160;
+So, the compiler walks through the nested conditions as the outer nested, then the next nest, the next nest etc. etc.&#160;&#160;
+This compiler is completing the following actions:&#160;&#160;
+
+1. If the conditional is not valid.&#160;&#160;  Remove the code segment include the #IF and the #ENDIF
+2. If the conditional is valid.&#160;&#160;  Remove the just the #IF and the #ENDIF
+
+So, is this context the compiler walks the code many time (as these are lists not arrrays this is blindly fast) removing code segments.&#160;&#160;
+
+The following program shows the impact of nested conditions..&#160;&#160;Each nest is evaluated until all conditions have been assessed..&#160;&#160;See the comment section of the listing to see the output from the debugging.
+
+
+----
+        #CHIP 18F16Q41
+        #OPTION EXPLICIT
+
+        ; -----  Add the following line to USE.ini ------------------
+        ;
+        ;        conditionaldebugfile = IFDEF_TEST.gcb
+        ;
+        ; -----------------------------------------------------------
+
+        #IFDEF PIC
+            #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
+                #IF CHIPRAM = 2048  'TRUE
+                    #IF CHIPWORDS = 32768 ' TRUE
+                        #IFDEF VAR(NVMLOCK) 'TRUE
+                            #IFDEF VAR(OSCCON2)  'TRUE
+                                #IFDEF  VAR(NVMCON0)  'TRUE    set var1 to 1
+                                    DIM _VAR1
+                                    _VAR1 = 1
+                                #ENDIF
+                            #ENDIF
+                        #ENDIF
+                    #ENDIF
+                #ENDIF
+
+                #IF CHIPRAM = 4096  'TRUE
+                    #IF CHIPWORDS = 32768 ' TRUE
+                        #IFDEF VAR(NVMLOCK) 'TRUE
+                            #IFDEF VAR(OSCCON2)  'TRUE
+                                #IFDEF  VAR(NVMCON0)  'TRUE   = set var1 to 0
+                                    DIM _VAR1
+                                    _VAR1 = 0
+                                #ENDIF
+                            #ENDIF
+                        #ENDIF
+                    #ENDIF
+                #ENDIF
+            #ENDIF
+        #ENDIF
+
+        Do
+        Loop
+
+        // ===============================================
+        // ***  Below is debugger output for this file ***
+        // ===============================================
+
+        // Great Cow BASIC (0.99.02 2022-07-21 (Windows 32 bit) : Build 1143)
+
+        // Compiling c:\Users\admin\Downloads\IFDEF_TEST.gcb
+
+        //               13: #IFDEF PIC
+        //               15: #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
+        //               17: #IF CHIPRAM = 2048
+        //               19: #IF CHIPWORDS = 32768
+        //               21: #IFDEF VAR(NVMLOCK)
+        //               23: #IFDEF VAR(OSCCON2)
+        //               25: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               27: DIM _VAR1
+        //               ;_VAR1 = 1
+        //               28: _VAR1 = 1
+
+        //               15: #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
+        //               17: #IF CHIPRAM = 2048
+        //               19: #IF CHIPWORDS = 32768
+        //               21: #IFDEF VAR(NVMLOCK)
+        //               23: #IFDEF VAR(OSCCON2)
+        //               25: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               27: DIM _VAR1
+        //               ;_VAR1 = 1
+        //               28: _VAR1 = 1
+
+        //               39: #IF CHIPRAM = 4096
+        //               41: #IF CHIPWORDS = 32768
+        //               43: #IFDEF VAR(NVMLOCK)
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               41: #IF CHIPWORDS = 32768
+        //               43: #IFDEF VAR(NVMLOCK)
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               43: #IFDEF VAR(NVMLOCK)
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        // Program compiled successfully (Compile time: 1 seconds)
+
+        // Assembling program using GCASM
+        // Program assembled successfully (Assembly time: 0.125 seconds)
+        // Done
+----
 
 {empty} +
 {empty} +
