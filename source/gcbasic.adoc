@@ -1077,13 +1077,19 @@ include::config.adoc[]
 
 include::define.adoc[]
 
+include::undefine.adoc[]
+
 include::ifpp.adoc[]
+
+include::ifnotpp.adoc[]
 
 include::ifdef.adoc[]
 
 include::ifndef.adoc[]
 
 include::include.adoc[]
+
+include::insert.adoc[]
 
 include::script.adoc[]
 

@@ -5,6 +5,8 @@
 ----
     #ifdef __Constant__ | __Constant Value__ | Var(__VariableName__)
       ...
+    [#else]
+      ...
     #endif
 ----
 *Explanation:*
@@ -53,13 +55,13 @@ The value of the constant defined is not important and can be left off of the `#
     #define PinsToFlash 2
 
     #ifdef PinsToFlash 1,2,3
-    PulseOut PORTB.0, 1 sec
+      PulseOut PORTB.0, 1 sec
     #endif
     #ifdef PinsToFlash 2,3
-    PulseOut PORTB.1, 1 sec
+      PulseOut PORTB.1, 1 sec
     #endif
     #ifdef PinsToFlash 3
-    PulseOut PORTB.2, 1 sec
+      PulseOut PORTB.2, 1 sec
     #endif
 ----
 This program uses a constant called PinsToFlash that controls how many lights are pulsed. `PORTB.0` is pulsed when `PinsToFlash` is equal to 1, 2 or 3, `PORTB.1` is pulsed when `PinsToFlash` equals 2 or 3, and `PORTB.2` is flashed when `PinsToFlash` is 3.
@@ -67,13 +69,13 @@ This program uses a constant called PinsToFlash that controls how many lights ar
 *Example 3: _Enabling code if a system variable is defined_*
 ----
     #ifdef NoVar(ANSEL)
-    SET ADCON1.PCFG3 OFF
-    SET ADCON1.PCFG2 ON
-    SET ADCON1.PCFG1 ON
-    SET ADCON1.PCFG0 OFF
+      SET ADCON1.PCFG3 OFF
+      SET ADCON1.PCFG2 ON
+      SET ADCON1.PCFG1 ON
+      SET ADCON1.PCFG0 OFF
     #endif
     #ifdef Var(ANSEL)
-    ANSEL = 0
+      ANSEL = 0
     #endif
 ----
 

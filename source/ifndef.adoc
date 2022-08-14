@@ -5,6 +5,8 @@
 ----
     #ifndef __Constant__ | __Constant Value__ | Var(__VariableName__)
       ...
+    [#else]
+      ...
     #endif
 ----
 *Explanation:*

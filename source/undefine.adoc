@@ -1,0 +1,19 @@
+=== #UNDEFINE
+
+*Syntax:*
+[subs="quotes"]
+----
+    #UNDEFINE _existing-symbol_
+----
+*Explanation:*
+{empty} +
+{empty} +
+`#UNDEFINE` Undefines a symbol previously defined with #DEFINE.
+
+Can be used to ensure that a symbol has a limited lifespan and does not conflict with a similar macro definition that may be defined later in the source code.
+
+(Note: #UNDEFINE should not be used to undefine variable or function names used in the current program. The names are needed internally by the compiler and removing them can cause strange and unexpected results.)
+{empty} +
+{empty} +
+
+*See Also* <<_constants,Defines>>

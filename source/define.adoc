@@ -1,20 +1,28 @@
-=== #define
+=== #DEFINE
 
 *Syntax:*
 [subs="quotes"]
 ----
-    #define _Find_ _Replace_
+    #DEFINE SYMBOL _body_
+
 ----
 *Explanation:*
 {empty} +
 {empty} +
-`#define` will search through the program for `_Find_`, and replace it with the value given for `_Replace_`.
+`#DEFINE` allows to declare text-based preprocessor symbols.{nbsp}{nbsp}
+
+Once the compiler has seen a #DEFINE, it will start replacing further occurrences of symbol with body. {nbsp}{nbsp}
+Body may be empty.{nbsp}{nbsp}
+The expansion is done recursively, until there is nothing more to expand and the compiler can continue analyzing the resulting code.
+
+#UNDEFINE can be used to make the compiler forget about a #DEFINE.
+
 {empty} +
 {empty} +
-The compiler replaces a constant with the value, it then searches the line for constants again and will make any more replacements needed.{nbsp}{nbsp}
-It will do this up to 100 times on a line, then it will stop replacing and show an error. {nbsp}{nbsp}The limitation of 100 iteractions is to prevent something like "#define Const_A Const_B" and then "#define Const_B Const_A" from causing an infinite loop in the compiler.
+The compiler replaces a SYMBOL with the value, it then searches the line for constants again and will make any more replacements needed.{nbsp}{nbsp}
+It will do this up to 100 times on a line, then it will stop replacing and show an error. {nbsp}{nbsp}The limitation of 100 iteractions is to prevent something like "#DEFINE Const_A Const_B" and then "#DEFINE Const_B Const_A" from causing an infinite loop in the compiler.
 
 {empty} +
 {empty} +
 
-*See Also* <<_constants,Defines>>
+*See Also* <<_constants,DEFINEs>>

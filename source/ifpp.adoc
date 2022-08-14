@@ -5,6 +5,8 @@
 ----
     #if __Condition__
       ...
+    [#else]
+      ...
     #endif
 ----
 *Explanation:*
