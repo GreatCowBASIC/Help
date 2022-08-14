@@ -129,18 +129,19 @@ The process, shown below, generates the ASM source and the HEX file from the use
                     RF = File number 
                     L  = Line number in source file
                     S  = Sub Routine number
-        iv.    Find compiler directives, except SCRIPT, ENDSCRIPT, IFDEF and ENDIF
+        iv.    Find compiler directives, except SCRIPT, ENDSCRIPT, IFDEF and ENDIF - including all the #DEINEs outside of condiontal statements
         v.     ReadChipData
         vi.    CheckClockSpeed
         viii.  ReadOptions
         ix.    PreparePageData
-        x.     PrepareBuiltIn.  Initialise built-in data, and prepare built-in subs
+        x.     PrepareBuiltIn.  Initialise built-in data, and prepare built-in subs.
         xi.    RunScripts
         xii.   BuildMemoryMap
         xiii.  Process samevar and samebit
-        xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program. Prepare programmer, need to know chip model and need to do this before checking config
-        xv.    Replace Constants
-        xvi.   Replace table value.  Replace constants and calculations in tables with actual values
+        xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program. 
+        xv.    Prepare programmer, need to know chip model and need to do this before checking config
+        xvi.   Replace Constants
+        xvii.  Replace table value.  Replace constants and calculations in tables with actual values
     4. Compile the program using the CompileProgram method
          i.    Compile calls to other subroutines, insert macros
          ii.   Compile DIMs again, in case any come through from macros
@@ -173,6 +174,23 @@ The process, shown below, generates the ASM source and the HEX file from the use
     14. Exit, setting the ERRORLEVEL
 ----
 
+Note #1:  Constants are can be created in many places and the order is critical when trying to understant the process.
+
+Step 3.iv; Step 3.xi, 3.xiv and xvi. There are Find compiler directives; Runscripts, process IFDEFs and replace Constants values.&#160;&#160;
+This means constants that are not created by the Find compiler directives step are clearly not existing in the RunScripts step, and the same applies to the process IFDEFs step.&#160;&#160;So, please consider the order of constant creation in terms of these steps.
+
+Note #2:  When using IFDEFs Conditional statements you should #UNDEFINE all constants prior to #DEFINE.&#160;&#160;Whilst the will be cases where the constant does not exist, or where the Preprocessor can determine the outcome of the Conditional statements there will be cases, specifically nested IFDEFs Conditional statements, where you will be required to use #UNDEFINE to remove all warnings.
+
+Note #3:  Good practice is NOT to create constants in a library where the user can overwrite the value of the same constant.&#160;&#160;You must determine if the user has created the constant and then create a default value if the user has not defined a value.&#160;&#160;  An example:
+
+----
+  IF NODEF(AD_DELAY) THEN
+     'Acquisition time. Can be reduced in some circumstances - see PIC manual for details
+     AD_DELAY = 2 10US
+  END IF
+----
+
+This will create the constant AD_DELAY only when the user program does not define a value.
 {empty} +
 
 *FreeBASIC COMPILATION OF GCBASIC SOURCE CODE*
