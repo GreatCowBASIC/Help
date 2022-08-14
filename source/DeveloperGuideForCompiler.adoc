@@ -176,8 +176,8 @@ The process, shown below, generates the ASM source and the HEX file from the use
 
 Note #1:  Constants are can be created in many places and the order is critical when trying to understant the process.
 
-Step 3.iv; Step 3.xi, 3.xiv and xvi. There are Find compiler directives; Runscripts, process IFDEFs and replace Constants values.&#160;&#160;
-This means constants that are not created by the Find compiler directives step are clearly not existing in the RunScripts step, and the same applies to the process IFDEFs step.&#160;&#160;So, please consider the order of constant creation in terms of these steps.
+Step 3.iv; Step 3.xi, 3.xiv and xvi. These are Find compiler directives; Runscripts, process IFDEFs and replace Constants values respectively.&#160;&#160;
+This means constants that are not created by the Find compiler directives step are clearly not available in the RunScripts step, and the same applies to the process IFDEFs step.&#160;&#160;So, please consider the order of constant creation in terms of these steps.&#160;&#160;Always think about the precendence of constant creation.&#160;&#160;
 
 Note #2:  When using IFDEFs Conditional statements you should #UNDEFINE all constants prior to #DEFINE.&#160;&#160;Whilst the will be cases where the constant does not exist, or where the Preprocessor can determine the outcome of the Conditional statements there will be cases, specifically nested IFDEFs Conditional statements, where you will be required to use #UNDEFINE to remove all warnings.
 
