@@ -19,6 +19,8 @@
 ``` screen
     #ifdef Constant | Constant Value | Var(VariableName)
       ...
+    [#else]
+      ...
     #endif
 ```
 
@@ -85,13 +87,13 @@ if a constant is defined and has a given value*</span>**</span>
     #define PinsToFlash 2
 
     #ifdef PinsToFlash 1,2,3
-    PulseOut PORTB.0, 1 sec
+      PulseOut PORTB.0, 1 sec
     #endif
     #ifdef PinsToFlash 2,3
-    PulseOut PORTB.1, 1 sec
+      PulseOut PORTB.1, 1 sec
     #endif
     #ifdef PinsToFlash 3
-    PulseOut PORTB.2, 1 sec
+      PulseOut PORTB.2, 1 sec
     #endif
 ```
 
@@ -105,13 +107,13 @@ if a system variable is defined*</span>**</span>
 
 ``` screen
     #ifdef NoVar(ANSEL)
-    SET ADCON1.PCFG3 OFF
-    SET ADCON1.PCFG2 ON
-    SET ADCON1.PCFG1 ON
-    SET ADCON1.PCFG0 OFF
+      SET ADCON1.PCFG3 OFF
+      SET ADCON1.PCFG2 ON
+      SET ADCON1.PCFG1 ON
+      SET ADCON1.PCFG0 OFF
     #endif
     #ifdef Var(ANSEL)
-    ANSEL = 0
+      ANSEL = 0
     #endif
 ```
 
@@ -130,6 +132,6 @@ and `NoVar` respectively.
 
 <span class="strong">**See Also**</span>
 <a href="constants" class="link" title="Constants">Defines</a>,
-<a href="_define" class="link" title="#define">#define</a>
+<a href="_define" class="link" title="#DEFINE">#define</a>
 
 </div>

@@ -357,4 +357,51 @@ string will be displayed as an error message.
     #option REQUIRED AVR CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."
 ```
 
+<span class="strong">**RAISING COMPILER ERROR CONDITIONS**</span>
+
+From build 1131 the compiler now supports raising a compiler error
+message.
+
+The method uses the \`RaiseCompilerError ""&lt;string&gt;""\|%string%"
+\` method to pass an error message to the compilation process.
+
+An example from USART.H/INITUSART subroutine is shown below.  This
+example tests for the existence of one of the three supported baud rate
+constants.  If none of the constants exist and the constant (in this
+example) `STOPCOMPILERERRORHANDLER` does not exist the
+`RaiseCompilerError` with the string will be passed to the assembler for
+error processing.   This permits the inspect of the user program with
+appropriate messages to inform the user.
+
+``` screen
+  ....
+  #IFNDEF ONEOF(USART_BAUD_RATE,USART1_BAUD_RATE,USART2_BAUD_RATE) THEN
+    'Look for one of the baud rates CONSTANTS
+    #IFNDEF STOPCOMPILERERRORHANDLER
+      'Use one of the following - the string MUST be start and end with a double quote
+
+        ' Use the message.dat file
+        ' RaiseCompilerError "%USART_NO_BAUD_RATE%"
+
+        ' Use hard code text
+        ' RaiseCompilerError "USART not setup correctly. No baud rate specified - please correct USART setup"
+
+        RaiseCompilerError "%USART_NO_BAUD_RATE%"
+
+    #ENDIF
+  #ENDIF
+  ....
+```
+
+The `RaiseCompilerError` handler can be stopped using the constant
+STOPCOMPILERERRORHANDLER as shown above.  
+  
+<span class="strong">**LCD ERROR HANDLING**</span>
+
+The setup of an LCD is inspected and an appropriate error message is
+displayed.   The Compiler now controls error messages when LCD is not
+setup up correctly.   This the text displayed is held in the
+messages.dat file - LCD\_Not\_Setup entry.  
+  
+
 </div>

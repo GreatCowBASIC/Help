@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>#define -  - Great Cow BASIC documentation</title>
+      <title>#DEFINE -  - Great Cow BASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
       <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
       <link rel="up" href="_compiler_directives.html" title="Compiler Directives" />
       <link rel="prev" href="__config.html" title="#config" />
-      <link rel="next" href="__if.html" title="#if" />
-      <meta name="Section-title" content="#define" /><script type="text/javascript">
+      <link rel="next" href="__undefine.html" title="#UNDEFINE" />
+      <meta name="Section-title" content="#DEFINE" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-51266";
+            var treeCookieId = "treeview-51445";
             var language = "en";
             var w = new Object();
             //Localization
@@ -168,7 +168,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="_compiler_directives.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="__if.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="__undefine.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -179,26 +179,33 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="__define"></a>#define
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="__define"></a>#DEFINE
                      </h3>
                   </div>
                </div>
             </div>
-            <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    #define <span class="emphasis"><em>Find</em></span> <span class="emphasis"><em>Replace</em></span></pre><p><span class="strong"><strong>Explanation:</strong></span>
+            <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    #DEFINE SYMBOL <span class="emphasis"><em>body</em></span></pre><p><span class="strong"><strong>Explanation:</strong></span>
                <br />
                <br />
-               <code class="literal">#define</code> will search through the program for <code class="literal"><span class="emphasis"><em>Find</em></span></code>, and replace it with the value given for <code class="literal"><span class="emphasis"><em>Replace</em></span></code>.
+               <code class="literal">#DEFINE</code> allows to declare text-based preprocessor symbols.  
+            </p>
+            <p>Once the compiler has seen a #DEFINE, it will start replacing further occurrences of symbol with body.   
+               Body may be empty.  
+               The expansion is done recursively, until there is nothing more to expand and the compiler can continue analyzing the resulting
+               code.
+            </p>
+            <p>#UNDEFINE can be used to make the compiler forget about a #DEFINE.</p>
+            <p><br />
                <br />
-               <br />
-               The compiler replaces a constant with the value, it then searches the line for constants again and will make any more replacements
+               The compiler replaces a SYMBOL with the value, it then searches the line for constants again and will make any more replacements
                needed.  
                It will do this up to 100 times on a line, then it will stop replacing and show an error.   The limitation of 100 iteractions
-               is to prevent something like "#define Const_A Const_B" and then "#define Const_B Const_A" from causing an infinite loop in
+               is to prevent something like "#DEFINE Const_A Const_B" and then "#DEFINE Const_B Const_A" from causing an infinite loop in
                the compiler.
             </p>
             <p><br />
                <br /></p>
-            <p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_constants.html" title="Constants">Defines</a></p>
+            <p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_constants.html" title="Constants">DEFINEs</a></p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -208,7 +215,7 @@ border: none; background: none; font-weight: none; color: none; }
                   <td width="40%" align="left"><a accesskey="p" href="__config.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="_compiler_directives.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="__if.html">Next</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="__undefine.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -766,11 +773,14 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="__asmraw.html" tabindex="1">#asmraw</a></span></li>
                               <li><span class="file"><a href="__chip.html" tabindex="1">#chip</a></span></li>
                               <li><span class="file"><a href="__config.html" tabindex="1">#config</a></span></li>
-                              <li id="webhelp-currentid"><span class="file"><a href="__define.html" tabindex="1">#define</a></span></li>
+                              <li id="webhelp-currentid"><span class="file"><a href="__define.html" tabindex="1">#DEFINE</a></span></li>
+                              <li><span class="file"><a href="__undefine.html" tabindex="1">#UNDEFINE</a></span></li>
                               <li><span class="file"><a href="__if.html" tabindex="1">#if</a></span></li>
+                              <li><span class="file"><a href="__ifnot.html" tabindex="1">#ifnot</a></span></li>
                               <li><span class="file"><a href="__ifdef.html" tabindex="1">#ifdef</a></span></li>
                               <li><span class="file"><a href="__ifndef.html" tabindex="1">#ifndef</a></span></li>
                               <li><span class="file"><a href="__include.html" tabindex="1">#include</a></span></li>
+                              <li><span class="file"><a href="__insert.html" tabindex="1">#insert</a></span></li>
                               <li><span class="file"><a href="__script.html" tabindex="1">#script</a></span></li>
                               <li><span class="file"><a href="__startup.html" tabindex="1">#startup</a></span></li>
                               <li><span class="file"><a href="__mem.html" tabindex="1">#mem</a></span></li>

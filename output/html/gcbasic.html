@@ -582,13 +582,13 @@ The “Programmer Preferences” is a software tool to control and set-up the di
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2022-06-20<br>
-15:48:38 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2022-08-14<br>
+15:50:37 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2022-03-01<br>
-22:39:41 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2022-08-14<br>
+15:34:24 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -45386,8 +45386,8 @@ The function converts a number to a string consisting of ones and zeros that rep
 <div class="title">Warning</div>
 </td>
 <td class="content">
-Using concatenation with commands like HSerPrint, Print the compiler will create a system string variable.&#160;&#160;Examples of two strings constants ( HSerPrint "123"+"456" may yield incorrect results.&#160;&#160;See the use of SYSDEFAULTCONCATSTRING below&#160;&#160;Without using SYSDEFAULTCONCATSTRING there is a risk that the compiler does not allocate sufficient RAM to hold the concatenated string.&#160;&#160;
-The resulting string may be corrupted as the size of the system string variable if not set using SYSDEFAULTCONCATSTRING within the source program.
+Using concatenation as a parameter with commands like HSerPrint or Print the compiler will create a system string variable.&#160;&#160;  An examples of concatenating two strings constants like HSerPrint ("123"+"456") may yield incorrect results.&#160;&#160;Use the constant SYSDEFAULTCONCATSTRING to resolve.&#160;&#160;Without using SYSDEFAULTCONCATSTRING there is a risk that the compiler does not allocate sufficient RAM to hold the concatenated string.&#160;&#160;
+The resulting string may be corrupted as the size of the system string variable is not sufficient.&#160;&#160;Use SYSDEFAULTCONCATSTRING within the source program to resolve.
 </td>
 </tr>
 </table>
@@ -45396,15 +45396,12 @@ The resulting string may be corrupted as the size of the system string variable 
 <p><strong>Set a specific size of compiler created system string variable</strong></p>
 </div>
 <div class="paragraph">
-<p>Use the following to set the size of compiler created system string variable.&#160;&#160;</p>
+<p>Use the following to set the size of the system string variable used during concatenation.&#160;&#160;</p>
 </div>
 <div class="paragraph">
 <p>The compiler will create system string variables when you concatenate on a commands line like <code>HSerPrint</code>, <code>Print</code> and many others commands.&#160;&#160;
 Using concatenate with a command is bad practice, using a lot of RAM and may create a number of system string variables.&#160;&#160;
 It is recommended to define a string (of a known length), concatenate using an assignment then use the string.&#160;&#160;</p>
-</div>
-<div class="paragraph">
-<p>This constraint does not apply using concatenation as an assignment.&#160;&#160;</p>
 </div>
 <div class="paragraph">
 <p>To control the size of system string variable use the following.&#160;&#160;
@@ -45416,11 +45413,12 @@ Also, use this constant to set the size when the compiler does not create a syst
     Use #DEFINE  SYSDEFAULTCONCATSTRING  4
 
     'Then, use
-    HSerPrint "A"+"123"   'will print A123. Without the SYSDEFAULTCONCATSTRING constant some microcontrollers may corrupt the result of the concatentation.</pre>
+    HSerPrint "A"+"123"   'will print A123. Without the SYSDEFAULTCONCATSTRING constant some microcontrollers may corrupt the result of the concatenation.</pre>
 </div>
 </div>
 <div class="paragraph">
-<p><br>
+<p>This concatenation constraint does not apply using concatenation as an assignment.&#160;&#160;
+<br>
 <br>
 <strong>Example 1:</strong></p>
 </div>
@@ -45431,18 +45429,12 @@ Also, use this constant to set the size when the compiler does not create a syst
 </div>
 </div>
 <div class="paragraph">
-<p><br>
-<br></p>
-</div>
-<div class="paragraph">
 <p><strong>Example 2:</strong></p>
 </div>
 <div class="paragraph">
-<p>An example showing how to set a string to an escape sequence for an ANSI terminal.&#160;&#160;You can `Dim`ension a string and then assign the elements like an array.</p>
-</div>
-<div class="paragraph">
-<p><br>
-<br></p>
+<p>An example showing how to set a string to an escape sequence for an ANSI terminal.&#160;&#160;You can `Dim`ension a string and then assign the elements like an array.
+{empty} +
+{empty} +</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -45453,33 +45445,33 @@ Also, use this constant to set the size when the compiler does not create a syst
 </div>
 <div class="paragraph">
 <p>Will send the following to the terminal.
-&lt;esc&gt;[2H&lt;esc&gt;[K</p>
+&lt;esc&gt;[2H&lt;esc&gt;[K
+<br>
+<br>
+<strong>Example 3: Assigning concatenated string to same string</strong></p>
 </div>
 <div class="paragraph">
-<p><br>
-<br></p>
-</div>
-<div class="paragraph">
-<p><strong>Note: Concatenated String Constraint @v0.98.00 and prior versions</strong></p>
-</div>
-<div class="paragraph">
-<p>When concatenating a string you cannot assign a string to itself.&#160;&#160;You must assign the result of string concatenation to another string. See below.</p>
-</div>
-<div class="paragraph">
-<p><strong>Example to resolve string handling constraint:</strong></p>
+<p>For reliable coding you must not assign a string concatenation to same source variable.&#160;&#160;You must assign the result of string concatenation to another string. &#160;&#160;To resolve see below:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    dim outstring1, tmpstring as string * 16
-    dim outnumber as byte
+<pre>    Dim outstring, tmpstring as string * 16
+    Dim outnumber as byte
 
     outnumber = 24
-    outstring1 = "Result = "
-    'This concatenation will yield an incorrect string
-    outstring1 = outstring1 +str(outnumber)
+    outstring = "Result = "
+    'This concatenation may yield an incorrect string on 10f, 12f or 16f chips
+    outstring = outstring + str(outnumber)
+    HserPrintCRLF 2
+    HSerPrint outstring
+    HserPrintCRLF 2
 
+    outstring = "Result = "
     'This concatenation will yield an the correct string. With tmpstring1 containing the correct concatenated string
-    tmpstring1 = outstring1 +str(outnumber)</pre>
+    tmpstring = outstring +str(outnumber)
+    HSerPrint tmpstring
+    HserPrintCRLF 2
+    end</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -47380,27 +47372,65 @@ If you set the internal oscillator to 4 MHz a "wait 1 ms" will still be 1 ms.</p
 </div>
 </div>
 <div class="sect2">
-<h3 id="__define">#define</h3>
+<h3 id="__define">#DEFINE</h3>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    #define <em>Find</em> <em>Replace</em></pre>
+<pre>    #DEFINE SYMBOL <em>body</em></pre>
 </div>
 </div>
 <div class="paragraph">
 <p><strong>Explanation:</strong>
 <br>
 <br>
-<code>#define</code> will search through the program for <code><em>Find</em></code>, and replace it with the value given for <code><em>Replace</em></code>.
-<br>
-<br>
-The compiler replaces a constant with the value, it then searches the line for constants again and will make any more replacements needed.&#160;&#160;
-It will do this up to 100 times on a line, then it will stop replacing and show an error. &#160;&#160;The limitation of 100 iteractions is to prevent something like "#define Const_A Const_B" and then "#define Const_B Const_A" from causing an infinite loop in the compiler.</p>
+<code>#DEFINE</code> allows to declare text-based preprocessor symbols.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>Once the compiler has seen a #DEFINE, it will start replacing further occurrences of symbol with body. &#160;&#160;
+Body may be empty.&#160;&#160;
+The expansion is done recursively, until there is nothing more to expand and the compiler can continue analyzing the resulting code.</p>
+</div>
+<div class="paragraph">
+<p>#UNDEFINE can be used to make the compiler forget about a #DEFINE.</p>
 </div>
 <div class="paragraph">
 <p><br>
+<br>
+The compiler replaces a SYMBOL with the value, it then searches the line for constants again and will make any more replacements needed.&#160;&#160;
+It will do this up to 100 times on a line, then it will stop replacing and show an error. &#160;&#160;The limitation of 100 iteractions is to prevent something like "#DEFINE Const_A Const_B" and then "#DEFINE Const_B Const_A" from causing an infinite loop in the compiler.</p>
+</div>
+<div class="paragraph">
+<p><br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>See Also</strong> <a href="#_constants">DEFINEs</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="__undefine">#UNDEFINE</h3>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #UNDEFINE <em>existing-symbol</em></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong>
+<br>
+<br>
+<code>#UNDEFINE</code> Undefines a symbol previously defined with #DEFINE.</p>
+</div>
+<div class="paragraph">
+<p>Can be used to ensure that a symbol has a limited lifespan and does not conflict with a similar macro definition that may be defined later in the source code.</p>
+</div>
+<div class="paragraph">
+<p>(Note: #UNDEFINE should not be used to undefine variable or function names used in the current program. The names are needed internally by the compiler and removing them can cause strange and unexpected results.)
+<br>
 <br></p>
 </div>
 <div class="paragraph">
@@ -47415,6 +47445,8 @@ It will do this up to 100 times on a line, then it will stop replacing and show 
 <div class="listingblock">
 <div class="content">
 <pre>    #if <em>Condition</em>
+      ...
+    [#else]
       ...
     #endif</pre>
 </div>
@@ -47462,6 +47494,45 @@ It will do this up to 100 times on a line, then it will stop replacing and show 
 </div>
 </div>
 <div class="sect2">
+<h3 id="__ifnot">#ifnot</h3>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #ifnot <em>Condition</em>
+      ...
+    [#else]
+      ...
+    #endif</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>#ifnot</code> directive is used to prevent a section of code from compiling unless <code><em>Condition</em></code> is false.</p>
+</div>
+<div class="paragraph">
+<p><code><em>Condition</em></code> has the same syntax as the condition in a normal Great Cow BASIC if command. The only difference is that it uses constants instead of variables and does not use "then".</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'This program will set the constant to true only if NOT a PIC family
+    #chip 16F88, 8
+
+    #ifnot ChipFamily = 14
+
+      #define myConstant True
+
+    #endif</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="__ifdef">#ifdef</h3>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
@@ -47469,6 +47540,8 @@ It will do this up to 100 times on a line, then it will stop replacing and show 
 <div class="listingblock">
 <div class="content">
 <pre>    #ifdef <em>Constant</em> | <em>Constant Value</em> | Var(<em>VariableName</em>)
+      ...
+    [#else]
       ...
     #endif</pre>
 </div>
@@ -47544,13 +47617,13 @@ The code in the following sections will not compile, as it is missing <code>#chi
 <pre>    #define PinsToFlash 2
 
     #ifdef PinsToFlash 1,2,3
-    PulseOut PORTB.0, 1 sec
+      PulseOut PORTB.0, 1 sec
     #endif
     #ifdef PinsToFlash 2,3
-    PulseOut PORTB.1, 1 sec
+      PulseOut PORTB.1, 1 sec
     #endif
     #ifdef PinsToFlash 3
-    PulseOut PORTB.2, 1 sec
+      PulseOut PORTB.2, 1 sec
     #endif</pre>
 </div>
 </div>
@@ -47563,13 +47636,13 @@ The code in the following sections will not compile, as it is missing <code>#chi
 <div class="listingblock">
 <div class="content">
 <pre>    #ifdef NoVar(ANSEL)
-    SET ADCON1.PCFG3 OFF
-    SET ADCON1.PCFG2 ON
-    SET ADCON1.PCFG1 ON
-    SET ADCON1.PCFG0 OFF
+      SET ADCON1.PCFG3 OFF
+      SET ADCON1.PCFG2 ON
+      SET ADCON1.PCFG1 ON
+      SET ADCON1.PCFG0 OFF
     #endif
     #ifdef Var(ANSEL)
-    ANSEL = 0
+      ANSEL = 0
     #endif</pre>
 </div>
 </div>
@@ -47594,6 +47667,8 @@ The code in the following sections will not compile, as it is missing <code>#chi
 <div class="listingblock">
 <div class="content">
 <pre>    #ifndef <em>Constant</em> | <em>Constant Value</em> | Var(<em>VariableName</em>)
+      ...
+    [#else]
       ...
     #endif</pre>
 </div>
@@ -47649,6 +47724,82 @@ It is not essential that the include file name ends in .h - the important thing 
 </div>
 <div class="paragraph">
 <p>Those who are familiar with <code>#include</code> in assembly or C should bear in mind that <code>#include</code> in Great Cow BASIC works differently to <code>#include</code> in most other languages - code is not inserted at the location of the <code>#include</code>, but rather at the end of the current program.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="__insert">#insert</h3>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #insert <em>filename</em></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>#insert</code> tells Great Cow BASIC to open up another file, read all of the subroutines and constants from it, and then copy them into the current program at the specific line where the #insert directive is located.</p>
+</div>
+<div class="paragraph">
+<p>There are two forms of include; absolute and relative.</p>
+</div>
+<div class="paragraph">
+<p>Absolute is used to refer to files in the <code>..\GreatCowBASIC\include</code>  directory. The name of the file is specified in between &lt; and &gt; symbols. For instance, to include the file <code>toolchain.il</code>, the directive is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #insert &lt;"toolchain.il"&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Relative is used to read files in the same folder as the currently selected program. Filenames are given enclosed in quotation marks, such as where <code>mycode.h</code> is the name of the file that is to be read.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #insert "toolchain.il"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Difference from #include:</strong></p>
+</div>
+<div class="paragraph">
+<p>This is very different from #include.&#160;&#160;
+With #include you can organize constant, method and macro definitions and then use #include directive to add them to any source file.&#160;&#160;
+Include files are also useful for incorporating declarations of external variables and complex data types. The types may be defined and named only once in an include file created for that purpose. The compiler will optimise the include files to determine the best order/location in your program.</p>
+</div>
+<div class="paragraph">
+<p>Using #insert you are determining the location of the code segment.&#160;&#160;
+It will be inserted exactly where you specify.&#160;&#160;
+The optimisation will only be applied to any methods that you insert but the rest of the code essentially exits at the point of insertion.</p>
+</div>
+<div class="paragraph">
+<p><strong>#Insert does not support Conversion:</strong></p>
+</div>
+<div class="paragraph">
+<p>There is no conversion of the inserted file.&#160;&#160;For conversion use #Include.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>If you need to convert a file from an external source then see the Converters section of the Help.</p>
+</div>
+<div class="paragraph">
+<p><strong>Usage Notes:</strong></p>
+</div>
+<div class="paragraph">
+<p>The file must exist. An error message is issued if not found.&#160;&#160;
+When an error is encountered in the inserted file the error line number is in the format of xxxxyyyy.&#160;&#160;
+Where xxxx is the code line number in the user program and the yyyy is the the line number in the inserted file.</p>
+</div>
+<div class="paragraph">
+<p>An example error message.&#160;&#160;Where the source insert instruction is on line 6 and the error in the inserted file is on line 4.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    An error has been found:
+     insertexample.gcb (60004): Error: Syntax Error
+    The message has been logged to the file Errors.txt.</pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -51653,6 +51804,53 @@ End SUB</pre>
     #option REQUIRED AVR CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."</pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>RAISING COMPILER ERROR CONDITIONS</strong></p>
+</div>
+<div class="paragraph">
+<p>From build 1131 the compiler now supports raising a compiler error message.</p>
+</div>
+<div class="paragraph">
+<p>The method uses the `RaiseCompilerError  ""&lt;string&gt;""|%string%" ` method to pass an error message to the compilation process.</p>
+</div>
+<div class="paragraph">
+<p>An example from USART.H/INITUSART subroutine is shown below.&#160;&#160;This example tests for the existence of one of the three supported baud rate constants.&#160;&#160;If none of the constants exist and the constant (in this example) <code>STOPCOMPILERERRORHANDLER</code> does not exist the <code>RaiseCompilerError</code> with the string will be passed to the assembler for error processing.&#160;&#160;
+This permits the inspect of the user program with appropriate messages to inform the user.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>  ....
+  #IFNDEF ONEOF(USART_BAUD_RATE,USART1_BAUD_RATE,USART2_BAUD_RATE) THEN
+    'Look for one of the baud rates CONSTANTS
+    #IFNDEF STOPCOMPILERERRORHANDLER
+      'Use one of the following - the string MUST be start and end with a double quote
+
+        ' Use the message.dat file
+        ' RaiseCompilerError "%USART_NO_BAUD_RATE%"
+
+        ' Use hard code text
+        ' RaiseCompilerError "USART not setup correctly. No baud rate specified - please correct USART setup"
+
+        RaiseCompilerError "%USART_NO_BAUD_RATE%"
+
+    #ENDIF
+  #ENDIF
+  ....</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>RaiseCompilerError</code> handler can be stopped using the constant STOPCOMPILERERRORHANDLER as shown above.
+<br>
+<br>
+<strong>LCD ERROR HANDLING</strong></p>
+</div>
+<div class="paragraph">
+<p>The setup of an LCD is inspected and an appropriate error message is displayed.&#160;&#160;
+The Compiler now controls error messages when LCD is not setup up correctly.&#160;&#160;
+This the text displayed is held in the messages.dat file - LCD_Not_Setup entry.
+<br>
+<br></p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_development_guide_for_gcbasic_exe_compiler">Development Guide for GCBASIC.EXE compiler</h3>
@@ -51803,7 +52001,27 @@ The process, shown below, generates the ASM source and the HEX file from the use
 <div class="content">
 <pre>    1. Create the indexes
     2. Declare the methods, arrays and variables
-    3. Process the user source programs using PreProcessor method
+    3. Process the user source programs using PreProcessor method. This includes
+        i.     Loading of all source files including including files
+        ii.    Translate files, if needed
+        iii.   Examine source for comments, tables, asm, rawasm, functions;subs;macros, set origin of valid code
+                    Origin = ";?F" + Str(RF) + "L" + Str(LC) + "S" + Str(SBC) + "?"
+                    RF = File number
+                    L  = Line number in source file
+                    S  = Sub Routine number
+        iv.    Find compiler directives, except SCRIPT, ENDSCRIPT, IFDEF and ENDIF - including all the #DEINEs outside of condiontal statements
+        v.     ReadChipData
+        vi.    CheckClockSpeed
+        viii.  ReadOptions
+        ix.    PreparePageData
+        x.     PrepareBuiltIn.  Initialise built-in data, and prepare built-in subs.
+        xi.    RunScripts
+        xii.   BuildMemoryMap
+        xiii.  Process samevar and samebit
+        xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program.
+        xv.    Prepare programmer, need to know chip model and need to do this before checking config
+        xvi.   Replace Constants
+        xvii.  Replace table value.  Replace constants and calculations in tables with actual values
     4. Compile the program using the CompileProgram method
          i.    Compile calls to other subroutines, insert macros
          ii.   Compile DIMs again, in case any come through from macros
@@ -51837,7 +52055,29 @@ The process, shown below, generates the ASM source and the HEX file from the use
 </div>
 </div>
 <div class="paragraph">
-<p><br></p>
+<p>Note #1:  Constants are can be created in many places and the order is critical when trying to understant the process.</p>
+</div>
+<div class="paragraph">
+<p>Step 3.iv; Step 3.xi, 3.xiv and xvi. These are Find compiler directives; Runscripts, process IFDEFs and replace Constants values respectively.&#160;&#160;
+This means constants that are not created by the Find compiler directives step are clearly not available in the RunScripts step, and the same applies to the process IFDEFs step.&#160;&#160;So, please consider the order of constant creation in terms of these steps.&#160;&#160;Always think about the precendence of constant creation.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>Note #2:  When using IFDEFs Conditional statements you should #UNDEFINE all constants prior to #DEFINE.&#160;&#160;Whilst the will be cases where the constant does not exist, or where the Preprocessor can determine the outcome of the Conditional statements there will be cases, specifically nested IFDEFs Conditional statements, where you will be required to use #UNDEFINE to remove all warnings.</p>
+</div>
+<div class="paragraph">
+<p>Note #3:  Good practice is NOT to create constants in a library where the user can overwrite the value of the same constant.&#160;&#160;You must determine if the user has created the constant and then create a default value if the user has not defined a value.&#160;&#160;  An example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>  IF NODEF(AD_DELAY) THEN
+     'Acquisition time. Can be reduced in some circumstances - see PIC manual for details
+     AD_DELAY = 2 10US
+  END IF</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create the constant AD_DELAY only when the user program does not define a value.
+<br></p>
 </div>
 <div class="paragraph">
 <p><strong>FreeBASIC COMPILATION OF GCBASIC SOURCE CODE</strong></p>
@@ -51971,17 +52211,178 @@ The compiler is mature from a functionality standpoint.&#160;&#160;
 Just immature in terms of documentation.&#160;&#160;</p>
 </div>
 <div class="paragraph">
-<p><em>To isolate a specific issue</em> use a binary chop and lots of debug using PRINT.&#160;&#160;
-Whilst, this may not be ideal this is the best approach.&#160;&#160;</p>
+<p><strong>COMPILER DEBUGGING</strong></p>
 </div>
 <div class="paragraph">
-<p><em>Revert</em> code using SVN to remove all debug!.&#160;&#160;Do not leave debug in the source code.&#160;&#160;</p>
+<p><em>To debug or isolate a specific issue</em> use lots of messages using PRINT or HSERPRINT&#160;&#160;Both of these methods are easy to setup and use.</p>
+</div>
+<div class="paragraph">
+<p><em>Specific to #SCRIPT</em> you can use WARNING messages to display results of calculations or assignments.</p>
+</div>
+<div class="paragraph">
+<p><em>Specific to CONDITIONAL Compilation</em> use <code>conditionaldebugfile</code> (se above) to display conditional statement debug for the specified file. &#160;&#160; Options are any valid source file or nothing. &#160;&#160;
+Nested conditions are evaluated sequentially, therefor the first, second, third etc etc.  &#160;&#160;
+The compiler does not at this point rationalised the hierarchy of nested conditions.&#160;&#160;  It simply finds a condition and then matches to an #ENDIF.&#160;&#160;
+So, the compiler walks through the nested conditions as the outer nested, then the next nest, the next nest etc. etc.&#160;&#160;
+This compiler is completing the following actions:&#160;&#160;</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If the conditional is not valid.&#160;&#160;  Remove the code segment include the #IF and the #ENDIF</p>
+</li>
+<li>
+<p>If the conditional is valid.&#160;&#160;  Remove the just the #IF and the #ENDIF</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>So, is this context the compiler walks the code many time (as these are lists not arrrays this is blindly fast) removing code segments.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>The following program shows the impact of nested conditions..&#160;&#160;Each nest is evaluated until all conditions have been assessed..&#160;&#160;See the comment section of the listing to see the output from the debugging.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        #CHIP 18F16Q41
+        #OPTION EXPLICIT
+
+        ; -----  Add the following line to USE.ini ------------------
+        ;
+        ;        conditionaldebugfile = IFDEF_TEST.gcb
+        ;
+        ; -----------------------------------------------------------
+
+        #IFDEF PIC
+            #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
+                #IF CHIPRAM = 2048  'TRUE
+                    #IF CHIPWORDS = 32768 ' TRUE
+                        #IFDEF VAR(NVMLOCK) 'TRUE
+                            #IFDEF VAR(OSCCON2)  'TRUE
+                                #IFDEF  VAR(NVMCON0)  'TRUE    set var1 to 1
+                                    DIM _VAR1
+                                    _VAR1 = 1
+                                #ENDIF
+                            #ENDIF
+                        #ENDIF
+                    #ENDIF
+                #ENDIF
+
+                #IF CHIPRAM = 4096  'TRUE
+                    #IF CHIPWORDS = 32768 ' TRUE
+                        #IFDEF VAR(NVMLOCK) 'TRUE
+                            #IFDEF VAR(OSCCON2)  'TRUE
+                                #IFDEF  VAR(NVMCON0)  'TRUE   = set var1 to 0
+                                    DIM _VAR1
+                                    _VAR1 = 0
+                                #ENDIF
+                            #ENDIF
+                        #ENDIF
+                    #ENDIF
+                #ENDIF
+            #ENDIF
+        #ENDIF
+
+        Do
+        Loop
+
+        // ===============================================
+        // ***  Below is debugger output for this file ***
+        // ===============================================
+
+        // Great Cow BASIC (0.99.02 2022-07-21 (Windows 32 bit) : Build 1143)
+
+        // Compiling c:\Users\admin\Downloads\IFDEF_TEST.gcb
+
+        //               13: #IFDEF PIC
+        //               15: #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
+        //               17: #IF CHIPRAM = 2048
+        //               19: #IF CHIPWORDS = 32768
+        //               21: #IFDEF VAR(NVMLOCK)
+        //               23: #IFDEF VAR(OSCCON2)
+        //               25: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               27: DIM _VAR1
+        //               ;_VAR1 = 1
+        //               28: _VAR1 = 1
+
+        //               15: #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
+        //               17: #IF CHIPRAM = 2048
+        //               19: #IF CHIPWORDS = 32768
+        //               21: #IFDEF VAR(NVMLOCK)
+        //               23: #IFDEF VAR(OSCCON2)
+        //               25: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               27: DIM _VAR1
+        //               ;_VAR1 = 1
+        //               28: _VAR1 = 1
+
+        //               39: #IF CHIPRAM = 4096
+        //               41: #IF CHIPWORDS = 32768
+        //               43: #IFDEF VAR(NVMLOCK)
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               41: #IF CHIPWORDS = 32768
+        //               43: #IFDEF VAR(NVMLOCK)
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               43: #IFDEF VAR(NVMLOCK)
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        // Program compiled successfully (Compile time: 1 seconds)
+
+        // Assembling program using GCASM
+        // Program assembled successfully (Assembly time: 0.125 seconds)
+        // Done</pre>
+</div>
 </div>
 <div class="paragraph">
 <p><br>
 <br></p>
 </div>
-<hr>
+<div class="paragraph">
+<p>The resulting ASM from the about code is as expected.&#160;&#160;The assignment of <code>VAR1 = 0</code>.&#160;&#160;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        ;DIM _VAR1
+        ;_VAR1 = 0
+            clrf	_VAR1,ACCESS
+        ;Do
+        SysDoLoop_S1
+        ;Loop
+            bra	SysDoLoop_S1
+        SysDoLoop_E1</pre>
+</div>
+</div>
 <div class="paragraph">
 <p><br>
 <br>
@@ -52048,8 +52449,17 @@ The comments are NOT part of an INI file.&#160;&#160;</p>
     'Show the extended verbose messages when compiling. his can only be changed in the INI. There is no support in Prefs Editor or a command line switch to change this parameter.  Not managed by Prefs Editor.
     evbs = n
 
-    'Use LAXSYNTAX insupport lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
-    laxsyntax = y</pre>
+    'Use LAXSYNTAX supports lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
+    laxsyntax = y
+
+    'Use NoSummary supports minimal compiler and assembly information when set to y.  Supports y|n.  Not managed by Prefs Editor.
+    nosummary = n
+
+    'Use the system temp directory for compiler temp files.  Options are "tempdir" or "instdir" or remove the option.
+    workingdir = "tempdir"
+
+    'Display conditional statement debug for the specified file.  Options are any valid source file or nothing. The enry will be remove if a prefixed by a comment ( a single quote ).
+    conditionaldebugfile =</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -52200,7 +52610,7 @@ The list shows the installation of the Sharp Develop IDE.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-03-01 22:39:41 GMT Standard Time
+Last updated 2022-08-14 15:34:24 GMT Summer Time
 </div>
 </div>
 </body>

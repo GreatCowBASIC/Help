@@ -39,22 +39,23 @@ specified separator between each variable.
 
 ### Warning
 
-Using concatenation with commands like HSerPrint, Print the compiler
-will create a system string variable.  Examples of two strings constants
-( HSerPrint "123"+"456" may yield incorrect results.  See the use of
-SYSDEFAULTCONCATSTRING below  Without using SYSDEFAULTCONCATSTRING there
-is a risk that the compiler does not allocate sufficient RAM to hold the
-concatenated string.   The resulting string may be corrupted as the size
-of the system string variable if not set using SYSDEFAULTCONCATSTRING
-within the source program.
+Using concatenation as a parameter with commands like HSerPrint or Print
+the compiler will create a system string variable.   An examples of
+concatenating two strings constants like HSerPrint ("123"+"456") may
+yield incorrect results.  Use the constant SYSDEFAULTCONCATSTRING to
+resolve.  Without using SYSDEFAULTCONCATSTRING there is a risk that the
+compiler does not allocate sufficient RAM to hold the concatenated
+string.   The resulting string may be corrupted as the size of the
+system string variable is not sufficient.  Use SYSDEFAULTCONCATSTRING
+within the source program to resolve.
 
 </div>
 
 <span class="strong">**Set a specific size of compiler created system
 string variable**</span>
 
-Use the following to set the size of compiler created system string
-variable.  
+Use the following to set the size of the system string variable used
+during concatenation.  
 
 The compiler will create system string variables when you concatenate on
 a commands line like `HSerPrint`, `Print` and many others commands.  
@@ -62,8 +63,6 @@ Using concatenate with a command is bad practice, using a lot of RAM and
 may create a number of system string variables.   It is recommended to
 define a string (of a known length), concatenate using an assignment
 then use the string.  
-
-This constraint does not apply using concatenation as an assignment.  
 
 To control the size of system string variable use the following.   Also,
 use this constant to set the size when the compiler does not create a
@@ -74,10 +73,11 @@ system string variable.  
     Use #DEFINE  SYSDEFAULTCONCATSTRING  4
 
     'Then, use
-    HSerPrint "A"+"123"   'will print A123. Without the SYSDEFAULTCONCATSTRING constant some microcontrollers may corrupt the result of the concatentation.
+    HSerPrint "A"+"123"   'will print A123. Without the SYSDEFAULTCONCATSTRING constant some microcontrollers may corrupt the result of the concatenation.
 ```
 
-  
+This concatenation constraint does not apply using concatenation as an
+assignment.    
   
 <span class="strong">**Example 1:**</span>
 
@@ -86,17 +86,11 @@ system string variable.  
     stringvar = "Time = " + str(timevariable) ' Convert the timevariable to a String.  This operation returns Time = 999
 ```
 
-  
-  
-
 <span class="strong">**Example 2:**</span>
 
 An example showing how to set a string to an escape sequence for an ANSI
 terminal.  You can \`Dim\`ension a string and then assign the elements
-like an array.
-
-  
-  
+like an array. {empty} + {empty} +
 
 ``` screen
     dim line2 as string
@@ -104,32 +98,33 @@ like an array.
     HSerPrint line2
 ```
 
-Will send the following to the terminal. &lt;esc&gt;\[2H&lt;esc&gt;\[K
-
+Will send the following to the terminal. &lt;esc&gt;\[2H&lt;esc&gt;\[K  
   
-  
+<span class="strong">**Example 3: Assigning concatenated string to same
+string**</span>
 
-<span class="strong">**Note: Concatenated String Constraint @v0.98.00
-and prior versions**</span>
-
-When concatenating a string you cannot assign a string to itself.  You
-must assign the result of string concatenation to another string. See
-below.
-
-<span class="strong">**Example to resolve string handling
-constraint:**</span>
+For reliable coding you must not assign a string concatenation to same
+source variable.  You must assign the result of string concatenation to
+another string.   To resolve see below:
 
 ``` screen
-    dim outstring1, tmpstring as string * 16
-    dim outnumber as byte
+    Dim outstring, tmpstring as string * 16
+    Dim outnumber as byte
 
     outnumber = 24
-    outstring1 = "Result = "
-    'This concatenation will yield an incorrect string
-    outstring1 = outstring1 +str(outnumber)
+    outstring = "Result = "
+    'This concatenation may yield an incorrect string on 10f, 12f or 16f chips
+    outstring = outstring + str(outnumber)
+    HserPrintCRLF 2
+    HSerPrint outstring
+    HserPrintCRLF 2
 
+    outstring = "Result = "
     'This concatenation will yield an the correct string. With tmpstring1 containing the correct concatenated string
-    tmpstring1 = outstring1 +str(outnumber)
+    tmpstring = outstring +str(outnumber)
+    HSerPrint tmpstring
+    HserPrintCRLF 2
+    end
 ```
 
   

@@ -15,7 +15,7 @@
       <link rel="prev" href="_development_guide_for_gcbasic_exe_compiler.html" title="Development Guide for GCBASIC.EXE compiler" />
       <meta name="Section-title" content="Development Guide for Great Cow BASIC Preferences Editor" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-51266";
+            var treeCookieId = "treeview-51445";
             var language = "en";
             var w = new Object();
             //Localization
@@ -227,8 +227,17 @@ border: none; background: none; font-weight: none; color: none; }
     'Show the extended verbose messages when compiling. his can only be changed in the INI. There is no support in Prefs Editor or a command line switch to change this parameter.  Not managed by Prefs Editor.
     evbs = n
 
-    'Use LAXSYNTAX insupport lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
-    laxsyntax = y</pre><p>The section shows an example [tool] assembler section.  </p><pre class="screen">    [tool=pic-as]
+    'Use LAXSYNTAX supports lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
+    laxsyntax = y
+
+    'Use NoSummary supports minimal compiler and assembly information when set to y.  Supports y|n.  Not managed by Prefs Editor.
+    nosummary = n
+
+    'Use the system temp directory for compiler temp files.  Options are "tempdir" or "instdir" or remove the option.
+    workingdir = "tempdir"
+
+    'Display conditional statement debug for the specified file.  Options are any valid source file or nothing. The enry will be remove if a prefixed by a comment ( a single quote ).
+    conditionaldebugfile =</pre><p>The section shows an example [tool] assembler section.  </p><pre class="screen">    [tool=pic-as]
     'An assember
     type = assembler
     'Location of the assember using a parameter substitution.
@@ -875,11 +884,14 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="__asmraw.html" tabindex="1">#asmraw</a></span></li>
                               <li><span class="file"><a href="__chip.html" tabindex="1">#chip</a></span></li>
                               <li><span class="file"><a href="__config.html" tabindex="1">#config</a></span></li>
-                              <li><span class="file"><a href="__define.html" tabindex="1">#define</a></span></li>
+                              <li><span class="file"><a href="__define.html" tabindex="1">#DEFINE</a></span></li>
+                              <li><span class="file"><a href="__undefine.html" tabindex="1">#UNDEFINE</a></span></li>
                               <li><span class="file"><a href="__if.html" tabindex="1">#if</a></span></li>
+                              <li><span class="file"><a href="__ifnot.html" tabindex="1">#ifnot</a></span></li>
                               <li><span class="file"><a href="__ifdef.html" tabindex="1">#ifdef</a></span></li>
                               <li><span class="file"><a href="__ifndef.html" tabindex="1">#ifndef</a></span></li>
                               <li><span class="file"><a href="__include.html" tabindex="1">#include</a></span></li>
+                              <li><span class="file"><a href="__insert.html" tabindex="1">#insert</a></span></li>
                               <li><span class="file"><a href="__script.html" tabindex="1">#script</a></span></li>
                               <li><span class="file"><a href="__startup.html" tabindex="1">#startup</a></span></li>
                               <li><span class="file"><a href="__mem.html" tabindex="1">#mem</a></span></li>

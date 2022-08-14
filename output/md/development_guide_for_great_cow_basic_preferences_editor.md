@@ -68,8 +68,17 @@ The settings are in the INI section called \[gcbasic\].  
     'Show the extended verbose messages when compiling. his can only be changed in the INI. There is no support in Prefs Editor or a command line switch to change this parameter.  Not managed by Prefs Editor.
     evbs = n
 
-    'Use LAXSYNTAX insupport lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
+    'Use LAXSYNTAX supports lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
     laxsyntax = y
+
+    'Use NoSummary supports minimal compiler and assembly information when set to y.  Supports y|n.  Not managed by Prefs Editor.
+    nosummary = n
+
+    'Use the system temp directory for compiler temp files.  Options are "tempdir" or "instdir" or remove the option.
+    workingdir = "tempdir"
+
+    'Display conditional statement debug for the specified file.  Options are any valid source file or nothing. The enry will be remove if a prefixed by a comment ( a single quote ).
+    conditionaldebugfile =
 ```
 
 The section shows an example \[tool\] assembler section.  

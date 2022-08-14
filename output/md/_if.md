@@ -19,6 +19,8 @@
 ``` screen
     #if Condition
       ...
+    [#else]
+      ...
     #endif
 ```
 

@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>Great Cow BASIC documentation</title>
-<date>2022-03-01</date>
+<date>2022-08-14</date>
 <author>
 <personname>
 <firstname>The Great Cow BASIC development team @ 2022</firstname>
@@ -130,13 +130,13 @@ The “Programmer Preferences” is a software tool to control and set-up the di
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2022-06-20<?asciidoc-br?>
-15:48:36 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2022-08-14<?asciidoc-br?>
+15:50:34 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2022-03-01<?asciidoc-br?>
-22:39:41 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2022-08-14<?asciidoc-br?>
+15:34:24 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -33152,53 +33152,57 @@ The function converts a number to a string consisting of ones and zeros that rep
 <simpara>This method does not change the existing strings, but returns a <emphasis role="strong">new</emphasis> string containing the text of the joined variables, see Concatenated String Constraint below.</simpara>
 <simpara>Concatenation joins the elements of a specified values using the specified separator between each variable.</simpara>
 <warning>
-<simpara>Using concatenation with commands like HSerPrint, Print the compiler will create a system string variable.&#160;&#160;Examples of two strings constants ( HSerPrint "123"+"456" may yield incorrect results.&#160;&#160;See the use of SYSDEFAULTCONCATSTRING below&#160;&#160;Without using SYSDEFAULTCONCATSTRING there is a risk that the compiler does not allocate sufficient RAM to hold the concatenated string.&#160;&#160;
-The resulting string may be corrupted as the size of the system string variable if not set using SYSDEFAULTCONCATSTRING within the source program.</simpara>
+<simpara>Using concatenation as a parameter with commands like HSerPrint or Print the compiler will create a system string variable.&#160;&#160;  An examples of concatenating two strings constants like HSerPrint ("123"+"456") may yield incorrect results.&#160;&#160;Use the constant SYSDEFAULTCONCATSTRING to resolve.&#160;&#160;Without using SYSDEFAULTCONCATSTRING there is a risk that the compiler does not allocate sufficient RAM to hold the concatenated string.&#160;&#160;
+The resulting string may be corrupted as the size of the system string variable is not sufficient.&#160;&#160;Use SYSDEFAULTCONCATSTRING within the source program to resolve.</simpara>
 </warning>
 <simpara><emphasis role="strong">Set a specific size of compiler created system string variable</emphasis></simpara>
-<simpara>Use the following to set the size of compiler created system string variable.&#160;&#160;</simpara>
+<simpara>Use the following to set the size of the system string variable used during concatenation.&#160;&#160;</simpara>
 <simpara>The compiler will create system string variables when you concatenate on a commands line like <literal>HSerPrint</literal>, <literal>Print</literal> and many others commands.&#160;&#160;
 Using concatenate with a command is bad practice, using a lot of RAM and may create a number of system string variables.&#160;&#160;
 It is recommended to define a string (of a known length), concatenate using an assignment then use the string.&#160;&#160;</simpara>
-<simpara>This constraint does not apply using concatenation as an assignment.&#160;&#160;</simpara>
 <simpara>To control the size of system string variable use the following.&#160;&#160;
 Also, use this constant to set the size when the compiler does not create a system string variable.&#160;&#160;</simpara>
 <screen>    'Define the constant to control the size of system created string variables called SYSSTRINGPARAM1, SYSSTRINGPARAM2 etc.
     Use #DEFINE  SYSDEFAULTCONCATSTRING  4
 
     'Then, use
-    HSerPrint "A"+"123"   'will print A123. Without the SYSDEFAULTCONCATSTRING constant some microcontrollers may corrupt the result of the concatentation.</screen>
-<simpara><?asciidoc-br?>
+    HSerPrint "A"+"123"   'will print A123. Without the SYSDEFAULTCONCATSTRING constant some microcontrollers may corrupt the result of the concatenation.</screen>
+<simpara>This concatenation constraint does not apply using concatenation as an assignment.&#160;&#160;
+<?asciidoc-br?>
 <?asciidoc-br?>
 <emphasis role="strong">Example 1:</emphasis></simpara>
 <screen>    timevariable = 999
     <emphasis>stringvar</emphasis> = "Time = " + str(timevariable) ' Convert the <emphasis>timevariable</emphasis> to a String.  This operation returns <emphasis role="strong">Time = 999</emphasis></screen>
-<simpara><?asciidoc-br?>
-<?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">Example 2:</emphasis></simpara>
-<simpara>An example showing how to set a string to an escape sequence for an ANSI terminal.&#160;&#160;You can `Dim`ension a string and then assign the elements like an array.</simpara>
-<simpara><?asciidoc-br?>
-<?asciidoc-br?></simpara>
+<simpara>An example showing how to set a string to an escape sequence for an ANSI terminal.&#160;&#160;You can `Dim`ension a string and then assign the elements like an array.
+{empty} +
+{empty} +</simpara>
 <screen>    dim line2 as string
     line2 =  27, "[", "2", "H", 27, "[","K"
     HSerPrint line2</screen>
 <simpara>Will send the following to the terminal.
-&lt;esc&gt;[2H&lt;esc&gt;[K</simpara>
-<simpara><?asciidoc-br?>
-<?asciidoc-br?></simpara>
-<simpara><emphasis role="strong">Note: Concatenated String Constraint @v0.98.00 and prior versions</emphasis></simpara>
-<simpara>When concatenating a string you cannot assign a string to itself.&#160;&#160;You must assign the result of string concatenation to another string. See below.</simpara>
-<simpara><emphasis role="strong">Example to resolve string handling constraint:</emphasis></simpara>
-<screen>    dim outstring1, tmpstring as string * 16
-    dim outnumber as byte
+&lt;esc&gt;[2H&lt;esc&gt;[K
+<?asciidoc-br?>
+<?asciidoc-br?>
+<emphasis role="strong">Example 3: Assigning concatenated string to same string</emphasis></simpara>
+<simpara>For reliable coding you must not assign a string concatenation to same source variable.&#160;&#160;You must assign the result of string concatenation to another string. &#160;&#160;To resolve see below:</simpara>
+<screen>    Dim outstring, tmpstring as string * 16
+    Dim outnumber as byte
 
     outnumber = 24
-    outstring1 = "Result = "
-    'This concatenation will yield an incorrect string
-    outstring1 = outstring1 +str(outnumber)
+    outstring = "Result = "
+    'This concatenation may yield an incorrect string on 10f, 12f or 16f chips
+    outstring = outstring + str(outnumber)
+    HserPrintCRLF 2
+    HSerPrint outstring
+    HserPrintCRLF 2
 
+    outstring = "Result = "
     'This concatenation will yield an the correct string. With tmpstring1 containing the correct concatenated string
-    tmpstring1 = outstring1 +str(outnumber)</screen>
+    tmpstring = outstring +str(outnumber)
+    HSerPrint tmpstring
+    HserPrintCRLF 2
+    end</screen>
 <simpara><?asciidoc-br?>
 To resolve the constraint simply assign the source string to another string.</simpara>
 <simpara><?asciidoc-br?>
@@ -34230,18 +34234,36 @@ If you set the internal oscillator to 4 MHz a "wait 1 ms" will still be 1 ms.</s
 <simpara><emphasis role="strong">See Also</emphasis> <link linkend="_configuration">Configuration</link></simpara>
 </section>
 <section xml:id="__define">
-<title>#define</title>
+<title>#DEFINE</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
-<screen>    #define <emphasis>Find</emphasis> <emphasis>Replace</emphasis></screen>
+<screen>    #DEFINE SYMBOL <emphasis>body</emphasis></screen>
 <simpara><emphasis role="strong">Explanation:</emphasis>
 <?asciidoc-br?>
 <?asciidoc-br?>
-<literal>#define</literal> will search through the program for <literal><emphasis>Find</emphasis></literal>, and replace it with the value given for <literal><emphasis>Replace</emphasis></literal>.
-<?asciidoc-br?>
-<?asciidoc-br?>
-The compiler replaces a constant with the value, it then searches the line for constants again and will make any more replacements needed.&#160;&#160;
-It will do this up to 100 times on a line, then it will stop replacing and show an error. &#160;&#160;The limitation of 100 iteractions is to prevent something like "#define Const_A Const_B" and then "#define Const_B Const_A" from causing an infinite loop in the compiler.</simpara>
+<literal>#DEFINE</literal> allows to declare text-based preprocessor symbols.&#160;&#160;</simpara>
+<simpara>Once the compiler has seen a #DEFINE, it will start replacing further occurrences of symbol with body. &#160;&#160;
+Body may be empty.&#160;&#160;
+The expansion is done recursively, until there is nothing more to expand and the compiler can continue analyzing the resulting code.</simpara>
+<simpara>#UNDEFINE can be used to make the compiler forget about a #DEFINE.</simpara>
 <simpara><?asciidoc-br?>
+<?asciidoc-br?>
+The compiler replaces a SYMBOL with the value, it then searches the line for constants again and will make any more replacements needed.&#160;&#160;
+It will do this up to 100 times on a line, then it will stop replacing and show an error. &#160;&#160;The limitation of 100 iteractions is to prevent something like "#DEFINE Const_A Const_B" and then "#DEFINE Const_B Const_A" from causing an infinite loop in the compiler.</simpara>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">See Also</emphasis> <link linkend="_constants">DEFINEs</link></simpara>
+</section>
+<section xml:id="__undefine">
+<title>#UNDEFINE</title>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    #UNDEFINE <emphasis>existing-symbol</emphasis></screen>
+<simpara><emphasis role="strong">Explanation:</emphasis>
+<?asciidoc-br?>
+<?asciidoc-br?>
+<literal>#UNDEFINE</literal> Undefines a symbol previously defined with #DEFINE.</simpara>
+<simpara>Can be used to ensure that a symbol has a limited lifespan and does not conflict with a similar macro definition that may be defined later in the source code.</simpara>
+<simpara>(Note: #UNDEFINE should not be used to undefine variable or function names used in the current program. The names are needed internally by the compiler and removing them can cause strange and unexpected results.)
+<?asciidoc-br?>
 <?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">See Also</emphasis> <link linkend="_constants">Defines</link></simpara>
 </section>
@@ -34249,6 +34271,8 @@ It will do this up to 100 times on a line, then it will stop replacing and show 
 <title>#if</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
 <screen>    #if <emphasis>Condition</emphasis>
+      ...
+    [#else]
       ...
     #endif</screen>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
@@ -34281,10 +34305,33 @@ It will do this up to 100 times on a line, then it will stop replacing and show 
         #endif
     Loop</screen>
 </section>
+<section xml:id="__ifnot">
+<title>#ifnot</title>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    #ifnot <emphasis>Condition</emphasis>
+      ...
+    [#else]
+      ...
+    #endif</screen>
+<simpara><emphasis role="strong">Explanation:</emphasis></simpara>
+<simpara>The <literal>#ifnot</literal> directive is used to prevent a section of code from compiling unless <literal><emphasis>Condition</emphasis></literal> is false.</simpara>
+<simpara><literal><emphasis>Condition</emphasis></literal> has the same syntax as the condition in a normal Great Cow BASIC if command. The only difference is that it uses constants instead of variables and does not use "then".</simpara>
+<simpara><emphasis role="strong">Example:</emphasis></simpara>
+<screen>    'This program will set the constant to true only if NOT a PIC family
+    #chip 16F88, 8
+
+    #ifnot ChipFamily = 14
+
+      #define myConstant True
+
+    #endif</screen>
+</section>
 <section xml:id="__ifdef">
 <title>#ifdef</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
 <screen>    #ifdef <emphasis>Constant</emphasis> | <emphasis>Constant Value</emphasis> | Var(<emphasis>VariableName</emphasis>)
+      ...
+    [#else]
       ...
     #endif</screen>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
@@ -34326,24 +34373,24 @@ The code in the following sections will not compile, as it is missing <literal>#
 <screen>    #define PinsToFlash 2
 
     #ifdef PinsToFlash 1,2,3
-    PulseOut PORTB.0, 1 sec
+      PulseOut PORTB.0, 1 sec
     #endif
     #ifdef PinsToFlash 2,3
-    PulseOut PORTB.1, 1 sec
+      PulseOut PORTB.1, 1 sec
     #endif
     #ifdef PinsToFlash 3
-    PulseOut PORTB.2, 1 sec
+      PulseOut PORTB.2, 1 sec
     #endif</screen>
 <simpara>This program uses a constant called PinsToFlash that controls how many lights are pulsed. <literal>PORTB.0</literal> is pulsed when <literal>PinsToFlash</literal> is equal to 1, 2 or 3, <literal>PORTB.1</literal> is pulsed when <literal>PinsToFlash</literal> equals 2 or 3, and <literal>PORTB.2</literal> is flashed when <literal>PinsToFlash</literal> is 3.</simpara>
 <simpara><emphasis role="strong">Example 3: <emphasis>Enabling code if a system variable is defined</emphasis></emphasis></simpara>
 <screen>    #ifdef NoVar(ANSEL)
-    SET ADCON1.PCFG3 OFF
-    SET ADCON1.PCFG2 ON
-    SET ADCON1.PCFG1 ON
-    SET ADCON1.PCFG0 OFF
+      SET ADCON1.PCFG3 OFF
+      SET ADCON1.PCFG2 ON
+      SET ADCON1.PCFG1 ON
+      SET ADCON1.PCFG0 OFF
     #endif
     #ifdef Var(ANSEL)
-    ANSEL = 0
+      ANSEL = 0
     #endif</screen>
 <simpara>The above section of code has been copied directly from a-d.h. It is used to disable the A/D function of pins, so that they can be used as standard digital I/O ports. If <literal>ANSEL</literal> is not declared as a system variable for a particular chip, then the program uses <literal>ADCON1</literal> to control the port modes. If <literal>ANSEL</literal> is defined, then the chip is newer and its ports can be set to digital by clearing <literal>ANSEL</literal>.</simpara>
 <simpara><emphasis role="strong">Example 4: <emphasis>Enabling code if a system bit is defined</emphasis></emphasis></simpara>
@@ -34354,6 +34401,8 @@ The code in the following sections will not compile, as it is missing <literal>#
 <title>#ifndef</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
 <screen>    #ifndef <emphasis>Constant</emphasis> | <emphasis>Constant Value</emphasis> | Var(<emphasis>VariableName</emphasis>)
+      ...
+    [#else]
       ...
     #endif</screen>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
@@ -34374,6 +34423,36 @@ The code in the following sections will not compile, as it is missing <literal>#
 <simpara><emphasis role="strong">NOTES:</emphasis>
 It is not essential that the include file name ends in .h - the important thing is that the name given to Great Cow BASIC is the exact name of the file to be included.</simpara>
 <simpara>Those who are familiar with <literal>#include</literal> in assembly or C should bear in mind that <literal>#include</literal> in Great Cow BASIC works differently to <literal>#include</literal> in most other languages - code is not inserted at the location of the <literal>#include</literal>, but rather at the end of the current program.</simpara>
+</section>
+<section xml:id="__insert">
+<title>#insert</title>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    #insert <emphasis>filename</emphasis></screen>
+<simpara><emphasis role="strong">Explanation:</emphasis></simpara>
+<simpara><literal>#insert</literal> tells Great Cow BASIC to open up another file, read all of the subroutines and constants from it, and then copy them into the current program at the specific line where the #insert directive is located.</simpara>
+<simpara>There are two forms of include; absolute and relative.</simpara>
+<simpara>Absolute is used to refer to files in the <literal>..\GreatCowBASIC\include</literal>  directory. The name of the file is specified in between &lt; and &gt; symbols. For instance, to include the file <literal>toolchain.il</literal>, the directive is:</simpara>
+<screen>    #insert &lt;"toolchain.il"&gt;</screen>
+<simpara>Relative is used to read files in the same folder as the currently selected program. Filenames are given enclosed in quotation marks, such as where <literal>mycode.h</literal> is the name of the file that is to be read.</simpara>
+<screen>    #insert "toolchain.il"</screen>
+<simpara><emphasis role="strong">Difference from #include:</emphasis></simpara>
+<simpara>This is very different from #include.&#160;&#160;
+With #include you can organize constant, method and macro definitions and then use #include directive to add them to any source file.&#160;&#160;
+Include files are also useful for incorporating declarations of external variables and complex data types. The types may be defined and named only once in an include file created for that purpose. The compiler will optimise the include files to determine the best order/location in your program.</simpara>
+<simpara>Using #insert you are determining the location of the code segment.&#160;&#160;
+It will be inserted exactly where you specify.&#160;&#160;
+The optimisation will only be applied to any methods that you insert but the rest of the code essentially exits at the point of insertion.</simpara>
+<simpara><emphasis role="strong">#Insert does not support Conversion:</emphasis></simpara>
+<simpara>There is no conversion of the inserted file.&#160;&#160;For conversion use #Include.&#160;&#160;</simpara>
+<simpara>If you need to convert a file from an external source then see the Converters section of the Help.</simpara>
+<simpara><emphasis role="strong">Usage Notes:</emphasis></simpara>
+<simpara>The file must exist. An error message is issued if not found.&#160;&#160;
+When an error is encountered in the inserted file the error line number is in the format of xxxxyyyy.&#160;&#160;
+Where xxxx is the code line number in the user program and the yyyy is the the line number in the inserted file.</simpara>
+<simpara>An example error message.&#160;&#160;Where the source insert instruction is on line 6 and the error in the inserted file is on line 4.</simpara>
+<screen>    An error has been found:
+     insertexample.gcb (60004): Error: Syntax Error
+    The message has been logged to the file Errors.txt.</screen>
 </section>
 <section xml:id="__script">
 <title>#script</title>
@@ -37250,6 +37329,37 @@ End SUB</screen>
 <simpara>This example tests the CONSTANT CHIPUSART for both the PIC and AVR microcontrollers.  If the CONSTANT is zero or does not exist then the string will be displayed as an error message.</simpara>
 <screen>    #option REQUIRED PIC CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."
     #option REQUIRED AVR CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."</screen>
+<simpara><emphasis role="strong">RAISING COMPILER ERROR CONDITIONS</emphasis></simpara>
+<simpara>From build 1131 the compiler now supports raising a compiler error message.</simpara>
+<simpara>The method uses the `RaiseCompilerError  ""&lt;string&gt;""|%string%" ` method to pass an error message to the compilation process.</simpara>
+<simpara>An example from USART.H/INITUSART subroutine is shown below.&#160;&#160;This example tests for the existence of one of the three supported baud rate constants.&#160;&#160;If none of the constants exist and the constant (in this example) <literal>STOPCOMPILERERRORHANDLER</literal> does not exist the <literal>RaiseCompilerError</literal> with the string will be passed to the assembler for error processing.&#160;&#160;
+This permits the inspect of the user program with appropriate messages to inform the user.</simpara>
+<screen>  ....
+  #IFNDEF ONEOF(USART_BAUD_RATE,USART1_BAUD_RATE,USART2_BAUD_RATE) THEN
+    'Look for one of the baud rates CONSTANTS
+    #IFNDEF STOPCOMPILERERRORHANDLER
+      'Use one of the following - the string MUST be start and end with a double quote
+
+        ' Use the message.dat file
+        ' RaiseCompilerError "%USART_NO_BAUD_RATE%"
+
+        ' Use hard code text
+        ' RaiseCompilerError "USART not setup correctly. No baud rate specified - please correct USART setup"
+
+        RaiseCompilerError "%USART_NO_BAUD_RATE%"
+
+    #ENDIF
+  #ENDIF
+  ....</screen>
+<simpara>The <literal>RaiseCompilerError</literal> handler can be stopped using the constant STOPCOMPILERERRORHANDLER as shown above.
+<?asciidoc-br?>
+<?asciidoc-br?>
+<emphasis role="strong">LCD ERROR HANDLING</emphasis></simpara>
+<simpara>The setup of an LCD is inspected and an appropriate error message is displayed.&#160;&#160;
+The Compiler now controls error messages when LCD is not setup up correctly.&#160;&#160;
+This the text displayed is held in the messages.dat file - LCD_Not_Setup entry.
+<?asciidoc-br?>
+<?asciidoc-br?></simpara>
 </section>
 <section xml:id="_development_guide_for_gcbasic_exe_compiler">
 <title>Development Guide for GCBASIC.EXE compiler</title>
@@ -37344,7 +37454,27 @@ The compiler process is simple.&#160;&#160;
 The process, shown below, generates the ASM source and the HEX file from the user source program.</simpara>
 <screen>    1. Create the indexes
     2. Declare the methods, arrays and variables
-    3. Process the user source programs using PreProcessor method
+    3. Process the user source programs using PreProcessor method. This includes
+        i.     Loading of all source files including including files
+        ii.    Translate files, if needed
+        iii.   Examine source for comments, tables, asm, rawasm, functions;subs;macros, set origin of valid code
+                    Origin = ";?F" + Str(RF) + "L" + Str(LC) + "S" + Str(SBC) + "?"
+                    RF = File number
+                    L  = Line number in source file
+                    S  = Sub Routine number
+        iv.    Find compiler directives, except SCRIPT, ENDSCRIPT, IFDEF and ENDIF - including all the #DEINEs outside of condiontal statements
+        v.     ReadChipData
+        vi.    CheckClockSpeed
+        viii.  ReadOptions
+        ix.    PreparePageData
+        x.     PrepareBuiltIn.  Initialise built-in data, and prepare built-in subs.
+        xi.    RunScripts
+        xii.   BuildMemoryMap
+        xiii.  Process samevar and samebit
+        xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program.
+        xv.    Prepare programmer, need to know chip model and need to do this before checking config
+        xvi.   Replace Constants
+        xvii.  Replace table value.  Replace constants and calculations in tables with actual values
     4. Compile the program using the CompileProgram method
          i.    Compile calls to other subroutines, insert macros
          ii.   Compile DIMs again, in case any come through from macros
@@ -37375,7 +37505,17 @@ The process, shown below, generates the ASM source and the HEX file from the use
     12. Write compilation report using the WriteCompilationReport method
     13. If needed, write the error and warning log using the WriteErrorLog method
     14. Exit, setting the ERRORLEVEL</screen>
-<simpara><?asciidoc-br?></simpara>
+<simpara>Note #1:  Constants are can be created in many places and the order is critical when trying to understant the process.</simpara>
+<simpara>Step 3.iv; Step 3.xi, 3.xiv and xvi. These are Find compiler directives; Runscripts, process IFDEFs and replace Constants values respectively.&#160;&#160;
+This means constants that are not created by the Find compiler directives step are clearly not available in the RunScripts step, and the same applies to the process IFDEFs step.&#160;&#160;So, please consider the order of constant creation in terms of these steps.&#160;&#160;Always think about the precendence of constant creation.&#160;&#160;</simpara>
+<simpara>Note #2:  When using IFDEFs Conditional statements you should #UNDEFINE all constants prior to #DEFINE.&#160;&#160;Whilst the will be cases where the constant does not exist, or where the Preprocessor can determine the outcome of the Conditional statements there will be cases, specifically nested IFDEFs Conditional statements, where you will be required to use #UNDEFINE to remove all warnings.</simpara>
+<simpara>Note #3:  Good practice is NOT to create constants in a library where the user can overwrite the value of the same constant.&#160;&#160;You must determine if the user has created the constant and then create a default value if the user has not defined a value.&#160;&#160;  An example:</simpara>
+<screen>  IF NODEF(AD_DELAY) THEN
+     'Acquisition time. Can be reduced in some circumstances - see PIC manual for details
+     AD_DELAY = 2 10US
+  END IF</screen>
+<simpara>This will create the constant AD_DELAY only when the user program does not define a value.
+<?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">FreeBASIC COMPILATION OF GCBASIC SOURCE CODE</emphasis></simpara>
 <simpara>The compiler is relatively simple in terms of the compilation.&#160;&#160;</simpara>
 <simpara>Use the following versions of the FreeBASIC compiler to compile the GCBASIC source code.</simpara>
@@ -37433,12 +37573,153 @@ This can make the source frustrating initially but can find the code segments as
 <simpara><emphasis>There are many very useful methods</emphasis>, a lot of methods, look at existing code before adding any new method.&#160;&#160;
 The compiler is mature from a functionality standpoint.&#160;&#160;
 Just immature in terms of documentation.&#160;&#160;</simpara>
-<simpara><emphasis>To isolate a specific issue</emphasis> use a binary chop and lots of debug using PRINT.&#160;&#160;
-Whilst, this may not be ideal this is the best approach.&#160;&#160;</simpara>
-<simpara><emphasis>Revert</emphasis> code using SVN to remove all debug!.&#160;&#160;Do not leave debug in the source code.&#160;&#160;</simpara>
+<simpara><emphasis role="strong">COMPILER DEBUGGING</emphasis></simpara>
+<simpara><emphasis>To debug or isolate a specific issue</emphasis> use lots of messages using PRINT or HSERPRINT&#160;&#160;Both of these methods are easy to setup and use.</simpara>
+<simpara><emphasis>Specific to #SCRIPT</emphasis> you can use WARNING messages to display results of calculations or assignments.</simpara>
+<simpara><emphasis>Specific to CONDITIONAL Compilation</emphasis> use <literal>conditionaldebugfile</literal> (se above) to display conditional statement debug for the specified file. &#160;&#160; Options are any valid source file or nothing. &#160;&#160;
+Nested conditions are evaluated sequentially, therefor the first, second, third etc etc.  &#160;&#160;
+The compiler does not at this point rationalised the hierarchy of nested conditions.&#160;&#160;  It simply finds a condition and then matches to an #ENDIF.&#160;&#160;
+So, the compiler walks through the nested conditions as the outer nested, then the next nest, the next nest etc. etc.&#160;&#160;
+This compiler is completing the following actions:&#160;&#160;</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>If the conditional is not valid.&#160;&#160;  Remove the code segment include the #IF and the #ENDIF</simpara>
+</listitem>
+<listitem>
+<simpara>If the conditional is valid.&#160;&#160;  Remove the just the #IF and the #ENDIF</simpara>
+</listitem>
+</orderedlist>
+<simpara>So, is this context the compiler walks the code many time (as these are lists not arrrays this is blindly fast) removing code segments.&#160;&#160;</simpara>
+<simpara>The following program shows the impact of nested conditions..&#160;&#160;Each nest is evaluated until all conditions have been assessed..&#160;&#160;See the comment section of the listing to see the output from the debugging.</simpara>
+<screen>        #CHIP 18F16Q41
+        #OPTION EXPLICIT
+
+        ; -----  Add the following line to USE.ini ------------------
+        ;
+        ;        conditionaldebugfile = IFDEF_TEST.gcb
+        ;
+        ; -----------------------------------------------------------
+
+        #IFDEF PIC
+            #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
+                #IF CHIPRAM = 2048  'TRUE
+                    #IF CHIPWORDS = 32768 ' TRUE
+                        #IFDEF VAR(NVMLOCK) 'TRUE
+                            #IFDEF VAR(OSCCON2)  'TRUE
+                                #IFDEF  VAR(NVMCON0)  'TRUE    set var1 to 1
+                                    DIM _VAR1
+                                    _VAR1 = 1
+                                #ENDIF
+                            #ENDIF
+                        #ENDIF
+                    #ENDIF
+                #ENDIF
+
+                #IF CHIPRAM = 4096  'TRUE
+                    #IF CHIPWORDS = 32768 ' TRUE
+                        #IFDEF VAR(NVMLOCK) 'TRUE
+                            #IFDEF VAR(OSCCON2)  'TRUE
+                                #IFDEF  VAR(NVMCON0)  'TRUE   = set var1 to 0
+                                    DIM _VAR1
+                                    _VAR1 = 0
+                                #ENDIF
+                            #ENDIF
+                        #ENDIF
+                    #ENDIF
+                #ENDIF
+            #ENDIF
+        #ENDIF
+
+        Do
+        Loop
+
+        // ===============================================
+        // ***  Below is debugger output for this file ***
+        // ===============================================
+
+        // Great Cow BASIC (0.99.02 2022-07-21 (Windows 32 bit) : Build 1143)
+
+        // Compiling c:\Users\admin\Downloads\IFDEF_TEST.gcb
+
+        //               13: #IFDEF PIC
+        //               15: #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
+        //               17: #IF CHIPRAM = 2048
+        //               19: #IF CHIPWORDS = 32768
+        //               21: #IFDEF VAR(NVMLOCK)
+        //               23: #IFDEF VAR(OSCCON2)
+        //               25: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               27: DIM _VAR1
+        //               ;_VAR1 = 1
+        //               28: _VAR1 = 1
+
+        //               15: #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
+        //               17: #IF CHIPRAM = 2048
+        //               19: #IF CHIPWORDS = 32768
+        //               21: #IFDEF VAR(NVMLOCK)
+        //               23: #IFDEF VAR(OSCCON2)
+        //               25: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               27: DIM _VAR1
+        //               ;_VAR1 = 1
+        //               28: _VAR1 = 1
+
+        //               39: #IF CHIPRAM = 4096
+        //               41: #IF CHIPWORDS = 32768
+        //               43: #IFDEF VAR(NVMLOCK)
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               41: #IF CHIPWORDS = 32768
+        //               43: #IFDEF VAR(NVMLOCK)
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               43: #IFDEF VAR(NVMLOCK)
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        // Program compiled successfully (Compile time: 1 seconds)
+
+        // Assembling program using GCASM
+        // Program assembled successfully (Assembly time: 0.125 seconds)
+        // Done</screen>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?></simpara>
-<simpara><?asciidoc-hr?></simpara>
+<simpara>The resulting ASM from the about code is as expected.&#160;&#160;The assignment of <literal>VAR1 = 0</literal>.&#160;&#160;</simpara>
+<screen>        ;DIM _VAR1
+        ;_VAR1 = 0
+            clrf	_VAR1,ACCESS
+        ;Do
+        SysDoLoop_S1
+        ;Loop
+            bra	SysDoLoop_S1
+        SysDoLoop_E1</screen>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?>
 <?asciidoc-br?></simpara>
@@ -37489,8 +37770,17 @@ The comments are NOT part of an INI file.&#160;&#160;</simpara>
     'Show the extended verbose messages when compiling. his can only be changed in the INI. There is no support in Prefs Editor or a command line switch to change this parameter.  Not managed by Prefs Editor.
     evbs = n
 
-    'Use LAXSYNTAX insupport lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
-    laxsyntax = y</screen>
+    'Use LAXSYNTAX supports lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
+    laxsyntax = y
+
+    'Use NoSummary supports minimal compiler and assembly information when set to y.  Supports y|n.  Not managed by Prefs Editor.
+    nosummary = n
+
+    'Use the system temp directory for compiler temp files.  Options are "tempdir" or "instdir" or remove the option.
+    workingdir = "tempdir"
+
+    'Display conditional statement debug for the specified file.  Options are any valid source file or nothing. The enry will be remove if a prefixed by a comment ( a single quote ).
+    conditionaldebugfile =</screen>
 <simpara>The section shows an example [tool] assembler section.&#160;&#160;</simpara>
 <screen>    [tool=pic-as]
     'An assember

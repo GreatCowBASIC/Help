@@ -12,11 +12,11 @@
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
       <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
       <link rel="up" href="_compiler_directives.html" title="Compiler Directives" />
-      <link rel="prev" href="__define.html" title="#define" />
-      <link rel="next" href="__ifdef.html" title="#ifdef" />
+      <link rel="prev" href="__undefine.html" title="#UNDEFINE" />
+      <link rel="next" href="__ifnot.html" title="#ifnot" />
       <meta name="Section-title" content="#if" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-51266";
+            var treeCookieId = "treeview-51445";
             var language = "en";
             var w = new Object();
             //Localization
@@ -164,11 +164,11 @@ border: none; background: none; font-weight: none; color: none; }
                <tr>
                   <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
                                                     </a></td>
-                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="__define.html">Prev</a>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="__undefine.html">Prev</a>
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="_compiler_directives.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="__ifdef.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="__ifnot.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -185,6 +185,8 @@ border: none; background: none; font-weight: none; color: none; }
                </div>
             </div>
             <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    #if <span class="emphasis"><em>Condition</em></span>
+      ...
+    [#else]
       ...
     #endif</pre><p><span class="strong"><strong>Explanation:</strong></span></p>
             <p>The <code class="literal">#if</code> directive is used to prevent a section of code from compiling unless <code class="literal"><span class="emphasis"><em>Condition</em></span></code> is true.
@@ -222,10 +224,10 @@ border: none; background: none; font-weight: none; color: none; }
             <hr />
             <table width="100%" summary="Navigation footer">
                <tr>
-                  <td width="40%" align="left"><a accesskey="p" href="__define.html">Prev</a> 
+                  <td width="40%" align="left"><a accesskey="p" href="__undefine.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="_compiler_directives.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="__ifdef.html">Next</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="__ifnot.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -783,11 +785,14 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="__asmraw.html" tabindex="1">#asmraw</a></span></li>
                               <li><span class="file"><a href="__chip.html" tabindex="1">#chip</a></span></li>
                               <li><span class="file"><a href="__config.html" tabindex="1">#config</a></span></li>
-                              <li><span class="file"><a href="__define.html" tabindex="1">#define</a></span></li>
+                              <li><span class="file"><a href="__define.html" tabindex="1">#DEFINE</a></span></li>
+                              <li><span class="file"><a href="__undefine.html" tabindex="1">#UNDEFINE</a></span></li>
                               <li id="webhelp-currentid"><span class="file"><a href="__if.html" tabindex="1">#if</a></span></li>
+                              <li><span class="file"><a href="__ifnot.html" tabindex="1">#ifnot</a></span></li>
                               <li><span class="file"><a href="__ifdef.html" tabindex="1">#ifdef</a></span></li>
                               <li><span class="file"><a href="__ifndef.html" tabindex="1">#ifndef</a></span></li>
                               <li><span class="file"><a href="__include.html" tabindex="1">#include</a></span></li>
+                              <li><span class="file"><a href="__insert.html" tabindex="1">#insert</a></span></li>
                               <li><span class="file"><a href="__script.html" tabindex="1">#script</a></span></li>
                               <li><span class="file"><a href="__startup.html" tabindex="1">#startup</a></span></li>
                               <li><span class="file"><a href="__mem.html" tabindex="1">#mem</a></span></li>

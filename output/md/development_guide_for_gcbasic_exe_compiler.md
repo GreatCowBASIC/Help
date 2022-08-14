@@ -166,7 +166,27 @@ the ASM source and the HEX file from the user source program.
 ``` screen
     1. Create the indexes
     2. Declare the methods, arrays and variables
-    3. Process the user source programs using PreProcessor method
+    3. Process the user source programs using PreProcessor method. This includes
+        i.     Loading of all source files including including files
+        ii.    Translate files, if needed
+        iii.   Examine source for comments, tables, asm, rawasm, functions;subs;macros, set origin of valid code
+                    Origin = ";?F" + Str(RF) + "L" + Str(LC) + "S" + Str(SBC) + "?"
+                    RF = File number
+                    L  = Line number in source file
+                    S  = Sub Routine number
+        iv.    Find compiler directives, except SCRIPT, ENDSCRIPT, IFDEF and ENDIF - including all the #DEINEs outside of condiontal statements
+        v.     ReadChipData
+        vi.    CheckClockSpeed
+        viii.  ReadOptions
+        ix.    PreparePageData
+        x.     PrepareBuiltIn.  Initialise built-in data, and prepare built-in subs.
+        xi.    RunScripts
+        xii.   BuildMemoryMap
+        xiii.  Process samevar and samebit
+        xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program.
+        xv.    Prepare programmer, need to know chip model and need to do this before checking config
+        xvi.   Replace Constants
+        xvii.  Replace table value.  Replace constants and calculations in tables with actual values
     4. Compile the program using the CompileProgram method
          i.    Compile calls to other subroutines, insert macros
          ii.   Compile DIMs again, in case any come through from macros
@@ -199,7 +219,38 @@ the ASM source and the HEX file from the user source program.
     14. Exit, setting the ERRORLEVEL
 ```
 
-  
+Note \#1: Constants are can be created in many places and the order is
+critical when trying to understant the process.
+
+Step 3.iv; Step 3.xi, 3.xiv and xvi. These are Find compiler directives;
+Runscripts, process IFDEFs and replace Constants values respectively.  
+This means constants that are not created by the Find compiler
+directives step are clearly not available in the RunScripts step, and
+the same applies to the process IFDEFs step.  So, please consider the
+order of constant creation in terms of these steps.  Always think about
+the precendence of constant creation.  
+
+Note \#2: When using IFDEFs Conditional statements you should \#UNDEFINE
+all constants prior to \#DEFINE.  Whilst the will be cases where the
+constant does not exist, or where the Preprocessor can determine the
+outcome of the Conditional statements there will be cases, specifically
+nested IFDEFs Conditional statements, where you will be required to use
+\#UNDEFINE to remove all warnings.
+
+Note \#3: Good practice is NOT to create constants in a library where
+the user can overwrite the value of the same constant.  You must
+determine if the user has created the constant and then create a default
+value if the user has not defined a value.   An example:
+
+``` screen
+  IF NODEF(AD_DELAY) THEN
+     'Acquisition time. Can be reduced in some circumstances - see PIC manual for details
+     AD_DELAY = 2 10US
+  END IF
+```
+
+This will create the constant AD\_DELAY only when the user program does
+not define a value.  
 
 <span class="strong">**FreeBASIC COMPILATION OF GCBASIC SOURCE
 CODE**</span>
@@ -309,15 +360,179 @@ lot of methods, look at existing code before adding any new method.  
 The compiler is mature from a functionality standpoint.   Just immature
 in terms of documentation.  
 
-<span class="emphasis">*To isolate a specific issue*</span> use a binary
-chop and lots of debug using PRINT.   Whilst, this may not be ideal this
-is the best approach.  
+<span class="strong">**COMPILER DEBUGGING**</span>
 
-<span class="emphasis">*Revert*</span> code using SVN to remove all
-debug!.  Do not leave debug in the source code.  
+<span class="emphasis">*To debug or isolate a specific issue*</span> use
+lots of messages using PRINT or HSERPRINT  Both of these methods are
+easy to setup and use.
+
+<span class="emphasis">*Specific to \#SCRIPT*</span> you can use WARNING
+messages to display results of calculations or assignments.
+
+<span class="emphasis">*Specific to CONDITIONAL Compilation*</span> use
+`conditionaldebugfile` (se above) to display conditional statement debug
+for the specified file.    Options are any valid source file or nothing.
+   Nested conditions are evaluated sequentially, therefor the first,
+second, third etc etc.    The compiler does not at this point
+rationalised the hierarchy of nested conditions.   It simply finds a
+condition and then matches to an \#ENDIF.   So, the compiler walks
+through the nested conditions as the outer nested, then the next nest,
+the next nest etc. etc.   This compiler is completing the following
+actions:  
+
+<div class="orderedlist">
+
+1.  If the conditional is not valid.   Remove the code segment include
+    the \#IF and the \#ENDIF
+2.  If the conditional is valid.   Remove the just the \#IF and the
+    \#ENDIF
+
+</div>
+
+So, is this context the compiler walks the code many time (as these are
+lists not arrrays this is blindly fast) removing code segments.  
+
+The following program shows the impact of nested conditions..  Each nest
+is evaluated until all conditions have been assessed..  See the comment
+section of the listing to see the output from the debugging.
+
+``` screen
+        #CHIP 18F16Q41
+        #OPTION EXPLICIT
+
+        ; -----  Add the following line to USE.ini ------------------
+        ;
+        ;        conditionaldebugfile = IFDEF_TEST.gcb
+        ;
+        ; -----------------------------------------------------------
+
+        #IFDEF PIC
+            #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
+                #IF CHIPRAM = 2048  'TRUE
+                    #IF CHIPWORDS = 32768 ' TRUE
+                        #IFDEF VAR(NVMLOCK) 'TRUE
+                            #IFDEF VAR(OSCCON2)  'TRUE
+                                #IFDEF  VAR(NVMCON0)  'TRUE    set var1 to 1
+                                    DIM _VAR1
+                                    _VAR1 = 1
+                                #ENDIF
+                            #ENDIF
+                        #ENDIF
+                    #ENDIF
+                #ENDIF
+
+                #IF CHIPRAM = 4096  'TRUE
+                    #IF CHIPWORDS = 32768 ' TRUE
+                        #IFDEF VAR(NVMLOCK) 'TRUE
+                            #IFDEF VAR(OSCCON2)  'TRUE
+                                #IFDEF  VAR(NVMCON0)  'TRUE   = set var1 to 0
+                                    DIM _VAR1
+                                    _VAR1 = 0
+                                #ENDIF
+                            #ENDIF
+                        #ENDIF
+                    #ENDIF
+                #ENDIF
+            #ENDIF
+        #ENDIF
+
+        Do
+        Loop
+
+        // ===============================================
+        // ***  Below is debugger output for this file ***
+        // ===============================================
+
+        // Great Cow BASIC (0.99.02 2022-07-21 (Windows 32 bit) : Build 1143)
+
+        // Compiling c:\Users\admin\Downloads\IFDEF_TEST.gcb
+
+        //               13: #IFDEF PIC
+        //               15: #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
+        //               17: #IF CHIPRAM = 2048
+        //               19: #IF CHIPWORDS = 32768
+        //               21: #IFDEF VAR(NVMLOCK)
+        //               23: #IFDEF VAR(OSCCON2)
+        //               25: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               27: DIM _VAR1
+        //               ;_VAR1 = 1
+        //               28: _VAR1 = 1
+
+        //               15: #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
+        //               17: #IF CHIPRAM = 2048
+        //               19: #IF CHIPWORDS = 32768
+        //               21: #IFDEF VAR(NVMLOCK)
+        //               23: #IFDEF VAR(OSCCON2)
+        //               25: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               27: DIM _VAR1
+        //               ;_VAR1 = 1
+        //               28: _VAR1 = 1
+
+        //               39: #IF CHIPRAM = 4096
+        //               41: #IF CHIPWORDS = 32768
+        //               43: #IFDEF VAR(NVMLOCK)
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               41: #IF CHIPWORDS = 32768
+        //               43: #IFDEF VAR(NVMLOCK)
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               43: #IFDEF VAR(NVMLOCK)
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               45: #IFDEF VAR(OSCCON2)
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        //               47: #IFDEF VAR(NVMCON0)
+        //               ;DIM _VAR1
+        //               49: DIM _VAR1
+        //               ;_VAR1 = 0
+        //               50: _VAR1 = 0
+
+        // Program compiled successfully (Compile time: 1 seconds)
+
+        // Assembling program using GCASM
+        // Program assembled successfully (Assembly time: 0.125 seconds)
+        // Done
+```
 
   
   
+
+The resulting ASM from the about code is as expected.  The assignment of
+`VAR1 = 0`.  
+
+``` screen
+        ;DIM _VAR1
+        ;_VAR1 = 0
+            clrf    _VAR1,ACCESS
+        ;Do
+        SysDoLoop_S1
+        ;Loop
+            bra SysDoLoop_S1
+        SysDoLoop_E1
+```
 
   
   

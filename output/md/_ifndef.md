@@ -19,6 +19,8 @@
 ``` screen
     #ifndef Constant | Constant Value | Var(VariableName)
       ...
+    [#else]
+      ...
     #endif
 ```
 
