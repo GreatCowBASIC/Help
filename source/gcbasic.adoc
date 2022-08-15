@@ -40,6 +40,9 @@ include::acknowledgements.adoc[]
 
 include::tricksandtips.adoc[]
 
+include::UNOasISP.adoc[]
+
+
 ifdef::backend-pdf[<<<]
 == Microcontroller Fundamentals
 
@@ -1223,3 +1226,7 @@ include::maintenance.adoc[]
 include::DeveloperGuide.adoc[]
 
 include::DeveloperGuideForCompiler.adoc[]
+
+
+
+

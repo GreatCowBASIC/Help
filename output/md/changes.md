@@ -16,7 +16,7 @@
 </div>
 
 <span class="strong">**Formal Release of Great Cow Basic Compiler
-v0.99.02**</span>
+v1.xx.xx**</span>
 
   
 
@@ -32,13 +32,13 @@ v0.99.02**</span>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;"><p>ASCIIDOCs rendered</p></td>
-<td style="text-align: center;"><p>2022-08-14<br />
-15:49:15 GMT Summer Time</p></td>
+<td style="text-align: center;"><p>2022-08-15<br />
+15:34:54 GMT Summer Time</p></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><p>Master ToC information</p></td>
-<td style="text-align: center;"><p>2022-08-14<br />
-15:34:24 GMT Summer Time</p></td>
+<td style="text-align: center;"><p>2022-08-15<br />
+15:34:46 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
