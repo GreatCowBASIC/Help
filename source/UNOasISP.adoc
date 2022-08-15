@@ -19,7 +19,7 @@ NOTE: This refers to an ATtiny88 but you can use this method for many AVRs which
 *The Process*
 
 1. Obtain an Arduino UNO or mega.&#160;&#160;
-Upload this link:unoasisphex.adoc[hex file] to convert the UNO into an ISP programmer or follow steps 2 -5 below.
+Upload this https://sourceforge.net/p/gcbasic/discussion/chipfileforum/thread/088449090a/ed10/attachment/arduino_As_ISP_adafruit.hex[hex file] to convert the UNO into an ISP programmer or follow steps 2 -5 below.
 
 2. Download the Arduino IDE software.&#160;&#160;
 This is used to upload a sketch to the UNO that converts it into an ISP programmer.
