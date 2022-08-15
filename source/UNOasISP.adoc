@@ -13,6 +13,9 @@ NOTE: The only baud rate that works is 19200. Every other baud rate failed in te
 
 The process described will create a new programmer entry in the GCB Programmer Options to fully automate the compile & program progress.
 
+NOTE: This refers to an ATtiny88 but you can use this method for many AVRs which used in conjunction with AvrDude.
+
+
 *The Process*
 
 1. Obtain an Arduino UNO or mega.&#160;&#160;
