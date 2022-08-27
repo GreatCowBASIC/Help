@@ -563,7 +563,7 @@ The “Programmer Preferences” is a software tool to control and set-up the di
 <h2 id="_changes">Changes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Formal Release of Great Cow Basic Compiler v0.99.02</strong></p>
+<p><strong>Formal Release of Great Cow Basic Compiler v1.xx.xx</strong></p>
 </div>
 <div class="paragraph">
 <p><br></p>
@@ -582,13 +582,13 @@ The “Programmer Preferences” is a software tool to control and set-up the di
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2022-08-14<br>
-15:50:37 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2022-08-15<br>
+15:50:32 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2022-08-14<br>
-15:34:24 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2022-08-15<br>
+15:34:46 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -2534,6 +2534,127 @@ Hardware Serial (TX1) data will now be output on both B.6 and C.6
             RB6PPS = 0x0020    'TX1 &gt; RB6
 
     End Sub</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uno_as_isp_programmer">UNO as ISP programmer</h3>
+<div class="paragraph">
+<p>So, you have brought some ATtiny88 breakout boards online.&#160;&#160;
+They are advertised as Nano equivalents but are inferior to the Nano in having low RAM (512 bytes vs 2048) and missing some other features.&#160;&#160;
+Specifically the lack of a USB comport for programming.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>The ATtiny88 USB interface only works in Arduino IDE with some tweaking, and, you are not in the mood for learning how to write sketches after being in the GCB environment for years.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>This is an all-in-one tutorial for programming the ATtiny88 via AVRdude using GCB.&#160;&#160;</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The only baud rate that works is 19200. Every other baud rate failed in testing
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The process described will create a new programmer entry in the GCB Programmer Options to fully automate the compile &amp; program progress.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This refers to an ATtiny88 but you can use this method for many AVRs which used in conjunction with AvrDude.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>The Process</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Obtain an Arduino UNO or mega.&#160;&#160;
+Upload this <a href="https://sourceforge.net/p/gcbasic/discussion/chipfileforum/thread/088449090a/ed10/attachment/arduino_As_ISP_adafruit.hex">hex file</a> to convert the UNO into an ISP programmer or follow steps 2 -5 below.</p>
+</li>
+<li>
+<p>Download the Arduino IDE software.&#160;&#160;
+This is used to upload a sketch to the UNO that converts it into an ISP programmer.</p>
+</li>
+<li>
+<p>Connect the UNO to your PC via USB.&#160;&#160;
+In Arduino IDE goto Tools &#8594; Set board and select "Arduino UNO".&#160;&#160;
+Select the correct com port for the Arduino Uno as show in device manager.</p>
+</li>
+<li>
+<p>Goto file &#8594; examples &#8594; ArduinoISP to select the sketch that will convert the UNO to an ISP programmer. I found a better(?) working version at adafruit. Simply copy all the text from this link into a new sketch <a href="https://raw.githubusercontent.com/adafruit/ArduinoISP/master/ArduinoISP.ino" class="bare">https://raw.githubusercontent.com/adafruit/ArduinoISP/master/ArduinoISP.ino</a> (or download the ino file attached and open it in Arduino IDE) and goto step 5</p>
+</li>
+<li>
+<p>Click upload and confirm the sketch uploaded correctly by checking the status window at the bottom of the Arduino IDE</p>
+</li>
+<li>
+<p>Build a cable to connect the ISP headers on the UNO and target (ATtiny88) board as described below. Search online for the UNO ISP header pinout, the ISP header happens to be labelled underneath the ATtiny88 breakout board.</p>
+</li>
+<li>
+<p>Connect pin 10 of the UNO to the reset pin on target ISP header</p>
+</li>
+<li>
+<p>Connect VCC to VCC, MOSI to MOSI, MISO to MISO, GND to GND, SCK to SCK.</p>
+</li>
+<li>
+<p>Open Synwrite &#8594; "IDE tools" &#8594; "GCB tools" &#8594; "Edit Programmer preferences", or, in GCStudio "Edit Programmer preferences"</p>
+</li>
+<li>
+<p>Click "add" and a program editor window opens</p>
+</li>
+<li>
+<p>Enter name Arduino as ISP or similar</p>
+</li>
+<li>
+<p>In the "Use if" box paste DEF(AVR)</p>
+</li>
+<li>
+<p>In the "File" box paste %instdir%..\avrdude\avrdude.exe</p>
+</li>
+<li>
+<p>In the "command line parameters" paste -c avrisp -p t88 -P %Port% -b 19200 -U flash:w:"%FileName%":a</p>
+</li>
+<li>
+<p>Select the com port that corresponds to the connected UNO port</p>
+</li>
+<li>
+<p>Click ok</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>Enter the sample code here into GCB IDE</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #chip tiny88, 12
+
+    dir portd.0 out
+
+    Do
+      set portd.0 on
+      wait 500 ms
+      set portd.0 off
+      wait 500 ms
+    Loop</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you can select "Hex/Flash" to upload the code to the Attiny88.&#160;&#160;
+If all goes well the LED should blink on and off every second</p>
 </div>
 </div>
 </div>
@@ -52610,7 +52731,7 @@ The list shows the installation of the Sharp Develop IDE.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-08-14 15:34:24 GMT Summer Time
+Last updated 2022-08-15 15:34:46 GMT Summer Time
 </div>
 </div>
 </body>

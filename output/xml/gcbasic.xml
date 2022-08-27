@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>Great Cow BASIC documentation</title>
-<date>2022-08-14</date>
+<date>2022-08-15</date>
 <author>
 <personname>
 <firstname>The Great Cow BASIC development team @ 2022</firstname>
@@ -112,7 +112,7 @@ The “Programmer Preferences” is a software tool to control and set-up the di
 </section>
 <section xml:id="_changes">
 <title>Changes</title>
-<simpara><emphasis role="strong">Formal Release of Great Cow Basic Compiler v0.99.02</emphasis></simpara>
+<simpara><emphasis role="strong">Formal Release of Great Cow Basic Compiler v1.xx.xx</emphasis></simpara>
 <simpara><?asciidoc-br?></simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <?dbhtml table-width="60%"?>
@@ -130,13 +130,13 @@ The “Programmer Preferences” is a software tool to control and set-up the di
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2022-08-14<?asciidoc-br?>
-15:50:34 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2022-08-15<?asciidoc-br?>
+15:50:31 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2022-08-14<?asciidoc-br?>
-15:34:24 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2022-08-15<?asciidoc-br?>
+15:34:46 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -1445,6 +1445,89 @@ Hardware Serial (TX1) data will now be output on both B.6 and C.6
             RB6PPS = 0x0020    'TX1 &gt; RB6
 
     End Sub</screen>
+<section xml:id="_uno_as_isp_programmer">
+<title>UNO as ISP programmer</title>
+<simpara>So, you have brought some ATtiny88 breakout boards online.&#160;&#160;
+They are advertised as Nano equivalents but are inferior to the Nano in having low RAM (512 bytes vs 2048) and missing some other features.&#160;&#160;
+Specifically the lack of a USB comport for programming.&#160;&#160;</simpara>
+<simpara>The ATtiny88 USB interface only works in Arduino IDE with some tweaking, and, you are not in the mood for learning how to write sketches after being in the GCB environment for years.&#160;&#160;</simpara>
+<simpara>This is an all-in-one tutorial for programming the ATtiny88 via AVRdude using GCB.&#160;&#160;</simpara>
+<note>
+<simpara>The only baud rate that works is 19200. Every other baud rate failed in testing</simpara>
+</note>
+<simpara>The process described will create a new programmer entry in the GCB Programmer Options to fully automate the compile &amp; program progress.</simpara>
+<note>
+<simpara>This refers to an ATtiny88 but you can use this method for many AVRs which used in conjunction with AvrDude.</simpara>
+</note>
+<simpara><emphasis role="strong">The Process</emphasis></simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Obtain an Arduino UNO or mega.&#160;&#160;
+Upload this <link xlink:href="https://sourceforge.net/p/gcbasic/discussion/chipfileforum/thread/088449090a/ed10/attachment/arduino_As_ISP_adafruit.hex">hex file</link> to convert the UNO into an ISP programmer or follow steps 2 -5 below.</simpara>
+</listitem>
+<listitem>
+<simpara>Download the Arduino IDE software.&#160;&#160;
+This is used to upload a sketch to the UNO that converts it into an ISP programmer.</simpara>
+</listitem>
+<listitem>
+<simpara>Connect the UNO to your PC via USB.&#160;&#160;
+In Arduino IDE goto Tools &#8594; Set board and select "Arduino UNO".&#160;&#160;
+Select the correct com port for the Arduino Uno as show in device manager.</simpara>
+</listitem>
+<listitem>
+<simpara>Goto file &#8594; examples &#8594; ArduinoISP to select the sketch that will convert the UNO to an ISP programmer. I found a better(?) working version at adafruit. Simply copy all the text from this link into a new sketch <link xlink:href="https://raw.githubusercontent.com/adafruit/ArduinoISP/master/ArduinoISP.ino">https://raw.githubusercontent.com/adafruit/ArduinoISP/master/ArduinoISP.ino</link> (or download the ino file attached and open it in Arduino IDE) and goto step 5</simpara>
+</listitem>
+<listitem>
+<simpara>Click upload and confirm the sketch uploaded correctly by checking the status window at the bottom of the Arduino IDE</simpara>
+</listitem>
+<listitem>
+<simpara>Build a cable to connect the ISP headers on the UNO and target (ATtiny88) board as described below. Search online for the UNO ISP header pinout, the ISP header happens to be labelled underneath the ATtiny88 breakout board.</simpara>
+</listitem>
+<listitem>
+<simpara>Connect pin 10 of the UNO to the reset pin on target ISP header</simpara>
+</listitem>
+<listitem>
+<simpara>Connect VCC to VCC, MOSI to MOSI, MISO to MISO, GND to GND, SCK to SCK.</simpara>
+</listitem>
+<listitem>
+<simpara>Open Synwrite &#8594; "IDE tools" &#8594; "GCB tools" &#8594; "Edit Programmer preferences", or, in GCStudio "Edit Programmer preferences"</simpara>
+</listitem>
+<listitem>
+<simpara>Click "add" and a program editor window opens</simpara>
+</listitem>
+<listitem>
+<simpara>Enter name Arduino as ISP or similar</simpara>
+</listitem>
+<listitem>
+<simpara>In the "Use if" box paste DEF(AVR)</simpara>
+</listitem>
+<listitem>
+<simpara>In the "File" box paste %instdir%..\avrdude\avrdude.exe</simpara>
+</listitem>
+<listitem>
+<simpara>In the "command line parameters" paste -c avrisp -p t88 -P %Port% -b 19200 -U flash:w:"%FileName%":a</simpara>
+</listitem>
+<listitem>
+<simpara>Select the com port that corresponds to the connected UNO port</simpara>
+</listitem>
+<listitem>
+<simpara>Click ok</simpara>
+</listitem>
+</orderedlist>
+<simpara><emphasis>Enter the sample code here into GCB IDE</emphasis></simpara>
+<screen>    #chip tiny88, 12
+
+    dir portd.0 out
+
+    Do
+      set portd.0 on
+      wait 500 ms
+      set portd.0 off
+      wait 500 ms
+    Loop</screen>
+<simpara>Now you can select "Hex/Flash" to upload the code to the Attiny88.&#160;&#160;
+If all goes well the LED should blink on and off every second</simpara>
+</section>
 </section>
 <section xml:id="_microcontroller_fundamentals">
 <title>Microcontroller Fundamentals</title>

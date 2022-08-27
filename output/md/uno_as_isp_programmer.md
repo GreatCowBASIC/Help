@@ -52,7 +52,7 @@ which used in conjunction with AvrDude.
 <div class="orderedlist">
 
 1.  Obtain an Arduino UNO or mega.   Upload this
-    <a href="asset/arduino_As_ISP_adafruit.hex" class="link">hex file</a>
+    <a href="https://sourceforge.net/p/gcbasic/discussion/chipfileforum/thread/088449090a/ed10/attachment/arduino_As_ISP_adafruit.hex" class="link">hex file</a>
     to convert the UNO into an ISP programmer or follow steps 2 -5
     below.
 2.  Download the Arduino IDE software.   This is used to upload a sketch
