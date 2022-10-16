@@ -10,7 +10,7 @@
 or, if other multiple comports are in use, set the comport before using HSerReceive.
 ----
 
-    comport = 1   '(1|2|3|4)Not needed unless using multiple comports in use
+    comport = 1   '(1|2|3|4|5)Not needed unless using multiple comports in use
     HSerReceive (_user_byte_variable_)
 
 ----
@@ -41,7 +41,7 @@ For other comports use Function `HSerReceiveFrom`
 
 Available on all microcontrollers with a USART or UART module.
 
-Microchip PIC supports USART1 and 2. +
+Microchip PIC supports USART1,2,3,4 and 5. +
 Atmel AVR supports USART 1,2,3 and 4.
 
 *Enabling Constants:*
@@ -50,10 +50,10 @@ To enable the use of the USART these are the enabling constants. &#160;&#160;The
 
 ----
     'USART settings for USART1
-    #define USART_BAUD_RATE 9600
-    #define USART_TX_BLOCKING
-    #define USART_RX_BLOCKING
-    #define USART_DELAY OFF
+    #define USART_BAUD_RATE 9600       'Set the baud rate
+    #define USART_TX_BLOCKING          'Ensure the transmit buffer is empty
+    #define USART_BLOCKING             'Ensures a data byte is in the receive buffer
+    #define USART_DELAY OFF	       'Disables USART delays
 ----
 
 *Explanation:*
