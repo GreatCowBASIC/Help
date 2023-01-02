@@ -294,6 +294,8 @@ include::glcdoverview.adoc[]
 
 :leveloffset: +1
 
+include::fontsandcharacters.adoc[]
+
 include::epapercontrollers.adoc[]
 
 include::hx8347Gcontrollers.adoc[]
