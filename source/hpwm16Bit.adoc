@@ -15,8 +15,7 @@
 *Only* available on Microchip PIC microcontrollers with the 16-bit PWM module.  16-bit PWM support includes both dynamic mode and fixed mode operations. See the examples below for usage.
 
 The PIC microcontroller chip specific DAT file must contain `CHIPPWM16TYPE = 1`.&#160;&#160;
-If the chip specific DAT does not contain `CHIPPWM16TYPE = 1` and the microcontroller does support PWM 16 Bit then add the following to your source program.&#160;&#160;
-And, report the omission to us via the support forum.&#160;&#160;
+If the chip specific DAT does not contain `CHIPPWM16TYPE = 1` and the microcontroller does support PWM 16 Bit please report the omission to Great Cow BASIC the support forum.&#160;&#160;
 
 ----
     #DEFINE CHIPPWM16TYPE 1
