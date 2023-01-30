@@ -35,8 +35,14 @@ The advanced variable types that Great Cow BASIC supports are:
 
 |LongINT
 |A list of whole numbers between - (2 ^ 63) and 2 ^ 63 - 1
-|Storing very, very big integer numbers that could be a negative number
+|Storing very, very big integer numbers that could be a negative number.
 
+The Great Cow BASIC range is -9999999999999990 to 9999999999999990.
+
+This range is an implementation constraint with the Great Cow BASIC compiler.
+
+//Dim MyLongInt as LongInt
+//    MyLongInt = 9999999999999990   ' largest permitted value = 9999999999999990 or 9,999,999,999,999,990
 
 |uLongINT
 |A whole number between 0 and 2 ^ 64 - 1
@@ -94,10 +100,10 @@ to tell Great Cow BASIC that it is dealing with an advanced variable.
 ----
 
     Dim myLongInt as LongInt
-    myLongInt = 922337203685477           '2 ^ 63 - 1 or  9223372036854775807
+    myLongInt = 9999999999999990          'see the Help for constraints
 
     Dim myuLongInt as uLongInt
-    myuLongInt = 0xFFFFFFFFFFFFF          '2 ^ 64 - 1  or  18446744073709551615
+    myuLongInt = 0xFFFFFFFFFFFFF          'see the Help for constraints
 
     Dim mySingle as Single
     mySingle= 1.1
