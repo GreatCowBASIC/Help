@@ -15,13 +15,12 @@ PCF8574_readbyte( PCF8574_device, [in_byte] ) where PCF8574_device is the 8bit I
 
 To address a specific slave. Use the constant #DEFINE PCF8574_DEVICE_1 0X4E where 0x4E is the correct address identified by I2C Discovery.
 
-I2C must be defined prior to calling the methods shown above. Either Software or Hardware I2C is supported.
-
+I2C must be defined prior to calling the methods shown above. Either Software or Hardware I2C is supported.&#160;&#160;Hardware I2C is supported, I2C2 is not currently supported ( @ Jan 2023 ).
 
 *Example*
 
 ----
-
+// you must define software I2C or hardware I2C.  I2C2 is not currenly supported ( @ Jan 2023 )
 // Include this specific library.  This is mandated
  #INCLUDE <PCF8574.H>
 
