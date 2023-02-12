@@ -68,6 +68,7 @@ These tests were completed using a Saleae Logic Analyzer.
 
     ; ---- Set up LCD - Using I2C LCD Backpack
     #define LCD_IO 10
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_I2C_Address_1 0x4e ; default to 0x4E
     ; ----  May need to use SLOW or MEDIUM if your LCD is a slower device.
     #define LCD_SPEED Medium

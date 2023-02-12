@@ -33,6 +33,7 @@ A typical use is to pad a string to be displayed on a LCD display.
     'Defines (Constants)
     #define LCD_SPEED slow
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_NO_RW
     #define LCD_Enable PORTc.0
     #define LCD_RS PORTc.1

@@ -27,6 +27,7 @@ The LCDHex will display the byte value as a 1 or 2 character HEX string.
     #chip mega328p, 16
     ;Setup LCD Parameters
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_NO_RW
     #define LCD_Speed MEDIUM 'FAST IS OK ON ARDUINO UNO R3
 

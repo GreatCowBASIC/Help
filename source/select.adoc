@@ -59,6 +59,7 @@ There are two examples shown below.
 
     'LCD connection settings
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DB4 PORTD.4
     #define LCD_DB5 PORTD.5
     #define LCD_DB6 PORTD.6
@@ -110,6 +111,7 @@ The circuit for the IR receiver and the chip is shown below.
     '----- Constants
 
     #define LCD_IO      4             '4-bit mode
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS      PortB.2       'pin 8 is Register Select
     #define LCD_Enable  PortB.3       'pin 9 is Enable
     #define LCD_DB4     PortB.4       'DB4 on pin 10

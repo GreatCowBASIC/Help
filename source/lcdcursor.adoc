@@ -30,6 +30,7 @@ older releases of GCB.
 
     ;Defines (Constants)
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS PORTA.6
     #define LCD_NO_RW
     #define LCD_Enable PORTA.7

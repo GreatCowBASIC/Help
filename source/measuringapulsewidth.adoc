@@ -48,6 +48,7 @@ To get positive pulse width use:
 
     'Set up LCD
     #define LCD_IO 10
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_SPEED FAST
     #define LCD_Backlight_On_State  1
     #define LCD_Backlight_Off_State 0
