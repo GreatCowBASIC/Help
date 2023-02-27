@@ -44,6 +44,7 @@ can display string, word, byte, long or integer variables.
 
     'LCD connection settings
     #define LCD_IO 8
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DATA_PORT PORTC
     #define LCD_RS PORTD.0
     #define LCD_RW PORTD.1

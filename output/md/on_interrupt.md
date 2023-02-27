@@ -771,6 +771,7 @@ Within the Interrupt handling sub routine ensure the timer reset and cleartimer 
 
     'LCD connection settings
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DB4 PORTD.4
     #define LCD_DB5 PORTD.5
     #define LCD_DB6 PORTD.6

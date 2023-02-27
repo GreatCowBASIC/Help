@@ -33,6 +33,12 @@ location to read data from, and varies from one chip to another. `store`
 is the variable in which to store the data after it has been read from
 EEPROM.
 
+Note Do not exceed the location ( also known as the EEProm address ) of
+the physical EEProm. If the EEProm size is 256 ensure location is in the
+range of 0 to 255; If the EEProm size is 512 ensure location is in the
+range of 0 to 511 and use a Word variable as the location parameter.
+Example:
+
 <span class="strong">**Example:**</span>
 
 ``` screen

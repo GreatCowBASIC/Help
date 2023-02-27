@@ -62,6 +62,7 @@ not designed to be used with parasitically powered DS18B20 sensors, the
 
     'Use LCD in 4 pin mode and define LCD pins
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RW PORTE.1
     #define LCD_RS PORTE.0
     #define LCD_Enable PORTE.2

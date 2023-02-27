@@ -68,6 +68,7 @@ from the Start event.
 
     'Ports connected to LCD
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RW PORTA.7
     #define LCD_RS PORTA.6
     #define LCD_Enable PORTA.5

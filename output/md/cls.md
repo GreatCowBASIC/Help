@@ -43,6 +43,8 @@ to the top left corner of the screen
     #define LCD_RS PORTD.0
     #define LCD_RW PORTD.1
     #define LCD_Enable PORTD.2
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
+
 
     'Main routine
     Do

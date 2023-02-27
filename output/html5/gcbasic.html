@@ -753,13 +753,13 @@ The “Programmer Preferences” is a software tool to control and set-up the di
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2022-08-15<br>
-15:50:33 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2023-02-25<br>
+10:42:40 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2022-08-15<br>
-15:34:46 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2023-01-02<br>
+07:02:02 GMT Standard Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -3823,7 +3823,9 @@ The advanced variable types that Great Cow BASIC supports are:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LongINT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A list of whole numbers between - (2 ^ 63) and 2 ^ 63 - 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Storing very, very big integer numbers that could be a negative number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Storing very, very big integer numbers that could be a negative number.
+</p><p class="tableblock">The Great Cow BASIC range is -9999999999999990 to 9999999999999990.
+</p><p class="tableblock">This range is an implementation constraint with the Great Cow BASIC compiler.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">uLongINT</p></td>
@@ -3893,10 +3895,10 @@ to tell Great Cow BASIC that it is dealing with an advanced variable.</p>
 <div class="listingblock">
 <div class="content">
 <pre>    Dim myLongInt as LongInt
-    myLongInt = 922337203685477           '2 ^ 63 - 1 or  9223372036854775807
+    myLongInt = 9999999999999990          'see the Help for constraints
 
     Dim myuLongInt as uLongInt
-    myuLongInt = 0xFFFFFFFFFFFFF          '2 ^ 64 - 1  or  18446744073709551615
+    myuLongInt = 0xFFFFFFFFFFFFF          'see the Help for constraints
 
     Dim mySingle as Single
     mySingle= 1.1
@@ -8322,6 +8324,11 @@ Zeros are shifted in from the right, Bits that are shifted out are lost.</p>
 <code><em>store</em></code> is the variable in which to store the data after it has been read from EEPROM.</p>
 </div>
 <div class="paragraph">
+<p>Note
+Do not exceed the location ( also known as the EEProm address ) of the physical EEProm.  If the EEProm size is 256 ensure location is in the range of 0 to 255;  If the EEProm size is 512 ensure location is in the range of 0 to 511 and use a Word variable as the location parameter.
+Example:</p>
+</div>
+<div class="paragraph">
 <p><strong>Example:</strong></p>
 </div>
 <div class="listingblock">
@@ -8388,9 +8395,21 @@ Zeros are shifted in from the right, Bits that are shifted out are lost.</p>
 <div class="paragraph">
 <p><code>EPWrite</code> is used to write information to the EEPROM data storage, so that
 it can be accessed later by a programmer on the PC, or by the <code>EPRead</code>
-command. <code><em>location</em></code> represents the location to read data from, and varies
+command. <code><em>location</em></code> represents the location to write data to, and the location varies
 from one chip to another. <code><em>data</em></code> is the data that is to be written to the
 EEPROM, and can be a value or a variable.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Do not exceed the location ( also known as the EEProm address ) of the physical EEProm.&#160;&#160;If the EEProm size is 256 ensure location is in the range of 0 to 255;&#160;&#160;If the EEProm size is 512 ensure location is in the range of 0 to 511 and use a Word variable as the location parameter.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><strong>Example:</strong></p>
@@ -12119,6 +12138,7 @@ using <code>Select Case</code>.</p>
 
     'LCD connection settings
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DB4 PORTD.4
     #define LCD_DB5 PORTD.5
     #define LCD_DB6 PORTD.6
@@ -12175,6 +12195,7 @@ on an LCD.</p>
     '----- Constants
 
     #define LCD_IO      4             '4-bit mode
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS      PortB.2       'pin 8 is Register Select
     #define LCD_Enable  PortB.3       'pin 9 is Enable
     #define LCD_DB4     PortB.4       'DB4 on pin 10
@@ -13502,6 +13523,7 @@ the handler.</p></td>
 
     'LCD connection settings
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DB4 PORTD.4
     #define LCD_DB5 PORTD.5
     #define LCD_DB6 PORTD.6
@@ -14070,6 +14092,7 @@ only one value will be returned.
 
     'LCD connection settings
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DB4 PORTD.4
     #define LCD_DB5 PORTD.5
     #define LCD_DB6 PORTD.6
@@ -15022,6 +15045,71 @@ details, this is an external web site.</p>
 <a href="#_glcddrawchar">GLCDDrawChar</a>, <a href="#_glcdprint">GLCDPrint</a>,
 <a href="#_glcdreadbyte">GLCDReadByte</a>,
 <a href="#_glcdwritebyte">GLCDWriteByte</a>, <a href="#_pset">Pset</a></p>
+</div>
+<div class="sect4">
+<h5 id="_fonts_and_characters">Fonts and Characters</h5>
+<div class="paragraph">
+<p>This section covers GLCD fonts and characters.</p>
+</div>
+<div class="paragraph">
+<p><strong>GLCD Support for Fonts</strong></p>
+</div>
+<div class="paragraph">
+<p>lorem ipsum.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p><strong>GLCD Support for Characters</strong></p>
+</div>
+<div class="paragraph">
+<p>lorem ipsum.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p><strong>GLCD Character Table</strong></p>
+</div>
+<div class="paragraph">
+<p>lorem ipsum.&#160;&#160;</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/OLEDASCIIcharacter.png" alt="graphic">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>GLCD Controlling Constants</strong></p>
+</div>
+<div class="paragraph">
+<p>The Great Cow BASIC constants for control of fonts and characters are shown in the table below.</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Constants</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Controls</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Options</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CONSTANT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Words</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explaination</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ANOTHER CONSTANT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Words</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explaination</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>For more help, see</strong>
+<a href="#_glcdcls">GLCDCLS</a>, <a href="#_glcddrawchar">GLCDDrawChar</a></p>
+</div>
 </div>
 <div class="sect4">
 <h5 id="_e_paper_controllers">e-Paper Controllers</h5>
@@ -24985,11 +25073,11 @@ also known as 4004 type LCD displays.</p></td>
 
   #DEFINE LCD_DB7 PORTB.5
   #DEFINE LCD_DB6 PORTB.4
-  #DEFINE LCD_DB7 PORTB.3
-  #DEFINE LCD_DB6 PORTB.2
+  #DEFINE LCD_DB5 PORTB.3
+  #DEFINE LCD_DB4 PORTB.2
 
   #DEFINE LCD_RW PORTA.3    'Must be defined for RW Mode
-  #DEFINE LCD_RS PORTA,2
+  #DEFINE LCD_RS PORTA.2
   #DEFINE LCD_ENABLE PORTA.1</pre>
 </div>
 </div>
@@ -26067,6 +26155,7 @@ This example shows the use of software I2C - any LCD mode can be used not just s
     'Set up LCD
     #define LCD_IO 10
     #define LCD_VARIANT 1601a
+    #define LCD_WIDTH 16
 
     'You may need to use SLOW or MEDIUM if your LCD is a slower device.
     #define LCD_SPEED FAST
@@ -26207,14 +26296,14 @@ To change the performance (communications speed) of the LCD use <code>#DEFINE LC
 <div class="content">
 <pre>  #DEFINE LCD_IO 4
   #DEFINE LCD_SPEED OPTIMAL
-
+  #DEFINE LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
   #DEFINE LCD_DB7 PORTB.5
   #DEFINE LCD_DB6 PORTB.4
   #DEFINE LCD_DB7 PORTB.3
   #DEFINE LCD_DB6 PORTB.2
 
   #DEFINE LCD_RW PORTA.3    'Must be defined for RW Mode
-  #DEFINE LCD_RS PORTA,2
+  #DEFINE LCD_RS PORTA.2
   #DEFINE LCD_ENABLE PORTA.1</pre>
 </div>
 </div>
@@ -26301,6 +26390,8 @@ to the top left corner of the screen</p>
     #define LCD_RS PORTD.0
     #define LCD_RW PORTD.1
     #define LCD_Enable PORTD.2
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
+
 
     'Main routine
     Do
@@ -26475,6 +26566,7 @@ through 7 are usually used to store custom characters.<br>
 
     'LCD connection settings
     #define LCD_IO 8
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DATA_PORT PORTC
     #define LCD_RS PORTD.0
     #define LCD_RW PORTD.1
@@ -26542,6 +26634,7 @@ then be displayed on the LCD</p>
 
     ;Defines (Constants)
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS PORTA.6
     #define LCD_NO_RW
     #define LCD_Enable PORTA.7
@@ -26688,6 +26781,7 @@ in the table below.</p>
 
     ;Defines (Constants)
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS PORTA.6
     #define LCD_NO_RW
     #define LCD_Enable PORTA.7
@@ -26770,6 +26864,7 @@ in the table below.</p>
 
     'Use LCD in 4 pin mode and define LCD pins
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RW PORTE.1
     #define LCD_RS PORTE.0
     #define LCD_Enable PORTE.2
@@ -26997,6 +27092,7 @@ older releases of GCB.</p>
 
     ;Defines (Constants)
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS PORTA.6
     #define LCD_NO_RW
     #define LCD_Enable PORTA.7
@@ -27128,6 +27224,7 @@ older releases of GCB.</p>
     #chip mega328p, 16
     ;Setup LCD Parameters
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_NO_RW
     #define LCD_Speed MEDIUM 'FAST IS OK ON ARDUINO UNO R3
 
@@ -27216,6 +27313,7 @@ older releases of GCB.</p>
 
     ;Defines (Constants)
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS PORTA.6
     #define LCD_NO_RW
     #define LCD_Enable PORTA.7
@@ -27442,6 +27540,7 @@ location.</p>
 
     'LCD connection settings
     #define LCD_IO 8
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DATA_PORT PORTC
     #define LCD_RS PORTD.0
     #define LCD_RW PORTD.1
@@ -27500,6 +27599,7 @@ can display string, word, byte, long or integer variables.</p>
 
     'LCD connection settings
     #define LCD_IO 8
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DATA_PORT PORTC
     #define LCD_RS PORTD.0
     #define LCD_RW PORTD.1
@@ -27573,6 +27673,7 @@ the LCD.</p>
 
     'LCD connection settings
     #define LCD_IO 8
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DATA_PORT PORTC
     #define LCD_RS PORTD.0
     #define LCD_RW PORTD.1
@@ -27616,6 +27717,7 @@ the LCD.</p>
 <pre>    #chip 16F877A,20
 
     #define LCD_IO 2
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DB portb.2
     #define LCD_CB portb.0
     #define LCD_NO_RW
@@ -27824,6 +27926,7 @@ the LCD.</p>
     #define LCD_DB5 PORTD.5
     #define LCD_DB6 PORTD.6
     #define LCD_DB7 PORTD.7
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
 
     ;----- Main Program
 
@@ -27860,6 +27963,7 @@ the LCD.</p>
     #define LCD_RS PORTE.0
     #define LCD_Enable PORTE.2
     #define LCD_Data_Port PORTD
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
 
     ;Here are various LCD commands which can be used.
     ;These are the LCD commands for the HD44780 controller
@@ -29197,13 +29301,7 @@ ranges from 0 to 1023 where 1023 is 100% duty cycle.</p>
 </div>
 <div class="paragraph">
 <p>The PIC microcontroller chip specific DAT file must contain <code>CHIPPWM16TYPE = 1</code>.&#160;&#160;
-If the chip specific DAT does not contain <code>CHIPPWM16TYPE = 1</code> and the microcontroller does support PWM 16 Bit then add the following to your source program.&#160;&#160;
-And, report the omission to us via the support forum.&#160;&#160;</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    #DEFINE CHIPPWM16TYPE 1</pre>
-</div>
+If the chip specific DAT does not contain <code>CHIPPWM16TYPE = 1</code> and the microcontroller does support PWM 16 Bit please report the omission to Great Cow BASIC the support forum.&#160;&#160;</p>
 </div>
 <div class="paragraph">
 <p>For the Capture/Compare/PWM (CCP) module or the 10-bit PWM module, see the other sections of the Help.</p>
@@ -32530,6 +32628,7 @@ The state of the last two bits is ignored because it is only 6 digits.&#160;&#16
 
     'Use LCD in 4 pin mode and define LCD pins
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RW PORTE.1
     #define LCD_RS PORTE.0
     #define LCD_Enable PORTE.2
@@ -32611,6 +32710,7 @@ The state of the last two bits is ignored because it is only 6 digits.&#160;&#16
 
     'Use LCD in 4 pin mode and define LCD pins
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RW PORTE.1
     #define LCD_RS PORTE.0
     #define LCD_Enable PORTE.2
@@ -32696,6 +32796,7 @@ The state of the last two bits is ignored because it is only 6 digits.&#160;&#16
 
     'Use LCD in 4 pin mode and define LCD pins
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RW PORTE.1
     #define LCD_RS PORTE.0
     #define LCD_Enable PORTE.2
@@ -32911,6 +33012,7 @@ Change the <code>DS18B20SetResolution ()</code> method to set the resolution of 
     #define USART_DELAY OFF
 
     #define LCD_IO 107   'K107
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
 
 
     ; ----- Constants
@@ -33300,6 +33402,7 @@ to a terminal, these commands should follow <code>SerPrint</code>.</p>
 
     'LCD settings
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS PORTC.7
     #define LCD_RW PORTC.6
     #define LCD_Enable PORTC.5
@@ -34460,6 +34563,7 @@ to a terminal, these commands should follow every <code>HSerPrint</code> :</p>
 
   'LCD settings
   #define LCD_IO 4
+  #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
   #define LCD_RS PORTC.7
   #define LCD_RW PORTC.6
   #define LCD_Enable PORTC.5
@@ -34643,7 +34747,7 @@ Atmel AVR supports USART 1,2,3 and 4.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    comport = 1   '(1|2|3|4)Not needed unless using multiple comports in use
+<pre>    comport = 1   '(1|2|3|4|5)Not needed unless using multiple comports in use
     HSerReceive (_user_byte_variable_)</pre>
 </div>
 </div>
@@ -34678,7 +34782,7 @@ Atmel AVR supports USART 1,2,3 and 4.</p>
 <p>Available on all microcontrollers with a USART or UART module.</p>
 </div>
 <div class="paragraph">
-<p>Microchip PIC supports USART1 and 2.<br>
+<p>Microchip PIC supports USART1,2,3,4 and 5.<br>
 Atmel AVR supports USART 1,2,3 and 4.</p>
 </div>
 <div class="paragraph">
@@ -34690,10 +34794,10 @@ Atmel AVR supports USART 1,2,3 and 4.</p>
 <div class="listingblock">
 <div class="content">
 <pre>    'USART settings for USART1
-    #define USART_BAUD_RATE 9600
-    #define USART_TX_BLOCKING
-    #define USART_RX_BLOCKING
-    #define USART_DELAY OFF</pre>
+    #define USART_BAUD_RATE 9600       'Set the baud rate
+    #define USART_TX_BLOCKING          'Ensure the transmit buffer is empty
+    #define USART_BLOCKING             'Ensures a data byte is in the receive buffer
+    #define USART_DELAY OFF	       'Disables USART delays</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -35182,6 +35286,7 @@ update the status LEDs as appropriate.</p>
 
 	'LCD connection settings
 	#define LCD_IO 4
+	#define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
 	#define LCD_DB4 PORTD.4
 	#define LCD_DB5 PORTD.5
 	#define LCD_DB6 PORTD.6
@@ -35956,6 +36061,7 @@ screen.</p>
 
   'LCD connection settings
   #define LCD_IO 8
+  #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
   #define LCD_DATA_PORT PORTC
   #define LCD_RS PORTD.0
   #define LCD_RW PORTD.1
@@ -44761,6 +44867,7 @@ The character used to pad the string is specified by the second parameter, this 
     'Defines (Constants)
     #define LCD_SPEED slow
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_NO_RW
     #define LCD_Enable PORTc.0
     #define LCD_RS PORTc.1
@@ -44983,6 +45090,7 @@ The character used to pad the string is specified by the second parameter, this 
     'Defines (Constants)
     #define LCD_SPEED slow
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_NO_RW
     #define LCD_Enable PORTc.0
     #define LCD_RS PORTc.1
@@ -46741,6 +46849,7 @@ Non-negative numbers are assumed throughout.</p>
     ;----- Constants
 
     #define LCD_IO 4            ;4-bit mode
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS PortB.2      ;pin 8 is LCD Register Select
     #define LCD_Enable PortB.3  ;pin 9 is LCD Enable
     #define LCD_DB4 PortB.4     ;DB4 on pin 10
@@ -46912,6 +47021,7 @@ Non-negative numbers are assumed throughout.</p>
     ;----- Constants
 
     #define LCD_IO      4           ;4-bit mode
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS      PortB.2     ;pin 8 is LCD Register Select
     #define LCD_Enable  PortB.3     ;pin 9 is LCD Enable
     #define LCD_DB4     PortB.4     ;DB4 on pin 10
@@ -47022,6 +47132,7 @@ The output values are also integers, represented as fixed point decimal fraction
     ;----- Constants
 
     #define LCD_IO      4           ;4-bit mode
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS      PortB.2     ;pin 8 is LCD Register Select
     #define LCD_Enable  PortB.3     ;pin 9 is LCD Enable
     #define LCD_DB4     PortB.4     ;DB4 on pin 10
@@ -49002,6 +49113,7 @@ pulse was detected or the pulse was longer than allowed by the prescaler/OSC set
 
     'Set up LCD
     #define LCD_IO 10
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_SPEED FAST
     #define LCD_Backlight_On_State  1
     #define LCD_Backlight_Off_State 0
@@ -49436,6 +49548,7 @@ exit a polling loop and set the pulse Pin off. Then, <code>Timer1</code> is stop
 
     ; ---- Set up LCD - Using I2C LCD Backpack
     #define LCD_IO 10
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_I2C_Address_1 0x4e ; default to 0x4E
     ; ----  May need to use SLOW or MEDIUM if your LCD is a slower device.
     #define LCD_SPEED Medium
@@ -49672,6 +49785,7 @@ exit a polling loop and set the pulse Pin off. Then, <code>Timer1</code> is stop
     ;----- Constants
 
     #define LCD_IO      4             ;4-bit mode
+    #define LCD_WIDTH 20              ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS      PortB.2       ;pin 8 is Register Select
     #define LCD_Enable  PortB.3       ;pin 9 is Enable
     #define LCD_DB4     PortB.4       ;DB4 on pin 10
@@ -50192,6 +50306,7 @@ The algorithm is a variant of <a href="https://en.wikipedia.org/wiki/Bresenham%2
 
     'Ports connected to LCD
     #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RW PORTA.7
     #define LCD_RS PORTA.6
     #define LCD_Enable PORTA.5
@@ -52902,7 +53017,7 @@ The list shows the installation of the Sharp Develop IDE.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-08-15 15:34:46 GMT Summer Time
+Last updated 2023-01-02 07:02:02 GMT Standard Time
 </div>
 </div>
 </body>

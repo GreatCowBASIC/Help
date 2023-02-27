@@ -58,12 +58,39 @@ The advanced variable types that Great Cow BASIC supports are:
 
 <div class="informaltable">
 
-| <span class="strong">**Advanced Variable type**</span> | <span class="strong">**Information that this variable can store**</span>                                           | <span class="strong">**Example uses for this type of variable**</span> |
-|:-------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------|
-| LongINT                                                | A list of whole numbers between - (2 ^ 63) and 2 ^ 63 - 1                                                          | Storing very, very big integer numbers that could be a negative number |
-| uLongINT                                               | A whole number between 0 and 2 ^ 64 - 1                                                                            | Storing very, very, very big integer numbers                           |
-| Single                                                 | A numeric floating point values that range from -3.4x10 ^ 38 and +3.4x10 ^ 38 with up to seven significant digits. | Storing decimal numbers that could be a negative number and positive.  |
-| Double                                                 | A numeric floating point values that range from -1.7x10 ^ 308 and +1.7x10 ^ 308 with up to 15 significant digits.  | Storing decimal numbers that could be a negative number and positive.  |
+<table data-border="1" width="80%">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="strong"><strong>Advanced Variable type</strong></span></th>
+<th style="text-align: left;"><span class="strong"><strong>Information that this variable can store</strong></span></th>
+<th style="text-align: left;"><span class="strong"><strong>Example uses for this type of variable</strong></span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><p>LongINT</p></td>
+<td style="text-align: left;"><p>A list of whole numbers between - (2 ^ 63) and 2 ^ 63 - 1</p></td>
+<td style="text-align: left;"><p>Storing very, very big integer numbers that could be a negative number.</p>
+<p>The Great Cow BASIC range is -9999999999999990 to 9999999999999990.</p>
+<p>This range is an implementation constraint with the Great Cow BASIC compiler.</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p>uLongINT</p></td>
+<td style="text-align: left;"><p>A whole number between 0 and 2 ^ 64 - 1</p></td>
+<td style="text-align: left;"><p>Storing very, very, very big integer numbers</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p>Single</p></td>
+<td style="text-align: left;"><p>A numeric floating point values that range from -3.4x10 ^ 38 and +3.4x10 ^ 38 with up to seven significant digits.</p></td>
+<td style="text-align: left;"><p>Storing decimal numbers that could be a negative number and positive.</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p>Double</p></td>
+<td style="text-align: left;"><p>A numeric floating point values that range from -1.7x10 ^ 308 and +1.7x10 ^ 308 with up to 15 significant digits.</p></td>
+<td style="text-align: left;"><p>Storing decimal numbers that could be a negative number and positive.</p></td>
+</tr>
+</tbody>
+</table>
 
 </div>
 
@@ -112,10 +139,10 @@ variable.
 
 ``` screen
     Dim myLongInt as LongInt
-    myLongInt = 922337203685477           '2 ^ 63 - 1 or  9223372036854775807
+    myLongInt = 9999999999999990          'see the Help for constraints
 
     Dim myuLongInt as uLongInt
-    myuLongInt = 0xFFFFFFFFFFFFF          '2 ^ 64 - 1  or  18446744073709551615
+    myuLongInt = 0xFFFFFFFFFFFFF          'see the Help for constraints
 
     Dim mySingle as Single
     mySingle= 1.1

@@ -33,13 +33,8 @@ usage.
 
 The PIC microcontroller chip specific DAT file must contain
 `CHIPPWM16TYPE = 1`.   If the chip specific DAT does not contain
-`CHIPPWM16TYPE = 1` and the microcontroller does support PWM 16 Bit then
-add the following to your source program.   And, report the omission to
-us via the support forum.  
-
-``` screen
-    #DEFINE CHIPPWM16TYPE 1
-```
+`CHIPPWM16TYPE = 1` and the microcontroller does support PWM 16 Bit
+please report the omission to Great Cow BASIC the support forum.  
 
 For the Capture/Compare/PWM (CCP) module or the 10-bit PWM module, see
 the other sections of the Help.

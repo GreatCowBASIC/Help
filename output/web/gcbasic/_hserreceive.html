@@ -16,7 +16,7 @@
       <link rel="next" href="_hserreceivefrom.html" title="HSerReceiveFrom" />
       <meta name="Section-title" content="HSerReceive" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-51527";
+            var treeCookieId = "treeview-51614";
             var language = "en";
             var w = new Object();
             //Localization
@@ -185,7 +185,7 @@ border: none; background: none; font-weight: none; color: none; }
                </div>
             </div>
             <p><span class="strong"><strong>Syntax:</strong></span></p>
-            <p><span class="strong"><strong><span class="emphasis"><em>Used as subroutine:</em></span></strong></span></p><pre class="screen">    HSerReceive (<span class="emphasis"><em>user_byte_variable</em></span>)</pre><p>or, if other multiple comports are in use, set the comport before using HSerReceive.</p><pre class="screen">    comport = 1   '(1|2|3|4)Not needed unless using multiple comports in use
+            <p><span class="strong"><strong><span class="emphasis"><em>Used as subroutine:</em></span></strong></span></p><pre class="screen">    HSerReceive (<span class="emphasis"><em>user_byte_variable</em></span>)</pre><p>or, if other multiple comports are in use, set the comport before using HSerReceive.</p><pre class="screen">    comport = 1   '(1|2|3|4|5)Not needed unless using multiple comports in use
     HSerReceive (_user_byte_variable_)</pre><p>or, used as function.</p><pre class="screen">  <span class="emphasis"><em>user_byte_variable</em></span> = <code class="literal">HSerReceive</code>  'Supports only USART1
   <span class="emphasis"><em>user_byte_variable</em></span> = <code class="literal">HSerReceive1</code> 'Supports only USART1
   <span class="emphasis"><em>user_byte_variable</em></span> = <code class="literal">HSerReceive2</code> 'Supports only USART2</pre><p>or, used to support assigning of received byte to word (or other multi-byte variables).  Note the use of casting to ensure
@@ -196,16 +196,16 @@ border: none; background: none; font-weight: none; color: none; }
   HSerReceive [byte]dbAdr</pre><p>For other comports use Function <code class="literal">HSerReceiveFrom</code></p>
             <p><span class="strong"><strong>Command Availability:</strong></span></p>
             <p>Available on all microcontrollers with a USART or UART module.</p>
-            <p>Microchip PIC supports USART1 and 2.<br />
+            <p>Microchip PIC supports USART1,2,3,4 and 5.<br />
                Atmel AVR supports USART 1,2,3 and 4.
             </p>
             <p><span class="strong"><strong>Enabling Constants:</strong></span></p>
             <p>To enable the use of the USART these are the enabling constants.   These constants are required.  You can change the <code class="literal">USART_BAUD_RATE</code> and to meet your needs.  For addition USART ports use <code class="literal">#define USART<span class="strong"><strong>n</strong></span>_BAUD_RATE 9600</code> where <code class="literal"><span class="strong"><strong>n</strong></span>`</code> is the required port number.
             </p><pre class="screen">    'USART settings for USART1
-    #define USART_BAUD_RATE 9600
-    #define USART_TX_BLOCKING
-    #define USART_RX_BLOCKING
-    #define USART_DELAY OFF</pre><p><span class="strong"><strong>Explanation:</strong></span></p>
+    #define USART_BAUD_RATE 9600       'Set the baud rate
+    #define USART_TX_BLOCKING          'Ensure the transmit buffer is empty
+    #define USART_BLOCKING             'Ensures a data byte is in the receive buffer
+    #define USART_DELAY OFF	       'Disables USART delays</pre><p><span class="strong"><strong>Explanation:</strong></span></p>
             <p>This command will read a byte from the hardware RS232 module. It can be
                used either as a subroutine or as a function. If used as a subroutine, a
                variable must be supplied to store the received value in. If used as a
@@ -452,6 +452,7 @@ border: none; background: none; font-weight: none; color: none; }
                               </li>
                               <li><span class="file"><a href="_graphical_lcd.html" tabindex="1">Graphical LCD</a></span><ul>
                                     <li><span class="file"><a href="_glcd_overview.html" tabindex="1">GLCD Overview</a></span><ul>
+                                          <li><span class="file"><a href="_fonts_and_characters.html" tabindex="1">Fonts and Characters</a></span></li>
                                           <li><span class="file"><a href="_e_paper_controllers.html" tabindex="1">e-Paper Controllers</a></span></li>
                                           <li><span class="file"><a href="_hx8347g_controllers.html" tabindex="1">HX8347G Controllers</a></span></li>
                                           <li><span class="file"><a href="_ili9326_controllers.html" tabindex="1">ILI9326 Controllers</a></span></li>

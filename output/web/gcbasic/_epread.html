@@ -16,7 +16,7 @@
       <link rel="next" href="_epwrite.html" title="EPWrite" />
       <meta name="Section-title" content="EPRead" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-51527";
+            var treeCookieId = "treeview-51614";
             var language = "en";
             var w = new Object();
             //Localization
@@ -190,6 +190,12 @@ border: none; background: none; font-weight: none; color: none; }
             <p><code class="literal">EPRead</code> is used to read information from the EEPROM data storage that many microcontroller chips are equipped with.
                <code class="literal"><span class="emphasis"><em>location</em></span></code> represents the location to read data from, and varies from one chip to another.
                <code class="literal"><span class="emphasis"><em>store</em></span></code> is the variable in which to store the data after it has been read from EEPROM.
+            </p>
+            <p>Note
+               Do not exceed the location ( also known as the EEProm address ) of the physical EEProm.  If the EEProm size is 256 ensure
+               location is in the range of 0 to 255;  If the EEProm size is 512 ensure location is in the range of 0 to 511 and use a Word
+               variable as the location parameter.
+               Example:
             </p>
             <p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Program to turn a light on and off
     'Will remember the last status
@@ -397,6 +403,7 @@ border: none; background: none; font-weight: none; color: none; }
                               </li>
                               <li><span class="file"><a href="_graphical_lcd.html" tabindex="1">Graphical LCD</a></span><ul>
                                     <li><span class="file"><a href="_glcd_overview.html" tabindex="1">GLCD Overview</a></span><ul>
+                                          <li><span class="file"><a href="_fonts_and_characters.html" tabindex="1">Fonts and Characters</a></span></li>
                                           <li><span class="file"><a href="_e_paper_controllers.html" tabindex="1">e-Paper Controllers</a></span></li>
                                           <li><span class="file"><a href="_hx8347g_controllers.html" tabindex="1">HX8347G Controllers</a></span></li>
                                           <li><span class="file"><a href="_ili9326_controllers.html" tabindex="1">ILI9326 Controllers</a></span></li>

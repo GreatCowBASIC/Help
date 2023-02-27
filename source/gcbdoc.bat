@@ -88,7 +88,7 @@ del *.mod > nul
 
 
 
-delete the files for the Help.wiki.git
+Echo delete the files for the Help.wiki.git
 del ..\..\..\..\Help.wiki.git\trunk\*.* /Q
 
 FOR /F "tokens=*" %%G IN ('dir/b /s ^"*.html^"') DO (

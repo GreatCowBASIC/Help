@@ -16,7 +16,7 @@
       <link rel="next" href="_lcd_width.html" title="LCD_WIDTH" />
       <meta name="Section-title" content="LCD_SPEED" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-51527";
+            var treeCookieId = "treeview-51614";
             var language = "en";
             var w = new Object();
             //Localization
@@ -249,14 +249,14 @@ border: none; background: none; font-weight: none; color: none; }
             </div>
             <p>Example:</p><pre class="screen">  #DEFINE LCD_IO 4
   #DEFINE LCD_SPEED OPTIMAL
-
+  #DEFINE LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
   #DEFINE LCD_DB7 PORTB.5
   #DEFINE LCD_DB6 PORTB.4
   #DEFINE LCD_DB7 PORTB.3
   #DEFINE LCD_DB6 PORTB.2
 
   #DEFINE LCD_RW PORTA.3    'Must be defined for RW Mode
-  #DEFINE LCD_RS PORTA,2
+  #DEFINE LCD_RS PORTA.2
   #DEFINE LCD_ENABLE PORTA.1</pre></div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -429,6 +429,7 @@ border: none; background: none; font-weight: none; color: none; }
                               </li>
                               <li><span class="file"><a href="_graphical_lcd.html" tabindex="1">Graphical LCD</a></span><ul>
                                     <li><span class="file"><a href="_glcd_overview.html" tabindex="1">GLCD Overview</a></span><ul>
+                                          <li><span class="file"><a href="_fonts_and_characters.html" tabindex="1">Fonts and Characters</a></span></li>
                                           <li><span class="file"><a href="_e_paper_controllers.html" tabindex="1">e-Paper Controllers</a></span></li>
                                           <li><span class="file"><a href="_hx8347g_controllers.html" tabindex="1">HX8347G Controllers</a></span></li>
                                           <li><span class="file"><a href="_ili9326_controllers.html" tabindex="1">ILI9326 Controllers</a></span></li>

@@ -29,9 +29,20 @@ EEPROM data memory.
 
 `EPWrite` is used to write information to the EEPROM data storage, so
 that it can be accessed later by a programmer on the PC, or by the
-`EPRead` command. `location` represents the location to read data from,
-and varies from one chip to another. `data` is the data that is to be
-written to the EEPROM, and can be a value or a variable.
+`EPRead` command. `location` represents the location to write data to,
+and the location varies from one chip to another. `data` is the data
+that is to be written to the EEPROM, and can be a value or a variable.
+
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+
+### Note
+
+Do not exceed the location ( also known as the EEProm address ) of the
+physical EEProm.  If the EEProm size is 256 ensure location is in the
+range of 0 to 255;  If the EEProm size is 512 ensure location is in the
+range of 0 to 511 and use a Word variable as the location parameter.
+
+</div>
 
 <span class="strong">**Example:**</span>
 

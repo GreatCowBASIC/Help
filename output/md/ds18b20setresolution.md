@@ -123,6 +123,7 @@ settings to make this program work with your configuration.  
     #define USART_DELAY OFF
 
     #define LCD_IO 107   'K107
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
 
 
     ; ----- Constants

@@ -16,7 +16,7 @@
       <link rel="next" href="_graphical_lcd_demonstration.html" title="Graphical LCD Demonstration" />
       <meta name="Section-title" content="Generate Accurate Pulses" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-51527";
+            var treeCookieId = "treeview-51614";
             var language = "en";
             var w = new Object();
             //Localization
@@ -276,6 +276,7 @@ border: none; background: none; font-weight: none; color: none; }
 
     ; ---- Set up LCD - Using I2C LCD Backpack
     #define LCD_IO 10
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_I2C_Address_1 0x4e ; default to 0x4E
     ; ----  May need to use SLOW or MEDIUM if your LCD is a slower device.
     #define LCD_SPEED Medium
@@ -496,6 +497,7 @@ border: none; background: none; font-weight: none; color: none; }
                               </li>
                               <li><span class="file"><a href="_graphical_lcd.html" tabindex="1">Graphical LCD</a></span><ul>
                                     <li><span class="file"><a href="_glcd_overview.html" tabindex="1">GLCD Overview</a></span><ul>
+                                          <li><span class="file"><a href="_fonts_and_characters.html" tabindex="1">Fonts and Characters</a></span></li>
                                           <li><span class="file"><a href="_e_paper_controllers.html" tabindex="1">e-Paper Controllers</a></span></li>
                                           <li><span class="file"><a href="_hx8347g_controllers.html" tabindex="1">HX8347G Controllers</a></span></li>
                                           <li><span class="file"><a href="_ili9326_controllers.html" tabindex="1">ILI9326 Controllers</a></span></li>

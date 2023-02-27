@@ -26,6 +26,7 @@ Based on the works by Thomas Henry and then revised Evan R. Venn
     #chip 16F877A,20
 
     #define LCD_IO 2
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DB portb.2
     #define LCD_CB portb.0
     #define LCD_NO_RW

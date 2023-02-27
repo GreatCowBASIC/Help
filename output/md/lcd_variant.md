@@ -51,6 +51,7 @@ software I2C.  
     'Set up LCD
     #define LCD_IO 10
     #define LCD_VARIANT 1601a
+    #define LCD_WIDTH 16
 
     'You may need to use SLOW or MEDIUM if your LCD is a slower device.
     #define LCD_SPEED FAST

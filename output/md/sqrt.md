@@ -49,6 +49,7 @@ Available on all microcontrollers, required MATHS.H include file.
     ;----- Constants
 
     #define LCD_IO      4           ;4-bit mode
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS      PortB.2     ;pin 8 is LCD Register Select
     #define LCD_Enable  PortB.3     ;pin 9 is LCD Enable
     #define LCD_DB4     PortB.4     ;DB4 on pin 10

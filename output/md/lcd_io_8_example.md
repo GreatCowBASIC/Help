@@ -32,6 +32,7 @@ Based on the works by Thomas Henry and then revised Evan R. Venn
     #define LCD_RS PORTE.0
     #define LCD_Enable PORTE.2
     #define LCD_Data_Port PORTD
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
 
     ;Here are various LCD commands which can be used.
     ;These are the LCD commands for the HD44780 controller

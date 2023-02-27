@@ -65,7 +65,7 @@ Example:
   #DEFINE LCD_DB6 PORTB.2  
 
   #DEFINE LCD_RW PORTA.3    'Must be defined for RW Mode
-  #DEFINE LCD_RS PORTA,2
+  #DEFINE LCD_RS PORTA.2
   #DEFINE LCD_ENABLE PORTA.1
 ----
 

@@ -103,14 +103,14 @@ Example:
 ``` screen
   #DEFINE LCD_IO 4
   #DEFINE LCD_SPEED OPTIMAL
-
+  #DEFINE LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
   #DEFINE LCD_DB7 PORTB.5
   #DEFINE LCD_DB6 PORTB.4
   #DEFINE LCD_DB7 PORTB.3
   #DEFINE LCD_DB6 PORTB.2
 
   #DEFINE LCD_RW PORTA.3    'Must be defined for RW Mode
-  #DEFINE LCD_RS PORTA,2
+  #DEFINE LCD_RS PORTA.2
   #DEFINE LCD_ENABLE PORTA.1
 ```
 
