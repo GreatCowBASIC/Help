@@ -10,7 +10,7 @@ The Great Cow BASIC methods allow the displays to be connected to the microcontr
 
 *Connection Modes:*
 
-The table below shows the connection modes.  These modes support the connection to the LCD using differting methods.
+The table below shows the connection modes.  These modes support the connection to the LCD using differing methods.
 
 [cols="^1,1", options="header,autowidth"]
 |===
