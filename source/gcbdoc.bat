@@ -51,6 +51,7 @@ echo SYNTAX gcbdoc filename conversion_type
 goto :END
 
 :CHM
+
 echo . 
 echo Generating chm file...
 call asciidoctor -b docbook  %1.adoc

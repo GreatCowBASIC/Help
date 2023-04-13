@@ -168,6 +168,8 @@ This table shows the ChipFamily constants mapped to the microcontroller architec
 |===
 |*ChipFamily Value*
 |*Microcontroller Characteristics*
+|*PIC*
+|
 |100
 |AVR core version V0E class microcontrollers
 |110
@@ -180,8 +182,14 @@ This table shows the ChipFamily constants mapped to the microcontroller architec
 |LGT microcontrollers.
 |-120 Subtype: 123
 |AVR core version V2E class microcontrollers with one USART like the mega32u4, mega16u4 - they have different registers for the usart.
+|121
+|Tiny4-5-9-10 and tiny102-104. Only 16 GPR's from r16-r31 and only 54 instructions.
 |130
 |AVR core version V3E class microcontrollers but essentially the mega32u6 only
+|
+|
+|*AVR*
+|
 |12
 |Baseline devices. 12 Bit instruction set
 |15
