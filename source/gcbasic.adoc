@@ -310,6 +310,8 @@ include::ili9481controllers.adoc[]
 
 include::ili9486Lcontrollers.adoc[]
 
+include::ili9488controllers.adoc[]
+
 include::ks0108controllers.adoc[]
 
 include::nextioncontrollers.adoc[]

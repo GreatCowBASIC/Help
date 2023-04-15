@@ -447,6 +447,19 @@ Display can operate in text mode only for low RAM microcontrollers using SRAM so
 |SPI requires 4 ports plus 2 ports. Typically 6 in total.
 |Good for cost and performance
 
+|28
+|ILI9488
+|3.2inch
+|320 * 240
+|Large
+|Color
+|TFT LCD  SPI
+|PIC/&AVR: SPI Only
+|+VCC from 3v3 to  5. GLCD I/O is ONLY 3v3. Always check voltage specifications.
+|Display is good, however, slower than comparable (size) GLCDs as the color definitions are four bytes ( typical color definitions are two bytes)
+|SPI requires 4 ports plus 2 ports. Typically 6 in total.
+|Acceptable GLCD performance.
+
 
 |===
 
