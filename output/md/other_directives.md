@@ -215,32 +215,48 @@ architecture.
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;"><p><span class="strong"><strong>PIC</strong></span></p></td>
+<td style="text-align: left;"> </td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><p>100</p></td>
 <td style="text-align: left;"><p>AVR core version V0E class microcontrollers</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p>110</p></td>
 <td style="text-align: left;"><p>AVR core version V1E class microcontrollers</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p>120</p></td>
 <td style="text-align: left;"><p>AVR core version V2E class microcontrollers</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p>-120 Subtype: 121</p></td>
 <td style="text-align: left;"><p>AVR core version AVR8L, also called AVRrc, reduced core class microcontrollers. ATTiny4-5-9-10 and ATTiny102-104 with only 16 GPR’s from r16-r31 and only 54 instructions.</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p>-120 Subtype: 122</p></td>
 <td style="text-align: left;"><p>LGT microcontrollers.</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p>-120 Subtype: 123</p></td>
 <td style="text-align: left;"><p>AVR core version V2E class microcontrollers with one USART like the mega32u4, mega16u4 - they have different registers for the usart.</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p>121</p></td>
+<td style="text-align: left;"><p>Tiny4-5-9-10 and tiny102-104. Only 16 GPR’s from r16-r31 and only 54 instructions.</p></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><p>130</p></td>
 <td style="text-align: left;"><p>AVR core version V3E class microcontrollers but essentially the mega32u6 only</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p><span class="strong"><strong>AVR</strong></span></p></td>
+<td style="text-align: left;"> </td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p>12</p></td>

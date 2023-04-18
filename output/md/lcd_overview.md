@@ -27,7 +27,7 @@ microcontroller
 <span class="strong">**Connection Modes:**</span>
 
 The table below shows the connection modes. These modes support the
-connection to the LCD using differting methods.
+connection to the LCD using differing methods.
 
 <div class="informaltable">
 

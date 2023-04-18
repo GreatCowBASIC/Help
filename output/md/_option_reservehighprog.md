@@ -33,18 +33,51 @@ Using the
 `` #option ReserveHighProg [words] exposes the constant `ChipReserveHighProg ``
 in the user program.
 
+<span class="strong">**Defined constants**</span>
+
+The compiler has constants that can be used as an alternative to the
+parameter `[words]`.  
+
+The compiler constants are: OPTIBOOT, OPTIBOOTUSB, ARDUINONANO,
+ARDUINOMEGA2560 or TINYBOOTLOADER.
+
+Where these constants equate to:
+
+``` screen
+    OPTIBOOT        = 1024
+    OPTIBOOTUSB     = 2048
+    ARDUINONANO     = 1024
+    ARDUINOMEGA2560 = 1024
+    TINYBOOTLOADER  = 128
+```
+
+<span class="strong">**Examples 1**</span>
+
 In the example below the region 0x1F80 to 0x1FFF (flash block for a
 PIC16F1509 microcontroller) has been removed from the default space
 available for code storage using the compiler option.
-
-<span class="strong">**Example:**</span>
 
 ``` screen
     'Set chip model
     #chip 16F1509
 
-    'Example command
+    'Directive
     #option ReserveHighProg 128
+```
+
+<span class="strong">**Examples 2**</span>
+
+In the example below the bootloader area of Program Memory is protected.
+
+This will ensure the program size does not overwrite the OptiBoot
+bootloader.
+
+``` screen
+    'Set chip model
+    #chip MEGA328P
+
+    'Directive
+    #option ReserveHighProg OPTIBOOT
 ```
 
 </div>

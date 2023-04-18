@@ -311,8 +311,7 @@ Example code:
     #chip 16F628
 
     'Read table item
-    'Must use ReadTable and a variable for the index, or the table won't be
-    downloaded to EEPROM
+    'Must use ReadTable and a variable for the index, or the table will not be downloaded to EEPROM
 
     TableLoc = 2
     ReadTable TestDataSource, TableLoc, SomeVar

@@ -16,7 +16,7 @@
       <link rel="next" href="_using_assembler.html" title="Using Assembler" />
       <meta name="Section-title" content="#Option ReserveHighProg" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-51614";
+            var treeCookieId = "treeview-52158";
             var language = "en";
             var w = new Object();
             //Localization
@@ -192,14 +192,28 @@ border: none; background: none; font-weight: none; color: none; }
             </p>
             <p>Using the <code class="literal">#option ReserveHighProg [words] exposes the constant `ChipReserveHighProg</code> in the user program.
             </p>
+            <p><span class="strong"><strong>Defined constants</strong></span></p>
+            <p>The compiler has constants that can be used as an alternative to the parameter <code class="literal">[words]</code>.  
+            </p>
+            <p>The compiler constants are:  OPTIBOOT, OPTIBOOTUSB, ARDUINONANO, ARDUINOMEGA2560 or TINYBOOTLOADER.</p>
+            <p>Where these constants equate to:</p><pre class="screen">    OPTIBOOT        = 1024
+    OPTIBOOTUSB     = 2048
+    ARDUINONANO     = 1024
+    ARDUINOMEGA2560 = 1024
+    TINYBOOTLOADER  = 128</pre><p><span class="strong"><strong>Examples 1</strong></span></p>
             <p>In the example below the region 0x1F80 to 0x1FFF (flash block for a
                PIC16F1509 microcontroller) has been removed from the default space available for code storage using the compiler option.
-            </p>
-            <p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Set chip model
+            </p><pre class="screen">    'Set chip model
     #chip 16F1509
 
-    'Example command
-    #option ReserveHighProg 128</pre></div><script type="text/javascript" src="common/main.js">
+    'Directive
+    #option ReserveHighProg 128</pre><p><span class="strong"><strong>Examples 2</strong></span></p>
+            <p>In the example below the bootloader area of Program Memory is protected.</p>
+            <p>This will ensure the program size does not overwrite the OptiBoot bootloader.</p><pre class="screen">    'Set chip model
+    #chip MEGA328P
+
+    'Directive
+    #option ReserveHighProg OPTIBOOT</pre></div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
@@ -379,6 +393,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_ili9341_controllers.html" tabindex="1">ILI9341 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ili9481_controllers.html" tabindex="1">ILI9481 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ili9486_l_controllers.html" tabindex="1">ILI9486(L) Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ili9488_controllers.html" tabindex="1">ILI9488 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ks0108_controllers.html" tabindex="1">KS0108 Controllers</a></span></li>
                                           <li><span class="file"><a href="_nextion_controllers.html" tabindex="1">NEXTION Controllers</a></span></li>
                                           <li><span class="file"><a href="_nt7108c_controllers.html" tabindex="1">NT7108C Controllers</a></span></li>

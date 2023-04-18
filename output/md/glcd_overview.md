@@ -472,6 +472,20 @@ The NT7108C is very sensitive with respect to clock timing.   You may have to
 <td style="text-align: left;"><p>SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
 <td style="text-align: left;"><p>Good for cost and performance</p></td>
 </tr>
+<tr class="even">
+<td style="text-align: left;"><p>28</p></td>
+<td style="text-align: left;"><p>ILI9488</p></td>
+<td style="text-align: left;"><p>3.2inch</p></td>
+<td style="text-align: left;"><p>320 * 240</p></td>
+<td style="text-align: left;"><p>Large</p></td>
+<td style="text-align: left;"><p>Color</p></td>
+<td style="text-align: left;"><p>TFT LCD SPI</p></td>
+<td style="text-align: left;"><p>PIC/&amp;AVR: SPI Only</p></td>
+<td style="text-align: left;"><p>+VCC from 3v3 to 5. GLCD I/O is ONLY 3v3. Always check voltage specifications.</p></td>
+<td style="text-align: left;"><p>Display is good, however, slower than comparable (size) GLCDs as the color definitions are four bytes ( typical color definitions are two bytes)</p></td>
+<td style="text-align: left;"><p>SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
+<td style="text-align: left;"><p>Acceptable GLCD performance.</p></td>
+</tr>
 </tbody>
 </table>
 

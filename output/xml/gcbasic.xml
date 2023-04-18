@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>Great Cow BASIC documentation</title>
-<date>2023-01-02</date>
+<date>2023-04-15</date>
 <author>
 <personname>
 <firstname>The Great Cow BASIC development team @ 2022</firstname>
@@ -130,13 +130,13 @@ The “Programmer Preferences” is a software tool to control and set-up the di
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2023-02-25<?asciidoc-br?>
-10:42:37 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2023-04-15<?asciidoc-br?>
+09:03:17 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2023-01-02<?asciidoc-br?>
-07:02:02 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2023-04-15<?asciidoc-br?>
+08:53:10 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -3373,8 +3373,7 @@ store BYTEs. You cannot store WORD values in the EEPROM tables.</simpara>
 <screen>    #chip 16F628
 
     'Read table item
-    'Must use ReadTable and a variable for the index, or the table won't be
-    downloaded to EEPROM
+    'Must use ReadTable and a variable for the index, or the table will not be downloaded to EEPROM
 
     TableLoc = 2
     ReadTable TestDataSource, TableLoc, SomeVar
@@ -10162,6 +10161,20 @@ Display can operate in text mode only for low RAM microcontrollers using SRAM so
 <entry align="left" valign="top"><simpara>SPI requires 4 ports plus 2 ports. Typically 6 in total.</simpara></entry>
 <entry align="left" valign="top"><simpara>Good for cost and performance</simpara></entry>
 </row>
+<row>
+<entry align="left" valign="top"><simpara>28</simpara></entry>
+<entry align="left" valign="top"><simpara>ILI9488</simpara></entry>
+<entry align="left" valign="top"><simpara>3.2inch</simpara></entry>
+<entry align="left" valign="top"><simpara>320 * 240</simpara></entry>
+<entry align="left" valign="top"><simpara>Large</simpara></entry>
+<entry align="left" valign="top"><simpara>Color</simpara></entry>
+<entry align="left" valign="top"><simpara>TFT LCD  SPI</simpara></entry>
+<entry align="left" valign="top"><simpara>PIC/&amp;AVR: SPI Only</simpara></entry>
+<entry align="left" valign="top"><simpara>+VCC from 3v3 to  5. GLCD I/O is ONLY 3v3. Always check voltage specifications.</simpara></entry>
+<entry align="left" valign="top"><simpara>Display is good, however, slower than comparable (size) GLCDs as the color definitions are four bytes ( typical color definitions are two bytes)</simpara></entry>
+<entry align="left" valign="top"><simpara>SPI requires 4 ports plus 2 ports. Typically 6 in total.</simpara></entry>
+<entry align="left" valign="top"><simpara>Acceptable GLCD performance.</simpara></entry>
+</row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -12468,6 +12481,353 @@ MASTERULTRAFAST for specific AVRs only.</simpara></entry>
 <simpara><emphasis role="strong">For more help, see</emphasis>
 <link linkend="_glcdcls">GLCDCLS</link>, <link linkend="_glcddrawchar">GLCDDrawChar</link>, <link linkend="_glcdprint">GLCDPrint</link>, <link linkend="_glcdreadbyte">GLCDReadByte</link>, <link linkend="_glcdwritebyte">GLCDWriteByte</link> or <link linkend="_pset">Pset</link></simpara>
 <simpara>Supported in &lt;GLCD.H&gt;</simpara>
+</section>
+<section xml:id="_ili9488_controllers">
+<title>ILI9488 Controllers</title>
+<simpara>This section covers GLCD devices that use the ILI9488 graphics controller.</simpara>
+<simpara>ILI9488 is a 262k-color single-chip SoC driver for a-TFT liquid crystal display with resolution of 320 x 240 resolution, 16.7M-color and with internal GRAM .</simpara>
+<simpara>Great Cow BASIC supports 65K-color mode operations.</simpara>
+<simpara>The Great Cow BASIC constants shown below control the configuration of the ILI9488 controller.
+&#160;&#160;&#160;The Great Cow BASIC constants for control and data line connections are shown
+in the table below. Only SPI is available for connectivity:</simpara>
+<simpara>To use the ILI9488 driver simply include the following in your user code.  This will initialise the driver.</simpara>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?>
+<emphasis role="strong">SPI mode</emphasis></simpara>
+<screen>    'Pin mappings for SPI
+
+    #include &lt;glcd.h&gt;
+    #DEFINE GLCD_TYPE GLCD_TYPE_ILI9488
+
+    #DEFINE GLCD_DC       PORTB.3           ' Data command line
+    #DEFINE GLCD_CS       PORTB.5           ' Chip select line
+    #DEFINE GLCD_RST      PORTB.4           ' Reset line
+
+    #DEFINE GLCD_DI       PORTB.2          ' Data in | MISO
+    #DEFINE GLCD_DO       PORTB.0          ' Data out | MOSI
+    #DEFINE GLCD_SCK      PORTB.1          ' Clock Line</screen>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?>
+The Great Cow BASIC constants for the interface to the controller are shown in the table below.
+<?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="20*"/>
+<colspec colname="col_2" colwidth="40*"/>
+<colspec colname="col_3" colwidth="40*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Constants</entry>
+<entry align="left" valign="top">Controls</entry>
+<entry align="left" valign="top">Options</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_TYPE</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>GLCD_TYPE_ILI9488</simpara></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>ILI9488_HARDWARESPI</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies to use the microcontrollers SPI module.
+For PPS microcontrollers the libary assumes PPS for SPI has been configured.</simpara></entry>
+<entry align="left" valign="top"><simpara>Optional</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>HWSPIMODE MASTERFAST</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the speed of the SPI communications.</simpara></entry>
+<entry align="left" valign="top"><simpara>Optional</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_RST</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Reset IO pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_CS</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Chip Select (CS)  on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_RS</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Data/Command pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_DI</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Data In (RW or WDR) pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_DO</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Data Out (RD or RDR) pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_SCK</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Clock pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?>
+The Great Cow BASIC constants for control display characteristics are shown in the table below.
+<?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="20*"/>
+<colspec colname="col_2" colwidth="40*"/>
+<colspec colname="col_3" colwidth="40*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Constants</entry>
+<entry align="left" valign="top">Controls</entry>
+<entry align="left" valign="top">Default</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_WIDTH</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>The width parameter of the GLCD</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>320</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_HEIGHT</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>The height parameter of the GLCD</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>480</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCDFontWidth</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the font width of the Great Cow BASIC font set.</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>6</literal></simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara>The Great Cow BASIC commands supported for this GLCD are shown in the table below.&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
+<?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="20*"/>
+<colspec colname="col_2" colwidth="40*"/>
+<colspec colname="col_3" colwidth="40*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Command</entry>
+<entry align="left" valign="top">Purpose</entry>
+<entry align="left" valign="top">Example</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCDCLS</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Clear screen of GLCD</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>GLCDCLS  [,Optional LineColour]</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCDPrint</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Print string of characters on GLCD using GCB font set</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>GLCDPrint( Xposition, Yposition, Stringvariable )</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCDDrawChar</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Print character on GLCD using GCB font set</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>GLCDDrawChar( Xposition, Yposition, CharCode [,Optional LineColour] )</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCDDrawString</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Print characters on GLCD using GCB font set</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>GLCDDrawString( Xposition, Yposition, Stringvariable [,Optional LineColour] )</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Box</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Draw a box on the GLCD to a specific size</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Box ( Xposition1, Yposition1, Xposition2, Yposition2 [,Optional LineColour]</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>FilledBox</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Draw a box on the GLCD to a specific size that is filled with the foreground colour.</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>FilledBox (Xposition1, Yposition1, Xposition2, Yposition2  [,Optional LineColour] )</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Line</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Draw a line on the GLCD to a specific length that is filled with the specific attribute.</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Line ( Xposition1, Yposition1, Xposition2, Yposition2 [,Optional LineColour] )</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>PSet</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Set a pixel on the GLCD at a specific position that is set with the specific attribute.</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>PSet(Xposition, Yposition, Pixel Colour)</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCDRotate</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Rotate the display</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>LANDSCAPE</literal>, <literal>PORTRAIT_REV</literal>, <literal>LANDSCAPE_REV</literal> and <literal>PORTRAIT</literal> are supported</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>ILI9488__TFT_[color]</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specify color as a parameter for many GLCD commands</simpara></entry>
+<entry align="left" valign="top"><simpara>Color constants for this device are shown in the list below, butm you can use the generic TFT color scheme.<?asciidoc-br?>
+</simpara><simpara></simpara><simpara> Any color can be defined using a valid hexidecimal word value between 0x0000 to 0xFFFF.</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<screen>    ILI9488_TFT_BLACK       //0x000000
+    ILI9488_TFT_RED         //0xFC0000
+    ILI9488_TFT_GREEN       //0x00FC00
+    ILI9488_TFT_BLUE        //0x0000FC
+    ILI9488_TFT_WHITE       //0xFFFFFF
+
+    ILI9488_TFT_CYAN        //0x003F3F
+    ILI9488_TFT_DARKCYAN    //0x00AFAF
+    ILI9488_TFT_DARKGREEN   //0x002100
+    ILI9488_TFT_DARKGREY    //0xAAAAAA
+    ILI9488_TFT_GREENYELLOW //0x93FC33
+    ILI9488_TFT_LIGHTGREY   //0xC9C9C9
+    ILI9488_TFT_MAGENTA     //0xCC00CC
+    ILI9488_TFT_MAROON      //0x7E007E
+    ILI9488_TFT_NAVY        //0x00003E
+    ILI9488_TFT_OLIVE       //0x783E00
+    ILI9488_TFT_ORANGE      //0xFC2900
+    ILI9488_TFT_PINK        //0xFC000F
+    ILI9488_TFT_PURPLE      //0xF01F9E
+    ILI9488_TFT_YELLOW      //0xFC7E00</screen>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara>These examples show how to drive a ILI9488 based Graphic LCD module with the built in commands of Great Cow BASIC.</simpara>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?>
+<emphasis role="strong">Examples - PPS Enabled</emphasis></simpara>
+<screen>    #chip 18F26K83, 64
+    #option Explicit
+
+    'Generated by PIC PPS Tool for Great Cow Basic
+    #startup InitPPS, 85
+    #DEFINE PPSToolPart 18f26k83
+
+    Sub InitPPS
+        'Module: UART pin directions
+        Dir PORTC.7 Out    ' Make TX1 pin an output
+        'Module: UART1
+        RC7PPS = 0x0013    'TX1 &gt; RC7
+
+        #IFDEF ILI9488_HardwareSPI
+            UNLOCKPPS
+            'Module: SPI1
+            RB0PPS = 0x001F    'SDO1 &gt; RB0
+            RB1PPS = 0x001E    'SCK1 &gt; RB1
+            SPI1SCKPPS = 0x0009    'RB1 &gt; SCK1 (bi-directional)
+            SPI1SDIPPS = 0x000A    'RB2 &gt; SDI1
+        #ELSE
+            RB0PPS = 0
+            RB1PPS = 0
+        #ENDIF
+    End Sub
+    // Template comment at the end of the config file
+
+    #include &lt;glcd.h&gt;
+    #DEFINE GLCD_TYPE GLCD_TYPE_ILI9488
+    #DEFINE ILI9488_HARDWARESPI
+    #DEFINE HWSPIMODE MASTERFAST
+    #DEFINE GLCD_DC       PORTB.3           ' Data command line
+    #DEFINE GLCD_CS       PORTB.5           ' Chip select line
+    #DEFINE GLCD_RST      PORTB.4           ' Reset line
+
+    #DEFINE GLCD_DI       PORTB.2          ' Data in | MISO
+    #DEFINE GLCD_DO       PORTB.0          ' Data out | MOSI
+    #DEFINE GLCD_SCK      PORTB.1          ' Clock Line
+
+    '''********************************************************************************
+
+    'main program start here
+
+    // Set the background
+    #DEFINE DEFAULT_GLCDBACKGROUND TFT_WHITE
+
+
+    GLCDPrint 0, 0, "Test of the ILI9488 Device", TFT_BLACK
+    end</screen>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?>
+<?asciidoc-br?>
+<?asciidoc-br?>
+<emphasis role="strong">Examples - Legacy non PPS microcontroller</emphasis></simpara>
+<screen>    #chip 16F1939
+    #option Explicit
+
+
+
+    #include &lt;glcd.h&gt;
+    #DEFINE GLCD_TYPE GLCD_TYPE_ILI9488
+    #DEFINE GLCD_DC       PORTB.3           ' Data command line
+    #DEFINE GLCD_CS       PORTB.5           ' Chip select line
+    #DEFINE GLCD_RST      PORTB.4           ' Reset line
+
+    #DEFINE GLCD_DI       PORTB.2          ' Data in | MISO
+    #DEFINE GLCD_DO       PORTB.0          ' Data out | MOSI
+    #DEFINE GLCD_SCK      PORTB.1          ' Clock Line
+
+    '''********************************************************************************
+
+    'main program start here
+
+    // Set the background
+    #DEFINE DEFAULT_GLCDBACKGROUND TFT_WHITE
+
+
+    GLCDPrint 0, 0, "Test of the ILI9488 Device", TFT_BLACK
+    end</screen>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<screen></screen>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">For more help, see</emphasis>
+<link linkend="_glcdcls">GLCDCLS</link>,  <link linkend="_glcddrawchar">GLCDDrawChar</link>, <link linkend="_glcdprint">GLCDPrint</link>, <link linkend="_glcdreadbyte">GLCDReadByte</link>, <link linkend="_glcdwritebyte">GLCDWriteByte</link> or <link linkend="_pset">Pset</link>
+<?asciidoc-br?>
+<?asciidoc-br?>
+Supported in &lt;GLCD.H&gt;</simpara>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?>
+<emphasis role="strong">Developer Notes</emphasis></simpara>
+<simpara>The ILI9488 library implemented uses BRG color scheme which is different from other GLCD libraries.</simpara>
+<simpara>The ILI9488 library implemented also uses 18bits for color definition where the color scheme is defined as shown below:</simpara>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/ili9488.png" contentdepth="100%" align="center"/>
+</imageobject>
+<textobject><phrase>graphic</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara>The ILI9488 library implemented there has the following differences from a typical GLCD library.</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>The colors are defined as RGB left justified 6 bits.</simpara>
+</listitem>
+<listitem>
+<simpara>The colors are defined as Longs ( not Words other GLCDs are Words).</simpara>
+</listitem>
+<listitem>
+<simpara>The color information uses a 18bit macro for SPI communications.&#160;&#160;Color information is sent to the GLCD in three bytes.</simpara>
+</listitem>
+<listitem>
+<simpara>The color contraints are based on the SPI constraints specified in the ILI9488 datasheet.</simpara>
+</listitem>
+</orderedlist>
 </section>
 <section xml:id="_ks0108_controllers">
 <title>KS0108 Controllers</title>
@@ -18261,7 +18621,7 @@ alphanumeric Liquid Crystal Displays based on the <emphasis role="strong">HD4478
 covers most 16 x 1, 16 x 2, 20 x 4 and 40 x 4 LCD displays.</simpara>
 <simpara>The Great Cow BASIC methods allow the displays to be connected to the microcontroller</simpara>
 <simpara><emphasis role="strong">Connection Modes:</emphasis></simpara>
-<simpara>The table below shows the connection modes.  These modes support the connection to the LCD using differting methods.</simpara>
+<simpara>The table below shows the connection modes.  These modes support the connection to the LCD using differing methods.</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <tgroup cols="2">
 <colspec colname="col_1" colwidth="50*"/>
@@ -34882,6 +35242,10 @@ If any of the variables do not exist, the compiler will create a constant mappin
 </thead>
 <tbody>
 <row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">PIC</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
 <entry align="left" valign="top"><simpara>100</simpara></entry>
 <entry align="left" valign="top"><simpara>AVR core version V0E class microcontrollers</simpara></entry>
 </row>
@@ -34906,8 +35270,20 @@ If any of the variables do not exist, the compiler will create a constant mappin
 <entry align="left" valign="top"><simpara>AVR core version V2E class microcontrollers with one USART like the mega32u4, mega16u4 - they have different registers for the usart.</simpara></entry>
 </row>
 <row>
+<entry align="left" valign="top"><simpara>121</simpara></entry>
+<entry align="left" valign="top"><simpara>Tiny4-5-9-10 and tiny102-104. Only 16 GPR&#8217;s from r16-r31 and only 54 instructions.</simpara></entry>
+</row>
+<row>
 <entry align="left" valign="top"><simpara>130</simpara></entry>
 <entry align="left" valign="top"><simpara>AVR core version V3E class microcontrollers but essentially the mega32u6 only</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">AVR</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>12</simpara></entry>
@@ -35112,14 +35488,31 @@ the compiler for the application code storage. In order to avoid any possible co
 and data usage), it is important to reserve the devices pecific memory range by using the compiler option (shown above)
 in the project configuration.</simpara>
 <simpara>Using the <literal>#option ReserveHighProg [words] exposes the constant `ChipReserveHighProg</literal> in the user program.</simpara>
+<simpara><emphasis role="strong">Defined constants</emphasis></simpara>
+<simpara>The compiler has constants that can be used as an alternative to the parameter <literal>[words]</literal>.&#160;&#160;</simpara>
+<simpara>The compiler constants are:  OPTIBOOT, OPTIBOOTUSB, ARDUINONANO, ARDUINOMEGA2560 or TINYBOOTLOADER.</simpara>
+<simpara>Where these constants equate to:</simpara>
+<screen>    OPTIBOOT        = 1024
+    OPTIBOOTUSB     = 2048
+    ARDUINONANO     = 1024
+    ARDUINOMEGA2560 = 1024
+    TINYBOOTLOADER  = 128</screen>
+<simpara><emphasis role="strong">Examples 1</emphasis></simpara>
 <simpara>In the example below the region 0x1F80 to 0x1FFF (flash block for a
 PIC16F1509 microcontroller) has been removed from the default space available for code storage using the compiler option.</simpara>
-<simpara><emphasis role="strong">Example:</emphasis></simpara>
 <screen>    'Set chip model
     #chip 16F1509
 
-    'Example command
+    'Directive
     #option ReserveHighProg 128</screen>
+<simpara><emphasis role="strong">Examples 2</emphasis></simpara>
+<simpara>In the example below the bootloader area of Program Memory is protected.</simpara>
+<simpara>This will ensure the program size does not overwrite the OptiBoot bootloader.</simpara>
+<screen>    'Set chip model
+    #chip MEGA328P
+
+    'Directive
+    #option ReserveHighProg OPTIBOOT</screen>
 </section>
 </section>
 <section xml:id="_using_assembler">
