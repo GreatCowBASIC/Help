@@ -1,0 +1,55 @@
+    ;Chip Settings
+    #CHIP 16F1937,32
+    #CONFIG  MCLRE_ON
+
+    #INCLUDE <GLCD.H>
+    #DEFINE GLCD_TYPE GLCD_TYPE_ST7920
+    #DEFINE GLCD_IO 8
+    #DEFINE GLCD_WIDTH 128
+    #DEFINE GLCD_HEIGHT 160
+    ' read delay of 25 is required at 32mhz, this can be reduced to 0 for slower clock speeds
+    #DEFINE ST7920READDELAY 25
+    ' write delay of 2 is required at 32mhz.  this can be reduced to 1 for slower clock speeds
+    #DEFINE ST7920WRITEDELAY 2
+
+    #DEFINE GLCD_RS PORTA.0
+    #DEFINE GLCD_ENABLE PORTA.1
+    #DEFINE GLCD_RW PORTA.2
+    #DEFINE GLCD_RESET PORTA.3
+    #DEFINE GLCD_DATA_PORT PORTD
+
+    ST7920GLCDEnableGraphics
+    GLCDClearGraphics_ST7920
+    GLCDPrint 0, 1, "Great Cow BASIC "
+    wait 1 s
+
+    GLCDCLS
+    GLCDClearGraphics_ST7920
+
+    rrun = 0
+    dim msg1 as string * 16
+
+    dim  xradius, yordinate , radiusErr, incrementalxradius, orginalxradius, orginalyordinate as Integer
+
+
+    Do forever
+        GLCDCLS
+        GLCDClearGraphics_ST7920          ;clear screen
+        GLCDDrawString 30,0,"ChipMhz@"    ;print string
+        GLCDDrawString 78,0, str(ChipMhz) ;print string
+        Circle(10,10,10,0)            ;upper left
+        Circle(117,10,10,0)           ;upper right
+        Circle(63,31,10,0)            ;center
+        Circle(63,31,20,0)            ;center
+        Circle(10,53,10,0)            ;lower left
+        Circle(117,53,10,0)           ;lower right
+        GLCDDrawString 30,54,"PIC16F1937" ;print string
+        wait 1 s                  ;wait
+        FilledBox( 0,0,128,63)          ;create box
+        for ypos = 0 to 63              ;draw row by row
+             Line 0,ypos,128, 0      ;draw line
+        next
+        wait 1 s                  ;wait
+        GLCDClearGraphics_ST7920          ;clear
+    loop
+
