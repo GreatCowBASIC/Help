@@ -204,13 +204,13 @@ details, this is an external web site.
 
 *Example 1:*
 ----
-include::codesegment0001.adoc[]    
+include::codesegment0001.gcb[]    
 ----
 
 *Example 2:*
 
 ----
-include::codesegment0002.adoc[]
+include::codesegment0002.gcb[]
 ----
 
 
