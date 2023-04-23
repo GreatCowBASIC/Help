@@ -1,0 +1,234 @@
+    ;Chip Settings
+    #CHIP 16F1937,32
+    #CONFIG MCLRE_ON
+
+    #INCLUDE <GLCD.H>
+    #DEFINE GLCD_TYPE GLCD_TYPE_ST7920
+    #DEFINE GLCD_IO 8
+    #DEFINE GLCD_WIDTH 128
+    #DEFINE GLCD_HEIGHT 160
+
+    ' read delay of 25 is required at 32mhz, this can be reduced to 0 for slower clock speeds
+    #DEFINE ST7920READDELAY 25
+    ' write delay of 2 is required at 32mhz.  this can be reduced to 1 for slower clock speeds
+    #DEFINE ST7920WRITEDELAY 2
+
+    #DEFINE GLCD_RS PORTA.0
+    #DEFINE GLCD_ENABLE PORTA.1
+    #DEFINE GLCD_RW PORTA.2
+    #DEFINE GLCD_RESET PORTA.3
+    #DEFINE GLCD_DATA_PORT PORTD
+
+    WAIT 1 S
+    GLCDEnableGraphics_ST7920
+    GLCDClearGraphics_ST7920
+    Tile_ST7920 "A"
+    GLCDPrint 0, 1, "Great Cow BASIC "
+
+    GLCDCLS
+
+    rrun = 0
+    dim msg1 as string * 16
+
+    do forever
+
+    GLCDEnableGraphics_ST7920
+    GLCDClearGraphics_ST7920
+    GTile_ST7920 0x55, 0x55
+    wait 1 s
+
+    GLCDClearGraphics_ST7920
+    Lineh_ST7920(0, 0, GLCD_WIDTH)
+    Lineh_ST7920(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
+    Linev_ST7920(0, 0, GLCD_HEIGHT)
+    Linev_ST7920(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
+
+    Box 18,30,28,40
+
+    WAIT 2 S
+
+    FilledBox 18,30,28,40
+
+    GLCDClearGraphics_ST7920
+
+    Start:
+
+    GLCDDrawString 0,10,"Hello" 'Print Hello
+    wait 1 s
+    GLCDDrawString 0,10, "ASCII #:" 'Print ASCII #:
+    Box 18,30,28,40 'Draw Box Around ASCII Character
+    for char = 0x30 to 0x39        'Print 0 through 9
+          GLCDDrawString 16, 20 , Str(char)+"  "
+          GLCDdrawCHAR 20, 30, char
+          wait 250 ms
+    next
+    line 0,50,127,50    'Draw Line using line command
+    for xvar = 0 to 80  'draw line using Pset command
+            pset xvar,63,on                    '
+    next
+    FilledBox 18,30,28,40 'Draw Box Around ASCII Character
+    Wait 1 s
+    GLCDClearGraphics_ST7920
+    GLCDDrawString 0,10,"End  "
+    wait 1 s
+    GLCDClearGraphics_ST7920
+
+    workingGLCDDrawChar:
+    GLCDEnableGraphics_ST7920
+    dim gtext as string
+    gtext = "ST7920 @QC12864B"
+
+    for xchar = 1 to gtext(0)  'Print 0 through 9
+          xxpos = (1+(xchar*6)-6)
+          GLCDDrawChar xxpos , 0 , gtext(xchar)
+    next
+
+    GLCDDrawString  1, 9, "Great Cow BASIC"
+    GLCDDrawString  1, 18,"GLCD 128*64"
+    GLCDDrawString  1, 27,"Using GLCD.H from GCB"
+    GLCDDrawString  1, 37,"Using GLCD.H GCB"
+    GLCDDrawString  1, 45,"GLCDDrawChar method"
+    GLCDDrawString  1, 54,"Test Routines"
+    wait 1 s
+
+    GLCDClearGraphics_ST7920
+    ST7920GLCDDisableGraphics
+    GLCDCLS
+
+    msg1 = "Run = " +str(rrun)
+    rrun++
+    GLCDPrint 0, 0, "ST7920 @QC12864B"
+    GLCDPrint 0, 1, "Great Cow BASIC "
+    GLCDPrint 0, 2, "GLCD 128*64"
+    GLCDPrint 0, 3, msg1
+    wait 5 s
+    GLCDCLS
+
+    ' show all chars... takes some time!
+    ST7920CallBuiltinChar
+
+    wait 1 s
+    GLCDCLS
+
+    ' See http://www.khngai.com/chinese/charmap/tblbig.php?page=0
+    ' and see https://sourceforge.net/projects/vietunicode/files/hannom/hannom%20v2005/ for the FONTS!!
+
+    dim BIG5code as word
+
+    'ST7920 can display half-width HCGROM fonts, user- defined CGRAM fonts and full 16x16 CGROM fonts. The
+    'character codes in 0000H~0006H will use user- defined fonts in CGRAM. The character codes in 02H~7FH will use
+    'half-width alpha numeric fonts. The character code larger than A1H will be treated as 16x16 fonts and will be
+    'combined with the next byte automatically. The 16x16 BIG5 fonts are stored in A140H~D75FH while the 16x16 GB
+    'fonts are stored in A1A0H~F7FFH. In short:
+    '1. To display HCGROM fonts:
+    'Write 2 bytes of data into DDRAM to display two 8x16 fonts. Each byte represents 1 character.
+    'The data is among 02H~7FH.
+    '2. To display CGRAM fonts:
+    'Write 2 bytes of data into DDRAM to display one 16x16 font.
+    'Only 0000H, 0002H, 0004H and 0006H are acceptable.
+    '3. To display CGROM fonts:
+    'Write 2 bytes of data into DDRAM to display one 16x16 font.
+    'A140H~D75FH are BIG5 code, A1A0H~F7FFH are GB code.
+
+    'To display HCGROM fonts
+    ' Write 2 bytes of data into DDRAM to display two 8x16 fonts. Each byte represents 1 character.
+    ' The data is among 02H~7FH.
+    ' The english characters set...
+
+    linetest1:
+
+      GLCDEnableGraphics_ST7920
+
+      wait 1 s
+      GLCDClearGraphics_ST7920
+
+    'lineh test 
+    LineH_ST7920(0, 0, GLCD_WIDTH)
+    LineH_ST7920(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
+    LineV_ST7920(0, 0, GLCD_HEIGHT)
+    LineV_ST7920(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
+
+    ' box test
+    LineH_ST7920(10 ,0 , 118 )
+    LineH_ST7920(0 ,8 , 128)
+    LineH_ST7920(16 ,16 , 96 )
+    LineH_ST7920(10 ,32 , 108 )
+    LineH_ST7920(0, 16, GLCD_WIDTH)
+    LineH_ST7920(0, 24, GLCD_WIDTH)
+    LineH_ST7920(0, 32, GLCD_WIDTH)
+    LineH_ST7920(0, 40, GLCD_WIDTH)
+    LineH_ST7920(0, 48, GLCD_WIDTH)
+    LineH_ST7920(0, 56, GLCD_WIDTH)
+    LineH_ST7920(0, 63, GLCD_WIDTH)
+    LineV_ST7920(16, 0, GLCD_HEIGHT)
+    LineV_ST7920(17, 0, GLCD_HEIGHT)
+    LineV_ST7920(15, 0, GLCD_HEIGHT)
+
+    LineV_ST7920(46, 0, GLCD_HEIGHT)
+    LineV_ST7920(47, 0, GLCD_HEIGHT)
+    LineV_ST7920(48, 0, GLCD_HEIGHT)
+
+    LineV_ST7920(46, 0, GLCD_HEIGHT)
+    LineV_ST7920(47, 0, GLCD_HEIGHT)
+    LineV_ST7920(48, 0, GLCD_HEIGHT)
+
+    LineV_ST7920(96, 0, GLCD_HEIGHT)
+    LineV_ST7920(97, 0, GLCD_HEIGHT)
+    LineV_ST7920(98, 0, GLCD_HEIGHT)
+
+    for HCGROM = 0 to GLCD_WIDTH step 8
+        LineV_ST7920(HCGROM, 0, GLCD_HEIGHT)
+    next
+
+    GraphicTestPlace:
+
+      GLCDClearGraphics_ST7920
+      GraphicTest_ST7920
+      GLCDClearGraphics_ST7920
+
+      ' Test draw a line
+      for yrowpos = 0 to 63 step 4
+        LineH_ST7920(0, yrowpos, GLCD_WIDTH)
+      next
+
+      GLCDClearGraphics_ST7920
+      ST7920GLCDDisableGraphics
+      GLCDCLS
+
+      SetIcon_ST7920( 1, 0x55 )
+
+    loop
+
+    sub ST7920CallBuiltinChar
+        ' 0xA140 ~ 0xA15F
+          for ii = 0 to 31
+
+              WriteData_ST7920( 0xA1)
+              WriteData_ST7920( 0x40 + ii)
+
+          next
+
+          wait 1 s
+
+          GLCDCLS
+
+          ' 0xA140 ~ 0xA15F
+          for ii = 0 to 31
+
+              WriteData_ST7920( 0xA1)
+              WriteData_ST7920( 0xb0 + ii)
+
+          next
+          wait 1 s
+          GLCDCLS
+
+          ' 0xA140 ~ 0xA15F
+          for ii = 0 to 31
+
+              WriteData_ST7920( 0xA4)
+              WriteData_ST7920( 0x40 + ii)
+
+          next
+          wait 1 s
+          GLCDCLS
+    end sub
