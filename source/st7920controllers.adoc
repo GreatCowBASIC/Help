@@ -205,15 +205,17 @@ details, this is an external web site.
 *Example 1:*
 ----
 
-include::codesegment0001.adoc[]    
+include::st7920controllers_code1.gcb[]    
 
 ----
+
+
 
 *Example 2:*
 
 ----
 
-include::codesegment0002.adoc[]
+include::st7920controllers_code2.gcb[]
 
 ----
 

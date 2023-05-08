@@ -1,0 +1,74 @@
+    #CHIP 16F18855,32
+    #OPTION EXPLICIT
+
+    #INCLUDE <47XXX_EERAM.H>
+
+    #startup InitPPS, 85
+
+    Sub InitPPS
+          'PPS is explicit to a specific chip.  Use PPSTool to ensure the PPS settings are correct.
+
+          'Module: EUSART
+              RC0PPS = 0x0010 'TX > RC0
+              TXPPS  = 0x0008 'RC0 > TX (bi-directional)
+          'Module: MSSP1
+              SSP1DATPPS = 0x0013 'RC3 > SDA1
+              RC3PPS = 0x0015 'SDA1 > RC3 (bi-directional)
+              RC4PPS = 0x0014 'SCL1 > RC4
+              SSP1CLKPPS = 0x0014 'RC4 > SCL1 (bi-directional)
+
+        End Sub
+
+    ; ----- Define Hardware Serial Print
+
+    #DEFINE USART_BAUD_RATE 115200
+    #DEFINE USART_TX_BLOCKING
+
+    ; ----- Define Hardware settings for hwi2c
+
+    #DEFINE HI2C_BAUD_RATE 400 
+    #DEFINE HI2C_DATA  PORTC.3
+    #DEFINE HI2C_CLOCK PORTC.4
+
+    'I2C pins need to be input for legacy I2C modules
+    DIR HI2C_DATA  IN
+    DIR HI2C_CLOCK IN
+
+    'Initialise I2C Master
+    hi2cMode Master
+
+    ; ----- Define Hardware settings for EERAM Module
+
+    #define EERAM_I2C_Adr 0x30      ; EERAM base Address
+    #define EERAM_HS PortB.1        ; Optional hardware Store Pin
+
+    Dir EERAM_HS Out                ; Rising edge initiates Backup
+
+    'Library function
+    EERAM_AutoStore(ON)             ; Enable Automatic Storage on power loss
+
+    ; ----- Main body of program commences here.
+
+    dim Idx as Byte
+
+    HserPrintCRLF 2
+
+    HserPrint "Hardware I2C EERAM Read Test at I2C Adr 0x"
+    HserPrint  Hex(EERAM_I2C_Adr)
+    HserPrint  " Reading RAM addresses 0x0 to 0xF" : HserPrintCRLF 2
+
+    for Idx = 0x0 to 0xF
+
+      HserPrint hex(Idx) + " = " : HserPrint Hex(EERAM_Read(Idx))
+      If Idx = 7 or Idx = 0xf then
+        HserPrintCRLF
+      Else
+        HserPrint " : "
+      End if
+
+    next
+
+    HserPrintCRLF : HserPrint "Control Byte = " Hex(EERAM_Status()) : HserPrintCRLF 2
+
+    wait 100 ms                     ; time for serial operations to complete
+    end

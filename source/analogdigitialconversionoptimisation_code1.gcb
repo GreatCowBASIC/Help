@@ -1,0 +1,55 @@
+    #chip 16F1939
+
+    'USART settings
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+    'Set the input pin direction
+    Dir PORTA.0 In
+
+    'Print 255 reading
+    For CurrentAddress = 0 to 255
+
+        'Take a reading and show it
+        HSerPrint str(ReadAD10(AN0))
+
+        'Wait 10 minutes before getting another reading
+        Wait 10 min
+    Next
+
+    #define USE_AD0 TRUE
+    #define USE_AD1 FALSE
+    #define USE_AD2 FALSE
+    #define USE_AD2 FALSE
+    #define USE_AD3 FALSE
+    #define USE_AD4 FALSE
+    #define USE_AD5 FALSE
+    #define USE_AD6 FALSE
+    #define USE_AD7 FALSE
+    #define USE_AD8 FALSE
+    #define USE_AD9 FALSE
+    #define USE_AD10 FALSE
+    #define USE_AD11 FALSE
+    #define USE_AD12 FALSE
+    #define USE_AD13 FALSE
+    #define USE_AD14 FALSE
+    #define USE_AD15 FALSE
+    #define USE_AD16 FALSE
+    #define USE_AD17 FALSE
+    #define USE_AD18 FALSE
+    #define USE_AD19 FALSE
+    #define USE_AD20 FALSE
+    #define USE_AD21 FALSE
+    #define USE_AD22 FALSE
+    #define USE_AD23 FALSE
+    #define USE_AD24 FALSE
+    #define USE_AD25 FALSE
+    #define USE_AD26 FALSE
+    #define USE_AD27 FALSE
+    #define USE_AD28 FALSE
+    #define USE_AD29 FALSE
+    #define USE_AD30 FALSE
+    #define USE_AD31 FALSE
+    #define USE_AD32 FALSE
+    #define USE_AD33 FALSE
+    #define USE_AD34 FALSE
