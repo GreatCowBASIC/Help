@@ -125,36 +125,39 @@ ADS7843 touch controller.
     'Chip Settings
     #chip mega2560, 16
 
-
-    'Include
+    'Include for GLCD
     #include <glcd.h>
+
+    'Include for ADS7843
     #include  <ADS7843.h>
 
-
     'GLCD Device Selection
-    #define GLCD_TYPE GLCD_TYPE_SSD1289
-    #define GLCD_EXTENDEDFONTSET1
-    'Define ports for the SSD1289 display
-    #define GLCD_WR   PORTG.2
-    #define GLCD_CS   PORTG.1
-    #define GLCD_RS   PORTD.7
-    #define GLCD_RST  PORTG.0
-    #define GLCD_DB0  PORTC.0
-    #define GLCD_DB1  PORTC.1
-    #define GLCD_DB2  PORTC.2
-    #define GLCD_DB3  PORTC.3
-    #define GLCD_DB4  PORTC.4
-    #define GLCD_DB5  PORTC.5
-    #define GLCD_DB6  PORTC.6
-    #define GLCD_DB7  PORTC.7
-    #define GLCD_DB8  PORTA.0
-    #define GLCD_DB9  PORTA.1
-    #define GLCD_DB10 PORTA.2
-    #define GLCD_DB11 PORTA.3
-    #define GLCD_DB12 PORTA.4
-    #define GLCD_DB13 PORTA.5
-    #define GLCD_DB14 PORTA.6
-    #define GLCD_DB15 PORTA.7
+    #DEFINE GLCD_TYPE GLCD_TYPE_SSD1289
+    'Define ports for the SSD1289 display - ALL are required
+    #DEFINE GLCD_WR   PORTG.2
+    #DEFINE GLCD_CS   PORTG.1
+    #DEFINE GLCD_RS   PORTD.7
+    #DEFINE GLCD_RST  PORTG.0
+
+    #DEFINE GLCD_DB0  PORTC.0
+    #DEFINE GLCD_DB1  PORTC.1
+    #DEFINE GLCD_DB2  PORTC.2
+    #DEFINE GLCD_DB3  PORTC.3
+    #DEFINE GLCD_DB4  PORTC.4
+    #DEFINE GLCD_DB5  PORTC.5
+    #DEFINE GLCD_DB6  PORTC.6
+    #DEFINE GLCD_DB7  PORTC.7
+    #DEFINE GLCD_DB8  PORTA.0
+    #DEFINE GLCD_DB9  PORTA.1
+    #DEFINE GLCD_DB10 PORTA.2
+    #DEFINE GLCD_DB11 PORTA.3
+    #DEFINE GLCD_DB12 PORTA.4
+    #DEFINE GLCD_DB13 PORTA.5
+    #DEFINE GLCD_DB14 PORTA.6
+    #DEFINE GLCD_DB15 PORTA.7
+
+    'GLCD font control
+    #DEFINE GLCD_EXTENDEDFONTSET1
 
     'Define ports for ADS7843
     #define ADS7843_DOUT   PORTE.5  ' Arduino Mega D3
@@ -166,20 +169,27 @@ ADS7843 touch controller.
 
     Wait 100 ms
     num=0
-    Pset 1,  1, SSD1289_YELLOW
     Do Forever
 
+      'Library function
       if ADS7843_IRQ=0 then
+
          num++
          GLCDPrint  10, 15,  str(num),SSD1289_YELLOW, 2
+
+         'Libary sub routine - returns two variables
          ADS7843_GetXY ( TP_X , TP_Y )
+
          if TP_X>=100 then GLCDPrint  100, 50, Str(TP_X),SSD1289_YELLOW, 2
          if TP_X>=10 and TP_X<100 then GLCDPrint  100, 50, Str(TP_X)+" ",SSD1289_YELLOW, 2
          if TP_X<10 then GLCDPrint  100, 50,  Str(TP_X)+" ",SSD1289_YELLOW, 2
          if TP_Y>=100 then GLCDPrint  100, 70, Str(TP_Y),SSD1289_YELLOW, 2
          if TP_Y>=10 and TP_Y<100 then GLCDPrint  100, 70, Str(TP_Y)+" ", SSD1289_YELLOW, 2
          if TP_Y<10 then GLCDPrint  100, 70,  Str(TP_Y)+" ",SSD1289_YELLOW, 2
+
+         'Set the pixel to yellow using the GLCD PSET sub routine
          Pset TP_X,  TP_Y, SSD1289_YELLOW
+
       end if
       Wait 1 ms
 

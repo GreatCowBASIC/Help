@@ -149,16 +149,15 @@ This example shows how to use the device.
 <span class="strong">**Example:**</span>
 
 ``` screen
-    '
-    #chip 16f18855,32
-    #option explicit
+    #CHIP 16F18855,32
+    #OPTION EXPLICIT
 
-    #include <47xxx_EERAM.H>
+    #INCLUDE <47XXX_EERAM.H>
 
     #startup InitPPS, 85
 
     Sub InitPPS
-      UNLOCKPPS
+          'PPS is explicit to a specific chip.  Use PPSTool to ensure the PPS settings are correct.
 
           'Module: EUSART
               RC0PPS = 0x0010 'TX > RC0
@@ -169,35 +168,35 @@ This example shows how to use the device.
               RC4PPS = 0x0014 'SCL1 > RC4
               SSP1CLKPPS = 0x0014 'RC4 > SCL1 (bi-directional)
 
-      LOCKPPS
-    End Sub
+        End Sub
 
     ; ----- Define Hardware Serial Print
 
-    #define USART_BAUD_RATE 115200
-    #define USART_TX_BLOCKING
+    #DEFINE USART_BAUD_RATE 115200
+    #DEFINE USART_TX_BLOCKING
 
     ; ----- Define Hardware settings for hwi2c
 
-    #define hi2c_BAUD_RATE 400
-    #define hi2c_DATA  PORTC.3
-    #define hi2c_CLOCK PORTC.4
+    #DEFINE HI2C_BAUD_RATE 400
+    #DEFINE HI2C_DATA  PORTC.3
+    #DEFINE HI2C_CLOCK PORTC.4
 
-    'I2C pins need to be input for I2C module
-    Dir hi2c_DATA  in
-    Dir hi2c_CLOCK in
+    'I2C pins need to be input for legacy I2C modules
+    DIR HI2C_DATA  IN
+    DIR HI2C_CLOCK IN
 
     'Initialise I2C Master
     hi2cMode Master
 
     ; ----- Define Hardware settings for EERAM Module
 
-    #define EERAM_I2C_Adr 0x30     ; EERAM base Address
-    #define EERAM_HS PortB.1       ; Optional hardware Store Pin
+    #define EERAM_I2C_Adr 0x30      ; EERAM base Address
+    #define EERAM_HS PortB.1        ; Optional hardware Store Pin
 
-    Dir EERAM_HS Out           ; Rising edge initiates Backup
+    Dir EERAM_HS Out                ; Rising edge initiates Backup
 
-    EERAM_AutoStore(ON) ; Enable Automatic Storage on power loss
+    'Library function
+    EERAM_AutoStore(ON)             ; Enable Automatic Storage on power loss
 
     ; ----- Main body of program commences here.
 
@@ -211,18 +210,18 @@ This example shows how to use the device.
 
     for Idx = 0x0 to 0xF
 
-    HserPrint hex(Idx) + " = " : HserPrint Hex(EERAM_Read(Idx))
+      HserPrint hex(Idx) + " = " : HserPrint Hex(EERAM_Read(Idx))
+      If Idx = 7 or Idx = 0xf then
+        HserPrintCRLF
+      Else
+        HserPrint " : "
+      End if
 
-    if Idx = 7 or Idx = 0xf then
-      HserPrintCRLF
-    Else
-      HserPrint " : "
-    end if
-
-    next Idx
+    next
 
     HserPrintCRLF : HserPrint "Control Byte = " Hex(EERAM_Status()) : HserPrintCRLF 2
 
+    wait 100 ms                     ; time for serial operations to complete
     end
 ```
 

@@ -32,27 +32,27 @@ to the top left corner of the screen
 <span class="strong">**Example :**</span>
 
 ``` screen
-    'A Flashing Hello World program for Great Cow BASIC
+        'A Flashing text "Hello World" program for Great Cow BASIC
 
-    'General hardware configuration
-    #chip 16F877A, 20
+        'General hardware configuration
+        #chip 16F877A, 20
 
-    'LCD connection settings
-    #define LCD_IO 8
-    #define LCD_DATA_PORT PORTC
-    #define LCD_RS PORTD.0
-    #define LCD_RW PORTD.1
-    #define LCD_Enable PORTD.2
-    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
+        'LCD connection settings
+        #define LCD_IO 8
+        #define LCD_DATA_PORT PORTC
+        #define LCD_RS PORTD.0
+        #define LCD_RW PORTD.1
+        #define LCD_Enable PORTD.2
+        #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
 
 
-    'Main routine
-    Do
-        Print "Hello World"
-        Wait 1 sec
-        CLS
-        Wait 1 sec
-    Loop
+        'Main routine
+        Do
+            Print "Hello World"
+            Wait 1 sec
+            CLS
+            Wait 1 sec
+        Loop
 ```
 
 <span class="strong">**For more help, see**</span>

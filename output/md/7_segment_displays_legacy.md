@@ -217,69 +217,71 @@ connectivity options.
 <span class="strong">**Example 1:**</span>
 
 ``` screen
- 'A Common Cathode 7 Segment display  2 digit example
+        'A Common Cathode 7 Segment display  2 digit example
+        #chip 16F886, 8
 
- #chip 16F886, 8
+        'support for Common Anode
+        '#DEFINE 7SEG_COMMONANODE
 
-    'support for Common Anode
-    '#define 7Seg_CommonAnode
+        'support for pfet or pnp high side drivers
+        '#DEFINE 7SEG_HIGHSIDE
 
-    'support for pfet or pnp high side drivers
-    '#define 7Seg_HighSide
+        ' ----- Constants
+        'You need to specify the port settings
+        'by one of the following three methods
+        'The Directions of the ports are automaically set according to the defines
 
-' ----- Constants
-    ' You need to specify the port settings
-    ' by one of the following three methods
-    'The Directions of the ports are automaically set according to the defines
-  '''METHOD 1  Define individual port pins for segments and selects
-    #define DISP_SEG_A PORTB.0
-    #define DISP_SEG_B PORTB.1
-    #define DISP_SEG_C PORTB.2
-    #define DISP_SEG_D PORTB.3
-    #define DISP_SEG_E PORTB.4
-    #define DISP_SEG_F PORTB.5
-    #define DISP_SEG_G PORTB.6
-    #define DISP_SEG_DOT PORTB.7 '' available on some displays as dp or colon
+        'METHOD 1
+        'Define individual port pins for segments and selects
 
-    #define DISP_SEL_1 PORTC.5
-    #define DISP_SEL_2 PORTC.4
+        #DEFINE DISP_SEG_A PORTB.0
+        #DEFINE DISP_SEG_B PORTB.1
+        #DEFINE DISP_SEG_C PORTB.2
+        #DEFINE DISP_SEG_D PORTB.3
+        #DEFINE DISP_SEG_E PORTB.4
+        #DEFINE DISP_SEG_F PORTB.5
+        #DEFINE DISP_SEG_G PORTB.6
+        #DEFINE DISP_SEG_DOT PORTB.7 '' available on some displays as dp or colon
 
-  '''METHOD 2  Define DISPLAYPORTA (B,C,D) for up to 4 digit display segments
-        ''Define DISPSELECTA (B,C,D) for up to 4 digit display selects
-    '#define DISPLAYPORTA PORTB   ' same port name can be assigned
-    '#define DISPLAYPORTB PORTB
+        #DEFINE DISP_SEL_1 PORTC.5
+        #DEFINE DISP_SEL_2 PORTC.4
 
-    '#define DispSelectA Set portC.5 off
-    '#define DispSelectB Set portC.4 off
-    '#define DispDeSelectA Set portC.5 on
-    '#define DispDeSelectB Set portC.4 on
+        'METHOD 2  Define DISPLAYPORTA (B,C,D) for up to 4 digit display segments
+        'Define DISPSELECTA (B,C,D) for up to 4 digit display selects
 
-  '''METHOD 3  Define DISPLAYPORTA (B,C,D) for up to 4 digit display segments
-        ''Define port pins for the digit display  selects
-    '#define DISPLAYPORTA PORTB
-    '#define DISPLAYPORTB PORTB
+        '#DEFINE DISPLAYPORTA PORTB   ' same port name can be assigned
+        '#DEFINE DISPLAYPORTB PORTB
 
-    '#define DISP_SEL_1 PORTC.5
-    '#define DISP_SEL_2 PORTC.4
+        '#DEFINE DispSelectA Set portC.5 off
+        '#DEFINE DispSelectB Set portC.4 off
+        '#DEFINE DispDeSelectA Set portC.5 on
+        '#DEFINE DispDeSelectB Set portC.4 on
 
+        'METHOD 3  Define DISPLAYPORTA (B,C,D) for up to 4 digit display segments
+        'Define port pins for the digit display  selects
 
+        '#DEFINE DISPLAYPORTA PORTB
+        '#DEFINE DISPLAYPORTB PORTB
 
-    Dim Message As String
-    Message = " HAPPY HOLIDAYS  "
-    Do
-    For Counter = 1 to len(Message)-1
-      Repeat 50
-        Displaychar 1, Message(Counter)
-        wait 3 ms
-        DisplayChar 2, Message(Counter+1)
-        wait 3 ms
-
-        end Repeat
+        '#DEFINE DISP_SEL_1 PORTC.5
+        '#DEFINE DISP_SEL_2 PORTC.4
 
 
-      Wait 100 ms
-    Next
-    Loop
+
+        Dim Message As String
+        Message = " HAPPY HOLIDAYS  "
+        Do
+            For Counter = 1 to len(Message)-1
+            Repeat 50
+                Displaychar 1, Message(Counter)
+                wait 3 ms
+                DisplayChar 2, Message(Counter+1)
+                wait 3 ms
+
+            End Repeat
+            Wait 100 ms
+            Next
+        Loop
 ```
 
 <div class="informalfigure">

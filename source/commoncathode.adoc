@@ -76,5 +76,4 @@ This is a Common Cathode 7 Segment display example.
     Loop
 ----
 *Also, see*
-<<_7_segment_displays_overview,7 Degment Display Overview>>,
-<<_displaychar,DisplayChar>>, <<_displayvalue,DisplayValue>>
+<<_7_segment_displays_overview,7 Degment Display Overview>>,<<_displaychar,DisplayChar>>, <<_displayvalue,DisplayValue>>

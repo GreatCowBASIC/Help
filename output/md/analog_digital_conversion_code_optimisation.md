@@ -130,7 +130,6 @@ by defining every channel except USE\_AD0 as FALSE.
 This will save 146 bytes of program memory.
 
 ``` screen
-; ----- Configuration
     #chip 16F1939
 
     'USART settings
@@ -139,7 +138,6 @@ This will save 146 bytes of program memory.
 
     'Set the input pin direction
     Dir PORTA.0 In
-
 
     'Print 255 reading
     For CurrentAddress = 0 to 255
@@ -203,8 +201,9 @@ save 149 bytes of program memory.
 
 
         'Chip Settings.
-        #chip 16f18855,32
-        #Config MCLRE_ON
+        #CHIP 16F18855,32
+        #CONFIG MCLRE_ON
+        #OPTION EXPLICIT
 
         '' -------------------LATA-----------------
         '' Bit#:  -7---6---5---4---3---2---1---0---
@@ -232,7 +231,7 @@ save 149 bytes of program memory.
 
         'Setup an Interrupt event when porta.5 goes negative.
         IOCAN5 = 1
-        On Interrupt PORTBChange  Call InterruptHandler
+        On Interrupt PORTABChange  Call InterruptHandler
 
         do
 
@@ -253,7 +252,7 @@ save 149 bytes of program memory.
             IOCAF5 = 0                             'We must clear the flag in software
 
             wait 5 ms                              'debounce by waiting and seeing if still held down
-            if ( SWITCH = DOWN ) then
+            if ( SWITCH = SWITCH_DOWN ) then
                 'Read the ADC
                 adc_value = readad ( AN4 )
                 'Write the value to register Zero in the EEPROM

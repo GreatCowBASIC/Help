@@ -1,0 +1,52 @@
+
+D:\GreatCowBASICGits\Help.git\trunk\source>gcbdoc gcbasic chm 
+Asciidoctor 1.5.2 [http://asciidoctor.org]
+Runtime Environment (ruby 2.2.2p95 (2015-04-13 revision 50295) [i386-mingw32]) (lc:CP850 fs:Windows-1252 in:- ex:CP850)
+Asciidoctor PDF 1.5.0.alpha.9 using Asciidoctor 1.5.2 [http://asciidoctor.org]
+Runtime Environment (ruby 2.2.2p95 (2015-04-13 revision 50295) [i386-mingw32]) (lc:CP850 fs:Windows-1252 in:- ex:CP850)
+CodeRay 1.1.0
+. 
+Generating chm file...
+Terminate batch job (Y/N)? 
+"Cleaning gcbasic.hhc ..."
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+Replaced 0 occurence(s) in 0 file(s).
+        1 file(s) copied.
+Unable to open gcbasic.hhp.Terminate batch job (Y/N)? 
+Terminate batch job (Y/N)? 

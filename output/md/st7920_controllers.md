@@ -22,7 +22,7 @@ in the table below. The only connectivity option the 8-bit mode where 8
 pins are connected between the microcontroller and the GLCD to control
 the data bus.  
 
-The ST7920 GLCD is graphica and character mixed mode display.  
+The ST7920 GLCD is graphics and character mixed mode display.  
 
 ST7920 LCD controller/driver IC can display alphabets, numbers, Chinese
 fonts and self-defined characters.   It supports 3 kinds of bus
@@ -60,52 +60,96 @@ shown in the table below.
 
 <div class="informaltable">
 
-| <span class="strong">**Constants**</span> | <span class="strong">**Controls**</span>                                                             | <span class="strong">**Options**</span>                                                                                                                                                                                                                                                                       |
-|:------------------------------------------|:-----------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `GLCD_TYPE`                               | `GLCD_TYPE_ST7920`                                                                                   | Required                                                                                                                                                                                                                                                                                                      |
-| `GLCD_DATA_PORT`                          | Specifies the output port that is connected between the microcontroller and the GLCD.                | Required                                                                                                                                                                                                                                                                                                      |
-| `GLCD_RS`                                 | Specifies the output pin that is connected to Register Select on the GLCD.                           | Required                                                                                                                                                                                                                                                                                                      |
-| `GLCD_RW`                                 | Specifies the output pin that is connected to Read/Write on the GLCD. The R/W pin can be disabled\*. | <span class="strong">**<span class="emphasis">*Must be defined*</span>**</span> <span class="emphasis">*unless R/W is disabled), see*</span> `GLCD_NO_RW`                                                                                                                                                     |
-| `GLCD_RESET`                              | Specifies the output pin that is connected to Reset on the GLCD.                                     | Required                                                                                                                                                                                                                                                                                                      |
-| `LCD_ENABLE`                              | Specifies the output pin that is connected to Enable on the GLCD.                                    | Required                                                                                                                                                                                                                                                                                                      |
-| `ST7920WriteDelay`                        | Set the time delay between data transmissions.                                                       | Required, set to `20 us` for `32Mhz` support. Can be reduced for slower chip speeds.                                                                                                                                                                                                                          |
-| `GLCD_NO_RW`                              | Disables read/write inspection of the device during read/write operations                            | Optional, but recommend NOT to set. The R/W pin can be disabled by setting the `GLCD_NO_RW` constant. If this is done, there is no need for the `R/W` to be connected to the chip, and no need for the `LCD_RW` constant to be set. Ensure that the `R/W` line on the LCD is connected to ground if not used. |
+<span class="strong">**Constants**</span>
 
 </div>
+
+</div>
+
+<span class="strong">**Controls**</span>
+
+<span class="strong">**Options**</span>
+
+`GLCD_TYPE`
+
+`GLCD_TYPE_ST7920`
+
+Required
+
+`GLCD_DATA_PORT`
+
+Specifies the output port that is connected between the microcontroller
+and the GLCD.
+
+Required
+
+`GLCD_RS`
+
+Specifies the output pin that is connected to Register Select on the
+GLCD.
+
+Required
+
+`GLCD_RW`
+
+Specifies the output pin that is connected to Read/Write on the GLCD.
+The R/W pin can be disabled\*.
+
+<span class="strong">**<span class="emphasis">*Must be
+defined*</span>**</span> <span class="emphasis">*unless R/W is
+disabled), see*</span> `GLCD_NO_RW`
+
+`GLCD_RESET`
+
+Specifies the output pin that is connected to Reset on the GLCD.
+
+Required
+
+`GLCD_ENABLE`
+
+Specifies the output pin that is connected to Enable on the GLCD.
+
+Required
+
+`GLCD_NO_RW`
+
+Disables read/write inspection of the device during read/write
+operations
+
+Optional, but recommend NOT to set. The R/W pin can be disabled by
+setting the `GLCD_NO_RW` constant. If this is done, there is no need for
+the `R/W` to be connected to the chip, and no need for the `LCD_RW`
+constant to be set. Ensure that the `R/W` line on the LCD is connected
+to ground if not used.
+
+Constants that control the timing of the library
+
+`ST7920READDELAY`
+
+Set the time delay between read data transmissions.
+
+Optional, set to `20` us as the default value.
+
+`ST7920WRITEDELAY`
+
+Set the time delay between write data transmissions.
+
+Optional, set to `2` us as the default value.
+
+' read delay of 25 is required at 32mhz, this can be reduced to 0 for
+slower clock speeds \#DEFINE ST7920READDELAY 25 ' write delay of 2 is
+required at 32mhz. this can be reduced to 1 for slower clock speeds
+\#DEFINE ST7920WRITEDELAY 2
 
 The Great Cow BASIC constants for control display characteristics are
 shown in the table below.  
 
 <div class="informaltable">
 
-<table data-border="1">
-<thead>
-<tr class="header">
-<th style="text-align: left;"><span class="strong"><strong>Constants</strong></span></th>
-<th style="text-align: left;"><span class="strong"><strong>Controls</strong></span></th>
-<th style="text-align: center;"><span class="strong"><strong>Default</strong></span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><p><code class="literal">GLCD_WIDTH</code></p></td>
-<td style="text-align: left;"><p>The width parameter of the GLCD</p></td>
-<td style="text-align: center;"><p><code class="literal">128</code><br />
-Cannot be changed.</p></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><p><code class="literal">GLCD_HEIGHT</code></p></td>
-<td style="text-align: left;"><p>The height parameter of the GLCD</p></td>
-<td style="text-align: center;"><p><code class="literal">64</code><br />
-Cannot be changed.</p></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><p><code class="literal">GLCDFontWidth</code></p></td>
-<td style="text-align: left;"><p>Specifies the font width of the Great Cow BASIC font set.</p></td>
-<td style="text-align: center;"><p><code class="literal">6</code></p></td>
-</tr>
-</tbody>
-</table>
+| <span class="strong">**Constants**</span> | <span class="strong">**Controls**</span> | <span class="strong">**Default**</span> |
+|:------------------------------------------|:-----------------------------------------|:----------------------------------------|
+| `GLCD_WIDTH`                              | The width parameter of the GLCD          | `128`  cannot be changed.               |
+| `GLCD_HEIGHT`                             | The height parameter of the GLCD         | `64`  cannot be changed.                |
 
 </div>
 
@@ -115,20 +159,78 @@ ST7920\*.
 
 <div class="informaltable">
 
-| <span class="strong">**Command**</span> | <span class="strong">**Purpose**</span>                                                  | <span class="strong">**Example**</span>                                                        |
-|:----------------------------------------|:-----------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------|
-| `GLCDCLS`                               | Clear screen of GLCD                                                                     | `GLCDCLS`                                                                                      |
-| `GLCDPrint`                             | Print string of characters on GLCD using GCB font set                                    | `GLCDPrint( Xposition, Yposition, Stringvariable )`                                            |
-| `GLCDDrawChar`                          | Print character on GLCD using GCB font set                                               | `GLCDDrawChar( Xposition, Yposition, CharCode )`                                               |
-| `GLCDDrawString`                        | Print characters on GLCD using GCB font set                                              | `GLCDDrawString( Xposition, Yposition, Stringvariable )`                                       |
-| `Box`                                   | Draw a box on the GLCD to a specific size                                                | `Box ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour as 0 or 1] )`   |
-| `FilledBox`                             | Draw a box on the GLCD to a specific size that is filled with the foreground colour.     | `FilledBox (Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour 0 or 1] )` |
-| `Line`                                  | Draw a line on the GLCD to a specific length that is filled with the specific attribute. | `Line ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour 0 or 1] )`     |
-| `PSet`                                  | Set a pixel on the GLCD at a specific position that is set with the specific attribute.  | `PSet(Xposition, Yposition, Pixel Colour 0 or 1)`                                              |
-| `GLCDWriteByte`                         | Set a byte value to the controller, see the datasheet for usage.                         | `GLCDWriteByte (LCDByte)`                                                                      |
-| `GLCDReadByte`                          | Read a byte value from the controller, see the datasheet for usage.                      | `bytevariable = GLCDReadByte`                                                                  |
+<span class="strong">**Command**</span>
 
 </div>
+
+<span class="strong">**Purpose**</span>
+
+<span class="strong">**Example**</span>
+
+`GLCDCLS`
+
+Clear screen of GLCD
+
+`GLCDCLS`
+
+`GLCDPrint`
+
+Print string of characters on GLCD using GCB font set
+
+`GLCDPrint( Xposition, Yposition, Stringvariable )`
+
+`GLCDDrawChar`
+
+Print character on GLCD using GCB font set
+
+`GLCDDrawChar( Xposition, Yposition, CharCode )`
+
+`GLCDDrawString`
+
+Print characters on GLCD using GCB font set
+
+`GLCDDrawString( Xposition, Yposition, Stringvariable )`
+
+`Box`
+
+Draw a box on the GLCD to a specific size
+
+`Box ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour as 0 or 1] )`
+
+`FilledBox`
+
+Draw a box on the GLCD to a specific size that is filled with the
+foreground colour.
+
+`FilledBox (Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour 0 or 1] )`
+
+`Line`
+
+Draw a line on the GLCD to a specific length that is filled with the
+specific attribute.
+
+`Line ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour 0 or 1] )`
+
+`PSet`
+
+Set a pixel on the GLCD at a specific position that is set with the
+specific attribute.
+
+`PSet(Xposition, Yposition, Pixel Colour 0 or 1)`
+
+The following methods ( calls ) are available for expert use.  
+
+`GLCDWriteByte`
+
+Set a byte value to the controller, see the datasheet for usage.
+
+`GLCDWriteByte (LCDByte)`
+
+`GLCDReadByte`
+
+Read a byte value from the controller, see the datasheet for usage.
+
+`bytevariable = GLCDReadByte`
 
 For a TS7920 datasheet, please refer
 <a href="http://www.crystalfontz.com/controllers/ST7920.pdf" class="link">here.</a>
@@ -142,35 +244,32 @@ for details, this is an external web site.
 
 ``` screen
     ;Chip Settings
-    #chip 16F1937,32
-    #config  MCLRE_ON
+    #CHIP 16F1937,32
+    #CONFIG  MCLRE_ON
 
-    #include <glcd.h>
-
-    #define GLCD_TYPE GLCD_TYPE_ST7920
-    #define GLCD_IO 8
-    #define GLCD_WIDTH 128
-    #define GLCD_HEIGHT 160
-    #define GLCDFontWidth 6
-
+    #INCLUDE <GLCD.H>
+    #DEFINE GLCD_TYPE GLCD_TYPE_ST7920
+    #DEFINE GLCD_IO 8
+    #DEFINE GLCD_WIDTH 128
+    #DEFINE GLCD_HEIGHT 160
     ' read delay of 25 is required at 32mhz, this can be reduced to 0 for slower clock speeds
-    #define ST7920ReadDelay 25
+    #DEFINE ST7920READDELAY 25
     ' write delay of 2 is required at 32mhz.  this can be reduced to 1 for slower clock speeds
-    #define ST7920WriteDelay 2
+    #DEFINE ST7920WRITEDELAY 2
 
-    #define GLCD_RS PORTa.0
-    #define GLCD_Enable PORTA.1
-    #define GLCD_RW PORTA.2
-    #define GLCD_RESET PORTA.3
-    #define GLCD_DATA_PORT PORTD
+    #DEFINE GLCD_RS PORTA.0
+    #DEFINE GLCD_ENABLE PORTA.1
+    #DEFINE GLCD_RW PORTA.2
+    #DEFINE GLCD_RESET PORTA.3
+    #DEFINE GLCD_DATA_PORT PORTD
 
     ST7920GLCDEnableGraphics
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
     GLCDPrint 0, 1, "Great Cow BASIC "
     wait 1 s
 
     GLCDCLS
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
 
     rrun = 0
     dim msg1 as string * 16
@@ -180,7 +279,7 @@ for details, this is an external web site.
 
     Do forever
         GLCDCLS
-        ST7920GLCDClearGraphics          ;clear screen
+        GLCDClearGraphics_ST7920          ;clear screen
         GLCDDrawString 30,0,"ChipMhz@"    ;print string
         GLCDDrawString 78,0, str(ChipMhz) ;print string
         Circle(10,10,10,0)            ;upper left
@@ -193,10 +292,10 @@ for details, this is an external web site.
         wait 1 s                  ;wait
         FilledBox( 0,0,128,63)          ;create box
         for ypos = 0 to 63              ;draw row by row
-             ST7920lineh 0,ypos,128, 0      ;draw line
+             Line 0,ypos,128, 0      ;draw line
         next
         wait 1 s                  ;wait
-        ST7920GLCDClearGraphics          ;clear
+        GLCDClearGraphics_ST7920          ;clear
     loop
 ```
 
@@ -204,32 +303,30 @@ for details, this is an external web site.
 
 ``` screen
     ;Chip Settings
-    #chip 16F1937,32
-    #config MCLRE_ON
+    #CHIP 16F1937,32
+    #CONFIG MCLRE_ON
 
-    #include <glcd.h>
-
-    #define GLCD_TYPE GLCD_TYPE_ST7920
-    #define GLCD_IO 8
-    #define GLCD_WIDTH 128
-    #define GLCD_HEIGHT 160
-    #define GLCDFontWidth 6
+    #INCLUDE <GLCD.H>
+    #DEFINE GLCD_TYPE GLCD_TYPE_ST7920
+    #DEFINE GLCD_IO 8
+    #DEFINE GLCD_WIDTH 128
+    #DEFINE GLCD_HEIGHT 160
 
     ' read delay of 25 is required at 32mhz, this can be reduced to 0 for slower clock speeds
-    #define ST7920ReadDelay 25
+    #DEFINE ST7920READDELAY 25
     ' write delay of 2 is required at 32mhz.  this can be reduced to 1 for slower clock speeds
-    #define ST7920WriteDelay 2
+    #DEFINE ST7920WRITEDELAY 2
 
-    #define GLCD_RS PORTa.0
-    #define GLCD_Enable PORTA.1
-    #define GLCD_RW PORTA.2
-    #define GLCD_RESET PORTA.3
-    #define GLCD_DATA_PORT PORTD
+    #DEFINE GLCD_RS PORTA.0
+    #DEFINE GLCD_ENABLE PORTA.1
+    #DEFINE GLCD_RW PORTA.2
+    #DEFINE GLCD_RESET PORTA.3
+    #DEFINE GLCD_DATA_PORT PORTD
 
     WAIT 1 S
-    ST7920GLCDEnableGraphics
-    ST7920GLCDClearGraphics
-    ST7920Tile "A"
+    GLCDEnableGraphics_ST7920
+    GLCDClearGraphics_ST7920
+    Tile_ST7920 "A"
     GLCDPrint 0, 1, "Great Cow BASIC "
 
     GLCDCLS
@@ -239,16 +336,16 @@ for details, this is an external web site.
 
     do forever
 
-    ST7920GLCDEnableGraphics
-    ST7920GLCDClearGraphics
-    ST7920gTile 0x55, 0x55
+    GLCDEnableGraphics_ST7920
+    GLCDClearGraphics_ST7920
+    GTile_ST7920 0x55, 0x55
     wait 1 s
 
-    ST7920GLCDClearGraphics
-    ST7920Lineh(0, 0, GLCD_WIDTH)
-    ST7920Lineh(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
-    ST7920LineV(0, 0, GLCD_HEIGHT)
-    ST7920LineV(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
+    GLCDClearGraphics_ST7920
+    Lineh_ST7920(0, 0, GLCD_WIDTH)
+    Lineh_ST7920(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
+    Linev_ST7920(0, 0, GLCD_HEIGHT)
+    Linev_ST7920(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
 
     Box 18,30,28,40
 
@@ -256,7 +353,7 @@ for details, this is an external web site.
 
     FilledBox 18,30,28,40
 
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
 
     Start:
 
@@ -275,13 +372,13 @@ for details, this is an external web site.
     next
     FilledBox 18,30,28,40 'Draw Box Around ASCII Character
     Wait 1 s
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
     GLCDDrawString 0,10,"End  "
     wait 1 s
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
 
     workingGLCDDrawChar:
-    ST7920GLCDEnableGraphics
+    GLCDEnableGraphics_ST7920
     dim gtext as string
     gtext = "ST7920 @QC12864B"
 
@@ -290,16 +387,15 @@ for details, this is an external web site.
           GLCDDrawChar xxpos , 0 , gtext(xchar)
     next
 
-    GLCDDrawString  1, 9, "Great Cow BASIC @2021"
+    GLCDDrawString  1, 9, "Great Cow BASIC"
     GLCDDrawString  1, 18,"GLCD 128*64"
     GLCDDrawString  1, 27,"Using GLCD.H from GCB"
-    GLCDDrawString  1, 37,"Using GLCD.H GCB@2021"
+    GLCDDrawString  1, 37,"Using GLCD.H GCB"
     GLCDDrawString  1, 45,"GLCDDrawChar method"
-    'GLCDDrawString  1, 54,"ST7920 @QC12864B"
     GLCDDrawString  1, 54,"Test Routines"
     wait 1 s
 
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
     ST7920GLCDDisableGraphics
     GLCDCLS
 
@@ -315,7 +411,6 @@ for details, this is an external web site.
     ' show all chars... takes some time!
     ST7920CallBuiltinChar
 
-    ST7920Tile ( 0xa9  )
     wait 1 s
     GLCDCLS
 
@@ -339,86 +434,72 @@ for details, this is an external web site.
     'Write 2 bytes of data into DDRAM to display one 16x16 font.
     'A140H~D75FH are BIG5 code, A1A0H~F7FFH are GB code.
 
-    for BIG5code = 0xA140 to 0xA1CF
-        ST7920cTile ( BIG5code  )
-        wait 5 ms
-      next
-    GLCDCLS
-
     'To display HCGROM fonts
     ' Write 2 bytes of data into DDRAM to display two 8x16 fonts. Each byte represents 1 character.
     ' The data is among 02H~7FH.
     ' The english characters set...
-    for HCGROM = 0x2h to 0x7f
-        ST7920Tile ( HCGROM  )
-        ST7920Tile ( HCGROM  )
-        wait 5 ms
-    next
-    GLCDCLS
 
     linetest1:
 
-      ST7920GLCDEnableGraphics
+      GLCDEnableGraphics_ST7920
 
-      ST7920gTile(0x55, 0x55)
       wait 1 s
-      ST7920GLCDClearGraphics
+      GLCDClearGraphics_ST7920
 
-    'linehtest:
-    '
-    ST7920LineH(0, 0, GLCD_WIDTH)
-    ST7920LineH(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
-    ST7920LineV(0, 0, GLCD_HEIGHT)
-    ST7920LineV(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
+    'lineh test
+    LineH_ST7920(0, 0, GLCD_WIDTH)
+    LineH_ST7920(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
+    LineV_ST7920(0, 0, GLCD_HEIGHT)
+    LineV_ST7920(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
 
-    box test
-    ST7920LineH(10 ,0 , 118 )
-    ST7920LineH(0 ,8 , 128)
-    ST7920LineH(16 ,16 , 96 )
-    ST7920LineH(10 ,32 , 108 )
-    ST7920LineH(0, 16, GLCD_WIDTH)
-    ST7920LineH(0, 24, GLCD_WIDTH)
-    ST7920LineH(0, 32, GLCD_WIDTH)
-    ST7920LineH(0, 40, GLCD_WIDTH)
-    ST7920LineH(0, 48, GLCD_WIDTH)
-    ST7920LineH(0, 56, GLCD_WIDTH)
-    ST7920LineH(0, 63, GLCD_WIDTH)
-    ST7920LineV(16, 0, GLCD_HEIGHT)
-    ST7920LineV(17, 0, GLCD_HEIGHT)
-    ST7920LineV(15, 0, GLCD_HEIGHT)
+    ' box test
+    LineH_ST7920(10 ,0 , 118 )
+    LineH_ST7920(0 ,8 , 128)
+    LineH_ST7920(16 ,16 , 96 )
+    LineH_ST7920(10 ,32 , 108 )
+    LineH_ST7920(0, 16, GLCD_WIDTH)
+    LineH_ST7920(0, 24, GLCD_WIDTH)
+    LineH_ST7920(0, 32, GLCD_WIDTH)
+    LineH_ST7920(0, 40, GLCD_WIDTH)
+    LineH_ST7920(0, 48, GLCD_WIDTH)
+    LineH_ST7920(0, 56, GLCD_WIDTH)
+    LineH_ST7920(0, 63, GLCD_WIDTH)
+    LineV_ST7920(16, 0, GLCD_HEIGHT)
+    LineV_ST7920(17, 0, GLCD_HEIGHT)
+    LineV_ST7920(15, 0, GLCD_HEIGHT)
 
-    ST7920LineV(46, 0, GLCD_HEIGHT)
-    ST7920LineV(47, 0, GLCD_HEIGHT)
-    ST7920LineV(48, 0, GLCD_HEIGHT)
+    LineV_ST7920(46, 0, GLCD_HEIGHT)
+    LineV_ST7920(47, 0, GLCD_HEIGHT)
+    LineV_ST7920(48, 0, GLCD_HEIGHT)
 
-    ST7920LineV(46, 0, GLCD_HEIGHT)
-    ST7920LineV(47, 0, GLCD_HEIGHT)
-    ST7920LineV(48, 0, GLCD_HEIGHT)
+    LineV_ST7920(46, 0, GLCD_HEIGHT)
+    LineV_ST7920(47, 0, GLCD_HEIGHT)
+    LineV_ST7920(48, 0, GLCD_HEIGHT)
 
-    ST7920LineV(96, 0, GLCD_HEIGHT)
-    ST7920LineV(97, 0, GLCD_HEIGHT)
-    ST7920LineV(98, 0, GLCD_HEIGHT
+    LineV_ST7920(96, 0, GLCD_HEIGHT)
+    LineV_ST7920(97, 0, GLCD_HEIGHT)
+    LineV_ST7920(98, 0, GLCD_HEIGHT)
 
     for HCGROM = 0 to GLCD_WIDTH step 8
-        ST7920LineV(HCGROM, 0, GLCD_HEIGHT)
+        LineV_ST7920(HCGROM, 0, GLCD_HEIGHT)
     next
 
     GraphicTestPlace:
 
-      ST7920GLCDClearGraphics
-      ST7920GraphicTest
-      ST7920GLCDClearGraphics
+      GLCDClearGraphics_ST7920
+      GraphicTest_ST7920
+      GLCDClearGraphics_ST7920
 
       ' Test draw a line
       for yrowpos = 0 to 63 step 4
-        ST7920LineH(0, yrowpos, GLCD_WIDTH)
+        LineH_ST7920(0, yrowpos, GLCD_WIDTH)
       next
 
-      ST7920GLCDClearGraphics
+      GLCDClearGraphics_ST7920
       ST7920GLCDDisableGraphics
       GLCDCLS
 
-      ST7920SetIcon( 1, 0x55 )
+      SetIcon_ST7920( 1, 0x55 )
 
     loop
 
@@ -426,8 +507,8 @@ for details, this is an external web site.
         ' 0xA140 ~ 0xA15F
           for ii = 0 to 31
 
-              ST7920WriteData( 0xA1)
-              ST7920WriteData( 0x40 + ii)
+              WriteData_ST7920( 0xA1)
+              WriteData_ST7920( 0x40 + ii)
 
           next
 
@@ -438,8 +519,8 @@ for details, this is an external web site.
           ' 0xA140 ~ 0xA15F
           for ii = 0 to 31
 
-              ST7920WriteData( 0xA1)
-              ST7920WriteData( 0xb0 + ii)
+              WriteData_ST7920( 0xA1)
+              WriteData_ST7920( 0xb0 + ii)
 
           next
           wait 1 s
@@ -448,8 +529,8 @@ for details, this is an external web site.
           ' 0xA140 ~ 0xA15F
           for ii = 0 to 31
 
-              ST7920WriteData( 0xA4)
-              ST7920WriteData( 0x40 + ii)
+              WriteData_ST7920( 0xA4)
+              WriteData_ST7920( 0x40 + ii)
 
           next
           wait 1 s
@@ -466,5 +547,3 @@ for details, this is an external web site.
 or <a href="pset" class="link" title="Pset">Pset</a>
 
 Supported in &lt;GLCD.H&gt;
-
-</div>

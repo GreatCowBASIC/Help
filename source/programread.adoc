@@ -29,6 +29,4 @@ program memory on the Microchip PIC microcontroller, which is given on the datas
 This is an advanced command which should only be used by advanced
 developers.
 
-*Example:*
-
 *For more help, see <<_programerase,ProgramErase>>* and *<<_programwrite,ProgramWrite>>*

@@ -18,7 +18,7 @@ This is a simple cheat sheet for editors of the Great Cow BASIC Help source file
 === GitHub limitations
 
 This cheatsheet contains small part of Asciidoc markup which works and
-looks fine on GitHub.&#160;&#160;There is also link:https://github.com/powerman/asciidoc-cheatsheet/blob/master/README.adoc[full cheatsheet], but
+looks fine on GitHub.&#160;&#160;There is also link:https://github.com/powerman/asciidoc-cheatsheet/blob/master/README*Adoc[full cheatsheet], but
 for now its main use is to show bugs, design issues, GitHub limitations
 and other differences from http://powerman.name/doc/asciidoc[how Asciidoc
 cheatsheet should really looks like].
@@ -33,8 +33,15 @@ To add an example hard space, use the following:
 
 This is an example of how to show user code.  Four dashes, then code indented by two tabs, terminated by four dashes.
 
-.An example of showing  user code
+*An example of showing  program code*
+
+Progrom code is marked with backticks or by explicit declaration of a code block.
+
+`&#039;Monospace or code&#039;`
+
+
 ----
+
     ----
 
     GLCDCLS
@@ -42,18 +49,48 @@ This is an example of how to show user code.  Four dashes, then code indented by
     ----
 ----
 {empty} +
+*An example of Headlines*
+
+Headings are marked with leading equal signs (=):
 
 
-This is how to added a hard space. Always add a hard speace at the end of each sentence in a paragraph.
+&#061;= Heading 1 (<h1>)
 
-.An example hard space
-----
-&#160;&#160;
-----
+&#061;&#061;== Heading 2 (<h2>)
+
+&#061;&#061;&#061;=== Heading 3 (<h3>)
+
+&#061;&#061;&#061;&#061;==== Heading 4 (<h4>)
+
+&#061;&#061;&#061;&#061;&#061;===== Heading 5 (<h5>)
+
+&#061;&#061;&#061;&#061;&#061;&#061;====== Heading 6 (<h6>)
+
+*An example of links*
+
+Hyperlinks favor the link first, followed by the word or phrase used to "disguise" the link as text.
+
+This is a http://example.com &#091; hyperlink &#093; that leads to the example.com site.
+
+This is a https://example.com &#091; link,role=external,window=_blank &#093; with the target="_blank" attribute set.
+
+
+*An example of bold*
+
+*&#042;BOLD&#042;*
+
+{empty} +
+*An example of a hard space* 
+
+&#038;&#035;160&#059;&#038;&#035;160&#059;
+// &#160;&#160;
+
+NOTE: It is best practice to always add a hard space at the end of each sentence in a paragraph.
+
 {empty} +
 To add a table, using the following:
 
-.An example table
+*An example table*
 ----
 [cols="3,4,4", options="header,autowidth"]
 |===
@@ -100,11 +137,86 @@ Will dispay as:
 {empty} +
 To add an empty line, use the following:
 
-.An example empty line
+*An example empty line*
 ----
 {empty} +
 ----
 
 
+*Lots more*
+
+AsciiDoc also features internal links so you can link from one section to another, a standard for document headers, automatic table of content generation, the ability to include other documents within another, and much much more.
+
+But best of all, AsciiDoc is actually standardized.  AsciiDoc was designed from the start with a standard definition, so the tool or website that claims to parse AsciiDoc actually does parse all valid AsciiDoc, because there is only one valid AsciiDoc.
+
+*AsciiDoc to anything*
+
+The point of writing in AsciiDoc is to ensure predictability and consistency when text is parsed. 
+
+There are several tools to help you transform AsciiDoc to another format. A popular command is Asciidoctor, which you can install using your package manager. For instance, on Fedora, CentOS, or RHEL:
+
+
+`$ sudo dnf install asciidoctor`
+
+On Debian-based systems:
+
+`$ sudo apt install asciidoctor`
+
+Alternately, you can install it on any OS with Ruby:
+
+`$ gem install asciidoctor`
+
+Here's a simple example of an AsciiDoc document, which you can create using any text editor or even a word processor (like LibreOffice) as long as you save the file as plain text. Most applications expect a plain text document to use the extension .txt, and while it's a convention use the extension .adoc for AsciiDoc, it's not necessary. Asciidoctor doesn't require any special extension.
+
+----
+    = This is my example document
+
+    It's not written in _Markdown_, nor _reStructured Text_.
+    This is *AsciiDoc*.
+
+    It can be transformed into nearly any format using the tool `Asciidoctor` and other similar parsers.
+    Try it for yourself!
+----
+
+To transform an AsciiDoc document to HTML, run asciidoctor:
+
+`$ asciidoctor example.adoc`
+
+The file example.adoc is transformed into HTML5 by default, but you can use different backends to gain access to more formats.
+
+*From AsciiDoc to XML*
+
+Using Docbook backend, because it transforms my AsciiDoc to Docbook XML, allowing me to use my existing Docbook toolchain (custom Makefiles, Apache FOP, xsltproc, xmlto, and so on) to complete my work:
+
+`$ asciidoctor --backend docbook5 example.adoc`
+
+This outputs Docbook XML. The final two built-in backends are xhtml5 and manpage.
+
+*From AsciiDoc to EPUB*
+
+If you want to turn your writing into an ebook, you can install the EPUB3 backend:
+
+`$ gem install asciidoctor-epub3`
+
+*Transform your AsciiDoc into EPUB*
+
+`$ asciidoctor-epub3 example.adoc`
+
+*From AsciiDoc to PDF*
+
+You can transform AsciiDoc directly to PDF, too:
+
+----
+    $ gem install asciidoctor-pdf
+    $ asciidoctor-pdf example.adoc
+----
+
+
+
+*Why AsciiDoc*
+
+AsciiDoc is excellent for technical writers and writers who have precise requirements for how they want text to be organized and parsed. It is a clear and strictly defined markup format that eliminates the confusion of competing formats, and it transforms to all the major formats. AsciiDoc is admittedly more verbose and possibly less intuitive than other formats, but it's still just plain text so you can author on anything, and Asciidoctor makes processing easy. Next time you write a document for any purpose, consider trying AsciiDoc.
 
 ++++
+
+Extracts from (Seth Kenlon, CC BY-SA 4.0)

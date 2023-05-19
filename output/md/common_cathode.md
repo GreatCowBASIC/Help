@@ -86,8 +86,7 @@ This is a Common Cathode 7 Segment display example.
 ```
 
 <span class="strong">**Also, see**</span>
-<a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Degment Display Overview</a>,
-<a href="displaychar" class="link" title="DisplayChar">DisplayChar</a>,
+<a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Degment Display Overview</a>,<a href="displaychar" class="link" title="DisplayChar">DisplayChar</a>,
 <a href="displayvalue" class="link" title="DisplayValue">DisplayValue</a>
 
 </div>

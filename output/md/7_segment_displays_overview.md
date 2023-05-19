@@ -32,7 +32,10 @@ There are two ways that the 7 segment display routines can be set up.
 
 -   A pre 2020 method
     <a href="7_segment_displays_legacy" class="link" title="7 Segment Displays - Legacy">7 segment legacy method</a>
--   A revised method <a href="" class="link">TM1637 method</a>
+-   A revised method for
+    <a href="7_segment_displays_tm1637_4_digits" class="link" title="7 Segment Displays - TM1637 4 Digits">TM1637 4 LEDs</a>,
+    or,
+    <a href="7_segment_displays_tm1637_6_digits" class="link" title="7 Segment Displays - TM1637 6 Digits">TM1637 6 LEDs</a>
 
 </div>
 
@@ -42,9 +45,5 @@ There are two ways that the 7 segment display routines can be set up.
   
   
   
-
-\*Also, see \*
-<a href="7_segment_displays_legacy" class="link" title="7 Segment Displays - Legacy">7 segment legacy method</a>
-, <a href="" class="link">TM1637 method</a>
 
 </div>

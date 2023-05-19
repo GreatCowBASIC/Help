@@ -42,8 +42,6 @@ the datasheet. `store` is 14 bits wide, and thus can store values up to
 This is an advanced command which should only be used by advanced
 developers.
 
-<span class="strong">**Example:**</span>
-
 <span class="strong">**For more help, see
 <a href="programerase" class="link" title="ProgramErase">ProgramErase</a>**</span>
 and <span
