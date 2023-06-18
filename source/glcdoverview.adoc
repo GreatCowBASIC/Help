@@ -460,6 +460,21 @@ Display can operate in text mode only for low RAM microcontrollers using SRAM so
 |SPI requires 4 ports plus 2 ports. Typically 6 in total.
 |Acceptable GLCD performance.
 
+|29
+|ST7567
+|1.9inch
+|128 * 64
+|Medium
+|Mono
+|LCD
+|I2C and SPI
+|PIC and AVR: Software I2C, and, hardware software SPI.  Harware IC2 fails as the ST7567 does not comply witht the I2C standard.
+|+VCC from 3v3 to  5. GLCD I/O is ONLY 3v3. Always check voltage specifications.
+|SPI requires 4 ports plus 2 ports. Typically 6 in total.
+
+I2C requires 2 ports.
+|Typically operates at VCC 3v3 but may support 5v0. Always check voltage specifications  Very good LCD display. Driver supports gaming. Minimum RAM required is 1024 bytes then add user variables for graphics mode.
+
 
 |===
 

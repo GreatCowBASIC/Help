@@ -29,8 +29,8 @@ To use the SSD1306 drivers simply include one of the following configuration.  Y
     ; ----- Define GLCD Hardware settings
     #define GLCD_TYPE GLCD_TYPE_SSD1306
     #define GLCD_I2C_Address 0x78
-    '#define GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE       'select Low Memory mode of operation
-    '#define GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY       'select Text mode of operation
+    '#define GLCD_TYPE_SH1306_LOWMEMORY_GLCD_MODE       'select Low Memory mode of operation
+    '#define GLCD_TYPE_SH1306_CHARACTER_MODE_ONLY       'select Text mode of operation
 
 
     ; ----- Define Hardware settings
