@@ -49,6 +49,8 @@ Where these constants equate to:
     ARDUINONANO     = 1024
     ARDUINOMEGA2560 = 1024
     TINYBOOTLOADER  = 128
+    TINYBOOTLOADER128  = 128
+    TINYBOOTLOADER125  = 256
 ```
 
 <span class="strong">**Examples 1**</span>

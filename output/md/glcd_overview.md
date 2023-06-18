@@ -486,6 +486,21 @@ The NT7108C is very sensitive with respect to clock timing.   You may have to
 <td style="text-align: left;"><p>SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
 <td style="text-align: left;"><p>Acceptable GLCD performance.</p></td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;"><p>29</p></td>
+<td style="text-align: left;"><p>ST7567</p></td>
+<td style="text-align: left;"><p>1.9inch</p></td>
+<td style="text-align: left;"><p>128 * 64</p></td>
+<td style="text-align: left;"><p>Medium</p></td>
+<td style="text-align: left;"><p>Mono</p></td>
+<td style="text-align: left;"><p>LCD</p></td>
+<td style="text-align: left;"><p>I2C and SPI</p></td>
+<td style="text-align: left;"><p>PIC and AVR: Software I2C, and, hardware software SPI. Harware IC2 fails as the ST7567 does not comply witht the I2C standard.</p></td>
+<td style="text-align: left;"><p>+VCC from 3v3 to 5. GLCD I/O is ONLY 3v3. Always check voltage specifications.</p></td>
+<td style="text-align: left;"><p>SPI requires 4 ports plus 2 ports. Typically 6 in total.</p>
+<p>I2C requires 2 ports.</p></td>
+<td style="text-align: left;"><p>Typically operates at VCC 3v3 but may support 5v0. Always check voltage specifications Very good LCD display. Driver supports gaming. Minimum RAM required is 1024 bytes then add user variables for graphics mode.</p></td>
+</tr>
 </tbody>
 </table>
 
