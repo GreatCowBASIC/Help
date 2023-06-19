@@ -3,21 +3,20 @@
 
 This section covers GLCD devices that use the ST7567 graphics controller.
 
-The ST7567 is a single-chip CMOS OLED/PLED driver with controller for organic / polymer light emitting diode dot-matrix graphic display system. It consists of 128 segments and 64 commons. This IC is designed for Common Cathode type OLED panel.
+The ST7567 is a single-chip CMOS LCD driver with controller for organic / polymer light emitting diode dot-matrix graphic display system. It consists of 128 segments and 64 commons. This IC is designed for Common Cathode type LCD panel.
 
 ST7567 is a single-chip dot matrix LCD driver which incorporates LCD controller and common/segment drivers. 
 A ST7567 can be connected directly to a microprocessor with I2C or 4-line serial interface (SPI-4). 
 Display data sent from microprocessor is stored in the internal Display Data RAM (DDRAM) of 65x132 bits. 
 The display data bits which are stored in DDRAM are directly related to the pixels of LCD panel. 
-The ST7567 contains 132 segment-outputs, 64 common-outputs and 1 icon-common-output, however the address pixels are 128 * 64. W
+The ST7567 contains 132 segment-outputs, 64 common-outputs and 1 icon-common-output, however the address pixels are 128 * 64.
 The ST7567 has built-in oscillation circuit and low power consumption power circuit, ST7567 generates LCD driving signal without external clock or power, so that it is possible to make a display system with the fewest components and minimal power consumption. 
 
 The ST7567 embeds with contrast control, display RAM and it is suitable for many compact portable applications, such as mobile phone sub-display, MP3 player and calculator, etc.
 
 
-The Great Cow BASIC constants shown below control the configuration of the ST7567 controller. &#160;&#160;&#160;Great Cow BASIC supports SPI and I2C hardware & software connectivity  - this is shown in the tables below.
+The Great Cow BASIC constants shown below control the configuration of the ST7567 controller. &#160;&#160;&#160;Great Cow BASIC supports SPI and I2C software connectivity  - this is shown in the tables below.
 
-To use the ST7567 driver simply include the following in your user code.  This will initialise the driver.
 
 The ST7567 library supports 128 * 64 pixels.
 
@@ -28,6 +27,7 @@ The ST7567 can operate in three modes. Full GLCD mode, Low Memory GLCD mode or T
 
 To use the ST7567 drivers simply include one of the following configuration.  You can select Full Mode GLCD, Low Memory Mode GLCD or Text mode these require 1024, 128 or 0 bytes GLCD buffer respectively - you microcontroller requires sufficient RAM to support the selected mode of GLCD operation.
 
+To use the ST7567 driver simply include the following in your user code.  This will initialise the driver.
 
 ----
     'An I2C configuration
