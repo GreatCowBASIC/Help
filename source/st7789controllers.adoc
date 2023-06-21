@@ -1,6 +1,6 @@
 ==== ST7789 Controllers
 
-This section covers GLCD devices that use the ST7789 graphics controller.  The ST7789 is a TFT LCD Single Chip Driver with 240RGBx240 Resolution and 65K colors.
+This section covers GLCD devices that use the ST7789 graphics controller.  The ST7789 is a TFT LCD Single Chip Driver with 240x240 or 320x240 Resolution and 65K colors.
 
 Great Cow BASIC supports 65K-color mode operations.
 
@@ -11,7 +11,8 @@ To use the ST7789 driver simply include the following in your user code.  This w
 
 ----
     #include <glcd.h>
-    #DEFINE GLCD_TYPE GLCD_TYPE_ST7789_240_240
+    #DEFINE GLCD_TYPE       GLCD_TYPE_ST7789_240_240
+    //  #DEFINE GLCD_TYPE   GLCD_TYPE_ST7789_320_240
 
     'Pin mappings for ST7789 - these MUST be specified
     #define GLCD_DC     porta.0           'example port setting
@@ -36,8 +37,8 @@ The Great Cow BASIC constants for the interface to the controller are shown in t
 |Options
 
 |`GLCD_TYPE`
-|`GLCD_TYPE_ST7789_240_240`
-|
+|`GLCD_TYPE_ST7789_240_240` or `GLCD_TYPE_ST7789_320_240`
+|Select one option to set geometry
 
 |`GLCD_DC`
 |Specifies the output pin that is connected to Data/Command IO pin on the GLCD.
@@ -91,11 +92,11 @@ The Great Cow BASIC constants for control display characteristics are shown in t
 
 |`GLCD_WIDTH`
 |The width parameter of the GLCD
-|`320`
+|`320` or `240`
 
 |`GLCD_HEIGHT`
 |The height parameter of the GLCD
-|`240`
+|`240` 
 
 |`GLCDFontWidth`
 |Specifies the font width of the Great Cow BASIC font set.
@@ -232,7 +233,8 @@ This example shows how to drive a ST7789 based Graphic LCD module with the built
     ' ********************** Setup the GLCD ************************************************
 
         #INCLUDE <glcd.h>
-        #define GLCD_TYPE     GLCD__TYPE_ST7789_240_240
+        #define GLCD_TYPE        GLCD__TYPE_ST7789_240_240
+        // #define GLCD_TYPE     GLCD__TYPE_ST7789_320_240
 
 
         'This is a PPS chip, so, need to make the DO/SDO & SCK match the PPS assignments
@@ -266,7 +268,7 @@ This example shows how to drive a ILI3941 with the OLED fonts.  Note the use of 
     GLCDFontWidth = 5
     GLCDPrint ( 40, 0, "OLED" )
     GLCDPrint ( 0, 18, "Typ:  ST7789" )
-    GLCDPrint ( 0, 34, "Size: 240 x 240" )
+    GLCDPrint ( 0, 34, "Size: "+ Str(GLCD_WIDTH) +" x 240" )
 
     GLCDfntDefaultSize = 1
     GLCDPrint(20, 56,"https://goo.gl/gjrxkp")
@@ -289,7 +291,7 @@ When the extended OLED fontset is disabled every character will be shown as a bl
     GLCDFontWidth = 5
     GLCDPrint ( 40, 0, "OLED" )
     GLCDPrint ( 0, 18, "Typ:  ST7789" )
-    GLCDPrint ( 0, 34, "Size: 240 x 240" )
+    GLCDPrint ( 0, 34, "Size: "+ Str(GLCD_WIDTH) +" x 240" )
 
     GLCDfntDefaultSize = 1
     GLCDPrint(20, 56,"https://goo.gl/gjrxkp")

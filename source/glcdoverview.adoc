@@ -423,7 +423,7 @@ Display can operate in text mode only for low RAM microcontrollers using SRAM so
 |26
 |ST7789
 |2.0 Inch
-|240 * 240
+|240 * 240 or 320 * 240 
 |Medium
 |Color TFT
 |SPI  PIC and AVR: Hardware and software SPI

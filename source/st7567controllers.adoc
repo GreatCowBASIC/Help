@@ -20,7 +20,9 @@ The Great Cow BASIC constants shown below control the configuration of the ST756
 
 The ST7567 library supports 128 * 64 pixels.
 
-The ST7567 is a monochrome device.
+The ST7567 is a monochrome device. 
+The library supports difference bias settings for the different types of LCD.
+See the constant `ST7567_BIAS` for the options.
 
 The ST7567 can operate in three modes. Full GLCD mode, Low Memory GLCD mode or Text/JPG mode the full GLCD mode requires a minimum of 1k bytes or 512 bytes for the 128x64 respectively in Full GLCD mode.  For microcontrollers with limited memory the third mode of operation - Text mode.  These can be selected by setting the correct constant.
 
@@ -36,8 +38,7 @@ To use the ST7567 driver simply include the following in your user code.  This w
     ; ----- Define GLCD Hardware settings
     #define GLCD_TYPE GLCD_TYPE_ST7567
     #define GLCD_I2C_Address 0x7E
-    '#define GLCD_TYPE_ST7567_LOWMEMORY_GLCD_MODE       'select Low Memory mode of operation
-    '#define GLCD_TYPE_ST7567_CHARACTER_MODE_ONLY       'select Text mode of operation
+    #define ST7567_BIAS     ST7567_SET_BIAS_7    ' ST7567_SET_BIAS_7 or ST7567_SET_BIAS_9
 
 
     ; ----- Define software IC2 settings
@@ -99,6 +100,9 @@ The Great Cow BASIC constants for SPI/S4Wire control display characteristics are
 |`GLCD_TYPE_ST7567`
 |Required to support 128 * 64 pixels.  Mutualy exclusive to GLCD_TYPE_ST7567_32
 
+|`ST7567_BIAS`  
+|Bias ratio of the voltage required to driving the LCD at a fixes duty of 1/65 ( see the datasheet)
+|Defaults to `ST7567_SET_BIAS_7`.  Can be either `ST7567_SET_BIAS_7` or `ST7567_SET_BIAS_9`
 
 |`S4Wire_Data`
 |4 wire SPI Mode
