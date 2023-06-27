@@ -17,10 +17,10 @@
 This section covers GLCD devices that use the ST7567 graphics
 controller.
 
-The ST7567 is a single-chip CMOS OLED/PLED driver with controller for
-organic / polymer light emitting diode dot-matrix graphic display
-system. It consists of 128 segments and 64 commons. This IC is designed
-for Common Cathode type OLED panel.
+The ST7567 is a single-chip CMOS LCD driver with controller for organic
+/ polymer light emitting diode dot-matrix graphic display system. It
+consists of 128 segments and 64 commons. This IC is designed for Common
+Cathode type LCD panel.
 
 ST7567 is a single-chip dot matrix LCD driver which incorporates LCD
 controller and common/segment drivers. A ST7567 can be connected
@@ -29,26 +29,40 @@ directly to a microprocessor with I2C or 4-line serial interface
 Display Data RAM (DDRAM) of 65x132 bits. The display data bits which are
 stored in DDRAM are directly related to the pixels of LCD panel. The
 ST7567 contains 132 segment-outputs, 64 common-outputs and 1
-icon-common-output, however the address pixels are 128 \* 64. W The
-ST7567 has built-in oscillation circuit and low power consumption power
+icon-common-output, however the address pixels are 128 \* 64. The ST7567
+has built-in oscillation circuit and low power consumption power
 circuit, ST7567 generates LCD driving signal without external clock or
 power, so that it is possible to make a display system with the fewest
 components and minimal power consumption.
+
+There are different types of ST75xx GLCDs.   The table below shows the
+different types and the Great Cow BASIC support.
+
+<div class="informaltable">
+
+| Index | GLCD MPU | Interfaces                         | Datasheet Ref    | Support           |
+|:------|:---------|:-----------------------------------|:-----------------|:------------------|
+| 1     | ST7565   | Parallel 8080&6080                 | Ver 1.0a;Page 12 | Not supported     |
+| 2     | ST7565S  | Parallel 8080&6080                 | Ver 0.6b;Page 23 | Not supported     |
+| 3     | ST7567   | 4 Pin SPI;Parallel 8080&6080       | Ver1.4b;Page 12  | 3&4 Pin SPI       |
+| 4     | ST7567S  | 3&4 Pin SPI;I2C;Parallel 8080&6080 | Ver1.4;Page 17   | 3&4 Pin SPI & I2C |
+| 5     | ST7576   | 3&4 Pin SPI;I2C;Parallel 8080&6080 | Ver1;Page 18     | 3&4 Pin SPI & I2C |
+
+</div>
 
 The ST7567 embeds with contrast control, display RAM and it is suitable
 for many compact portable applications, such as mobile phone
 sub-display, MP3 player and calculator, etc.
 
 The Great Cow BASIC constants shown below control the configuration of
-the ST7567 controller.    Great Cow BASIC supports SPI and I2C hardware
-& software connectivity - this is shown in the tables below.
-
-To use the ST7567 driver simply include the following in your user code.
-This will initialise the driver.
+the ST7567 controller.    Great Cow BASIC supports SPI and I2C software
+connectivity - this is shown in the tables below.
 
 The ST7567 library supports 128 \* 64 pixels.
 
-The ST7567 is a monochrome device.
+The ST7567 is a monochrome device. The library supports difference bias
+settings for the different types of LCD. See the constant `ST7567_BIAS`
+for the options.
 
 The ST7567 can operate in three modes. Full GLCD mode, Low Memory GLCD
 mode or Text/JPG mode the full GLCD mode requires a minimum of 1k bytes
@@ -62,6 +76,9 @@ Text mode these require 1024, 128 or 0 bytes GLCD buffer respectively -
 you microcontroller requires sufficient RAM to support the selected mode
 of GLCD operation.
 
+To use the ST7567 driver simply include the following in your user code.
+This will initialise the driver.
+
 ``` screen
     'An I2C configuration
     #include <glcd.h>
@@ -69,8 +86,7 @@ of GLCD operation.
     ; ----- Define GLCD Hardware settings
     #define GLCD_TYPE GLCD_TYPE_ST7567
     #define GLCD_I2C_Address 0x7E
-    '#define GLCD_TYPE_ST7567_LOWMEMORY_GLCD_MODE       'select Low Memory mode of operation
-    '#define GLCD_TYPE_ST7567_CHARACTER_MODE_ONLY       'select Text mode of operation
+    #define ST7567_BIAS     ST7567_SET_BIAS_7    ' ST7567_SET_BIAS_7 or ST7567_SET_BIAS_9
 
 
     ; ----- Define software IC2 settings
@@ -116,15 +132,16 @@ characteristics are shown in the table below.
 
 <div class="informaltable">
 
-| <span class="strong">**Constants**</span> | <span class="strong">**Controls**</span>                | <span class="strong">**Options**</span>                                           |
-|:------------------------------------------|:--------------------------------------------------------|:----------------------------------------------------------------------------------|
-| `GLCD_TYPE`                               | `GLCD_TYPE_ST7567`                                      | Required to support 128 \* 64 pixels. Mutualy exclusive to GLCD\_TYPE\_ST7567\_32 |
-| `S4Wire_Data`                             | 4 wire SPI Mode                                         | Required                                                                          |
-| `MOSI_ST7567`                             | Specifies output pin connected to serial data in D1 pin | Must be defined                                                                   |
-| `SCK_ST7567`                              | Specifies output pin connected to serial clock D0 pin   | Must be defined                                                                   |
-| `DC_ST7567`                               | Specifies output pin connected to data control DC pin   | Must be defined                                                                   |
-| `CS_ST7567`                               | Specifies output pin connected to chip select CS pin    | Must be defined                                                                   |
-| `RES_ST7567`                              | Specifies output pin connected to reset RES pin         | Must be defined                                                                   |
+| <span class="strong">**Constants**</span> | <span class="strong">**Controls**</span>                                                           | <span class="strong">**Options**</span>                                                   |
+|:------------------------------------------|:---------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------|
+| `GLCD_TYPE`                               | `GLCD_TYPE_ST7567`                                                                                 | Required to support 128 \* 64 pixels. Mutualy exclusive to GLCD\_TYPE\_ST7567\_32         |
+| `ST7567_BIAS`                             | Bias ratio of the voltage required to driving the LCD at a fixes duty of 1/65 ( see the datasheet) | Defaults to `ST7567_SET_BIAS_7`. Can be either `ST7567_SET_BIAS_7` or `ST7567_SET_BIAS_9` |
+| `S4Wire_Data`                             | 4 wire SPI Mode                                                                                    | Required                                                                                  |
+| `MOSI_ST7567`                             | Specifies output pin connected to serial data in D1 pin                                            | Must be defined                                                                           |
+| `SCK_ST7567`                              | Specifies output pin connected to serial clock D0 pin                                              | Must be defined                                                                           |
+| `DC_ST7567`                               | Specifies output pin connected to data control DC pin                                              | Must be defined                                                                           |
+| `CS_ST7567`                               | Specifies output pin connected to chip select CS pin                                               | Must be defined                                                                           |
+| `RES_ST7567`                              | Specifies output pin connected to reset RES pin                                                    | Must be defined                                                                           |
 
 </div>
 
@@ -279,142 +296,116 @@ This example shows how to drive a ST7567 based Graphic I2C LCD module
 with the built in commands of Great Cow BASIC using Full Mode GLCD
 
 ``` screen
-'''A demonstration program for GCGB and GCB.
-'''--------------------------------------------------------------------------------------------------------------------------------
-'''This program is a simple GLCD demonstration of the ST7567 GLCD capabilities.
-'''It is a nice graphical LCD, suitable for a lot of various projects.
-'''This program draws lines, boxes, circles and prints strings and numbers.
-'''The GLCD is connected to the microprocessor as shown in the hardware section of this code.
-'''@author  EvanV
-'''@licence GPL
-'''@version 1.0
-'''@date    18.06.2023
-'''********************************************************************************
-'Chip Settings.
-#CHIP 18F26Q71, 64
-#OPTION Explicit
+    #CHIP 18F26Q71
+    #OPTION Explicit
 
-#startup InitPPS, 85
-    #define PPSToolPart 18F26Q71
+    #startup InitPPS, 85
+        #define PPSToolPart 18F26Q71
 
-    Sub InitPPS
-        UNLOCKPPS
-        RB6PPS = 0
-        RB4PPS = 0
-    End Sub
-    'Template comment at the end of the config file
+        Sub InitPPS
+            // Ensure PPS is NOT set for Software I2C
+            UNLOCKPPS
+            RB6PPS = 0
+            RB4PPS = 0
+        End Sub
+        'Template comment at the end of the config file
 
 
-'' -------------------PORTA----------------
-'' Bit#:  -7---6---5---4---3---2---1---0---
-'' IO:   -----------------SW---ADC---------
-''-----------------------------------------
-''
+    '' -------------------PORTA----------------
+    '' Bit#:  -7---6---5---4---3---2---1---0---
+    '' IO:   ----------------------------------
+    ''-----------------------------------------
+    ''
 
-'' -------------------PORTB----------------
-'' Bit#:  -7---6---5---4---3---2---1---0---
-'' IO:    ----SCL-----SDA------------------
-''-----------------------------------------
-''
+    '' -------------------PORTB----------------
+    '' Bit#:  -7---6---5---4---3---2---1---0---
+    '' IO:    ----SCL-----SDA------------------
+    ''-----------------------------------------
+    ''
 
-'' ------------------PORTC-----------------
-'' Bit#:  -7---6---5---4---3---2---1---0---
-'' IO:    ----TX1--------LED--LED-LED LED--
-''-----------------------------------------
+    '' ------------------PORTC-----------------
+    '' Bit#:  -7---6---5---4---3---2---1---0---
+    '' IO:    ---------------------------------
+    ''-----------------------------------------
 
+    ' Define Software I2C settings
+        #DEFINE I2C_MODE MASTER
+        #DEFINE I2C_DATA PORTB.4
+        #DEFINE I2C_CLOCK PORTB.6
+        #DEFINE I2C_DISABLE_INTERRUPTS ON
 
-'For a specific test board
-'Define constants to make things easier. We can reuse these at any time.
-    #DEFINE LEDPORT LATC
+    '*****************************************************************************************************
+    'Main program commences here.. everything before this is setup for the chip.
 
-    Dir     RC0         Out
-    Dir     RC1         Out
-    Dir     RC2         Out
-    Dir     RC3         Out
+        Dim DeviceID As Byte
+        Dim DISPLAYNEWLINE As Byte
 
-    #DEFINE POTENTIOMETER PORTA.2
-    Dir     POTENTIOMETER In
-    #DEFINE SWITCHIN      PORTA.3
-    Dir     SWITCHIN      In
+        #include <glcd.h>
+        #DEFINE GLCD_TYPE GLCD_TYPE_ST7567
+        #DEFINE GLCDDIRECTION INVERTED
 
-' Define Software I2C settings
-    #DEFINE I2C_MODE MASTER
-    #DEFINE I2C_DATA PORTB.4
-    #DEFINE I2C_CLOCK PORTB.6
-    #DEFINE I2C_DISABLE_INTERRUPTS ON
+    ; ----- Define variables
+        Dim BYTENUMBER, CCOUNT as Byte
 
-'*****************************************************************************************************
-'Main program commences here.. everything before this is setup for the chip.
+        CCount = 0
+        dim longNumber as long
+        longNumber = 123456 ' max value = 4294967290
+        dim wordNumber as Word
+        dim outstring as string
+        wordNumber = 0
+        byteNumber = 0
 
-    Dim DeviceID As Byte
-    Dim DISPLAYNEWLINE As Byte
+    ; ----- Main program
 
-    #include <glcd.h>
-    #DEFINE GLCD_TYPE GLCD_TYPE_ST7567
-    #DEFINE GLCDDIRECTION INVERTED
+        GLCDPrint 0, 0,   "Great Cow BASIC"
+        GLCDPrint (0, 16, "Anobium 2023")
+        GLCDPrint (0, 32, "Portability Demo")
+        GLCDPrint (0, 48, ChipNameStr )
 
-; ----- Define variables
-    Dim BYTENUMBER, CCOUNT as Byte
+        wait 3 s
+        GLCDCLS
 
-    CCount = 0
-    dim longNumber as long
-    longNumber = 123456 ' max value = 4294967290
-    dim wordNumber as Word
-    dim outstring as string
-    wordNumber = 0
-    byteNumber = 0
+        ' Prepare the static components of the screen
+        GLCDPrint ( 2,   2, "PrintStr")                                   ; Print some text
+        GLCDPrint ( 64,  2, "@")                                          ; Print some more text
+        GLCDPrint ( 72,  2, ChipMhz)                                      ; Print chip speed
+        GLCDPrint ( 86, 2, "Mhz")                                         ; Print some text
+        GLCDDrawString( 2,10,"DrawStr")                                    ; Draw some text
+        box 0,0,GLCD_WIDTH-1, GLCD_HEIGHT-1                               ; Draw a box
+        box GLCD_WIDTH-5, GLCD_HEIGHT-5,GLCD_WIDTH-1, GLCD_HEIGHT-1       ; Draw a box
+        Circle( 44,41,15)                                                 ; Draw a circle
+        line 64,31,0,31                                                   ; Draw a line
 
-; ----- Main program
+        DO forever
 
-    GLCDPrint 0, 0,   "Great Cow BASIC"
-    GLCDPrint (0, 16, "Anobium 2023")
-    GLCDPrint (0, 32, "Portability Demo")
-    GLCDPrint (0, 48, ChipNameStr )
+            for CCount = 32 to 127
 
-    wait 3 s
-    GLCDCLS
-
-    ' Prepare the static components of the screen
-    GLCDPrint ( 2,   2, "PrintStr")                                   ; Print some text
-    GLCDPrint ( 64,  2, "@")                                          ; Print some more text
-    GLCDPrint ( 72,  2, ChipMhz)                                      ; Print chip speed
-    GLCDPrint ( 86, 2, "Mhz")                                         ; Print some text
-    GLCDDrawString( 2,10,"DrawStr")                                    ; Draw some text
-    box 0,0,GLCD_WIDTH-1, GLCD_HEIGHT-1                               ; Draw a box
-    box GLCD_WIDTH-5, GLCD_HEIGHT-5,GLCD_WIDTH-1, GLCD_HEIGHT-1       ; Draw a box
-    Circle( 44,41,15)                                                 ; Draw a circle
-    line 64,31,0,31                                                   ; Draw a line
-
-    DO forever
-
-        for CCount = 32 to 127
-
-            GLCDPrint ( 64 ,  36,  hex(longNumber_E ) )                 ; Print a HEX string
-            GLCDPrint ( 76 ,  36,  hex(longNumber_U ) )                 ; Print a HEX string
-            GLCDPrint ( 88 ,  36,  hex(longNumber_H ) )                 ; Print a HEX string
-            GLCDPrint ( 100 ,  36, hex(longNumber   ) )                 ; Print a HEX string
-            GLCDPrint ( 112 ,  36, "h" )                                ; Print a HEX string
+                GLCDPrint ( 64 ,  36,  hex(longNumber_E ) )                 ; Print a HEX string
+                GLCDPrint ( 76 ,  36,  hex(longNumber_U ) )                 ; Print a HEX string
+                GLCDPrint ( 88 ,  36,  hex(longNumber_H ) )                 ; Print a HEX string
+                GLCDPrint ( 100 ,  36, hex(longNumber   ) )                 ; Print a HEX string
+                GLCDPrint ( 112 ,  36, "h" )                                ; Print a HEX string
 
 
-            GLCDPrint ( 64 ,  44, pad(str(wordNumber), 5 ) )           ; Print a padded string
-            GLCDPrint ( 64 ,  52, pad(str(byteNumber), 3 ) )           ; Print a padded string
+                GLCDPrint ( 64 ,  44, pad(str(wordNumber), 5 ) )           ; Print a padded string
+                GLCDPrint ( 64 ,  52, pad(str(byteNumber), 3 ) )           ; Print a padded string
 
 
-            box (46,9,56,19)                                           ; Draw a Box
-            GLCDDrawChar(48, 10, CCount )                               ; Draw a character
-            outString = str( CCount )                                  ; Prepare a string
-            GLCDDrawString(64, 10, pad(outString,3) )                   ; Draw a string
+                box (46,9,56,19)                                           ; Draw a Box
+                GLCDDrawChar(48, 10, CCount )                               ; Draw a character
+                outString = str( CCount )                                  ; Prepare a string
+                GLCDDrawString(64, 10, pad(outString,3) )                   ; Draw a string
 
-            filledbox 3,43,11,51, wordNumber                           ; Draw a filled box
+                filledbox 3,43,11,51, wordNumber                           ; Draw a filled box
 
-            FilledCircle( 44,41,9, longNumber xor 1)                   ; Draw a filled box
-            line 0,63,64,31                                            ; Draw a line
+                FilledCircle( 44,41,9, longNumber xor 1)                   ; Draw a filled box
+                line 0,63,64,31                                            ; Draw a line
 
-                                                                        ; Do some simple maths
-            longNumber = longNumber + 7 : wordNumber = wordNumber + 3 : byteNumber++
-        NEXT
-    LOOP
-    end
+                                                                            ; Do some simple maths
+                longNumber = longNumber + 7 : wordNumber = wordNumber + 3 : byteNumber++
+            NEXT
+        LOOP
+        end
 ```
 
   
@@ -431,7 +422,7 @@ The use Low Memory Mode GLCD the two defines
 program.  
 
 ``` screen
-    #chip mega328p,16
+    #chip {any valid chip}
     #include <glcd.h>
 
     ; ----- Define Hardware settings
@@ -513,8 +504,7 @@ This example shows how to drive a ST7567 based Graphic SPI LCD module
 with the built in commands of Great Cow BASIC.  
 
 ``` screen
-    'Chip model
-    #chip mega328p, 16
+    #chip  {any valid chip}
     #include <glcd.h>
 
     'Defines for a 7 pin SPI module

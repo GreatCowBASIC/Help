@@ -11,12 +11,12 @@
       <title>47xxx EERam Devices -  - Great Cow BASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
       <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
-      <link rel="up" href="_eeram.html" title="EERAM" />
-      <link rel="prev" href="_eeram.html" title="EERAM" />
-      <link rel="next" href="_progmem.html" title="PROGMEM" />
+      <link rel="up" href="_eeram_device.html" title="EERAM ( Device )" />
+      <link rel="prev" href="_eeram_device.html" title="EERAM ( Device )" />
+      <link rel="next" href="_sram_device.html" title="SRAM ( Device )" />
       <meta name="Section-title" content="47xxx EERam Devices" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-52158";
+            var treeCookieId = "treeview-53019";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />EERAM
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />EERAM ( Device )
          </h1>
          <div id="navheader">
             <!---->
@@ -164,11 +164,11 @@ border: none; background: none; font-weight: none; color: none; }
                <tr>
                   <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
                                                     </a></td>
-                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_eeram.html">Prev</a>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_eeram_device.html">Prev</a>
                                                              |
-                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="_eeram.html">Up</a>
+                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="_eeram_device.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_progmem.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_sram_device.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -532,16 +532,15 @@ border: none; background: none; font-weight: none; color: none; }
                </table>
             </div>
             <p>This example shows how to use the device.</p>
-            <p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    '
-    #chip 16f18855,32
-    #option explicit
+            <p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    #CHIP 16F18855,32
+    #OPTION EXPLICIT
 
-    #include &lt;47xxx_EERAM.H&gt;
+    #INCLUDE &lt;47XXX_EERAM.H&gt;
 
     #startup InitPPS, 85
 
     Sub InitPPS
-      UNLOCKPPS
+          'PPS is explicit to a specific chip.  Use PPSTool to ensure the PPS settings are correct.
 
           'Module: EUSART
               RC0PPS = 0x0010 'TX &gt; RC0
@@ -552,35 +551,35 @@ border: none; background: none; font-weight: none; color: none; }
               RC4PPS = 0x0014 'SCL1 &gt; RC4
               SSP1CLKPPS = 0x0014 'RC4 &gt; SCL1 (bi-directional)
 
-      LOCKPPS
-    End Sub
+        End Sub
 
     ; ----- Define Hardware Serial Print
 
-    #define USART_BAUD_RATE 115200
-    #define USART_TX_BLOCKING
+    #DEFINE USART_BAUD_RATE 115200
+    #DEFINE USART_TX_BLOCKING
 
     ; ----- Define Hardware settings for hwi2c
 
-    #define hi2c_BAUD_RATE 400
-    #define hi2c_DATA  PORTC.3
-    #define hi2c_CLOCK PORTC.4
+    #DEFINE HI2C_BAUD_RATE 400
+    #DEFINE HI2C_DATA  PORTC.3
+    #DEFINE HI2C_CLOCK PORTC.4
 
-    'I2C pins need to be input for I2C module
-    Dir hi2c_DATA  in
-    Dir hi2c_CLOCK in
+    'I2C pins need to be input for legacy I2C modules
+    DIR HI2C_DATA  IN
+    DIR HI2C_CLOCK IN
 
     'Initialise I2C Master
     hi2cMode Master
 
     ; ----- Define Hardware settings for EERAM Module
 
-    #define EERAM_I2C_Adr 0x30     ; EERAM base Address
-    #define EERAM_HS PortB.1       ; Optional hardware Store Pin
+    #define EERAM_I2C_Adr 0x30      ; EERAM base Address
+    #define EERAM_HS PortB.1        ; Optional hardware Store Pin
 
-    Dir EERAM_HS Out           ; Rising edge initiates Backup
+    Dir EERAM_HS Out                ; Rising edge initiates Backup
 
-    EERAM_AutoStore(ON) ; Enable Automatic Storage on power loss
+    'Library function
+    EERAM_AutoStore(ON)             ; Enable Automatic Storage on power loss
 
     ; ----- Main body of program commences here.
 
@@ -594,18 +593,18 @@ border: none; background: none; font-weight: none; color: none; }
 
     for Idx = 0x0 to 0xF
 
-    HserPrint hex(Idx) + " = " : HserPrint Hex(EERAM_Read(Idx))
+      HserPrint hex(Idx) + " = " : HserPrint Hex(EERAM_Read(Idx))
+      If Idx = 7 or Idx = 0xf then
+        HserPrintCRLF
+      Else
+        HserPrint " : "
+      End if
 
-    if Idx = 7 or Idx = 0xf then
-      HserPrintCRLF
-    Else
-      HserPrint " : "
-    end if
-
-    next Idx
+    next
 
     HserPrintCRLF : HserPrint "Control Byte = " Hex(EERAM_Status()) : HserPrintCRLF 2
 
+    wait 100 ms                     ; time for serial operations to complete
     end</pre><p><span class="strong"><strong>For more help, see</strong></span> <a class="link" href="_i2c_overview.html" title="I2C Overview">Software I2C</a> or <a class="link" href="_hi2c_overview.html" title="HI2C Overview">Hardware I2C</a></p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
@@ -613,10 +612,10 @@ border: none; background: none; font-weight: none; color: none; }
             <hr />
             <table width="100%" summary="Navigation footer">
                <tr>
-                  <td width="40%" align="left"><a accesskey="p" href="_eeram.html">Prev</a> 
+                  <td width="40%" align="left"><a accesskey="p" href="_eeram_device.html">Prev</a> 
                   </td>
-                  <td width="20%" align="center"><a accesskey="u" href="_eeram.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="_progmem.html">Next</a></td>
+                  <td width="20%" align="center"><a accesskey="u" href="_eeram_device.html">Up</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="_sram_device.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -695,13 +694,13 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_setwith.html" tabindex="1">SetWith</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="_memory_devices.html" tabindex="1">Memory Devices</a></span><ul>
-                                    <li><span class="file"><a href="_eeprom.html" tabindex="1">Eeprom</a></span><ul>
+                              <li><span class="file"><a href="_memory.html" tabindex="1">Memory</a></span><ul>
+                                    <li><span class="file"><a href="_eeprom_dfm.html" tabindex="1">EEPROM ( DFM )</a></span><ul>
                                           <li><span class="file"><a href="_epread.html" tabindex="1">EPRead</a></span></li>
                                           <li><span class="file"><a href="_epwrite.html" tabindex="1">EPWrite</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_hefm.html" tabindex="1">HEFM</a></span><ul>
+                                    <li><span class="file"><a href="_hefm_pfm.html" tabindex="1">HEFM ( PFM )</a></span><ul>
                                           <li><span class="file"><a href="_hefm_overview.html" tabindex="1">HEFM Overview</a></span></li>
                                           <li><span class="file"><a href="_hefread.html" tabindex="1">HEFRead</a></span></li>
                                           <li><span class="file"><a href="_hefreadword.html" tabindex="1">HEFReadWord</a></span></li>
@@ -712,16 +711,16 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_heferaseblock.html" tabindex="1">HEFEraseBlock</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_eeram.html" tabindex="1">EERAM</a></span><ul>
-                                          <li id="webhelp-currentid"><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
-                                       </ul>
-                                    </li>
-                                    <li><span class="file"><a href="_progmem.html" tabindex="1">PROGMEM</a></span><ul>
+                                    <li><span class="file"><a href="_progmem_pfm.html" tabindex="1">PROGMEM ( PFM )</a></span><ul>
                                           <li><span class="file"><a href="_pfmread.html" tabindex="1">PFMRead</a></span></li>
                                           <li><span class="file"><a href="_pfmwrite.html" tabindex="1">PFMWrite</a></span></li>
                                           <li><span class="file"><a href="_programerase.html" tabindex="1">ProgramErase</a></span></li>
                                           <li><span class="file"><a href="_programread.html" tabindex="1">ProgramRead</a></span></li>
                                           <li><span class="file"><a href="_programwrite.html" tabindex="1">ProgramWrite</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_progmem_mcu_configuration.html" tabindex="1">PROGMEM ( MCU Configuration )</a></span><ul>
+                                          <li><span class="file"><a href="_deviceconfigurationread.html" tabindex="1">DeviceConfigurationRead</a></span></li>
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_safm.html" tabindex="1">SAFM</a></span><ul>
@@ -735,7 +734,11 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_saferaseblock.html" tabindex="1">SAFEraseBlock</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_sram.html" tabindex="1">SRAM</a></span><ul>
+                                    <li><span class="file"><a href="_eeram_device.html" tabindex="1">EERAM ( Device )</a></span><ul>
+                                          <li id="webhelp-currentid"><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_sram_device.html" tabindex="1">SRAM  ( Device )</a></span><ul>
                                           <li><span class="file"><a href="_sram_overview.html" tabindex="1">SRAM Overview</a></span></li>
                                           <li><span class="file"><a href="_sramread.html" tabindex="1">SRAMRead</a></span></li>
                                           <li><span class="file"><a href="_sramwrite.html" tabindex="1">SRAMWrite</a></span></li>
@@ -797,6 +800,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1351_controllers.html" tabindex="1">SSD1351 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_st7567_controllers.html" tabindex="1">ST7567 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7735_controllers.html" tabindex="1">ST7735 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7789_controllers.html" tabindex="1">ST7789 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7920_controllers.html" tabindex="1">ST7920 Controllers</a></span><ul>

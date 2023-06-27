@@ -32,9 +32,13 @@ easier to route Sometimes mistakes are found too late to fix so having
 the option to change a pinout mapping in software rather than creating a
 new printed circuit board can be very helpful.
 
-You <span class="strong">**must**</span> use both commands `UnLockPPS`
-and `LockPPS` to complete any PPS changes. Great Cow BASIC includes
-these two macros to ensure this process is handled correctly.
+You <span class="strong">**must**</span> use the command `UnLockPPS` to
+enable setting of the PPS if the PPS have been previously locked, and,
+you can, optionally, use `LockPPS` to prevent unintentional change to
+PPS settings.
+
+Great Cow BASIC includes these two macros to ensure this process is
+handled correctly.
 
 Also, see <http://microchip.wikidot.com/8bit:pps> for more information.
 

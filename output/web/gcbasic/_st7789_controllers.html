@@ -16,7 +16,7 @@
       <link rel="next" href="_st7920_controllers.html" title="ST7920 Controllers" />
       <meta name="Section-title" content="ST7789 Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-52158";
+            var treeCookieId = "treeview-53019";
             var language = "en";
             var w = new Object();
             //Localization
@@ -185,14 +185,15 @@ border: none; background: none; font-weight: none; color: none; }
                </div>
             </div>
             <p>This section covers GLCD devices that use the ST7789 graphics controller.  The ST7789 is a TFT LCD Single Chip Driver with
-               240RGBx240 Resolution and 65K colors.
+               240x240 or 320x240 Resolution and 65K colors.
             </p>
             <p>Great Cow BASIC supports 65K-color mode operations.</p>
             <p>The Great Cow BASIC constants shown below control the configuration of the ST7789 controller.    Great Cow BASIC supports
                SPI hardware and software connectivity  - this is shown in the tables below.
             </p>
             <p>To use the ST7789 driver simply include the following in your user code.  This will initialise the driver.</p><pre class="screen">    #include &lt;glcd.h&gt;
-    #DEFINE GLCD_TYPE GLCD_TYPE_ST7789_240_240
+    #DEFINE GLCD_TYPE       GLCD_TYPE_ST7789_240_240
+    //  #DEFINE GLCD_TYPE   GLCD_TYPE_ST7789_320_240
 
     'Pin mappings for ST7789 - these MUST be specified
     #define GLCD_DC     porta.0           'example port setting
@@ -223,9 +224,11 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">GLCD_TYPE</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p><code class="literal">GLCD_TYPE_ST7789_240_240</code></p>
+                           <p><code class="literal">GLCD_TYPE_ST7789_240_240</code> or <code class="literal">GLCD_TYPE_ST7789_320_240</code></p>
                         </td>
-                        <td align="left" valign="top"> </td>
+                        <td align="left" valign="top">
+                           <p>Select one option to set geometry</p>
+                        </td>
                      </tr>
                      <tr>
                         <td align="left" valign="top">
@@ -343,7 +346,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>The width parameter of the GLCD</p>
                         </td>
                         <td align="left" valign="top">
-                           <p><code class="literal">320</code></p>
+                           <p><code class="literal">320</code> or <code class="literal">240</code></p>
                         </td>
                      </tr>
                      <tr>
@@ -579,7 +582,46 @@ border: none; background: none; font-weight: none; color: none; }
     TFT_ORANGE      0xFD20
     TFT_GREENYELLOW 0xAFE5
     TFT_PINK        0xF81F</pre><p>This example shows how to drive a ST7789 based Graphic LCD module with the built in commands of Great Cow BASIC.</p>
-            <p><span class="strong"><strong>Example #1</strong></span></p><pre class="screen">    #chip 16F15376
+            <p>The library support PIC, AVR and LGT - change to suit your configuration.</p>
+            <p><span class="strong"><strong>Example #1</strong></span></p><pre class="screen">    #chip LGT8F328P
+    #include &lt;LGT8F328P.h&gt;
+    #option explicit
+
+    #include &lt;glcd.h&gt;
+    #include &lt;glcd_st7789.h&gt;
+    #define ST7789_HardwareSPI
+    #define HWSPIMode MASTERULTRAFAST
+
+    // Can be either pixels geometry
+        #define GLCD_TYPE GLCD_TYPE_ST7789_240_240
+        //#define GLCD_TYPE GLCD_TYPE_ST7789_320_240
+
+    //Pin mappings for SPI - this GLCD driver supports Hardware SPI and Software SPI
+    #define GLCD_DC       DIGITAL_8           ' Data command line
+    #define GLCD_CS       DIGITAL_10          ' Chip select line
+    #define GLCD_RESET    DIGITAL_9           ' Reset line
+    #define GLCD_DI       DIGITAL_12          ' Data in | MISO    - Not used therefore not really required
+    #define GLCD_DO       DIGITAL_11          ' Data out | MOSI
+    #define GLCD_SCK      DIGITAL_13          ' Clock Line
+
+    #define GLCD_EXTENDEDFONTSET1
+    GLCDBackground = TFT_BLACK
+    GLCDCLS TFT_BLACK
+
+    GLCDfntDefaultsize = 2
+
+    GLCDRotate Portrait_Rev
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)
+
+    GLCDRotate Portrait
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)
+
+    GLCDROTATE Landscape
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)
+
+    GLCDROTATE Landscape_Rev
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)</pre><p><span class="strong"><strong>Example #2</strong></span></p>
+            <p>This example shows how to drive a ST7789 using a PIC with PPS.</p><pre class="screen">    #chip 16F15376
     #option Explicit
 
         #startup InitPPS, 85
@@ -600,7 +642,8 @@ border: none; background: none; font-weight: none; color: none; }
     ' ********************** Setup the GLCD ************************************************
 
         #INCLUDE &lt;glcd.h&gt;
-        #define GLCD_TYPE     GLCD__TYPE_ST7789_240_240
+        #define GLCD_TYPE        GLCD__TYPE_ST7789_240_240
+        // #define GLCD_TYPE     GLCD__TYPE_ST7789_320_240
 
 
         'This is a PPS chip, so, need to make the DO/SDO &amp; SCK match the PPS assignments
@@ -619,30 +662,28 @@ border: none; background: none; font-weight: none; color: none; }
     ' ********************** DEMO REALLY STARTS HERE ************************************************
     GLCDPrint(0, 0, "Test of the ST7789 Device")
     end</pre><p><br /></p>
-            <p><span class="strong"><strong>Example #2</strong></span>
-               This example shows how to drive a ILI3941 with the OLED fonts.  Note the use of the <code class="literal">GLCDfntDefaultSize</code> to select the size of the OLED font in use.
+            <p><span class="strong"><strong>Example #3</strong></span></p>
+            <p>This example shows how to drive a ILI3941 with the OLED fonts.  Note the use of the <code class="literal">GLCDfntDefaultSize</code> to select the size of the OLED font in use.
                <br /></p><pre class="screen">    #define GLCD_OLED_FONT                'The constant is required to support OLED fonts
 
     GLCDfntDefaultSize = 2
     GLCDFontWidth = 5
     GLCDPrint ( 40, 0, "OLED" )
     GLCDPrint ( 0, 18, "Typ:  ST7789" )
-    GLCDPrint ( 0, 34, "Size: 240 x 240" )
+    GLCDPrint ( 0, 34, "Size: "+ Str(GLCD_WIDTH) +" x 240" )
 
     GLCDfntDefaultSize = 1
     GLCDPrint(20, 56,"https://goo.gl/gjrxkp")</pre><p><br /></p>
-            <p><span class="strong"><strong>Example #2</strong></span>
-               This example shows how to disable the large OLED Fontset.  This disables the font to reduce memory usage.
-            </p>
-            <p>When the extended OLED fontset is disabled every character will be shown as a block character.
-               <br /></p><pre class="screen">    #define GLCD_OLED_FONT                'The constant is required to support OLED fonts
+            <p><span class="strong"><strong>Example #4</strong></span></p>
+            <p>This example shows how to disable the large OLED Fontset.  This disables the font to reduce memory usage.</p>
+            <p>When the extended OLED fontset is disabled every character will be shown as a block character.</p><pre class="screen">    #define GLCD_OLED_FONT                'The constant is required to support OLED fonts
     #define GLCD_Disable_OLED_FONT2       'The constant to disable the extended OLED fontset.
 
     GLCDfntDefaultSize = 2
     GLCDFontWidth = 5
     GLCDPrint ( 40, 0, "OLED" )
     GLCDPrint ( 0, 18, "Typ:  ST7789" )
-    GLCDPrint ( 0, 34, "Size: 240 x 240" )
+    GLCDPrint ( 0, 34, "Size: "+ Str(GLCD_WIDTH) +" x 240" )
 
     GLCDfntDefaultSize = 1
     GLCDPrint(20, 56,"https://goo.gl/gjrxkp")</pre><p><br /></p>
@@ -737,13 +778,13 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_setwith.html" tabindex="1">SetWith</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="_memory_devices.html" tabindex="1">Memory Devices</a></span><ul>
-                                    <li><span class="file"><a href="_eeprom.html" tabindex="1">Eeprom</a></span><ul>
+                              <li><span class="file"><a href="_memory.html" tabindex="1">Memory</a></span><ul>
+                                    <li><span class="file"><a href="_eeprom_dfm.html" tabindex="1">EEPROM ( DFM )</a></span><ul>
                                           <li><span class="file"><a href="_epread.html" tabindex="1">EPRead</a></span></li>
                                           <li><span class="file"><a href="_epwrite.html" tabindex="1">EPWrite</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_hefm.html" tabindex="1">HEFM</a></span><ul>
+                                    <li><span class="file"><a href="_hefm_pfm.html" tabindex="1">HEFM ( PFM )</a></span><ul>
                                           <li><span class="file"><a href="_hefm_overview.html" tabindex="1">HEFM Overview</a></span></li>
                                           <li><span class="file"><a href="_hefread.html" tabindex="1">HEFRead</a></span></li>
                                           <li><span class="file"><a href="_hefreadword.html" tabindex="1">HEFReadWord</a></span></li>
@@ -754,16 +795,16 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_heferaseblock.html" tabindex="1">HEFEraseBlock</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_eeram.html" tabindex="1">EERAM</a></span><ul>
-                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
-                                       </ul>
-                                    </li>
-                                    <li><span class="file"><a href="_progmem.html" tabindex="1">PROGMEM</a></span><ul>
+                                    <li><span class="file"><a href="_progmem_pfm.html" tabindex="1">PROGMEM ( PFM )</a></span><ul>
                                           <li><span class="file"><a href="_pfmread.html" tabindex="1">PFMRead</a></span></li>
                                           <li><span class="file"><a href="_pfmwrite.html" tabindex="1">PFMWrite</a></span></li>
                                           <li><span class="file"><a href="_programerase.html" tabindex="1">ProgramErase</a></span></li>
                                           <li><span class="file"><a href="_programread.html" tabindex="1">ProgramRead</a></span></li>
                                           <li><span class="file"><a href="_programwrite.html" tabindex="1">ProgramWrite</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_progmem_mcu_configuration.html" tabindex="1">PROGMEM ( MCU Configuration )</a></span><ul>
+                                          <li><span class="file"><a href="_deviceconfigurationread.html" tabindex="1">DeviceConfigurationRead</a></span></li>
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_safm.html" tabindex="1">SAFM</a></span><ul>
@@ -777,7 +818,11 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_saferaseblock.html" tabindex="1">SAFEraseBlock</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_sram.html" tabindex="1">SRAM</a></span><ul>
+                                    <li><span class="file"><a href="_eeram_device.html" tabindex="1">EERAM ( Device )</a></span><ul>
+                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_sram_device.html" tabindex="1">SRAM  ( Device )</a></span><ul>
                                           <li><span class="file"><a href="_sram_overview.html" tabindex="1">SRAM Overview</a></span></li>
                                           <li><span class="file"><a href="_sramread.html" tabindex="1">SRAMRead</a></span></li>
                                           <li><span class="file"><a href="_sramwrite.html" tabindex="1">SRAMWrite</a></span></li>
@@ -839,6 +884,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1351_controllers.html" tabindex="1">SSD1351 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_st7567_controllers.html" tabindex="1">ST7567 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7735_controllers.html" tabindex="1">ST7735 Controllers</a></span></li>
                                           <li id="webhelp-currentid"><span class="file"><a href="_st7789_controllers.html" tabindex="1">ST7789 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7920_controllers.html" tabindex="1">ST7920 Controllers</a></span><ul>

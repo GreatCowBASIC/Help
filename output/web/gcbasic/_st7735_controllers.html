@@ -12,11 +12,11 @@
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
       <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
       <link rel="up" href="_glcd_overview.html" title="GLCD Overview" />
-      <link rel="prev" href="_ssd1351_controllers.html" title="SSD1351 Controllers" />
+      <link rel="prev" href="_st7567_controllers.html" title="ST7567 Controllers" />
       <link rel="next" href="_st7789_controllers.html" title="ST7789 Controllers" />
       <meta name="Section-title" content="ST7735 Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-52158";
+            var treeCookieId = "treeview-53019";
             var language = "en";
             var w = new Object();
             //Localization
@@ -164,7 +164,7 @@ border: none; background: none; font-weight: none; color: none; }
                <tr>
                   <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
                                                     </a></td>
-                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_ssd1351_controllers.html">Prev</a>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_st7567_controllers.html">Prev</a>
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="_glcd_overview.html">Up</a>
                                                          |
@@ -629,7 +629,7 @@ GLCD_SCK porta.5
             <hr />
             <table width="100%" summary="Navigation footer">
                <tr>
-                  <td width="40%" align="left"><a accesskey="p" href="_ssd1351_controllers.html">Prev</a> 
+                  <td width="40%" align="left"><a accesskey="p" href="_st7567_controllers.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="_glcd_overview.html">Up</a></td>
                   <td width="40%" align="right"> <a accesskey="n" href="_st7789_controllers.html">Next</a></td>
@@ -711,13 +711,13 @@ GLCD_SCK porta.5
                                     <li><span class="file"><a href="_setwith.html" tabindex="1">SetWith</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="_memory_devices.html" tabindex="1">Memory Devices</a></span><ul>
-                                    <li><span class="file"><a href="_eeprom.html" tabindex="1">Eeprom</a></span><ul>
+                              <li><span class="file"><a href="_memory.html" tabindex="1">Memory</a></span><ul>
+                                    <li><span class="file"><a href="_eeprom_dfm.html" tabindex="1">EEPROM ( DFM )</a></span><ul>
                                           <li><span class="file"><a href="_epread.html" tabindex="1">EPRead</a></span></li>
                                           <li><span class="file"><a href="_epwrite.html" tabindex="1">EPWrite</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_hefm.html" tabindex="1">HEFM</a></span><ul>
+                                    <li><span class="file"><a href="_hefm_pfm.html" tabindex="1">HEFM ( PFM )</a></span><ul>
                                           <li><span class="file"><a href="_hefm_overview.html" tabindex="1">HEFM Overview</a></span></li>
                                           <li><span class="file"><a href="_hefread.html" tabindex="1">HEFRead</a></span></li>
                                           <li><span class="file"><a href="_hefreadword.html" tabindex="1">HEFReadWord</a></span></li>
@@ -728,16 +728,16 @@ GLCD_SCK porta.5
                                           <li><span class="file"><a href="_heferaseblock.html" tabindex="1">HEFEraseBlock</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_eeram.html" tabindex="1">EERAM</a></span><ul>
-                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
-                                       </ul>
-                                    </li>
-                                    <li><span class="file"><a href="_progmem.html" tabindex="1">PROGMEM</a></span><ul>
+                                    <li><span class="file"><a href="_progmem_pfm.html" tabindex="1">PROGMEM ( PFM )</a></span><ul>
                                           <li><span class="file"><a href="_pfmread.html" tabindex="1">PFMRead</a></span></li>
                                           <li><span class="file"><a href="_pfmwrite.html" tabindex="1">PFMWrite</a></span></li>
                                           <li><span class="file"><a href="_programerase.html" tabindex="1">ProgramErase</a></span></li>
                                           <li><span class="file"><a href="_programread.html" tabindex="1">ProgramRead</a></span></li>
                                           <li><span class="file"><a href="_programwrite.html" tabindex="1">ProgramWrite</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_progmem_mcu_configuration.html" tabindex="1">PROGMEM ( MCU Configuration )</a></span><ul>
+                                          <li><span class="file"><a href="_deviceconfigurationread.html" tabindex="1">DeviceConfigurationRead</a></span></li>
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_safm.html" tabindex="1">SAFM</a></span><ul>
@@ -751,7 +751,11 @@ GLCD_SCK porta.5
                                           <li><span class="file"><a href="_saferaseblock.html" tabindex="1">SAFEraseBlock</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_sram.html" tabindex="1">SRAM</a></span><ul>
+                                    <li><span class="file"><a href="_eeram_device.html" tabindex="1">EERAM ( Device )</a></span><ul>
+                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_sram_device.html" tabindex="1">SRAM  ( Device )</a></span><ul>
                                           <li><span class="file"><a href="_sram_overview.html" tabindex="1">SRAM Overview</a></span></li>
                                           <li><span class="file"><a href="_sramread.html" tabindex="1">SRAMRead</a></span></li>
                                           <li><span class="file"><a href="_sramwrite.html" tabindex="1">SRAMWrite</a></span></li>
@@ -813,6 +817,7 @@ GLCD_SCK porta.5
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1351_controllers.html" tabindex="1">SSD1351 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_st7567_controllers.html" tabindex="1">ST7567 Controllers</a></span></li>
                                           <li id="webhelp-currentid"><span class="file"><a href="_st7735_controllers.html" tabindex="1">ST7735 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7789_controllers.html" tabindex="1">ST7789 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7920_controllers.html" tabindex="1">ST7920 Controllers</a></span><ul>

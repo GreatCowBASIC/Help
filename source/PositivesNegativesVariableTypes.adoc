@@ -31,7 +31,7 @@ GCBASIC has Bit, Byte, Word and Long Variable Types, all of which are described 
 * **Note:** the **Word variable type** in GCBASIC, or any other language, has nothing to do with the **Word Size** of the **ALU (Arithmetic and Logic Unit).** The Word size of a device (as opposed to the Word Type above) is a representation of the number of Bits that it can manipulate simultaneously in the ALU. The Word Size is generally 4 Bits in older Microprocessors (intel 4004) to 64 Bits in modern computer and 4G devices. The ALU size of the PIC and AVR Microcontrolers supported by GCBASIC are 8 Bits and so they are considered to have an 8 Bit Word.*
 
 
-**Long** is for situations where Values exceeding 65535 have to be handled and has a range of zero to 4.29 Billion. It is rarely used in 8 Bit devices but is invaluable on the rare occasions that it is needed. The Millis function uses the Long Data Type to handle long time periods
+**Long** is for situations where Values exceeding 65535 have to be handled and has a range of zero to 4294967295 (2^32-1). &#160;&#160;It is rarely used in 8 Bit devices but is invaluable on the rare occasions that it is needed.&#160;&#160;The Millis() function is an examples that uses the Long Data Type to handle long time periods
 
 
 All of the above can be considered to be Integer Values of varying magnitude as they can hold non Fractional Positive Whole Numbers, but try not to confuse **Integer Values** with the **Integer Variable Type**, they are complementary but separate concepts as you will see below.

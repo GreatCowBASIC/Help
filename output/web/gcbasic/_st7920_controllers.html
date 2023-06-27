@@ -16,7 +16,7 @@
       <link rel="next" href="_st7920glcdcleargraphics.html" title="ST7920GLCDClearGraphics" />
       <meta name="Section-title" content="ST7920 Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-52158";
+            var treeCookieId = "treeview-53019";
             var language = "en";
             var w = new Object();
             //Localization
@@ -210,7 +210,7 @@ border: none; background: none; font-weight: none; color: none; }
                in the table below. The only connectivity option the 8-bit mode where 8
                pins are connected between the microcontroller and the GLCD to control the
                data bus.<br /></p>
-            <p>The ST7920 GLCD is graphica and character mixed mode display.<br /></p>
+            <p>The ST7920 GLCD is graphics and character mixed mode display.<br /></p>
             <p>ST7920 LCD controller/driver IC can display alphabets, numbers, Chinese
                fonts and self-defined characters.   It supports 3 kinds of bus interface,
                namely 8-bit, 4-bit and serial.   Great Cow BASIC is currently supports
@@ -311,26 +311,13 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">LCD_ENABLE</code></p>
+                           <p><code class="literal">GLCD_ENABLE</code></p>
                         </td>
                         <td align="left" valign="top">
                            <p>Specifies the output pin that is connected to Enable on the GLCD.</p>
                         </td>
                         <td align="left" valign="top">
                            <p>Required</p>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td align="left" valign="top">
-                           <p><code class="literal">ST7920WriteDelay</code></p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>Set the time delay between data transmissions.</p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>Required, set to <code class="literal">20 us</code> for <code class="literal">32Mhz</code> support. Can be reduced for slower chip
-                              speeds.
-                           </p>
                         </td>
                      </tr>
                      <tr>
@@ -351,6 +338,42 @@ border: none; background: none; font-weight: none; color: none; }
                            </p>
                         </td>
                      </tr>
+                     <tr>
+                        <td colspan="3" align="left" valign="top">
+                           <p>Constants that control the timing of the library</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">ST7920READDELAY</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Set the time delay between read data transmissions.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Optional, set to <code class="literal">20</code> us as the default value.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">ST7920WRITEDELAY</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Set the time delay between write data transmissions.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Optional, set to <code class="literal">2</code> us as the default value.
+                              
+                           </p>
+                           <p></p>
+                           <p>    ' read delay of 25 is required at 32mhz, this can be reduced to 0 for slower clock speeds
+                                  #DEFINE ST7920READDELAY 25
+                                  ' write delay of 2 is required at 32mhz.  this can be reduced to 1 for slower clock speeds
+                                  #DEFINE ST7920WRITEDELAY 2
+                           </p>
+                        </td>
+                     </tr>
                   </tbody>
                </table>
             </div>
@@ -366,7 +389,7 @@ border: none; background: none; font-weight: none; color: none; }
                      <tr>
                         <th align="left" valign="top"><span class="strong"><strong>Constants</strong></span></th>
                         <th align="left" valign="top"><span class="strong"><strong>Controls</strong></span></th>
-                        <th align="center" valign="top"><span class="strong"><strong>Default</strong></span></th>
+                        <th align="left" valign="top"><span class="strong"><strong>Default</strong></span></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -377,9 +400,8 @@ border: none; background: none; font-weight: none; color: none; }
                         <td align="left" valign="top">
                            <p>The width parameter of the GLCD</p>
                         </td>
-                        <td align="center" valign="top">
-                           <p><code class="literal">128</code><br />
-                               Cannot be changed.
+                        <td align="left" valign="top">
+                           <p><code class="literal">128</code>  cannot be changed.
                            </p>
                         </td>
                      </tr>
@@ -390,21 +412,9 @@ border: none; background: none; font-weight: none; color: none; }
                         <td align="left" valign="top">
                            <p>The height parameter of the GLCD</p>
                         </td>
-                        <td align="center" valign="top">
-                           <p><code class="literal">64</code><br />
-                              Cannot be changed.
+                        <td align="left" valign="top">
+                           <p><code class="literal">64</code>  cannot be changed.
                            </p>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td align="left" valign="top">
-                           <p><code class="literal">GLCDFontWidth</code></p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>Specifies the font width of the Great Cow BASIC font set.</p>
-                        </td>
-                        <td align="center" valign="top">
-                           <p><code class="literal">6</code></p>
                         </td>
                      </tr>
                   </tbody>
@@ -527,6 +537,12 @@ border: none; background: none; font-weight: none; color: none; }
                         </td>
                      </tr>
                      <tr>
+                        <td colspan="3" align="left" valign="top">
+                           <p>The following methods ( calls ) are available for expert use.
+                              <br /></p>
+                        </td>
+                     </tr>
+                     <tr>
                         <td align="left" valign="top">
                            <p><code class="literal">GLCDWriteByte</code></p>
                         </td>
@@ -559,35 +575,32 @@ border: none; background: none; font-weight: none; color: none; }
                details, this is an external web site.
             </p>
             <p><span class="strong"><strong>Example 1:</strong></span></p><pre class="screen">    ;Chip Settings
-    #chip 16F1937,32
-    #config  MCLRE_ON
+    #CHIP 16F1937,32
+    #CONFIG  MCLRE_ON
 
-    #include &lt;glcd.h&gt;
-
-    #define GLCD_TYPE GLCD_TYPE_ST7920
-    #define GLCD_IO 8
-    #define GLCD_WIDTH 128
-    #define GLCD_HEIGHT 160
-    #define GLCDFontWidth 6
-
+    #INCLUDE &lt;GLCD.H&gt;
+    #DEFINE GLCD_TYPE GLCD_TYPE_ST7920
+    #DEFINE GLCD_IO 8
+    #DEFINE GLCD_WIDTH 128
+    #DEFINE GLCD_HEIGHT 160
     ' read delay of 25 is required at 32mhz, this can be reduced to 0 for slower clock speeds
-    #define ST7920ReadDelay 25
+    #DEFINE ST7920READDELAY 25
     ' write delay of 2 is required at 32mhz.  this can be reduced to 1 for slower clock speeds
-    #define ST7920WriteDelay 2
+    #DEFINE ST7920WRITEDELAY 2
 
-    #define GLCD_RS PORTa.0
-    #define GLCD_Enable PORTA.1
-    #define GLCD_RW PORTA.2
-    #define GLCD_RESET PORTA.3
-    #define GLCD_DATA_PORT PORTD
+    #DEFINE GLCD_RS PORTA.0
+    #DEFINE GLCD_ENABLE PORTA.1
+    #DEFINE GLCD_RW PORTA.2
+    #DEFINE GLCD_RESET PORTA.3
+    #DEFINE GLCD_DATA_PORT PORTD
 
     ST7920GLCDEnableGraphics
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
     GLCDPrint 0, 1, "Great Cow BASIC "
     wait 1 s
 
     GLCDCLS
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
 
     rrun = 0
     dim msg1 as string * 16
@@ -597,7 +610,7 @@ border: none; background: none; font-weight: none; color: none; }
 
     Do forever
         GLCDCLS
-        ST7920GLCDClearGraphics          ;clear screen
+        GLCDClearGraphics_ST7920          ;clear screen
         GLCDDrawString 30,0,"ChipMhz@"    ;print string
         GLCDDrawString 78,0, str(ChipMhz) ;print string
         Circle(10,10,10,0)            ;upper left
@@ -610,37 +623,35 @@ border: none; background: none; font-weight: none; color: none; }
         wait 1 s                  ;wait
         FilledBox( 0,0,128,63)          ;create box
         for ypos = 0 to 63              ;draw row by row
-             ST7920lineh 0,ypos,128, 0      ;draw line
+             Line 0,ypos,128, 0      ;draw line
         next
         wait 1 s                  ;wait
-        ST7920GLCDClearGraphics          ;clear
+        GLCDClearGraphics_ST7920          ;clear
     loop</pre><p><span class="strong"><strong>Example 2:</strong></span></p><pre class="screen">    ;Chip Settings
-    #chip 16F1937,32
-    #config MCLRE_ON
+    #CHIP 16F1937,32
+    #CONFIG MCLRE_ON
 
-    #include &lt;glcd.h&gt;
-
-    #define GLCD_TYPE GLCD_TYPE_ST7920
-    #define GLCD_IO 8
-    #define GLCD_WIDTH 128
-    #define GLCD_HEIGHT 160
-    #define GLCDFontWidth 6
+    #INCLUDE &lt;GLCD.H&gt;
+    #DEFINE GLCD_TYPE GLCD_TYPE_ST7920
+    #DEFINE GLCD_IO 8
+    #DEFINE GLCD_WIDTH 128
+    #DEFINE GLCD_HEIGHT 160
 
     ' read delay of 25 is required at 32mhz, this can be reduced to 0 for slower clock speeds
-    #define ST7920ReadDelay 25
+    #DEFINE ST7920READDELAY 25
     ' write delay of 2 is required at 32mhz.  this can be reduced to 1 for slower clock speeds
-    #define ST7920WriteDelay 2
+    #DEFINE ST7920WRITEDELAY 2
 
-    #define GLCD_RS PORTa.0
-    #define GLCD_Enable PORTA.1
-    #define GLCD_RW PORTA.2
-    #define GLCD_RESET PORTA.3
-    #define GLCD_DATA_PORT PORTD
+    #DEFINE GLCD_RS PORTA.0
+    #DEFINE GLCD_ENABLE PORTA.1
+    #DEFINE GLCD_RW PORTA.2
+    #DEFINE GLCD_RESET PORTA.3
+    #DEFINE GLCD_DATA_PORT PORTD
 
     WAIT 1 S
-    ST7920GLCDEnableGraphics
-    ST7920GLCDClearGraphics
-    ST7920Tile "A"
+    GLCDEnableGraphics_ST7920
+    GLCDClearGraphics_ST7920
+    Tile_ST7920 "A"
     GLCDPrint 0, 1, "Great Cow BASIC "
 
     GLCDCLS
@@ -650,16 +661,16 @@ border: none; background: none; font-weight: none; color: none; }
 
     do forever
 
-    ST7920GLCDEnableGraphics
-    ST7920GLCDClearGraphics
-    ST7920gTile 0x55, 0x55
+    GLCDEnableGraphics_ST7920
+    GLCDClearGraphics_ST7920
+    GTile_ST7920 0x55, 0x55
     wait 1 s
 
-    ST7920GLCDClearGraphics
-    ST7920Lineh(0, 0, GLCD_WIDTH)
-    ST7920Lineh(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
-    ST7920LineV(0, 0, GLCD_HEIGHT)
-    ST7920LineV(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
+    GLCDClearGraphics_ST7920
+    Lineh_ST7920(0, 0, GLCD_WIDTH)
+    Lineh_ST7920(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
+    Linev_ST7920(0, 0, GLCD_HEIGHT)
+    Linev_ST7920(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
 
     Box 18,30,28,40
 
@@ -667,7 +678,7 @@ border: none; background: none; font-weight: none; color: none; }
 
     FilledBox 18,30,28,40
 
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
 
     Start:
 
@@ -686,13 +697,13 @@ border: none; background: none; font-weight: none; color: none; }
     next
     FilledBox 18,30,28,40 'Draw Box Around ASCII Character
     Wait 1 s
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
     GLCDDrawString 0,10,"End  "
     wait 1 s
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
 
     workingGLCDDrawChar:
-    ST7920GLCDEnableGraphics
+    GLCDEnableGraphics_ST7920
     dim gtext as string
     gtext = "ST7920 @QC12864B"
 
@@ -701,16 +712,15 @@ border: none; background: none; font-weight: none; color: none; }
           GLCDDrawChar xxpos , 0 , gtext(xchar)
     next
 
-    GLCDDrawString  1, 9, "Great Cow BASIC @2021"
+    GLCDDrawString  1, 9, "Great Cow BASIC"
     GLCDDrawString  1, 18,"GLCD 128*64"
     GLCDDrawString  1, 27,"Using GLCD.H from GCB"
-    GLCDDrawString  1, 37,"Using GLCD.H GCB@2021"
+    GLCDDrawString  1, 37,"Using GLCD.H GCB"
     GLCDDrawString  1, 45,"GLCDDrawChar method"
-    'GLCDDrawString  1, 54,"ST7920 @QC12864B"
     GLCDDrawString  1, 54,"Test Routines"
     wait 1 s
 
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
     ST7920GLCDDisableGraphics
     GLCDCLS
 
@@ -726,7 +736,6 @@ border: none; background: none; font-weight: none; color: none; }
     ' show all chars... takes some time!
     ST7920CallBuiltinChar
 
-    ST7920Tile ( 0xa9  )
     wait 1 s
     GLCDCLS
 
@@ -750,86 +759,72 @@ border: none; background: none; font-weight: none; color: none; }
     'Write 2 bytes of data into DDRAM to display one 16x16 font.
     'A140H~D75FH are BIG5 code, A1A0H~F7FFH are GB code.
 
-    for BIG5code = 0xA140 to 0xA1CF
-        ST7920cTile ( BIG5code  )
-        wait 5 ms
-      next
-    GLCDCLS
-
     'To display HCGROM fonts
     ' Write 2 bytes of data into DDRAM to display two 8x16 fonts. Each byte represents 1 character.
     ' The data is among 02H~7FH.
     ' The english characters set...
-    for HCGROM = 0x2h to 0x7f
-        ST7920Tile ( HCGROM  )
-        ST7920Tile ( HCGROM  )
-        wait 5 ms
-    next
-    GLCDCLS
 
     linetest1:
 
-      ST7920GLCDEnableGraphics
+      GLCDEnableGraphics_ST7920
 
-      ST7920gTile(0x55, 0x55)
       wait 1 s
-      ST7920GLCDClearGraphics
+      GLCDClearGraphics_ST7920
 
-    'linehtest:
-    '
-    ST7920LineH(0, 0, GLCD_WIDTH)
-    ST7920LineH(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
-    ST7920LineV(0, 0, GLCD_HEIGHT)
-    ST7920LineV(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
+    'lineh test
+    LineH_ST7920(0, 0, GLCD_WIDTH)
+    LineH_ST7920(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
+    LineV_ST7920(0, 0, GLCD_HEIGHT)
+    LineV_ST7920(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
 
-    box test
-    ST7920LineH(10 ,0 , 118 )
-    ST7920LineH(0 ,8 , 128)
-    ST7920LineH(16 ,16 , 96 )
-    ST7920LineH(10 ,32 , 108 )
-    ST7920LineH(0, 16, GLCD_WIDTH)
-    ST7920LineH(0, 24, GLCD_WIDTH)
-    ST7920LineH(0, 32, GLCD_WIDTH)
-    ST7920LineH(0, 40, GLCD_WIDTH)
-    ST7920LineH(0, 48, GLCD_WIDTH)
-    ST7920LineH(0, 56, GLCD_WIDTH)
-    ST7920LineH(0, 63, GLCD_WIDTH)
-    ST7920LineV(16, 0, GLCD_HEIGHT)
-    ST7920LineV(17, 0, GLCD_HEIGHT)
-    ST7920LineV(15, 0, GLCD_HEIGHT)
+    ' box test
+    LineH_ST7920(10 ,0 , 118 )
+    LineH_ST7920(0 ,8 , 128)
+    LineH_ST7920(16 ,16 , 96 )
+    LineH_ST7920(10 ,32 , 108 )
+    LineH_ST7920(0, 16, GLCD_WIDTH)
+    LineH_ST7920(0, 24, GLCD_WIDTH)
+    LineH_ST7920(0, 32, GLCD_WIDTH)
+    LineH_ST7920(0, 40, GLCD_WIDTH)
+    LineH_ST7920(0, 48, GLCD_WIDTH)
+    LineH_ST7920(0, 56, GLCD_WIDTH)
+    LineH_ST7920(0, 63, GLCD_WIDTH)
+    LineV_ST7920(16, 0, GLCD_HEIGHT)
+    LineV_ST7920(17, 0, GLCD_HEIGHT)
+    LineV_ST7920(15, 0, GLCD_HEIGHT)
 
-    ST7920LineV(46, 0, GLCD_HEIGHT)
-    ST7920LineV(47, 0, GLCD_HEIGHT)
-    ST7920LineV(48, 0, GLCD_HEIGHT)
+    LineV_ST7920(46, 0, GLCD_HEIGHT)
+    LineV_ST7920(47, 0, GLCD_HEIGHT)
+    LineV_ST7920(48, 0, GLCD_HEIGHT)
 
-    ST7920LineV(46, 0, GLCD_HEIGHT)
-    ST7920LineV(47, 0, GLCD_HEIGHT)
-    ST7920LineV(48, 0, GLCD_HEIGHT)
+    LineV_ST7920(46, 0, GLCD_HEIGHT)
+    LineV_ST7920(47, 0, GLCD_HEIGHT)
+    LineV_ST7920(48, 0, GLCD_HEIGHT)
 
-    ST7920LineV(96, 0, GLCD_HEIGHT)
-    ST7920LineV(97, 0, GLCD_HEIGHT)
-    ST7920LineV(98, 0, GLCD_HEIGHT
+    LineV_ST7920(96, 0, GLCD_HEIGHT)
+    LineV_ST7920(97, 0, GLCD_HEIGHT)
+    LineV_ST7920(98, 0, GLCD_HEIGHT)
 
     for HCGROM = 0 to GLCD_WIDTH step 8
-        ST7920LineV(HCGROM, 0, GLCD_HEIGHT)
+        LineV_ST7920(HCGROM, 0, GLCD_HEIGHT)
     next
 
     GraphicTestPlace:
 
-      ST7920GLCDClearGraphics
-      ST7920GraphicTest
-      ST7920GLCDClearGraphics
+      GLCDClearGraphics_ST7920
+      GraphicTest_ST7920
+      GLCDClearGraphics_ST7920
 
       ' Test draw a line
       for yrowpos = 0 to 63 step 4
-        ST7920LineH(0, yrowpos, GLCD_WIDTH)
+        LineH_ST7920(0, yrowpos, GLCD_WIDTH)
       next
 
-      ST7920GLCDClearGraphics
+      GLCDClearGraphics_ST7920
       ST7920GLCDDisableGraphics
       GLCDCLS
 
-      ST7920SetIcon( 1, 0x55 )
+      SetIcon_ST7920( 1, 0x55 )
 
     loop
 
@@ -837,8 +832,8 @@ border: none; background: none; font-weight: none; color: none; }
         ' 0xA140 ~ 0xA15F
           for ii = 0 to 31
 
-              ST7920WriteData( 0xA1)
-              ST7920WriteData( 0x40 + ii)
+              WriteData_ST7920( 0xA1)
+              WriteData_ST7920( 0x40 + ii)
 
           next
 
@@ -849,8 +844,8 @@ border: none; background: none; font-weight: none; color: none; }
           ' 0xA140 ~ 0xA15F
           for ii = 0 to 31
 
-              ST7920WriteData( 0xA1)
-              ST7920WriteData( 0xb0 + ii)
+              WriteData_ST7920( 0xA1)
+              WriteData_ST7920( 0xb0 + ii)
 
           next
           wait 1 s
@@ -859,8 +854,8 @@ border: none; background: none; font-weight: none; color: none; }
           ' 0xA140 ~ 0xA15F
           for ii = 0 to 31
 
-              ST7920WriteData( 0xA4)
-              ST7920WriteData( 0x40 + ii)
+              WriteData_ST7920( 0xA4)
+              WriteData_ST7920( 0x40 + ii)
 
           next
           wait 1 s
@@ -956,13 +951,13 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_setwith.html" tabindex="1">SetWith</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="_memory_devices.html" tabindex="1">Memory Devices</a></span><ul>
-                                    <li><span class="file"><a href="_eeprom.html" tabindex="1">Eeprom</a></span><ul>
+                              <li><span class="file"><a href="_memory.html" tabindex="1">Memory</a></span><ul>
+                                    <li><span class="file"><a href="_eeprom_dfm.html" tabindex="1">EEPROM ( DFM )</a></span><ul>
                                           <li><span class="file"><a href="_epread.html" tabindex="1">EPRead</a></span></li>
                                           <li><span class="file"><a href="_epwrite.html" tabindex="1">EPWrite</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_hefm.html" tabindex="1">HEFM</a></span><ul>
+                                    <li><span class="file"><a href="_hefm_pfm.html" tabindex="1">HEFM ( PFM )</a></span><ul>
                                           <li><span class="file"><a href="_hefm_overview.html" tabindex="1">HEFM Overview</a></span></li>
                                           <li><span class="file"><a href="_hefread.html" tabindex="1">HEFRead</a></span></li>
                                           <li><span class="file"><a href="_hefreadword.html" tabindex="1">HEFReadWord</a></span></li>
@@ -973,16 +968,16 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_heferaseblock.html" tabindex="1">HEFEraseBlock</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_eeram.html" tabindex="1">EERAM</a></span><ul>
-                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
-                                       </ul>
-                                    </li>
-                                    <li><span class="file"><a href="_progmem.html" tabindex="1">PROGMEM</a></span><ul>
+                                    <li><span class="file"><a href="_progmem_pfm.html" tabindex="1">PROGMEM ( PFM )</a></span><ul>
                                           <li><span class="file"><a href="_pfmread.html" tabindex="1">PFMRead</a></span></li>
                                           <li><span class="file"><a href="_pfmwrite.html" tabindex="1">PFMWrite</a></span></li>
                                           <li><span class="file"><a href="_programerase.html" tabindex="1">ProgramErase</a></span></li>
                                           <li><span class="file"><a href="_programread.html" tabindex="1">ProgramRead</a></span></li>
                                           <li><span class="file"><a href="_programwrite.html" tabindex="1">ProgramWrite</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_progmem_mcu_configuration.html" tabindex="1">PROGMEM ( MCU Configuration )</a></span><ul>
+                                          <li><span class="file"><a href="_deviceconfigurationread.html" tabindex="1">DeviceConfigurationRead</a></span></li>
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_safm.html" tabindex="1">SAFM</a></span><ul>
@@ -996,7 +991,11 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_saferaseblock.html" tabindex="1">SAFEraseBlock</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_sram.html" tabindex="1">SRAM</a></span><ul>
+                                    <li><span class="file"><a href="_eeram_device.html" tabindex="1">EERAM ( Device )</a></span><ul>
+                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_sram_device.html" tabindex="1">SRAM  ( Device )</a></span><ul>
                                           <li><span class="file"><a href="_sram_overview.html" tabindex="1">SRAM Overview</a></span></li>
                                           <li><span class="file"><a href="_sramread.html" tabindex="1">SRAMRead</a></span></li>
                                           <li><span class="file"><a href="_sramwrite.html" tabindex="1">SRAMWrite</a></span></li>
@@ -1058,6 +1057,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1351_controllers.html" tabindex="1">SSD1351 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_st7567_controllers.html" tabindex="1">ST7567 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7735_controllers.html" tabindex="1">ST7735 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7789_controllers.html" tabindex="1">ST7789 Controllers</a></span></li>
                                           <li id="webhelp-currentid"><span class="file"><a href="_st7920_controllers.html" tabindex="1">ST7920 Controllers</a></span><ul>

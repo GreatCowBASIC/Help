@@ -468,7 +468,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_analog_digital_conversion">Analog/Digital conversion</a></li>
 <li><a href="#_bitwise">Bitwise</a></li>
-<li><a href="#_memory_devices">Memory Devices</a></li>
+<li><a href="#_memory">Memory</a></li>
 <li><a href="#_flow_control">Flow control</a></li>
 <li><a href="#_fixed_voltage_reference">Fixed Voltage Reference</a></li>
 <li><a href="#_interrupts">Interrupts</a></li>
@@ -753,13 +753,13 @@ The “Programmer Preferences” is a software tool to control and set-up the di
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2023-04-15<br>
-09:03:20 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2023-06-23<br>
+09:12:57 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2023-04-15<br>
-08:53:10 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2023-06-18<br>
+15:49:35 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -3270,7 +3270,7 @@ one file do not conflict with those in another.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Long</strong> is for situations where Values exceeding 65535 have to be handled and has a range of zero to 4.29 Billion.&#160;&#160;It is rarely used in 8 Bit devices but is invaluable on the rare occasions that it is needed. &#160;&#160; The Millis function for example  uses the Long Data Type to handle time periods of up to 50 days.</p>
+<p><strong>Long</strong> is for situations where Values exceeding 65535 have to be handled and has a range of zero to 4294967295 (2^32-1).&#160;&#160;It is rarely used in 8 Bit devices but is invaluable on the rare occasions that it is needed. &#160;&#160; The Millis() is an example that  uses the Long Data Type to handle time periods of up to 50 days.</p>
 </div>
 <div class="paragraph">
 <p>All of the above can be considered to be Integer Values of varying magnitude as they can hold non Fractional Positive Whole Numbers, but try not to confuse <strong>Integer Values</strong> with the <strong>Integer Variable Type</strong>, they are complementary but separate concepts as you will see below.</p>
@@ -7776,8 +7776,7 @@ For 16f1688x and similar microcontrollers please see the second table.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>; ----- Configuration
-    #chip 16F1939
+<pre>    #chip 16F1939
 
     'USART settings
     #define USART_BAUD_RATE 9600
@@ -7785,7 +7784,6 @@ For 16f1688x and similar microcontrollers please see the second table.</p>
 
     'Set the input pin direction
     Dir PORTA.0 In
-
 
     'Print 255 reading
     For CurrentAddress = 0 to 255
@@ -7850,8 +7848,9 @@ For 16f1688x and similar microcontrollers please see the second table.</p>
 
 
         'Chip Settings.
-        #chip 16f18855,32
-        #Config MCLRE_ON
+        #CHIP 16F18855,32
+        #CONFIG MCLRE_ON
+        #OPTION EXPLICIT
 
         '' -------------------LATA-----------------
         '' Bit#:  -7---6---5---4---3---2---1---0---
@@ -7879,7 +7878,7 @@ For 16f1688x and similar microcontrollers please see the second table.</p>
 
         'Setup an Interrupt event when porta.5 goes negative.
         IOCAN5 = 1
-        On Interrupt PORTBChange  Call InterruptHandler
+        On Interrupt PORTABChange  Call InterruptHandler
 
         do
 
@@ -7900,7 +7899,7 @@ For 16f1688x and similar microcontrollers please see the second table.</p>
             IOCAF5 = 0                             'We must clear the flag in software
 
             wait 5 ms                              'debounce by waiting and seeing if still held down
-            if ( SWITCH = DOWN ) then
+            if ( SWITCH = SWITCH_DOWN ) then
                 'Read the ADC
                 adc_value = readad ( AN4 )
                 'Write the value to register Zero in the EEPROM
@@ -8289,14 +8288,14 @@ Zeros are shifted in from the right, Bits that are shifted out are lost.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_memory_devices">Memory Devices</h3>
+<h3 id="_memory">Memory</h3>
 <div class="paragraph">
 <p>This is the Memory section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
 </div>
 <div class="sect3">
-<h4 id="_eeprom">Eeprom</h4>
+<h4 id="_eeprom_dfm">EEPROM ( DFM )</h4>
 <div class="paragraph">
-<p>This is the Eeprom section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
+<p>This is the EEPROM  ( PFM ) section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
 </div>
 <div class="sect4">
 <h5 id="_epread">EPRead</h5>
@@ -8438,9 +8437,9 @@ Do not exceed the location ( also known as the EEProm address ) of the physical 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_hefm">HEFM</h4>
+<h4 id="_hefm_pfm">HEFM ( PFM )</h4>
 <div class="paragraph">
-<p>This is the HEFM section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
+<p>This is the HEFM ( PFM ) section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
 </div>
 <div class="sect4">
 <h5 id="_hefm_overview">HEFM Overview</h5>
@@ -9370,364 +9369,9 @@ See also
 </div>
 </div>
 <div class="sect3">
-<h4 id="_eeram">EERAM</h4>
+<h4 id="_progmem_pfm">PROGMEM ( PFM )</h4>
 <div class="paragraph">
-<p>This is the EERAM section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
-</div>
-<div class="sect4">
-<h5 id="_47xxx_eeram_devices">47xxx EERam Devices</h5>
-<div class="paragraph">
-<p>This section covers the 47xxx EERam devices.</p>
-</div>
-<div class="paragraph">
-<p>The 47xxx EERam device is a memory device is organized as 512 x 8 bits or 2,048 x 8 bits of memory and utilizes the I2C serial interface.</p>
-</div>
-<div class="paragraph">
-<p>The 47xxx provides infinite read and write cycles to the SRAM while EEPROM cells provide
-high-endurance nonvolatile storage of data with more than one million store cycles to EEPROM &amp; a Data retention of &gt; 200 years.</p>
-</div>
-<div class="paragraph">
-<p>With an external capacitor (~10uF), SRAM data is automatically transferred to the EEPROM upon loss of power, giving the advantages of NVRAM whilst eliminating the need for backup batteries.</p>
-</div>
-<div class="paragraph">
-<p>Data can also be backed up manually by using either the Hardware Store pin (HS) or software control.</p>
-</div>
-<div class="paragraph">
-<p>On power-up, the EEPROM data is automatically recalled to the SRAM.   EEPROM data Recall can also be initiated through software control.</p>
-</div>
-<div class="paragraph">
-<p>Connectivity is shown below:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>            __ __
-    Vcap--&gt;|  U  |&lt;-- Vcc
-     A1 --&gt;|     |&lt;-- HS
-     A2 --&gt;|     |&lt;-&gt; SCL
-    Vss --&gt;|_____|&lt;-&gt; SDA</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Modes of Operation</strong></p>
-</div>
-<div class="paragraph">
-<p>The SRAM allows for fast reads and writes and unlimited
-endurance. As long as power is present, the data
-stored in the SRAM can be updated as often as
-desired.</p>
-</div>
-<div class="paragraph">
-<p>To preserve the SRAM image, the AutoStore function
-copies the entire SRAM image to an EEPROM array
-whenever it detects that the voltage drops below a predetermined
-level. The power for the AutoStore process
-is provided by the externally connected VCAP capacitor.
-Upon power-up, the entire memory contents are
-restored by copying the EEPROM image to the SRAM.
-This automatic restore operation is completed in milliseconds
-after power-up, at the same time as when
-other devices would be initializing.</p>
-</div>
-<div class="paragraph">
-<p>There is no latency in writing to the SRAM. The SRAM
-can be written to starting at any random address, and
-can be written continuously throughout the array, wrapping
-back to the beginning after the end is reached.
-There is a small delay, specified as TWC in the data
-sheet, when writing to the nonvolatile configuration bits
-of the STATUS Register (SR).</p>
-</div>
-<div class="paragraph">
-<p>Besides the AutoStore function, there are two other
-methods to store the SRAM data to EEPROM:</p>
-</div>
-<div class="paragraph">
-<p>• One method is the Hardware Store, initiated by a
-rising edge on the HS pin.</p>
-</div>
-<div class="paragraph">
-<p>• The other method is the Software Store, initiated
-by writing the correct instruction to the
-command register via I2C.</p>
-</div>
-<div class="paragraph">
-<p><sub>The_paragraph_above_is_copyright_Microchip:_AN2047</sub><br></p>
-</div>
-<div class="paragraph">
-<p><strong>Explanation</strong></p>
-</div>
-<div class="paragraph">
-<p>The Great Cow BASIC constants and commands shown below control the configuration of the 47xxx EE-RAM device. &#160;&#160;&#160;Great Cow BASIC supports I2C hardware and software connectivity  - this is shown in the tables below.</p>
-</div>
-<div class="paragraph">
-<p>To use the 47xxx driver simply include the following in your user code.  This will initialise the driver.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    #include &lt;47xxx_EERAM.H&gt;
-
-    ; ----- Define Hardware settings for EERAM Module
-    #define I2C_Adr_EERAM 0x30 		; EERAM base Address
-    #define EERAM_HS PortB.1   		; Optional hardware Store Pin
-
-    Dir EERAM_HS Out           		; Rising edge initiates Backup
-
-    EERAM_AutoStore(ON) 			; Enable Automatic Storage on power loss
-
-
-    'EERAM_AutoStore(OFF) 			; Disable Automatic Storage on power loss</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The device parameters for the device are shown in the table below.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-<col style="width: 16%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top"><strong>Part Number</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Density (bits)</strong></th>
-<th class="tableblock halign-left valign-top"><strong>VCC Range</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Max. I2C Frequency</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Tstore Delay</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Trecall Delay</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">47L04</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4K</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.7-3.6V</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 MHz</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8ms</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">25ms</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">47C04</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4K</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4.5-5.5V</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 MHz</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8ms</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2ms</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">47L16</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">16K</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.7-3.6V</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 MHz</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">25ms</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5ms</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">47C16</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">16K</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4.5-5.5V</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 MHz</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">25ms</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5ms</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>The Great Cow BASIC constants for control of the device are:</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top"><strong>Constant</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Context</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Example</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Default</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_I2C_Adr</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit I2C Address of device</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">#define I2C_Adr_EERAM 0x30</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Default is 0x30. This is mandated</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_HS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Optional hardware Store Pin</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">#define EERAM_HS portb.1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No default - this is not mandated</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Tstore</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Delay period for write to device</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">#define EERAM_Tstore 25</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">25 (ms)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Trecall</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Delay period to read from device</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">#define EERAM_Trecall  5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5 (ms)</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>The Great Cow BASIC commands for control of the device are:</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33%;">
-<col style="width: 33%;">
-<col style="width: 33%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top"><strong>Command</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Context</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Example</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_AutoStore</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable Automatic Storage on power loss or Disable Automatic Storage on power loss</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_AutoStore(ON), or EERAM_AutoStore(OFF)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Read the Status Register</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User_byte_variable = EERAM_Status()</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Backup</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Backup / Store Now</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Backup()</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Recall</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Restore Now</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Recall()</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_HWStore</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Force Backup with HS Pin</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_HWStore()</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Write</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Write a Byte of Data to address at the specified address.  The address must be a word value and the data is byte value.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ERAM_Write( EERAM_Address_word, EERAM_Data_byte)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Read</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Read a Byte of Data from address.  The address must be a word value and returned data is byte value.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User_byte_variable = EERAM_Read(EERAM_Address_word)</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>This example shows how to use the device.</p>
-</div>
-<div class="paragraph">
-<p><strong>Example:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    '
-    #chip 16f18855,32
-    #option explicit
-
-    #include &lt;47xxx_EERAM.H&gt;
-
-    #startup InitPPS, 85
-
-    Sub InitPPS
-      UNLOCKPPS
-
-          'Module: EUSART
-              RC0PPS = 0x0010 'TX &gt; RC0
-              TXPPS  = 0x0008 'RC0 &gt; TX (bi-directional)
-          'Module: MSSP1
-              SSP1DATPPS = 0x0013 'RC3 &gt; SDA1
-              RC3PPS = 0x0015 'SDA1 &gt; RC3 (bi-directional)
-              RC4PPS = 0x0014 'SCL1 &gt; RC4
-              SSP1CLKPPS = 0x0014 'RC4 &gt; SCL1 (bi-directional)
-
-      LOCKPPS
-    End Sub
-
-    ; ----- Define Hardware Serial Print
-
-    #define USART_BAUD_RATE 115200
-    #define USART_TX_BLOCKING
-
-    ; ----- Define Hardware settings for hwi2c
-
-    #define hi2c_BAUD_RATE 400
-    #define hi2c_DATA  PORTC.3
-    #define hi2c_CLOCK PORTC.4
-
-    'I2C pins need to be input for I2C module
-    Dir hi2c_DATA  in
-    Dir hi2c_CLOCK in
-
-    'Initialise I2C Master
-    hi2cMode Master
-
-    ; ----- Define Hardware settings for EERAM Module
-
-    #define EERAM_I2C_Adr 0x30     ; EERAM base Address
-    #define EERAM_HS PortB.1       ; Optional hardware Store Pin
-
-    Dir EERAM_HS Out           ; Rising edge initiates Backup
-
-    EERAM_AutoStore(ON) ; Enable Automatic Storage on power loss
-
-    ; ----- Main body of program commences here.
-
-    dim Idx as Byte
-
-    HserPrintCRLF 2
-
-    HserPrint "Hardware I2C EERAM Read Test at I2C Adr 0x"
-    HserPrint  Hex(EERAM_I2C_Adr)
-    HserPrint  " Reading RAM addresses 0x0 to 0xF" : HserPrintCRLF 2
-
-    for Idx = 0x0 to 0xF
-
-    HserPrint hex(Idx) + " = " : HserPrint Hex(EERAM_Read(Idx))
-
-    if Idx = 7 or Idx = 0xf then
-      HserPrintCRLF
-    Else
-      HserPrint " : "
-    end if
-
-    next Idx
-
-    HserPrintCRLF : HserPrint "Control Byte = " Hex(EERAM_Status()) : HserPrintCRLF 2
-
-    end</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>For more help, see</strong> <a href="#_i2c_overview">Software I2C</a> or <a href="#_hi2c_overview">Hardware I2C</a></p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_progmem">PROGMEM</h4>
-<div class="paragraph">
-<p>This is the PROGMEM section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
+<p>This is the PROGMEM ( PFM ) section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
 </div>
 <div class="sect4">
 <h5 id="_pfmread">PFMRead</h5>
@@ -9880,9 +9524,6 @@ program memory on the Microchip PIC microcontroller, which is given on the datas
 developers.</p>
 </div>
 <div class="paragraph">
-<p><strong>Example:</strong></p>
-</div>
-<div class="paragraph">
 <p><strong>For more help, see <a href="#_programerase">ProgramErase</a></strong> and <strong><a href="#_programwrite">ProgramWrite</a></strong></p>
 </div>
 </div>
@@ -9925,6 +9566,45 @@ developers. ProgramErase must be used to clear a block of memory BEFORE
 </div>
 <div class="paragraph">
 <p><strong>For more help, see <a href="#_programerase">ProgramErase</a></strong> and <strong><a href="#_programread">ProgramRead</a></strong></p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_progmem_mcu_configuration">PROGMEM ( MCU Configuration )</h4>
+<div class="paragraph">
+<p>This is the PROGMEM ( MCU Configuration ) section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
+</div>
+<div class="sect4">
+<h5 id="_deviceconfigurationread">DeviceConfigurationRead</h5>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    deviceconfigurationRead (<em>location, store</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all Microchip PIC microcontrollers with self read capability. Not available on
+Atmel AVR at present.</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>deviceconfigurationRead</code> reads information from the configurations area of the  memory on chips that
+support this feature. <code><em>location</em></code> and <code><em>store</em></code> are both word variables,
+meaning that they can be values greater than 255.</p>
+</div>
+<div class="paragraph">
+<p>The  <code><em>location</em></code> depends on the amount Microchip PIC microcontroller, which is given on the datasheet. <code><em>store</em></code> is
+14 bits wide, and thus can store values up to <code>16383</code>.</p>
+</div>
+<div class="paragraph">
+<p>This is an advanced command which should only be used by advanced developers.</p>
 </div>
 </div>
 </div>
@@ -10835,7 +10515,361 @@ See also
 </div>
 </div>
 <div class="sect3">
-<h4 id="_sram">SRAM</h4>
+<h4 id="_eeram_device">EERAM ( Device )</h4>
+<div class="paragraph">
+<p>This is the EERAM section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
+</div>
+<div class="sect4">
+<h5 id="_47xxx_eeram_devices">47xxx EERam Devices</h5>
+<div class="paragraph">
+<p>This section covers the 47xxx EERam devices.</p>
+</div>
+<div class="paragraph">
+<p>The 47xxx EERam device is a memory device is organized as 512 x 8 bits or 2,048 x 8 bits of memory and utilizes the I2C serial interface.</p>
+</div>
+<div class="paragraph">
+<p>The 47xxx provides infinite read and write cycles to the SRAM while EEPROM cells provide
+high-endurance nonvolatile storage of data with more than one million store cycles to EEPROM &amp; a Data retention of &gt; 200 years.</p>
+</div>
+<div class="paragraph">
+<p>With an external capacitor (~10uF), SRAM data is automatically transferred to the EEPROM upon loss of power, giving the advantages of NVRAM whilst eliminating the need for backup batteries.</p>
+</div>
+<div class="paragraph">
+<p>Data can also be backed up manually by using either the Hardware Store pin (HS) or software control.</p>
+</div>
+<div class="paragraph">
+<p>On power-up, the EEPROM data is automatically recalled to the SRAM.   EEPROM data Recall can also be initiated through software control.</p>
+</div>
+<div class="paragraph">
+<p>Connectivity is shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>            __ __
+    Vcap--&gt;|  U  |&lt;-- Vcc
+     A1 --&gt;|     |&lt;-- HS
+     A2 --&gt;|     |&lt;-&gt; SCL
+    Vss --&gt;|_____|&lt;-&gt; SDA</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Modes of Operation</strong></p>
+</div>
+<div class="paragraph">
+<p>The SRAM allows for fast reads and writes and unlimited
+endurance. As long as power is present, the data
+stored in the SRAM can be updated as often as
+desired.</p>
+</div>
+<div class="paragraph">
+<p>To preserve the SRAM image, the AutoStore function
+copies the entire SRAM image to an EEPROM array
+whenever it detects that the voltage drops below a predetermined
+level. The power for the AutoStore process
+is provided by the externally connected VCAP capacitor.
+Upon power-up, the entire memory contents are
+restored by copying the EEPROM image to the SRAM.
+This automatic restore operation is completed in milliseconds
+after power-up, at the same time as when
+other devices would be initializing.</p>
+</div>
+<div class="paragraph">
+<p>There is no latency in writing to the SRAM. The SRAM
+can be written to starting at any random address, and
+can be written continuously throughout the array, wrapping
+back to the beginning after the end is reached.
+There is a small delay, specified as TWC in the data
+sheet, when writing to the nonvolatile configuration bits
+of the STATUS Register (SR).</p>
+</div>
+<div class="paragraph">
+<p>Besides the AutoStore function, there are two other
+methods to store the SRAM data to EEPROM:</p>
+</div>
+<div class="paragraph">
+<p>• One method is the Hardware Store, initiated by a
+rising edge on the HS pin.</p>
+</div>
+<div class="paragraph">
+<p>• The other method is the Software Store, initiated
+by writing the correct instruction to the
+command register via I2C.</p>
+</div>
+<div class="paragraph">
+<p><sub>The_paragraph_above_is_copyright_Microchip:_AN2047</sub><br></p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation</strong></p>
+</div>
+<div class="paragraph">
+<p>The Great Cow BASIC constants and commands shown below control the configuration of the 47xxx EE-RAM device. &#160;&#160;&#160;Great Cow BASIC supports I2C hardware and software connectivity  - this is shown in the tables below.</p>
+</div>
+<div class="paragraph">
+<p>To use the 47xxx driver simply include the following in your user code.  This will initialise the driver.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #include &lt;47xxx_EERAM.H&gt;
+
+    ; ----- Define Hardware settings for EERAM Module
+    #define I2C_Adr_EERAM 0x30 		; EERAM base Address
+    #define EERAM_HS PortB.1   		; Optional hardware Store Pin
+
+    Dir EERAM_HS Out           		; Rising edge initiates Backup
+
+    EERAM_AutoStore(ON) 			; Enable Automatic Storage on power loss
+
+
+    'EERAM_AutoStore(OFF) 			; Disable Automatic Storage on power loss</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The device parameters for the device are shown in the table below.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Part Number</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Density (bits)</strong></th>
+<th class="tableblock halign-left valign-top"><strong>VCC Range</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Max. I2C Frequency</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Tstore Delay</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Trecall Delay</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">47L04</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4K</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.7-3.6V</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 MHz</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8ms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25ms</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">47C04</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4K</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.5-5.5V</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 MHz</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8ms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2ms</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">47L16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16K</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.7-3.6V</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 MHz</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25ms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5ms</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">47C16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16K</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.5-5.5V</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 MHz</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25ms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5ms</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The Great Cow BASIC constants for control of the device are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Constant</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Context</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Example</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Default</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_I2C_Adr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit I2C Address of device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">#define I2C_Adr_EERAM 0x30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default is 0x30. This is mandated</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_HS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional hardware Store Pin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">#define EERAM_HS portb.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No default - this is not mandated</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Tstore</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Delay period for write to device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">#define EERAM_Tstore 25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25 (ms)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Trecall</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Delay period to read from device</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">#define EERAM_Trecall  5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 (ms)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The Great Cow BASIC commands for control of the device are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Command</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Context</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Example</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_AutoStore</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable Automatic Storage on power loss or Disable Automatic Storage on power loss</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_AutoStore(ON), or EERAM_AutoStore(OFF)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read the Status Register</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User_byte_variable = EERAM_Status()</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Backup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Backup / Store Now</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Backup()</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Recall</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restore Now</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Recall()</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_HWStore</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Force Backup with HS Pin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_HWStore()</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Write</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Write a Byte of Data to address at the specified address.  The address must be a word value and the data is byte value.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ERAM_Write( EERAM_Address_word, EERAM_Data_byte)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EERAM_Read</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read a Byte of Data from address.  The address must be a word value and returned data is byte value.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User_byte_variable = EERAM_Read(EERAM_Address_word)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>This example shows how to use the device.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #CHIP 16F18855,32
+    #OPTION EXPLICIT
+
+    #INCLUDE &lt;47XXX_EERAM.H&gt;
+
+    #startup InitPPS, 85
+
+    Sub InitPPS
+          'PPS is explicit to a specific chip.  Use PPSTool to ensure the PPS settings are correct.
+
+          'Module: EUSART
+              RC0PPS = 0x0010 'TX &gt; RC0
+              TXPPS  = 0x0008 'RC0 &gt; TX (bi-directional)
+          'Module: MSSP1
+              SSP1DATPPS = 0x0013 'RC3 &gt; SDA1
+              RC3PPS = 0x0015 'SDA1 &gt; RC3 (bi-directional)
+              RC4PPS = 0x0014 'SCL1 &gt; RC4
+              SSP1CLKPPS = 0x0014 'RC4 &gt; SCL1 (bi-directional)
+
+        End Sub
+
+    ; ----- Define Hardware Serial Print
+
+    #DEFINE USART_BAUD_RATE 115200
+    #DEFINE USART_TX_BLOCKING
+
+    ; ----- Define Hardware settings for hwi2c
+
+    #DEFINE HI2C_BAUD_RATE 400
+    #DEFINE HI2C_DATA  PORTC.3
+    #DEFINE HI2C_CLOCK PORTC.4
+
+    'I2C pins need to be input for legacy I2C modules
+    DIR HI2C_DATA  IN
+    DIR HI2C_CLOCK IN
+
+    'Initialise I2C Master
+    hi2cMode Master
+
+    ; ----- Define Hardware settings for EERAM Module
+
+    #define EERAM_I2C_Adr 0x30      ; EERAM base Address
+    #define EERAM_HS PortB.1        ; Optional hardware Store Pin
+
+    Dir EERAM_HS Out                ; Rising edge initiates Backup
+
+    'Library function
+    EERAM_AutoStore(ON)             ; Enable Automatic Storage on power loss
+
+    ; ----- Main body of program commences here.
+
+    dim Idx as Byte
+
+    HserPrintCRLF 2
+
+    HserPrint "Hardware I2C EERAM Read Test at I2C Adr 0x"
+    HserPrint  Hex(EERAM_I2C_Adr)
+    HserPrint  " Reading RAM addresses 0x0 to 0xF" : HserPrintCRLF 2
+
+    for Idx = 0x0 to 0xF
+
+      HserPrint hex(Idx) + " = " : HserPrint Hex(EERAM_Read(Idx))
+      If Idx = 7 or Idx = 0xf then
+        HserPrintCRLF
+      Else
+        HserPrint " : "
+      End if
+
+    next
+
+    HserPrintCRLF : HserPrint "Control Byte = " Hex(EERAM_Status()) : HserPrintCRLF 2
+
+    wait 100 ms                     ; time for serial operations to complete
+    end</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>For more help, see</strong> <a href="#_i2c_overview">Software I2C</a> or <a href="#_hi2c_overview">Hardware I2C</a></p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sram_device">SRAM  ( Device )</h4>
 <div class="paragraph">
 <p>This is the SRAM section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
 </div>
@@ -14766,7 +14800,7 @@ Display can operate in text mode only for low RAM microcontrollers using SRAM so
 <td class="tableblock halign-left valign-top"><p class="tableblock">26</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ST7789</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.0 Inch</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">240 * 240</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">240 * 240 or 320 * 240</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color TFT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI  PIC and AVR: Hardware and software SPI</p></td>
@@ -14803,6 +14837,21 @@ Display can operate in text mode only for low RAM microcontrollers using SRAM so
 <td class="tableblock halign-left valign-top"><p class="tableblock">Display is good, however, slower than comparable (size) GLCDs as the color definitions are four bytes ( typical color definitions are two bytes)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Acceptable GLCD performance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ST7567</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.9inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128 * 64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C and SPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software I2C, and, hardware software SPI.  Harware IC2 fails as the ST7567 does not comply witht the I2C standard.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+VCC from 3v3 to  5. GLCD I/O is ONLY 3v3. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.
+</p><p class="tableblock">I2C requires 2 ports.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3v3 but may support 5v0. Always check voltage specifications  Very good LCD display. Driver supports gaming. Minimum RAM required is 1024 bytes then add user variables for graphics mode.</p></td>
 </tr>
 </tbody>
 </table>
@@ -20124,8 +20173,8 @@ Parameter is dim value</p></td>
     ; ----- Define GLCD Hardware settings
     #define GLCD_TYPE GLCD_TYPE_SSD1306
     #define GLCD_I2C_Address 0x78
-    '#define GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE       'select Low Memory mode of operation
-    '#define GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY       'select Text mode of operation
+    '#define GLCD_TYPE_SH1306_LOWMEMORY_GLCD_MODE       'select Low Memory mode of operation
+    '#define GLCD_TYPE_SH1306_CHARACTER_MODE_ONLY       'select Text mode of operation
 
 
     ; ----- Define Hardware settings
@@ -21313,6 +21362,776 @@ specific attribute.</p></td>
 </div>
 </div>
 <div class="sect4">
+<h5 id="_st7567_controllers">ST7567 Controllers</h5>
+<div class="paragraph">
+<p>This section covers GLCD devices that use the ST7567 graphics controller.</p>
+</div>
+<div class="paragraph">
+<p>The ST7567 is a single-chip CMOS LCD driver with controller for organic / polymer light emitting diode dot-matrix graphic display system. It consists of 128 segments and 64 commons. This IC is designed for Common Cathode type LCD panel.</p>
+</div>
+<div class="paragraph">
+<p>ST7567 is a single-chip dot matrix LCD driver which incorporates LCD controller and common/segment drivers.
+A ST7567 can be connected directly to a microprocessor with I2C or 4-line serial interface (SPI-4).
+Display data sent from microprocessor is stored in the internal Display Data RAM (DDRAM) of 65x132 bits.
+The display data bits which are stored in DDRAM are directly related to the pixels of LCD panel.
+The ST7567 contains 132 segment-outputs, 64 common-outputs and 1 icon-common-output, however the address pixels are 128 * 64.
+The ST7567 has built-in oscillation circuit and low power consumption power circuit, ST7567 generates LCD driving signal without external clock or power, so that it is possible to make a display system with the fewest components and minimal power consumption.</p>
+</div>
+<div class="paragraph">
+<p>There are different types of ST75xx GLCDs.&#160;&#160;&#160;The table below shows the different types and the Great Cow BASIC support.</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Index</th>
+<th class="tableblock halign-left valign-top">GLCD MPU</th>
+<th class="tableblock halign-left valign-top">Interfaces</th>
+<th class="tableblock halign-left valign-top">Datasheet Ref</th>
+<th class="tableblock halign-left valign-top">Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ST7565</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Parallel 8080&amp;6080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ver 1.0a;Page 12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ST7565S</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Parallel 8080&amp;6080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ver 0.6b;Page 23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ST7567</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 Pin SPI;Parallel 8080&amp;6080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ver1.4b;Page 12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3&amp;4 Pin SPI</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ST7567S</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3&amp;4 Pin SPI;I2C;Parallel 8080&amp;6080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ver1.4;Page 17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3&amp;4 Pin SPI &amp; I2C</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ST7576</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3&amp;4 Pin SPI;I2C;Parallel 8080&amp;6080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ver1;Page 18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3&amp;4 Pin SPI &amp; I2C</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The ST7567 embeds with contrast control, display RAM and it is suitable for many compact portable applications, such as mobile phone sub-display, MP3 player and calculator, etc.</p>
+</div>
+<div class="paragraph">
+<p>The Great Cow BASIC constants shown below control the configuration of the ST7567 controller. &#160;&#160;&#160;Great Cow BASIC supports SPI and I2C software connectivity  - this is shown in the tables below.</p>
+</div>
+<div class="paragraph">
+<p>The ST7567 library supports 128 * 64 pixels.</p>
+</div>
+<div class="paragraph">
+<p>The ST7567 is a monochrome device.
+The library supports difference bias settings for the different types of LCD.
+See the constant <code>ST7567_BIAS</code> for the options.</p>
+</div>
+<div class="paragraph">
+<p>The ST7567 can operate in three modes. Full GLCD mode, Low Memory GLCD mode or Text/JPG mode the full GLCD mode requires a minimum of 1k bytes or 512 bytes for the 128x64 respectively in Full GLCD mode.  For microcontrollers with limited memory the third mode of operation - Text mode.  These can be selected by setting the correct constant.</p>
+</div>
+<div class="paragraph">
+<p>To use the ST7567 drivers simply include one of the following configuration.  You can select Full Mode GLCD, Low Memory Mode GLCD or Text mode these require 1024, 128 or 0 bytes GLCD buffer respectively - you microcontroller requires sufficient RAM to support the selected mode of GLCD operation.</p>
+</div>
+<div class="paragraph">
+<p>To use the ST7567 driver simply include the following in your user code.  This will initialise the driver.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'An I2C configuration
+    #include &lt;glcd.h&gt;
+
+    ; ----- Define GLCD Hardware settings
+    #define GLCD_TYPE GLCD_TYPE_ST7567
+    #define GLCD_I2C_Address 0x7E
+    #define ST7567_BIAS     ST7567_SET_BIAS_7    ' ST7567_SET_BIAS_7 or ST7567_SET_BIAS_9
+
+
+    ; ----- Define software IC2 settings
+    #DEFINE I2C_MODE MASTER
+    #DEFINE I2C_DATA PORTB.4
+    #DEFINE I2C_CLOCK PORTB.6
+    #DEFINE I2C_DISABLE_INTERRUPTS ON</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'An SPI configuration'
+    #include &lt;glcd.h&gt;
+
+    ; ----- Define GLCD Hardware settings
+    #define GLCD_TYPE GLCD_TYPE_ST7567
+
+    ; ----- Define Hardware settings
+    #define S4Wire_DATA
+
+    #define MOSI_ST7567 PortB.1
+    #define SCK_ST7567  PortB.2
+    #define DC_ST7567   PortB.3
+    #define CS_ST7567   PortB.4
+    #define RES_ST7567  PortB.5</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Great Cow BASIC constants for control display characteristics are shown in the table below.</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Constants</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Controls</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Options</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE_ST7567</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_I2C_Address</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C address of the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required defaults to 0x7E</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The Great Cow BASIC constants for SPI/S4Wire control display characteristics are shown in the table below.</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Constants</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Controls</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Options</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE_ST7567</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required to support 128 * 64 pixels.  Mutualy exclusive to GLCD_TYPE_ST7567_32</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ST7567_BIAS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bias ratio of the voltage required to driving the LCD at a fixes duty of 1/65 ( see the datasheet)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defaults to <code>ST7567_SET_BIAS_7</code>.  Can be either <code>ST7567_SET_BIAS_7</code> or <code>ST7567_SET_BIAS_9</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>S4Wire_Data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 wire SPI Mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>MOSI_ST7567</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies output pin connected to serial data in D1 pin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SCK_ST7567</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies output pin connected to serial clock D0 pin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DC_ST7567</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies output pin connected to data control DC pin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CS_ST7567</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies output pin connected to chip select CS pin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>RES_ST7567</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies output pin connected to reset RES pin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be defined</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The Great Cow BASIC constants for control display characteristics are shown in the table below.</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Constants</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Controls</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Default</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_WIDTH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The width parameter of the GLCD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>128</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_HEIGHT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The height parameter of the GLCD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>64</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_PROTECTOVERRUN</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Define this constant to restrict pixel operations with the pixel limits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE_ST7567_CHARACTER_MODE_ONLY</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies that the display controller will operate in text mode and BMP
+draw mode only.<br>
+For microcontrollers with low RAM this will be set be
+default.<br>
+When selected ONLY text related commands are suppored. For grapical commands you must have sufficient memory to use Full GLCD mode or use <code>GLCD_TYPE_ST7567_LOWMEMORY_GLCD_MODE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE_ST7567_LOWMEMORY_GLCD_MODE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies that the display controller will operate in Low Memory mode.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_OLED_FONT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the use of the optional OLED font set.
+</p><p class="tableblock">The GLCDfntDefaultsize can be set to 1 or 2 only.
+</p><p class="tableblock"><code>GLCDfntDefaultsize=  1</code>.   A small 8 height pixel font with variable width.
+<code>GLCDfntDefaultsize=  2</code>.   A larger 10 width * 16 height pixel font.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The Great Cow BASIC variables for control display characteristics are shown in the table below.
+These variables control the user definable parameters of a specific GLCD.</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Variable</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Purpose</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDBackground</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GLCD background state.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A monochrome value.<br>
+For mono GLCDs the default is White or 0x0001.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDForeground</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Color of GLCD foreground.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A monochrome value.<br>
+For mono GLCDs the default is non-white or 0x0000.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDFontWidth</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Width of the current GLCD font.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default is 6 pixels.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDfntDefault</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Size of the current GLCD font.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default is 0.
+</p><p class="tableblock"></p><p class="tableblock">This equates to the standard GCB font set.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDfntDefaultsize</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Size of the current GLCD font.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default is 1.
+</p><p class="tableblock"></p><p class="tableblock">This equates to the 8 pixel high.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The Great Cow BASIC commands supported for this GLCD are shown in the
+table below.</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Command</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Purpose</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Example</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDCLS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clear screen of GLCD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDCLS</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDPrint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Print string of characters on GLCD using GCB font set</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDPrint( Xposition, Yposition, Stringvariable )</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDDrawChar</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Print character on GLCD using GCB font set</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDDrawChar( Xposition, Yposition, CharCode )</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDDrawString</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Print characters on GLCD using GCB font set</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDDrawString( Xposition, Yposition, Stringvariable )</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Box</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Draw a box on the GLCD to a specific size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Box ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In
+LineColour as 0 or 1] )</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FilledBox</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Draw a box on the GLCD to a specific size that is filled with the
+foreground colour.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FilledBox (Xposition1, Yposition1, Xposition2, Yposition2, [Optional In
+LineColour 0 or 1] )</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Line</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Draw a line on the GLCD to a specific length that is filled with the
+specific attribute.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Line ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In
+LineColour 0 or 1] )</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PSet</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set a pixel on the GLCD at a specific position that is set with the
+specific attribute.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PSet(Xposition, Yposition, Pixel Colour 0 or 1)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDWriteByte</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set a byte value to the controller, see the datasheet for usage.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDWriteByte (LCDByte)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDReadByte</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read a byte value from the controller, see the datasheet for usage.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bytevariable = GLCDReadByte</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_Open_PageTransaction</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Commence a series of GLCD commands when in low memory mode.  Must be followed a  <code>GLCD_Close_PageTransaction</code> command.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_Close_PageTransaction 0, 7</code> where 0 and 7 are the range of pages to be updated</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_Close_PageTransaction</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Commence a series of GLCD commands when in low memory mode.  Must follow a <code>GLCD_Open_PageTransaction</code> command.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The Great Cow BASIC specific commands for this GLCD are shown in the table below.</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDSetContrast ( dim_state )</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the constrast between 0 and 255. The contrast increases as the value increases.<br>
+Parameter is dim value</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>This example shows how to drive a ST7567 based Graphic I2C LCD module with the built in commands of Great Cow BASIC using Full Mode GLCD</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #CHIP 18F26Q71
+    #OPTION Explicit
+
+    #startup InitPPS, 85
+        #define PPSToolPart 18F26Q71
+
+        Sub InitPPS
+            // Ensure PPS is NOT set for Software I2C
+            UNLOCKPPS
+            RB6PPS = 0
+            RB4PPS = 0
+        End Sub
+        'Template comment at the end of the config file
+
+
+    '' -------------------PORTA----------------
+    '' Bit#:  -7---6---5---4---3---2---1---0---
+    '' IO:   ----------------------------------
+    ''-----------------------------------------
+    ''
+
+    '' -------------------PORTB----------------
+    '' Bit#:  -7---6---5---4---3---2---1---0---
+    '' IO:    ----SCL-----SDA------------------
+    ''-----------------------------------------
+    ''
+
+    '' ------------------PORTC-----------------
+    '' Bit#:  -7---6---5---4---3---2---1---0---
+    '' IO:    ---------------------------------
+    ''-----------------------------------------
+
+    ' Define Software I2C settings
+        #DEFINE I2C_MODE MASTER
+        #DEFINE I2C_DATA PORTB.4
+        #DEFINE I2C_CLOCK PORTB.6
+        #DEFINE I2C_DISABLE_INTERRUPTS ON
+
+    '*****************************************************************************************************
+    'Main program commences here.. everything before this is setup for the chip.
+
+        Dim DeviceID As Byte
+        Dim DISPLAYNEWLINE As Byte
+
+        #include &lt;glcd.h&gt;
+        #DEFINE GLCD_TYPE GLCD_TYPE_ST7567
+        #DEFINE GLCDDIRECTION INVERTED
+
+    ; ----- Define variables
+        Dim BYTENUMBER, CCOUNT as Byte
+
+        CCount = 0
+        dim longNumber as long
+        longNumber = 123456 ' max value = 4294967290
+        dim wordNumber as Word
+        dim outstring as string
+        wordNumber = 0
+        byteNumber = 0
+
+    ; ----- Main program
+
+        GLCDPrint 0, 0,   "Great Cow BASIC"
+        GLCDPrint (0, 16, "Anobium 2023")
+        GLCDPrint (0, 32, "Portability Demo")
+        GLCDPrint (0, 48, ChipNameStr )
+
+        wait 3 s
+        GLCDCLS
+
+        ' Prepare the static components of the screen
+        GLCDPrint ( 2,   2, "PrintStr")                                   ; Print some text
+        GLCDPrint ( 64,  2, "@")                                          ; Print some more text
+        GLCDPrint ( 72,  2, ChipMhz)                                      ; Print chip speed
+        GLCDPrint ( 86, 2, "Mhz")                                         ; Print some text
+        GLCDDrawString( 2,10,"DrawStr")                                    ; Draw some text
+        box 0,0,GLCD_WIDTH-1, GLCD_HEIGHT-1                               ; Draw a box
+        box GLCD_WIDTH-5, GLCD_HEIGHT-5,GLCD_WIDTH-1, GLCD_HEIGHT-1       ; Draw a box
+        Circle( 44,41,15)                                                 ; Draw a circle
+        line 64,31,0,31                                                   ; Draw a line
+
+        DO forever
+
+            for CCount = 32 to 127
+
+                GLCDPrint ( 64 ,  36,  hex(longNumber_E ) )                 ; Print a HEX string
+                GLCDPrint ( 76 ,  36,  hex(longNumber_U ) )                 ; Print a HEX string
+                GLCDPrint ( 88 ,  36,  hex(longNumber_H ) )                 ; Print a HEX string
+                GLCDPrint ( 100 ,  36, hex(longNumber   ) )                 ; Print a HEX string
+                GLCDPrint ( 112 ,  36, "h" )                                ; Print a HEX string
+
+
+                GLCDPrint ( 64 ,  44, pad(str(wordNumber), 5 ) )           ; Print a padded string
+                GLCDPrint ( 64 ,  52, pad(str(byteNumber), 3 ) )           ; Print a padded string
+
+
+                box (46,9,56,19)                                           ; Draw a Box
+                GLCDDrawChar(48, 10, CCount )                               ; Draw a character
+                outString = str( CCount )                                  ; Prepare a string
+                GLCDDrawString(64, 10, pad(outString,3) )                   ; Draw a string
+
+                filledbox 3,43,11,51, wordNumber                           ; Draw a filled box
+
+                FilledCircle( 44,41,9, longNumber xor 1)                   ; Draw a filled box
+                line 0,63,64,31                                            ; Draw a line
+
+                                                                            ; Do some simple maths
+                longNumber = longNumber + 7 : wordNumber = wordNumber + 3 : byteNumber++
+            NEXT
+        LOOP
+        end</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br>
+This example shows how to drive a ST7567 based Graphic I2C LCD module with the built in commands of Great Cow BASIC using Low Memory Mode GLCD.
+<br>
+Note the use of <code>GLCD_Open_PageTransaction</code> and <code>GLCD_Close_PageTransaction</code> to support the Low Memory Mode of operation and the contraining of all GLCD commands with the transaction commands.  The use Low Memory Mode GLCD the two defines <code>GLCD_TYPE_ST7567_LOWMEMORY_GLCD_MODE</code> and <code>GLCD_TYPE_ST7567_CHARACTER_MODE_ONLY</code> are included in the user program.
+<br></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #chip {any valid chip}
+    #include &lt;glcd.h&gt;
+
+    ; ----- Define Hardware settings
+    ' Define I2C settings
+    #DEFINE I2C_MODE MASTER
+    #DEFINE I2C_DATA PORTB.4
+    #DEFINE I2C_CLOCK PORTB.6
+    #DEFINE I2C_DISABLE_INTERRUPTS ON
+
+    ; ----- Define GLCD Hardware settings
+    #define GLCD_TYPE GLCD_TYPE_ST7567  'for 128 * 64 pixels support
+    #define GLCD_I2C_Address 0x7E
+    #define GLCD_TYPE_ST7567_LOWMEMORY_GLCD_MODE
+    #define GLCD_TYPE_ST7567_CHARACTER_MODE_ONLY
+
+    dim outString as string * 21
+
+    GLCDCLS
+
+    'To clarify - page udpates
+    '0,7 correspond with the Text Lines from 0 to 7 on a 64 Pixel Display
+    'In this example Code would be GLCD_Open_PageTransaction 0,1 been enough
+    'But it is allowed to use GLCD_Open_PageTransaction 0,7 to show the full screen update
+    GLCD_Open_PageTransaction 0,7
+       GLCDPrint 0, 0, "Great Cow BASIC"
+       GLCDPrint (0, 16, "Anobium 2023")
+    GLCD_Close_PageTransaction
+    wait 3 s
+    DO forever
+
+      for CCount = 31 to 127
+
+        outString = str( CCount ) ; Prepare a string
+
+        GLCD_Open_PageTransaction 0,7
+
+           ' Prepare the static components of the screen
+           GLCDPrint ( 0,   0, "PrintStr") ; Print some text
+           GLCDPrint ( 64,  0, "@")
+           ; Print some more text
+           GLCDPrint ( 72,  0, ChipMhz) ; Print chip speed
+           GLCDPrint ( 86, 0, "Mhz") ; Print some text
+           GLCDDrawString( 0,8,"DrawStr") ; Draw some text
+           box 0,0,GLCD_WIDTH-1, GLCD_HEIGHT-1 ; Draw a box
+           box GLCD_WIDTH-5, GLCD_HEIGHT-5,GLCD_WIDTH-1, GLCD_HEIGHT-1 ; Draw a box
+           Circle( 44,41,15) ; Draw a circle
+           line 64,31,0,31 ; Draw a line
+
+           GLCDPrint ( 64 ,  36,  hex(longNumber_E ) ) ; Print a HEX string
+           GLCDPrint ( 76 ,  36,  hex(longNumber_U ) ) ; Print a HEX string
+           GLCDPrint ( 88 ,  36,  hex(longNumber_H ) ) ; Print a HEX string
+           GLCDPrint ( 100 ,  36, hex(longNumber   ) ) ; Print a HEX string
+           GLCDPrint ( 112 ,  36, "h" ) ; Print a HEX string
+
+           GLCDPrint ( 64 ,  44, pad(str(wordNumber), 5 ) ) ; Print a padded string
+           GLCDPrint ( 64 ,  52, pad(str(byteNumber), 3 ) ) ; Print a padded string
+
+           box (46,8,56,19) ; Draw a Box
+           GLCDDrawChar(48, 9, CCount ) ; Draw a character
+
+           GLCDDrawString(64, 9, pad(outString,3) ) ; Draw a string
+
+           filledbox 3,43,11,51, wordNumber ; Draw a filled box
+
+           FilledCircle( 44,41,9, longNumber xor 1) ; Draw a filled box
+           line 0,63,64,31 ; Draw a line
+
+        GLCD_Close_PageTransaction
+
+        ; Do some simple maths
+        longNumber = longNumber + 7 : wordNumber = wordNumber + 3 : byteNumber++
+       NEXT
+    LOOP
+    end</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+This example shows how to drive a ST7567 based Graphic SPI LCD module with the built in commands of Great Cow BASIC.
+<br></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #chip  {any valid chip}
+    #include &lt;glcd.h&gt;
+
+    'Defines for a 7 pin SPI module
+    'RES pin is pulsed low in glcd_ST7567.h for proper startup
+    #define MOSI_ST7567 PortB.1
+    #define SCK_ST7567 PortB.2
+    #define DC_ST7567 PortB.3
+    #define CS_ST7567 PortB.4
+    #define RES_ST7567 PortB.5
+    ; ----- Define GLCD Hardware settings
+    #define GLCD_TYPE GLCD_TYPE_ST7567   'for 128 * 64 pixels support
+    #define S4Wire_DATA
+
+    dim longnumber as Long
+    longnumber = 123456
+    dim wordnumber as word
+    wordnumber = 62535
+    dim bytenumber as Byte
+    bytenumber =255
+
+    #define led PortB.0
+    dir led out
+
+
+    Do
+         SET led ON
+         wait 1 s
+         SET led OFF
+
+        GLCDCLS
+        GLCDPrint (30, 0, "Hello World!")
+        Circle (18,24,10)
+        FilledCircle (48,24,10)
+        Box (70,14,90,34)
+        FilledBox (106,14,126,34)
+        GLCDDrawString (32,35,"Draw String")
+        GLCDPrint (0,46,longnumber)
+        GLCDPrint (94,46,wordnumber)
+        GLCDPrint (52,55,bytenumber)
+        Line (0,40,127,63)
+        Line (0,63,127,40)
+        wait 3 s
+
+    Loop</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+This example shows how to drive a ST7567 with the OLED fonts.  Note the use of the <code>GLCDfntDefaultSize</code> to select the size of the OLED font in use.
+<br></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #define GLCD_OLED_FONT
+
+    GLCDfntDefaultSize = 2
+    GLCDFontWidth = 5
+    GLCDPrint ( 40, 0, "OLED" )
+    GLCDPrint ( 0, 18, "Typ:  ST7567" )
+    GLCDPrint ( 0, 34, "Size: 128x64" )
+
+    GLCDfntDefaultSize = 1
+    GLCDPrint(20, 56,"https://goo.gl/gjrxkp")</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+This example shows how to set the ST7567 OLED the lowest constrast level by using a OLED chip specific command.
+<br></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Use the GCB command to set the lowest constrast
+    GLCDSetContrast ( 0 )
+
+    GLCDfntDefaultSize = 2
+    GLCDFontWidth = 5
+    GLCDPrint ( 40, 0, "OLED" )
+    GLCDPrint ( 0, 18, "Typ:  ST7567" )
+    GLCDPrint ( 0, 34, "Size: 128x64" )
+
+    GLCDfntDefaultSize = 1
+    GLCDPrint(20, 56,"https://goo.gl/gjrxkp")</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
+<div class="paragraph">
+<p>This example shows how to disable the large OLED Fontset.  This disables the font to reduce memory usage.</p>
+</div>
+<div class="paragraph">
+<p>When the large OLED fontset is disabled every character will be shown as a block character.
+<br></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #define GLCD_OLED_FONT                'The constant is required to support OLED fonts
+    #define GLCD_Disable_OLED_FONT2       'The constant to disable the large fontset.
+
+    GLCDfntDefaultSize = 2
+    GLCDFontWidth = 5
+    GLCDPrint ( 40, 0, "OLED" )
+    GLCDPrint ( 0, 18, "Typ:  ST7567" )
+    GLCDPrint ( 0, 34, "Size: 128x64" )
+
+    GLCDfntDefaultSize = 1
+    GLCDPrint(20, 56,"https://goo.gl/gjrxkp")</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
+<div class="paragraph">
+<p><strong>For more help, see</strong>
+<a href="#_glcdcls">GLCDCLS</a>, <a href="#_glcddrawchar">GLCDDrawChar</a>, <a href="#_glcdprint">GLCDPrint</a>, <a href="#_glcdreadbyte">GLCDReadByte</a>, <a href="#_glcdwritebyte">GLCDWriteByte</a> or <a href="#_pset">Pset</a></p>
+</div>
+<div class="paragraph">
+<p>Supported in &lt;GLCD.H&gt;</p>
+</div>
+</div>
+<div class="sect4">
 <h5 id="_st7735_controllers">ST7735 Controllers</h5>
 <div class="paragraph">
 <p>This section covers GLCD devices that use the ST7735 graphics controller.  The ST7735 or ST7735R is a single-chip controller/driver for 262K-color, graphic type TFT-LCD.</p>
@@ -21600,7 +22419,7 @@ GLCD_SCK porta.5
 <div class="sect4">
 <h5 id="_st7789_controllers">ST7789 Controllers</h5>
 <div class="paragraph">
-<p>This section covers GLCD devices that use the ST7789 graphics controller.  The ST7789 is a TFT LCD Single Chip Driver with 240RGBx240 Resolution and 65K colors.</p>
+<p>This section covers GLCD devices that use the ST7789 graphics controller.  The ST7789 is a TFT LCD Single Chip Driver with 240x240 or 320x240 Resolution and 65K colors.</p>
 </div>
 <div class="paragraph">
 <p>Great Cow BASIC supports 65K-color mode operations.</p>
@@ -21614,7 +22433,8 @@ GLCD_SCK porta.5
 <div class="listingblock">
 <div class="content">
 <pre>    #include &lt;glcd.h&gt;
-    #DEFINE GLCD_TYPE GLCD_TYPE_ST7789_240_240
+    #DEFINE GLCD_TYPE       GLCD_TYPE_ST7789_240_240
+    //  #DEFINE GLCD_TYPE   GLCD_TYPE_ST7789_320_240
 
     'Pin mappings for ST7789 - these MUST be specified
     #define GLCD_DC     porta.0           'example port setting
@@ -21646,8 +22466,8 @@ GLCD_SCK porta.5
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE_ST7789_240_240</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE_ST7789_240_240</code> or <code>GLCD_TYPE_ST7789_320_240</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Select one option to set geometry</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_DC</code></p></td>
@@ -21715,7 +22535,7 @@ MASTERULTRAFAST for specific AVRs only.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_WIDTH</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The width parameter of the GLCD</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>320</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>320</code> or <code>240</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_HEIGHT</code></p></td>
@@ -21849,7 +22669,58 @@ MASTERULTRAFAST for specific AVRs only.</p></td>
 <p>This example shows how to drive a ST7789 based Graphic LCD module with the built in commands of Great Cow BASIC.</p>
 </div>
 <div class="paragraph">
+<p>The library support PIC, AVR and LGT - change to suit your configuration.</p>
+</div>
+<div class="paragraph">
 <p><strong>Example #1</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #chip LGT8F328P
+    #include &lt;LGT8F328P.h&gt;
+    #option explicit
+
+    #include &lt;glcd.h&gt;
+    #include &lt;glcd_st7789.h&gt;
+    #define ST7789_HardwareSPI
+    #define HWSPIMode MASTERULTRAFAST
+
+    // Can be either pixels geometry
+        #define GLCD_TYPE GLCD_TYPE_ST7789_240_240
+        //#define GLCD_TYPE GLCD_TYPE_ST7789_320_240
+
+    //Pin mappings for SPI - this GLCD driver supports Hardware SPI and Software SPI
+    #define GLCD_DC       DIGITAL_8           ' Data command line
+    #define GLCD_CS       DIGITAL_10          ' Chip select line
+    #define GLCD_RESET    DIGITAL_9           ' Reset line
+    #define GLCD_DI       DIGITAL_12          ' Data in | MISO    - Not used therefore not really required
+    #define GLCD_DO       DIGITAL_11          ' Data out | MOSI
+    #define GLCD_SCK      DIGITAL_13          ' Clock Line
+
+    #define GLCD_EXTENDEDFONTSET1
+    GLCDBackground = TFT_BLACK
+    GLCDCLS TFT_BLACK
+
+    GLCDfntDefaultsize = 2
+
+    GLCDRotate Portrait_Rev
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)
+
+    GLCDRotate Portrait
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)
+
+    GLCDROTATE Landscape
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)
+
+    GLCDROTATE Landscape_Rev
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example #2</strong></p>
+</div>
+<div class="paragraph">
+<p>This example shows how to drive a ST7789 using a PIC with PPS.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -21874,7 +22745,8 @@ MASTERULTRAFAST for specific AVRs only.</p></td>
     ' ********************** Setup the GLCD ************************************************
 
         #INCLUDE &lt;glcd.h&gt;
-        #define GLCD_TYPE     GLCD__TYPE_ST7789_240_240
+        #define GLCD_TYPE        GLCD__TYPE_ST7789_240_240
+        // #define GLCD_TYPE     GLCD__TYPE_ST7789_320_240
 
 
         'This is a PPS chip, so, need to make the DO/SDO &amp; SCK match the PPS assignments
@@ -21899,8 +22771,10 @@ MASTERULTRAFAST for specific AVRs only.</p></td>
 <p><br></p>
 </div>
 <div class="paragraph">
-<p><strong>Example #2</strong>
-This example shows how to drive a ILI3941 with the OLED fonts.  Note the use of the <code>GLCDfntDefaultSize</code> to select the size of the OLED font in use.
+<p><strong>Example #3</strong></p>
+</div>
+<div class="paragraph">
+<p>This example shows how to drive a ILI3941 with the OLED fonts.  Note the use of the <code>GLCDfntDefaultSize</code> to select the size of the OLED font in use.
 <br></p>
 </div>
 <div class="listingblock">
@@ -21911,7 +22785,7 @@ This example shows how to drive a ILI3941 with the OLED fonts.  Note the use of 
     GLCDFontWidth = 5
     GLCDPrint ( 40, 0, "OLED" )
     GLCDPrint ( 0, 18, "Typ:  ST7789" )
-    GLCDPrint ( 0, 34, "Size: 240 x 240" )
+    GLCDPrint ( 0, 34, "Size: "+ Str(GLCD_WIDTH) +" x 240" )
 
     GLCDfntDefaultSize = 1
     GLCDPrint(20, 56,"https://goo.gl/gjrxkp")</pre>
@@ -21921,12 +22795,13 @@ This example shows how to drive a ILI3941 with the OLED fonts.  Note the use of 
 <p><br></p>
 </div>
 <div class="paragraph">
-<p><strong>Example #2</strong>
-This example shows how to disable the large OLED Fontset.  This disables the font to reduce memory usage.</p>
+<p><strong>Example #4</strong></p>
 </div>
 <div class="paragraph">
-<p>When the extended OLED fontset is disabled every character will be shown as a block character.
-<br></p>
+<p>This example shows how to disable the large OLED Fontset.  This disables the font to reduce memory usage.</p>
+</div>
+<div class="paragraph">
+<p>When the extended OLED fontset is disabled every character will be shown as a block character.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -21937,7 +22812,7 @@ This example shows how to disable the large OLED Fontset.  This disables the fon
     GLCDFontWidth = 5
     GLCDPrint ( 40, 0, "OLED" )
     GLCDPrint ( 0, 18, "Typ:  ST7789" )
-    GLCDPrint ( 0, 34, "Size: 240 x 240" )
+    GLCDPrint ( 0, 34, "Size: "+ Str(GLCD_WIDTH) +" x 240" )
 
     GLCDfntDefaultSize = 1
     GLCDPrint(20, 56,"https://goo.gl/gjrxkp")</pre>
@@ -21966,7 +22841,7 @@ pins are connected between the microcontroller and the GLCD to control the
 data bus.<br></p>
 </div>
 <div class="paragraph">
-<p>The ST7920 GLCD is graphica and character mixed mode display.<br></p>
+<p>The ST7920 GLCD is graphics and character mixed mode display.<br></p>
 </div>
 <div class="paragraph">
 <p>ST7920 LCD controller/driver IC can display alphabets, numbers, Chinese
@@ -22049,15 +22924,9 @@ The R/W pin can be disabled*.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_ENABLE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_ENABLE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Enable on the GLCD.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ST7920WriteDelay</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set the time delay between data transmissions.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Required, set to <code>20 us</code> for <code>32Mhz</code> support. Can be reduced for slower chip
-speeds.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_NO_RW</code></p></td>
@@ -22068,6 +22937,23 @@ The R/W pin can be disabled by setting the <code>GLCD_NO_RW</code> constant. If 
 is done, there is no need for the <code>R/W</code> to be connected to the chip, and
 no need for the <code>LCD_RW</code> constant to be set. Ensure that the <code>R/W</code> line on
 the LCD is connected to ground if not used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Constants that control the timing of the library</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ST7920READDELAY</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set the time delay between read data transmissions.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional, set to <code>20</code> us as the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ST7920WRITEDELAY</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set the time delay between write data transmissions.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional, set to <code>2</code> us as the default value.
+</p><p class="tableblock"></p><p class="tableblock">    ' read delay of 25 is required at 32mhz, this can be reduced to 0 for slower clock speeds
+    #DEFINE ST7920READDELAY 25
+    ' write delay of 2 is required at 32mhz.  this can be reduced to 1 for slower clock speeds
+    #DEFINE ST7920WRITEDELAY 2</p></td>
 </tr>
 </tbody>
 </table>
@@ -22084,26 +22970,19 @@ the LCD is connected to ground if not used.</p></td>
 <tr>
 <th class="tableblock halign-left valign-top"><strong>Constants</strong></th>
 <th class="tableblock halign-left valign-top"><strong>Controls</strong></th>
-<th class="tableblock halign-center valign-top"><strong>Default</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Default</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_WIDTH</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The width parameter of the GLCD</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>128</code><br>
- Cannot be changed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>128</code>&#160;&#160;cannot be changed.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_HEIGHT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The height parameter of the GLCD</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>64</code><br>
-Cannot be changed.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDFontWidth</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the font width of the Great Cow BASIC font set.</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>6</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>64</code>&#160;&#160;cannot be changed.</p></td>
 </tr>
 </tbody>
 </table>
@@ -22173,6 +23052,10 @@ specific attribute.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>PSet(Xposition, Yposition, Pixel Colour 0 or 1)</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The following methods ( calls ) are available for expert use.
+<br></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDWriteByte</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Set a byte value to the controller, see the datasheet for usage.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDWriteByte (LCDByte)</code></p></td>
@@ -22200,35 +23083,32 @@ details, this is an external web site.</p>
 <div class="listingblock">
 <div class="content">
 <pre>    ;Chip Settings
-    #chip 16F1937,32
-    #config  MCLRE_ON
+    #CHIP 16F1937,32
+    #CONFIG  MCLRE_ON
 
-    #include &lt;glcd.h&gt;
-
-    #define GLCD_TYPE GLCD_TYPE_ST7920
-    #define GLCD_IO 8
-    #define GLCD_WIDTH 128
-    #define GLCD_HEIGHT 160
-    #define GLCDFontWidth 6
-
+    #INCLUDE &lt;GLCD.H&gt;
+    #DEFINE GLCD_TYPE GLCD_TYPE_ST7920
+    #DEFINE GLCD_IO 8
+    #DEFINE GLCD_WIDTH 128
+    #DEFINE GLCD_HEIGHT 160
     ' read delay of 25 is required at 32mhz, this can be reduced to 0 for slower clock speeds
-    #define ST7920ReadDelay 25
+    #DEFINE ST7920READDELAY 25
     ' write delay of 2 is required at 32mhz.  this can be reduced to 1 for slower clock speeds
-    #define ST7920WriteDelay 2
+    #DEFINE ST7920WRITEDELAY 2
 
-    #define GLCD_RS PORTa.0
-    #define GLCD_Enable PORTA.1
-    #define GLCD_RW PORTA.2
-    #define GLCD_RESET PORTA.3
-    #define GLCD_DATA_PORT PORTD
+    #DEFINE GLCD_RS PORTA.0
+    #DEFINE GLCD_ENABLE PORTA.1
+    #DEFINE GLCD_RW PORTA.2
+    #DEFINE GLCD_RESET PORTA.3
+    #DEFINE GLCD_DATA_PORT PORTD
 
     ST7920GLCDEnableGraphics
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
     GLCDPrint 0, 1, "Great Cow BASIC "
     wait 1 s
 
     GLCDCLS
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
 
     rrun = 0
     dim msg1 as string * 16
@@ -22238,7 +23118,7 @@ details, this is an external web site.</p>
 
     Do forever
         GLCDCLS
-        ST7920GLCDClearGraphics          ;clear screen
+        GLCDClearGraphics_ST7920          ;clear screen
         GLCDDrawString 30,0,"ChipMhz@"    ;print string
         GLCDDrawString 78,0, str(ChipMhz) ;print string
         Circle(10,10,10,0)            ;upper left
@@ -22251,10 +23131,10 @@ details, this is an external web site.</p>
         wait 1 s                  ;wait
         FilledBox( 0,0,128,63)          ;create box
         for ypos = 0 to 63              ;draw row by row
-             ST7920lineh 0,ypos,128, 0      ;draw line
+             Line 0,ypos,128, 0      ;draw line
         next
         wait 1 s                  ;wait
-        ST7920GLCDClearGraphics          ;clear
+        GLCDClearGraphics_ST7920          ;clear
     loop</pre>
 </div>
 </div>
@@ -22264,32 +23144,30 @@ details, this is an external web site.</p>
 <div class="listingblock">
 <div class="content">
 <pre>    ;Chip Settings
-    #chip 16F1937,32
-    #config MCLRE_ON
+    #CHIP 16F1937,32
+    #CONFIG MCLRE_ON
 
-    #include &lt;glcd.h&gt;
-
-    #define GLCD_TYPE GLCD_TYPE_ST7920
-    #define GLCD_IO 8
-    #define GLCD_WIDTH 128
-    #define GLCD_HEIGHT 160
-    #define GLCDFontWidth 6
+    #INCLUDE &lt;GLCD.H&gt;
+    #DEFINE GLCD_TYPE GLCD_TYPE_ST7920
+    #DEFINE GLCD_IO 8
+    #DEFINE GLCD_WIDTH 128
+    #DEFINE GLCD_HEIGHT 160
 
     ' read delay of 25 is required at 32mhz, this can be reduced to 0 for slower clock speeds
-    #define ST7920ReadDelay 25
+    #DEFINE ST7920READDELAY 25
     ' write delay of 2 is required at 32mhz.  this can be reduced to 1 for slower clock speeds
-    #define ST7920WriteDelay 2
+    #DEFINE ST7920WRITEDELAY 2
 
-    #define GLCD_RS PORTa.0
-    #define GLCD_Enable PORTA.1
-    #define GLCD_RW PORTA.2
-    #define GLCD_RESET PORTA.3
-    #define GLCD_DATA_PORT PORTD
+    #DEFINE GLCD_RS PORTA.0
+    #DEFINE GLCD_ENABLE PORTA.1
+    #DEFINE GLCD_RW PORTA.2
+    #DEFINE GLCD_RESET PORTA.3
+    #DEFINE GLCD_DATA_PORT PORTD
 
     WAIT 1 S
-    ST7920GLCDEnableGraphics
-    ST7920GLCDClearGraphics
-    ST7920Tile "A"
+    GLCDEnableGraphics_ST7920
+    GLCDClearGraphics_ST7920
+    Tile_ST7920 "A"
     GLCDPrint 0, 1, "Great Cow BASIC "
 
     GLCDCLS
@@ -22299,16 +23177,16 @@ details, this is an external web site.</p>
 
     do forever
 
-    ST7920GLCDEnableGraphics
-    ST7920GLCDClearGraphics
-    ST7920gTile 0x55, 0x55
+    GLCDEnableGraphics_ST7920
+    GLCDClearGraphics_ST7920
+    GTile_ST7920 0x55, 0x55
     wait 1 s
 
-    ST7920GLCDClearGraphics
-    ST7920Lineh(0, 0, GLCD_WIDTH)
-    ST7920Lineh(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
-    ST7920LineV(0, 0, GLCD_HEIGHT)
-    ST7920LineV(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
+    GLCDClearGraphics_ST7920
+    Lineh_ST7920(0, 0, GLCD_WIDTH)
+    Lineh_ST7920(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
+    Linev_ST7920(0, 0, GLCD_HEIGHT)
+    Linev_ST7920(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
 
     Box 18,30,28,40
 
@@ -22316,7 +23194,7 @@ details, this is an external web site.</p>
 
     FilledBox 18,30,28,40
 
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
 
     Start:
 
@@ -22335,13 +23213,13 @@ details, this is an external web site.</p>
     next
     FilledBox 18,30,28,40 'Draw Box Around ASCII Character
     Wait 1 s
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
     GLCDDrawString 0,10,"End  "
     wait 1 s
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
 
     workingGLCDDrawChar:
-    ST7920GLCDEnableGraphics
+    GLCDEnableGraphics_ST7920
     dim gtext as string
     gtext = "ST7920 @QC12864B"
 
@@ -22350,16 +23228,15 @@ details, this is an external web site.</p>
           GLCDDrawChar xxpos , 0 , gtext(xchar)
     next
 
-    GLCDDrawString  1, 9, "Great Cow BASIC @2021"
+    GLCDDrawString  1, 9, "Great Cow BASIC"
     GLCDDrawString  1, 18,"GLCD 128*64"
     GLCDDrawString  1, 27,"Using GLCD.H from GCB"
-    GLCDDrawString  1, 37,"Using GLCD.H GCB@2021"
+    GLCDDrawString  1, 37,"Using GLCD.H GCB"
     GLCDDrawString  1, 45,"GLCDDrawChar method"
-    'GLCDDrawString  1, 54,"ST7920 @QC12864B"
     GLCDDrawString  1, 54,"Test Routines"
     wait 1 s
 
-    ST7920GLCDClearGraphics
+    GLCDClearGraphics_ST7920
     ST7920GLCDDisableGraphics
     GLCDCLS
 
@@ -22375,7 +23252,6 @@ details, this is an external web site.</p>
     ' show all chars... takes some time!
     ST7920CallBuiltinChar
 
-    ST7920Tile ( 0xa9  )
     wait 1 s
     GLCDCLS
 
@@ -22399,86 +23275,72 @@ details, this is an external web site.</p>
     'Write 2 bytes of data into DDRAM to display one 16x16 font.
     'A140H~D75FH are BIG5 code, A1A0H~F7FFH are GB code.
 
-    for BIG5code = 0xA140 to 0xA1CF
-        ST7920cTile ( BIG5code  )
-        wait 5 ms
-      next
-    GLCDCLS
-
     'To display HCGROM fonts
     ' Write 2 bytes of data into DDRAM to display two 8x16 fonts. Each byte represents 1 character.
     ' The data is among 02H~7FH.
     ' The english characters set...
-    for HCGROM = 0x2h to 0x7f
-        ST7920Tile ( HCGROM  )
-        ST7920Tile ( HCGROM  )
-        wait 5 ms
-    next
-    GLCDCLS
 
     linetest1:
 
-      ST7920GLCDEnableGraphics
+      GLCDEnableGraphics_ST7920
 
-      ST7920gTile(0x55, 0x55)
       wait 1 s
-      ST7920GLCDClearGraphics
+      GLCDClearGraphics_ST7920
 
-    'linehtest:
-    '
-    ST7920LineH(0, 0, GLCD_WIDTH)
-    ST7920LineH(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
-    ST7920LineV(0, 0, GLCD_HEIGHT)
-    ST7920LineV(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
+    'lineh test
+    LineH_ST7920(0, 0, GLCD_WIDTH)
+    LineH_ST7920(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
+    LineV_ST7920(0, 0, GLCD_HEIGHT)
+    LineV_ST7920(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
 
-    box test
-    ST7920LineH(10 ,0 , 118 )
-    ST7920LineH(0 ,8 , 128)
-    ST7920LineH(16 ,16 , 96 )
-    ST7920LineH(10 ,32 , 108 )
-    ST7920LineH(0, 16, GLCD_WIDTH)
-    ST7920LineH(0, 24, GLCD_WIDTH)
-    ST7920LineH(0, 32, GLCD_WIDTH)
-    ST7920LineH(0, 40, GLCD_WIDTH)
-    ST7920LineH(0, 48, GLCD_WIDTH)
-    ST7920LineH(0, 56, GLCD_WIDTH)
-    ST7920LineH(0, 63, GLCD_WIDTH)
-    ST7920LineV(16, 0, GLCD_HEIGHT)
-    ST7920LineV(17, 0, GLCD_HEIGHT)
-    ST7920LineV(15, 0, GLCD_HEIGHT)
+    ' box test
+    LineH_ST7920(10 ,0 , 118 )
+    LineH_ST7920(0 ,8 , 128)
+    LineH_ST7920(16 ,16 , 96 )
+    LineH_ST7920(10 ,32 , 108 )
+    LineH_ST7920(0, 16, GLCD_WIDTH)
+    LineH_ST7920(0, 24, GLCD_WIDTH)
+    LineH_ST7920(0, 32, GLCD_WIDTH)
+    LineH_ST7920(0, 40, GLCD_WIDTH)
+    LineH_ST7920(0, 48, GLCD_WIDTH)
+    LineH_ST7920(0, 56, GLCD_WIDTH)
+    LineH_ST7920(0, 63, GLCD_WIDTH)
+    LineV_ST7920(16, 0, GLCD_HEIGHT)
+    LineV_ST7920(17, 0, GLCD_HEIGHT)
+    LineV_ST7920(15, 0, GLCD_HEIGHT)
 
-    ST7920LineV(46, 0, GLCD_HEIGHT)
-    ST7920LineV(47, 0, GLCD_HEIGHT)
-    ST7920LineV(48, 0, GLCD_HEIGHT)
+    LineV_ST7920(46, 0, GLCD_HEIGHT)
+    LineV_ST7920(47, 0, GLCD_HEIGHT)
+    LineV_ST7920(48, 0, GLCD_HEIGHT)
 
-    ST7920LineV(46, 0, GLCD_HEIGHT)
-    ST7920LineV(47, 0, GLCD_HEIGHT)
-    ST7920LineV(48, 0, GLCD_HEIGHT)
+    LineV_ST7920(46, 0, GLCD_HEIGHT)
+    LineV_ST7920(47, 0, GLCD_HEIGHT)
+    LineV_ST7920(48, 0, GLCD_HEIGHT)
 
-    ST7920LineV(96, 0, GLCD_HEIGHT)
-    ST7920LineV(97, 0, GLCD_HEIGHT)
-    ST7920LineV(98, 0, GLCD_HEIGHT
+    LineV_ST7920(96, 0, GLCD_HEIGHT)
+    LineV_ST7920(97, 0, GLCD_HEIGHT)
+    LineV_ST7920(98, 0, GLCD_HEIGHT)
 
     for HCGROM = 0 to GLCD_WIDTH step 8
-        ST7920LineV(HCGROM, 0, GLCD_HEIGHT)
+        LineV_ST7920(HCGROM, 0, GLCD_HEIGHT)
     next
 
     GraphicTestPlace:
 
-      ST7920GLCDClearGraphics
-      ST7920GraphicTest
-      ST7920GLCDClearGraphics
+      GLCDClearGraphics_ST7920
+      GraphicTest_ST7920
+      GLCDClearGraphics_ST7920
 
       ' Test draw a line
       for yrowpos = 0 to 63 step 4
-        ST7920LineH(0, yrowpos, GLCD_WIDTH)
+        LineH_ST7920(0, yrowpos, GLCD_WIDTH)
       next
 
-      ST7920GLCDClearGraphics
+      GLCDClearGraphics_ST7920
       ST7920GLCDDisableGraphics
       GLCDCLS
 
-      ST7920SetIcon( 1, 0x55 )
+      SetIcon_ST7920( 1, 0x55 )
 
     loop
 
@@ -22486,8 +23348,8 @@ details, this is an external web site.</p>
         ' 0xA140 ~ 0xA15F
           for ii = 0 to 31
 
-              ST7920WriteData( 0xA1)
-              ST7920WriteData( 0x40 + ii)
+              WriteData_ST7920( 0xA1)
+              WriteData_ST7920( 0x40 + ii)
 
           next
 
@@ -22498,8 +23360,8 @@ details, this is an external web site.</p>
           ' 0xA140 ~ 0xA15F
           for ii = 0 to 31
 
-              ST7920WriteData( 0xA1)
-              ST7920WriteData( 0xb0 + ii)
+              WriteData_ST7920( 0xA1)
+              WriteData_ST7920( 0xb0 + ii)
 
           next
           wait 1 s
@@ -22508,8 +23370,8 @@ details, this is an external web site.</p>
           ' 0xA140 ~ 0xA15F
           for ii = 0 to 31
 
-              ST7920WriteData( 0xA4)
-              ST7920WriteData( 0x40 + ii)
+              WriteData_ST7920( 0xA4)
+              WriteData_ST7920( 0x40 + ii)
 
           next
           wait 1 s
@@ -25171,36 +26033,39 @@ Passing a parameter of ADS7843_SetPrecision changes the precision controls.</p>
 <pre>    'Chip Settings
     #chip mega2560, 16
 
-
-    'Include
+    'Include for GLCD
     #include &lt;glcd.h&gt;
+
+    'Include for ADS7843
     #include  &lt;ADS7843.h&gt;
 
-
     'GLCD Device Selection
-    #define GLCD_TYPE GLCD_TYPE_SSD1289
-    #define GLCD_EXTENDEDFONTSET1
-    'Define ports for the SSD1289 display
-    #define GLCD_WR   PORTG.2
-    #define GLCD_CS   PORTG.1
-    #define GLCD_RS   PORTD.7
-    #define GLCD_RST  PORTG.0
-    #define GLCD_DB0  PORTC.0
-    #define GLCD_DB1  PORTC.1
-    #define GLCD_DB2  PORTC.2
-    #define GLCD_DB3  PORTC.3
-    #define GLCD_DB4  PORTC.4
-    #define GLCD_DB5  PORTC.5
-    #define GLCD_DB6  PORTC.6
-    #define GLCD_DB7  PORTC.7
-    #define GLCD_DB8  PORTA.0
-    #define GLCD_DB9  PORTA.1
-    #define GLCD_DB10 PORTA.2
-    #define GLCD_DB11 PORTA.3
-    #define GLCD_DB12 PORTA.4
-    #define GLCD_DB13 PORTA.5
-    #define GLCD_DB14 PORTA.6
-    #define GLCD_DB15 PORTA.7
+    #DEFINE GLCD_TYPE GLCD_TYPE_SSD1289
+    'Define ports for the SSD1289 display - ALL are required
+    #DEFINE GLCD_WR   PORTG.2
+    #DEFINE GLCD_CS   PORTG.1
+    #DEFINE GLCD_RS   PORTD.7
+    #DEFINE GLCD_RST  PORTG.0
+
+    #DEFINE GLCD_DB0  PORTC.0
+    #DEFINE GLCD_DB1  PORTC.1
+    #DEFINE GLCD_DB2  PORTC.2
+    #DEFINE GLCD_DB3  PORTC.3
+    #DEFINE GLCD_DB4  PORTC.4
+    #DEFINE GLCD_DB5  PORTC.5
+    #DEFINE GLCD_DB6  PORTC.6
+    #DEFINE GLCD_DB7  PORTC.7
+    #DEFINE GLCD_DB8  PORTA.0
+    #DEFINE GLCD_DB9  PORTA.1
+    #DEFINE GLCD_DB10 PORTA.2
+    #DEFINE GLCD_DB11 PORTA.3
+    #DEFINE GLCD_DB12 PORTA.4
+    #DEFINE GLCD_DB13 PORTA.5
+    #DEFINE GLCD_DB14 PORTA.6
+    #DEFINE GLCD_DB15 PORTA.7
+
+    'GLCD font control
+    #DEFINE GLCD_EXTENDEDFONTSET1
 
     'Define ports for ADS7843
     #define ADS7843_DOUT   PORTE.5  ' Arduino Mega D3
@@ -25212,20 +26077,27 @@ Passing a parameter of ADS7843_SetPrecision changes the precision controls.</p>
 
     Wait 100 ms
     num=0
-    Pset 1,  1, SSD1289_YELLOW
     Do Forever
 
+      'Library function
       if ADS7843_IRQ=0 then
+
          num++
          GLCDPrint  10, 15,  str(num),SSD1289_YELLOW, 2
+
+         'Libary sub routine - returns two variables
          ADS7843_GetXY ( TP_X , TP_Y )
+
          if TP_X&gt;=100 then GLCDPrint  100, 50, Str(TP_X),SSD1289_YELLOW, 2
          if TP_X&gt;=10 and TP_X&lt;100 then GLCDPrint  100, 50, Str(TP_X)+" ",SSD1289_YELLOW, 2
          if TP_X&lt;10 then GLCDPrint  100, 50,  Str(TP_X)+" ",SSD1289_YELLOW, 2
          if TP_Y&gt;=100 then GLCDPrint  100, 70, Str(TP_Y),SSD1289_YELLOW, 2
          if TP_Y&gt;=10 and TP_Y&lt;100 then GLCDPrint  100, 70, Str(TP_Y)+" ", SSD1289_YELLOW, 2
          if TP_Y&lt;10 then GLCDPrint  100, 70,  Str(TP_Y)+" ",SSD1289_YELLOW, 2
+
+         'Set the pixel to yellow using the GLCD PSET sub routine
          Pset TP_X,  TP_Y, SSD1289_YELLOW
+
       end if
       Wait 1 ms
 
@@ -26804,27 +27676,27 @@ to the top left corner of the screen</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    'A Flashing Hello World program for Great Cow BASIC
+<pre>        'A Flashing text "Hello World" program for Great Cow BASIC
 
-    'General hardware configuration
-    #chip 16F877A, 20
+        'General hardware configuration
+        #chip 16F877A, 20
 
-    'LCD connection settings
-    #define LCD_IO 8
-    #define LCD_DATA_PORT PORTC
-    #define LCD_RS PORTD.0
-    #define LCD_RW PORTD.1
-    #define LCD_Enable PORTD.2
-    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
+        'LCD connection settings
+        #define LCD_IO 8
+        #define LCD_DATA_PORT PORTC
+        #define LCD_RS PORTD.0
+        #define LCD_RW PORTD.1
+        #define LCD_Enable PORTD.2
+        #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
 
 
-    'Main routine
-    Do
-        Print "Hello World"
-        Wait 1 sec
-        CLS
-        Wait 1 sec
-    Loop</pre>
+        'Main routine
+        Do
+            Print "Hello World"
+            Wait 1 sec
+            CLS
+            Wait 1 sec
+        Loop</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -31269,7 +32141,7 @@ They often have a  colon LED&#160;&#160;</p>
 <p>A pre 2020 method <a href="#_7_segment_displays_legacy">7 segment legacy method</a></p>
 </li>
 <li>
-<p>A revised method <a href="#_7_segment_displays_tm1637">TM1637 method</a></p>
+<p>A revised method for <a href="#_7_segment_displays_tm1637_4_digits">TM1637 4 LEDs</a>, or, <a href="#_7_segment_displays_tm1637_6_digits">TM1637 6 LEDs</a></p>
 </li>
 </ul>
 </div>
@@ -31280,9 +32152,6 @@ They often have a  colon LED&#160;&#160;</p>
 <br>
 <br>
 <br></p>
-</div>
-<div class="paragraph">
-<p>*Also, see * <a href="#_7_segment_displays_legacy">7 segment legacy method</a> , <a href="#_7_segment_displays_tm1637">TM1637 method</a></p>
 </div>
 <div class="sect4">
 <h5 id="_7_segment_displays_legacy">7 Segment Displays - Legacy</h5>
@@ -31493,69 +32362,71 @@ must be set for each segment.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre> 'A Common Cathode 7 Segment display  2 digit example
+<pre>        'A Common Cathode 7 Segment display  2 digit example
+        #chip 16F886, 8
 
- #chip 16F886, 8
+        'support for Common Anode
+        '#DEFINE 7SEG_COMMONANODE
 
-    'support for Common Anode
-    '#define 7Seg_CommonAnode
+        'support for pfet or pnp high side drivers
+        '#DEFINE 7SEG_HIGHSIDE
 
-    'support for pfet or pnp high side drivers
-    '#define 7Seg_HighSide
+        ' ----- Constants
+        'You need to specify the port settings
+        'by one of the following three methods
+        'The Directions of the ports are automaically set according to the defines
 
-' ----- Constants
-    ' You need to specify the port settings
-    ' by one of the following three methods
-    'The Directions of the ports are automaically set according to the defines
-  '''METHOD 1  Define individual port pins for segments and selects
-    #define DISP_SEG_A PORTB.0
-    #define DISP_SEG_B PORTB.1
-    #define DISP_SEG_C PORTB.2
-    #define DISP_SEG_D PORTB.3
-    #define DISP_SEG_E PORTB.4
-    #define DISP_SEG_F PORTB.5
-    #define DISP_SEG_G PORTB.6
-    #define DISP_SEG_DOT PORTB.7 '' available on some displays as dp or colon
+        'METHOD 1
+        'Define individual port pins for segments and selects
 
-    #define DISP_SEL_1 PORTC.5
-    #define DISP_SEL_2 PORTC.4
+        #DEFINE DISP_SEG_A PORTB.0
+        #DEFINE DISP_SEG_B PORTB.1
+        #DEFINE DISP_SEG_C PORTB.2
+        #DEFINE DISP_SEG_D PORTB.3
+        #DEFINE DISP_SEG_E PORTB.4
+        #DEFINE DISP_SEG_F PORTB.5
+        #DEFINE DISP_SEG_G PORTB.6
+        #DEFINE DISP_SEG_DOT PORTB.7 '' available on some displays as dp or colon
 
-  '''METHOD 2  Define DISPLAYPORTA (B,C,D) for up to 4 digit display segments
-        ''Define DISPSELECTA (B,C,D) for up to 4 digit display selects
-    '#define DISPLAYPORTA PORTB   ' same port name can be assigned
-    '#define DISPLAYPORTB PORTB
+        #DEFINE DISP_SEL_1 PORTC.5
+        #DEFINE DISP_SEL_2 PORTC.4
 
-    '#define DispSelectA Set portC.5 off
-    '#define DispSelectB Set portC.4 off
-    '#define DispDeSelectA Set portC.5 on
-    '#define DispDeSelectB Set portC.4 on
+        'METHOD 2  Define DISPLAYPORTA (B,C,D) for up to 4 digit display segments
+        'Define DISPSELECTA (B,C,D) for up to 4 digit display selects
 
-  '''METHOD 3  Define DISPLAYPORTA (B,C,D) for up to 4 digit display segments
-        ''Define port pins for the digit display  selects
-    '#define DISPLAYPORTA PORTB
-    '#define DISPLAYPORTB PORTB
+        '#DEFINE DISPLAYPORTA PORTB   ' same port name can be assigned
+        '#DEFINE DISPLAYPORTB PORTB
 
-    '#define DISP_SEL_1 PORTC.5
-    '#define DISP_SEL_2 PORTC.4
+        '#DEFINE DispSelectA Set portC.5 off
+        '#DEFINE DispSelectB Set portC.4 off
+        '#DEFINE DispDeSelectA Set portC.5 on
+        '#DEFINE DispDeSelectB Set portC.4 on
 
+        'METHOD 3  Define DISPLAYPORTA (B,C,D) for up to 4 digit display segments
+        'Define port pins for the digit display  selects
 
+        '#DEFINE DISPLAYPORTA PORTB
+        '#DEFINE DISPLAYPORTB PORTB
 
-    Dim Message As String
-    Message = " HAPPY HOLIDAYS  "
-    Do
-    For Counter = 1 to len(Message)-1
-      Repeat 50
-        Displaychar 1, Message(Counter)
-        wait 3 ms
-        DisplayChar 2, Message(Counter+1)
-        wait 3 ms
-
-        end Repeat
+        '#DEFINE DISP_SEL_1 PORTC.5
+        '#DEFINE DISP_SEL_2 PORTC.4
 
 
-      Wait 100 ms
-    Next
-    Loop</pre>
+
+        Dim Message As String
+        Message = " HAPPY HOLIDAYS  "
+        Do
+            For Counter = 1 to len(Message)-1
+            Repeat 50
+                Displaychar 1, Message(Counter)
+                wait 3 ms
+                DisplayChar 2, Message(Counter+1)
+                wait 3 ms
+
+            End Repeat
+            Wait 100 ms
+            Next
+        Loop</pre>
 </div>
 </div>
 <div class="imageblock" style="text-align: center">
@@ -31669,8 +32540,7 @@ must be set for each segment.
 </div>
 <div class="paragraph">
 <p><strong>Also, see</strong>
-<a href="#_7_segment_displays_overview">7 Degment Display Overview</a>,
-<a href="#_displaychar">DisplayChar</a>, <a href="#_displayvalue">DisplayValue</a></p>
+<a href="#_7_segment_displays_overview">7 Degment Display Overview</a>,<a href="#_displaychar">DisplayChar</a>, <a href="#_displayvalue">DisplayValue</a></p>
 </div>
 </div>
 <div class="sect5">
@@ -37496,7 +38366,7 @@ appropriate resistor (typically 4.k @ 5.0v for 100Mkz transmissions).
 </table>
 <div class="paragraph">
 <p><br>
-<strong>Microchip I2C modules Specific Support - 18F class including the K42, K83 and Q10</strong></p>
+<strong>Microchip I2C modules Specific Support - 18F class including the K42, k47, K83, Q43, Q40/Q41, Q83/Q84, and Q71</strong></p>
 </div>
 <div class="paragraph">
 <p>Clock Sources: The Microchip I2C can select one of ten clocks sources as shown in the table below.  I2C1Clock_MFINTOSC is the default which supports 125KHz.
@@ -44362,109 +45232,106 @@ The array variant is then populated with data and then shown on a serial termina
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    ' Chip Settings and preamble
-    #CHIP  18f27q43
-    #OPTION Explicit
+<pre>        ' Chip Settings and preamble
+        #CHIP  18F27Q43
+        #OPTION EXPLICIT
 
 
-    'Generated by PIC PPS Tool for Great Cow Basic
-    'PPS Tool version: 0.0.6.2
-    'PinManager data: v1.81.0
-    'Generated for 18f27q43
-    '
-    'Template comment at the start of the config file
-    '
-    #startup InitPPS, 85
-    #define PPSToolPart 18f27q43
+        'Generated by PIC PPS Tool for Great Cow Basic - this explicit to a specific chip
+        #startup InitPPS, 85
+        #define PPSToolPart 18f27q43
 
-    Sub InitPPS
+        Sub InitPPS
 
-            'Module: UART pin directions
-            Dir PORTC.6 Out    ' Make TX1 pin an output
-            'Module: UART1
-            RC6PPS = 0x0020    'TX1 &gt; RC6
+                'Module: UART pin directions
+                Dir PORTC.6 Out    ' Make TX1 pin an output
+                'Module: UART1
+                RC6PPS = 0x0020    'TX1 &gt; RC6
 
-    End Sub
-    'Template comment at the end of the config file
+        End Sub
+        'Template comment at the end of the config file
 
-    ' USART settings for USART1
-    #DEFINE USART_BAUD_RATE 9600
-    #DEFINE USART_TX_BLOCKING
-    #DEFINE USART_DELAY 0
+        ' USART settings for USART1
+        #DEFINE USART_BAUD_RATE 9600
+        #DEFINE USART_TX_BLOCKING
+        #DEFINE USART_DELAY 0
 
-    '---------------------------
-    ' Main Program
+        '---------------------------
+        ' Main Program
 
-    #DEFINE BUFFERSIZE 256  ' gives range of 0 to 255
+        #DEFINE BUFFERSIZE 256  ' gives range of 0 to 255
 
-    'DIMension an ArrayVariant using ALLOC to create an ArrayVariant with the size of BUFFERSIZE.
-    'This array is created at memory location 0x2400. This memory location is specific to this chip ( you must ensure other microcontrollers address are valid).
+        'DIMension an ArrayVariant using ALLOC to create an ArrayVariant with the size of BUFFERSIZE.
+        'This array is created at memory location 0x2400.
+        'This memory location is specific to this chip ( you must ensure other microcontrollers address are valid).
 
-    Dim mybuffer1 as ALLOC * BUFFERSIZE at 0x2400
+        Dim mybuffer1 as ALLOC * BUFFERSIZE at 0x2400
 
-    'A data table
-    Table myDataTable
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-        0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
-    End Table
+        'A data table
+        Table myDataTable
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+            0,1,2,3,4,5,6,7,8,9,0x0A,0X0B,0X0C,0X0D,0X0E,0X0F
+        End Table
 
-    Dim iLoop, tableDataValue, memoryDataValue as byte
-    Dim mybuffer1startaddress, mybuffer1endaddress as word ' this ONLY required to demonstrate the showing of the address
+        Dim iLoop, tableDataValue, memoryDataValue as byte
 
-    mybuffer1startaddress = @mybuffer1
-    mybuffer1endaddress = mybuffer1startaddress + BUFFERSIZE - 1
+        'These varaibles are ONLY used to demonstrate the showing of the allocated memory address
+        Dim mybuffer1startaddress, mybuffer1endaddress as word
+
+        mybuffer1startaddress = @mybuffer1
+        mybuffer1endaddress = mybuffer1startaddress + BUFFERSIZE - 1
 
 
-    HSerPrintCRLF 2
-    HSerPrint "Buffer test - 256 bytes "
-    HSerPrint " at address: 0x"
-    HSerPrint hex( mybuffer1startaddress_h )
-    HSerPrint hex( mybuffer1startaddress )
-    HSerPrint " to 0x"
-    HSerPrint hex( mybuffer1endaddress_h )
-    HSerPrint hex( mybuffer1endaddress )
-    HSerPrintCRLF 2
+        HSerPrintCRLF 2
+        HSerPrint "Buffer test - 256 bytes "
+        HSerPrint " at address: 0x"
+        HSerPrint hex( mybuffer1startaddress_h )
+        HSerPrint hex( mybuffer1startaddress )
+        HSerPrint " to 0x"
+        HSerPrint hex( mybuffer1endaddress_h )
+        HSerPrint hex( mybuffer1endaddress )
+        HSerPrintCRLF 2
 
-    'Load buffer with table data
-    for iLoop = 0 to 255
-        ReadTable myDataTable, [word]iLoop+1, tableDataValue
-        mybuffer1( iLoop ) = tableDataValue
-    next
+        'Load buffer with table data
+        for iLoop = 0 to 255
+            ReadTable myDataTable, [word]iLoop+1, tableDataValue
+            mybuffer1( iLoop ) = tableDataValue
+        next
 
-    wait 100 ms
+        wait 100 ms
 
-    HserPrint "Print dataDump array to serial terminal"
-    HSerPrintCRLF
-    for iLoop = 0 to 255
-      HSerPrint leftpad(str( myBuffer1(iLoop)),3)
-      If iLoop % 16 = 15 Then HSerPrintCRLF
-    next
+        HserPrint "Print dataDump array to serial terminal"
+        HSerPrintCRLF
+        for iLoop = 0 to 255
+            HSerPrint leftpad(str( myBuffer1(iLoop)),3)
+            If iLoop % 16 = 15 Then HSerPrintCRLF
+        next
 
-    Wait 100 ms
-    HSerPrintCRLF
-    HserPrint "Print memory to serial terminal using PEEK to get the memory location byte value"
-    HSerPrintCRLF
-    for iLoop = 0 to 255
-      memoryDataValue = PEEK ( @myBuffer1+iLoop )
-      HSerPrint leftpad(str( memoryDataValue ) ,3)
-      If iLoop % 16 = 15 Then HSerPrintCRLF
-    next
-    HSerPrintCRLF
-    Wait 100 ms</pre>
+        Wait 100 ms
+        HSerPrintCRLF
+        HserPrint "Print memory to serial terminal using PEEK to get the memory location byte value"
+        HSerPrintCRLF
+        for iLoop = 0 to 255
+            memoryDataValue = PEEK ( @myBuffer1+iLoop )
+            HSerPrint leftpad(str( memoryDataValue ) ,3)
+            If iLoop % 16 = 15 Then HSerPrintCRLF
+        next
+        HSerPrintCRLF
+        Wait 100 ms</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -47703,8 +48570,10 @@ Any values of X and Y are usable including negative values provided they are bet
 <p>There are cases where a change of I/O position can make a circuit board easier to route Sometimes mistakes are found too late to fix so having the option to change a pinout mapping in software rather than creating a new printed circuit board can be very helpful.</p>
 </div>
 <div class="paragraph">
-<p>You <strong>must</strong> use both commands <code>UnLockPPS</code> and <code>LockPPS</code> to complete any PPS changes.
-Great Cow BASIC includes these two macros to ensure this process is handled correctly.</p>
+<p>You <strong>must</strong> use the command <code>UnLockPPS</code> to enable setting of the PPS if the PPS have been previously locked, and, you can, optionally,  use <code>LockPPS</code> to prevent unintentional change to PPS settings.</p>
+</div>
+<div class="paragraph">
+<p>Great Cow BASIC includes these two macros to ensure this process is handled correctly.</p>
 </div>
 <div class="paragraph">
 <p>Also, see <a href="http://microchip.wikidot.com/8bit:pps" class="bare">http://microchip.wikidot.com/8bit:pps</a> for more information.</p>
@@ -49390,7 +50259,9 @@ in the project configuration.</p>
     OPTIBOOTUSB     = 2048
     ARDUINONANO     = 1024
     ARDUINOMEGA2560 = 1024
-    TINYBOOTLOADER  = 128</pre>
+    TINYBOOTLOADER  = 128
+    TINYBOOTLOADER128  = 128
+    TINYBOOTLOADER125  = 256</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -53497,7 +54368,7 @@ The list shows the installation of the Sharp Develop IDE.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-15 08:53:10 GMT Summer Time
+Last updated 2023-06-18 15:49:35 GMT Summer Time
 </div>
 </div>
 </body>

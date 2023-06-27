@@ -15,8 +15,8 @@
 </div>
 
 This section covers GLCD devices that use the ST7789 graphics
-controller. The ST7789 is a TFT LCD Single Chip Driver with 240RGBx240
-Resolution and 65K colors.
+controller. The ST7789 is a TFT LCD Single Chip Driver with 240x240 or
+320x240 Resolution and 65K colors.
 
 Great Cow BASIC supports 65K-color mode operations.
 
@@ -29,7 +29,8 @@ This will initialise the driver.
 
 ``` screen
     #include <glcd.h>
-    #DEFINE GLCD_TYPE GLCD_TYPE_ST7789_240_240
+    #DEFINE GLCD_TYPE       GLCD_TYPE_ST7789_240_240
+    //  #DEFINE GLCD_TYPE   GLCD_TYPE_ST7789_320_240
 
     'Pin mappings for ST7789 - these MUST be specified
     #define GLCD_DC     porta.0           'example port setting
@@ -58,8 +59,8 @@ shown in the table below.
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><p><code class="literal">GLCD_TYPE</code></p></td>
-<td style="text-align: left;"><p><code class="literal">GLCD_TYPE_ST7789_240_240</code></p></td>
-<td style="text-align: left;"> </td>
+<td style="text-align: left;"><p><code class="literal">GLCD_TYPE_ST7789_240_240</code> or <code class="literal">GLCD_TYPE_ST7789_320_240</code></p></td>
+<td style="text-align: left;"><p>Select one option to set geometry</p></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p><code class="literal">GLCD_DC</code></p></td>
@@ -127,7 +128,7 @@ shown in the table below.
 <tr class="odd">
 <td style="text-align: left;"><p><code class="literal">GLCD_WIDTH</code></p></td>
 <td style="text-align: left;"><p>The width parameter of the GLCD</p></td>
-<td style="text-align: left;"><p><code class="literal">320</code></p></td>
+<td style="text-align: left;"><p><code class="literal">320</code> or <code class="literal">240</code></p></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p><code class="literal">GLCD_HEIGHT</code></p></td>
@@ -263,7 +264,55 @@ set of supported commands.
 This example shows how to drive a ST7789 based Graphic LCD module with
 the built in commands of Great Cow BASIC.
 
+The library support PIC, AVR and LGT - change to suit your
+configuration.
+
 <span class="strong">**Example \#1**</span>
+
+``` screen
+    #chip LGT8F328P
+    #include <LGT8F328P.h>
+    #option explicit
+
+    #include <glcd.h>
+    #include <glcd_st7789.h>
+    #define ST7789_HardwareSPI
+    #define HWSPIMode MASTERULTRAFAST
+
+    // Can be either pixels geometry
+        #define GLCD_TYPE GLCD_TYPE_ST7789_240_240
+        //#define GLCD_TYPE GLCD_TYPE_ST7789_320_240
+
+    //Pin mappings for SPI - this GLCD driver supports Hardware SPI and Software SPI
+    #define GLCD_DC       DIGITAL_8           ' Data command line
+    #define GLCD_CS       DIGITAL_10          ' Chip select line
+    #define GLCD_RESET    DIGITAL_9           ' Reset line
+    #define GLCD_DI       DIGITAL_12          ' Data in | MISO    - Not used therefore not really required
+    #define GLCD_DO       DIGITAL_11          ' Data out | MOSI
+    #define GLCD_SCK      DIGITAL_13          ' Clock Line
+
+    #define GLCD_EXTENDEDFONTSET1
+    GLCDBackground = TFT_BLACK
+    GLCDCLS TFT_BLACK
+
+    GLCDfntDefaultsize = 2
+
+    GLCDRotate Portrait_Rev
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)
+
+    GLCDRotate Portrait
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)
+
+    GLCDROTATE Landscape
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)
+
+    GLCDROTATE Landscape_Rev
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)
+```
+
+<span class="strong">**Example \#2**</span>
+
+This example shows how to drive a ST7789 using a PIC with PPS.
 
 ``` screen
     #chip 16F15376
@@ -287,7 +336,8 @@ the built in commands of Great Cow BASIC.
     ' ********************** Setup the GLCD ************************************************
 
         #INCLUDE <glcd.h>
-        #define GLCD_TYPE     GLCD__TYPE_ST7789_240_240
+        #define GLCD_TYPE        GLCD__TYPE_ST7789_240_240
+        // #define GLCD_TYPE     GLCD__TYPE_ST7789_320_240
 
 
         'This is a PPS chip, so, need to make the DO/SDO & SCK match the PPS assignments
@@ -310,9 +360,11 @@ the built in commands of Great Cow BASIC.
 
   
 
-<span class="strong">**Example \#2**</span> This example shows how to
-drive a ILI3941 with the OLED fonts. Note the use of the
-`GLCDfntDefaultSize` to select the size of the OLED font in use.  
+<span class="strong">**Example \#3**</span>
+
+This example shows how to drive a ILI3941 with the OLED fonts. Note the
+use of the `GLCDfntDefaultSize` to select the size of the OLED font in
+use.  
 
 ``` screen
     #define GLCD_OLED_FONT                'The constant is required to support OLED fonts
@@ -321,7 +373,7 @@ drive a ILI3941 with the OLED fonts. Note the use of the
     GLCDFontWidth = 5
     GLCDPrint ( 40, 0, "OLED" )
     GLCDPrint ( 0, 18, "Typ:  ST7789" )
-    GLCDPrint ( 0, 34, "Size: 240 x 240" )
+    GLCDPrint ( 0, 34, "Size: "+ Str(GLCD_WIDTH) +" x 240" )
 
     GLCDfntDefaultSize = 1
     GLCDPrint(20, 56,"https://goo.gl/gjrxkp")
@@ -329,12 +381,13 @@ drive a ILI3941 with the OLED fonts. Note the use of the
 
   
 
-<span class="strong">**Example \#2**</span> This example shows how to
-disable the large OLED Fontset. This disables the font to reduce memory
-usage.
+<span class="strong">**Example \#4**</span>
+
+This example shows how to disable the large OLED Fontset. This disables
+the font to reduce memory usage.
 
 When the extended OLED fontset is disabled every character will be shown
-as a block character.  
+as a block character.
 
 ``` screen
     #define GLCD_OLED_FONT                'The constant is required to support OLED fonts
@@ -344,7 +397,7 @@ as a block character.
     GLCDFontWidth = 5
     GLCDPrint ( 40, 0, "OLED" )
     GLCDPrint ( 0, 18, "Typ:  ST7789" )
-    GLCDPrint ( 0, 34, "Size: 240 x 240" )
+    GLCDPrint ( 0, 34, "Size: "+ Str(GLCD_WIDTH) +" x 240" )
 
     GLCDfntDefaultSize = 1
     GLCDPrint(20, 56,"https://goo.gl/gjrxkp")

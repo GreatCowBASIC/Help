@@ -31,7 +31,7 @@ other complementary states depending on how your application interprets and hand
 * *Note:* The Word size of a device (as opposed to the Word Type above) is a representation of the number of Bits that it can manipulate simultaneously by the chip. &#160;&#160; The number of Bits for PIC and AVR Microcontrolers supported by Great Cow BASIC are 8 Bits and so they are considered to have an 8 Bit Word.*
 
 
-*Long* is for situations where Values exceeding 65535 have to be handled and has a range of zero to 4.29 Billion.&#160;&#160;It is rarely used in 8 Bit devices but is invaluable on the rare occasions that it is needed. &#160;&#160; The Millis function for example  uses the Long Data Type to handle time periods of up to 50 days.
+*Long* is for situations where Values exceeding 65535 have to be handled and has a range of zero to 4294967295 (2^32-1).&#160;&#160;It is rarely used in 8 Bit devices but is invaluable on the rare occasions that it is needed. &#160;&#160; The Millis() is an example that  uses the Long Data Type to handle time periods of up to 50 days.
 
 
 All of the above can be considered to be Integer Values of varying magnitude as they can hold non Fractional Positive Whole Numbers, but try not to confuse **Integer Values** with the **Integer Variable Type**, they are complementary but separate concepts as you will see below.

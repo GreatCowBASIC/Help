@@ -16,7 +16,7 @@
       <link rel="next" href="_common_cathode.html" title="Common Cathode" />
       <meta name="Section-title" content="7 Segment Displays - Legacy" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-52158";
+            var treeCookieId = "treeview-53019";
             var language = "en";
             var w = new Object();
             //Localization
@@ -574,69 +574,71 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p><span class="strong"><strong>Example 1:</strong></span></p><pre class="screen"> 'A Common Cathode 7 Segment display  2 digit example
+            <p><span class="strong"><strong>Example 1:</strong></span></p><pre class="screen">        'A Common Cathode 7 Segment display  2 digit example
+        #chip 16F886, 8
 
- #chip 16F886, 8
+        'support for Common Anode
+        '#DEFINE 7SEG_COMMONANODE
 
-    'support for Common Anode
-    '#define 7Seg_CommonAnode
+        'support for pfet or pnp high side drivers
+        '#DEFINE 7SEG_HIGHSIDE
 
-    'support for pfet or pnp high side drivers
-    '#define 7Seg_HighSide
+        ' ----- Constants
+        'You need to specify the port settings
+        'by one of the following three methods
+        'The Directions of the ports are automaically set according to the defines
 
-' ----- Constants
-    ' You need to specify the port settings
-    ' by one of the following three methods
-    'The Directions of the ports are automaically set according to the defines
-  '''METHOD 1  Define individual port pins for segments and selects
-    #define DISP_SEG_A PORTB.0
-    #define DISP_SEG_B PORTB.1
-    #define DISP_SEG_C PORTB.2
-    #define DISP_SEG_D PORTB.3
-    #define DISP_SEG_E PORTB.4
-    #define DISP_SEG_F PORTB.5
-    #define DISP_SEG_G PORTB.6
-    #define DISP_SEG_DOT PORTB.7 '' available on some displays as dp or colon
+        'METHOD 1
+        'Define individual port pins for segments and selects
 
-    #define DISP_SEL_1 PORTC.5
-    #define DISP_SEL_2 PORTC.4
+        #DEFINE DISP_SEG_A PORTB.0
+        #DEFINE DISP_SEG_B PORTB.1
+        #DEFINE DISP_SEG_C PORTB.2
+        #DEFINE DISP_SEG_D PORTB.3
+        #DEFINE DISP_SEG_E PORTB.4
+        #DEFINE DISP_SEG_F PORTB.5
+        #DEFINE DISP_SEG_G PORTB.6
+        #DEFINE DISP_SEG_DOT PORTB.7 '' available on some displays as dp or colon
 
-  '''METHOD 2  Define DISPLAYPORTA (B,C,D) for up to 4 digit display segments
-        ''Define DISPSELECTA (B,C,D) for up to 4 digit display selects
-    '#define DISPLAYPORTA PORTB   ' same port name can be assigned
-    '#define DISPLAYPORTB PORTB
+        #DEFINE DISP_SEL_1 PORTC.5
+        #DEFINE DISP_SEL_2 PORTC.4
 
-    '#define DispSelectA Set portC.5 off
-    '#define DispSelectB Set portC.4 off
-    '#define DispDeSelectA Set portC.5 on
-    '#define DispDeSelectB Set portC.4 on
+        'METHOD 2  Define DISPLAYPORTA (B,C,D) for up to 4 digit display segments
+        'Define DISPSELECTA (B,C,D) for up to 4 digit display selects
 
-  '''METHOD 3  Define DISPLAYPORTA (B,C,D) for up to 4 digit display segments
-        ''Define port pins for the digit display  selects
-    '#define DISPLAYPORTA PORTB
-    '#define DISPLAYPORTB PORTB
+        '#DEFINE DISPLAYPORTA PORTB   ' same port name can be assigned
+        '#DEFINE DISPLAYPORTB PORTB
 
-    '#define DISP_SEL_1 PORTC.5
-    '#define DISP_SEL_2 PORTC.4
+        '#DEFINE DispSelectA Set portC.5 off
+        '#DEFINE DispSelectB Set portC.4 off
+        '#DEFINE DispDeSelectA Set portC.5 on
+        '#DEFINE DispDeSelectB Set portC.4 on
 
+        'METHOD 3  Define DISPLAYPORTA (B,C,D) for up to 4 digit display segments
+        'Define port pins for the digit display  selects
 
+        '#DEFINE DISPLAYPORTA PORTB
+        '#DEFINE DISPLAYPORTB PORTB
 
-    Dim Message As String
-    Message = " HAPPY HOLIDAYS  "
-    Do
-    For Counter = 1 to len(Message)-1
-      Repeat 50
-        Displaychar 1, Message(Counter)
-        wait 3 ms
-        DisplayChar 2, Message(Counter+1)
-        wait 3 ms
-
-        end Repeat
+        '#DEFINE DISP_SEL_1 PORTC.5
+        '#DEFINE DISP_SEL_2 PORTC.4
 
 
-      Wait 100 ms
-    Next
-    Loop</pre><div class="informalfigure">
+
+        Dim Message As String
+        Message = " HAPPY HOLIDAYS  "
+        Do
+            For Counter = 1 to len(Message)-1
+            Repeat 50
+                Displaychar 1, Message(Counter)
+                wait 3 ms
+                DisplayChar 2, Message(Counter+1)
+                wait 3 ms
+
+            End Repeat
+            Wait 100 ms
+            Next
+        Loop</pre><div class="informalfigure">
                <div class="mediaobject" align="center"><img src="./images/CC_4dig_7seg_16F886_Schem.jpg" align="middle" alt="graphic" /></div>
             </div>
             <div class="informalfigure">
@@ -732,13 +734,13 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_setwith.html" tabindex="1">SetWith</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="_memory_devices.html" tabindex="1">Memory Devices</a></span><ul>
-                                    <li><span class="file"><a href="_eeprom.html" tabindex="1">Eeprom</a></span><ul>
+                              <li><span class="file"><a href="_memory.html" tabindex="1">Memory</a></span><ul>
+                                    <li><span class="file"><a href="_eeprom_dfm.html" tabindex="1">EEPROM ( DFM )</a></span><ul>
                                           <li><span class="file"><a href="_epread.html" tabindex="1">EPRead</a></span></li>
                                           <li><span class="file"><a href="_epwrite.html" tabindex="1">EPWrite</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_hefm.html" tabindex="1">HEFM</a></span><ul>
+                                    <li><span class="file"><a href="_hefm_pfm.html" tabindex="1">HEFM ( PFM )</a></span><ul>
                                           <li><span class="file"><a href="_hefm_overview.html" tabindex="1">HEFM Overview</a></span></li>
                                           <li><span class="file"><a href="_hefread.html" tabindex="1">HEFRead</a></span></li>
                                           <li><span class="file"><a href="_hefreadword.html" tabindex="1">HEFReadWord</a></span></li>
@@ -749,16 +751,16 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_heferaseblock.html" tabindex="1">HEFEraseBlock</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_eeram.html" tabindex="1">EERAM</a></span><ul>
-                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
-                                       </ul>
-                                    </li>
-                                    <li><span class="file"><a href="_progmem.html" tabindex="1">PROGMEM</a></span><ul>
+                                    <li><span class="file"><a href="_progmem_pfm.html" tabindex="1">PROGMEM ( PFM )</a></span><ul>
                                           <li><span class="file"><a href="_pfmread.html" tabindex="1">PFMRead</a></span></li>
                                           <li><span class="file"><a href="_pfmwrite.html" tabindex="1">PFMWrite</a></span></li>
                                           <li><span class="file"><a href="_programerase.html" tabindex="1">ProgramErase</a></span></li>
                                           <li><span class="file"><a href="_programread.html" tabindex="1">ProgramRead</a></span></li>
                                           <li><span class="file"><a href="_programwrite.html" tabindex="1">ProgramWrite</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_progmem_mcu_configuration.html" tabindex="1">PROGMEM ( MCU Configuration )</a></span><ul>
+                                          <li><span class="file"><a href="_deviceconfigurationread.html" tabindex="1">DeviceConfigurationRead</a></span></li>
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_safm.html" tabindex="1">SAFM</a></span><ul>
@@ -772,7 +774,11 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_saferaseblock.html" tabindex="1">SAFEraseBlock</a></span></li>
                                        </ul>
                                     </li>
-                                    <li><span class="file"><a href="_sram.html" tabindex="1">SRAM</a></span><ul>
+                                    <li><span class="file"><a href="_eeram_device.html" tabindex="1">EERAM ( Device )</a></span><ul>
+                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_sram_device.html" tabindex="1">SRAM  ( Device )</a></span><ul>
                                           <li><span class="file"><a href="_sram_overview.html" tabindex="1">SRAM Overview</a></span></li>
                                           <li><span class="file"><a href="_sramread.html" tabindex="1">SRAMRead</a></span></li>
                                           <li><span class="file"><a href="_sramwrite.html" tabindex="1">SRAMWrite</a></span></li>
@@ -834,6 +840,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1351_controllers.html" tabindex="1">SSD1351 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_st7567_controllers.html" tabindex="1">ST7567 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7735_controllers.html" tabindex="1">ST7735 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7789_controllers.html" tabindex="1">ST7789 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7920_controllers.html" tabindex="1">ST7920 Controllers</a></span><ul>

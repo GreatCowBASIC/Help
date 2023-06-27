@@ -448,7 +448,7 @@ The NT7108C is very sensitive with respect to clock timing.   You may have to
 <td style="text-align: left;"><p>26</p></td>
 <td style="text-align: left;"><p>ST7789</p></td>
 <td style="text-align: left;"><p>2.0 Inch</p></td>
-<td style="text-align: left;"><p>240 * 240</p></td>
+<td style="text-align: left;"><p>240 * 240 or 320 * 240</p></td>
 <td style="text-align: left;"><p>Medium</p></td>
 <td style="text-align: left;"><p>Color TFT</p></td>
 <td style="text-align: left;"><p>SPI PIC and AVR: Hardware and software SPI</p></td>

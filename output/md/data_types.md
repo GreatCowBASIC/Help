@@ -73,9 +73,9 @@ memory address or a data pointer.
 </div>
 
 <span class="strong">**Long**</span> is for situations where Values
-exceeding 65535 have to be handled and has a range of zero to 4.29
-Billion.  It is rarely used in 8 Bit devices but is invaluable on the
-rare occasions that it is needed.    The Millis function for example
+exceeding 65535 have to be handled and has a range of zero to 4294967295
+(2^32-1).  It is rarely used in 8 Bit devices but is invaluable on the
+rare occasions that it is needed.    The Millis() is an example that
 uses the Long Data Type to handle time periods of up to 50 days.
 
 All of the above can be considered to be Integer Values of varying

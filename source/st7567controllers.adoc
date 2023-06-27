@@ -12,6 +12,18 @@ The display data bits which are stored in DDRAM are directly related to the pixe
 The ST7567 contains 132 segment-outputs, 64 common-outputs and 1 icon-common-output, however the address pixels are 128 * 64.
 The ST7567 has built-in oscillation circuit and low power consumption power circuit, ST7567 generates LCD driving signal without external clock or power, so that it is possible to make a display system with the fewest components and minimal power consumption. 
 
+There are different types of ST75xx GLCDs.&#160;&#160;&#160;The table below shows the different types and the Great Cow BASIC support.
+[cols=5, options="header,autowidth"]
+|===
+Index |GLCD MPU | Interfaces | Datasheet Ref|Support
+|1|ST7565      |  Parallel 8080&6080       | Ver 1.0a;Page 12| Not supported
+|2|ST7565S      |  Parallel 8080&6080       | Ver 0.6b;Page 23| Not supported
+|3|ST7567      |     4 Pin SPI;Parallel 8080&6080   | Ver1.4b;Page 12| 3&4 Pin SPI
+|4|ST7567S   |   3&4 Pin SPI;I2C;Parallel 8080&6080 |Ver1.4;Page 17| 3&4 Pin SPI & I2C 
+|5|ST7576      |   3&4 Pin SPI;I2C;Parallel 8080&6080 |Ver1;Page 18| 3&4 Pin SPI & I2C 
+|===
+
+
 The ST7567 embeds with contrast control, display RAM and it is suitable for many compact portable applications, such as mobile phone sub-display, MP3 player and calculator, etc.
 
 
@@ -28,6 +40,7 @@ The ST7567 can operate in three modes. Full GLCD mode, Low Memory GLCD mode or T
 
 
 To use the ST7567 drivers simply include one of the following configuration.  You can select Full Mode GLCD, Low Memory Mode GLCD or Text mode these require 1024, 128 or 0 bytes GLCD buffer respectively - you microcontroller requires sufficient RAM to support the selected mode of GLCD operation.
+
 
 To use the ST7567 driver simply include the following in your user code.  This will initialise the driver.
 
