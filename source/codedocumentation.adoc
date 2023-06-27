@@ -6,7 +6,7 @@ Documenting is the ability to read some extra information from comments in libra
 
 Some comments that start with ''' have a special meaning, and will be displayed as tooltips or as information to the user. These tooltips helps inexperienced users to use extra libraries.
 
- . Great Cow BASIC uses ; (a semicolon) to show comments that it has placed automatically, and ' to indicate ones that the user has placed.  When loading a program, it will not load any that start with a ; (semi-colon).  The use of comments do not impact the users  but it worthy of note.
+ . Great Cow BASIC uses ; (a semicolon) to show comments that it has placed automatically, and // or ' to indicate ones that the user has placed.  When loading a program, it will not load any that start with a ; (semi-colon).  The use of comments do not impact the users  but it worthy of note.
  . As for code documentation comments, Great Cow BASIC will load information about subroutines/functions and any hardware settings that need to be set.
  . For subroutines, a line before the Sub or Function line that starts with ''' will be used as a tooltip when the user hovers over the icon. A line that starts with '''@ will be interpreted differently, depending on what comes after the @. '''@param ParamName Parameter Description will add a description for the parameter. For a subroutine, this will show in the Icon Settings panel under the parameter when the user has selected that icon.
  . For functions, it will show at the appropriate time in the Parameter Editor wizard. '''@return Returned value applies to functions only. It will be displayed in the Parameter Editor wizard when the user is asked to choose a function.  An example of all this is given in srf04.h:
