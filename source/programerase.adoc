@@ -20,7 +20,7 @@ on the amount of program memory on the Microchip PIC microcontroller, which is g
 datasheet.
 
 This command must be called before writing to a block of memory. It is
-slow in comparison to other Great Cow BASIC commands. Note that it erases memory
+slow in comparison to other GCBASIC commands. Note that it erases memory
 in 32-byte blocks - see the relevant Microchip PIC microcontroller datasheet for more information.
 
 This is an advanced command which should only be used by advanced

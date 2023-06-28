@@ -13,7 +13,7 @@ external components and low power consumption.
 The PCD8544 interfaces to microcontrollers through a
 serial bus interface.
 
-The Great Cow BASIC constants shown below control the configuration of the PCD844 controller. &#160;&#160;&#160;Great Cow BASIC supports SPI software connectivity only - this is shown in the tables below.
+The GCBASIC constants shown below control the configuration of the PCD844 controller. &#160;&#160;&#160;GCBASIC supports SPI software connectivity only - this is shown in the tables below.
 
 The PCD8544 is a monochrome device.
 
@@ -34,7 +34,7 @@ To use the PCD844 driver simply include the following in your user code.  This w
 
 ----
 
-The Great Cow BASIC constants for the interface to the controller are shown in the table below.
+The GCBASIC constants for the interface to the controller are shown in the table below.
 
 
 [cols=3, options="header,autowidth"]
@@ -75,7 +75,7 @@ GLCD.
 |===
 
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 
 [cols="1,1,^1", options="header,autowidth"]
@@ -110,12 +110,12 @@ This cannot be changed
 This cannot be changed
 
 |`GLCDFontWidth`
-|Specifies the font width of the Great Cow BASIC font set.
+|Specifies the font width of the GCBASIC font set.
 |6
 |===
 
 
-The Great Cow BASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
+The GCBASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
 
 
 [cols=3, options="header,autowidth"]
@@ -175,7 +175,7 @@ specific attribute.
 *For a PCD8544 datasheet, please refer
 https://www.google.co.uk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCMQFjAA&url=https%3A%2F%2Fwww.sparkfun.com%2Fdatasheets%2FLCD%2FMonochrome%2FNokia5110.pdf&ei=bmjDVKePM83datDIgYgH&usg=AFQjCNFa7N9WMhSg849oXejlfP3FRvQqpA&sig2=ZFpG-ubTxvrBRAV4dRvhVw[here] +
 
-This example shows how to drive a PCD8544 based Graphic LCD module with the built in commands of Great Cow BASIC.
+This example shows how to drive a PCD8544 based Graphic LCD module with the built in commands of GCBASIC.
 
 Example:
 ----

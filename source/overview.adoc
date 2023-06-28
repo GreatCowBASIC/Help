@@ -2,7 +2,7 @@
 
 *Introduction:*
 
-These software routines allow Great Cow BASIC programs to send and receive I2C
+These software routines allow GCBASIC programs to send and receive I2C
 messages. They can be configured to act as master or slave, and the
 speed can also be altered.
 

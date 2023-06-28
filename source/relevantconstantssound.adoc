@@ -2,7 +2,7 @@
 
 *Introduction:*
 
-These Great Cow BASIC methods generate tones of a given frequency and duration.
+These GCBASIC methods generate tones of a given frequency and duration.
 
 [cols=2, options="header,autowidth",width="80%"]
 |===

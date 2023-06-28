@@ -179,8 +179,8 @@ read, the location of the item to retrieve, and a variable to store the
 retrieved number in.
 
 Lookup tables can store byte, word, longs and integer values.&#160;&#160;
-Great Cow BASIC will try automatically detect the type of the table depending on the values in it.&#160;&#160;
-Great Cow BASIC can be explicitly instructed to cast the table to a variable type, as follows:
+GCBASIC will try automatically detect the type of the table depending on the values in it.&#160;&#160;
+GCBASIC can be explicitly instructed to cast the table to a variable type, as follows:
 ----
     Table TestDataSource as [Byte | Word | Integer | Long ]
         12

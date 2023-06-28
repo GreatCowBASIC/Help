@@ -1,25 +1,25 @@
-=== Overview - FreeBSD Great Cow BASIC
+=== Overview - FreeBSD GCBASIC
 
 *Introduction*
 
-The Great Cow BASIC compiler can be used with the FreeBSD operating system.
+The GCBASIC compiler can be used with the FreeBSD operating system.
 
-*Instructions for using the Great Cow BASIC install.sh script*
+*Instructions for using the GCBASIC install.sh script*
 
-Complete the following steps to compile and install the Great Cow BASIC compiler for FreeBSD:
+Complete the following steps to compile and install the GCBASIC compiler for FreeBSD:
 
 [start=1]
  . Download one of the nightly builds of FreeBASIC 1.06 for the FreeBSD 32 bit or 64 bit binary compilation from: http://users.freebasic-portal.de/stw/builds/freebsd32/ (32 bit) or http://users.freebasic-portal.de/stw/builds/freebsd64/ (64 bit) The filenames are in the format fbc_freebsd[32|64]\_[BuildNumber]_[Date].zip.
 
- . Download the Great Cow BASIC UNIX Source Distribution from SourceForge at https://gcbasic.sourceforge.net/Typesetter/index.php/Download
+ . Download the GCBASIC UNIX Source Distribution from SourceForge at https://gcbasic.sourceforge.net/Typesetter/index.php/Download
 
  . Move the FreeBASIC ZIP file from your download directory to your home directory.
 
  . Unzip the FreeBASIC ZIP file which will produce a new directory called `fbc_freebsd[32|64]`. The FreeBASIC compiler `fbc` is in the `bin` subdirectory. You should add the path to `fbc` to your path so that the installation script can find it.
 
- . Move the Great Cow BASIC compressed tar file from your download directory to your home directory.
+ . Move the GCBASIC compressed tar file from your download directory to your home directory.
 
- . Unpack the Great Cow BASIC compressed tar file by typing the command below. *Note*: the version number (v0_98_05) in the filename may change before these instructions are updated - adjust depending on the version number of the file you downloaded.
+ . Unpack the GCBASIC compressed tar file by typing the command below. *Note*: the version number (v0_98_05) in the filename may change before these instructions are updated - adjust depending on the version number of the file you downloaded.
 ----
    unrar x GreatCowBASIC-UNIX-v0_98_05.rar
 ----
@@ -36,20 +36,20 @@ This will produce a new directory called GreatCowBasic. *Note:* If you do not al
 
 The build script arguments are:
 
-  * _all_ - will compile *and* install the Great Cow BASIC compiler and its support files.
-  * _build_ - will just compile the binary for the Great Cow BASIC compiler.
-  * _install_ - will install the Great Cow BASIC compiler and its support files.
+  * _all_ - will compile *and* install the GCBASIC compiler and its support files.
+  * _build_ - will just compile the binary for the GCBASIC compiler.
+  * _install_ - will install the GCBASIC compiler and its support files.
 
-When choosing _all_ or _install_ you will be prompted for an installation directory. The default is `/usr/local/gcb-[version]` for which you will need to run the installation script as root. Alternatively, you can choose to install in your home directory (eg ``~/bin/gcb`). The installation script will automatically append the Great Cow BASIC version so that directory would become `~/bin/gcb-[version]`
+When choosing _all_ or _install_ you will be prompted for an installation directory. The default is `/usr/local/gcb-[version]` for which you will need to run the installation script as root. Alternatively, you can choose to install in your home directory (eg ``~/bin/gcb`). The installation script will automatically append the GCBASIC version so that directory would become `~/bin/gcb-[version]`
 
 [start=9]
- . Add the directory where you installed `gcbasic` to your path, or use the full path to the `gcbasic` installation directory and confirm the proper execution, and the version, of Great Cow BASIC by executing `gcbasic`.
+ . Add the directory where you installed `gcbasic` to your path, or use the full path to the `gcbasic` installation directory and confirm the proper execution, and the version, of GCBASIC by executing `gcbasic`.
 
-Now you should be able create GCB source files with your favourite editor and compile those files with the Great Cow BASIC compiler.
+Now you should be able create GCB source files with your favourite editor and compile those files with the GCBASIC compiler.
 
 *Programming microcontrollers*
 
-To program your microcontroller with your Great Cow BASIC-created hex file, you will need additional hardware and software.
+To program your microcontroller with your GCBASIC-created hex file, you will need additional hardware and software.
 
 . For Microchip PIC microcontroller programming, you might find what you need at: https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120 and the FreeBSD version of the `pk2cmd` v1.2 command line programming software.
 
@@ -61,6 +61,6 @@ Alternatively, if you use Virtual Machine software such as _Virtual Box_ to run 
 
 *Help*
 
-Great Cow BASIC Help documentation is installed in the Documentation subdirectory in your GreatCowBasic directory.
+GCBASIC Help documentation is installed in the Documentation subdirectory in your GreatCowBasic directory.
 
-If at any time you encounter an issue and need help, you will find it over at the friendly Great Cow BASIC discussion forums at https://sourceforge.net/p/gcbasic/discussion/
+If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at https://sourceforge.net/p/gcbasic/discussion/

@@ -1,41 +1,41 @@
-=== Great Cow BASIC Maintenance
+=== GCBASIC Maintenance
 
 *Introduction:*
-Great Cow BASIC maintenance covers the key processes that the developers use to maintain and build the solution.
+GCBASIC maintenance covers the key processes that the developers use to maintain and build the solution.
 
 These insights are not distribution specific.
 
 *Solution Architecture:*
 These components are key for a complete solution:
 [start=1]
- . Great Cow BASIC installer
+ . GCBASIC installer
 
- . Great Cow BASIC chip specific .DAT files
+ . GCBASIC chip specific .DAT files
 
- . Great Cow BASIC Help
+ . GCBASIC Help
 
- . Great Cow BASIC IDE
+ . GCBASIC IDE
 
 
 {empty} +
 {empty} +
-*Great Cow BASIC installers:*
+*GCBASIC installers:*
 {empty} +
 {empty} +
-The Windows Great Cow BASIC installer uses the _InnoSoft_ installer with packaging completed using R2Build. +
+The Windows GCBASIC installer uses the _InnoSoft_ installer with packaging completed using R2Build. +
 
 The process uses a Gold build structure.  The R2Build software creates four packages for Windows and one package for the Linux distribution.  The process is automated with automatic versioning and configuration.
 
-The macOS Great Cow BASIC installer uses the _Packages_ installer (http://s.sudre.free.fr/Software/Packages/about.html) with packaging completed using the Bourne shell script `pkg2dmg.sh` to create a compressed disk image file containing the installer.
+The macOS GCBASIC installer uses the _Packages_ installer (http://s.sudre.free.fr/Software/Packages/about.html) with packaging completed using the Bourne shell script `pkg2dmg.sh` to create a compressed disk image file containing the installer.
 
 {empty} +
 {empty} +
-*Great Cow BASIC chip specific .DAT files:*
+*GCBASIC chip specific .DAT files:*
 {empty} +
 {empty} +
 What are the .DAT files?
 
-The DAT files are the Great Cow BASIC representation of the capabilities of a specific microcontroller.&#160;&#160;The DAT is based upon a number of vendor sources and corrections/omissions added by the Great Cow BASIC development team.&#160;&#160;The DAT file is exposed to the user program as a set of registers and register bits that can used to configure the program in terms of the microcontroller specifics.
+The DAT files are the GCBASIC representation of the capabilities of a specific microcontroller.&#160;&#160;The DAT is based upon a number of vendor sources and corrections/omissions added by the GCBASIC development team.&#160;&#160;The DAT file is exposed to the user program as a set of registers and register bits that can used to configure the program in terms of the microcontroller specifics.
 {empty} +
 {empty} +
 
@@ -55,12 +55,12 @@ Process the file using 'Preprocess.bat'. &#160;&#160; This is an AWK text proces
 This preprocessing will examine all the INC files in the ..DAT\incfiles\OrgFiles folder.&#160;&#160;The resulting files will be placed in the ..DAT\incfiles folder.&#160;&#160;The resulting files will have the 'BITS' section sorted in port priority - this priority ensures the bits are assigned in the target DAT in the same order every time.
 
 |3
-|Update the database of support microcontrollers.&#160;&#160;This database contains the microcontroller configuration that Great Cow BASIC requires as the core information for the DAT files.
+|Update the database of support microcontrollers.&#160;&#160;This database contains the microcontroller configuration that GCBASIC requires as the core information for the DAT files.
 
 The database is called `chipdata.csv` or `avr_chipdata.csv` for Microchip and AVR respectively.
 - These files are comma delimited.&#160;&#160;The first row of data specifies the field name - these field names control the chip conversion program, see later notes.&#160;&#160;
 
-The database fields are controlled by the Great Cow BASIC development team and the specification of the database may change between releases to support new capabilities.
+The database fields are controlled by the GCBASIC development team and the specification of the database may change between releases to support new capabilities.
 
 Database fields will have the suffix of `Variant` such as PWMTimerVariant and SMTClockSourceVariant and are microcontroller specific configuration settings to support the various microcontroller settings.&#160;&#160;The values of these `variants` are determined by the examination of the microcontroller datasheets as this information is NOT specified in the source files.&#160;&#160;Variants are exposed in the user program with the prefix of Chip.&#160;&#160;If the variant is called `PWMTimerVariant` a constant called `ChipPWMTimerVariant` will be exposed in the user program.
 
@@ -138,7 +138,7 @@ Microchip in the past have used words, but then they started using bytes on the 
 An example: If a device has 8192 words, which is 8192 * 14 = 114688 bits, or 14336 bytes.&#160;&#160;It is an odd measurement because dividing 14336 by 14/8 to see how many instructions you can use is extra maths work within the compiler.
 {empty} +
 
-Great COW BASIC PROGram memory measurements in the compiler are in words.
+The GCBASIC PROGram memory analysis are in words.
 {empty} +
 
 {empty} +

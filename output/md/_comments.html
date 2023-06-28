@@ -1,0 +1,34 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Comments</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_syntax.html" title="Syntax"><link rel="prev" href="_arrays.html" title="Arrays"><link rel="next" href="_line_continuation.html" title="Line Continuation"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_comments"></a>Comments</h3></div></div></div><p><span class="strong"><strong>About Comments</strong></span></p><p>Adding comments to your GCBASIC program can be done using a number of methods. &nbsp;&nbsp;
+Explanatory notes embedded within the code.&nbsp;&nbsp;
+Comments are used to remind yourself and to inform others about the function of your program.&nbsp;&nbsp;
+Comments are ignored by the compiler</p><p>You can comment out sections of code if you want just by placing an apostrophe at
+the beginning of each line. The SynGCB IDE has a feature to do this automatically.
+<br>
+<br>
+You can also use a REM (for REMark statement), a semi-colon or two forward slashes.
+<br>
+<br>
+Multiline comments are support for large text descriptions of code or to comment out chunks of code while debugging applications.</p><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    /*
+      block comment
+    */</pre><p>Warning: Graphical GCBASIC uses semi-colons to mark comments that it has
+inserted automatically. It does not read these comments when opening a file, so any
+comments in a GCBASIC program starting with a semi-colon will be deleted if the
+program is opened using Graphical GCBASIC.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    ' The number of pins to flash
+    #define FlashPins 2
+
+    REM You can create a header using an apostrophe before each line
+    REM This is a great way to describe your program
+    REM You can also use it to describe the hardware connections.
+
+    ' You can place comments above the command or on the same line
+    Dir PORTB Out ' Initialise PORTB to all Outputs
+
+    ; The Main loop
+    do
+    PORTB = 0 ' All Pins off
+    Wait 1 S ' Delay 1 second
+    PORTB = 0xFF ' All pins on
+    Wait 1 s ' Delay 1 second
+    Loop</pre></div></body></html>

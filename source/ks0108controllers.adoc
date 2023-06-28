@@ -5,7 +5,7 @@ This section covers GLCD devices that use the KS0108 graphics controller.
 The KS0108 is an LCD is driven by on-board 5V parallel interface chipset KS0108 and KS0107. They are extremely common and well documented
 
 
-The Great Cow BASIC constants shown below control the configuration of the KS0108 controller. &#160;&#160;&#160;The only connectivity option is the 8-bit mode where 8 connections (for the data) are required between the microcontroller and the GLCD to control the data bus.
+The GCBASIC constants shown below control the configuration of the KS0108 controller. &#160;&#160;&#160;The only connectivity option is the 8-bit mode where 8 connections (for the data) are required between the microcontroller and the GLCD to control the data bus.
 
 The KS0108 is a monochrome device.
 
@@ -34,7 +34,7 @@ To use the KS0108 driver simply include the following in your user code.  This w
 
 ----
 
-The Great Cow BASIC constants for the interface to the controller are shown in the table below.
+The GCBASIC constants for the interface to the controller are shown in the table below.
 
 [cols="2,4,4", options="header,autowidth"]
 |===
@@ -118,7 +118,7 @@ the LCD is connected to ground if not used.
 
 
 
-The Great Cow BASIC constants defined for the controller type are shown in the table below.
+The GCBASIC constants defined for the controller type are shown in the table below.
 
 
 
@@ -162,7 +162,7 @@ Can be set to improve performance.
 Can be set to improve performance.
 |===
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 
 [cols="1,1,^1", options="header,autowidth"]
@@ -190,7 +190,7 @@ This equates to the 8 pixel high.
 
 
 
-The Great Cow BASIC commands supported for this GLCD are shown in the
+The GCBASIC commands supported for this GLCD are shown in the
 table below.
 [cols=3, options="header,autowidth"]
 |===
@@ -248,7 +248,7 @@ For a KS0108 datasheet, please refer
 http://www.vishay.com/docs/37329/37329.pdf[here.]
 
 This example shows how to drive a KS0108 based Graphic LCD module with
-the built in commands of Great Cow BASIC. See
+the built in commands of GCBASIC. See
 http://www.greatcowbasic.com/sample-projects.html[Graphic LCD] for
 details, this is an external web site.
 

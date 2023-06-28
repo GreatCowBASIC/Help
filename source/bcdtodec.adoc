@@ -14,7 +14,7 @@ Support Bytes only.
 
 Converts numbers from Binary Coded Decimal format to decimal.
 
-You can add this function. Just add this to your Great Cow BASIC program and then call it when you need it.
+You can add this function. Just add this to your GCBASIC program and then call it when you need it.
 
 *Example:*
 ----

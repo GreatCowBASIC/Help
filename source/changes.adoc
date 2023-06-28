@@ -1,5 +1,5 @@
 == Changes
-*Formal Release of Great Cow Basic Compiler v1.xx.xx*
+*Formal Release of GCBASIC Compiler v1.xx.xx*
 
 {empty} +
 [cols="^1,^1", options="header",width="60%"]
@@ -25,7 +25,7 @@
 //- Added hyperbole and parabole GLCD commands and sections
 //- Updated nt7108ccontrollers section to detail eigth port.bit mode
 //- Updated USART use of USART_DELAY equals OFF or a timed value
-//- Added 'New to Great Cow BASIC' section
+//- Added 'New to GCBASIC' section
 //- Added UC1306 GLCD section
 //- Added SRAM section
 //- Added e-Paper section
@@ -273,7 +273,7 @@
 //- Added new Table definition method
 //- Added new capabilities to Lookup Tables
 //- Added new capability to READAD for AVR microcomputers
-//- Added instructions to compile Great Cow BASIC under Linux
+//- Added instructions to compile GCBASIC under Linux
 //- Added new command to invert an KS0108 GLCD display
 //- Added new example code - FLASH_LED
 //- Added how to set chip speed to non standard speeds

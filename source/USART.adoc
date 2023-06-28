@@ -18,7 +18,7 @@ Where the calculated Baud Rate is resolved as, using the determined value (of `2
     = 9615 ' resulting baud rate with an error rate of of 0.16%
     '
 
-*Great Cow BASIC algorithm is a follows*
+*GCBASIC algorithm is a follows*
 
 - For a device with Fosc of 16 MHz, desired baud rate of 9600, Asynchronous mode, and 8-bit BRG:
 - Desired Baud Rate = = FOSC/(64 ([SPBRGHx:SPBRGx] + 1))

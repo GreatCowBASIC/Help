@@ -51,7 +51,7 @@ In order to enable busy flag checking, and, therefore to use the `GET` command t
 1. LCD I/O Mode must be either 4-wire or 8-wire 
 2. `#DEFINE LCD_NO_RW` is not defined
 3. An I\O pin is connected between the microcontroller and the RW connection on the LCD Display
-4. `'DEFINE LCD_RW  port.pin` is defined in the Great Cow BASIC source code  
+4. `'DEFINE LCD_RW  port.pin` is defined in the GCBASIC source code  
 
 
 Example:

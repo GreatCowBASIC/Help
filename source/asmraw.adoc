@@ -8,7 +8,7 @@
 ----
 *Explanation:*
 
-The `#asmraw` directive is used to specify the assembly that Great Cow BASIC will use.&#160;&#160;&#160;
+The `#asmraw` directive is used to specify the assembly that GCBASIC will use.&#160;&#160;&#160;
 
 Anything following this directive will be inserted into ASM source file with no changes other than trimming spaces - no replacement of constants.&#160;&#160;&#160;
 

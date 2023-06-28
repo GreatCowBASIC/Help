@@ -2,13 +2,13 @@
 
 *Introduction:*
 
-These routines allow Great Cow BASIC to generate pseudo-random numbers.
+These routines allow GCBASIC to generate pseudo-random numbers.
 
 The generator uses a 16 bit linear feedback shift register to produce
 pseudo-random numbers.  The most significant 8 bits of the LFSR are used
 to provide an 8 bit random number.
 
-When compiling a program, Great Cow BASIC will generate an initial seed for the
+When compiling a program, GCBASIC will generate an initial seed for the
 generator. However, this seed will be the same every time the program
 runs, so the sequence of numbers produced by a given program will always
 be the same. To work around this, there is a Randomize subroutine. It

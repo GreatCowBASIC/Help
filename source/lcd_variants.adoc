@@ -4,7 +4,7 @@
 
 Some LCDs are non-standard.&#160;&#160;
 The non-standard LCDs may have a different memory architecture where the memory is non-consective or different delay timing is required  for the LCD IC.&#160;&#160;
-Use `LCD_VARIANT` to change the operating behaviour of Great Cow BASIC with respect to LCD operations.&#160;&#160;
+Use `LCD_VARIANT` to change the operating behaviour of GCBASIC with respect to LCD operations.&#160;&#160;
 If a `LCD_VARIANT` adaption has been created in the library then the non-standard LCD can be supported. 
 
 
@@ -48,7 +48,7 @@ This example shows the use of software I2C - any LCD mode can be used not just s
 
     ; ----- Main body of program commences here.
     Locate 0,0
-    PRINT "Great Cow Basic"
+    PRINT "GCBASIC"
 
 
     Do

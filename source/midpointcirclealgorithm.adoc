@@ -2,10 +2,10 @@
 
 *Explanation:*
 
-Great Cow BASIC can draw circles using the midpoint circle algorithm. The midpoint circle algorithm determines the points needed for drawing a circle.
+GCBASIC can draw circles using the midpoint circle algorithm. The midpoint circle algorithm determines the points needed for drawing a circle.
 The algorithm is a variant of https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm[Bresenham's line algorithm], and is thus sometimes known as Bresenham's circle algorithm, although not actually invented by https://en.wikipedia.org/wiki/Jack_Elton_Bresenham[Jack E. Bresenham].
 
-The example program below show the midpoint circle algorithm within Great Cow BASIC.
+The example program below show the midpoint circle algorithm within GCBASIC.
 
 *Example Output on GLCD Device:*
 

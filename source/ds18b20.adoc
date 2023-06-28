@@ -8,11 +8,11 @@ Each sensor has a unique 64-Bit Serial number etched into it. This allows for a 
 
 Reading the temperature from a DS18B20 takes up to 750ms(max).
 
-To use the DS18B20 driver the following is required to added to the Great Cow BASIC source file.
+To use the DS18B20 driver the following is required to added to the GCBASIC source file.
 ----
     #include <DS18B20.h>
 ----
-Note the Great Cow BASIC commands do not work with the older DS1820 or DS18S20 as they have a different internal resolution.
+Note the GCBASIC commands do not work with the older DS1820 or DS18S20 as they have a different internal resolution.
 
 These commands are not designed to be used with parasitically powered DS18B20 sensors.
 

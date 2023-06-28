@@ -2,7 +2,7 @@
 
 *Introduction:*
 
-You can use macros within your Great Cow BASIC code.
+You can use macros within your GCBASIC code.
 
 Macros are similar to subroutines. But during compilation, everything is inserted inline. This may increase the code size slightly, but it also reduces stack usage.
 

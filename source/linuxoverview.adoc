@@ -1,23 +1,23 @@
 === Overview - Linux Operating System
 
 *Introduction:*
-Great Cow BASIC can be used when using the Linux Operating System.
+GCBASIC can be used when using the Linux Operating System.
 
 This instructions are not distribution specific, but are for Linux only (not Windows).
 
 *Instructions:*
-Complete the following steps to compile and install Great Cow BASIC for Linux:
+Complete the following steps to compile and install GCBASIC for Linux:
 [start=1]
  . Install FreeBasic from your distributions repository or http://www.freebasic.net/wiki/CompilerInstalling
 
 
- . Download the "Great Cow BASIC - Linux Distribution" from SourceForge at https://sourceforge.net/projects/gcbasic/files/
+ . Download the "GCBASIC - Linux Distribution" from SourceForge at https://sourceforge.net/projects/gcbasic/files/
 
 
  . Unrar/unpack GCB@Syn.rar to a location of your choice within your home directory (eg. within Downloads) with either a file manager or from a console.
 
 
- . From a console, change to the Great Cow BASIC Sources in the unpacked directory:
+ . From a console, change to the GCBASIC Sources in the unpacked directory:
 ----
    eg. cd ~/Downloads/GCB@Syn/GreatCowBasic/Sources/GCBASIC
 ----
@@ -33,14 +33,14 @@ Complete the following steps to compile and install Great Cow BASIC for Linux:
  . If you su'd to root, use `exit` to drop back to your normal user. Then, be sure to follow the instructions given by the script for updating your path.
 
 
- . Confirm proper execution, and the version, of Great Cow BASIC by executing: gcbasic /version
+ . Confirm proper execution, and the version, of GCBASIC by executing: gcbasic /version
 
 
-Now you can create and compile Great Cow BASIC source files.
+Now you can create and compile GCBASIC source files.
 
 *Programming microcontrollers:*
 
-To program your microcontroller with your Great Cow BASIC created hex file, you will need additional programming and programmer software.
+To program your microcontroller with your GCBASIC created hex file, you will need additional programming and programmer software.
 
 For Microchip PIC microcontroller programming, you might find what you need at: http://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120
 

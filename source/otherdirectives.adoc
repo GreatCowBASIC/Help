@@ -120,7 +120,7 @@ NoBit(bit_name)
 |===
 {empty} +
 {empty} +
-The table below shows two special directives that support the mapping for one variable or bit to anoher variable or bit.  This is useful when creating portable code or libraries to ensure Great Cow BASIC
+The table below shows two special directives that support the mapping for one variable or bit to anoher variable or bit.  This is useful when creating portable code or libraries to ensure GCBASIC
 {empty} +
 {empty} +
 {empty} +

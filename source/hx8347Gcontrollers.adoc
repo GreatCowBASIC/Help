@@ -9,7 +9,7 @@ The HX8347-G is designed to provide a single-chip solution that combines a gate
 driver, a source driver, power supply circuit for 262k colors to drive a TFT panel
 with 240RGBx320 dots at maximum.
 
-Great Cow BASIC supports 65K-color mode operations.
+GCBASIC supports 65K-color mode operations.
 
 The HX8347-G can be operated in low-voltage (1.4V) condition for the interface and
 integrated internal boosters that produce the liquid crystal voltage, breeder resistance
@@ -17,8 +17,8 @@ and the voltage follower circuit for liquid crystal driver. In addition, The HX8
 supports various functions to reduce the power consumption of a LCD system via
 software control.
 
-The Great Cow BASIC constants shown below control the configuration of the HX8347G controller.
-&#160;&#160;&#160;The Great Cow BASIC constants for control and data line connections are shown
+The GCBASIC constants shown below control the configuration of the HX8347G controller.
+&#160;&#160;&#160;The GCBASIC constants for control and data line connections are shown
 in the table below.
 
 Connectivity is via an 8-bit bus.  Where 8 pins are connected between the microcontroller and the GLCD to control the
@@ -56,7 +56,7 @@ To use the HX8347G driver simply include the following in your user code.  This 
 {empty} +
 {empty} +
 
-The Great Cow BASIC constants for the interface to the controller are shown in the table below.
+The GCBASIC constants for the interface to the controller are shown in the table below.
 {empty} +
 {empty} +
 
@@ -99,7 +99,7 @@ The Great Cow BASIC constants for the interface to the controller are shown in t
 
 {empty} +
 {empty} +
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 {empty} +
 {empty} +
 
@@ -118,7 +118,7 @@ The Great Cow BASIC constants for control display characteristics are shown in t
 |`480`
 
 |`GLCDFontWidth`
-|Specifies the font width of the Great Cow BASIC font set.
+|Specifies the font width of the GCBASIC font set.
 |`6` for GCB fonts, and `5` for OLED fonts.
 
 
@@ -135,7 +135,7 @@ The GLCDfntDefaultsize can be set to 1 or 2 only.
 {empty} +
 {empty} +
 
-The Great Cow BASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
+The GCBASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
 {empty} +
 {empty} +
 
@@ -223,7 +223,7 @@ The Great Cow BASIC commands supported for this GLCD are shown in the table belo
 {empty} +
 
 
-These examples show how to drive a HX8347G based Graphic LCD module with the built in commands of Great Cow BASIC.  The 8 bit DBI example uses a UNO shield, this can easily adapted to Microchip architecture.  The 16 bit DBI
+These examples show how to drive a HX8347G based Graphic LCD module with the built in commands of GCBASIC.  The 8 bit DBI example uses a UNO shield, this can easily adapted to Microchip architecture.  The 16 bit DBI
 example uses a Mega2560 board.
 
 {empty} +

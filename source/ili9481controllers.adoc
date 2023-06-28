@@ -5,10 +5,10 @@ This section covers GLCD devices that use the ILI9481 graphics controller.
 ILI9481 is a 262k-color single-chip SoC driver for a-TFT liquid crystal display with resolution of 320&#160;RGB&#160;x&#160;480&#160;
 dots, comprising a 960-channel source driver, a 480-channel gate driver, 345,600 bytes GRAM for graphic data.
 
-Great Cow BASIC supports 65K-color mode operations.
+GCBASIC supports 65K-color mode operations.
 
-The Great Cow BASIC constants shown below control the configuration of the ILI9481controller.
-&#160;&#160;&#160;The Great Cow BASIC constants for control and data line connections are shown
+The GCBASIC constants shown below control the configuration of the ILI9481controller.
+&#160;&#160;&#160;The GCBASIC constants for control and data line connections are shown
 in the table below. Two options are available for connectivity:
 
 1)  The 8-bit mode where 8 pins are connected between the microcontroller and the GLCD to control the
@@ -68,7 +68,7 @@ To use the ILI9481 driver simply include the following in your user code.  This 
 
 {empty} +
 {empty} +
-The Great Cow BASIC constants for the interface to the controller are shown in the table below.
+The GCBASIC constants for the interface to the controller are shown in the table below.
 {empty} +
 {empty} +
 
@@ -122,7 +122,7 @@ The Great Cow BASIC constants for the interface to the controller are shown in t
 
 {empty} +
 {empty} +
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 {empty} +
 {empty} +
 
@@ -141,13 +141,13 @@ The Great Cow BASIC constants for control display characteristics are shown in t
 |`480`
 
 |`GLCDFontWidth`
-|Specifies the font width of the Great Cow BASIC font set.
+|Specifies the font width of the GCBASIC font set.
 |`6`
 |===
 {empty} +
 {empty} +
 
-The Great Cow BASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
+The GCBASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
 {empty} +
 {empty} +
 
@@ -235,7 +235,7 @@ The Great Cow BASIC commands supported for this GLCD are shown in the table belo
 {empty} +
 
 
-These examples show how to drive a ILI9481 based Graphic LCD module with the built in commands of Great Cow BASIC.  The 8 bit DBI example uses a UNO shield, this can easily adapted to Microchip architecture.  The 16 bit DBI
+These examples show how to drive a ILI9481 based Graphic LCD module with the built in commands of GCBASIC.  The 8 bit DBI example uses a UNO shield, this can easily adapted to Microchip architecture.  The 16 bit DBI
 example uses a Mega2560 board.
 
 {empty} +

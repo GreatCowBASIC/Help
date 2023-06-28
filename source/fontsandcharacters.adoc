@@ -18,7 +18,7 @@ image::OLEDASCIIcharacter.png[graphic,align="center"]
 
 *GLCD Controlling Constants*
 
-The Great Cow BASIC constants for control of fonts and characters are shown in the table below.
+The GCBASIC constants for control of fonts and characters are shown in the table below.
 
 
 [cols=3, options="header,autowidth"]

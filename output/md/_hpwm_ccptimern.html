@@ -1,0 +1,33 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>HPWM_CCPTimerN</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_microchip_pic_pwm_overview.html" title="Microchip PIC PWM Overview"><link rel="prev" href="_hpwmoff.html" title="HPWMOff"><link rel="next" href="_hpwmoff_2.html" title="HPWMOff"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_hpwm_ccptimern"></a>HPWM_CCPTimerN</h5></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    HPWM_CCPTimerN <span class="emphasis"><em>channel</em></span>, <span class="emphasis"><em>frequency</em></span>, <span class="emphasis"><em>duty cycle</em></span> [, <span class="emphasis"><em>timer</em></span> 2, 4 or 6 ]</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Only available on Microchip PIC microcontrollers with Capture/Compare/PWM (CCP)
+module.</p><p>This command supports the CCP 8 bit support with selectable <span class="strong"><strong>Timer 2, 4 or 6 only</strong></span> for CCP/PWM only.<br></p><p>For CCP/PWM support for timers 2 only see <a class="link" href="_hpwm_ccp.html" title="HPWM CCP">HPWM CCPTimer</a></p><p><span class="strong"><strong>Explanation:</strong></span></p><p>This command sets up the hardware PWM module of the Microchip PIC microcontroller to generate
+a PWM waveform of the given frequency and duty cycle.<br></p><p>If you only need one particular frequency and duty cycle, you should use PWMOn and
+the constants PWM_Freq and PWM_Duty instead.</p><p><code class="literal"><span class="emphasis"><em>channel</em></span></code> is 1, 2, 3, 4 or 5, and corresponds to the pins CCP1, CCP2, CCP3, CCP4 and CCP5
+respectively. On chips with only one CCP port, pin CCP or CCP1 is always
+used, and <code class="literal"><span class="emphasis"><em>channel</em></span></code> is ignored. (It should be set to 1 anyway to allow
+for future upgrades to more powerful microcontrollers.)</p><p><code class="literal"><span class="emphasis"><em>frequency</em></span></code> sets the frequency of the PWM output. It is measured in KHz.
+The maximum value allowed is 255 KHz. The minimum value varies depending
+on the clock speed. 1 KHz is the minimum on chips 16 MHz or under and 2
+Khz is the lowest possible on 20 MHz chips. In situations that do not
+require a specific PWM frequency, the PWM frequency should equal
+approximately 1 five-hundredth the clock speed of the microcontroller (ie 40 Khz on
+a 20 MHz chip, 16 KHz on an 8 MHz chip). This gives the best duty cycle
+resolution possible.</p><p><code class="literal"><span class="emphasis"><em>duty cycle</em></span></code> specifies the desired duty cycle of the PWM signal, and
+ranges from 0 to 255 where 255 is 100% duty cycle.</p><p><code class="literal">timer</code> specifies the timer source. Timers 2, 4 and 6 are supported.</p><p>To stop the PWM signal use the <code class="literal">HPWMOff</code> method with the parameter of the channel.</p><pre class="screen">    'Stop the CCP/PWM signal
+    HPWMOff ( 1 )</pre><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    #chip 16F1825, 4
+
+    DIR portc Out
+    DIR porta Out
+
+    initialisation:
+
+    'Command as follows:
+    ' HPWM_CCPTimerN   CCP_Channel, Frequency, Duty, Timer Source.  Timer source defaults to timer 2, so, the timersource is optional.
+
+    HPWM_CCPTimerN  3, 30, 77 , 4         'CCP/PWM module 3 using timer 4
+    HPWM_CCPTimerN  4, 40, 102, 6         'CCP/PWM module 4 using timer 6
+    HPWM  1, 10, 26                       'CCP/PWM module 1 with no parameter therefore timer 2
+
+    do
+    loop</pre></div></body></html>

@@ -2,9 +2,9 @@
 
 This section covers GLCD devices that use the ST7735 graphics controller.  The ST7735 or ST7735R is a single-chip controller/driver for 262K-color, graphic type TFT-LCD.
 
-Great Cow BASIC supports 65K-color mode operations.
+GCBASIC supports 65K-color mode operations.
 
-The Great Cow BASIC constants shown below control the configuration of the ST7735 or ST7735R controller. &#160;&#160;&#160;Great Cow BASIC supports an 8 bit bus connectivity. The 8 bit must be a single port of consective bits  - this is shown in the tables below.
+The GCBASIC constants shown below control the configuration of the ST7735 or ST7735R controller. &#160;&#160;&#160;GCBASIC supports an 8 bit bus connectivity. The 8 bit must be a single port of consective bits  - this is shown in the tables below.
 
 To use the ST7735 driver simply include the following in your user code.  This will initialise the driver.
 
@@ -23,7 +23,7 @@ To use the ST7735 driver simply include the following in your user code.  This w
 
 ----
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 
 [cols=3, options="header,autowidth"]
@@ -105,7 +105,7 @@ MASTERULTRAFAST for specific AVRs only.
 
 |===
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below. +
+The GCBASIC constants for control display characteristics are shown in the table below. +
 
 
 [cols="1,1,^1", options="header,autowidth"]
@@ -125,12 +125,12 @@ This cannot be changed
 This cannot be changed
 
 |`GLCDFontWidth`
-|Specifies the font width of the Great Cow BASIC font set.
+|Specifies the font width of the GCBASIC font set.
 |`6`
 |===
 
 
-The Great Cow BASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
+The GCBASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
 
 
 

@@ -2,9 +2,9 @@
 
 *About Analog to Digital Conversion*
 
-The analog to digital converter (ADC or A/D) module support is implemented by Great Cow BASIC to provide 8-bit, 10-bit and 12-bit Single channel measurement mode and Differential Channel Measurement mode.
+The analog to digital converter (ADC or A/D) module support is implemented by GCBASIC to provide 8-bit, 10-bit and 12-bit Single channel measurement mode and Differential Channel Measurement mode.
 
-Great Cow BASIC configures the analog to digital converter clock source, the programmed acquisition time and justification of the response byte, word or integer (as defined in the Great Cow BASIC method).
+GCBASIC configures the analog to digital converter clock source, the programmed acquisition time and justification of the response byte, word or integer (as defined in the GCBASIC method).
 
 *Normal or Single channel measurement mode*
 
@@ -33,11 +33,11 @@ image::adcoverviewb2.PNG[graphic,align="center"]
 
 When configured to differential channel measurement mode, the positive channel is connected to the defined positive analog pin (ANx), and the negative channel is connected to the defined negative analog pin. These two pins are internally connected (within the microcontroller) to a unity gain differential amplifier and once the amplifier has completed the comparison the result is returned as an integer.
 
-The positive channel Input is selected using the CHSx bits and the negative channel input is selected using the CHSNx bits.  These bits are managed by Great Cow BASIC.  The programmer only needs to supply the correct analog pin designators in the ReadADx commands.
+The positive channel Input is selected using the CHSx bits and the negative channel input is selected using the CHSNx bits.  These bits are managed by GCBASIC.  The programmer only needs to supply the correct analog pin designators in the ReadADx commands.
 
 image::adcoverviewb3.PNG[graphic,align="center"]
 
-The 12-bit returned result is available on the ADRESH and ADRESL registers which is returned by the Great Cow BASIC methods as an integer variable.
+The 12-bit returned result is available on the ADRESH and ADRESL registers which is returned by the GCBASIC methods as an integer variable.
 
 Some Microchip PIC microcontrollers have differential A/D modules and support differential Mode as well as 12-Bit A/D. With DIfferential mode the returned value can be either a positive or negative number that represents the voltage differential between the two A/D ports.
 
@@ -90,9 +90,9 @@ The voltage reference is specific to the microcontroller but the options are as 
 
 
 
-*Optimising Great Cow BASIC Code*
+*Optimising GCBASIC Code*
 
-Great Cow BASIC supports a wide range of A/D modules and the supporting library addresses up to 34 channels.
+GCBASIC supports a wide range of A/D modules and the supporting library addresses up to 34 channels.
 To reduce the size of the code produced you can define which channels are specifically supported.  See <<_analog_digital_conversion_code_optimisation, Optimising ADC code>> for more details.
 
 

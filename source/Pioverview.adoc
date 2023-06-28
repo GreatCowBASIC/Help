@@ -2,13 +2,13 @@
 
 *Introduction:*
 
-Great Cow BASIC can be used when using the Raspberry Pi.
+GCBASIC can be used when using the Raspberry Pi.
 
-You can install the command-line version of Great Cow BASIC on a Raspberry Pi (and similar single-board computers) and use it to compile your Great Cow BASIC programs.
+You can install the command-line version of GCBASIC on a Raspberry Pi (and similar single-board computers) and use it to compile your GCBASIC programs.
 
 You can also program most PICs and AVRs using only the Pi's GPIO pins (see <<Programming>>), as well as communicate with your device over the Pi's serial port.  This makes it easy to program, modify, and communicate with a PIC or AVR using just a Pi and an SSH connection.
 
-Great Cow Basic is not published for ARM-based computers, there is currently no pre-compiled version for ARM-based computers, so you will have to compile it from source.  The Great Cow Basic compiler is written in https://www.freebasic.net/[FreeBASIC] (an open-source version of BASIC), so you will need to first install the FreeBASIC compiler on your Pi, then use it to compile the Great Cow Basic compiler from its source code.  This is relatively simple.
+GCBASIC is not published for ARM-based computers, there is currently no pre-compiled version for ARM-based computers, so you will have to compile it from source.  The GCBASIC compiler is written in https://www.freebasic.net/[FreeBASIC] (an open-source version of BASIC), so you will need to first install the FreeBASIC compiler on your Pi, then use it to compile the GCBASIC compiler from its source code.  This is relatively simple.
 
 FreeBASIC is not included in any of the major Linux repositories, but there is a customized version for ARMv7 boards like the Raspberry Pi on their https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/[web site].
 
@@ -42,9 +42,9 @@ _Installing FreeBASIC_
   $ sudo ./install.sh -i
 ----
 
-_Installing Great Cow BASIC_
+_Installing GCBASIC_
 
- . Download and extract the Great Cow Basic sources:
+ . Download and extract the GCBASIC sources:
 ----
     $ wget "https://downloads.sourceforge.net/project/gcbasic/GCBasic%20-%20Linux%20Distribution/GCB%40Syn.rar"
     $ sudo apt install unar
@@ -67,7 +67,7 @@ _Installing Great Cow BASIC_
     $ gcbasic
 ----
 
-Now you can create and compile Great Cow BASIC source files. For example, to compile a program you created named `myprogram.bas` into `myprogram.hex`, you could run:
+Now you can create and compile GCBASIC source files. For example, to compile a program you created named `myprogram.bas` into `myprogram.hex`, you could run:
 
 ----
     $ gcbasic -A:GCASM -R:none -K:A -WX -V myprogram.bas
@@ -75,7 +75,7 @@ Now you can create and compile Great Cow BASIC source files. For example, to com
 
 This will:
 
- * use Great Cow BASIC's internal assembler,
+ * use GCBASIC's internal assembler,
  * turn off report creation,
  * preserve all code in the assembly file output (useful for debugging)
  * treat warnings as errors, and

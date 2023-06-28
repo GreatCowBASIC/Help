@@ -1,0 +1,134 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Val</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_string_manipulation.html" title="String Manipulation"><link rel="prev" href="_ucase.html" title="UCase"><link rel="next" href="_integertobin.html" title="IntegerToBin"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_val"></a>Val</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    var = Val(<span class="emphasis"><em>string</em></span>)   'Supports decimal byte and word strings only.
+
+    'use the following for strings that represent Long numbers
+    var = Val32(<span class="emphasis"><em>string</em></span>)   'Supports decimal long number strings only.</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The <code class="literal">Val</code> function will extract a number from a string variable, and store it in a word variable. One potential use is reading numbers that are sent in ASCII format over a serial connection.
+<br>
+<br>
+The <code class="literal">Val32</code> function will extract a long number from a string variable, and store it in a long variable.</p><p><br>
+<br>
+The <code class="literal">Val</code> function will not extract a value from a hexadecimal string.
+<br>
+<br></p><p><span class="strong"><strong>Example1:</strong></span></p><pre class="screen">    'Program for an RS232 controlled dimmer
+    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+
+    'Set pin directions for USART and PWM
+
+    'Variable for output level
+    Dim OutputLevel As Word
+
+    'Variables for received bytes
+    Dim DataIn As String
+    DataInCount = 0
+
+    'Main Loop
+    Do
+        'Get serial byte
+        Wait Until USARTHasData
+        HSerReceive InByte
+
+        'Process latest byte
+        'Enter key?
+        If InByte = 13 Then
+            'Convert output level to numeric variable
+            OutputLevel = Val(DataIn)
+
+            'Output
+            HPWM 1, 32, OutputLevel
+
+            'Clear output buffer for next command
+            DataIn = ""
+            DataInCount = 0
+        End If
+
+        'Number?
+        If InByte &gt;= 48 and InByte &lt;= 57 Then
+            'Add to end of DataIn string
+            DataInCount += 1
+            DataIn(DataInCount) = InByte
+            DataIn(0) = DataInCount
+        End If
+    Loop</pre><p><br>
+<br></p><p><span class="strong"><strong>Example2:</strong></span></p><pre class="screen">    ' ----- Configuration
+    'Chip Settings.
+    #chip 16f18855,32
+    #Config MCLRE_ON
+
+    ; ----- Define Hardware settings
+
+    '' -------------------LATA-----------------
+    '' Bit#:  -7---6---5---4---3---2---1---0---
+    '' LED:   ---------------|D5 |D4 |D3 |D2 |-
+    ''-----------------------------------------
+    ''
+
+    'Set the PPS of the RS232 ports.
+    UNLOCKPPS
+      RC0PPS = 0x0010     'RC0-&gt;EUSART:TX;
+      RXPPS  = 0x0011     'RC1-&gt;EUSART:RX;
+    LOCKPPS
+
+    ; ----- Constants
+    #define USART_BAUD_RATE 19200
+    #define USART_TX_BLOCKING
+
+    #define LEDD2 PORTA.0
+    #define LEDD3 PORTA.1
+    #define LEDD4 PORTA.2
+    #define LEDD5 PORTA.3
+    Dir     LEDD2 OUT
+    Dir     LEDD3 OUT
+    Dir     LEDD4 OUT
+    Dir     LEDD5 OUT
+
+
+    #define Potentiometer       PORTA.4
+    DIR     Potentiometer In
+
+    #define SWITCH_DOWN         0
+    #define SWITCH_UP           1
+    #define SWITCH              PORTA.5
+    Dir SWITCH                  In
+
+    ; ----- Variables
+    dim bytevar as Byte
+    dim wordvar as Word
+    dim longvar as long
+
+    bytevar = 0
+    wordvar = 0
+    longvar = 0
+
+
+
+    ; ----- Main body of program commences here.
+
+     #option Explicit
+
+     do
+         wait 100 ms
+
+         bytevar = Val( "255" )
+         HSerPrint bytevar
+         HSerPrintCRLF
+
+         wordvar = Val( "65535" )
+         HSerPrint wordvar
+         HSerPrintCRLF
+
+         longvar = Val32( "65536" )
+         HSerPrint longvar
+         HSerPrintCRLF 2
+
+         wait 1 s
+      loop
+    end
+
+  ; ----- Support methods.  Subroutines and Functions</pre><p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_hex.html" title="Hex">Hex</a>, <a class="link" href="_str.html" title="Str">Str</a></p></div></body></html>

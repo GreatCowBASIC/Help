@@ -2,12 +2,12 @@
 
 *Introduction*
 
-Great Cow BASIC supports a default interrupt handler in two modes:
+GCBASIC supports a default interrupt handler in two modes:
 
 1. You can define the interrupt flags and the default handler (a sub routine) will executed
 2. You can define an On Interrupt  event Call handler  where the handler is executed that matches the event
 and where all other define/valid events are handled by the default handler (a sub routine),
-The easiest way to write an interrupt handler is to write it in Great Cow BASIC in conjunction with the On Interrupt statement.
+The easiest way to write an interrupt handler is to write it in GCBASIC in conjunction with the On Interrupt statement.
 On Interrupt tells microcontroller to activate its internal interrupt handling and to jump to a predetermined interrupt
 handler (a sub routine that has been defined) when the interrupt handler (the sub routine) has completed processing returns
 to correct address in the program.  See <<_on_interrupt,On Interrupt>>.

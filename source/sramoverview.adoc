@@ -7,7 +7,7 @@ They are high-performance devices have unlimited endurance and zero write times,
 
 These devices are available from 64 Kbit up to 1 Mbit in density and support SPI, SDI and SQI™ bus modes.&#160;&#160;
 
-The Great Cow BASIC library only supports SPI bus mode.&#160;&#160;  The Great Cow BASIC library supports hardware and software SPI - this is controlled via a constant, see below.
+The GCBASIC library only supports SPI bus mode.&#160;&#160;  The GCBASIC library supports hardware and software SPI - this is controlled via a constant, see below.
 
 
 To use the SRAM libray simply include the following in your user code.&#160;&#160;

@@ -32,7 +32,7 @@ For most PIC Microcontrollers with SAFM this will be 32 bytes.&#160;&#160;&#160;
 {empty} +
 {empty} +
 `num_bytes` is an optional parameter, and can be used to specify number of bytes to read from SAFM, starting at the first location in the selected SAFM block.&#160;&#160;&#160;
-This parameter is not normally required as the default is set to the Great Cow BASIC constant `SAF_ROWSIZE_BYTES`.
+This parameter is not normally required as the default is set to the GCBASIC constant `SAF_ROWSIZE_BYTES`.
 {empty} +
 {empty} +
 *Example 1:*

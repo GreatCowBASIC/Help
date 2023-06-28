@@ -24,7 +24,7 @@ Care must be taken to ensure that the program is not instructed to read beyond t
 
 The type of `_Output_` should match the type of data stored in the table.
 For example, if the table contains Word values then `_Output_` should be a
-Word variable. If the type does not match, Great Cow BASIC will attempt to
+Word variable. If the type does not match, GCBASIC will attempt to
 convert the value.
 
 *Example:*

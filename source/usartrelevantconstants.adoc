@@ -4,9 +4,9 @@
 
 *Introduction*
 
-Great Cow BASIC support programs to communicate easily using RS232.
+GCBASIC support programs to communicate easily using RS232.
 
-Great Cow BASIC included microcontroller hardware-based serial routines are intended for use on microcontrollers with built in serial communications modules - normally referred to in datasheets as USART or UART modules.  Check the microcontroller data sheet for the defined transmit and receive (TX/Rx) pins.  Make sure your program sets the Tx pin direction to Out and the Rx pin direction to In respectively.  If the RS232 lines are connected elsewhere, or the microcontroller has no USART module, then the Great Cow BASIC software based RS232 routines must be used.
+GCBASIC included microcontroller hardware-based serial routines are intended for use on microcontrollers with built in serial communications modules - normally referred to in datasheets as USART or UART modules.  Check the microcontroller data sheet for the defined transmit and receive (TX/Rx) pins.  Make sure your program sets the Tx pin direction to Out and the Rx pin direction to In respectively.  If the RS232 lines are connected elsewhere, or the microcontroller has no USART module, then the GCBASIC software based RS232 routines must be used.
 
 Initialization of the USART module is handled automatically from your program by defining the chip, speed, and the baudrate.  The baudrate generator values are calculated and set,  usart is set to asynchronous, usart is enabled , the receive and transmit  are enabled. See the table below.
 
@@ -22,7 +22,7 @@ Available on all microcontrollers with a USART or UART module. +
 Microchip PIC supports USART1 and 2. +
 Atmel AVR supports USART 1,2,3 and 4.
 
-The following table explains the methods that can be implemented when using the Great Cow BASIC serial routines.
+The following table explains the methods that can be implemented when using the GCBASIC serial routines.
 
 *Commands:*
 
@@ -58,7 +58,7 @@ To receive number characters via usart2 use.
 |*Serially receive characters as a string.*  | |
 |`HSerGetString` |User_string_variable [,optional usart address]
 
-The optional usart address is microcontroller specific buy can be 1, 2, 3 or 4. | This subroutine ensures that the characters treated as a string.  When a carriage return (CR or ASCII code 13) is received this signifies the end of the character stream. Great Cow BASIC will determine the default buffering size for strings. See here for more help on string sizes. Defaults to usart1.
+The optional usart address is microcontroller specific buy can be 1, 2, 3 or 4. | This subroutine ensures that the characters treated as a string.  When a carriage return (CR or ASCII code 13) is received this signifies the end of the character stream. GCBASIC will determine the default buffering size for strings. See here for more help on string sizes. Defaults to usart1.
 
 To receive a string use. +
 `HserGetString` ( mystring )

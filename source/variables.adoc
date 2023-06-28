@@ -18,8 +18,7 @@ name is at least 2 characters (letters and/or numbers) long.
 *Variable Types*
 
 There are several different types of variable, and each type can store a
-different sort of information. These are the variable types that Great
-Cow BASIC can currently use:
+different sort of information. These are the variable types that GCBASIC can currently use:
 [cols=3, options="header,autowidth",width="80%"]
 |===
 |*Variable type*
@@ -62,7 +61,7 @@ needed.
 
 Other types of variable can be used in a very similar way, except that
 they must be "dimensioned" first. This involves using the DIM command,
-to tell Great Cow BASIC that it is dealing with something other than a
+to tell GCBASIC that it is dealing with something other than a
 byte variable.
 
 A key feature of variables is that it is possible the have the
@@ -81,7 +80,7 @@ A simple, but typical example follows.&#160;&#160;This is the typical for numeri
 ----
 
 
-Great Cow BASIC support bitwise assignments s follows:
+GCBASIC support bitwise assignments s follows:
 
 
 ----
@@ -160,7 +159,7 @@ of a specific chip.
 
 You cannot store a string 20 characters long in a chip with 16 bytes of RAM.
 
-You can change the default string size handled internally by the Great Cow BASIC compiler by changing the `STRINGSIZE` constant:
+You can change the default string size handled internally by the GCBASIC compiler by changing the `STRINGSIZE` constant:
 
 ----
     'set the default string to 24 bytes
@@ -245,7 +244,7 @@ Casting changes the type of a variable or value.  To tell the compiler to perfor
     MyWord = [word]ByteVar + AnotherByteVar
 ----
 
-Why do this?   Suppose that `ByteVar` is 150, and `AnotherByteVar` is 231.  When added, this will come to 381 - which will overflow, leaving 125 in the result.  However, when the cast is added, Great Cow BASIC will treat `ByteVar` as if it were a word, and so will use the word addition code.  This will cause the correct result to be calculated.
+Why do this?   Suppose that `ByteVar` is 150, and `AnotherByteVar` is 231.  When added, this will come to 381 - which will overflow, leaving 125 in the result.  However, when the cast is added, GCBASIC will treat `ByteVar` as if it were a word, and so will use the word addition code.  This will cause the correct result to be calculated.
 
 It is good practice to cast when calculating an average:
 

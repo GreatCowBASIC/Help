@@ -1,20 +1,20 @@
 === Development Guide
 
-There are lots of ways to contribute to the Great Cow BASIC project: coding, testing, improving the build process and tools, or contributing to the documentation.
-This guide provides information that will not only help you get started as a Great Cow BASIC contributor,
+There are lots of ways to contribute to the GCBASIC project: coding, testing, improving the build process and tools, or contributing to the documentation.
+This guide provides information that will not only help you get started as a GCBASIC contributor,
 but that you wiil find useful to refer to EVEN if you are already an experienced contributor.
 
 *Need Help?*
 
-The Great Cow BASIC community prides itself on being an open, accessible, and friendly community for new participants.
+The GCBASIC community prides itself on being an open, accessible, and friendly community for new participants.
 If you have any difficulties getting involved or finding answers to your questions, please bring those questions to the forum via the discussion boards, where we can help you get started.
 
-We know EVEN before you start contributing that getting set up to work on Great Cow BASIC and finding a bug that is a good fit for your skills can be a challenge.
-We are always looking for ways to improve this process: making Great Cow BASIC more open, accessible, and easier to participate with.
+We know EVEN before you start contributing that getting set up to work on GCBASIC and finding a bug that is a good fit for your skills can be a challenge.
+We are always looking for ways to improve this process: making GCBASIC more open, accessible, and easier to participate with.
 If you are having any trouble following this documentation, or hit a barrier you cannot get around, please contact use via the discussion forum.
-We will solve hurdles for new contributors and make Great Cow BASIC better.
+We will solve hurdles for new contributors and make GCBASIC better.
 
-This section addresses developing libraries but this guide is appropriate to any Great Cow BASIC development.
+This section addresses developing libraries but this guide is appropriate to any GCBASIC development.
 
 The section covers the recommended programming style, Constants, Variables, Script syntax (gotchas) and tab usage.
 
@@ -56,9 +56,9 @@ Using "AND" or "OR" reduces the script size, however, it is essential the the co
 *CONSTANTS*
 
 A constant is a value that cannot be altered by the program during normal execution.&#160;&#160;
-Within Great Cow BASIC there are two ways to create constants.&#160; &#160;
+Within GCBASIC there are two ways to create constants.&#160; &#160;
 1. with the `#DEFINE` instruction, or,
-2. via `#SCRIPT .. #ENDSCRIPT'. ;&#160;&#160; Within a script constants can be created and changed.  A script is process that is executed  prior to the Great Cow BASIC source program is processing the main user program.
+2. via `#SCRIPT .. #ENDSCRIPT'. ;&#160;&#160; Within a script constants can be created and changed.  A script is process that is executed  prior to the GCBASIC source program is processing the main user program.
 
 An example of using `#DEFINE` is
 

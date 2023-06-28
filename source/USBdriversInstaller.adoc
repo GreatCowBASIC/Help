@@ -1,10 +1,10 @@
 === USB Drivers Installer
 
-WARNING: Installing the USB driver is only required when using the Great Cow BASIC USB library.
+WARNING: Installing the USB driver is only required when using the GCBASIC USB library.
 
 *Description:*
 
-The drivers for windows x86 and x64 correspond to the USB LIBKWIN capability of Great-Cow Basic for supported PIC microcontrollers.
+The drivers for windows x86 and x64 correspond to the USB LIBKWIN capability of GCBasic for supported PIC microcontrollers.
 
 For security reasons, in Microsoft windows for a driver to be installed, it is necessary that it be digitally signed by Microsoft.
 

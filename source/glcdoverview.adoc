@@ -23,7 +23,7 @@ Typical displays are
 - Require memory in the microcontroller to support graphial operations or can be used in text and picture mode
 
 
-Great Cow BASIC makes this type of device easier to control with the
+GCBASIC makes this type of device easier to control with the
 commands for the GLCD.
 
 *Microcontroller Requirements:*
@@ -199,7 +199,7 @@ AVR: 8Bit Bus using an UNO Shield.  PIC: 8bit port suppported.
 |TFT LCD
 |Serial - hardware or software serial is supported.
 |Nextion specfic and GLCD command set
-|Typically operates at VCC 5 with external power supply. Always check voltage specifications  Great command set, you need to learn the GUI and then interface to Great Cow BASIC.
+|Typically operates at VCC 5 with external power supply. Always check voltage specifications  Great command set, you need to learn the GUI and then interface to GCBASIC.
 |2 ports for the read/write serial operations.
 |A very nice option but if you need flexibility then the best!
 
@@ -634,7 +634,7 @@ The following color constants are prevent-defined.
 ----
 
 This example shows how to drive a KS0108 based Graphic LCD module with
-the built in commands of Great Cow BASIC. See
+the built in commands of GCBASIC. See
 http://www.greatcowbasic.com/sample-projects.html[Graphic LCD] for
 details, this is an external web site.
 

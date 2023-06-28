@@ -1,7 +1,7 @@
 ==== SonyRemote.h
 
 *Explanation:*
-Sony IR Remote Control Library for Great Cow BASIC
+Sony IR Remote Control Library for GCBASIC
 
 This include file will let you easily read and use the infrared signals from a Sony compatible television remote control. In particular, the remote control transmits a pulse modulated signal, the sensor detects this, and the subroutine in this header file decodes the signal, returning two numbers: one representing the device (television, VCR, DVD, tuner, etc.), while the the other returns the key which has been depressed (VOL+, MUTE, channel numbers 0 through 9, etc.).
 

@@ -63,8 +63,8 @@ call java com.icl.saxon.StyleSheet ..\..\source\%1.xml %GCBxsl% ^
  chunk.separate.lots=0 chunk.section.depth=6 htmlhelp.remember.window.position=1 use.id.as.filename=1 ^
  htmlhelp.hhp="%1.hhp" htmlhelp.hhc="%1.hhc" htmlhelp.chm="%1.chm" generate.toc=" " ^
  generate.section.toc.level=6 chunk.first.sections=1 htmlhelp.hhc.show.root=0 ^
- htmlhelp.default.topic="_introducing_great_cow_basic.html" ^
- html.stylesheet="gcbdoc.css" generate.book.toc=0 htmlhelp.title="Great Cow BASIC Help"
+ htmlhelp.default.topic="_introducing_gcbasic.html" ^
+ html.stylesheet="gcbdoc.css" generate.book.toc=0 htmlhelp.title="GCBASIC Help"
 if %1 == gcbasic call ..\..\source\cleanhhc.bat
 copy %GCBase%\source\gcbdoc.css .
 rem copy %GCBase%\source\images\logo.png .\images

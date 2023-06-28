@@ -8,7 +8,7 @@ When the measurement of a pulse width to sub-microsecond resolution is required 
 
 Microchip PIC has published a "Compiled Tips 'N Tricks Guide" that explains how to do certain tasks with Microchip PIC 8-bit microcontrollers.
 
-This guide provides the steps that need to be taken to perform the task of measuring a pulse width.  The guide provides guidance on measuring a pulse width using Timer 1 and the CCP module.  This guidance was used as the basis for the Great Cow BASIC port the shown below.  The guidance was generic and in this example polling the CCP flag bit was more convenient than using an interrupt.
+This guide provides the steps that need to be taken to perform the task of measuring a pulse width.  The guide provides guidance on measuring a pulse width using Timer 1 and the CCP module.  This guidance was used as the basis for the GCBASIC port the shown below.  The guidance was generic and in this example polling the CCP flag bit was more convenient than using an interrupt.
 
 In this demonstration shown below, a 16F1829 microcontroller operating at 32 Mhz uses the internal oscillator. The demonstration code is based on a macro that uses Timer1 and CCP4. However, any of the four CCP modules could be used, the 16F1829 microcontroller has four CCP module.
 
@@ -18,7 +18,7 @@ The accuracy is dependent upon the accuracy of the system clock, but oscilliscop
 
 In this demonstration the following was implemented
 
-- Using Great Cow BASIC a macro to ensure the generated assembler is inline to ensure the timing is consistent and no sub routines are called.
+- Using GCBASIC a macro to ensure the generated assembler is inline to ensure the timing is consistent and no sub routines are called.
 - Another microcontroller was used to generate the pulses to be measured
 - A TEK THS730A oscilliscope was used to measure/verify pulse widths
 - A 4x20 LDC module with an I2C Backpack was used to display the results. However, as an alternative, a serial output +

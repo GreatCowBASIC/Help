@@ -15,7 +15,7 @@ See <<_lcd_io_2_74xx164,LCD_IO 2 74xx164>> for the preferred method to connect a
 
 *Relevant Constants:*
 
-Specific constants are used to control settings for the Liquid Crystal Display routines included with Great Cow BASIC. To set these constants the main program should specific constants to support the connection mode using #define.
+Specific constants are used to control settings for the Liquid Crystal Display routines included with GCBASIC. To set these constants the main program should specific constants to support the connection mode using #define.
 When using 2-bit mode only three constants must be set - all others are optional or can be ignored.
 
 

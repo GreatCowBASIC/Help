@@ -1,0 +1,102 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>UC1601 Controllers</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_glcd_overview.html" title="GLCD Overview"><link rel="prev" href="_t6963_controllers.html" title="T6963 Controllers"><link rel="next" href="_box.html" title="Box"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_uc1601_controllers"></a>UC1601 Controllers</h5></div></div></div><p>This section covers GLCD devices that use the UC1601 graphics controller.</p><p>The UC1601 is an advanced high-voltage mixed signal CMOS IC, especially designed for the display needs of ultra-low power hand-held devices.</p><p>The UC1601 embeds with contrast control, display RAM and oscillator, which reduces the number of external components and power consumption.&nbsp;&nbsp; It has 256-step brightness control. Data/Commands are sent from general MCU through the hardware selectable 6800/8000 series compatible Parallel Interface, I2C interface or Serial Peripheral Interface. It is suitable for many compact portable applications, such as mobile phone sub-display, MP3 player and calculator, etc.</p><p>The UC1601 library supports 132 * 22 pixels.&nbsp;&nbsp;  The UC1601 library  supports monochrome devices.</p><p><span class="inlinemediaobject"><img src="./images/UC1601.gif" width="396" height="66" alt="graphic"></span></p><p>The UC1601 can operate in three modes.&nbsp;&nbsp; Full GLCD mode, Low Memory GLCD mode or Text/JPG mode the full GLCD mode requires a minimum of 396 bytes or 128 bytes for the respective modes.&nbsp;&nbsp;For microcontrollers with limited memory the third mode of operation - Text mode.  These can be selected by setting the correct constant.</p><p>To use the UC1601 driver simply include the following in your user code.  This will initialise the driver.</p><p>The GCBASIC constants shown below control the configuration of the UC1601 controller. &nbsp;&nbsp;&nbsp;GCBASIC supports hardware I2C &amp; software I2C connectivity  - this is shown in the tables below.</p><p>To use the UC1601 drivers simply include one of the following configuration.</p><pre class="screen">    'An I2C configuration
+    #include &lt;glcd.h&gt;
+
+    #define GLCD_TYPE GLCD_TYPE_UC1601
+    #define GLCD_I2C_Address      0x70                   'I2C address
+    #define GLCD_RESET            portc.0                'Hard Reset pin connection
+    #define GLCD_PROTECTOVERRUN
+    #define GLCD_OLED_FONT
+
+    ; ----- Define Hardware settings for I2C
+    ' Define I2C settings - CHANGE PORTS
+    #define I2C_MODE Master
+    #define I2C_DATA PORTb.5
+    #define I2C_CLOCK PORTb.7
+    #define I2C_DISABLE_INTERRUPTS ON</pre><p>The GCBASIC constants for control display characteristics are shown in the table below.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Constants</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Controls</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Options</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">GLCD_TYPE</code></p></td><td align="left" valign="top"><p><code class="literal">GLCD_TYPE_UC1601</code></p></td><td align="left" valign="top"><p>Required</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_I2C_Address</code></p></td><td align="left" valign="top"><p>I2C address of the GLCD.</p></td><td align="left" valign="top"><p>Fixed at 0x70.</p></td></tr></tbody></table></div><p>The GCBASIC constants for control display characteristics are shown in the table below.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Constants</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Controls</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Default</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">GLCD_WIDTH</code></p></td><td align="left" valign="top"><p>The width parameter of the GLCD</p></td><td align="left" valign="top"><p><code class="literal">132</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_HEIGHT</code></p></td><td align="left" valign="top"><p>The height parameter of the GLCD</p></td><td align="left" valign="top"><p><code class="literal">22</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_PROTECTOVERRUN</code></p></td><td align="left" valign="top"><p>Define this constant to restrict pixel operations with the pixel limits</p></td><td align="left" valign="top"><p>Recommended</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_TYPE_UC1601_CHARACTER_MODE_ONLY</code></p></td><td align="left" valign="top"><p>Specifies that the display controller will operate in text mode and BMP
+draw mode only.<br>
+For microcontrollers with low RAM this will be set be
+default.<br>
+When selected ONLY text related commands are suppored. For grapical commands you must have sufficient memory to use Full GLCD mode or use <code class="literal">GLCD_TYPE_UC1601_LOWMEMORY_GLCD_MODE</code></p></td><td align="left" valign="top"><p>Optional</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_TYPE_UC1601_LOWMEMORY_GLCD_MODE</code></p></td><td align="left" valign="top"><p>Specifies that the display controller will operate in Low Memory mode.</p></td><td align="left" valign="top"><p>Optional</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_OLED_FONT</code></p></td><td align="left" valign="top"><p>Specifies the use of the optional OLED font set.
+</p><p>The GLCDfntDefaultsize can be set to 1 or 2 only.
+</p><p><code class="literal">GLCDfntDefaultsize=  1</code>.   A small 8 height pixel font with variable width.
+<code class="literal">GLCDfntDefaultsize=  2</code>.   A larger 10 width * 16 height pixel font.</p></td><td align="left" valign="top"><p>Optional</p></td></tr></tbody></table></div><p>The GCBASIC variables for control display characteristics are shown in the table below.
+These variables control the user definable parameters of a specific GLCD.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Variable</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Purpose</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Type</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">GLCDBackground</code></p></td><td align="left" valign="top"><p>GLCD background state.</p></td><td align="left" valign="top"><p>A monochrome value.<br>
+For mono GLCDs the default is White or 0x0001.</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDForeground</code></p></td><td align="left" valign="top"><p>Color of GLCD foreground.</p></td><td align="left" valign="top"><p>A monochrome value.<br>
+For mono GLCDs the default is non-white or 0x0000.</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDFontWidth</code></p></td><td align="left" valign="top"><p>Width of the current GLCD font.</p></td><td align="left" valign="top"><p>Default is 6 pixels.</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDfntDefault</code></p></td><td align="left" valign="top"><p>Size of the current GLCD font.</p></td><td align="left" valign="top"><p>Default is 0.
+</p><p></p><p>This equates to the standard GCB font set.</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDfntDefaultsize</code></p></td><td align="left" valign="top"><p>Size of the current GLCD font.</p></td><td align="left" valign="top"><p>Default is 1.
+</p><p></p><p>This equates to the 8 pixel high.</p></td></tr></tbody></table></div><p>The GCBASIC commands supported for this GLCD are shown in the
+table below.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Command</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Purpose</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Example</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">GLCDCLS</code></p></td><td align="left" valign="top"><p>Clear screen of GLCD</p></td><td align="left" valign="top"><p><code class="literal">GLCDCLS</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDPrint</code></p></td><td align="left" valign="top"><p>Print string of characters on GLCD using GCB font set</p></td><td align="left" valign="top"><p><code class="literal">GLCDPrint( Xposition, Yposition, Stringvariable )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDDrawChar</code></p></td><td align="left" valign="top"><p>Print character on GLCD using GCB font set</p></td><td align="left" valign="top"><p><code class="literal">GLCDDrawChar( Xposition, Yposition, CharCode )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDDrawString</code></p></td><td align="left" valign="top"><p>Print characters on GLCD using GCB font set</p></td><td align="left" valign="top"><p><code class="literal">GLCDDrawString( Xposition, Yposition, Stringvariable )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">Box</code></p></td><td align="left" valign="top"><p>Draw a box on the GLCD to a specific size</p></td><td align="left" valign="top"><p><code class="literal">Box ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In
+LineColour as 0 or 1] )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">FilledBox</code></p></td><td align="left" valign="top"><p>Draw a box on the GLCD to a specific size that is filled with the
+foreground colour.</p></td><td align="left" valign="top"><p><code class="literal">FilledBox (Xposition1, Yposition1, Xposition2, Yposition2, [Optional In
+LineColour 0 or 1] )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">Line</code></p></td><td align="left" valign="top"><p>Draw a line on the GLCD to a specific length that is filled with the
+specific attribute.</p></td><td align="left" valign="top"><p><code class="literal">Line ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In
+LineColour 0 or 1] )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">PSet</code></p></td><td align="left" valign="top"><p>Set a pixel on the GLCD at a specific position that is set with the
+specific attribute.</p></td><td align="left" valign="top"><p><code class="literal">PSet(Xposition, Yposition, Pixel Colour 0 or 1)</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_Open_PageTransaction</code></p></td><td align="left" valign="top"><p>Commence a series of GLCD commands when in low memory mode.  Must be followed a  <code class="literal">GLCD_Close_PageTransaction</code> command.</p></td><td align="left" valign="top"><p><code class="literal">GLCD_Close_PageTransaction 0, 3</code> where 0 and 3 are the range of pages to be updated</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_Close_PageTransaction</code></p></td><td align="left" valign="top"><p>Commence a series of GLCD commands when in low memory mode.  Must follow a <code class="literal">GLCD_Open_PageTransaction</code> command.</p></td><td align="left" valign="top">&nbsp;</td></tr><tr><td align="left" valign="top"><p><code class="literal">Open_Transaction_UC1601</code></p></td><td align="left" valign="top"><p>Send command instruction to GLCD.  Handles I2C and SPI protocols.</p></td><td align="left" valign="top"><p>Transaction must be closed by using <code class="literal">Close_Transaction_UC1601</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">Open_Transaction_Data_UC1601</code></p></td><td align="left" valign="top"><p>Send data instruction to GLCD.  Handles I2C and SPI protocols.</p></td><td align="left" valign="top"><p>Transaction must be closed by using <code class="literal">Close_Transaction_UC1601</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">Write_Transaction_Data_UC1601</code></p></td><td align="left" valign="top"><p>Send transactional, a stream of, data to GLCD.</p></td><td align="left" valign="top"><p>Transaction must be opened and closed by using transaction commands.</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">Close_Transaction_UC1601</code></p></td><td align="left" valign="top"><p>Close the communications to the GLCD.</p></td><td align="left" valign="top"><p>Transaction must be opened by using <code class="literal">Open_Transaction_UC1601</code> or <code class="literal">Open_Transaction_Data_UC1601</code></p></td></tr></tbody></table></div><p>The GCBASIC specific commands for this GLCD are shown in the table below.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"></colgroup><thead><tr><th align="left" valign="top">Command</th><th align="left" valign="top">Purpose</th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">Stopscroll_UC1601</code></p></td><td align="left" valign="top"><p>Stops all scrolling</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">Startscroll_UC1601 ( start  )</code></p></td><td align="left" valign="top"><p>Activates a vertical scroll for rows start.</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDSetContrast ( contrast_state )</code></p></td><td align="left" valign="top"><p>Sets the constrast between 0 and 255. The contrast increases as the value increases.<br>
+Parameter is contrast value</p></td></tr></tbody></table></div><p>For a UC1601 datasheet, please refer <a class="link" href="http://gcbasic.sourceforge.net/library/DISPLAY/UC1601.pdf" target="_top">here</a>.</p><p>This example shows how to drive a UC1601 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode GLCD</p><pre class="screen">        ; ----- Configuration
+        #chip 16f18446, 32
+        #option explicit
+
+
+    ; ----- Define GLCD Hardware settings
+        #include &lt;glcd.h&gt;
+
+        #define GLCD_TYPE GLCD_TYPE_UC1601
+        #define GLCD_I2C_Address      0x70                   'I2C address
+        #define GLCD_RESET            portc.0                'Hard Reset pin connection
+        #define GLCD_PROTECTOVERRUN
+        #define GLCD_OLED_FONT
+
+    ; ----- Define Hardware settings
+
+        ' Define I2C settings - CHANGE PORTS
+        #define I2C_MODE Master
+        #define I2C_DATA PORTb.5
+        #define I2C_CLOCK PORTb.7
+        #define I2C_DISABLE_INTERRUPTS ON
+
+    ; ----- Define variables
+
+    ; ----- Main program
+
+        'You can treat the GLCD like an LCD....
+        GLCDPrintStringLN "User the GLCD like an LCD...."
+        GLCDPrintStringLN "The GLCDPrintString commands...."
+        GLCDPrintString "Enjoy....."
+        wait 4 s
+
+    end</pre><p><br>
+<br>
+This example shows how to drive a UC1601 based Graphic I2C LCD module with the built in commands of GCBASIC using Low Memory Mode GLCD.
+<br>
+Note the use of <code class="literal">GLCD_Open_PageTransaction</code> and <code class="literal">GLCD_Close_PageTransaction</code> to support the Low Memory Mode of operation and the contraining of all GLCD commands with the transaction commands.  The use Low Memory Mode GLCD the two defines <code class="literal">GLCD_TYPE_UC1601_LOWMEMORY_GLCD_MODE</code> and <code class="literal">GLCD_TYPE_UC1601_CHARACTER_MODE_ONLY</code> are included in the user program.
+<br></p><pre class="screen">    #chip mega328p,16
+    #include &lt;glcd.h&gt;
+
+    ; ----- Define Hardware settings
+    ' Define I2C settings
+    #define HI2C_BAUD_RATE 400
+    #define HI2C_DATA
+    HI2CMode Master
+
+    ; ----- Define GLCD Hardware settings
+    #define GLCD_TYPE GLCD_TYPE_UC1601
+    #define GLCD_TYPE_UC1601_LOWMEMORY_GLCD_MODE
+    #define GLCD_TYPE_UC1601_CHARACTER_MODE_ONLY
+
+    dim outString as string * 21
+
+    GLCDCLS
+
+    'To clarify - page udpates
+    '0,7 correspond with the Text Lines from 0 to 3 on a 22 Pixel Display
+    'In this example Code would be GLCD_Open_PageTransaction 0,1 been enough
+    'But it is allowed to use GLCD_Open_PageTransaction 0,3 to show the full screen update
+    GLCD_Open_PageTransaction 0,3
+       GLCDPrint 0, 0, "GCBASIC"
+       GLCDPrint (0, 16, "Anobium 2021")
+    GLCD_Close_PageTransaction
+
+    end</pre><p><br></p><p><span class="strong"><strong>For more help, see</strong></span>
+<a class="link" href="_glcdcls.html" title="GLCDCLS">GLCDCLS</a>, <a class="link" href="_glcddrawchar.html" title="GLCDDrawChar">GLCDDrawChar</a>, <a class="link" href="_glcdprint.html" title="GLCDPrint">GLCDPrint</a>, <a class="link" href="_glcdreadbyte.html" title="GLCDReadByte">GLCDReadByte</a>, <a class="link" href="_glcdwritebyte.html" title="GLCDWriteByte">GLCDWriteByte</a> or <a class="link" href="_pset.html" title="Pset">Pset</a></p><p>Supported in &lt;GLCD.H&gt;</p></div></body></html>

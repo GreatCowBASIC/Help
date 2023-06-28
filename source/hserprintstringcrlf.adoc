@@ -47,7 +47,7 @@ The data will be sent out the hardware serial module.
   #define USART_TX_BLOCKING
 
   'Show string message
-  HSerPrintStringCRLF "Great Cow BASIC RS232 Test"
+  HSerPrintStringCRLF "GCBASIC RS232 Test"
   Wait 1 s
 
 

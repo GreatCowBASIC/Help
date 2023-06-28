@@ -9,7 +9,7 @@ items like the speed of a motor, or the brightness of a LED or lamp. +
 The methods can also be used to generate the appropriate frequency signal to drive an
 infrared LED for remote control applications. +
 
-Great Cow BASIC support the four different method shown below: +
+GCBASIC support the four different method shown below: +
 &#160;&#160;&#160; - Two methods use the microcontroller CCP module +
 &#160;&#160;&#160; - One method uses the microcontroller PWM module, and +
 &#160;&#160;&#160; - One method is a software emulation of PWM. +

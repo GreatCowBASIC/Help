@@ -26,7 +26,7 @@ how many times the code has run. When the For command is first executed,
 loops, `_increment_` is added to `_counter_`, until `_counter_` is equal to
 `_end_`. Then, the program continues beyond the Next.
 
-`_Step_` and `_increment_` are optionals. If Step is not specified, Great Cow BASIC
+`_Step_` and `_increment_` are optionals. If Step is not specified, GCBASIC
 will increment `_counter_` by 1 each time the code is run.
 
 `_increment_` can be a positive or negative constant or an integer.
@@ -36,7 +36,7 @@ condition.
 
 
 WARNING:   `#define USELEGACYFORNEXT` to enable legacy FOR-NEXT support.&#160;&#160;
-The Great Cow BASIC compiler was revised in 2021 to improve the handling of the FOR-NEXT support.&#160;&#160;
+The GCBASIC compiler was revised in 2021 to improve the handling of the FOR-NEXT support.&#160;&#160;
 You can revert to the legacy FOR-NEXT support by using `#DEFINE USELEGACYFORNEXT` but using this legacy support will cause your program to operate incorrectly. &#160;&#160;
 The use of `#DEFINE USELEGACYFORNEXT` is NOT recommended.
 

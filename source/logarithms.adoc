@@ -2,7 +2,7 @@
 
 *Explanation:*
 
-Great Cow BASIC support logarithmic functions through the include file <maths.h>.
+GCBASIC support logarithmic functions through the include file <maths.h>.
 
 These functions compute base 2, base e and base 10 logarithms accurate to 2 decimal places, +/- 0.01.
 

@@ -49,7 +49,7 @@ Why do this?  To reduce the PROGMEM size.&#160;&#160;
 But, you must assure yourself that the loop variable cannot overflow as the legacy FOR-NEXT does not prevent an overflow of the loop variable.
 
 Some background.&#160;&#160;
-In 2021 the Great Cow BASIC compiler was updated to improve the operation of the FOR-NEXT loop.&#160;&#160;
+In 2021 the GCBASIC compiler was updated to improve the operation of the FOR-NEXT loop.&#160;&#160;
 The improvement did increase the size of the ASM generated.&#160;&#160;
 The legacy FOR-NEXT loop had some major issues that included never ending loops, incorrect end loop and unexpected operations.&#160;&#160;
 This was all caused by the compiler, not the user, and in 2021 the compiler was updated to resolve these issues.&#160;&#160;

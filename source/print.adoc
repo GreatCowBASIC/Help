@@ -37,7 +37,7 @@ can display string, word, byte, long or integer variables.
     CLS
     Print "Light Meter"
     Locate 1,2
-    Print "A Great Cow BASIC Demo"
+    Print "A GCBASIC Demo"
     Wait 2 s
 
     Do

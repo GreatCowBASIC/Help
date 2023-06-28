@@ -61,7 +61,7 @@ available:
 |1 hour - 255 hours
 |===
 
-At one stage, Great Cow BASIC variables could not hold more than 255. The `10us`
+At one stage, GCBASIC variables could not hold more than 255. The `10us`
 and `10ms` units were added as a way to work around this limit. There is
 now no such limit (`Wait 1000 ms` will work for example), so these are not
 really needed. However, you may see them in some older examples or

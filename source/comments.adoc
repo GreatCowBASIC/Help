@@ -2,7 +2,7 @@
 
 *About Comments*
 
-Adding comments to your Great Cow BASIC program can be done using a number of methods. &#160;&#160;
+Adding comments to your GCBASIC program can be done using a number of methods. &#160;&#160;
 Explanatory notes embedded within the code.&#160;&#160;
 Comments are used to remind yourself and to inform others about the function of your program.&#160;&#160;
 Comments are ignored by the compiler
@@ -25,10 +25,10 @@ Multiline comments are support for large text descriptions of code or to comment
 ----
 
 
-Warning: Great Cow Graphical BASIC uses semi-colons to mark comments that it has
+Warning: Graphical GCBASIC uses semi-colons to mark comments that it has
 inserted automatically. It does not read these comments when opening a file, so any
-comments in a Great Cow BASIC program starting with a semi-colon will be deleted if the
-program is opened using Great Cow Graphical BASIC.
+comments in a GCBASIC program starting with a semi-colon will be deleted if the
+program is opened using Graphical GCBASIC.
 
 *Example:*
 ----

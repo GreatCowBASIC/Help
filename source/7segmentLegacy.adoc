@@ -4,9 +4,9 @@
 
 *Introduction*
 
-The Great Cow BASIC 7 segment display methods make it easier for Great Cow BASIC programs to display numbers and letters on 7 segment LED displays.
+The GCBASIC 7 segment display methods make it easier for GCBASIC programs to display numbers and letters on 7 segment LED displays.
 [subs="specialcharacters,quotes"]
-The Great Cow BASIC methods support up to four digit 7 segment display devices, common anode/cathode and inversion of the port logic to support driving the device(s) via a transistor.
+The GCBASIC methods support up to four digit 7 segment display devices, common anode/cathode and inversion of the port logic to support driving the device(s) via a transistor.
 
 There are three ways that the 7 segment display routines can be set up.
 
@@ -36,10 +36,10 @@ Use the `DISPLAYPORTn` and `DISP_SEL_n` constants to specify the whole port and 
 |===
 
 
-The Great Cow BASIC methods  assume the 7 segment display(s) is to be connected to a common
+The GCBASIC methods  assume the 7 segment display(s) is to be connected to a common
 parallel bus with a Common Cathode.   See the sections
 <<_common_cathode,Common Cathode>> and
-<<_common_anode,Common Anode>> for examples of using Great Cow BASIC code to
+<<_common_anode,Common Anode>> for examples of using GCBASIC code to
 control these different configurations
 
 Shown below are the differing constants that must be set for the three connectivity options.

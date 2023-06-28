@@ -1,6 +1,6 @@
 ==== Reading Timers
 
-Great Cow BASIC has the following functions to read the current timer value. They
+GCBASIC has the following functions to read the current timer value. They
 are:
 ----
     Timer0()

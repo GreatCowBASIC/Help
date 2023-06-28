@@ -8,7 +8,7 @@
 *Explanation:*
 
 Interrupts can occur at almost any time, and may interrupt another command as it runs. To ensure that the interrupted command can continue properly after the interrupt, some temporary variables (the context) must be saved.
-Normally Great Cow BASIC will do this automatically, but in some cases it may be necessary to prevent this. If porting some existing assembly code to Great Cow BASIC, or creating a bootloader using Great Cow BASIC that will call another program,
+Normally GCBASIC will do this automatically, but in some cases it may be necessary to prevent this. If porting some existing assembly code to GCBASIC, or creating a bootloader using GCBASIC that will call another program,
 
 `NoContextSave` can be used to prevent the context saving code from being added automatically.
 

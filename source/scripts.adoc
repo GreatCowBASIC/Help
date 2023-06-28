@@ -2,11 +2,11 @@
 // Edit EvanV 031216
 *About Scripts*
 
-A script is a small section of code that Great Cow BASIC runs when it
+A script is a small section of code that GCBASIC runs when it
 starts to compile a program.  Uses include performing calculations
 that are required to adjust the program for different chip frequencies.
 
-Scripts are not compiled or downloaded to the microcontroller - Great Cow BASIC
+Scripts are not compiled or downloaded to the microcontroller - GCBASIC
 reads them, executes them, then removes them from the program and then the
 results calculated can be used as _constants_ in the user program.
 
@@ -24,10 +24,10 @@ consist of the following commands:
     Warning
     Int()
 ----
-`If` is similar to the If command in normal Great Cow BASIC code, except that it does not have an `Else` clause.
+`If` is similar to the If command in normal GCBASIC code, except that it does not have an `Else` clause.
 It is used to compare the values of the script constants.
 
-The `=` sign is identical to that in Great Cow BASIC programs.
+The `=` sign is identical to that in GCBASIC programs.
 The _constant_ that is to be set goes on the left side of the `=` and the new value goes to the right of the `=`.
 
 `Error` is used to display an error message.

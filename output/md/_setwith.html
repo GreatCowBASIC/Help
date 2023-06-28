@@ -1,0 +1,19 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>SetWith</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_bitwise.html" title="Bitwise"><link rel="prev" href="_fnlsr.html" title="FnLSR"><link rel="next" href="_memory.html" title="Memory"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_setwith"></a>SetWith</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    SetWith(TargetBit, Source)</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p><code class="literal">SetWith</code> is an extended version of SET, it allows a Bit Field to be set or cleared by evaluating the content of Source. <code class="literal">SetWith</code> should always be used when TargetBit is an I/O Bit and Source is a Function, in order to avoid the possibility of I/O jitter.</p><p>Source may be a variable and of  type: Bit, Byte, Word or Long, a Constant, an expression or a Function.</p><p>It will SET  TargetBit  to 1 if Source evaluates to anything other than zero. TargetBit  will always be a 1 or a 0 regardless of the variable type of TargetBit.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    ' This program will reflect the state of SW1(RA3) on LED DS1(RC0) of the Microchip
+    ' Low Pin Count Demo Board. Notice that because SW1 is normally High the state has to
+    ' be inverted to turn on the LED (DS1) when SW1 is pressed.
+
+    #chip   16f690    ' declare the target Device
+
+    #Define SW1 PORTA.3
+    #Define DS1 PORTC.0
+
+    DIR DS1 Out
+    DIR SW1 In
+
+    Do
+      ' set the Bit DS1 to equal the Bit SW1
+      SetWith( DS1, !SW1 )
+    Loop
+    END</pre><p><span class="strong"><strong>See Also <a class="link" href="_bitwise_operations_overview.html" title="Bitwise Operations Overview">Bitwise Operations Overview</a></strong></span> and <span class="strong"><strong><a class="link" href="_conditions.html" title="Conditions">Conditions</a></strong></span></p></div></body></html>

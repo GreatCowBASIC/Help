@@ -26,7 +26,7 @@
 |Same name as the input file, but with a `.asm` extension.
 
 |`/A:assembler`
-|Batch file used to call assembler^(1)^. If `/A:GCASM` is given, Great Cow BASIC will use its internal assembler.
+|Batch file used to call assembler^(1)^. If `/A:GCASM` is given, GCBASIC will use its internal assembler.
 |The program will not be assembled
 
 |`/CP`
@@ -98,13 +98,13 @@
 extension, and `%CHIPMODEL%` will be replaced with the name of the chip.
 The name of the chip will be the same as that on the chip data file.#
 
-A batch file to load the `ASM` from Great Cow BASIC into `MPASM`. Command line should be like this:
+A batch file to load the `ASM` from GCBASIC into `MPASM`. Command line should be like this:
 ----
     C:\progra~1\microc~1\mpasms~1\MPASMWIN /c- /o- /q+ /l- /x- /w1 %code%.asm
 ----
 
 
-A batch file to compile in Great Cow BASIC then load the `ASM` from Great Cow BASIC into `GPASM`. Command line should be like this:
+A batch file to compile in GCBASIC then load the `ASM` from GCBASIC into `GPASM`. Command line should be like this:
 ----
     gcbasic.exe %1 /NP /K:A /A:"..\gputils\bin\gpasm.exe %~d1%~p1%~n1.asm"
 ----
@@ -124,7 +124,7 @@ To summarise, you can use any of the following:
     gcbasic.exe filetocompile.gcb /A:GCASM /P:"icprog -L%FILENAME%" /V /O:compiled.asm
 ----
 
-Great Cow BASIC will compile the file, then assemble the program, and run this command:
+GCBASIC will compile the file, then assemble the program, and run this command:
 ----
     `icprog -Lcompiled.hex`
 ----
@@ -150,7 +150,7 @@ Then, it will run the programmer, and give it these parameters when it calls it:
 ----
     `/device=PIC16F88 /p "compiled.hex"`
 ----
-`%ChipModel%` will get replaced with the chip you are using, so this the chip Great Cow BASIC will pass to WinPIC.
+`%ChipModel%` will get replaced with the chip you are using, so this the chip GCBASIC will pass to WinPIC.
 
 *Errors.txt*
 

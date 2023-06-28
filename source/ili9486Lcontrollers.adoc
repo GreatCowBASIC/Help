@@ -7,9 +7,9 @@ The ILI9486(L) is a 262kcolor single-chip SoC driver for a-Si TFT liquid crystal
 320RGBx480 dots, comprising a 960-channel source driver, a 480-channel gate driver, 345,600bytes GRAM for
 graphic data of 320RGBx480 dots.
 
-The Great Cow BASIC constants shown below control the configuration of the ILI9486(L) controller. &#160;&#160;&#160;Great Cow BASIC supports 1) SPI using the SPI hardware module, 2) software SPI, 3) UNO shields and 4) an 8bit port bus - this is detailed in the tables below.
+The GCBASIC constants shown below control the configuration of the ILI9486(L) controller. &#160;&#160;&#160;GCBASIC supports 1) SPI using the SPI hardware module, 2) software SPI, 3) UNO shields and 4) an 8bit port bus - this is detailed in the tables below.
 
-Great Cow BASIC supports 65K-color mode operations.
+GCBASIC supports 65K-color mode operations.
 
 To use the ILI9486(L) driver simply include the following in your user code.  This will initialise the driver.
 
@@ -18,7 +18,7 @@ To use the ILI9486(L) driver simply include the following in your user code.  Th
     #DEFINE GLCD_TYPE GLCD_TYPE_ILI9486L
 ----
 
-The Great Cow BASIC constants for the interface to the controller are shown in the table below.
+The GCBASIC constants for the interface to the controller are shown in the table below.
 
 
 [cols="2,4,4", options="header,autowidth"]
@@ -57,7 +57,7 @@ The Great Cow BASIC constants for the interface to the controller are shown in t
 |===
 
 
-The Great Cow BASIC constants for the communicaton protocol for the controller are shown in the table below.
+The GCBASIC constants for the communicaton protocol for the controller are shown in the table below.
 
 
 [cols="3,4,4", options="header,autowidth"]
@@ -105,7 +105,7 @@ MASTERULTRAFAST for specific AVRs only.
 |===
 
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 
 
@@ -124,12 +124,12 @@ The Great Cow BASIC constants for control display characteristics are shown in t
 |`480`
 
 |`GLCDFontWidth`
-|Specifies the font width of the Great Cow BASIC font set.
+|Specifies the font width of the GCBASIC font set.
 |`6`
 |===
 
 
-The Great Cow BASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
+The GCBASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
 
 
 [cols="2,4,4", options="header,autowidth"]
@@ -217,7 +217,7 @@ The Great Cow BASIC commands supported for this GLCD are shown in the table belo
 For a ILI9486L datasheet, please refer to Google.
 
 
-This example shows how to drive a ILI9486L based Graphic LCD module with the built in commands of Great Cow BASIC.
+This example shows how to drive a ILI9486L based Graphic LCD module with the built in commands of GCBASIC.
 
 
 *Example:*

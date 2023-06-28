@@ -1,8 +1,8 @@
 ==== Timer Overview
 
-Great Cow BASIC supports methods to set, clear, read, start and stop the microcontroller timers.
+GCBASIC supports methods to set, clear, read, start and stop the microcontroller timers.
 
-Great Cow BASIC supports the following timers.
+GCBASIC supports the following timers.
 
 ----
     Timer 0
@@ -35,7 +35,7 @@ The prescaler values that may be configured might be limited to a few fixed valu
 
 To use a Prescaler some simple integer maths is required, however, when calculating the Prescaler there is often be a tradeoff between resolution, where a high resolution requires a high clock frequency and range where a high clock frequency willl cause the timer to overflow more quickly.
 For example, achieving 1 us resolution and a 1 sec maximum period using a 16-bit timer may require some clever thinking when using 8-bit timers.
-Please ask for advice via the Great Cow BASIC forum, or, search for some of the many great resources on the internet to calculate a Prescaler value.
+Please ask for advice via the GCBASIC forum, or, search for some of the many great resources on the internet to calculate a Prescaler value.
 
 *Common Langauge:*
 
@@ -61,11 +61,11 @@ And, of course, the same when moving timer parameters between Atmel AVR and Micr
 
 *Timer Best Practices:*
 
-Initialising microcontrollers with very limited RAM using Great Cow BASIC needs carefull consideration.
+Initialising microcontrollers with very limited RAM using GCBASIC needs carefull consideration.
 RAM may be need to be optimised by using ASM to control the timers.
-You can use Great Cow BASIC to create the timer related Great Cow BASIC ASM code then manually edit the Great Cow BASIC ASM to optmise RAM usage.
-Add your revised and optimised ASM back into your program and then remove the no longer required calls the the Great Cow BASIC methods.
-If you need advice on this subject please ask for advice via the Great Cow BASIC forum.
+You can use GCBASIC to create the timer related GCBASIC ASM code then manually edit the GCBASIC ASM to optmise RAM usage.
+Add your revised and optimised ASM back into your program and then remove the no longer required calls the the GCBASIC methods.
+If you need advice on this subject please ask for advice via the GCBASIC forum.
 
 **Using Timers 2/4/6/8 on Microchip PIC microcontrollers.**
 
@@ -75,7 +75,7 @@ The first type has only one clock source and that clock is the FOSC/4 source.
 
 The second type is much more flexible and can have many different clock sources and supports more prescale values.
 
-The timer type for a Microchip PIC microcontroller can be determined by checking for the existence of a T2CLKCON register, either in the Datasheet or in the Great Cow BASIC "dat file" for the specific microcontroller.
+The timer type for a Microchip PIC microcontroller can be determined by checking for the existence of a T2CLKCON register, either in the Datasheet or in the GCBASIC "dat file" for the specific microcontroller.
 
 If the microcontroller DOES NOT have a T2CLKCON register then ALL Timer 2/4/6/8 timers on that chip are the first type, and are configured using:
 ----
@@ -85,7 +85,7 @@ If the microcontroller DOES have a T2CLKCON register then ALL Timer 2/4/6/8 time
 ----
     _InitTimer2 (Source, PreScale, PostScale)_   'Timer2 is example for timer 2/4/6 or 8
 ----
-The possible _Source_, _PreScale_ and _PostScale_ constants for each type are shown in the Great Cow BASIC Help file.  See each timer for the constants.
+The possible _Source_, _PreScale_ and _PostScale_ constants for each type are shown in the GCBASIC Help file.  See each timer for the constants.
 
 The "Period" of these timers is determined by the system clock speed, the prescale value and 8-bit value in the respective timer period register.&#160;&#160;&#160;The timer period registers are PR2, PR4, PR6 or PR8 for timer2, timer4, timer6 and timer8 respectively.  These registers are also called PRx and TMRx where the **`x`** refers to specific timer number.
 

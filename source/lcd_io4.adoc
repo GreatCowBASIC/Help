@@ -6,7 +6,7 @@ To use connection mode 4 the R/W, RS, Enable control lines and the highest 4 dat
 
 *Relevant Constants:*
 
-Specific constants are used to control settings for the Liquid Crystal Display routines included with Great Cow BASIC.  To set these constants the main program should specific constants to support the connection mode using #define.
+Specific constants are used to control settings for the Liquid Crystal Display routines included with GCBASIC.  To set these constants the main program should specific constants to support the connection mode using #define.
 Constants required for connection mode 4.
 
 Constants are required for 4-bit mode as follows.

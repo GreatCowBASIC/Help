@@ -13,8 +13,8 @@ When in output mode, the microcontroller will connect the general purpose input/
 Vcc (the positive supply), or Vss (ground, or the negative supply). The
 program can then set the state of the general purpose input/output pin to either high or low.
 
-Great Cow BASIC will attempt to determine the direction of each general purpose input/output pin, and set it
-appropriately, when possible. Great Cow BASIC will try to set the direction of the general purpose input/output pin.
+GCBASIC will attempt to determine the direction of each general purpose input/output pin, and set it
+appropriately, when possible. GCBASIC will try to set the direction of the general purpose input/output pin.
 However, if the general purpose input/output pin is read from and written to in your program, then
 the general purpose input/output pin must be configured to input or output mode by the program, using
 the appropriate <<_dir,Dir>> commands.
@@ -61,7 +61,7 @@ uservar=PORTA.1
 |PORTx maps to microcontrollers digital pins 0 to 7. Where x can be a,b,c,d,e,f or g
 |Write:
 
-PORTx the port data register for a  write operation, and, where LATx is not required as Great Cow BASIC will implement LATx when needed.
+PORTx the port data register for a  write operation, and, where LATx is not required as GCBASIC will implement LATx when needed.
 
 See <<__option_nolatch,Option NoLatch>> for more information on LAT registers and how to disable this automatic function.
 

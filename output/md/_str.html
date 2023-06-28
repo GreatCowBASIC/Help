@@ -1,0 +1,138 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Str</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_string_manipulation.html" title="String Manipulation"><link rel="prev" href="_rtrim.html" title="Rtrim"><link rel="next" href="_trim.html" title="Trim"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_str"></a>Str</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>stringvar</em></span> = Str(<span class="emphasis"><em>number</em></span>)     'supports decimal byte and word strings only.
+
+    'Use the following to support decimal long number strings.
+    <span class="emphasis"><em>stringvar</em></span> = Str32(<span class="emphasis"><em>long number</em></span>)     'supports  decimal long number strings.
+
+    'Use the following to support decimal integer number strings.
+    <span class="emphasis"><em>stringvar</em></span> = StrInteger(<span class="emphasis"><em>integer number</em></span>)     ' decimal integer number strings.</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The <code class="literal">Str</code> function will convert a number into a string. <code class="literal"><span class="emphasis"><em>number</em></span></code> can be any byte or word variable, or a fixed number between 0 and 65535 inclusive.&nbsp;&nbsp;For Long numbers use <code class="literal">Str32</code> and for Integer numbers use <code class="literal">StrInteger</code>.</p><p>The string variable <code class="literal"><span class="emphasis"><em>stringvar</em></span></code> will contain the same number, represented as a string.&nbsp;&nbsp;The length of the string returned is 5, 10 or 6 characters for Byte &amp; Word, Long and Integer respectively.</p><p>This function is especially useful if a number needs to added to the end of a string, or if a custom data sending routine has been created but only supports the output of string variables.
+<br>
+<br>
+These methods will not support  conversion of hexadecimal number strings.
+<br>
+<br>
+<span class="strong"><strong>Example1:</strong></span></p><pre class="screen">    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+
+    'Take an A/D reading
+    SensorReading = ReadAD(AN0)
+
+    'Create a string variable
+    Dim OutVar As String
+
+    'Fill string with sensor reading
+    OutVar = Str(SensorReading)
+
+    'Send
+    HSerPrint OutVar
+    HSerPrintCRLF
+
+    When using the functions STR() do not leave space between the function
+    call and the left brace. You will get a compiler error that is
+    meaningless.
+
+    ' use this, note this is no space between the STR and the left brace!
+    STR(number_variable)
+    ' do not use, note the space!
+    STR (number_variable)</pre><p><br>
+<br>
+<span class="strong"><strong>Example2:</strong></span></p><pre class="screen">    '''
+    '''
+    '''
+    '''
+    '''************************************************************************
+    '''
+    '''  PIC: 16F18855
+    '''  Compiler: GCB
+    '''  IDE: GCB@SYN
+    '''
+    '''  Board: Xpress Evaluation Board
+    '''  Date: June 2021
+    '''
+    ' ----- Configuration
+      'Chip Settings.
+      #chip 16f18855,32
+      #Config CLRE_ON
+      #option Explicit
+
+    ; ----- Define Hardware settings
+
+      '' -------------------LATA-----------------
+      '' Bit#:  -7---6---5---4---3---2---1---0---
+      '' LED:   ---------------|D5 |D4 |D3 |D2 |-
+      ''-----------------------------------------
+      ''
+
+      'Set the PPS of the RS232 ports.
+      UNLOCKPPS
+        RC0PPS = 0x0010     'RC0-&gt;EUSART:TX;
+        RXPPS  = 0x0011     'RC1-&gt;EUSART:RX;
+      LOCKPPS
+
+    ; ----- Constants
+      #define USART_BAUD_RATE 19200
+      #define USART_TX_BLOCKING
+
+      #define LEDD2 PORTA.0
+      #define LEDD3 PORTA.1
+      #define LEDD4 PORTA.2
+      #define LEDD5 PORTA.3
+      Dir     LEDD2 OUT
+      Dir     LEDD3 OUT
+      Dir     LEDD4 OUT
+      Dir     LEDD5 OUT
+
+
+      #define Potentiometer       PORTA.4
+      DIR     Potentiometer In
+
+      #define SWITCH_DOWN         0
+      #define SWITCH_UP           1
+      #define SWITCH              PORTA.5
+      Dir SWITCH                  In
+
+    ; ----- Variables
+    dim bytevar as Byte
+    dim wordvar as Word
+    dim longvar as long
+    dim integervarP, integervarN,integervar as Integer
+
+    ; ----- Main body of program commences here.
+    bytevar = 0xff
+    wordvar = 0xffff
+    longvar = 0xffffffff
+    integervarP = 127
+    integervarN = -127
+    integervar = 0
+
+    do
+       wait 100 ms
+
+       HSerPrint str( bytevar )
+       HSerPrintCRLF
+       HSerPrint str( wordvar )
+       HSerPrintCRLF
+       HSerPrint str32( longvar )
+       HSerPrintCRLF
+       HSerPrint StrInteger( integervarP )
+       HSerPrintCRLF
+       HSerPrint StrInteger( integervarN )
+       HSerPrintCRLF
+       HSerPrint StrInteger( integervar )
+       HSerPrintCRLF
+       wait 100 ms
+       HSerPrintCRLF
+
+       wait 1 s
+    loop
+    end
+
+; ----- Support methods.  Subroutines and Functions</pre><p><br>
+<br>
+<span class="strong"><strong>See Also</strong></span> <a class="link" href="_hex.html" title="Hex">Hex</a>, <a class="link" href="_val.html" title="Val">Val</a></p></div></body></html>

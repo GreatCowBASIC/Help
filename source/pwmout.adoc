@@ -9,7 +9,7 @@
 
 Available on all microcontrollers.  This method does NOT require a PWM module within the microcontroller.
 
-This command uses a software PWM routine within Great Cow BASIC to produce
+This command uses a software PWM routine within GCBASIC to produce
 a PWM signal on the selected port of the chip.
 
 The method `PWMOut` does not make use of any special hardware within the microcontroller.

@@ -2,7 +2,7 @@
 
 *Explanation:*
 
-Great Cow BASIC can draw circles on a Graphical LCD device using Great Cow BASIC library functions.
+GCBASIC can draw circles on a Graphical LCD device using GCBASIC library functions.
 
 image::trigonometrycirclesb1.PNG[graphic,align="center"]
 

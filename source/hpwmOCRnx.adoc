@@ -65,7 +65,7 @@ Channel 5 present on larger pinout devices
 |Must be defined
 |===
 
-The Great Cow BASIC HPWM channel constants for output pin control are shown in the table below.  Each HPWM channel used needs to be defined.  The Port pin associated with each OCnx must be set to output.
+The GCBASIC HPWM channel constants for output pin control are shown in the table below.  Each HPWM channel used needs to be defined.  The Port pin associated with each OCnx must be set to output.
 
 [cols="1,4,1", options="header,autowidth"]
 |===

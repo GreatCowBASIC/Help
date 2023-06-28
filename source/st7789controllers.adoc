@@ -2,9 +2,9 @@
 
 This section covers GLCD devices that use the ST7789 graphics controller.  The ST7789 is a TFT LCD Single Chip Driver with 240x240 or 320x240 Resolution and 65K colors.
 
-Great Cow BASIC supports 65K-color mode operations.
+GCBASIC supports 65K-color mode operations.
 
-The Great Cow BASIC constants shown below control the configuration of the ST7789 controller. &#160;&#160;&#160;Great Cow BASIC supports SPI hardware and software connectivity  - this is shown in the tables below.
+The GCBASIC constants shown below control the configuration of the ST7789 controller. &#160;&#160;&#160;GCBASIC supports SPI hardware and software connectivity  - this is shown in the tables below.
 
 
 To use the ST7789 driver simply include the following in your user code.  This will initialise the driver.
@@ -27,7 +27,7 @@ To use the ST7789 driver simply include the following in your user code.  This w
 ----
 
 
-The Great Cow BASIC constants for the interface to the controller are shown in the table below.
+The GCBASIC constants for the interface to the controller are shown in the table below.
 
 
 [cols="2,4,4", options="header,autowidth"]
@@ -81,7 +81,7 @@ MASTERULTRAFAST for specific AVRs only.
 |===
 
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 
 [cols="2,4,4", options="header,autowidth"]
@@ -99,7 +99,7 @@ The Great Cow BASIC constants for control display characteristics are shown in t
 |`240` 
 
 |`GLCDFontWidth`
-|Specifies the font width of the Great Cow BASIC font set.
+|Specifies the font width of the GCBASIC font set.
 |`6` for GCB fonts, and `5` for OLED fonts.
 
 
@@ -117,7 +117,7 @@ The GLCDfntDefaultsize can be set to 1 or 2 only.
 |===
 
 
-The Great Cow BASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
+The GCBASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
 
 
 [cols="2,4,4", options="header,autowidth"]
@@ -206,7 +206,7 @@ The Great Cow BASIC commands supported for this GLCD are shown in the table belo
 ----
 
 
-This example shows how to drive a ST7789 based Graphic LCD module with the built in commands of Great Cow BASIC.
+This example shows how to drive a ST7789 based Graphic LCD module with the built in commands of GCBASIC.
 
 The library support PIC, AVR and LGT - change to suit your configuration.
 

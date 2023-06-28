@@ -2,7 +2,7 @@
 
 *Explanation:*
 
-Great Cow BASIC support interfacing with IR remote controls. The header file contains explanations, for both hardware and software.
+GCBASIC support interfacing with IR remote controls. The header file contains explanations, for both hardware and software.
 
 This has been tested on many different IR sensors, and different remote controls.
 

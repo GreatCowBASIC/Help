@@ -7,15 +7,15 @@
 |*More Assistance*
 
 .3+.^|Cannot compile a program
-|There is an error in the program. Is Great Cow BASIC complaining about a
+|There is an error in the program. Is GCBASIC complaining about a
 particular line of code?
-|Great Cow BASIC Forums
+|GCBASIC Forums
 
-|Great Cow BASIC has not been installed correctly - reinstall it.
-|Great Cow BASIC Forums
+|GCBASIC has not been installed correctly - reinstall it.
+|GCBASIC Forums
 
-|There is a bug in Great Cow BASIC
-|Post on the Great Cow BASIC Forums. Ensure you state the version of your compiler and attach your code as a ZIP.
+|There is a bug in GCBASIC
+|Post on the GCBASIC Forums. Ensure you state the version of your compiler and attach your code as a ZIP.
 
 |A program compiles and downloads fine, but will not run
 |Oscillator not selected.

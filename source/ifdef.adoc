@@ -22,7 +22,7 @@ There are several ways in which it can be used:
 
 The advantage of using `#ifdef` rather than an equivalent series of `IF` statements is the amount of code that is downloaded to the chip. `#ifdef` controls what code is compiled and downloaded, `IF` controls what is run once on the chip. `#ifdef` should be used whenever the value of a constant is to be checked.
 
-Great Cow BASIC also supports the `#ifndef` directive - this is the opposite of the `#ifdef` directive - it will remove code that `#ifdef` leaves, and vice versa.
+GCBASIC also supports the `#ifndef` directive - this is the opposite of the `#ifdef` directive - it will remove code that `#ifdef` leaves, and vice versa.
 
 *Note:*
 The code in the following sections will not compile, as it is missing `#chip` directives and `Dir` commands. It is intended to act as an example only.

@@ -35,7 +35,7 @@ If the size of the buffer exceeds the device specific HEF_ROWSIZE_BYTES, the exc
 {empty} +
 {empty} +
 `num_bytes` is an optional parameter, and can be used to specify number of bytes to write to HEFM, starting at the first location in the selected HEFM block.&#160;&#160;&#160;
-This parameter is not normally required as the default is set to the Great Cow BASIC constant `HEF_ROWSIZE_BYTES`.
+This parameter is not normally required as the default is set to the GCBASIC constant `HEF_ROWSIZE_BYTES`.
 {empty} +
 {empty} +
 *Example 1:*

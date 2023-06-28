@@ -1,8 +1,8 @@
-= Great Cow BASIC documentation
-The Great Cow BASIC Development Team @ 2021
+= GCBASIC documentation
+The GCBASIC Development Team @ 2021
 
 
-This document supports Great Cow BASIC compiler.
+This document supports GCBASIC compiler.
 It is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
@@ -18,8 +18,8 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 ifdef::backend-pdf[<<<]
-Thank you for installing Great Cow BASIC.  Hopefully using it will be a pleasant experience for you!
-If you have any problems, suggestions or compliments, please post on the Great Cow BASIC forum - your feedback is always welcome.
+Thank you for installing GCBASIC.  Hopefully using it will be a pleasant experience for you!
+If you have any problems, suggestions or compliments, please post on the GCBASIC forum - your feedback is always welcome.
 
 For PICkit 2 support, the pk2cmd programmer is included in the complete installation.
 It can be freely distributed and the source code is available, but it is not completely open source.
@@ -29,7 +29,7 @@ For Atmel AVR programming, avrdude is included and ready to go.
 It has been set to use the USBtinyISP programmer - to use another programmer, open the Preferences window, then click the Programmers tab. Click on the avrdude (USBtinyISP) programmer, then click Edit. In the Command Line Parameters box, replace "usbtiny" with the parameter for the programmer you're using - refer to the avrdude website to find out what to type for your programmer.
 For Arduino support, another copy of avrdude is supplied. You will need to select the appropriate serial port.
 
-Great Cow BASIC can be configured to work with other programmers.  You can set this up by editing `flashpic.bat` or `flashavr.bat` command files and choosing an appropiate programmer.
+GCBASIC can be configured to work with other programmers.  You can set this up by editing `flashpic.bat` or `flashavr.bat` command files and choosing an appropiate programmer.
 There is already some documentation on how to do this in this Help File.
 
 Have fun, and let us know on the forum if you have any problems!
@@ -744,13 +744,13 @@ include::trigonometrycircles.adoc[]
 include::troubleshooting.adoc[]
 
 ifdef::backend-pdf[<<<]
-== Great Cow Graphical BASIC
+== Graphical GCBASIC
 
 include::codedocumentation.adoc[]
 
 include::windowsnet.adoc[]
 
 ifdef::backend-pdf[<<<]
-== Great Cow BASIC for Linux
+== GCBASIC for Linux
 
 include::linuxoverview.adoc[]

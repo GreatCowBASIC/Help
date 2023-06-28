@@ -23,7 +23,7 @@
     GLCDEnableGraphics_ST7920
     GLCDClearGraphics_ST7920
     Tile_ST7920 "A"
-    GLCDPrint 0, 1, "Great Cow BASIC "
+    GLCDPrint 0, 1, "GCBASIC "
 
     GLCDCLS
 
@@ -83,7 +83,7 @@
           GLCDDrawChar xxpos , 0 , gtext(xchar)
     next
 
-    GLCDDrawString  1, 9, "Great Cow BASIC"
+    GLCDDrawString  1, 9, "GCBASIC"
     GLCDDrawString  1, 18,"GLCD 128*64"
     GLCDDrawString  1, 27,"Using GLCD.H from GCB"
     GLCDDrawString  1, 37,"Using GLCD.H GCB"
@@ -98,7 +98,7 @@
     msg1 = "Run = " +str(rrun)
     rrun++
     GLCDPrint 0, 0, "ST7920 @QC12864B"
-    GLCDPrint 0, 1, "Great Cow BASIC "
+    GLCDPrint 0, 1, "GCBASIC "
     GLCDPrint 0, 2, "GLCD 128*64"
     GLCDPrint 0, 3, msg1
     wait 5 s

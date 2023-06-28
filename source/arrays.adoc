@@ -125,7 +125,7 @@ Array RAM usage is determined by the architecture of the chip type. &#160;&#160;
 
 An example is an array of 6 or 7 bytes when there is only 24 bytes of RAM  and the 24 bytes is split across multiple memory banks.  &#160;&#160;Assume in this example that 18 bytes have allocated to other variables and there is 29 bytes total available.  &#160;&#160;An array of 6 bytes will fit into the free space in one bank, but the array of 7 will not.
 
-Great Cow BASIC currently cannot split an array over banks, so if there are 6 bytes free in one bank and 5 in another, you cannot have an array of 7 bytes. &#160;&#160; This would be very hard to do efficiently on 12F/16F as there would be a series of special function registers in the middle of the array when using a 12F or 16F.   &#160;&#160;This constraint is not the case on 16F1/18F as linear addressing makes it easy to span banks because the SFRs are not making the problem (as with 12F/16F).
+GCBASIC currently cannot split an array over banks, so if there are 6 bytes free in one bank and 5 in another, you cannot have an array of 7 bytes. &#160;&#160; This would be very hard to do efficiently on 12F/16F as there would be a series of special function registers in the middle of the array when using a 12F or 16F.   &#160;&#160;This constraint is not the case on 16F1/18F as linear addressing makes it easy to span banks because the SFRs are not making the problem (as with 12F/16F).
 
 *Using Tables as an alternative.*
 

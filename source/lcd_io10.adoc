@@ -4,13 +4,13 @@
 
 The LCD is controlled via I2C of a type 10 LCD 12C adapter.
 Use LCD_IO 10 for the YwRobot LCD1602 IIC V1 or the Sainsmart LCD_PIC I2C adapter.
-To use mode 10 you must define the I2C ports as normal in your Great Cow BASIC code.
+To use mode 10 you must define the I2C ports as normal in your GCBASIC code.
 Then, define the LCD type, set the I2C_address of the LCD adapter and the LCD speed, if required.
 Finally, set the backlight control, if required.
 
 *Relevant Constants:*
 
-These constants are used to control settings for the Liquid Crystal Display routines included with Great Cow BASIC. To set them, place a line in the main program file that uses #define to assign a value to the particular constant.
+These constants are used to control settings for the Liquid Crystal Display routines included with GCBASIC. To set them, place a line in the main program file that uses #define to assign a value to the particular constant.
 
 [cols=3, options="header,autowidth"]
 |===

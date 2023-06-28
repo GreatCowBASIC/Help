@@ -15,7 +15,7 @@
 *Only* available on Microchip PIC microcontrollers with the 16-bit PWM module.  16-bit PWM support includes both dynamic mode and fixed mode operations. See the examples below for usage.
 
 The PIC microcontroller chip specific DAT file must contain `CHIPPWM16TYPE = 1`.&#160;&#160;
-If the chip specific DAT does not contain `CHIPPWM16TYPE = 1` and the microcontroller does support PWM 16 Bit please report the omission to Great Cow BASIC the support forum.&#160;&#160;
+If the chip specific DAT does not contain `CHIPPWM16TYPE = 1` and the microcontroller does support PWM 16 Bit please report the omission to GCBASIC the support forum.&#160;&#160;
 
 For the Capture/Compare/PWM (CCP) module or the 10-bit PWM module, see the other sections of the Help.
 
@@ -53,7 +53,7 @@ ranges from 0 to 0xFFFF where 0xFFFF is 100% duty cycle.&#160;&#160;&#160; This 
     '
     ' xx can be 1 through 12, for this specific microcontroller there are three PWM16 channels.
     '
-    ' To set the parameters of Great Cow BASIC PWM fixed mode for the channels use the commands shown below::
+    ' To set the parameters of GCBASIC PWM fixed mode for the channels use the commands shown below::
 
         #chip 12F1572, 32
         #config mclr=on
@@ -100,7 +100,7 @@ The 16-bit library also supports fixed mode PWM operations.  The following two e
     '
     ' xx can be 1 through 12
     '
-    ' To set the parameters of Great Cow BASIC PWM fixed mode on channel 1 use the following:
+    ' To set the parameters of GCBASIC PWM fixed mode on channel 1 use the following:
     '
     '    #define HPWM16_1_Freq 0.1 to > 1000         'Set the frequency, but, the clock speed must be low for low PWM frequency
     '    #define HPWM16_1_Duty 0.1 to 100            'Set duty cycle as percentage 0-100%, just change the number
@@ -133,7 +133,7 @@ The 16-bit library also supports fixed mode PWM operations.  The following two e
     '
     ' xx can be 1 through 12, for this specific microcontroller there are three PWM16 channels.
     '
-    ' To set the parameters of Great Cow BASIC PWM fixed mode for the three channels use the following:
+    ' To set the parameters of GCBASIC PWM fixed mode for the three channels use the following:
 
         #chip 12F1572, 32
         #config mclr=on

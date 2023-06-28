@@ -9,7 +9,7 @@ items like the speed of a motor, or the brightness of a LED or lamp. +
 The methods can also be used to generate the appropriate frequency signal to drive an
 infrared LED for remote control applications. +
 
-Great Cow BASIC support the methods described in this section.
+GCBASIC support the methods described in this section.
 
 *Hardware PWM using a Timer/Counter with a OCRnx module*
 

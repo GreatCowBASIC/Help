@@ -53,7 +53,7 @@ This program is an implementation of the capacitor and resistor principle using 
 
 The will test the state of the GPIO.3 port by using these internal components, and, after the charge state has been complete the LED PWM will represent the detected value of signal on the GPIO.3 port.
 
-It should be note that Great Cow BASIC will set the DIRection of GPIO.2 and GPIO.3 automatically.  And, this solution is specific to the 12F509 and therefore the 12F509 register called `NOT_GPPU` may be different on another chip.
+It should be note that GCBASIC will set the DIRection of GPIO.2 and GPIO.3 automatically.  And, this solution is specific to the 12F509 and therefore the 12F509 register called `NOT_GPPU` may be different on another chip.
 
 ----
     #chip 12F509
@@ -90,4 +90,4 @@ It should be note that Great Cow BASIC will set the DIRection of GPIO.2 and GPIO
 
 
 *See also*  http://ladyada.net/library/rccalc.html[ladyada.net/library/rccalc.html] or http://web.archive.org/web/20100818230450/http://www.cvs1.uklinux.net/cgi-bin/calculators/time_const.cgi[cvs1.uklinux.net/cgi-bin/calculators/time_const.cgi]
-for calculating capacitor value. These sites are not associated with Great Cow BASIC.
+for calculating capacitor value. These sites are not associated with GCBASIC.

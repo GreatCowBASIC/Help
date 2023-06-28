@@ -22,7 +22,7 @@ the LCD.
 
 *Example :*
 ----
-    'A scrolling star for Great Cow BASIC
+    'A scrolling star for GCBASIC
 
     'Misc Settings
     #define SCROLL_DELAY 250 ms

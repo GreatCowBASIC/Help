@@ -12,13 +12,13 @@ Storage Area Flash is intended to be used to store data, such a device calibrati
 {empty} +
 {empty} +
 As with all flash memory, data must be erased before it can be written and writing this memory will stall the device for a few ms. &#160;&#160;&#160;
-Methods to read, write and erase the SAF memory are included in Great Cow BASIC and they are described in this introduction.
+Methods to read, write and erase the SAF memory are included in GCBASIC and they are described in this introduction.
 {empty} +
 {empty} +
-The `hefsaf.h` library supports SAF operations for Great Cow BASIC.
+The `hefsaf.h` library supports SAF operations for GCBASIC.
 {empty} +
 {empty} +
-Note:  By default, Great Cow BASIC will use SAF memory for regular executable code unless it is told otherwise.&#160;&#160;&#160;
+Note:  By default, GCBASIC will use SAF memory for regular executable code unless it is told otherwise.&#160;&#160;&#160;
 If you wish to store data here, you should reserve the SAF memory by using the compiler option, as shown below to reserve 128 Words of SAF memory:&#160;&#160;&#160;This equates to 256 bytes on PIC 18F microcontrollers and 128 Bytes on PIC 16F microcontrollers 
 ----
     #option ReserveHighProg 128
@@ -30,8 +30,8 @@ With SAF memory data must be erased before a write and the erase can only be per
 The blocks, also called rows, are a fixed size associated with the specific device.&#160;&#160;&#160;
 {empty} +
 {empty} +
-Great Cow BASIC handles the erase operation automatically.&#160;&#160;&#160;
-When a write operation is used by a user the Great Cow BASIC library reads to a buffer, update the buffer, erase the block and finally write the buffer back to SAFM.&#160;&#160;&#160;
+GCBASIC handles the erase operation automatically.&#160;&#160;&#160;
+When a write operation is used by a user the GCBASIC library reads to a buffer, update the buffer, erase the block and finally write the buffer back to SAFM.&#160;&#160;&#160;
 The complexity of using SAF memory is reduced with the automatically handling of these operations.&#160;&#160;&#160;
 {empty} +
 {empty} +

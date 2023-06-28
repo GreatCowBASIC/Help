@@ -12,10 +12,10 @@ The display data bits which are stored in DDRAM are directly related to the pixe
 The ST7567 contains 132 segment-outputs, 64 common-outputs and 1 icon-common-output, however the address pixels are 128 * 64.
 The ST7567 has built-in oscillation circuit and low power consumption power circuit, ST7567 generates LCD driving signal without external clock or power, so that it is possible to make a display system with the fewest components and minimal power consumption. 
 
-There are different types of ST75xx GLCDs.&#160;&#160;&#160;The table below shows the different types and the Great Cow BASIC support.
+There are different types of ST75xx GLCDs.&#160;&#160;&#160;The table below shows the different types and the GCBASIC support.
 [cols=5, options="header,autowidth"]
 |===
-Index |GLCD MPU | Interfaces | Datasheet Ref|Support
+|Index |GLCD MPU | Interfaces | Datasheet Ref|Support
 |1|ST7565      |  Parallel 8080&6080       | Ver 1.0a;Page 12| Not supported
 |2|ST7565S      |  Parallel 8080&6080       | Ver 0.6b;Page 23| Not supported
 |3|ST7567      |     4 Pin SPI;Parallel 8080&6080   | Ver1.4b;Page 12| 3&4 Pin SPI
@@ -27,7 +27,7 @@ Index |GLCD MPU | Interfaces | Datasheet Ref|Support
 The ST7567 embeds with contrast control, display RAM and it is suitable for many compact portable applications, such as mobile phone sub-display, MP3 player and calculator, etc.
 
 
-The Great Cow BASIC constants shown below control the configuration of the ST7567 controller. &#160;&#160;&#160;Great Cow BASIC supports SPI and I2C software connectivity  - this is shown in the tables below.
+The GCBASIC constants shown below control the configuration of the ST7567 controller. &#160;&#160;&#160;GCBASIC supports SPI and I2C software connectivity  - this is shown in the tables below.
 
 
 The ST7567 library supports 128 * 64 pixels.
@@ -81,7 +81,7 @@ or,
 
 ----
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 
 [cols=3, options="header,autowidth"]
@@ -100,7 +100,7 @@ The Great Cow BASIC constants for control display characteristics are shown in t
 |===
 
 
-The Great Cow BASIC constants for SPI/S4Wire control display characteristics are shown in the table below.
+The GCBASIC constants for SPI/S4Wire control display characteristics are shown in the table below.
 
 
 [cols=3, options="header,autowidth"]
@@ -142,7 +142,7 @@ The Great Cow BASIC constants for SPI/S4Wire control display characteristics are
 |Must be defined
 |===
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 [cols=3, options="header,autowidth"]
 |===
 |*Constants*
@@ -185,7 +185,7 @@ The GLCDfntDefaultsize can be set to 1 or 2 only.
 
 |===
 
-The Great Cow BASIC variables for control display characteristics are shown in the table below.
+The GCBASIC variables for control display characteristics are shown in the table below.
 These variables control the user definable parameters of a specific GLCD.
 [cols=3, options="header,autowidth"]
 |===
@@ -224,7 +224,7 @@ This equates to the 8 pixel high.
 |===
 
 
-The Great Cow BASIC commands supported for this GLCD are shown in the
+The GCBASIC commands supported for this GLCD are shown in the
 table below.
 [cols=3, options="header,autowidth"]
 |===
@@ -290,7 +290,7 @@ specific attribute.
 
 |===
 
-The Great Cow BASIC specific commands for this GLCD are shown in the table below.
+The GCBASIC specific commands for this GLCD are shown in the table below.
 [cols="1,1", options="header,autowidth"]
 |===
 |Command
@@ -301,7 +301,7 @@ The Great Cow BASIC specific commands for this GLCD are shown in the table below
 Parameter is dim value
 |===
 
-This example shows how to drive a ST7567 based Graphic I2C LCD module with the built in commands of Great Cow BASIC using Full Mode GLCD
+This example shows how to drive a ST7567 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode GLCD
 ----
 
     #CHIP 18F26Q71
@@ -365,7 +365,7 @@ This example shows how to drive a ST7567 based Graphic I2C LCD module with the b
 
     ; ----- Main program
 
-        GLCDPrint 0, 0,   "Great Cow BASIC"
+        GLCDPrint 0, 0,   "GCBASIC"
         GLCDPrint (0, 16, "Anobium 2023")
         GLCDPrint (0, 32, "Portability Demo")
         GLCDPrint (0, 48, ChipNameStr )
@@ -418,7 +418,7 @@ This example shows how to drive a ST7567 based Graphic I2C LCD module with the b
 ----
 {empty} +
 {empty} +
-This example shows how to drive a ST7567 based Graphic I2C LCD module with the built in commands of Great Cow BASIC using Low Memory Mode GLCD.
+This example shows how to drive a ST7567 based Graphic I2C LCD module with the built in commands of GCBASIC using Low Memory Mode GLCD.
 {empty} +
 Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to support the Low Memory Mode of operation and the contraining of all GLCD commands with the transaction commands.  The use Low Memory Mode GLCD the two defines `GLCD_TYPE_ST7567_LOWMEMORY_GLCD_MODE` and `GLCD_TYPE_ST7567_CHARACTER_MODE_ONLY` are included in the user program.
 {empty} +
@@ -449,7 +449,7 @@ Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to 
     'In this example Code would be GLCD_Open_PageTransaction 0,1 been enough
     'But it is allowed to use GLCD_Open_PageTransaction 0,7 to show the full screen update
     GLCD_Open_PageTransaction 0,7
-       GLCDPrint 0, 0, "Great Cow BASIC"
+       GLCDPrint 0, 0, "GCBASIC"
        GLCDPrint (0, 16, "Anobium 2023")
     GLCD_Close_PageTransaction
     wait 3 s
@@ -501,7 +501,7 @@ Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to 
     end
 ----
 {empty} +
-This example shows how to drive a ST7567 based Graphic SPI LCD module with the built in commands of Great Cow BASIC.
+This example shows how to drive a ST7567 based Graphic SPI LCD module with the built in commands of GCBASIC.
 {empty} +
 ----
 

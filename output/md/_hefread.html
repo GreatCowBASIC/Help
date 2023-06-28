@@ -1,0 +1,68 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>HEFRead</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_hefm_pfm.html" title="HEFM ( PFM )"><link rel="prev" href="_hefm_overview.html" title="HEFM Overview"><link rel="next" href="_hefreadword.html" title="HEFReadWord"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_hefread"></a>HEFRead</h5></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    'as a subroutine
+    HEFRead ( location, data )
+
+    'as a function
+    data = HEFRead ( location )</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all PIC micro-controllers with HEFM memory</p><p><span class="strong"><strong>Explanation:</strong></span>
+<br>
+<br>
+HEFRead is used to read information, byte values, from HEFM, so that it can be accessed for use in a user program.
+<br>
+<br>
+<code class="literal">location</code> represents the location or relative address to read.  The location will range from location 0 to HEF_BYTES - 1, or for all practical purposes 0-127 since all PIC Microcontrollers with HEF support 128 bytes of HEF Memory. HEF_BYTES is a GCBASIC constant that represents the number of bytes of HEF Memory.&nbsp;&nbsp;&nbsp;
+<br>
+<br>
+<code class="literal">data</code> is the data that is to be read from the HEFM data storage area.&nbsp;&nbsp;&nbsp;
+This can be a byte value or a byte variable.
+<br>
+<br>
+This method reads data from HEFM given the specific relative location.&nbsp;&nbsp;&nbsp;
+This method is similar to the EPRead method for EEPROM.
+<br>
+<br>
+<span class="strong"><strong>Example 1:</strong></span></p><pre class="screen">    '... code preamble to select part
+    '... code to setup PPS
+     '... code to setup serial
+
+    'The following example reads the HEFM data value into the byte variable &#8220;byte_value&#8221; using a subroutine.
+
+    Dim data_byte as byte
+
+    ;Write a byte of data to HEFM Location 34
+    HEFWrite( 34, 144)
+
+    ;Read the byte back from HEFM location 34
+    HEFread( 34, byte_value )
+
+    ;Display the data on a terminal
+    HserPrint "byte_value = "
+    Hserprint byte_value</pre><p><br>
+<br>
+<span class="strong"><strong>Example 2:</strong></span></p><pre class="screen">    '... code preamble to select part '... code preamble to select part
+    '... code to setup PPS
+     '... code to setup serial
+
+    'The following example reads the HEFM data value into the byte variable &#8220;byte_value&#8221; using a function.
+
+    Dim data_byte as byte
+
+    ;Write a byte of data to HEF Location 34
+    HEFWrite( 34, 144)
+
+    ;Read the byte back from HEF location 34
+    byte_value = HEFread( 34 )
+
+    ;Display the data on a terminal
+    HserPrint "byte_value = "
+    Hserprint byte_value</pre><p><br>
+<br>
+See also
+<a class="link" href="_hefm_overview.html" title="HEFM Overview">HEFM Overview</a>,
+<a class="link" href="_hefread.html" title="HEFRead">HEFRead</a>,
+<a class="link" href="_hefreadword.html" title="HEFReadWord">HEFReadWord</a>,
+<a class="link" href="_hefwrite.html" title="HEFWrite">HEFWrite</a>,
+<a class="link" href="_hefwriteword.html" title="HEFWriteWord">HEFWriteWord</a>,
+<a class="link" href="_hefreadblock.html" title="HEFReadBlock">HEFReadBlock</a>,
+<a class="link" href="_hefwriteblock.html" title="HEFWriteBlock">HEFWriteBlock</a>,
+<a class="link" href="_heferaseblock.html" title="HEFEraseBlock">HEFEraseBlock</a></p></div></body></html>

@@ -22,7 +22,7 @@ Available on all microcontrollers. Requires the inclusion of the following:
 
 The ADS7843 device is a 12-bit sampling Analog-to-Digital Converter (ADC) with a synchronous serial interface and low on resistance switches for driving touch screens.
 
-The Great Cow Basic driver is integrated with the SDD1289 GLCD driver.  To use the ADS7843 driver the following is required to added to the Great Cow BASIC source file.
+The GCBASIC driver is integrated with the SDD1289 GLCD driver.  To use the ADS7843 driver the following is required to added to the GCBASIC source file.
 
 
 
@@ -64,7 +64,7 @@ The Great Cow Basic driver is integrated with the SDD1289 GLCD driver.  To use t
 
 |===
 
-The Great Cow Basic commands supported for this chip are:
+The GCBASIC commands supported for this chip are:
 
 [cols=3, options="header,autowidth"]
 |===

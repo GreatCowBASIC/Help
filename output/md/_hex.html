@@ -1,0 +1,22 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Hex</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_string_manipulation.html" title="String Manipulation"><link rel="prev" href="_fill.html" title="Fill"><link rel="next" href="_instr.html" title="Instr"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_hex"></a>Hex</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>stringvar</em></span> = Hex(<span class="emphasis"><em>number</em></span>)</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The <code class="literal">Hex</code> function will convert a number into hexadecimal format. The input <code class="literal"><span class="emphasis"><em>number</em></span></code> should be a byte variable, or a fixed number between 0 and 255 inclusive. After running the function, the string variable <code class="literal"><span class="emphasis"><em>stringvar</em></span></code> will contain a 2 digit hexadecimal number.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+
+    'Send EEPROM data over serial connection
+    'Uses Hex to display as hexadecimal
+    For CurrentLocation = 0 to 255
+        'Send location
+        HSerPrint Hex(CurrentLocation)
+        HSerPrint ":"
+        'Read byte and send
+        EPRead CurrentLocation, CurrByte
+        HSerPrint Hex(CurrByte)
+        'Send carriage return/line feed
+        HSerPrintCRLF
+    Next</pre><p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_str.html" title="Str">Str</a>, <a class="link" href="_val.html" title="Val">Val</a></p></div></body></html>

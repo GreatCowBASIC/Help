@@ -2,7 +2,7 @@
 
 *Explanation*
 
-Within Great Cow BASIC you can use variables. This section details the Variable Lifecycle when using variables.
+Within GCBASIC you can use variables. This section details the Variable Lifecycle when using variables.
 
 *Variable rules - with #Option Explicit*
 

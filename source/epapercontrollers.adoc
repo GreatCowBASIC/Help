@@ -11,16 +11,16 @@ It is the ideal choice for e-reading or providing information that can be refesh
 
 *GLCD Support for e-Papers*
 
-Great Cow BASIC supports covers the full range of GLCD capabilities like line, circle, print.
+GCBASIC supports covers the full range of GLCD capabilities like line, circle, print.
 
-Great Cow BASIC supports SPI communications for the e-Papers - both hardware and software.  And, Great Cow BASIC suppors low memory configurations and SRAM for the display buffer.
+GCBASIC supports SPI communications for the e-Papers - both hardware and software.  And, GCBASIC suppors low memory configurations and SRAM for the display buffer.
 
 See the demonstration programs to show you how to use these GCLD capabilities.
 
 
 *Memory Usage*
 
-The Great Cow BASIC library uses RAM to buffer the e-paper display.&#160;&#160;
+The GCBASIC library uses RAM to buffer the e-paper display.&#160;&#160;
 The amount of RAM used is specific the the total pixel of the specific e-paper display.&#160;&#160;
 You can control to amount of RAM used as the buffer using the device specific constants, see below.&#160;&#160;
 Each device specific library has four memory options.&#160;&#160;
@@ -92,7 +92,7 @@ The I/O level of Arduino is 5V.&#160;&#160; HEALTH WARNING:You can also try to c
 You can try to change the value of Vcom the library by setting the VCOM_AND_DATA_INTERVAL constant.&#160;&#160;
 See the Vcom and data interval in the dataheet.&#160;&#160;VCOM_AND_DATA_INTERVAL can be 0x00 to 0x0F
 
-*Great Cow BASIC library supports Black/White NOT Black/White/Red*
+*GCBASIC library supports Black/White NOT Black/White/Red*
 
 The default is Black/White. To support Black/White/Red add `#define PANEL_SETTING_KWR 0x00`to you user program.&#160;
 
@@ -159,7 +159,7 @@ This will initialise the driver.&#160;&#160;
 
 ----
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 
 [cols=3, options="header,autowidth"]
@@ -226,7 +226,7 @@ MASTERULTRAFAST for specific AVRs only.
 
 |===
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below. +
+The GCBASIC constants for control display characteristics are shown in the table below. +
 
 
 [cols="1,1,^1", options="header,autowidth"]
@@ -246,12 +246,12 @@ This cannot be changed
 This cannot be changed
 
 |`GLCDFontWidth`
-|Specifies the font width of the Great Cow BASIC font set.
+|Specifies the font width of the GCBASIC font set.
 |`6` or `5` for the OLED font set.
 |===
 
 
-The Great Cow BASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
+The GCBASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
 
 
 
@@ -359,7 +359,7 @@ GLCDBackground=TFT_WHITE
 
 
  GLCD_Open_PageTransaction
-    GLCDPrintStringLN ("Great Cow BASIC")
+    GLCDPrintStringLN ("GCBASIC")
     GLCDPrintStringLN ("")
     GLCDPrintStringLN ("Test of the e-Paper")
     GLCDPrintStringLN ("")

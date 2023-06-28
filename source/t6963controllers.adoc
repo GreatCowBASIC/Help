@@ -8,13 +8,13 @@ small outline it is most suitable for mobile applications such as PDAs, MP3 play
 {empty} +
 {empty} +
 A number of GLCD  modules have this controller built-in these include the SP12N002 & SP14N001. Although this controller is small, it has the capability of displaying
-and merging text and graphics and it manages all the interfacing signals to the displays Row and Column drivers.&#160;&#160;&#160;The Great Cow BASIC library supports the complex capabilities of the T6963.
+and merging text and graphics and it manages all the interfacing signals to the displays Row and Column drivers.&#160;&#160;&#160;The GCBASIC library supports the complex capabilities of the T6963.
 {empty} +
 {empty} +
 The T6963 is an LCD is driven by on-board 5V parallel interface chipset T6963.&#160;&#160;&#160;For the specific operating voltage always verify the operating voltages in the device specific datasheet.
 {empty} +
 {empty} +
-The Great Cow BASIC connectivity option is the 8-bit mode - where 8 connections (for the data) are required between the microcontroller and the GLCD to control the data bus.
+The GCBASIC connectivity option is the 8-bit mode - where 8 connections (for the data) are required between the microcontroller and the GLCD to control the data bus.
 {empty} +
 {empty} +
 To use the T6963 driver simply include the following in your user code.  &#160;&#160;&#160;This will initialise the driver.
@@ -73,7 +73,7 @@ To use the T6963 driver simply include the following in your user code.  &#160;&
 {empty} +
 {empty} +
 
-The Great Cow BASIC constants for the interface to the controller are shown in the table below.
+The GCBASIC constants for the interface to the controller are shown in the table below.
 
 [cols="2,4,4", options="header,autowidth"]
 |===
@@ -138,7 +138,7 @@ memory, up to 64 kByte.&#160;&#160;&#160;Check the specific device for the amoun
 For more information on memory management refer the device specific datasheet.
 {empty} +
 {empty} +
-The Great Cow BASIC constants control the memory configuration of the T6963 controller.
+The GCBASIC constants control the memory configuration of the T6963 controller.
 
 [cols="2,4,4", options="header,autowidth"]
 |===
@@ -173,7 +173,7 @@ The Great Cow BASIC constants control the memory configuration of the T6963 cont
 |===
 {empty} +
 {empty} +
-The Great Cow BASIC library supports the following capabilities.&#160;&#160;&#160;Please refer to the relevant Help section and the device specific demonstrations.
+The GCBASIC library supports the following capabilities.&#160;&#160;&#160;Please refer to the relevant Help section and the device specific demonstrations.
 {empty} +
 {empty} +
 *Commands Supported for the LCD and GLCD*

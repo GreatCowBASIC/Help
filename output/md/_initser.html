@@ -1,0 +1,17 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>InitSer</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_rs232_software.html" title="RS232 (software)"><link rel="prev" href="_rs232_software_overview.html" title="RS232 Software Overview"><link rel="next" href="_sersend.html" title="SerSend"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_initser"></a>InitSer</h5></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">	<code class="literal">InitSer</code> <span class="emphasis"><em>channel, rate, start, data, stop, parity, invert</em></span></pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>This command will set up the serial communications. The parameters are
+as follows:</p><p><code class="literal"><span class="emphasis"><em>channel</em></span></code> is 1, 2 or 3, and refers to the I/O ports that are used for
+communication.</p><p><code class="literal"><span class="emphasis"><em>rate</em></span></code> is the bit rate, which is given by the letter r and then the
+desiredrate in bps. Acceptable units are r300, r600, r1200, r2400,
+r4800, r9600 and r19200.</p><p><code class="literal"><span class="emphasis"><em>start</em></span></code> gives the number of start bits, which is usually 1. To make
+the microcontroller wait for the start bit before proceeding with the receive, add
+128 to <code class="literal"><span class="emphasis"><em>start</em></span></code>. (Note: it may be desirable to use the <code class="literal">WaitForStart</code>
+constant here.)</p><p><code class="literal"><span class="emphasis"><em>data</em></span></code> tells the program how many data bits are to be sent or received.
+In most situations t his is 8, but it can range between 1 and 8,
+inclusive.</p><p><code class="literal"><span class="emphasis"><em>stop</em></span></code> is the number of stop bits. If <span class="emphasis"><em>start</em></span> bit 7 is on, then this
+number will be ignored.</p><p><code class="literal"><span class="emphasis"><em>parity</em></span></code> refers to a system of error checking used by many devices. It
+can be odd (in which there must always be an odd number of high bits),
+even (where the number of high bits must always be even), or none (for
+systems that do not use parity).</p><p><code class="literal"><span class="emphasis"><em>invert</em></span></code> can be either "normal" or "invert". If it in "invert", then
+high bits will be changed to low, and low to high.</p><p><span class="strong"><strong>Example:</strong></span></p><p>Please refer to <a class="link" href="_sersend.html" title="SerSend">SerSend</a> for an example of <code class="literal">InitSer</code></p><p><span class="strong"><strong>For more help, see</strong></span> <a class="link" href="_rs232_software_overview.html" title="RS232 Software Overview">RS232 Software Overview</a></p></div></body></html>

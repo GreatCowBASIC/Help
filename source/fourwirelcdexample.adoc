@@ -22,7 +22,7 @@ A 2 by 16 LCD is assumed.
 
     do forever
 
-            Print "Great Cow BASIC 2021"
+            Print "GCBASIC 2021"
             wait 3 s
             CLS
 

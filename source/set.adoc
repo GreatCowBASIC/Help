@@ -19,7 +19,7 @@ Often when controlling output ports, Set is used in conjunction with constants. 
 
 *Example:*
 ----
-    'Blink LED sample program for Great Cow BASIC
+    'Blink LED sample program for GCBASIC
     'Controls an LED on PORTB bit 0.
 
     'Set chip model and config options

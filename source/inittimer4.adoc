@@ -40,7 +40,7 @@ The second method is much more flexible in term of the clock source.&#160;&#160;
 **How do you determine which method to use for your specific Microchip microcontroller ?**
 {empty} +
 {empty} +
-The timer type for a Microchip microcontroller can be determined by checking for the existance of a T2CLKCON register, either in the Datasheet or in the Great Cow BASIC  "dat file" for the specific device.
+The timer type for a Microchip microcontroller can be determined by checking for the existance of a T2CLKCON register, either in the Datasheet or in the GCBASIC  "dat file" for the specific device.
 {empty} +
 {empty} +
 If the Microchip microcontroller **DOES NOT** have a T4CLKCON register then timers 2/4/6/8 for that specific microcontroller chip use the first method, and are configured using:

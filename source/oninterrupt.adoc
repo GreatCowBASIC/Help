@@ -14,22 +14,22 @@ Available on Microchip PIC and Atmel AVR microcontrollers with interrupt support
 *Explanation:*
 
 On Interrupt will add code to call the subroutine _handler_ whenever the
-interrupt _event_ occurs. When Call is specified, Great Cow BASIC will enable
+interrupt _event_ occurs. When Call is specified, GCBASIC will enable
 the interrupt, and call the interrupt handler when it occurs. When
-Ignore is specified, Great Cow BASIC will disable the interrupt handler and
+Ignore is specified, GCBASIC will disable the interrupt handler and
 prevent it from being called when the event occurs. If the event occurs
 while the handler is disabled, then the handler will be called as soon
 as it is re-enabled. The only way to prevent this from happening is to
 manually clear the flag bit for the interrupt.
 
 There are many possible interrupt events that can occur, and the events
-vary greatly from chip to chip. Great Cow BASIC will display an error if a given
+vary greatly from chip to chip. GCBASIC will display an error if a given
 chip cannot support the specified event.
 
 On Interrupt may require the setting or clearing of the interrupt register bit(s), and, On Interrupt may require setting of explicit enable register bits. You should always consult the device datasheet for these On Interrupt additional specific settings of register bits.  Typically, you will need define the 1) source event register bit(s) in the main program, and, 2) clear or set the register bit at the start of the of the interrupt handler subroutine.
 
 
-Great Cow BASIC has many demonstrations showing how to set and enable appropiate interrupt register bits to support the On Interrupt method.
+GCBASIC has many demonstrations showing how to set and enable appropiate interrupt register bits to support the On Interrupt method.
 
 If On Interrupt is used to handle an event, then the Interrupt()
 subroutine will not be called for that event. However, it will still be
@@ -37,12 +37,12 @@ called for any events not dealt with by On Interrupt.
 
 *Events:*
 
-Great Cow BASIC supports the events shown on the table below. Some events are
+GCBASIC supports the events shown on the table below. Some events are
 only implemented on a few specialised chips. Events in [gray]#*grey*# are
 supported by Microchip PIC and Atmel AVR microcontrollers, events in [blue]#*blue*# are only supported by some
 Microchip PIC microcontrollers, and events in [red]#*red*# are only supported by Atmel AVR microcontrollers.
 
-Note that Great Cow BASIC doesn't fully support all of the hardware which can
+Note that GCBASIC doesn't fully support all of the hardware which can
 generate interrupts - some work may be required with various system
 variables to control the unsupported peripherals.
 

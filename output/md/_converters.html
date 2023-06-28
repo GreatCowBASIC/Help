@@ -1,0 +1,77 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Converters</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_syntax.html" title="Syntax"><link rel="prev" href="_subroutines.html" title="Subroutines"><link rel="next" href="_command_references.html" title="Command References"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_converters"></a>Converters</h3></div></div></div><p><span class="strong"><strong>About Converters</strong></span></p><p>Converters allow GCBASIC to read files that have been created by other programs.
+A converter can convert these files into GCBASIC libraries or any GCBASIC instruction or a GCBASIC dataset.</p><p>A typical use case is when you have a data source file from another computer system and you want to consume the data within your GCBASIC program.
+The data source file could be database, graphic, reference data or music file.
+The converter will read these source files and convert them into a format that can be processed by GCBASIC.
+The conversion process is completed by external application which can be written by the developer or you can use
+one of the converters provided with the GCBASIC release.</p><p>The GCBASIC release includes the converter for BMP files and standard Text files.</p><p>With an appropriate Converter installed, and an associated <code class="literal">#include</code> to these non-GCBASIC files,
+GCBASIC will detect that the file extension and hand the processing to the external converting program.
+When the external converting program had complete, GCBASIC will then continue with the converted source file as a GCBASIC source file.</p><p>An example of a converter is to read an existing picture file, convert the picture file to a GCB table and then refer to the picture
+file table to display the picture file on a GLCD.</p><p>Conversion is achieved by including a command within the source program to transform external data.
+The command used is the instruction <code class="literal">#include</code> followed by the data source.  An example:</p><pre class="screen">    'Convert ManLooking.BMP to a GCBASIC usable format.
+
+    #include &lt;..\converters\ManLooking.BMP&gt;</pre><p>The inclusion of the #include line within a GCBASIC  program will enable the commencement of the following process:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">GCBASIC  will examine the <code class="literal">..\converters</code> folder structure for a configuration file that will handle the file extension specified in the include statement.</li><li class="listitem">GCBASIC  will examine the configuration file(s) <code class="literal">*.INI</code> for command line instructions.</li><li class="listitem">GCBASIC  will at stage examine the folder structure for the source file and the target transformed file.
+If the source file is older than the transformed file the next step will not be executed, goto step 6.</li><li class="listitem"><p class="simpara">GCBASIC  will execute the command as specified within the configuration file to transform the source file to the target file.</p><p class="simpara">The Conversion program must create the output file extension as specified in the configuration file.  If the include statement as an extension
+of <code class="literal">.TXT</code> and the configuration files states the input file extension as <code class="literal">.TXT</code> and the output as <code class="literal">.GCB</code> the converted file must have the extension of <code class="literal">.GCB</code>.</p><pre class="literallayout">#include &lt;..\converters\ManLooking.BMP&gt;</pre><p class="simpara">Init file is input file as BMP and output as GCB, then the file expected is <code class="literal">..\converters\ManLooking.GCB</code></p></li><li class="listitem">GCBASIC  will attempt to include the transformed target file (with the file extension as specified in the configuration file) within the GCBASIC  program.</li><li class="listitem">GCBASIC  will resume normal processing of the GCBASIC program including the transformed target file, therefore, with normal compiling and errors handling.</li></ol></div><p>For example programs see <a class="link" href="_converters.html#XX0">here</a>.</p><p><span class="strong"><strong>More about Converters</strong></span></p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p class="simpara">The configuration file</p><p class="simpara">The configuration file MUST have the extension of <code class="literal">.INI</code>.  No leading spaces are permitted in the configuration file.
+Specification of the configuration file.
+The file has four items: <code class="literal">desc</code>, <code class="literal">in</code>, <code class="literal">out</code> and <code class="literal">exe</code>. Where:</p><pre class="literallayout">desc         : Is the description shown in GCGB
+in           : Is the source file extension to be transformed
+out          : Is the target transformed file extension.
+exe          : Is the executable to be run for this specific configuration file.
+params       : Optional, is the required parameter to be passed from the compiler.  Example:  params = %filename% %chipmodel%
+deletetarget : Optional, will always recreate the target transformed file. The default is to retain the target transformed file unless source has changed. Options are Y or N</pre><p class="simpara">You can have multiple configuration files within the <code class="literal">..\converters folder structure</code>.</p><p class="simpara">GCBASIC will examine all configuration file to match the extension as specified in the <code class="literal">#include</code> command.</p><p class="simpara"><span class="strong"><strong>Example 1 :</strong></span></p><div class="informalexample"><p>BMP (Black and White) conversion configuration file is called <code class="literal">BMP2GCBasic.ini</code>.  The source extension is <code class="literal">.bmp</code>,
+the transformed file extension is <code class="literal">.GCB</code>, and the executable is called <code class="literal">BMP2GCBASIC.exe</code>.</p><pre class="literallayout">desc = BMP file (*.bmp)
+in = bmp
+out = GCB
+exe = BMP2GCBASIC .exe</pre><p>An example :</p><pre class="literallayout">#include &lt;..\converters\ManLooking.BMP&gt;</pre><p>Will be converted by the <code class="literal">BMP2GCBASIC .EXE</code> to <code class="literal">..\converters\ManLooking.GCB</code></p></div><p class="simpara"><span class="strong"><strong>Example 2 :</strong></span></p><div class="informalexample"><p>Data file conversion configuration file is called <code class="literal">TXT2GCB.ini</code>.  The source extension is <code class="literal">.TXT</code>, the transformed
+file extension is <code class="literal">.GCB</code>, and the command line called <code class="literal">AWKRUN.BAT</code> .</p><pre class="literallayout">desc = Infrared Patterns (*.txt)
+in = txt
+out = GCB
+exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt;..\converters\InfraRedPatterns.TXT&gt;</pre><p>Will be converted by the <code class="literal">AWKRUN.BAT</code> to <code class="literal">..\converters\ InfraRedPatterns.GCB</code></p><p>The example would require a supporting batch file and a script process to complete the transformation.</p></div></li><li class="listitem"><p class="simpara">Conversion Executable</p><p class="simpara">The conversion executable may be written in any language (compiled or interpreted).</p><p class="simpara">The conversion executable MUST create the converted file with the correct file extension as specified in the configuration file.</p><p class="simpara">The conversion executable will be passed one parameter - the source file name.
+Using example #1 the conversion executable would be passed   <code class="literal">..\converters\ManLooking.BMP</code></p><p class="simpara">The conversion executable MUST create a GCBASIC compatible source file.  Any valid commands/instruction are permitted.</p></li><li class="listitem"><p class="simpara">Installation</p><p class="simpara">The <code class="literal">INI</code> file, the source file and the conversion executable MUST be located in the <code class="literal">..\converters folder</code>.
+The converters folder is relative to the <code class="literal">GCBASIC.EXE</code> compiler folder.</p></li></ol></div><p><a name="XX0"></a><span class="strong"><strong>Example 3 : Converter Program</strong></span></p><div class="informalexample"><p>This program converts the <code class="literal">InfraRedPatterns.TXT</code> into <code class="literal">InfraRedPatterns.GCB</code> that will have a GCBASIC table called <code class="literal">DataSource</code>.
+This example is located in the converter folder of the GCBASIC installation.</p><pre class="screen">  #chip16f877a, 16
+  #include &lt;..\converters\InfraRedPatterns.TXT&gt;
+
+  dir portb out
+
+  ' These must be WORDs as this could be large table.
+  dim TableReadPosition, TableLen as word
+
+  dir portb out
+
+  ' Read the table length
+  TableReadPosition = 0
+  ReadTable DataSource, TableReadPosition, TableLen
+
+
+  Do Forever
+      For TableReadPosition = 1 to TableLen step 2
+          ReadTable DataSource, TableReadPosition, TransmissionPattern
+          ReadTable DataSource, TableReadPosition+1 , PulseDelay
+          portb = TransmissionPattern
+          wait PulseDelay ms
+      next
+  Loop</pre></div><p><span class="strong"><strong>Example 4 : Dynamic Import</strong></span></p><div class="informalexample"><p>This program converts a chip specific configuration file into <code class="literal">manifest.GCB</code> that will have a GCBASIC functions called <code class="literal">DataIn</code> and <code class="literal">DataOut</code>.
+This example is located in the converter folder of the GCBASIC installation.</p><pre class="screen">    #chip 16f18326
+
+    #include &lt;..\converters\manifest.mcc&gt;
+
+    DataOut ( TX, RA0 )  'this method is created during the convert process. They do not exist withiut the converter.
+    DataIn  ( Rx, RC6 )  'this method is created during the convert process. They do not exist withiut the converter.</pre><p>This example would use the optional parameters of <code class="literal">params</code> and <code class="literal">deletetarget</code> in the converter configuration file as follows:</p><pre class="screen">    desc = PPS file (*.PPS)
+    params = %filename% %chipmodel%
+    in = mcc
+    out = GCB
+    exe = DataHandler.exe
+    deletetarget= y</pre></div><p><span class="strong"><strong>Example 5 : Add build numbers and time/date details to your programs</strong></span></p><p>This converter is used to expose two string variables as follows:</p><pre class="screen">    GCBBuildStr
+    GCBBuildTimeStr</pre><p>The user code is simple. Using the #include statement specify any filename with an extension must be <code class="literal">cnt</code>. As follows:</p><pre class="screen">    #include "GCBVersionNumber.cnt"</pre><p>Complete code would like this - this not optimised - this shows the use of the exposed strings.</p><pre class="screen">    #include "GCBVersionNumber.cnt"
+
+    dim versionString as string * 40
+    versionString = "Max7219 build"+GCBBuildStr
+    versionString = versionString + "@"+GCBBuildTimeStr
+    Print versionString</pre><p>This outputs the following - where #20 is the current build and the date/time is correct for build time.</p><pre class="screen">    Max7219 build20@01-06-2021 08:00:21
+    Commence main program</pre><p>This works as the support INI file instructs the compiler to call a utility that automatically creates a build number tracker file and the supportting string functions.
+The utility creates a tracker file and the methods files in the same folder as your source program - so, each tracker is specific to each project.
+The converter requires the following files - these are included within your Installation.</p><pre class="screen">    GCBVersionStamp.exe - the utility called by the converter capability.
+    cnt2gcb.ini - the supporting ini file used by the compiler to handle this converter.</pre></div></body></html>

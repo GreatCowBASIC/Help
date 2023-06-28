@@ -39,13 +39,13 @@ another sub, which vary from chip to chip:
 |31
 |===
 These limits are due to the amount of memory on the microcontroller which saves its
-location before it jumps to a new subroutine. Some Great Cow BASIC commands are
+location before it jumps to a new subroutine. Some GCBASIC commands are
 subroutines, so you should always allow for 2 or 3 subroutine calls more
 than your program has.
 
 On 16F chips, the program memory is divided into pages. Each page holds 2048 instructions.&#160;&#160;&#160;
 If the program jumps from code on one page to code on another, the compiler has to select the new page.&#160;&#160;&#160;Having to do this makes the program bigger, so try to avoid this.
-To keep jumps between pages down, Great Cow BASIC imposes a rule that each subroutine must be entirely within one page, so that only jumps to other subroutines require the page selection.&#160;&#160;&#160;
+To keep jumps between pages down, GCBASIC imposes a rule that each subroutine must be entirely within one page, so that only jumps to other subroutines require the page selection.&#160;&#160;&#160;
 As an example, say you have two pages of memory, each 2048 instructions (words) long. + 
 If you have a main sub that is 1500 words, and four other subroutines each 600 words long, your total program size would be 3900 words and you might expect it to fit into the 4096 words available. &#160;&#160;&#160;
 The problem though is that once the main routine takes 1500 words from page 1, nothing else will fit after it. Three of the 600 word subroutines would fit onto page 2, but that leaves one 600 word subroutine that will not fit into the 500 left on page 1 or the 200 left on page 2.&#160;&#160;&#160;
@@ -117,13 +117,13 @@ the subroutine:
     ArmY = NewY
     ArmZ = 10
 -----
-When the subroutine has finished running, Great Cow BASIC will copy the values
+When the subroutine has finished running, GCBASIC will copy the values
 back where possible. `NewX` will be assigned to `ArmX`, and `NewY` will be
-assigned to `ArmY`. Great Cow BASIC will not attempt to set the number 10 to `ArmZ`.
+assigned to `ArmY`. GCBASIC will not attempt to set the number 10 to `ArmZ`.
 
 *Controlling the direction data moves in*
 
-It is possible to instruct Great Cow BASIC not to copy the value back after the
+It is possible to instruct GCBASIC not to copy the value back after the
 subroutine is called. If a subroutine is defined like this:
 ----
     sub MoveArm(In ArmX, In ArmY, In ArmZ)
@@ -131,10 +131,10 @@ subroutine is called. If a subroutine is defined like this:
 
     end sub
 ----
-Then Great Cow BASIC will copy the values to the subroutine, but will not copy
+Then GCBASIC will copy the values to the subroutine, but will not copy
 them back.
 
-Great Cow BASIC can also be prevented from copying the values back, by adding
+GCBASIC can also be prevented from copying the values back, by adding
 `Out` before the parameter name. This is used in the EEPROM reading
 routines - there is no point copying a data value into the read
 subroutine, so `Out` has been used to avoid wasting time and memory. The
@@ -172,7 +172,7 @@ required. To create the sub, this code would be use:
     End Sub
 ----
 Note the `Optional` before the parameter, and the `= 440` after it.
-This tells Great Cow BASIC that if no parameter is supplied, then set the
+This tells GCBASIC that if no parameter is supplied, then set the
 `OutTone` parameter to 440.
 
 If called using this line:
@@ -188,13 +188,13 @@ then the sub will produce a 1000 Hz tone.
 When using several parameters, it is possible to make any number of them
 optional. If the optional parameter/s are at the end of the call, then
 no value needs to be specified. If they are at the start or in the
-middle, then you must insert commas to allow Great Cow BASIC to tell where the
+middle, then you must insert commas to allow GCBASIC to tell where the
 optional parameters are.
 
 *Overloading*
 
 It is possible to have 2 subroutines with the same name, but different
-parameters. This is known as overloading, and Great Cow BASIC will automatically
+parameters. This is known as overloading, and GCBASIC will automatically
 select the most appropriate subroutine for each call.
 
 An example of this is the Print routine in the LCD routines. There are
@@ -210,7 +210,7 @@ command is used:
     Print 30112
 ----
 Then the Print (word) subroutine will be called. If there is no exact
-match for a particular call, Great Cow BASIC will use the option that requires
+match for a particular call, GCBASIC will use the option that requires
 the least conversion of variable types. For example, if this command is
 used:
 ----

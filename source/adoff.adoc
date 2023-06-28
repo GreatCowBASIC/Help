@@ -1,6 +1,6 @@
 ==== ADOff
 
-*This command is obsolete*. There should be no need to call it. Great Cow BASIC
+*This command is obsolete*. There should be no need to call it. GCBASIC
 will automatically disable the A/D converter and set all pins to digital
 mode when starting the program, and after every use of the ReadAD
 function.

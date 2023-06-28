@@ -2,7 +2,7 @@
 
 *Introduction:*
 
-These methods allow Great Cow BASIC programs to send and receive Inter- Integrated Circuit (I2C™) messages via:
+These methods allow GCBASIC programs to send and receive Inter- Integrated Circuit (I2C™) messages via:
 
 * Master Synchronous Serial Port (MSSP) module of the microcontroller for the Microchip PIC architecture, or
 * ATMEL 2-wire Serial Interface (TWI) for the Atmel AVR microcontroller architecture.
@@ -228,7 +228,7 @@ This an example of using a Clock Source.  This example uses the SMTClock source 
 For other clock sources refer to the appropriate datasheet.
 {empty} +
 {empty} +
-Error Codes: This module has extensive error reporting. For the standard error report refer to the appropriate datasheet.  Great Cow BASIC also exposes the following error messages to enable the user code to handle the errors appropriately.  These are exposed via the variable `HI2C1lastError` - the bits of the `HI2C1lastError` are set as in the table shown below.
+Error Codes: This module has extensive error reporting. For the standard error report refer to the appropriate datasheet.  GCBASIC also exposes the following error messages to enable the user code to handle the errors appropriately.  These are exposed via the variable `HI2C1lastError` - the bits of the `HI2C1lastError` are set as in the table shown below.
 [cols=2, options="header,autowidth"]
 |===
 |*Constant*
@@ -254,7 +254,7 @@ Error Codes: This module has extensive error reporting. For the standard error r
 |===
 
 {empty} +
-Shown below are two examples of using Hardware I2C with Great Cow BASIC.
+Shown below are two examples of using Hardware I2C with GCBASIC.
 
 {empty} +
 *Example 1:*

@@ -1,16 +1,16 @@
 ﻿=== Data Types
 
 
-This section discusses the different types and sizes of data variables used by Great Cow BASIC, and how they are interpreted or handled by Great Cow BASIC methods.
+This section discusses the different types and sizes of data variables used by GCBASIC, and how they are interpreted or handled by GCBASIC methods.
 
 The section also provides an insight of which type of variable to use and when.
 
 
-**What variable sizes are suported by Great Cow BASIC?**
+**What variable sizes are suported by GCBASIC?**
 
-Great Cow BASIC implements support for Bit, Byte, Word, Integer and Long Variable Types, all of which are described below.
+GCBASIC implements support for Bit, Byte, Word, Integer and Long Variable Types, all of which are described below.
 
-Supported variables are **Bit** (1 Bit), **Byte** (8 Bit), **Word** (16 Bit), **Long** (32 Bit).  Great Cow BASIC does not support decimal numbers.
+Supported variables are **Bit** (1 Bit), **Byte** (8 Bit), **Word** (16 Bit), **Long** (32 Bit).  GCBASIC does not support decimal numbers.
 
 **Bit** is used as a Flag or a Port Pin and has two states which may be: 
 ----
@@ -28,7 +28,7 @@ other complementary states depending on how your application interprets and hand
 *Word* is normally used for its Numeric value. 16 Bits will allow it to store Numbers from Zero to 65535 which is large enough to store the product of any two 8 bit Bytes without overflowing. &#160;&#160;However, it is not confined to being used as a numeric value.&#160;&#160; A Word may be used in any manner that your application needs depending on how it interprets the 16 Bits of data. Examples may be a memory address or a data pointer.
 
 
-* *Note:* The Word size of a device (as opposed to the Word Type above) is a representation of the number of Bits that it can manipulate simultaneously by the chip. &#160;&#160; The number of Bits for PIC and AVR Microcontrolers supported by Great Cow BASIC are 8 Bits and so they are considered to have an 8 Bit Word.*
+* *Note:* The Word size of a device (as opposed to the Word Type above) is a representation of the number of Bits that it can manipulate simultaneously by the chip. &#160;&#160; The number of Bits for PIC and AVR Microcontrolers supported by GCBASIC are 8 Bits and so they are considered to have an 8 Bit Word.*
 
 
 *Long* is for situations where Values exceeding 65535 have to be handled and has a range of zero to 4294967295 (2^32-1).&#160;&#160;It is rarely used in 8 Bit devices but is invaluable on the rare occasions that it is needed. &#160;&#160; The Millis() is an example that  uses the Long Data Type to handle time periods of up to 50 days.
@@ -39,13 +39,13 @@ All of the above can be considered to be Integer Values of varying magnitude as 
 
 An *integer* is a whole number (not a fractional number) that can be Positive, Negative, or Zero. 
 
-In your application there may be a need to be able represent Negative Numbers in our variables and that is where the Great Cow BASIC *Integer Variable Type* is useful.  An *Integer Variable* is similar to the *Word Variable* as they are both 16 bits. &#160;&#160; The difference how the Great Cow BASIC compiler interprets the data bits that it contains.
+In your application there may be a need to be able represent Negative Numbers in our variables and that is where the GCBASIC *Integer Variable Type* is useful.  An *Integer Variable* is similar to the *Word Variable* as they are both 16 bits. &#160;&#160; The difference how the GCBASIC compiler interprets the data bits that it contains.
 
 The compiler will treat a *Word Variable Type* as a Variable that can store the values 0 < 65535 but it will see the *Integer Variable Type* as a Variable that can store values of -32768 < 0 <32767.
 
 *Variable size*
 
-Each type of variable is defined in various bit lengths, in this case Great Cow BASIC  these are:
+Each type of variable is defined in various bit lengths, in this case GCBASIC  these are:
 
 ----
     Byte                 8 Bit
@@ -118,16 +118,16 @@ All of the above will result in a Negated version of the original contents.
 
 But not all, in fact relatively few, methods of a microcontroller require negative values so in situations where negative values are not required the loss of half of the magnitude of a Byte or Word can be significant. That is why it is necessary to be able to specify if a value is Signed or Unsigned, that is if the MSB is the sign bit or part of the value.
 
-It is obviously important from the above that the user program ds need to know what sort of data to expect as a value of 0xFF could be considered to be both 255 and -1 depending on the interpretation of the variable. &#160;&#160; That is why it is important to have Signed and Unsigned Data Types so that the compiler can decide how to handle or interpret the contents. &#160;&#160;As show above in Great Cow BASIC those types are referred to as Integer and Word respectively.
+It is obviously important from the above that the user program ds need to know what sort of data to expect as a value of 0xFF could be considered to be both 255 and -1 depending on the interpretation of the variable. &#160;&#160; That is why it is important to have Signed and Unsigned Data Types so that the compiler can decide how to handle or interpret the contents. &#160;&#160;As show above in GCBASIC those types are referred to as Integer and Word respectively.
 
 
 *Summary*
 
-Great Cow BASIC implements support for Bit, Byte, Word, Integer and Long Variable Types, all of which are described above.
+GCBASIC implements support for Bit, Byte, Word, Integer and Long Variable Types, all of which are described above.
 
 And, that negative numbers are represented as two’s complement.&#160;&#160; 
 
 //There is nothing wrong with treating any variable type as signed number, and, as explained  you can take the two’s compliment of a Byte and add it to another Byte in order to subtract one byte value from another. &#160;&#160;
 
-//Note that the Maths methods of Great Cow BASIC are intended to work with Signed 16 bit integers and may fail if you try to use a signed 8 Bit or Signed 32 bit values.
+//Note that the Maths methods of GCBASIC are intended to work with Signed 16 bit integers and may fail if you try to use a signed 8 Bit or Signed 32 bit values.
 

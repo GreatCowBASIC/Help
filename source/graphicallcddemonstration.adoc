@@ -2,7 +2,7 @@
 
 *Explanation:*
 
-This demonstration code shows the set of commands supported by Great Cow BASIC.
+This demonstration code shows the set of commands supported by GCBASIC.
 
 *Demonstration program:*
 
@@ -36,7 +36,7 @@ This demonstration code shows the set of commands supported by Great Cow BASIC.
 
     wait 1 s
     GLCDCLS
-    GLCDPrint 0, 1, "Great Cow BASIC "
+    GLCDPrint 0, 1, "GCBASIC "
     wait 1 s
     GLCDCLS
 
@@ -117,7 +117,7 @@ This demonstration code shows the set of commands supported by Great Cow BASIC.
               GLCDDrawChar xxpos , 0 , gtext(xchar)
            next
 
-        GLCDDrawString  1, 9, "Great Cow BASIC @2021"
+        GLCDDrawString  1, 9, "GCBASIC @2021"
         GLCDDrawString  1, 18,"GLCD 128*64"
         GLCDDrawString  1, 27,"Using GLCD.H from GCB"
         GLCDDrawString  1, 37,"Using GLCD.H GCB@2021"

@@ -2,7 +2,7 @@
 
 *Explanation*
 
-Within Great Cow BASIC you can use regular variable assignments. But, you can also use C like maths assignments.
+Within GCBASIC you can use regular variable assignments. But, you can also use C like maths assignments.
 
 The following methods are also supported.
 ----
@@ -12,7 +12,7 @@ The following methods are also supported.
     CharCode---
 ----
 
-Within Great Cow BASIC you can define binary, hexidecimal and decimal constants, see <<_constants,Constants>>. Please note what is and what is not support with respect to assigning numbers to constants. An example program examines what is supported.
+Within GCBASIC you can define binary, hexidecimal and decimal constants, see <<_constants,Constants>>. Please note what is and what is not support with respect to assigning numbers to constants. An example program examines what is supported.
 
 ----
     #chip 16F88, 4
@@ -40,7 +40,7 @@ You can assigned values/numbers with all the methods shown above (for constants 
 
 *Constants:*
 
-A few critical constants are defined within Great Cow BASIC , you can re-use these constants. They include:
+A few critical constants are defined within GCBASIC , you can re-use these constants. They include:
 
 ----
     #define ON 1       ' These are defined in System.h

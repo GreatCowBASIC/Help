@@ -1,8 +1,8 @@
 EVAN
 
-        include::introducingGreat Cow BASIC.adoc[]
+        include::introducingGCBASIC.adoc[]
 
-        include::gettingstartedwithGreat Cow BASIC.adoc[]
+        include::gettingstartedwithGCBASIC.adoc[]
 
         include::changes.adoc[]
 
@@ -703,7 +703,7 @@ evan
 
         include::windowsnet.adoc[]
 
-        == Great Cow BASIC for Linux
+        == GCBASIC for Linux
 
         include::linuxoverview.adoc[]
 end of evan

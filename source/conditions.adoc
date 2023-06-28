@@ -3,7 +3,7 @@
 
 *About Conditions*
 
-In Great Cow BASIC (and most other programming languages) a condition is a
+In GCBASIC (and most other programming languages) a condition is a
 statement that can be either true or false. Conditions are used when the
 program must make a decision.
 A condition is generally given as a value or variable, a relative
@@ -11,7 +11,7 @@ operator (such as = or >), and another value or variable. Several
 conditions can be combined to form one condition through the use of
 logical operators such as AND and OR.
 
-Great Cow BASIC supports these relative operators:
+GCBASIC supports these relative operators:
 [cols="^1,^1", options="header",width="60%"]
 |===
 |*Symbol*
@@ -64,7 +64,7 @@ only needs one other condition. Other arithmetic operators may be
 combined in conditions, to change values before they are compared, for
 example.
 
-Great Cow BASIC has two built in conditions - TRUE, which is always true, and
+GCBASIC has two built in conditions - TRUE, which is always true, and
 FALSE, which is always false. These can be used to create Conditional tests and infinite
 loops.
 
@@ -107,7 +107,7 @@ NOT, AND, OR and XOR will not work.
 
 *Constraints when using Conditional Test*
 
-As Great Cow BASIC is very flexible with the use of variables type this can cause issues when testing constants and/or functions.
+As GCBASIC is very flexible with the use of variables type this can cause issues when testing constants and/or functions.
 
 A few simple rules. *Always put the function or constant first, or, always call the function with the addition of the braces.*
 

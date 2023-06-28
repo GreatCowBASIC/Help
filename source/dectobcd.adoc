@@ -12,7 +12,7 @@ Available on all microcontrollers.
 
 Converts numbers from Decimal to Binary Coded Decimal format. Support Bytes only.
 
-You can add this function. Just add this to your Great Cow BASIC program and then call it when you need it.
+You can add this function. Just add this to your GCBASIC program and then call it when you need it.
 
 *Example:*
 ----

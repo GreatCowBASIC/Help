@@ -51,7 +51,7 @@ The first clock signal falling can be used to prepare the data. The clock idle s
                                             'Defaults to MASTER when microcontroller frequency more than 32 mhz.
 ----
 
-The Great Cow BASIC used the microcontrollers hardware module for SPI.  The example below shows an implementation of Hardware and Software SPI.  Software SPI allows for a greater choice of ports to be used to control the SPI operations.
+The GCBASIC used the microcontrollers hardware module for SPI.  The example below shows an implementation of Hardware and Software SPI.  Software SPI allows for a greater choice of ports to be used to control the SPI operations.
 
 *Example*
 
@@ -68,13 +68,13 @@ Hardware SPI mode the Data Out, Data In and Clock (DO/DI and SCK) cannot be move
 
 Software SPI mode the Data Out, Data In and Clock (DO/DI and SCK), Data Command, Chip Select and Reset are all moveable.
 
-Use the constant `HWSPIMode` to set the SPI frequency when using Great Cow BASIC libraries.
+Use the constant `HWSPIMode` to set the SPI frequency when using GCBASIC libraries.
 
 ----
     #define HWSPIMode MASTERULTRAFAST
 ----
 
-Great Cow BASIC libraries will default to to MASTERFAST when microcontroller frequency less or equal to 32 mhz and default to MASTER when microcontroller frequency more than 32 mhz.
+GCBASIC libraries will default to to MASTERFAST when microcontroller frequency less or equal to 32 mhz and default to MASTER when microcontroller frequency more than 32 mhz.
 
 The options for `HWSPIMode` are:
 
@@ -93,7 +93,7 @@ There will be use cases were you need to use more than one SPI target device at 
 
 As an example using e-Paper and SRAM at the same time, with an hardware SPI would require `#define SPISRAM_HARDWARESPI` and `#define EPD_HardwareSPI`.&#160;&#160;
 
-Obviously, when all SPI devices use the same SPI lines, you must  select one device at a time by setting SPI Chip Select line to `OFF` for the specific target SPI device, and you must set `ON` the SPI Chip Select line for any other SPI device&#160;&#160;-&#160;&#160;this is a normal convention of SPI usage. &#160;&#160; This is not specific to Great Cow BASIC..
+Obviously, when all SPI devices use the same SPI lines, you must  select one device at a time by setting SPI Chip Select line to `OFF` for the specific target SPI device, and you must set `ON` the SPI Chip Select line for any other SPI device&#160;&#160;-&#160;&#160;this is a normal convention of SPI usage. &#160;&#160; This is not specific to GCBASIC..
 
 
 *Code overview*

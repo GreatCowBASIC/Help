@@ -63,7 +63,7 @@ command register via I2C.
 
 *Explanation*
 
-The Great Cow BASIC constants and commands shown below control the configuration of the 47xxx EE-RAM device. &#160;&#160;&#160;Great Cow BASIC supports I2C hardware and software connectivity  - this is shown in the tables below.
+The GCBASIC constants and commands shown below control the configuration of the 47xxx EE-RAM device. &#160;&#160;&#160;GCBASIC supports I2C hardware and software connectivity  - this is shown in the tables below.
 
 
 To use the 47xxx driver simply include the following in your user code.  This will initialise the driver.
@@ -101,7 +101,7 @@ The device parameters for the device are shown in the table below.
 
 
 
-The Great Cow BASIC constants for control of the device are:
+The GCBASIC constants for control of the device are:
 
 
 |===
@@ -114,7 +114,7 @@ The Great Cow BASIC constants for control of the device are:
 |===
 
 
-The Great Cow BASIC commands for control of the device are:
+The GCBASIC commands for control of the device are:
 
 
 |===

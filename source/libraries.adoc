@@ -2,14 +2,14 @@
 
 *About Libraries*
 [subs="quotes"]
-Great Cow BASIC (as with most other microcontroller programming languages) supports libraries.
+GCBASIC (as with most other microcontroller programming languages) supports libraries.
 
 
 
-You can create you own device specific library, you are not limited to those shown below.  If you create a new device specific library - please submit for inclusion in the next release via the Great Cow BASIC forum.
+You can create you own device specific library, you are not limited to those shown below.  If you create a new device specific library - please submit for inclusion in the next release via the GCBASIC forum.
 
 
-Maintenance of these libraries is completed by the Great Cow BASIC development team.  If you wish to adapt these libraries you should create a local copy, edit and save within your development file structure.  The development team may update these libraries as part of a release and we do not want you to lose your local changes.
+Maintenance of these libraries is completed by the GCBASIC development team.  If you wish to adapt these libraries you should create a local copy, edit and save within your development file structure.  The development team may update these libraries as part of a release and we do not want you to lose your local changes.
 
 To use a library, simple inlcude the following in your user code
 
@@ -24,7 +24,7 @@ To use a local copy of a library, simple inlcude the following in your user code
 ----
 
 
-Great Cow BASIC supports the following device libraries.
+GCBASIC supports the following device libraries.
 
 
 [cols=3, options="header,autowidth",width="80%"]
@@ -368,7 +368,7 @@ Support up to four devices via the I2C bus.
 {empty} +
 
 {empty} +
-Great Cow BASIC supports the following core libraries.   These libraries are automatically included in your user program therefore you do not need to use '#include' to access the libraries capabilities.
+GCBASIC supports the following core libraries.   These libraries are automatically included in your user program therefore you do not need to use '#include' to access the libraries capabilities.
 
 [cols=3, options="header,autowidth",width="80%"]
 |===

@@ -12,9 +12,9 @@
 
 *Explanation*:
 
-Great Cow BASIC supports Three Primary Trigonometric Functions
+GCBASIC supports Three Primary Trigonometric Functions
 
-Great Cow BASIC supports the following functions, sin(x), cos(x), tan(x), where x is a signed integer representing an angle measured in a whole number of degrees.&#160;&#160;
+GCBASIC supports the following functions, sin(x), cos(x), tan(x), where x is a signed integer representing an angle measured in a whole number of degrees.&#160;&#160;
 The output values are also integers, represented as fixed point decimal fractions.
 
 *Details:*

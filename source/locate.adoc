@@ -21,7 +21,7 @@ location.
 
 *Example :*
 ----
-    'A Hello World program for Great Cow BASIC.
+    'A Hello World program for GCBASIC.
     'Uses Locate to show "World" on the second line
 
     'General hardware configuration

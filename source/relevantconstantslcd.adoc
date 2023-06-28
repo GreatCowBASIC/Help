@@ -2,11 +2,11 @@
 
 *Introduction:*
 
-The LCD routines in this section allow Great Cow BASIC programs to control an
+The LCD routines in this section allow GCBASIC programs to control an
 alphanumeric Liquid Crystal Displays based on the *HD44780* IC. This
 covers most 16 x 1, 16 x 2, 20 x 4 and 40 x 4 LCD displays.
 
-The Great Cow BASIC methods allow the displays to be connected to the microcontroller
+The GCBASIC methods allow the displays to be connected to the microcontroller
 
 *Connection Modes:*
 
@@ -123,7 +123,7 @@ Also known as 1601 type LCD displays.
 [NOTE]
 ===============================
 
-There may be a need to change the communication performance for a specific LCD as some LCD's are slower to operate.  Great Cow BASIC supports change the communications speed.
+There may be a need to change the communication performance for a specific LCD as some LCD's are slower to operate.  GCBASIC supports change the communications speed.
 
 To change the performance (communications speed) of the LCD use `#DEFINE LCD_SPEED`.  This method allows the timing to be optimised.
 
@@ -169,7 +169,7 @@ In order to enable busy flag checking, and, therefore to use the `GET` command t
 1. LCD I/O Mode must be either 4-wire or 8-wire
 2. `#DEFINE LCD_NO_RW` is not defined
 3. An I\O pin is connected between the microcontroller and the RW connection on the LCD Display
-4. `'DEFINE LCD_RW  port.pin` is defined in the Great Cow BASIC source code
+4. `'DEFINE LCD_RW  port.pin` is defined in the GCBASIC source code
 
 
 Example:

@@ -20,7 +20,7 @@
 
     ST7920GLCDEnableGraphics
     GLCDClearGraphics_ST7920
-    GLCDPrint 0, 1, "Great Cow BASIC "
+    GLCDPrint 0, 1, "GCBASIC "
     wait 1 s
 
     GLCDCLS

@@ -12,7 +12,7 @@ It uses two Neotic display controller chips: NT7108C and NT7107C, which are simi
 The controller uses a dot matrix LCD segment driver with 64 channel output, and therefore, the WDG0151 module contains two sets of it to drive 128 segments.
 {empty} +
 {empty} +
-The Great Cow BASIC constants shown below control the configuration of the NT7108C controller.&#160;&#160;&#160;
+The GCBASIC constants shown below control the configuration of the NT7108C controller.&#160;&#160;&#160;
 The connectivity options are as follows, This is required between the microcontroller and the GLCD to control the data bus.:
 
 - A  full port mode.{nbsp}{nbsp} Where a full data port therefore eight contiguous port.bits.{nbsp}{nbsp}  The port is used the data communications.
@@ -68,7 +68,7 @@ or
 ----
 
 
-The Great Cow BASIC constants for the interface to the controller are shown in the table below.
+The GCBASIC constants for the interface to the controller are shown in the table below.
 
 [cols="2,4,4", options="header,autowidth"]
 |===
@@ -125,7 +125,7 @@ GLCD.
 
 
 
-The Great Cow BASIC constants defined for the controller type are shown in the table below.  The NT7108C is very sensitive to clock timings.&#160;&#160;&#160;You may to adjust the clock timing to ensure the display operates correctly.
+The GCBASIC constants defined for the controller type are shown in the table below.  The NT7108C is very sensitive to clock timings.&#160;&#160;&#160;You may to adjust the clock timing to ensure the display operates correctly.
 
 
 
@@ -170,7 +170,7 @@ Can be set to improve performance.
 Can be set to improve performance.
 |===
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 
 [cols="1,1,^1", options="header,autowidth"]
@@ -198,7 +198,7 @@ This equates to the 8 pixel high.
 
 
 
-The Great Cow BASIC commands supported for this GLCD are shown in the
+The GCBASIC commands supported for this GLCD are shown in the
 table below.
 [cols=3, options="header,autowidth"]
 |===
@@ -256,7 +256,7 @@ For a NT7108C datasheet, please refer
 http://www.farnell.com/datasheets/1878006.pdf[here.]
 
 This example shows how to drive a NT7108C based Graphic LCD module with
-the built in commands of Great Cow BASIC. See https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/[Graphic LCD] for
+the built in commands of GCBASIC. See https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/[Graphic LCD] for
 details, this is an external web site.
 
 
@@ -279,7 +279,7 @@ details, this is an external web site.
    #define GLCD_RW PORTc.3
    #define GLCD_RESET PORTC.2
 
-   GLCDPrint ( 4,   1, "Great Cow BASIC 2021")                                ; Print some text
+   GLCDPrint ( 4,   1, "GCBASIC 2021")                                ; Print some text
 
    Box  0, 0, 127, 10
    Line 63, 10, 63, 63

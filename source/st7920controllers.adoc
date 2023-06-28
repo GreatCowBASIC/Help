@@ -3,7 +3,7 @@
 This section covers GLCD devices that use the ST7920 graphics controller.
 
 
-The Great Cow BASIC constants for control of the connectivity are shown
+The GCBASIC constants for control of the connectivity are shown
 in the table below. The only connectivity option the 8-bit mode where 8
 pins are connected between the microcontroller and the GLCD to control the
 data bus. +
@@ -12,9 +12,9 @@ The ST7920 GLCD is graphics and character mixed mode display. +
 
 ST7920 LCD controller/driver IC can display alphabets, numbers, Chinese
 fonts and self-defined characters.&#160;&#160;&#160;It supports 3 kinds of bus interface,
-namely 8-bit, 4-bit and serial.&#160;&#160;&#160;Great Cow BASIC is currently supports
+namely 8-bit, 4-bit and serial.&#160;&#160;&#160;GCBASIC is currently supports
 8-bit only. For LCD only operations (text characters only) you can use
-the Great Cow BASIC LCD routines. +
+the GCBASIC LCD routines. +
 
 All functions, including display RAM, Character Generation ROM, LCD
 display drivers and control circuits are all in a one-chip solution.
@@ -44,7 +44,7 @@ To use the ST7920 driver simply include the following in your user code.  This w
 ----
 
 
-The Great Cow BASIC constants for the interface to the controller are shown in the table below.
+The GCBASIC constants for the interface to the controller are shown in the table below.
 
 
 
@@ -114,7 +114,7 @@ the LCD is connected to ground if not used.
 
 
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.  +
+The GCBASIC constants for control display characteristics are shown in the table below.  +
 
 [cols="1,1,1", options="header,autowidth"]
 |===
@@ -132,7 +132,7 @@ The Great Cow BASIC constants for control display characteristics are shown in t
 
 |===
 
-The Great Cow BASIC commands supported for this GLCD are shown in the
+The GCBASIC commands supported for this GLCD are shown in the
 table below. For device specific see the commands with the prefix of
 ST7920*.
 
@@ -198,7 +198,7 @@ For a TS7920 datasheet, please refer
 http://www.crystalfontz.com/controllers/ST7920.pdf[here.]
 
 This example shows how to drive a ST7920 based Graphic LCD module with
-the built in commands of Great Cow BASIC. See
+the built in commands of GCBASIC. See
 http://www.greatcowbasic.com/sample-projects.html[Graphic LCD] for
 details, this is an external web site.
 

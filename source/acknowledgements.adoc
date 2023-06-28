@@ -2,7 +2,7 @@
 
 *Developers and Contributors:*
 
-Hugh Considine - Main developer of Great Cow BASIC
+Hugh Considine - Main developer of GCBASIC
 
 Stefano Bonomi - Two-wire LCD subroutines
 
@@ -24,11 +24,11 @@ Murat Inceer - Turkish
 
 *Other Contributors:*
 
-Russ Hensel - Great Cow BASIC Notes.
+Russ Hensel - GCBASIC Notes.
 
 Chuck Hellebuyck - His documentation for the GLCD and other pieces, see http://www.elproducts.com.
 
-Frank Steinberg - GCB@SYN IDE for Great Cow BASIC.
+Frank Steinberg - GCB@SYN IDE for GCBASIC.
 
 Alexy T. - SynWrite IDE used for GCB IDE, see http://www.uvviewsoft.com/synwrite
 

@@ -14,7 +14,7 @@ The subroutine should handle the process and then set the RS pin on the LCD appr
 
 *Relevant Constants:*
 
-Specific constants are used to control settings for the Liquid Crystal Display routines included with Great Cow BASIC.  To set these constants the main program should specific constants to support the connection mode using #define.
+Specific constants are used to control settings for the Liquid Crystal Display routines included with GCBASIC.  To set these constants the main program should specific constants to support the connection mode using #define.
 
 When using connection mode 0 only one constant must be set - all others are optional or can be ignored.
 

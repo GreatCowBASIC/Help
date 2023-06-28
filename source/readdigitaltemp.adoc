@@ -10,7 +10,7 @@ Available on all microcontrollers.
 
 *Explanation:*
 
-Return the value of the sensor in two global variables. The following two lines must be included in the Great Cow BASIC source file.
+Return the value of the sensor in two global variables. The following two lines must be included in the GCBASIC source file.
 
 [subs="specialcharacters,quotes"]
 ----

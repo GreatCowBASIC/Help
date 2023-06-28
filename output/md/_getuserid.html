@@ -1,0 +1,30 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>GetUserID</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_miscellaneous_commands.html" title="Miscellaneous Commands"><link rel="prev" href="_dir.html" title="Dir"><link rel="next" href="_pot.html" title="Pot"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_getuserid"></a>GetUserID</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen"></pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all Microchip microcontrollers that support UserIDs.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>Reads the memory location and returns the ID for a specific microcontroller.</p><p>If the microcontroller does not support GetUSerID then the following message will be issued during compilation <code class="literal">Warning: GetUserID not supported by this microcontroller</code>.</p><p>The method reads the memory location 0x8000 + Index and returns it as a Word value, where the Index 0x00 to 0x0B as follows:</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"><col class="col_4"></colgroup><thead><tr><th align="left" valign="top">Address</th><th align="left" valign="top">Function</th><th align="left" valign="top">Read</th><th align="left" valign="top">Write</th></tr></thead><tbody><tr><td align="left" valign="top"><p>8000h-8003h</p></td><td align="left" valign="top"><p>User IDs</p></td><td align="left" valign="top"><p>Yes</p></td><td align="left" valign="top"><p>Yes</p></td></tr><tr><td align="left" valign="top"><p>8006h/8005h</p></td><td align="left" valign="top"><p>Device ID/Revision ID</p></td><td align="left" valign="top"><p>Yes</p></td><td align="left" valign="top"><p>No</p></td></tr><tr><td align="left" valign="top"><p>8007h-800Bh</p></td><td align="left" valign="top"><p>Configuration Words 1 through 5</p></td><td align="left" valign="top"><p>Yes</p></td><td align="left" valign="top"><p>No</p></td></tr></tbody></table></div><p>Refer to your particular Device Datasheet to confirm the address table</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">      #chip 16F1455
+      #Config MCLRE_ON
+
+      #include &lt;GetUserID.h&gt;
+
+      #define USART_BAUD_RATE 19200
+      #define USART_TX_BLOCKING
+
+      'Implement ANSI escaope code for serial terminal NOT using a LCD!
+      #define ESC   chr(27)
+      #define CLS   HSerPrint(ESC+"[2J")
+      #define HOME  HSerPrint(ESC+"[H")
+      #define Print HSerPrint
+
+      CLS
+      HOME
+
+      dim UserIDRegister as word
+
+      For Index = 0 to 0xF
+        UserIDRegister  = GetUserID(Index)
+        HserPrint "80" + hex(NVIndex)
+        HserPrint " : "
+        HserPrint hex( UserIDRegister_H )
+        HserPrint hex( UserIDRegister    )
+      Next Index
+
+    End</pre></div></body></html>

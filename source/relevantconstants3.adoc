@@ -4,7 +4,7 @@
 
 These routines allow the microcontroller to send and receive RS232 data.
 
-SoftSerial is a library for the Creat Cow BASIC compiler and works on AVR and PIC microcontrollers.
+SoftSerial is a library for the GCBASIC compiler and works on AVR and PIC microcontrollers.
 These routines allow the microcontroller to send and receive RS232 data.
 All functions are implemented using software, so no special hardware is required on the microcontroller.
 SoftSerial uses ASM routines for minimal overhead.

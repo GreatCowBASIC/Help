@@ -7,7 +7,7 @@
 ----
 *Explanation:*
 
-A square root routine for Great Cow BASIC. The function only involves bit shifting, addition and subtraction, which makes it fast and efficient.
+A square root routine for GCBASIC. The function only involves bit shifting, addition and subtraction, which makes it fast and efficient.
 
 This method required a word variable as the input and a word variable as the output. The method will handle arguments of up to 4294.
 

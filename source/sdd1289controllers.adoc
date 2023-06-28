@@ -3,9 +3,9 @@
 
 This section covers GLCD devices that use the SDD1289 graphics controller.  The SDD1289 is a 240 x 320 single chip controller driver IC for 262k color (RGB) amorphous TFT LCD.
 
-The Great Cow BASIC constants shown below control the configuration of the SDD1289 controller. &#160;&#160;&#160;Great Cow BASIC supports SPI hardware and software connectivity  - this is shown in the tables below.
+The GCBASIC constants shown below control the configuration of the SDD1289 controller. &#160;&#160;&#160;GCBASIC supports SPI hardware and software connectivity  - this is shown in the tables below.
 
-Great Cow BASIC supports 65K-color mode operations.
+GCBASIC supports 65K-color mode operations.
 
 To use the SDD1289 driver simply include the following in your user code.  This will initialise the driver.
 
@@ -23,7 +23,7 @@ To use the SDD1289 driver simply include the following in your user code.  This 
 
 ----
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 [cols="2,4,4", options="header,autowidth"]
 |===
@@ -62,7 +62,7 @@ The Great Cow BASIC constants for control display characteristics are shown in t
 
 
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 
 [cols="3,4,4", options="header,autowidth"]
@@ -80,11 +80,11 @@ The Great Cow BASIC constants for control display characteristics are shown in t
 |Set automatically
 
 |`GLCDFontWidth`
-|Specifies the font width of the Great Cow BASIC font set.
+|Specifies the font width of the GCBASIC font set.
 |6
 |===
 
-The Great Cow BASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
+The GCBASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
 
 
 [cols="2,4,4", options="header,autowidth"]
@@ -167,7 +167,7 @@ The Great Cow BASIC commands supported for this GLCD are shown in the table belo
 
 For a SDD1289 datasheet, please refer http://gcbasic.sourceforge.net/library/DISPLAY/SDD1289.pdf[here]. +
 
-This example shows how to drive a SDD1289 based Graphic LCD module with the built in commands of Great Cow BASIC. +
+This example shows how to drive a SDD1289 based Graphic LCD module with the built in commands of GCBASIC. +
 
 
 *Example:*

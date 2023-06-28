@@ -13,7 +13,7 @@ image:lcd_io3.jpg[graphic]
 
 *Relevant Constants:*
 
-Specific constants are used to control settings for the Liquid Crystal Display routines included with Great Cow BASIC. To set these constants the main program should specific constants to support the connection mode using #define.
+Specific constants are used to control settings for the Liquid Crystal Display routines included with GCBASIC. To set these constants the main program should specific constants to support the connection mode using #define.
 When using 3-bit mode only three constants must be set.
 
 
@@ -59,7 +59,7 @@ When using 3-bit mode only three constants must be set.
 
     'Program Start
 
-     PRINT "Great Cow BASIC"
+     PRINT "GCBASIC"
      Locate 1,0
      PRINT "@2021"
      Wait 4 s

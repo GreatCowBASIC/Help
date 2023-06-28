@@ -3,11 +3,11 @@
 
 *About Bitwise Operations*
 [subs="quotes"]
-Great Cow BASIC (as with most other microcontroller programming languages) supports bitwise operations.
+GCBASIC (as with most other microcontroller programming languages) supports bitwise operations.
 
 Bitwise operations are performed on one or more bit patterns at the level of their individual bits.
 
-Great Cow BASIC supports the following methods.
+GCBASIC supports the following methods.
 
 
 [cols=2, options="header,autowidth",width="80%"]

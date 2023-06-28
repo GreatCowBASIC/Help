@@ -1,4 +1,4 @@
-        'A Flashing text "Hello World" program for Great Cow BASIC
+        'A Flashing text "Hello World" program for GCBASIC
 
         'General hardware configuration
         #chip 16F877A, 20

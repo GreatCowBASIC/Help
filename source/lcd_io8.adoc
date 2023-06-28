@@ -12,7 +12,7 @@ going to `PORTB.7`.
 *Relevant Constants:*
 
 These constants are used to control settings for the Liquid Crystal
-Display routines included with Great Cow BASIC. To set them, place a line in the
+Display routines included with GCBASIC. To set them, place a line in the
 main program file that uses `#define` to assign a value to the particular
 constant.
 

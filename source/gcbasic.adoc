@@ -1,5 +1,5 @@
-= Great Cow BASIC documentation
-The Great Cow BASIC development team @ 2023
+= GCBASIC documentation
+The GCBASIC development team @ 2023
 
 
 
@@ -1199,9 +1199,9 @@ include::trigonometrycircles.adoc[]
 
 
 ifdef::backend-pdf[<<<]
-== Great Cow Graphical BASIC
+== Graphical GCBASIC
 
-This is the Great Cow Graphical BASIC section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+This is the Graphical GCBASIC section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
 
 
 include::codedocumentation.adoc[]
@@ -1209,35 +1209,35 @@ include::codedocumentation.adoc[]
 include::windowsnet.adoc[]
 
 ifdef::backend-pdf[<<<]
-== Great Cow BASIC for Linux
+== GCBASIC for Linux
 
-This is the Great Cow BASIC for Linux section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+This is the GCBASIC for Linux section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
 
 include::linuxoverview.adoc[]
 
 ifdef::backend-pdf[<<<]
 
-== Great Cow BASIC for ARM & Pi
+== GCBASIC for ARM & Pi
 
-This is the Great Cow BASIC for Pi section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+This is the GCBASIC for Pi section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
 
 include::Pioverview.adoc[]
 
 ifdef::backend-pdf[<<<]
 
-== Great Cow BASIC for Apple macOS
-This is the Great Cow BASIC for Apple macOS section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+== GCBASIC for Apple macOS
+This is the GCBASIC for Apple macOS section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
 
 include::macosoverview.adoc[]
 
-== Great Cow BASIC for FreeBSD
-This is the Great Cow BASIC for FreeBSD OS section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+== GCBASIC for FreeBSD
+This is the GCBASIC for FreeBSD OS section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
 
 include::freebsdoverview.adoc[]
 
-== Great Cow BASIC Maintenance and Development
+== GCBASIC Maintenance and Development
 
-This is the Great Cow BASIC maintenance section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+This is the GCBASIC maintenance section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
 
 include::maintenance.adoc[]
 

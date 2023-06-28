@@ -2,7 +2,7 @@
 
 This section covers GLCD devices that use the SH1106 graphics controller.  THe SH1106 is a single-chip CMOS OLED/PLED driver with controller for organic/polymer light emitting diode dot-matrix graphic display system.  SH1106 consists of 132 segments, 64 commons that can support a maximum display resolution of 132 X 64. It is designed for Common Cathode type OLED panel.
 
-The Great Cow BASIC constants shown below control the configuration of the SH1106 controller. &#160;&#160;&#160;Great Cow BASIC supports i2C hardware and software connectivity  - this is shown in the tables below.
+The GCBASIC constants shown below control the configuration of the SH1106 controller. &#160;&#160;&#160;GCBASIC supports i2C hardware and software connectivity  - this is shown in the tables below.
 
 The SH1106 is a monochrome device.
 
@@ -24,7 +24,7 @@ To use the SH1106 driver simply include the following in your user code.  This w
     HI2CMode Master
 ----
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 
 [cols="2,4,4", options="header,autowidth"]
@@ -53,7 +53,7 @@ The Great Cow BASIC constants for control display characteristics are shown in t
 |===
 
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 
 [cols="1,1,^1", options="header,autowidth"]
@@ -69,7 +69,7 @@ The Great Cow BASIC constants for control display characteristics are shown in t
 |The height parameter of the GLCD
 |`64`
 |`GLCDFontWidth`
-|Specifies the font width of the Great Cow BASIC font set.
+|Specifies the font width of the GCBASIC font set.
 |`6`
 
 |`GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY`
@@ -87,7 +87,7 @@ When selected ONLY text related commands are suppored. For grapical commands you
 |===
 
 
-The Great Cow BASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
+The GCBASIC commands supported for this GLCD are shown in the table below.&#160;&#160;&#160;Always review the appropiate library for the latest full set of supported commands.
 
 
 
@@ -152,7 +152,7 @@ specific attribute.
 |
 |===
 
-The additional Great Cow BASIC commands for this GLCD are shown in the table below.
+The additional GCBASIC commands for this GLCD are shown in the table below.
 
 [cols="1,1", options="header,autowidth"]
 |===
@@ -173,7 +173,7 @@ Parameter is dim value
 
 For a SH1106 datasheet, please refer http://gcbasic.sourceforge.net/library/DISPLAY/SH1106.pdf[here].
 
-This example shows how to drive a SH1106 based Graphic LCD module with the built in commands of Great Cow BASIC.
+This example shows how to drive a SH1106 based Graphic LCD module with the built in commands of GCBASIC.
 ----
 ; ----- Configuration
     #chip mega328p,16
@@ -190,7 +190,7 @@ This example shows how to drive a SH1106 based Graphic LCD module with the built
     #define GLCD_I2C_Address 0x78
 
     GLCDCLS
-    GLCDPrint 0, 0, "Great Cow BASIC"
+    GLCDPrint 0, 0, "GCBASIC"
     GLCDPrint (0, 16, "Anobium 2021")
 
     wait 3 s
@@ -237,7 +237,7 @@ This example shows how to drive a SH1106 based Graphic LCD module with the built
 ----
 
 
-This example shows how to drive a SH1106 based Graphic I2C LCD module with the built in commands of Great Cow BASIC using Low Memory Mode GLCD.
+This example shows how to drive a SH1106 based Graphic I2C LCD module with the built in commands of GCBASIC using Low Memory Mode GLCD.
 
 Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to support the Low Memory Mode of operation and the contraining of all GLCD commands with the transaction commands.  The use Low Memory Mode GLCD the two defines `GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE` and `GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY` are included in the user program.
 ----
@@ -261,7 +261,7 @@ Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to 
 
     GLCDCLS
     GLCD_Open_PageTransaction 0,7
-       GLCDPrint 0, 0, "Great Cow BASIC"
+       GLCDPrint 0, 0, "GCBASIC"
        GLCDPrint (0, 16, "Anobium 2021")
     GLCD_Close_PageTransaction
     wait 3 s

@@ -12,7 +12,7 @@ A paragraph of stuff....
 *Variable Types*
 
 More paragraphs of stuff....
-Always use Great Cow BASIC  and the term microcontroller NOT PIC, a table follows 3 columns, each row needs 3 bits of info:
+Always use GCBASIC  and the term microcontroller NOT PIC, a table follows 3 columns, each row needs 3 bits of info:
 
 [cols=3, options="header,autowidth",width="80%"]
 |===
@@ -83,11 +83,11 @@ to be treated as word variables by the addition code:
     Dim MyWord As Word
     MyWord = [word]ByteVar + AnotherByteVar
 ----
-Why do this? If there are no casts, then Great Cow BASIC will add the two values
+Why do this? If there are no casts, then GCBASIC will add the two values
 using the byte addition code, and then convert the result to a word to
 store in `MyWord`. Suppose that `ByteVar` is 150, and `AnotherByteVar` is 231.
 When added, this will come to 381 - which will overflow, leaving 125 in
-the result. However, when the cast is added, Great Cow BASIC will treat `ByteVar`
+the result. However, when the cast is added, GCBASIC will treat `ByteVar`
 as if it were a word, and so will use the word addition code. This will
 cause the correct result to be calculated.
 

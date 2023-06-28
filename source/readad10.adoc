@@ -88,7 +88,7 @@ The default value of AD_Acquisition_Time_Select_bits is 0b100 or decimal 4, wher
 *Example 2 - Reading Reference Voltages:*
 
 
-When selecting the  reference source for ADC on ATmega328 Great Cow BASIC will overwrite anything that you put into te ADMUX register - but this option allow you change the ADC reference source on Atmel AVR microcontrollers.&#160;&#160; You can set the AD_REF_SOURCE constant to whatever you want to use.&#160;&#160; It defaults to the VCC pin, as example you can set the Atmel AVR to use the 1.1V reference with this:
+When selecting the  reference source for ADC on ATmega328 GCBASIC will overwrite anything that you put into te ADMUX register - but this option allow you change the ADC reference source on Atmel AVR microcontrollers.&#160;&#160; You can set the AD_REF_SOURCE constant to whatever you want to use.&#160;&#160; It defaults to the VCC pin, as example you can set the Atmel AVR to use the 1.1V reference with this:
 *#define AD_REF_SOURCE AD_REF_256* where 256 refers to the 2.56V reference on some older AVRs, but the same code will select the 1.1V reference on an ATmega328p
 ----
     ' Dynamically switching reference.

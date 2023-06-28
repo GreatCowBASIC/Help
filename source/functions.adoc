@@ -4,7 +4,7 @@
 
 Functions are a special type of subroutine that can return a value. This
 means that when the name of the function is used in the place of a
-variable, Great Cow BASIC will call the function, get a value from it, and then
+variable, GCBASIC will call the function, get a value from it, and then
 put the value into the line of code in the place of the variable.
 
 Functions may also have parameters - these are treated in exactly the

@@ -1,4 +1,4 @@
-# The Great Cow BASIC Help repository
+# The GCBASIC Help repository
 
-This the reserved word set for the Great Cow BASIC tool chain.
+This the reserved word set for the GCBASIC tool chain.
 

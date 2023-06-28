@@ -3,7 +3,7 @@
 
 *About Analog/Digital Conversion Code Optimisation*
 
-The analog to digital converter (ADC or A/D) module support is implemented by Great Cow BASIC to provide 8-bit, 10-bit and 12-bit Single channel measurement mode and Differential Channel Measurement with support up to 34 channels.  For compatibility all channels are supported.
+The analog to digital converter (ADC or A/D) module support is implemented by GCBASIC to provide 8-bit, 10-bit and 12-bit Single channel measurement mode and Differential Channel Measurement with support up to 34 channels.  For compatibility all channels are supported.
 
 There are two methods to optimise the code.
 

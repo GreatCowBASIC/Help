@@ -1,0 +1,22 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Miscellaneous</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_syntax.html" title="Syntax"><link rel="prev" href="_lookup_tables.html" title="Lookup Tables"><link rel="next" href="_readtable.html" title="ReadTable"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_miscellaneous"></a>Miscellaneous</h3></div></div></div><p><span class="strong"><strong>About Miscellaneous things&#8230;&#8203;.</strong></span></p><p>It is possible to combine multiple instructions on a single line, by
+separating them with a colon. For example, this code:</p><pre class="screen">    Set PORTB.0 On
+    Set PORTB.1 On
+    Wait 1 sec
+    Set PORTB.0 Off
+    Set PORTB.0 Off</pre><p>could also be written as:</p><pre class="screen">    Set PORTB.0 On: Set PORTB.1 On
+    Wait 1 sec
+    Set PORTB.0 Off: Set PORTB.0 Off</pre><p>In most cases, it will make no difference if commands share a line or
+not. However, special care should be taken with If commands, as this
+code:</p><pre class="screen">    Set PORTB.0 Off
+    Set PORTB.1 Off
+    If Temp &gt; 10 Then Set PORTB.0 On: Set PORTB.1 On
+    Wait 1 s</pre><p>Will be equivalent to this:</p><pre class="screen">    Set PORTB.0 Off
+    Set PORTB.1 Off
+    If Temp &gt; 10 Then
+    Set PORTB.0 On
+    Set PORTB.1 On
+    End If
+    Wait 1 s</pre><p>Also, the commands used to start and end subroutines, data tables and
+functions must be alone on a line. For example, this is WRONG:</p><pre class="screen">    Sub Something: Set PORTB.0 Off: End Sub</pre></div></body></html>

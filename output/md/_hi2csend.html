@@ -1,0 +1,26 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>HI2CSend</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_i2c_twi_hardware_module.html" title="I2C/TWI Hardware Module"><link rel="prev" href="_hi2crestart.html" title="HI2CRestart"><link rel="next" href="_hi2cstart.html" title="HI2CStart"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_hi2csend"></a>HI2CSend</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    HI2CSend <span class="emphasis"><em>data</em></span></pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Only available for microcontrollers with the hardware I2C or TWI module.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The HI2CSend command will send <code class="literal"><span class="emphasis"><em>data</em></span></code> through the I2C connection.
+If in master mode, HI2CSend will send the data immediately. If in slave
+mode, HI2CSend will wait for the master to request the data before
+sending.</p><p><span class="strong"><strong>Note:</strong></span></p><p>This command is also available on microcontrollers with a second hardware I2C port.</p><pre class="screen">    HI2C2Send  data</pre><p><span class="strong"><strong>Example:</strong></span></p><p>This example code retrieves multiple bytes from an EEPROM memory device.</p><pre class="screen">	do
+	  HI2CReStart                         ;generate a start signal
+	  HI2CSend(eepDev)                    ;indicate a write
+	loop While HI2CAckPollState
+
+	HI2CSend(eepAddr_H)                   ;as two bytes
+	HI2CSend(eepAddr)
+	HI2CReStart
+	HI2CSend(eepDev + 1)                  ;indicate a read
+
+	eep_i = 0                             ;loop consecutively
+	do while (eep_i &lt; eepLen)             ;these many bytes
+	  eep_j = eep_i + 1                   ;arrays begin at 1 not 0
+	  if (eep_i  &lt; (eepLen - 1)) then
+		HI2CReceive(eepArray(eep_j), ACK)  ;more data to get
+	  else
+		HI2CReceive(eepArray(eep_j), NACK ) ;send NACK on last byte
+	  end if
+	  eep_i++                             ;get set for next
+	loop
+	HI2CStop</pre><p>Supported in &lt;HI2C.H&gt;</p></div></body></html>

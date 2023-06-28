@@ -8,7 +8,7 @@
 
 *Explanation:*
 
-`#insert` tells Great Cow BASIC to open up another file, read all of the subroutines and constants from it, and then copy them into the current program at the specific line where the #insert directive is located.
+`#insert` tells GCBASIC to open up another file, read all of the subroutines and constants from it, and then copy them into the current program at the specific line where the #insert directive is located.
 
 There are two forms of include; absolute and relative.
 

@@ -14,12 +14,12 @@ microcontroller receiving a signal.
 
 *Using Interrupts*
 
-There are two ways to use interrupts in Great Cow BASIC. The first way is to use
+There are two ways to use interrupts in GCBASIC. The first way is to use
 the On Interrupt command. This will automatically enable a given
 interrupt, and run a particular subroutine when the interrupt occurs.
 
 The other way to deal with interrupts is to create a subroutine called
-Interrupt. Great Cow BASIC will call this subroutine whenever an interrupt
+Interrupt. GCBASIC will call this subroutine whenever an interrupt
 occurs, and then your code can check the "flag" bits to determine which
 interrupt has occured, and what should be done about it. If you use this
 approach, then you'll need to enable the desired interrupts manually. It
@@ -41,7 +41,7 @@ interrupts at the start of the section, and IntOn to re-enable them at
 the end. If any interrupt events occur while interrupts are disabled,
 then they will be processed as soon as interrupts are re-enabled. If the
 program does not use interrupts, IntOn and IntOff will be removed
-automatically by Great Cow BASIC.
+automatically by GCBASIC.
 
 *See Also* <<_intoff,IntOff>>, <<_inton,IntOn>>,
 <<_on_interrupt,On Interrupt>>

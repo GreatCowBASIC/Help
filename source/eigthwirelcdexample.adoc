@@ -1,7 +1,7 @@
 ====LCD_IO 8 Example
 ----
  ;Demonstration of LCD Features
-            ;for the 16F877A (Great Cow BASIC source).
+            ;for the 16F877A (GCBASIC source).
             ;This Revision: 4/10/2014 - removed hard coded dependencies and fixed as needed to remove manual intervention
             ;Based on works by Thomas Henry & revised Evan R. Venn
             ;Note: a 2 by 16 LCD is assumed.

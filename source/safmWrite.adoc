@@ -18,7 +18,7 @@ SAFWrite is used to write information, byte values, to SAFM so that it can be ac
 {empty} +
 {empty} +
 `location` represents the location or relative address to write. The location will range from location 0 to SAF_BYTES - 1, or for all practical purposes 0-255 since all PIC Microcontrollers with SAFM support 256 bytes of SAF Memory.&#160;&#160;&#160;
-HEF_BYTES is a Great Cow BASIC constant that represents the number of bytes of SAF Memory.    
+HEF_BYTES is a GCBASIC constant that represents the number of bytes of SAF Memory.    
 {empty} +
 {empty} +
 `data` is the data that is to be written to the SAFM location.&#160;&#160;&#160;

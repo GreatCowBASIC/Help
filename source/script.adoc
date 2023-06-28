@@ -12,7 +12,7 @@
 ----
 *Explanation:*
 
-The `#script` block is used to create small sections of code which Great Cow BASIC runs during compilation.
+The `#script` block is used to create small sections of code which GCBASIC runs during compilation.
 A detail explanation and example are included in the Scripts article.
 
 *See Also* <<_scripts,Scripts>>

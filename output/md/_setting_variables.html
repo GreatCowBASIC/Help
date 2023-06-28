@@ -1,0 +1,103 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Setting Variables</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_variables_operations.html" title="Variables Operations"><link rel="prev" href="_more_on_setting_variables_and_constants.html" title="More on setting Variables and Constants"><link rel="next" href="_variable_lifecycle.html" title="Variable Lifecycle"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_setting_variables"></a>Setting Variables</h4></div></div></div><p><br>
+<span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>Variable</em></span> = <span class="emphasis"><em>data</em></span></pre><p><br>
+<span class="strong"><strong>Explanation:</strong></span>
+<br>
+<code class="literal"><span class="emphasis"><em>Variable</em></span></code> will be set to <code class="literal"><span class="emphasis"><em>data</em></span></code>.<br>
+<code class="literal"><span class="emphasis"><em>data</em></span></code> can be either a fixed value (such as 157), another variable, or a sum.
+<br>
+All unknown byte variables are assigned Zero. A variable with the name of <span class="strong"><strong>Forever</strong></span> is not defined by GCBASIC and therefore defaults to the value of zero.
+<br>
+If <code class="literal"><span class="emphasis"><em>data</em></span></code> is a fixed value, it must be an integer between 0 and 255 inclusive.
+<br>
+If <code class="literal"><span class="emphasis"><em>data</em></span></code> is a calculation, then it may have any of the following operands:</p><p><br></p><pre class="screen">    + (add)
+    - (subtract, or negate if there is no value before it)
+    * (multiply)
+    / (divide)
+    % (modulo)
+    &amp; (and)
+    | (or)
+    # (xor)
+    ! (not)
+    = (equal)
+    &lt;&gt; (not equal)
+    &lt; (less than)
+    &gt; (greater than)
+    &lt;= (less than or equal)
+    &gt;= (more than or equal)</pre><p><br>
+The final six operands are for checking conditions.  They will return FALSE (0) if the condition is false, or TRUE (255) if the condition is true.
+<br>
+The <code class="literal">And</code>, <code class="literal">Or</code>, <code class="literal">Xor</code> and <code class="literal">Not</code> operators function both as bitwise and logical operators.
+<br>
+GCBASIC understands order of operations. If multiple operands are present, they will be processed in this order:
+<br></p><pre class="screen">    Brackets
+    Unary operations (not and negate)
+    Multiply/Divide/Modulo
+    Add/Subtract
+    Conditional operators
+    And/Or/Xor</pre><p><br>
+There are several modes in which variables can be set. GCBASIC will automatically use a different mode for each calculation, depending on the type of variable being set. If a byte variable is being set, byte mode will be used; if a word variable is being set, word mode will be used. If a byte is being set but the calculation involves numbers larger than 255, word mode can be used by adding [WORD] to the start of one of the values in the calculation. This is known as casting - refer to the Variables article for more information.
+<br>
+<br></p><p><span class="strong"><strong>And with other operations</strong></span></p><p>The order of operations, comparison operations have a higher precedence than boolean operations.&nbsp;&nbsp;GCBASIC behaves the same way as most other languages.&nbsp;&nbsp;Source code like this (randomly taken from glcd_ili9326.h) works.</p><pre class="screen">if GLCDfntDefaultSize = 2 and CurrCharRow = 7 then</pre><p>It is an easy mistake to compare values and get the precendent incorrect.&nbsp;&nbsp;Generally, if you can use an individual bit check, that is generally the best way to go. These are a lot simpler for the compiler to deal with and result in much nicer assembly.</p><p>This works using the correct order of precendence.</p><pre class="screen">    if (H_Byte &amp; 0x10) = 0x10 Then ...
+
+    'or, using the individual bit check to do the same
+    if H_Byte.4 Then</pre><p>This will fail as the order of precendence as shown below.</p><pre class="screen">    if H_Byte &amp; 0x10 = 0x10 Then ...
+
+    'the code above equates. This is not achieve the testing of the H_byte.4
+    if H_Byte &amp; ( 0x10 = 0x10 ) Then ...</pre><p><span class="strong"><strong>Divide or division</strong></span></p><p>GCBASIC support division.</p><p>When using division you will get accurate results, within the limitations of integer numbers, by completing any multiplication first and the division last. &nbsp;&nbsp;But, you may have issues with variables overflowing - ensure your variable type are correct for the calculation type.</p><p>If you that calculation a division, the compiler will use the long division routine, if the value may overflow, and then  fit the result into a word. &nbsp;&nbsp;This code provides the correct result, again within the limitations of integer numbers:</p><pre class="screen">    dim L1s as word
+    dim L1p as word
+    L1s = 6547200 / L1p</pre><p>Division also sets the global system variable SysCalcTempX to the remainder of the division.&nbsp;&nbsp;However the following simple rules apply.
+<br></p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">If both of the parameters of the division are constants, the compiler will do the calculation itself and use the result rather than making the microcontroller work out the same thing every time.  So, if there are two constants used, the microcontroller division routine does not get used, and SysCalcTempX does not get set.</li><li class="listitem">If either of the parameters of the division are variables, the compiler will ensure the microcontroller does the calculation as the result could be different every time.  So, in the this case the microcontroller division routine does get used, and SysCalcTempX is set.
+<br></li></ul></div><p>If you prefer, you can add <code class="literal">Let</code> to the start of the line. &nbsp;&nbsp;It will not alter the execution of the program, but is included for those who are used to including it in other BASIC dialects.
+<br>
+<br></p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'This program is to illustrate the setting of variables.
+    Chipmunk = 46        'Sets the variable Chipmunk to 46
+    Animal = Chipmunk    'Sets the variable Animal to the value of the variable Chipmunk
+    Bear = 2 + 3 * 5     'Sets the variable Bear to the result of 2 + 3 * 5, 17.
+    Sheep = (2 + 3) * 5  'Sets the variable Sheep to the result of (2 + 3) * 5, 25.
+    Animal = 2 * Bear    'Sets the variable Animal to twice the value of Bear.
+
+    LargeVar = 321       'LargeVar must be set as a word - see DIM.
+    Temp = LargeVar / [WORD]5 'Note the use of [WORD] to ensure that the calculation is performed correctly</pre><p><br>
+<br>
+<span class="strong"><strong>Setting Explicit Bits of a Variable/Register:</strong></span>
+<br>
+<br>
+GCBASIC supports the method setting a specific bit of a variable or register.  Use the following method:
+<br></p><pre class="screen">    'variable.bit method
+    myByteVariable.0 = 1   'will set bit 0 to 1
+    myByteVariable.1 = 0   'will set bit 1 to 0
+    myByteVariable.2 = 1   'will set bit 2 to 1</pre><p><br></p><p>To set more than one bit in one command GCBASIC supports the bits method.
+<br></p><p>GCBASIC also supports setting specific bits of a variable or register.  Use the following method:
+<br></p><pre class="screen">    'variable.bitS method
+    SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'
+    ' would generate ASM [for your specific microcontroller like the following.
+    ' bcf OSCTUNE,PLLEN,ACCESS
+    ' bsf OSCCON,IRCF2,ACCESS
+    ' bsf OSCCON,IRCF1,ACCESS
+    ' bsf OSCCON,IRCF0,ACCESS</pre><p><br>
+This method is limited to literal values.  You cannot use value from another variable as the setting value (at v0.98.00).
+<br>
+<br></p><p><span class="strong"><strong>Setting Explicit Bits of a Variable/Register with Error Handling</strong></span>
+<br>
+<br>
+To set more than one bit in one command GCBASIC supports the bits method.
+<br></p><p>GCBASIC also supports setting specific bits of a variable or register with error handling.  Use this method to prevent errors when a specified bit does not exist.
+<br></p><p>The <code class="literal">[canskip]</code> prefix will handle the error condition when a specific bit or specific bits do not exist.  The following example shows the usage.
+<br></p><pre class="screen">    [canskip] SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'</pre><p><br>
+This method is limited to literal values.  You cannot use value from another variable as the setting value (at v0.98.00).
+<br>
+<br>
+This example shows how the error handler compares to not have the <code class="literal">[canskip]</code> prefix
+<br></p><pre class="screen">      ' Of these two lines, only the first compiles:
+      [canskip] SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'    'first line with error handler
+      SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'              'second line with no error handler
+
+      'Second line produces this message:
+      'samevar.gcb (16): Error: Bit IRCF3 is not a valid bit and cannot be set</pre><p><br>
+<span class="strong"><strong>Setting a String - set a string with Escape characters</strong></span></p><p>An example showing how to set a string to an escape sequence for an ANSI terminal.&nbsp;&nbsp;You can `Dim`ension a string and then assign the elements similar to setting array elements.</p><pre class="screen">    dim line2 as string
+    line2 =  27, "[", "2", "H", 27, "[","K"
+    HSerPrint line2</pre><p>Will send the following to the terminal.
+&lt;esc&gt;[2H&lt;esc&gt;[K</p><p><br>
+<br></p><p><span class="strong"><strong>For more help, see:</strong></span> <a class="link" href="">Variables</a></p></div></body></html>

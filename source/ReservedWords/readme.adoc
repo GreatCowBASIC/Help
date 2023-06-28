@@ -1,7 +1,7 @@
-== Reserved Words for Great Cow BASIC
+== Reserved Words for GCBASIC
 
 
 === Introduction
 
-This the reserved word set for the Great Cow BASIC tool chain.
+This the reserved word set for the GCBASIC tool chain.
 

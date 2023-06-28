@@ -8,7 +8,7 @@ The SSD1306 is a single-chip CMOS OLED/PLED driver with controller for organic /
 The SSD1306 embeds with contrast control, display RAM and oscillator, which reduces the number of external components and power consumption. It has 256-step brightness control. Data/Commands are sent from general MCU through the hardware selectable 6800/8000 series compatible Parallel Interface, I2C interface or Serial Peripheral Interface. It is suitable for many compact portable applications, such as mobile phone sub-display, MP3 player and calculator, etc.
 
 
-The Great Cow BASIC constants shown below control the configuration of the SSD1306 controller. &#160;&#160;&#160;Great Cow BASIC supports SPI and I2C hardware & software connectivity  - this is shown in the tables below.
+The GCBASIC constants shown below control the configuration of the SSD1306 controller. &#160;&#160;&#160;GCBASIC supports SPI and I2C hardware & software connectivity  - this is shown in the tables below.
 
 To use the SSD1306 driver simply include the following in your user code.  This will initialise the driver.
 
@@ -60,7 +60,7 @@ or,
 
 ----
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 
 
 [cols=3, options="header,autowidth"]
@@ -79,7 +79,7 @@ The Great Cow BASIC constants for control display characteristics are shown in t
 |===
 
 
-The Great Cow BASIC constants for SPI/S4Wire control display characteristics are shown in the table below.
+The GCBASIC constants for SPI/S4Wire control display characteristics are shown in the table below.
 
 
 [cols=3, options="header,autowidth"]
@@ -122,7 +122,7 @@ The Great Cow BASIC constants for SPI/S4Wire control display characteristics are
 |Must be defined
 |===
 
-The Great Cow BASIC constants for control display characteristics are shown in the table below.
+The GCBASIC constants for control display characteristics are shown in the table below.
 [cols=3, options="header,autowidth"]
 |===
 |*Constants*
@@ -165,7 +165,7 @@ The GLCDfntDefaultsize can be set to 1 or 2 only.
 
 |===
 
-The Great Cow BASIC variables for control display characteristics are shown in the table below.
+The GCBASIC variables for control display characteristics are shown in the table below.
 These variables control the user definable parameters of a specific GLCD.
 [cols=3, options="header,autowidth"]
 |===
@@ -204,7 +204,7 @@ This equates to the 8 pixel high.
 |===
 
 
-The Great Cow BASIC commands supported for this GLCD are shown in the
+The GCBASIC commands supported for this GLCD are shown in the
 table below.
 [cols=3, options="header,autowidth"]
 |===
@@ -270,7 +270,7 @@ specific attribute.
 
 |===
 
-The Great Cow BASIC specific commands for this GLCD are shown in the table below.
+The GCBASIC specific commands for this GLCD are shown in the table below.
 [cols="1,1", options="header,autowidth"]
 |===
 |Command
@@ -309,7 +309,7 @@ Parameter is dim value
 |===
 For a SSD1306 datasheet, please refer http://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf[here].
 
-This example shows how to drive a SSD1306 based Graphic I2C LCD module with the built in commands of Great Cow BASIC using Full Mode GLCD
+This example shows how to drive a SSD1306 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode GLCD
 ----
 
     #chip mega328p,16
@@ -328,7 +328,7 @@ This example shows how to drive a SSD1306 based Graphic I2C LCD module with the 
     dim outString as string * 21
 
     GLCDCLS
-    GLCDPrint 0, 0, "Great Cow BASIC"
+    GLCDPrint 0, 0, "GCBASIC"
     GLCDPrint (0, 16, "Anobium 2021")
 
     wait 3 s
@@ -375,7 +375,7 @@ This example shows how to drive a SSD1306 based Graphic I2C LCD module with the 
 ----
 {empty} +
 {empty} +
-This example shows how to drive a SSD1306 based Graphic I2C LCD module with the built in commands of Great Cow BASIC using Low Memory Mode GLCD.
+This example shows how to drive a SSD1306 based Graphic I2C LCD module with the built in commands of GCBASIC using Low Memory Mode GLCD.
 {empty} +
 Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to support the Low Memory Mode of operation and the contraining of all GLCD commands with the transaction commands.  The use Low Memory Mode GLCD the two defines `GLCD_TYPE_SSD1306_LOWMEMORY_GLCD_MODE` and `GLCD_TYPE_SSD1306_CHARACTER_MODE_ONLY` are included in the user program.
 {empty} +
@@ -405,7 +405,7 @@ Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to 
     'In this example Code would be GLCD_Open_PageTransaction 0,1 been enough
     'But it is allowed to use GLCD_Open_PageTransaction 0,7 to show the full screen update
     GLCD_Open_PageTransaction 0,7
-       GLCDPrint 0, 0, "Great Cow BASIC"
+       GLCDPrint 0, 0, "GCBASIC"
        GLCDPrint (0, 16, "Anobium 2021")
     GLCD_Close_PageTransaction
     wait 3 s
@@ -457,7 +457,7 @@ Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to 
     end
 ----
 {empty} +
-This example shows how to drive a SSD1306 based Graphic SPI LCD module with the built in commands of Great Cow BASIC.
+This example shows how to drive a SSD1306 based Graphic SPI LCD module with the built in commands of GCBASIC.
 {empty} +
 ----
     'Chip model
@@ -526,7 +526,7 @@ This example shows how to drive a SSD1306 based Graphic I2C LCD module with 128 
     #define GLCD_I2C_Address 0x78
 
     GLCDCLS
-    GLCDPrint 0, 0, "Great Cow BASIC"
+    GLCDPrint 0, 0, "GCBASIC"
     GLCDPrint (0, 16, "Anobium 2021")
 
 ----
