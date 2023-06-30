@@ -31,7 +31,7 @@ Complete the following steps to compile and install the GCBASIC compiler:
 
  . Download the GCBASIC UNIX Source Distribution from SourceForge at http://gcbasic.sourceforge.net/Typesetter/index.php/Download
 
- . Note: the following instructions assume the distribution file is named GreatCowBASIC-UNIX-v0_98_05.rar however the version number (v0_98_05) may change before these instructions are updated, so you may have to adjust the filename to match the version you have downloaded.
+ . Note: the following instructions assume the distribution file is named GCBASIC-UNIX-v0_98_05.rar however the version number (v0_98_05) may change before these instructions are updated, so you may have to adjust the filename to match the version you have downloaded.
 
  . Unfortunately Apple replaced the gcc compiler with the clang compiler and FreeBASIC needs the real gcc due to a certain use of goto... so, you can compile your own version of gcc following the instructions at https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/ or you can take the low road and just download the pre-compiled binary version from https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2
 
@@ -89,20 +89,20 @@ This will produce a new directory called fbc-1.06.
 [start=13]
  . Move the GCBASIC compressed tar file from your Downloads directory to your home directory by typing the following command in your Terminal window:
 ----
-   mv ~/Downloads/GreatCowBASIC-UNIX-v0_98_05.rar ~/
+   mv ~/Downloads/GCBASIC-UNIX-v0_98_05.rar ~/
 ----
 
 [start=14]
  . Unpack the GCBASIC compressed tar file by typing these commands in your Terminal window:
 ----
-   unrar x GreatCowBASIC-UNIX-v0_98_05.rar
+   unrar x GCBASIC-UNIX-v0_98_05.rar
 ----
-This will produce a new directory called GreatCowBasic. *Note:* If you do not currently have the unrar program which can extract rar file archives you can download and install it for free from the App Store.
+This will produce a new directory called GCBASIC. *Note:* If you do not currently have the unrar program which can extract rar file archives you can download and install it for free from the App Store.
 
 [start=15]
- . Change to the GreatCowBasic/Sources directory by typing this command in your Terminal window:
+ . Change to the GCBASIC/Sources directory by typing this command in your Terminal window:
 ----
-   cd ~/GreatCowBasic/Sources
+   cd ~/GCBASIC/Sources
 ----
 
 [start=16]
@@ -136,6 +136,6 @@ Alternatively, if you use Virtual Machine software such as _Parallels_ or _VMWar
 
 *Help*
 
-GCBASIC Help documentation is installed in the Documentation subdirectory in your GreatCowBasic directory.
+GCBASIC Help documentation is installed in the Documentation subdirectory in your GCBASIC directory.
 
 If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at https://sourceforge.net/p/gcbasic/discussion/

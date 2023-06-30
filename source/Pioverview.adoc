@@ -50,7 +50,7 @@ _Installing GCBASIC_
     $ sudo apt install unar
     # the password when requested in the next step is "GCB"
     $ unar GCB@Syn.rar
-    $ cd GCB@Syn/GreatCowBASIC/sources/linuxbuild/
+    $ cd GCB@Syn/GCBASIC/sources/linuxbuild/
 ----
 
 [start=2]

@@ -57,7 +57,7 @@ GCBASIC requires clock frequencys to be specified in MHz, but will accept decima
 
 *GCBASIC support for microcontrollers:*
 
-Each microcontroller has a microcontroller data file.  This file is located in /GreatCowBasic/chipdata/ folder when installed.
+Each microcontroller has a microcontroller data file.  This file is located in \GCBasic\chipdata\ folder when installed.
 
 An example is 12F1840.dat
 

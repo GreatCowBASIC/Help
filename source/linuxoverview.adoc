@@ -19,7 +19,7 @@ Complete the following steps to compile and install GCBASIC for Linux:
 
  . From a console, change to the GCBASIC Sources in the unpacked directory:
 ----
-   eg. cd ~/Downloads/GCB@Syn/GreatCowBasic/Sources/GCBASIC
+   eg. cd ~/Downloads/GCB@Syn/GCBASIC/Sources/GCBASIC
 ----
 [start=5]
  . Make sure that `install.sh` is set as executable (ie. `chmod +x install.sh`), and then execute: ./install.sh build
