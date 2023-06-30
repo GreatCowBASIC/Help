@@ -49,8 +49,31 @@ included with the programmer on how to download and connect the hardware to the 
 
 *Programmer Preferences*
 {empty} +
-The “Programmer Preferences” is a software tool to control and set-up the different programmers.  Review the GIF for instructions.
+{empty} +
+The “Programmer Preferences” is a software tool to control and set-up the different programmers.  See below:
+{empty} +
+{empty} +
+*When using GC Code at the IDE*
+{empty} +
+{empty} +
+Select Terminal/Run Task or press function <F4> to see the menu
+{empty} +
+{empty} +
+image:Prefs1.gif[graphic,width=640,height=480]
+{empty} +
+{empty} +
+*Or, when using GC Code at the IDE*
+{empty} +
+{empty} +
+Select the drop down menu to see the menu
+{empty} +
+{empty} +
+image:Prefs2.gif[graphic,width=640,height=480]
+{empty} +
+{empty} +
+*When using SynWrite at the IDE*
 {empty} +
 {empty} +
 image:PPtool.gif[graphic,width=640,height=480]
+{empty} +
 {empty} +

@@ -8,7 +8,7 @@ Comments are used to remind yourself and to inform others about the function of 
 Comments are ignored by the compiler
 
 You can comment out sections of code if you want just by placing an apostrophe at
-the beginning of each line. The SynGCB IDE has a feature to do this automatically.
+the beginning of each line. The GCBASIC IDE has a feature to do this automatically.
 {empty} +
 {empty} +
 You can also use a REM (for REMark statement), a semi-colon or two forward slashes.
