@@ -16,7 +16,7 @@
       <link rel="next" href="_gcbasic_for_freebsd.html" title="GCBASIC for FreeBSD" />
       <meta name="Section-title" content="Overview - Apple macOS GCBASIC" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53015";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -203,7 +203,7 @@ border: none; background: none; font-weight: none; color: none; }
             <p><span class="strong"><strong>Instructions for using the GCBASIC Installer</strong></span></p>
             <div class="orderedlist">
                <ol class="orderedlist" type="1">
-                  <li class="listitem">Download the GCBASIC - macOS Installer disk image (.dmg) file from <a class="link" href="https://sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download" target="_top">sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download</a></li>
+                  <li class="listitem">Download the GCBASIC - macOS Installer disk image (.dmg) file from <a class="link" href="https://sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download" target="_top">https://sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download</a></li>
                   <li class="listitem">Double click the .dmg file to mount it on your Desktop and a window will open which contains the Installer.</li>
                   <li class="listitem">Double click the REAME_FIRST.txt file and read it for any important information you may need before proceeding.</li>
                   <li class="listitem">Double click the GCBASIC icon and follow the installer prompts.</li>
@@ -213,14 +213,14 @@ border: none; background: none; font-weight: none; color: none; }
             <p>Complete the following steps to compile and install the GCBASIC compiler:</p>
             <div class="orderedlist">
                <ol class="orderedlist" type="1">
-                  <li class="listitem">Download the FreeBASIC 1.06 macOS binary compilation from: <a class="link" href="http://tmc.castleparadox.com/temp/fbc-1.06-darwin-wip20160505.tar.bz2" target="_top">tmc.castleparadox.com/temp/fbc-1.06-darwin-wip20160505.tar.bz2</a></li>
-                  <li class="listitem">Download the GCBASIC UNIX Source Distribution from SourceForge at <a class="link" href="http://gcbasic.sourceforge.net/Typesetter/index.php/Download" target="_top">gcbasic.sourceforge.net/Typesetter/index.php/Download</a></li>
-                  <li class="listitem">Note: the following instructions assume the distribution file is named GreatCowBASIC-UNIX-v0_98_05.rar however the version
-                     number (v0_98_05) may change before these instructions are updated, so you may have to adjust the filename to match the version
-                     you have downloaded.
+                  <li class="listitem">Download the FreeBASIC 1.06 macOS binary compilation from: <a class="link" href="http://tmc.castleparadox.com/temp/fbc-1.06-darwin-wip20160505.tar.bz2" target="_top">http://tmc.castleparadox.com/temp/fbc-1.06-darwin-wip20160505.tar.bz2</a></li>
+                  <li class="listitem">Download the GCBASIC UNIX Source Distribution from SourceForge at <a class="link" href="http://gcbasic.sourceforge.net/Typesetter/index.php/Download" target="_top">http://gcbasic.sourceforge.net/Typesetter/index.php/Download</a></li>
+                  <li class="listitem">Note: the following instructions assume the distribution file is named GCBASIC-UNIX-v0_98_05.rar however the version number
+                     (v0_98_05) may change before these instructions are updated, so you may have to adjust the filename to match the version you
+                     have downloaded.
                   </li>
                   <li class="listitem">Unfortunately Apple replaced the gcc compiler with the clang compiler and FreeBASIC needs the real gcc due to a certain use
-                     of goto…​ so, you can compile your own version of gcc following the instructions at <a class="link" href="https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/" target="_top">solarianprogrammer.com/2017/05/21/compiling-gcc-macos/</a> or you can take the low road and just download the pre-compiled binary version from <a class="link" href="https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2" target="_top">github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2</a></li>
+                     of goto…​ so, you can compile your own version of gcc following the instructions at <a class="link" href="https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/" target="_top">https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/</a> or you can take the low road and just download the pre-compiled binary version from <a class="link" href="https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2" target="_top">https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2</a></li>
                   <li class="listitem">Open a Terminal window (Terminal can be found in Applications &gt; Utilities).</li>
                   <li class="listitem">Move gcc-8.3.tar.bz2 from your Downloads directory to your Home directory by typing the following command in your Terminal
                      window:
@@ -268,18 +268,18 @@ border: none; background: none; font-weight: none; color: none; }
                      in your Terminal window:
                   </li>
                </ol>
-            </div><pre class="screen">   mv ~/Downloads/GreatCowBASIC-UNIX-v0_98_05.rar ~/</pre><div class="orderedlist">
+            </div><pre class="screen">   mv ~/Downloads/GCBASIC-UNIX-v0_98_05.rar ~/</pre><div class="orderedlist">
                <ol class="orderedlist" start="14" type="1">
                   <li class="listitem">Unpack the GCBASIC compressed tar file by typing these commands in your Terminal window:</li>
                </ol>
-            </div><pre class="screen">   unrar x GreatCowBASIC-UNIX-v0_98_05.rar</pre><p>This will produce a new directory called GreatCowBasic. <span class="strong"><strong>Note:</strong></span> If you do not currently have the unrar program which can extract rar file archives you can download and install it for free
+            </div><pre class="screen">   unrar x GCBASIC-UNIX-v0_98_05.rar</pre><p>This will produce a new directory called GCBASIC. <span class="strong"><strong>Note:</strong></span> If you do not currently have the unrar program which can extract rar file archives you can download and install it for free
                from the App Store.
             </p>
             <div class="orderedlist">
                <ol class="orderedlist" start="15" type="1">
-                  <li class="listitem">Change to the GreatCowBasic/Sources directory by typing this command in your Terminal window:</li>
+                  <li class="listitem">Change to the GCBASIC/Sources directory by typing this command in your Terminal window:</li>
                </ol>
-            </div><pre class="screen">   cd ~/GreatCowBasic/Sources</pre><div class="orderedlist">
+            </div><pre class="screen">   cd ~/GCBASIC/Sources</pre><div class="orderedlist">
                <ol class="orderedlist" start="16" type="1">
                   <li class="listitem">Compile the GCBASIC binary (gcbasic) by typing the following command into your Terminal window:</li>
                </ol>
@@ -298,9 +298,9 @@ border: none; background: none; font-weight: none; color: none; }
             <p>To program your microcontroller with your GCBASIC-created hex file, you will need additional hardware and software.</p>
             <div class="orderedlist">
                <ol class="orderedlist" type="1">
-                  <li class="listitem">For Microchip PIC microcontroller programming, you might find what you need at: <a class="link" href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</a> and the macOS version of the <code class="literal">pk2cmd</code> v1.2 command line programming software.
+                  <li class="listitem">For Microchip PIC microcontroller programming, you might find what you need at: <a class="link" href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</a> and the macOS version of the <code class="literal">pk2cmd</code> v1.2 command line programming software.
                   </li>
-                  <li class="listitem">For Atmel AVR microcontroller programming, you will need the <code class="literal">avrdude</code> programming software. Check here: <a class="link" href="http://www.nongnu.org/avrdude/" target="_top">www.nongnu.org/avrdude/</a> for it.
+                  <li class="listitem">For Atmel AVR microcontroller programming, you will need the <code class="literal">avrdude</code> programming software. Check here: <a class="link" href="http://www.nongnu.org/avrdude/" target="_top">http://www.nongnu.org/avrdude/</a> for it.
                   </li>
                </ol>
             </div>
@@ -308,13 +308,13 @@ border: none; background: none; font-weight: none; color: none; }
             </p>
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">
-                  <li class="listitem">For Microchip, the PICKit 2 and PICkit 3 standalone GUI software or even better the PICkitPlus software (<a class="link" href="https://sourceforge.net/projects/pickit3plus/" target="_top">sourceforge.net/projects/pickit3plus/</a>) for both the PICkit 2 (<a class="link" href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</a>) and PICkit 3 (<a class="link" href="https://www.microchip.com/Developmenttools/ProductDetails/PG164130" target="_top">www.microchip.com/Developmenttools/ProductDetails/PG164130</a>) which has fixed various bugs in those programs and been updated to program the latest Microchip 8 bit microcontrollers.
+                  <li class="listitem">For Microchip, the PICKit 2 and PICkit 3 standalone GUI software or even better the PICkitPlus software (<a class="link" href="https://sourceforge.net/projects/pickit3plus/" target="_top">https://sourceforge.net/projects/pickit3plus/</a>) for both the PICkit 2 (<a class="link" href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</a>) and PICkit 3 (<a class="link" href="https://www.microchip.com/Developmenttools/ProductDetails/PG164130" target="_top">https://www.microchip.com/Developmenttools/ProductDetails/PG164130</a>) which has fixed various bugs in those programs and been updated to program the latest Microchip 8 bit microcontrollers.
                   </li>
                </ul>
             </div>
             <p><span class="strong"><strong>Help</strong></span></p>
-            <p>GCBASIC Help documentation is installed in the Documentation subdirectory in your GreatCowBasic directory.</p>
-            <p>If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at <a class="link" href="https://sourceforge.net/p/gcbasic/discussion/" target="_top">sourceforge.net/p/gcbasic/discussion/</a></p>
+            <p>GCBASIC Help documentation is installed in the Documentation subdirectory in your GCBASIC directory.</p>
+            <p>If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at <a class="link" href="https://sourceforge.net/p/gcbasic/discussion/" target="_top">https://sourceforge.net/p/gcbasic/discussion/</a></p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -767,7 +767,6 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -947,7 +946,7 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>

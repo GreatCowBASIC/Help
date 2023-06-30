@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Command Line Parameters -  - Great Cow BASIC documentation</title>
+      <title>Command Line Parameters -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
-      <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
-      <link rel="up" href="index.html" title="Great Cow BASIC documentation" />
+      <link rel="home" href="index.html" title="GCBASIC documentation" />
+      <link rel="up" href="index.html" title="GCBASIC documentation" />
       <link rel="prev" href="_changes.html" title="Changes" />
       <link rel="next" href="_frequent_errors.html" title="Frequent errors" />
       <meta name="Section-title" content="Command Line Parameters" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53019";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />Command Line Parameters
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />Command Line Parameters
          </h1>
          <div id="navheader">
             <!---->
@@ -223,7 +223,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">/A:assembler</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Batch file used to call assembler<sup>(1)</sup>. If <code class="literal">/A:GCASM</code> is given, Great Cow BASIC will use its internal assembler.
+                           <p>Batch file used to call assembler<sup>(1)</sup>. If <code class="literal">/A:GCASM</code> is given, GCBASIC will use its internal assembler.
                            </p>
                         </td>
                         <td align="left" valign="top">
@@ -397,13 +397,13 @@ border: none; background: none; font-weight: none; color: none; }
                   <code class="literal">%FN_NOEXT%</code> will be replaced by the name of the <code class="literal">.asm</code> file but without an
                   extension, and <code class="literal">%CHIPMODEL%</code> will be replaced with the name of the chip.
                   The name of the chip will be the same as that on the chip data file.</span></p>
-            <p>A batch file to load the <code class="literal">ASM</code> from Great Cow BASIC into <code class="literal">MPASM</code>. Command line should be like this:
-            </p><pre class="screen">    C:\progra~1\microc~1\mpasms~1\MPASMWIN /c- /o- /q+ /l- /x- /w1 %code%.asm</pre><p>A batch file to compile in Great Cow BASIC then load the <code class="literal">ASM</code> from Great Cow BASIC into <code class="literal">GPASM</code>. Command line should be like this:
+            <p>A batch file to load the <code class="literal">ASM</code> from GCBASIC into <code class="literal">MPASM</code>. Command line should be like this:
+            </p><pre class="screen">    C:\progra~1\microc~1\mpasms~1\MPASMWIN /c- /o- /q+ /l- /x- /w1 %code%.asm</pre><p>A batch file to compile in GCBASIC then load the <code class="literal">ASM</code> from GCBASIC into <code class="literal">GPASM</code>. Command line should be like this:
             </p><pre class="screen">    gcbasic.exe %1 /NP /K:A /A:"..\gputils\bin\gpasm.exe %~d1%~p1%~n1.asm"</pre><p>To instruct MAKEHEX.BAT to use <code class="literal">GPASM</code>.   You have GPUTILS installed.  The batch file should be edited as follows:
             </p><pre class="screen">    REM Create the ASM
     gcbasic.exe /NP /K:A %1
     REM Use GPASM piping to the GCB error log
-    gpasm.exe "%~d1%~p1%~n1.asm" -k -i -w1 &gt;&gt; errors.txt</pre><p>To summarise, you can use any of the following:</p><pre class="screen">    gcbasic.exe filetocompile.gcb /A:GCASM /P:"icprog -L%FILENAME%" /V /O:compiled.asm</pre><p>Great Cow BASIC will compile the file, then assemble the program, and run this command:</p><pre class="screen">    `icprog -Lcompiled.hex`</pre><p>You can also create/edit the gcbasic.ini file :</p><pre class="screen">    'Assembler settings
+    gpasm.exe "%~d1%~p1%~n1.asm" -k -i -w1 &gt;&gt; errors.txt</pre><p>To summarise, you can use any of the following:</p><pre class="screen">    gcbasic.exe filetocompile.gcb /A:GCASM /P:"icprog -L%FILENAME%" /V /O:compiled.asm</pre><p>GCBASIC will compile the file, then assemble the program, and run this command:</p><pre class="screen">    `icprog -Lcompiled.hex`</pre><p>You can also create/edit the gcbasic.ini file :</p><pre class="screen">    'Assembler settings
     Assembler = C:\Program Files\Microchip\MPASM Suite\mpasmwin
     AssemblerParams = /c- /o- /q+ /l+ /x- /w1 "%FileName%"
 
@@ -411,14 +411,14 @@ border: none; background: none; font-weight: none; color: none; }
     Programmer = C:\Program Files\WinPic\Winpic.exe
     ProgrammerParams = /device=PIC%ChipModel% /p "%FileName%"</pre><p>This example will use MPASM to assemble the program. It will run the program specified in the assembler = line, and give it
                these parameters:
-            </p><pre class="screen">    `/c- /o- /q+ /l+ /x- /w1 "compiled.asm"`</pre><p>Then, it will run the programmer, and give it these parameters when it calls it:</p><pre class="screen">    `/device=PIC16F88 /p "compiled.hex"`</pre><p><code class="literal">%ChipModel%</code> will get replaced with the chip you are using, so this the chip Great Cow BASIC will pass to WinPIC.
+            </p><pre class="screen">    `/c- /o- /q+ /l+ /x- /w1 "compiled.asm"`</pre><p>Then, it will run the programmer, and give it these parameters when it calls it:</p><pre class="screen">    `/device=PIC16F88 /p "compiled.hex"`</pre><p><code class="literal">%ChipModel%</code> will get replaced with the chip you are using, so this the chip GCBASIC will pass to WinPIC.
             </p>
             <p><span class="strong"><strong>Errors.txt</strong></span></p>
             <p>The compiler only produces the file errors.txt if there is an error. The creation of the errors.txt file makes it easier for
                IDEs to detect if the program compiled successfully - if the file was not produced then the IDE would be unalbe to present
                the error message to the user.
             </p>
-            <p>The file error.txt is always produced in the same folder as the compiler.  Typically: C:\GCB@Syn\GreatCowBasic\Errors.txt</p>
+            <p>The file error.txt is always produced in the same folder as the compiler.  Typically: C:\GCStudio\GCBASIC\Errors.txt</p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -447,8 +447,8 @@ border: none; background: none; font-weight: none; color: none; }
                </ul>
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
-                        <li><span class="file"><a href="_introducing_great_cow_basic.html" tabindex="1">Introducing Great Cow BASIC</a></span></li>
-                        <li><span class="file"><a href="_using_great_cow_basic.html" tabindex="1">Using Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
+                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
                         <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
                         <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                         <li id="webhelp-currentid"><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
@@ -871,7 +871,6 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -1051,32 +1050,32 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_linux.html" tabindex="1">Great Cow BASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_arm_pi.html" tabindex="1">Great Cow BASIC for ARM &amp; Pi</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_apple_macos.html" tabindex="1">Great Cow BASIC for Apple macOS</a></span><ul>
-                              <li><span class="file"><a href="_overview_apple_macos_great_cow_basic.html" tabindex="1">Overview - Apple macOS Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
+                              <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_freebsd.html" tabindex="1">Great Cow BASIC for FreeBSD</a></span><ul>
-                              <li><span class="file"><a href="_overview_freebsd_great_cow_basic.html" tabindex="1">Overview - FreeBSD Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
+                              <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_maintenance_and_development.html" tabindex="1">Great Cow BASIC Maintenance and Development</a></span><ul>
-                              <li><span class="file"><a href="_great_cow_basic_maintenance.html" tabindex="1">Great Cow BASIC Maintenance</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
+                              <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_great_cow_basic_preferences_editor.html" tabindex="1">Development Guide for Great Cow BASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
                      </ul>

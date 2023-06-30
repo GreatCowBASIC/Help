@@ -16,7 +16,7 @@
       <link rel="next" href="_gcbasic_maintenance_and_development.html" title="GCBASIC Maintenance and Development" />
       <meta name="Section-title" content="Overview - FreeBSD GCBASIC" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53015";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -190,9 +190,9 @@ border: none; background: none; font-weight: none; color: none; }
             <p>Complete the following steps to compile and install the GCBASIC compiler for FreeBSD:</p>
             <div class="orderedlist">
                <ol class="orderedlist" type="1">
-                  <li class="listitem">Download one of the nightly builds of FreeBASIC 1.06 for the FreeBSD 32 bit or 64 bit binary compilation from: <a class="link" href="http://users.freebasic-portal.de/stw/builds/freebsd32/" target="_top">users.freebasic-portal.de/stw/builds/freebsd32/</a> (32 bit) or <a class="link" href="http://users.freebasic-portal.de/stw/builds/freebsd64/" target="_top">users.freebasic-portal.de/stw/builds/freebsd64/</a> (64 bit) The filenames are in the format fbc_freebsd[32|64]_[BuildNumber]_[Date].zip.
+                  <li class="listitem">Download one of the nightly builds of FreeBASIC 1.06 for the FreeBSD 32 bit or 64 bit binary compilation from: <a class="link" href="http://users.freebasic-portal.de/stw/builds/freebsd32/" target="_top">http://users.freebasic-portal.de/stw/builds/freebsd32/</a> (32 bit) or <a class="link" href="http://users.freebasic-portal.de/stw/builds/freebsd64/" target="_top">http://users.freebasic-portal.de/stw/builds/freebsd64/</a> (64 bit) The filenames are in the format fbc_freebsd[32|64]_[BuildNumber]_[Date].zip.
                   </li>
-                  <li class="listitem">Download the GCBASIC UNIX Source Distribution from SourceForge at <a class="link" href="https://gcbasic.sourceforge.net/Typesetter/index.php/Download" target="_top">gcbasic.sourceforge.net/Typesetter/index.php/Download</a></li>
+                  <li class="listitem">Download the GCBASIC UNIX Source Distribution from SourceForge at <a class="link" href="https://gcbasic.sourceforge.net/Typesetter/index.php/Download" target="_top">https://gcbasic.sourceforge.net/Typesetter/index.php/Download</a></li>
                   <li class="listitem">Move the FreeBASIC ZIP file from your download directory to your home directory.</li>
                   <li class="listitem">Unzip the FreeBASIC ZIP file which will produce a new directory called <code class="literal">fbc_freebsd[32|64]</code>. The FreeBASIC compiler <code class="literal">fbc</code> is in the <code class="literal">bin</code> subdirectory. You should add the path to <code class="literal">fbc</code> to your path so that the installation script can find it.
                   </li>
@@ -201,12 +201,12 @@ border: none; background: none; font-weight: none; color: none; }
                      version number of the file you downloaded.
                   </li>
                </ol>
-            </div><pre class="screen">   unrar x GreatCowBASIC-UNIX-v0_98_05.rar</pre><p>This will produce a new directory called GreatCowBasic. <span class="strong"><strong>Note:</strong></span> If you do not already have the unrar program installed you can either compile it from the ports collection or use the pkg
+            </div><pre class="screen">   unrar x GCBASIC-UNIX-v0_98_05.rar</pre><p>This will produce a new directory called GCBASIC. <span class="strong"><strong>Note:</strong></span> If you do not already have the unrar program installed you can either compile it from the ports collection or use the pkg
                command to install the binary and any required dependancies.
             </p>
             <div class="orderedlist">
                <ol class="orderedlist" start="7" type="1">
-                  <li class="listitem">Change to the <code class="literal">GreatCowBasic/Sources</code> directory.
+                  <li class="listitem">Change to the <code class="literal">GCBASIC/Sources</code> directory.
                   </li>
                   <li class="listitem">Execute the FreeBSDBuild/install.sh shell script from the Sources directory.</li>
                </ol>
@@ -234,7 +234,7 @@ border: none; background: none; font-weight: none; color: none; }
             <p>To program your microcontroller with your GCBASIC-created hex file, you will need additional hardware and software.</p>
             <div class="orderedlist">
                <ol class="orderedlist" type="1">
-                  <li class="listitem">For Microchip PIC microcontroller programming, you might find what you need at: <a class="link" href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</a> and the FreeBSD version of the <code class="literal">pk2cmd</code> v1.2 command line programming software.
+                  <li class="listitem">For Microchip PIC microcontroller programming, you might find what you need at: <a class="link" href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</a> and the FreeBSD version of the <code class="literal">pk2cmd</code> v1.2 command line programming software.
                   </li>
                   <li class="listitem">For Atmel AVR microcontroller programming, you will need the <code class="literal">avrdude</code> programming software. avrdude can be compiled and installed from the FreeBSD ports directory or the precompiled binary and
                      any missing dependancies can be installed using <code class="literal">pkg install avrdude</code>.
@@ -245,13 +245,13 @@ border: none; background: none; font-weight: none; color: none; }
             </p>
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">
-                  <li class="listitem">For Microchip, the PICKit 2 and PICkit 3 standalone GUI software or even better the PICkitPlus software (<a class="link" href="https://sourceforge.net/projects/pickit3plus/" target="_top">sourceforge.net/projects/pickit3plus/</a>) for both the PICkit 2 (<a class="link" href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</a>) and PICkit 3 (<a class="link" href="https://www.microchip.com/Developmenttools/ProductDetails/PG164130" target="_top">www.microchip.com/Developmenttools/ProductDetails/PG164130</a>) which has fixed various bugs in those programs and been updated to program the latest Microchip 8 bit microcontrollers.
+                  <li class="listitem">For Microchip, the PICKit 2 and PICkit 3 standalone GUI software or even better the PICkitPlus software (<a class="link" href="https://sourceforge.net/projects/pickit3plus/" target="_top">https://sourceforge.net/projects/pickit3plus/</a>) for both the PICkit 2 (<a class="link" href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</a>) and PICkit 3 (<a class="link" href="https://www.microchip.com/Developmenttools/ProductDetails/PG164130" target="_top">https://www.microchip.com/Developmenttools/ProductDetails/PG164130</a>) which has fixed various bugs in those programs and been updated to program the latest Microchip 8 bit microcontrollers.
                   </li>
                </ul>
             </div>
             <p><span class="strong"><strong>Help</strong></span></p>
-            <p>GCBASIC Help documentation is installed in the Documentation subdirectory in your GreatCowBasic directory.</p>
-            <p>If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at <a class="link" href="https://sourceforge.net/p/gcbasic/discussion/" target="_top">sourceforge.net/p/gcbasic/discussion/</a></p>
+            <p>GCBASIC Help documentation is installed in the Documentation subdirectory in your GCBASIC directory.</p>
+            <p>If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at <a class="link" href="https://sourceforge.net/p/gcbasic/discussion/" target="_top">https://sourceforge.net/p/gcbasic/discussion/</a></p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -704,7 +704,6 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -884,7 +883,7 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>

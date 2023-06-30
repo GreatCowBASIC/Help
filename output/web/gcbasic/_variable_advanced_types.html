@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Variable Advanced Types -  - Great Cow BASIC documentation</title>
+      <title>Variable Advanced Types -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
-      <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
+      <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_microcontroller_fundamentals.html" title="Microcontroller Fundamentals" />
       <link rel="prev" href="_variable_types.html" title="Variable Types" />
       <link rel="next" href="_variable_memory_allocation.html" title="Variable Memory Allocation" />
       <meta name="Section-title" content="Variable Advanced Types" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53019";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />Microcontroller Fundamentals
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />Microcontroller Fundamentals
          </h1>
          <div id="navheader">
             <!---->
@@ -199,7 +199,7 @@ border: none; background: none; font-weight: none; color: none; }
             </p>
             <p><span class="strong"><strong>Advanced Types</strong></span></p>
             <p>There are a number different types of advanced variable types, and each type can store a different range of numeric information.  
-               With respect to advanced variables Great Cow BASIC supports:
+               With respect to advanced variables GCBASIC supports:
             </p>
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">
@@ -213,7 +213,7 @@ border: none; background: none; font-weight: none; color: none; }
                The example program (shown below) shows how use a float maths and how to achieve the same calculation using integer maths.  
                <br />
                <br />
-               The advanced variable types that Great Cow BASIC supports are:
+               The advanced variable types that GCBASIC supports are:
             </p>
             <div class="informaltable">
                <table border="1" width="80%">
@@ -241,10 +241,10 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>Storing very, very big integer numbers that could be a negative number.
                               
                            </p>
-                           <p>The Great Cow BASIC range is -9999999999999990 to 9999999999999990.
+                           <p>The GCBASIC range is -9999999999999990 to 9999999999999990.
                               
                            </p>
-                           <p>This range is an implementation constraint with the Great Cow BASIC compiler.</p>
+                           <p>This range is an implementation constraint with the GCBASIC compiler.</p>
                         </td>
                      </tr>
                      <tr>
@@ -287,7 +287,7 @@ border: none; background: none; font-weight: none; color: none; }
                The format for single and double floats is defined by the IEEE 754 standard.  
                Sign, exponent and mantissa are all in the positions described here: <a class="link" href="https://www.geeksforgeeks.org/ieee-standard-754-floating-point-numbers/" target="_top">https://www.geeksforgeeks.org/ieee-standard-754-floating-point-numbers/</a></p>
             <p><span class="strong"><strong>Organisation of advanced variables</strong></span></p>
-            <p>Great Cow BASIC stores advanced variables in bytes.  
+            <p>GCBASIC stores advanced variables in bytes.  
                The format of these bytes is:
             </p><pre class="literallayout">_ D, _C, _B, _A, _E, _U, _H, variable_name  ( from high to Low)</pre><p>You can access the bytes within advanced variables using the following as a guide using the suffixes _A, _B, _C etc.</p>
             <p>Example of accessing the lowest byte, the _H, _U and the _A bytes.</p><pre class="screen">    Dim workvariable as longInt
@@ -305,7 +305,7 @@ border: none; background: none; font-weight: none; color: none; }
                <br />
                <span class="strong"><strong>Using Advanced Variables</strong></span></p>
             <p>Advanced variables must be "DIMensioned" first.  This involves using the DIM command,
-               to tell Great Cow BASIC that it is dealing with an advanced variable.
+               to tell GCBASIC that it is dealing with an advanced variable.
             </p><pre class="screen">    Dim myLongInt as LongInt
     myLongInt = 9999999999999990          'see the Help for constraints
 
@@ -319,7 +319,7 @@ border: none; background: none; font-weight: none; color: none; }
     myDouble=3.141592</pre><p><br />
                <br /></p>
             <p><span class="strong"><strong>Using Advanced Variables</strong></span></p>
-            <p>Advanced variables are only supported by a subset of the functions of Great Cow BASIC.  </p>
+            <p>Advanced variables are only supported by a subset of the functions of GCBASIC.  </p>
             <p>If the function is NOT shown below assume the function is NOT supported.  If you use a function that is not shown below then
                you may get a silent failure and you may not get the results you expected.
             </p>
@@ -519,8 +519,8 @@ border: none; background: none; font-weight: none; color: none; }
                </ul>
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
-                        <li><span class="file"><a href="_introducing_great_cow_basic.html" tabindex="1">Introducing Great Cow BASIC</a></span></li>
-                        <li><span class="file"><a href="_using_great_cow_basic.html" tabindex="1">Using Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
+                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
                         <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
                         <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                         <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
@@ -943,7 +943,6 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -1123,32 +1122,32 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_linux.html" tabindex="1">Great Cow BASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_arm_pi.html" tabindex="1">Great Cow BASIC for ARM &amp; Pi</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_apple_macos.html" tabindex="1">Great Cow BASIC for Apple macOS</a></span><ul>
-                              <li><span class="file"><a href="_overview_apple_macos_great_cow_basic.html" tabindex="1">Overview - Apple macOS Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
+                              <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_freebsd.html" tabindex="1">Great Cow BASIC for FreeBSD</a></span><ul>
-                              <li><span class="file"><a href="_overview_freebsd_great_cow_basic.html" tabindex="1">Overview - FreeBSD Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
+                              <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_maintenance_and_development.html" tabindex="1">Great Cow BASIC Maintenance and Development</a></span><ul>
-                              <li><span class="file"><a href="_great_cow_basic_maintenance.html" tabindex="1">Great Cow BASIC Maintenance</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
+                              <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_great_cow_basic_preferences_editor.html" tabindex="1">Development Guide for Great Cow BASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
                      </ul>

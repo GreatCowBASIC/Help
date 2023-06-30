@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Converters -  - Great Cow BASIC documentation</title>
+      <title>Converters -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
-      <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
+      <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_syntax.html" title="Syntax" />
       <link rel="prev" href="_subroutines.html" title="Subroutines" />
       <link rel="next" href="_command_references.html" title="Command References" />
       <meta name="Section-title" content="Converters" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53019";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />Syntax
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />Syntax
          </h1>
          <div id="navheader">
             <!---->
@@ -185,22 +185,21 @@ border: none; background: none; font-weight: none; color: none; }
                </div>
             </div>
             <p><span class="strong"><strong>About Converters</strong></span></p>
-            <p>Converters allow Great Cow BASIC to read files that have been created by other programs.
-               A converter can convert these files into Great Cow BASIC libraries or any Great Cow BASIC instruction or a Great Cow BASIC
-               dataset.
+            <p>Converters allow GCBASIC to read files that have been created by other programs.
+               A converter can convert these files into GCBASIC libraries or any GCBASIC instruction or a GCBASIC dataset.
             </p>
             <p>A typical use case is when you have a data source file from another computer system and you want to consume the data within
-               your Great Cow BASIC program.
+               your GCBASIC program.
                The data source file could be database, graphic, reference data or music file.
-               The converter will read these source files and convert them into a format that can be processed by Great Cow BASIC.
+               The converter will read these source files and convert them into a format that can be processed by GCBASIC.
                The conversion process is completed by external application which can be written by the developer or you can use
-               one of the converters provided with the Great Cow BASIC release.
+               one of the converters provided with the GCBASIC release.
             </p>
-            <p>The Great Cow BASIC release includes the converter for BMP files and standard Text files.</p>
-            <p>With an appropriate Converter installed, and an associated <code class="literal">#include</code> to these non-Great Cow BASIC files,
-               Great Cow BASIC will detect that the file extension and hand the processing to the external converting program.
-               When the external converting program had complete, Great Cow BASIC will then continue with the converted source file as a
-               Great Cow BASIC source file.
+            <p>The GCBASIC release includes the converter for BMP files and standard Text files.</p>
+            <p>With an appropriate Converter installed, and an associated <code class="literal">#include</code> to these non-GCBASIC files,
+               GCBASIC will detect that the file extension and hand the processing to the external converting program.
+               When the external converting program had complete, GCBASIC will then continue with the converted source file as a GCBASIC
+               source file.
             </p>
             <p>An example of a converter is to read an existing picture file, convert the picture file to a GCB table and then refer to the
                picture
@@ -208,32 +207,30 @@ border: none; background: none; font-weight: none; color: none; }
             </p>
             <p>Conversion is achieved by including a command within the source program to transform external data.
                The command used is the instruction <code class="literal">#include</code> followed by the data source.  An example:
-            </p><pre class="screen">    'Convert ManLooking.BMP to a Great Cow BASIC usable format.
+            </p><pre class="screen">    'Convert ManLooking.BMP to a GCBASIC usable format.
 
-    #include &lt;..\converters\ManLooking.BMP&gt;</pre><p>The inclusion of the #include line within a Great Cow BASIC  program will enable the commencement of the following process:</p>
+    #include &lt;..\converters\ManLooking.BMP&gt;</pre><p>The inclusion of the #include line within a GCBASIC  program will enable the commencement of the following process:</p>
             <div class="orderedlist">
                <ol class="orderedlist" type="1">
-                  <li class="listitem">Great Cow BASIC  will examine the <code class="literal">..\converters</code> folder structure for a configuration file that will handle the file extension specified in the include statement.
+                  <li class="listitem">GCBASIC  will examine the <code class="literal">..\converters</code> folder structure for a configuration file that will handle the file extension specified in the include statement.
                   </li>
-                  <li class="listitem">Great Cow BASIC  will examine the configuration file(s) <code class="literal">*.INI</code> for command line instructions.
+                  <li class="listitem">GCBASIC  will examine the configuration file(s) <code class="literal">*.INI</code> for command line instructions.
                   </li>
-                  <li class="listitem">Great Cow BASIC  will at stage examine the folder structure for the source file and the target transformed file.
+                  <li class="listitem">GCBASIC  will at stage examine the folder structure for the source file and the target transformed file.
                      If the source file is older than the transformed file the next step will not be executed, goto step 6.
                   </li>
                   <li class="listitem">
-                     <p class="simpara">Great Cow BASIC  will execute the command as specified within the configuration file to transform the source file to the target
-                        file.
-                     </p>
+                     <p class="simpara">GCBASIC  will execute the command as specified within the configuration file to transform the source file to the target file.</p>
                      <p class="simpara">The Conversion program must create the output file extension as specified in the configuration file.  If the include statement
                         as an extension
                         of <code class="literal">.TXT</code> and the configuration files states the input file extension as <code class="literal">.TXT</code> and the output as <code class="literal">.GCB</code> the converted file must have the extension of <code class="literal">.GCB</code>.
                      </p><pre class="literallayout">#include &lt;..\converters\ManLooking.BMP&gt;</pre><p class="simpara">Init file is input file as BMP and output as GCB, then the file expected is <code class="literal">..\converters\ManLooking.GCB</code></p>
                   </li>
-                  <li class="listitem">Great Cow BASIC  will attempt to include the transformed target file (with the file extension as specified in the configuration
-                     file) within the Great Cow BASIC  program.
+                  <li class="listitem">GCBASIC  will attempt to include the transformed target file (with the file extension as specified in the configuration file)
+                     within the GCBASIC  program.
                   </li>
-                  <li class="listitem">Great Cow BASIC  will resume normal processing of the Great Cow BASIC program including the transformed target file, therefore,
-                     with normal compiling and errors handling.
+                  <li class="listitem">GCBASIC  will resume normal processing of the GCBASIC program including the transformed target file, therefore, with normal
+                     compiling and errors handling.
                   </li>
                </ol>
             </div>
@@ -254,7 +251,7 @@ exe          : Is the executable to be run for this specific configuration file.
 params       : Optional, is the required parameter to be passed from the compiler.  Example:  params = %filename% %chipmodel%
 deletetarget : Optional, will always recreate the target transformed file. The default is to retain the target transformed file unless source has changed. Options are Y or N</pre><p class="simpara">You can have multiple configuration files within the <code class="literal">..\converters folder structure</code>.
                      </p>
-                     <p class="simpara">Great Cow BASIC will examine all configuration file to match the extension as specified in the <code class="literal">#include</code> command.
+                     <p class="simpara">GCBASIC will examine all configuration file to match the extension as specified in the <code class="literal">#include</code> command.
                      </p>
                      <p class="simpara"><span class="strong"><strong>Example 1 :</strong></span></p>
                      <div class="informalexample">
@@ -284,7 +281,7 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                      </p>
                      <p class="simpara">The conversion executable will be passed one parameter - the source file name.
                         Using example #1 the conversion executable would be passed   <code class="literal">..\converters\ManLooking.BMP</code></p>
-                     <p class="simpara">The conversion executable MUST create a Great Cow BASIC compatible source file.  Any valid commands/instruction are permitted.</p>
+                     <p class="simpara">The conversion executable MUST create a GCBASIC compatible source file.  Any valid commands/instruction are permitted.</p>
                   </li>
                   <li class="listitem">
                      <p class="simpara">Installation</p>
@@ -296,8 +293,8 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
             </div>
             <p><a id="XX0"></a><span class="strong"><strong>Example 3 : Converter Program</strong></span></p>
             <div class="informalexample">
-               <p>This program converts the <code class="literal">InfraRedPatterns.TXT</code> into <code class="literal">InfraRedPatterns.GCB</code> that will have a Great Cow BASIC table called <code class="literal">DataSource</code>.
-                  This example is located in the converter folder of the Great Cow BASIC installation.
+               <p>This program converts the <code class="literal">InfraRedPatterns.TXT</code> into <code class="literal">InfraRedPatterns.GCB</code> that will have a GCBASIC table called <code class="literal">DataSource</code>.
+                  This example is located in the converter folder of the GCBASIC installation.
                </p><pre class="screen">  #chip16f877a, 16
   #include &lt;..\converters\InfraRedPatterns.TXT&gt;
 
@@ -323,8 +320,8 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
   Loop</pre></div>
             <p><span class="strong"><strong>Example 4 : Dynamic Import</strong></span></p>
             <div class="informalexample">
-               <p>This program converts a chip specific configuration file into <code class="literal">manifest.GCB</code> that will have a Great Cow BASIC functions called <code class="literal">DataIn</code> and <code class="literal">DataOut</code>.
-                  This example is located in the converter folder of the Great Cow BASIC installation.
+               <p>This program converts a chip specific configuration file into <code class="literal">manifest.GCB</code> that will have a GCBASIC functions called <code class="literal">DataIn</code> and <code class="literal">DataOut</code>.
+                  This example is located in the converter folder of the GCBASIC installation.
                </p><pre class="screen">    #chip 16f18326
 
     #include &lt;..\converters\manifest.mcc&gt;
@@ -380,8 +377,8 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                </ul>
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
-                        <li><span class="file"><a href="_introducing_great_cow_basic.html" tabindex="1">Introducing Great Cow BASIC</a></span></li>
-                        <li><span class="file"><a href="_using_great_cow_basic.html" tabindex="1">Using Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
+                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
                         <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
                         <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                         <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
@@ -804,7 +801,6 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -984,32 +980,32 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_linux.html" tabindex="1">Great Cow BASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_arm_pi.html" tabindex="1">Great Cow BASIC for ARM &amp; Pi</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_apple_macos.html" tabindex="1">Great Cow BASIC for Apple macOS</a></span><ul>
-                              <li><span class="file"><a href="_overview_apple_macos_great_cow_basic.html" tabindex="1">Overview - Apple macOS Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
+                              <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_freebsd.html" tabindex="1">Great Cow BASIC for FreeBSD</a></span><ul>
-                              <li><span class="file"><a href="_overview_freebsd_great_cow_basic.html" tabindex="1">Overview - FreeBSD Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
+                              <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_maintenance_and_development.html" tabindex="1">Great Cow BASIC Maintenance and Development</a></span><ul>
-                              <li><span class="file"><a href="_great_cow_basic_maintenance.html" tabindex="1">Great Cow BASIC Maintenance</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
+                              <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_great_cow_basic_preferences_editor.html" tabindex="1">Development Guide for Great Cow BASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
                      </ul>

@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>ST7567 Controllers -  - Great Cow BASIC documentation</title>
+      <title>ST7567 Controllers -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
-      <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
+      <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_glcd_overview.html" title="GLCD Overview" />
       <link rel="prev" href="_ssd1351_controllers.html" title="SSD1351 Controllers" />
       <link rel="next" href="_st7735_controllers.html" title="ST7735 Controllers" />
       <meta name="Section-title" content="ST7567 Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53019";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />GLCD Overview
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />GLCD Overview
          </h1>
          <div id="navheader">
             <!---->
@@ -197,7 +197,7 @@ border: none; background: none; font-weight: none; color: none; }
                The ST7567 has built-in oscillation circuit and low power consumption power circuit, ST7567 generates LCD driving signal without
                external clock or power, so that it is possible to make a display system with the fewest components and minimal power consumption.
             </p>
-            <p>There are different types of ST75xx GLCDs.   The table below shows the different types and the Great Cow BASIC support.</p>
+            <p>There are different types of ST75xx GLCDs.   The table below shows the different types and the GCBASIC support.</p>
             <div class="informaltable">
                <table border="1">
                   <colgroup>
@@ -308,8 +308,8 @@ border: none; background: none; font-weight: none; color: none; }
             <p>The ST7567 embeds with contrast control, display RAM and it is suitable for many compact portable applications, such as mobile
                phone sub-display, MP3 player and calculator, etc.
             </p>
-            <p>The Great Cow BASIC constants shown below control the configuration of the ST7567 controller.    Great Cow BASIC supports
-               SPI and I2C software connectivity  - this is shown in the tables below.
+            <p>The GCBASIC constants shown below control the configuration of the ST7567 controller.    GCBASIC supports SPI and I2C software
+               connectivity  - this is shown in the tables below.
             </p>
             <p>The ST7567 library supports 128 * 64 pixels.</p>
             <p>The ST7567 is a monochrome device.
@@ -350,7 +350,7 @@ border: none; background: none; font-weight: none; color: none; }
     #define SCK_ST7567  PortB.2
     #define DC_ST7567   PortB.3
     #define CS_ST7567   PortB.4
-    #define RES_ST7567  PortB.5</pre><p>The Great Cow BASIC constants for control display characteristics are shown in the table below.</p>
+    #define RES_ST7567  PortB.5</pre><p>The GCBASIC constants for control display characteristics are shown in the table below.</p>
             <div class="informaltable">
                <table border="1">
                   <colgroup>
@@ -391,7 +391,7 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p>The Great Cow BASIC constants for SPI/S4Wire control display characteristics are shown in the table below.</p>
+            <p>The GCBASIC constants for SPI/S4Wire control display characteristics are shown in the table below.</p>
             <div class="informaltable">
                <table border="1">
                   <colgroup>
@@ -498,7 +498,7 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p>The Great Cow BASIC constants for control display characteristics are shown in the table below.</p>
+            <p>The GCBASIC constants for control display characteristics are shown in the table below.</p>
             <div class="informaltable">
                <table border="1">
                   <colgroup>
@@ -596,7 +596,7 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p>The Great Cow BASIC variables for control display characteristics are shown in the table below.
+            <p>The GCBASIC variables for control display characteristics are shown in the table below.
                These variables control the user definable parameters of a specific GLCD.
             </p>
             <div class="informaltable">
@@ -684,7 +684,7 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p>The Great Cow BASIC commands supported for this GLCD are shown in the
+            <p>The GCBASIC commands supported for this GLCD are shown in the
                table below.
             </p>
             <div class="informaltable">
@@ -847,7 +847,7 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p>The Great Cow BASIC specific commands for this GLCD are shown in the table below.</p>
+            <p>The GCBASIC specific commands for this GLCD are shown in the table below.</p>
             <div class="informaltable">
                <table border="1">
                   <colgroup>
@@ -874,8 +874,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p>This example shows how to drive a ST7567 based Graphic I2C LCD module with the built in commands of Great Cow BASIC using
-               Full Mode GLCD
+            <p>This example shows how to drive a ST7567 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode
+               GLCD
             </p><pre class="screen">    #CHIP 18F26Q71
     #OPTION Explicit
 
@@ -937,7 +937,7 @@ border: none; background: none; font-weight: none; color: none; }
 
     ; ----- Main program
 
-        GLCDPrint 0, 0,   "Great Cow BASIC"
+        GLCDPrint 0, 0,   "GCBASIC"
         GLCDPrint (0, 16, "Anobium 2023")
         GLCDPrint (0, 32, "Portability Demo")
         GLCDPrint (0, 48, ChipNameStr )
@@ -987,8 +987,8 @@ border: none; background: none; font-weight: none; color: none; }
         LOOP
         end</pre><p><br />
                <br />
-               This example shows how to drive a ST7567 based Graphic I2C LCD module with the built in commands of Great Cow BASIC using
-               Low Memory Mode GLCD.
+               This example shows how to drive a ST7567 based Graphic I2C LCD module with the built in commands of GCBASIC using Low Memory
+               Mode GLCD.
                <br />
                Note the use of <code class="literal">GLCD_Open_PageTransaction</code> and <code class="literal">GLCD_Close_PageTransaction</code> to support the Low Memory Mode of operation and the contraining of all GLCD commands with the transaction commands.  The
                use Low Memory Mode GLCD the two defines <code class="literal">GLCD_TYPE_ST7567_LOWMEMORY_GLCD_MODE</code> and <code class="literal">GLCD_TYPE_ST7567_CHARACTER_MODE_ONLY</code> are included in the user program.
@@ -1017,7 +1017,7 @@ border: none; background: none; font-weight: none; color: none; }
     'In this example Code would be GLCD_Open_PageTransaction 0,1 been enough
     'But it is allowed to use GLCD_Open_PageTransaction 0,7 to show the full screen update
     GLCD_Open_PageTransaction 0,7
-       GLCDPrint 0, 0, "Great Cow BASIC"
+       GLCDPrint 0, 0, "GCBASIC"
        GLCDPrint (0, 16, "Anobium 2023")
     GLCD_Close_PageTransaction
     wait 3 s
@@ -1067,7 +1067,7 @@ border: none; background: none; font-weight: none; color: none; }
        NEXT
     LOOP
     end</pre><p><br />
-               This example shows how to drive a ST7567 based Graphic SPI LCD module with the built in commands of Great Cow BASIC.
+               This example shows how to drive a ST7567 based Graphic SPI LCD module with the built in commands of GCBASIC.
                <br /></p><pre class="screen">    #chip  {any valid chip}
     #include &lt;glcd.h&gt;
 
@@ -1180,8 +1180,8 @@ border: none; background: none; font-weight: none; color: none; }
                </ul>
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
-                        <li><span class="file"><a href="_introducing_great_cow_basic.html" tabindex="1">Introducing Great Cow BASIC</a></span></li>
-                        <li><span class="file"><a href="_using_great_cow_basic.html" tabindex="1">Using Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
+                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
                         <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
                         <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                         <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
@@ -1604,7 +1604,6 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -1784,32 +1783,32 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_linux.html" tabindex="1">Great Cow BASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_arm_pi.html" tabindex="1">Great Cow BASIC for ARM &amp; Pi</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_apple_macos.html" tabindex="1">Great Cow BASIC for Apple macOS</a></span><ul>
-                              <li><span class="file"><a href="_overview_apple_macos_great_cow_basic.html" tabindex="1">Overview - Apple macOS Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
+                              <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_freebsd.html" tabindex="1">Great Cow BASIC for FreeBSD</a></span><ul>
-                              <li><span class="file"><a href="_overview_freebsd_great_cow_basic.html" tabindex="1">Overview - FreeBSD Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
+                              <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_maintenance_and_development.html" tabindex="1">Great Cow BASIC Maintenance and Development</a></span><ul>
-                              <li><span class="file"><a href="_great_cow_basic_maintenance.html" tabindex="1">Great Cow BASIC Maintenance</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
+                              <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_great_cow_basic_preferences_editor.html" tabindex="1">Development Guide for Great Cow BASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
                      </ul>

@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Dim -  - Great Cow BASIC documentation</title>
+      <title>Dim -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
-      <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
+      <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_variables_operations.html" title="Variables Operations" />
       <link rel="prev" href="_variable_lifecycle.html" title="Variable Lifecycle" />
       <link rel="next" href="_alloc.html" title="Alloc" />
       <meta name="Section-title" content="Dim" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53019";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />Variables Operations
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />Variables Operations
          </h1>
          <div id="navheader">
             <!---->
@@ -197,8 +197,8 @@ border: none; background: none; font-weight: none; color: none; }
             <p>Dim has two uses:  It can be used to define 1) variables of many types and 2) arrays.</p>
             <p><span class="strong"><strong>Command Availability:</strong></span></p>
             <p>Available on all microcontrollers.</p>
-            <p>The <code class="literal">Dim</code> variable command is used to instruct Great Cow BASIC to allocate variables or to create alternate names for existing  variables
-               (using Alias) or to create variables at a specific memory location (using At).
+            <p>The <code class="literal">Dim</code> variable command is used to instruct GCBASIC to allocate variables or to create alternate names for existing  variables (using
+               Alias) or to create variables at a specific memory location (using At).
             </p>
             <p>The <code class="literal">Dim array</code> command also sets up array variables. The maximum array size is determined by the parameter <code class="literal"><span class="emphasis"><em>size</em></span></code> is dynamically allocated by the compiler and depends on the specific chip used, as well as the complexity of the program.
             </p>
@@ -207,16 +207,16 @@ border: none; background: none; font-weight: none; color: none; }
             <p><code class="literal"><span class="emphasis"><em>type</em></span></code> specifies the type of variable that is to be created. Different variable types can hold values over different ranges, and
                use different amounts of RAM. See the <a class="link" href="">Variables</a> article for more information.
             </p>
-            <p>When multiple variables are included on the one line, Great Cow BASIC will set them all to the type that is specified at the
-               end of the line. If there is no type specified, then Great Cow BASIC will make the variable a byte.
+            <p>When multiple variables are included on the one line, GCBASIC will set them all to the type that is specified at the end of
+               the line. If there is no type specified, then GCBASIC will make the variable a byte.
             </p>
-            <p><code class="literal">Alias</code> creates a variable using the same memory location as one or more other variables.   It is mainly used internally in Great
-               Cow BASIC to treat system variables as a word.   For example, this command is used to create a word variable, made up from
-               the two memory locations used to store the result of an A/D conversion.  `Alias` is mutually exclusive to <code class="literal">At</code> and therefore <code class="literal">Alias</code> and <code class="literal">At</code> on the same declaration line will cause an compiler error.
+            <p><code class="literal">Alias</code> creates a variable using the same memory location as one or more other variables.   It is mainly used internally in GCBASIC
+               to treat system variables as a word.   For example, this command is used to create a word variable, made up from the two memory
+               locations used to store the result of an A/D conversion.  `Alias` is mutually exclusive to <code class="literal">At</code> and therefore <code class="literal">Alias</code> and <code class="literal">At</code> on the same declaration line will cause an compiler error.
             </p>
-            <p><code class="literal">AT</code> a variable can be placed at a specific location in the data memory of the chip using the At option.   `<span class="emphasis"><em>location</em></span>` will be used whether it is a valid location or not, but a warning will be generated if Great Cow BASIC has already allocated
-               the memory, or if the memory does not appear to be valid.   This can be used for peripherals that have multi byte buffers
-               in RAM.  `At` is mutually exclusive to <code class="literal">Alias</code> and therefore <code class="literal">At</code> and <code class="literal">Alias</code> on the same declaration line will cause an compiler error.
+            <p><code class="literal">AT</code> a variable can be placed at a specific location in the data memory of the chip using the At option.   `<span class="emphasis"><em>location</em></span>` will be used whether it is a valid location or not, but a warning will be generated if GCBASIC has already allocated the
+               memory, or if the memory does not appear to be valid.   This can be used for peripherals that have multi byte buffers in RAM.  `At`
+               is mutually exclusive to <code class="literal">Alias</code> and therefore <code class="literal">At</code> and <code class="literal">Alias</code> on the same declaration line will cause an compiler error.
             </p><pre class="screen">    Dim ADResult As Word Alias ADRESH, ADRESL</pre><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'This program will set up a array of ten bytes and a word variable
 
     dim DataList(10)
@@ -255,8 +255,8 @@ border: none; background: none; font-weight: none; color: none; }
                </ul>
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
-                        <li><span class="file"><a href="_introducing_great_cow_basic.html" tabindex="1">Introducing Great Cow BASIC</a></span></li>
-                        <li><span class="file"><a href="_using_great_cow_basic.html" tabindex="1">Using Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
+                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
                         <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
                         <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                         <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
@@ -679,7 +679,6 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -859,32 +858,32 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_linux.html" tabindex="1">Great Cow BASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_arm_pi.html" tabindex="1">Great Cow BASIC for ARM &amp; Pi</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_apple_macos.html" tabindex="1">Great Cow BASIC for Apple macOS</a></span><ul>
-                              <li><span class="file"><a href="_overview_apple_macos_great_cow_basic.html" tabindex="1">Overview - Apple macOS Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
+                              <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_freebsd.html" tabindex="1">Great Cow BASIC for FreeBSD</a></span><ul>
-                              <li><span class="file"><a href="_overview_freebsd_great_cow_basic.html" tabindex="1">Overview - FreeBSD Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
+                              <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_maintenance_and_development.html" tabindex="1">Great Cow BASIC Maintenance and Development</a></span><ul>
-                              <li><span class="file"><a href="_great_cow_basic_maintenance.html" tabindex="1">Great Cow BASIC Maintenance</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
+                              <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_great_cow_basic_preferences_editor.html" tabindex="1">Development Guide for Great Cow BASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
                      </ul>

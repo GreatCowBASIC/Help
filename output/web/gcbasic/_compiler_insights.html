@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Compiler Insights -  - Great Cow BASIC documentation</title>
+      <title>Compiler Insights -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
-      <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
-      <link rel="up" href="index.html" title="Great Cow BASIC documentation" />
+      <link rel="home" href="index.html" title="GCBASIC documentation" />
+      <link rel="up" href="index.html" title="GCBASIC documentation" />
       <link rel="prev" href="_troubleshooting.html" title="Troubleshooting" />
       <link rel="next" href="_libraries_overview.html" title="Libraries Overview" />
       <meta name="Section-title" content="Compiler Insights" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53019";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />Compiler Insights
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />Compiler Insights
          </h1>
          <div id="navheader">
             <!---->
@@ -185,9 +185,7 @@ border: none; background: none; font-weight: none; color: none; }
             <p>This section will provide some insights into what the compiler does</p>
             <p><span class="strong"><strong>How does the compiler cope with read only registers in the Chip Family 12 range?</strong></span></p>
             <p>Within this chip range the Option register is a write only register. Reading the register is not permitted.</p>
-            <p>Great Cow BASIC needs to update this when the user wants to change the configuration - the Sleep process is an example of
-               a user change.
-            </p>
+            <p>GCBASIC needs to update this when the user wants to change the configuration - the Sleep process is an example of a user change.</p>
             <p>The compiler handles this by the creation of the Option_reg byte variable. This byte is created by the compiler to manage
                the required write process.
             </p>
@@ -239,18 +237,17 @@ gpio.0 = 1</pre><p>ASM</p><pre class="literallayout">;dir gpio.0 in
     ;osccon type is 100
       movlw 96
       banksel OSCCON1</pre><p><span class="strong"><strong>Constants, variables, subs and function and labels</strong></span></p>
-            <p>Great Cow BASIC uses a single namespace.  A namespace is the set of names used to identify and refer to objects of various
-               kinds.  
-               In Great Cow BASIC these can be constants, variables, methods, and labels.  Wwhere a label is a true label like the start
-               of sub, function or macro.  
+            <p>GCBASIC uses a single namespace.  A namespace is the set of names used to identify and refer to objects of various kinds.  
+               In GCBASIC these can be constants, variables, methods, and labels.  Wwhere a label is a true label like the start of sub,
+               function or macro.  
                A namespace ensures that all of a given set of objects have unique names so that they can be identified.  
                This organises constants, variables, methods, labels etc into a single list - the single namespace.
             </p>
-            <p>The namespace includes all libraries and source Great Cow BASIC source files.   
+            <p>The namespace includes all libraries and source GCBASIC source files.   
                If using MPASM this expands to chip specific INF file.  
                If using PICAS then all of the PICAS toolchain including non-chip specific files.   There are changes already in place to
-               resolve this issue for PICAS as HEX and LINE are reserved with PICAS toolchain and these conflict with Great Cow BASIC methods.  
-               These are automatically resolved by the Great Cow BASIC compiler.
+               resolve this issue for PICAS as HEX and LINE are reserved with PICAS toolchain and these conflict with GCBASIC methods.  
+               These are automatically resolved by the GCBASIC compiler.
             </p>
             <p>So, given that a constants, variables, methods, labels etc are number, the compiler does not know if that is a constant, a
                variable, a method, or a call to a label. Some are use cases using a constant called <code class="literal">NORMAL</code> follow.  
@@ -316,8 +313,8 @@ gpio.0 = 1</pre><p>ASM</p><pre class="literallayout">;dir gpio.0 in
                </ul>
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
-                        <li><span class="file"><a href="_introducing_great_cow_basic.html" tabindex="1">Introducing Great Cow BASIC</a></span></li>
-                        <li><span class="file"><a href="_using_great_cow_basic.html" tabindex="1">Using Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
+                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
                         <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
                         <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                         <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
@@ -740,7 +737,6 @@ gpio.0 = 1</pre><p>ASM</p><pre class="literallayout">;dir gpio.0 in
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -920,32 +916,32 @@ gpio.0 = 1</pre><p>ASM</p><pre class="literallayout">;dir gpio.0 in
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_linux.html" tabindex="1">Great Cow BASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_arm_pi.html" tabindex="1">Great Cow BASIC for ARM &amp; Pi</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_apple_macos.html" tabindex="1">Great Cow BASIC for Apple macOS</a></span><ul>
-                              <li><span class="file"><a href="_overview_apple_macos_great_cow_basic.html" tabindex="1">Overview - Apple macOS Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
+                              <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_freebsd.html" tabindex="1">Great Cow BASIC for FreeBSD</a></span><ul>
-                              <li><span class="file"><a href="_overview_freebsd_great_cow_basic.html" tabindex="1">Overview - FreeBSD Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
+                              <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_maintenance_and_development.html" tabindex="1">Great Cow BASIC Maintenance and Development</a></span><ul>
-                              <li><span class="file"><a href="_great_cow_basic_maintenance.html" tabindex="1">Great Cow BASIC Maintenance</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
+                              <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_great_cow_basic_preferences_editor.html" tabindex="1">Development Guide for Great Cow BASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
                      </ul>

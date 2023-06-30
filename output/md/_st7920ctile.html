@@ -1,6 +1,0 @@
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-   <title>ST7920cTile</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_st7920_controllers.html" title="ST7920 Controllers"><link rel="prev" href="_st7920tile.html" title="ST7920Tile"><link rel="next" href="_st7920glocate.html" title="ST7920gLocate"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="_st7920ctile"></a>ST7920cTile</h6></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">  ST7920cTile ( word variable )</pre><p><span class="strong"><strong>Explanation:</strong></span></p><p>Tiles screen with a Chinese Symbol.</p><p>This required 2 bytes of data into DDRAM to display one 16x16 font from
-memory location A140H~D75FH are BIG5 code, A1A0H~F7FFH are GB code.</p><p><span class="strong"><strong>Example usage:</strong></span></p><pre class="screen">    Dim CTileValue as word
-    cTileValue = (0xA140H * 256 ) + 0xA140H
-    ST7920Tile (CTileValue) &#8216;tile the screen with a nice cross hatch</pre></div></body></html>

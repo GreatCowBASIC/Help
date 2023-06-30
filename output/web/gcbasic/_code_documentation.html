@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Code Documentation -  - Great Cow BASIC documentation</title>
+      <title>Code Documentation -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
-      <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
-      <link rel="up" href="_great_cow_graphical_basic.html" title="Great Cow Graphical BASIC" />
-      <link rel="prev" href="_great_cow_graphical_basic.html" title="Great Cow Graphical BASIC" />
+      <link rel="home" href="index.html" title="GCBASIC documentation" />
+      <link rel="up" href="_graphical_gcbasic.html" title="Graphical GCBASIC" />
+      <link rel="prev" href="_graphical_gcbasic.html" title="Graphical GCBASIC" />
       <link rel="next" href="_windows_net_support.html" title="Windows .NET Support" />
       <meta name="Section-title" content="Code Documentation" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53019";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />Great Cow Graphical BASIC
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />Graphical GCBASIC
          </h1>
          <div id="navheader">
             <!---->
@@ -164,9 +164,9 @@ border: none; background: none; font-weight: none; color: none; }
                <tr>
                   <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
                                                     </a></td>
-                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_great_cow_graphical_basic.html">Prev</a>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_graphical_gcbasic.html">Prev</a>
                                                              |
-                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="_great_cow_graphical_basic.html">Up</a>
+                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="_graphical_gcbasic.html">Up</a>
                                                          |
                                                          <a accesskey="n" class="navLinkNext" tabindex="5" href="_windows_net_support.html">Next</a></td>
                </tr>
@@ -184,19 +184,19 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p>Documenting Great Cow BASIC is key for ease of use. This section is intended for developers only.</p>
+            <p>Documenting GCBASIC is key for ease of use. This section is intended for developers only.</p>
             <p>Documenting is the ability to read some extra information from comments in libraries.</p>
             <p>Some comments that start with ''' have a special meaning, and will be displayed as tooltips or as information to the user.
                These tooltips helps inexperienced users to use extra libraries.
             </p>
             <div class="orderedlist">
                <ol class="orderedlist" type="1">
-                  <li class="listitem">Great Cow BASIC uses ; (a semicolon) to show comments that it has placed automatically, and ' to indicate ones that the user
+                  <li class="listitem">GCBASIC uses ; (a semicolon) to show comments that it has placed automatically, and // or ' to indicate ones that the user
                      has placed.  When loading a program, it will not load any that start with a ; (semi-colon).  The use of comments do not impact
                      the users  but it worthy of note.
                   </li>
-                  <li class="listitem">As for code documentation comments, Great Cow BASIC will load information about subroutines/functions and any hardware settings
-                     that need to be set.
+                  <li class="listitem">As for code documentation comments, GCBASIC will load information about subroutines/functions and any hardware settings that
+                     need to be set.
                   </li>
                   <li class="listitem">For subroutines, a line before the Sub or Function line that starts with ''' will be used as a tooltip when the user hovers
                      over the icon. A line that starts with '''@ will be interpreted differently, depending on what comes after the @. '''@param
@@ -213,16 +213,16 @@ border: none; background: none; font-weight: none; color: none; }
     '''@return Distance in cm
     Function USDistance(US_Sensor) As Word</pre><div class="orderedlist">
                <ol class="orderedlist" start="5" type="1">
-                  <li class="listitem">If a subroutine or command is used internally in the library, but Great Cow BASIC users should not see it, it can be hidden
-                     by placing '''@hide before the Sub or Function line. Another example from srf04.h:
+                  <li class="listitem">If a subroutine or command is used internally in the library, but GCBASIC users should not see it, it can be hidden by placing
+                     '''@hide before the Sub or Function line. Another example from srf04.h:
                   </li>
                </ol>
             </div><pre class="screen">    '''@hide
     Sub InitUSSensor</pre><p>These should hopefully be pretty easy to add. It is also possible to add Hardware Settings. A particular setting can be defined
                anywhere in the file, using this syntax:
-            </p><pre class="screen">    '''@hardware condition, display name, constant, value type</pre><p>These comments informs Great Cow BASIC when to show the setting. Normally, this is All, but sometimes it can include a constant,
-               a space and then a comma separated list of values. display name is a friendly name for the setting to display. constant is
-               the constant that must be set, and valuetype is the type that will be accepted for that constant’s value. To allow for multiple
+            </p><pre class="screen">    '''@hardware condition, display name, constant, value type</pre><p>These comments informs GCBASIC when to show the setting. Normally, this is All, but sometimes it can include a constant, a
+               space and then a comma separated list of values. display name is a friendly name for the setting to display. constant is the
+               constant that must be set, and valuetype is the type that will be accepted for that constant’s value. To allow for multiple
                value types, enter a list of types with a | between them.
             </p>
             <div class="orderedlist">
@@ -254,10 +254,10 @@ border: none; background: none; font-weight: none; color: none; }
     string - Allows any string
     array - Allows any array</pre><div class="orderedlist">
                <ol class="orderedlist" start="7" type="1">
-                  <li class="listitem">When the library is added the program, Great Cow BASIC will show a new device with the name of the library file on the Hardware
-                     Settings window. The user can then set the relevant constants without necessarily needing to see any code.  Adding a Great
-                     Cow BASIC library to Great Cow BASIC will not result in any changes to the library. Great Cow BASIC uses the information it
-                     reads to help edit the user’s program, but then the user’s program is passed to the compiler along with the unchanged library.
+                  <li class="listitem">When the library is added the program, GCBASIC will show a new device with the name of the library file on the Hardware Settings
+                     window. The user can then set the relevant constants without necessarily needing to see any code.  Adding a GCBASIC library
+                     to GCBASIC will not result in any changes to the library. GCBASIC uses the information it reads to help edit the user’s program,
+                     but then the user’s program is passed to the compiler along with the unchanged library.
                   </li>
                   <li class="listitem">Hardware Settings are a bit more involved to add, but hopefully the bit of extra documentation for subroutines will be straight
                      forward.
@@ -270,9 +270,9 @@ border: none; background: none; font-weight: none; color: none; }
             <hr />
             <table width="100%" summary="Navigation footer">
                <tr>
-                  <td width="40%" align="left"><a accesskey="p" href="_great_cow_graphical_basic.html">Prev</a> 
+                  <td width="40%" align="left"><a accesskey="p" href="_graphical_gcbasic.html">Prev</a> 
                   </td>
-                  <td width="20%" align="center"><a accesskey="u" href="_great_cow_graphical_basic.html">Up</a></td>
+                  <td width="20%" align="center"><a accesskey="u" href="_graphical_gcbasic.html">Up</a></td>
                   <td width="40%" align="right"> <a accesskey="n" href="_windows_net_support.html">Next</a></td>
                </tr>
                <tr>
@@ -292,8 +292,8 @@ border: none; background: none; font-weight: none; color: none; }
                </ul>
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
-                        <li><span class="file"><a href="_introducing_great_cow_basic.html" tabindex="1">Introducing Great Cow BASIC</a></span></li>
-                        <li><span class="file"><a href="_using_great_cow_basic.html" tabindex="1">Using Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
+                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
                         <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
                         <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                         <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
@@ -716,7 +716,6 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -896,32 +895,32 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li id="webhelp-currentid"><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_linux.html" tabindex="1">Great Cow BASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_arm_pi.html" tabindex="1">Great Cow BASIC for ARM &amp; Pi</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_apple_macos.html" tabindex="1">Great Cow BASIC for Apple macOS</a></span><ul>
-                              <li><span class="file"><a href="_overview_apple_macos_great_cow_basic.html" tabindex="1">Overview - Apple macOS Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
+                              <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_freebsd.html" tabindex="1">Great Cow BASIC for FreeBSD</a></span><ul>
-                              <li><span class="file"><a href="_overview_freebsd_great_cow_basic.html" tabindex="1">Overview - FreeBSD Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
+                              <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_maintenance_and_development.html" tabindex="1">Great Cow BASIC Maintenance and Development</a></span><ul>
-                              <li><span class="file"><a href="_great_cow_basic_maintenance.html" tabindex="1">Great Cow BASIC Maintenance</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
+                              <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_great_cow_basic_preferences_editor.html" tabindex="1">Development Guide for Great Cow BASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
                      </ul>

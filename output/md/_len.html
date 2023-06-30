@@ -1,9 +1,0 @@
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-   <title>Len</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_string_manipulation.html" title="String Manipulation"><link rel="prev" href="_leftpad.html" title="LeftPad"><link rel="next" href="_ltrim.html" title="Ltrim"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_len"></a>Len</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>output</em></span>= Len( string )</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The <code class="literal">Len</code> function returns an byte value which is the length of a phrase or a sentence, including the empty spaces. The format is:</p><pre class="screen">    target_byte_variable = Len("Phrase")</pre><p>or another example. This code will loop through the for-next loop 12 times as determined by the length of the string:<br></p><pre class="screen">    ' create a test string of 12 characters
-    dim teststring as string * 12
-
-    teststring = "0123456789AB"
-    for loopthrustring = 1 to len(teststring)
-       hserprint mid(teststring, loopthrustring , 1)
-    next</pre></div></body></html>

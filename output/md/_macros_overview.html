@@ -1,8 +1,0 @@
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-   <title>Macros Overview</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_macros.html" title="Macros"><link rel="prev" href="_macros.html" title="Macros"><link rel="next" href="_example_macros.html" title="Example Macros"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_macros_overview"></a>Macros Overview</h3></div></div></div><p><span class="strong"><strong>Introduction:</strong></span></p><p>You can use macros within your GCBASIC code.</p><p>Macros are similar to subroutines. But during compilation, everything is inserted inline. This may increase the code size slightly, but it also reduces stack usage.</p><p>Parameters are handled in a similar way to how constants are handled, so there is a lot more freedom when passing things in to a macro. (Unlike subs or functions, where everything must be stored in a variable.)</p><p>For example, for <code class="literal">PulseOut</code> one parameter is a pin, and the other is a time length like "500 ms". Neither of those parameters could be stored in a variable, but passing them in as macro parameters is possible.</p><p><span class="strong"><strong>Demonstration Program:</strong></span></p><pre class="screen">    'PulseOut Macro
-    macro Pulseout (Pin, Time)
-        Set Pin On
-        Wait Time
-        Set Pin Off
-    end macro</pre></div></body></html>

@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Subroutines -  - Great Cow BASIC documentation</title>
+      <title>Subroutines -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
-      <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
+      <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_syntax.html" title="Syntax" />
       <link rel="prev" href="_scripts.html" title="Scripts" />
       <link rel="next" href="_converters.html" title="Converters" />
       <meta name="Section-title" content="Subroutines" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53019";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />Syntax
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />Syntax
          </h1>
          <div id="navheader">
             <!---->
@@ -259,15 +259,15 @@ border: none; background: none; font-weight: none; color: none; }
                </table>
             </div>
             <p>These limits are due to the amount of memory on the microcontroller which saves its
-               location before it jumps to a new subroutine. Some Great Cow BASIC commands are
+               location before it jumps to a new subroutine. Some GCBASIC commands are
                subroutines, so you should always allow for 2 or 3 subroutine calls more
                than your program has.
             </p>
             <p>On 16F chips, the program memory is divided into pages. Each page holds 2048 instructions.   
                If the program jumps from code on one page to code on another, the compiler has to select the new page.   Having to do this
                makes the program bigger, so try to avoid this.
-               To keep jumps between pages down, Great Cow BASIC imposes a rule that each subroutine must be entirely within one page, so
-               that only jumps to other subroutines require the page selection.   
+               To keep jumps between pages down, GCBASIC imposes a rule that each subroutine must be entirely within one page, so that only
+               jumps to other subroutines require the page selection.   
                As an example, say you have two pages of memory, each 2048 instructions (words) long.<br />
                If you have a main sub that is 1500 words, and four other subroutines each 600 words long, your total program size would be
                3900 words and you might expect it to fit into the 4096 words available.    
@@ -322,20 +322,20 @@ border: none; background: none; font-weight: none; color: none; }
                the subroutine:
             </p><pre class="screen">    ArmX = NewX
     ArmY = NewY
-    ArmZ = 10</pre><p>When the subroutine has finished running, Great Cow BASIC will copy the values
+    ArmZ = 10</pre><p>When the subroutine has finished running, GCBASIC will copy the values
                back where possible. <code class="literal">NewX</code> will be assigned to <code class="literal">ArmX</code>, and <code class="literal">NewY</code> will be
-               assigned to <code class="literal">ArmY</code>. Great Cow BASIC will not attempt to set the number 10 to <code class="literal">ArmZ</code>.
+               assigned to <code class="literal">ArmY</code>. GCBASIC will not attempt to set the number 10 to <code class="literal">ArmZ</code>.
             </p>
             <p><span class="strong"><strong>Controlling the direction data moves in</strong></span></p>
-            <p>It is possible to instruct Great Cow BASIC not to copy the value back after the
+            <p>It is possible to instruct GCBASIC not to copy the value back after the
                subroutine is called. If a subroutine is defined like this:
             </p><pre class="screen">    sub MoveArm(In ArmX, In ArmY, In ArmZ)
     'code for the subroutine goes here
 
-    end sub</pre><p>Then Great Cow BASIC will copy the values to the subroutine, but will not copy
+    end sub</pre><p>Then GCBASIC will copy the values to the subroutine, but will not copy
                them back.
             </p>
-            <p>Great Cow BASIC can also be prevented from copying the values back, by adding
+            <p>GCBASIC can also be prevented from copying the values back, by adding
                <code class="literal">Out</code> before the parameter name. This is used in the EEPROM reading
                routines - there is no point copying a data value into the read
                subroutine, so <code class="literal">Out</code> has been used to avoid wasting time and memory. The
@@ -365,19 +365,19 @@ border: none; background: none; font-weight: none; color: none; }
             </p><pre class="screen">    Sub ErrorBeep(Optional OutTone As Word = 440)
       Tone OutTone, 100
     End Sub</pre><p>Note the <code class="literal">Optional</code> before the parameter, and the <code class="literal">= 440</code> after it.
-               This tells Great Cow BASIC that if no parameter is supplied, then set the
+               This tells GCBASIC that if no parameter is supplied, then set the
                <code class="literal">OutTone</code> parameter to 440.
             </p>
             <p>If called using this line:</p><pre class="screen">    ErrorBeep</pre><p>then a 440 Hz beep will be emitted. If called using this line:</p><pre class="screen">    ErrorBeep 1000</pre><p>then the sub will produce a 1000 Hz tone.</p>
             <p>When using several parameters, it is possible to make any number of them
                optional. If the optional parameter/s are at the end of the call, then
                no value needs to be specified. If they are at the start or in the
-               middle, then you must insert commas to allow Great Cow BASIC to tell where the
+               middle, then you must insert commas to allow GCBASIC to tell where the
                optional parameters are.
             </p>
             <p><span class="strong"><strong>Overloading</strong></span></p>
             <p>It is possible to have 2 subroutines with the same name, but different
-               parameters. This is known as overloading, and Great Cow BASIC will automatically
+               parameters. This is known as overloading, and GCBASIC will automatically
                select the most appropriate subroutine for each call.
             </p>
             <p>An example of this is the Print routine in the LCD routines. There are
@@ -387,7 +387,7 @@ border: none; background: none; font-weight: none; color: none; }
             </p><pre class="screen">    Print 100</pre><p>Then the Print (byte) subroutine will be called. However, if this
                command is used:
             </p><pre class="screen">    Print 30112</pre><p>Then the Print (word) subroutine will be called. If there is no exact
-               match for a particular call, Great Cow BASIC will use the option that requires
+               match for a particular call, GCBASIC will use the option that requires
                the least conversion of variable types. For example, if this command is
                used:
             </p><pre class="screen">    Print PORTB.0</pre><p>The byte print will be used. This is because byte is the closest type to
@@ -422,8 +422,8 @@ border: none; background: none; font-weight: none; color: none; }
                </ul>
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
-                        <li><span class="file"><a href="_introducing_great_cow_basic.html" tabindex="1">Introducing Great Cow BASIC</a></span></li>
-                        <li><span class="file"><a href="_using_great_cow_basic.html" tabindex="1">Using Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
+                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
                         <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
                         <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                         <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
@@ -846,7 +846,6 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -1026,32 +1025,32 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_linux.html" tabindex="1">Great Cow BASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_arm_pi.html" tabindex="1">Great Cow BASIC for ARM &amp; Pi</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_apple_macos.html" tabindex="1">Great Cow BASIC for Apple macOS</a></span><ul>
-                              <li><span class="file"><a href="_overview_apple_macos_great_cow_basic.html" tabindex="1">Overview - Apple macOS Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
+                              <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_freebsd.html" tabindex="1">Great Cow BASIC for FreeBSD</a></span><ul>
-                              <li><span class="file"><a href="_overview_freebsd_great_cow_basic.html" tabindex="1">Overview - FreeBSD Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
+                              <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_maintenance_and_development.html" tabindex="1">Great Cow BASIC Maintenance and Development</a></span><ul>
-                              <li><span class="file"><a href="_great_cow_basic_maintenance.html" tabindex="1">Great Cow BASIC Maintenance</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
+                              <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_great_cow_basic_preferences_editor.html" tabindex="1">Development Guide for Great Cow BASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
                      </ul>

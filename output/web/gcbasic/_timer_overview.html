@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Timer Overview -  - Great Cow BASIC documentation</title>
+      <title>Timer Overview -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
-      <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
+      <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_timers.html" title="Timers" />
       <link rel="prev" href="_timers.html" title="Timers" />
       <link rel="next" href="_cleartimer.html" title="ClearTimer" />
       <meta name="Section-title" content="Timer Overview" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53019";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />Timers
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />Timers
          </h1>
          <div id="navheader">
             <!---->
@@ -184,8 +184,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p>Great Cow BASIC supports methods to set, clear, read, start and stop the microcontroller timers.</p>
-            <p>Great Cow BASIC supports the following timers.</p><pre class="screen">    Timer 0
+            <p>GCBASIC supports methods to set, clear, read, start and stop the microcontroller timers.</p>
+            <p>GCBASIC supports the following timers.</p><pre class="screen">    Timer 0
     Timer 1
     Timer 2
     Timer 3
@@ -216,7 +216,7 @@ border: none; background: none; font-weight: none; color: none; }
                the timer to overflow more quickly.
                For example, achieving 1 us resolution and a 1 sec maximum period using a 16-bit timer may require some clever thinking when
                using 8-bit timers.
-               Please ask for advice via the Great Cow BASIC forum, or, search for some of the many great resources on the internet to calculate
+               Please ask for advice via the GCBASIC forum, or, search for some of the many great resources on the internet to calculate
                a Prescaler value.
             </p>
             <p><span class="strong"><strong>Common Langauge:</strong></span></p>
@@ -240,26 +240,24 @@ border: none; background: none; font-weight: none; color: none; }
                And, of course, the same when moving timer parameters between Atmel AVR and Microchip PIC microcontrollers.
             </p>
             <p><span class="strong"><strong>Timer Best Practices:</strong></span></p>
-            <p>Initialising microcontrollers with very limited RAM using Great Cow BASIC needs carefull consideration.
+            <p>Initialising microcontrollers with very limited RAM using GCBASIC needs carefull consideration.
                RAM may be need to be optimised by using ASM to control the timers.
-               You can use Great Cow BASIC to create the timer related Great Cow BASIC ASM code then manually edit the Great Cow BASIC ASM
-               to optmise RAM usage.
-               Add your revised and optimised ASM back into your program and then remove the no longer required calls the the Great Cow BASIC
-               methods.
-               If you need advice on this subject please ask for advice via the Great Cow BASIC forum.
+               You can use GCBASIC to create the timer related GCBASIC ASM code then manually edit the GCBASIC ASM to optmise RAM usage.
+               Add your revised and optimised ASM back into your program and then remove the no longer required calls the the GCBASIC methods.
+               If you need advice on this subject please ask for advice via the GCBASIC forum.
             </p>
             <p><span class="strong"><strong>Using Timers 2/4/6/8 on Microchip PIC microcontrollers.</strong></span></p>
             <p>A Microchip PIC microcontroller can have one of two types of 8-bit timer 2/4/6/8.</p>
             <p>The first type has only one clock source and that clock is the FOSC/4 source.</p>
             <p>The second type is much more flexible and can have many different clock sources and supports more prescale values.</p>
             <p>The timer type for a Microchip PIC microcontroller can be determined by checking for the existence of a T2CLKCON register,
-               either in the Datasheet or in the Great Cow BASIC "dat file" for the specific microcontroller.
+               either in the Datasheet or in the GCBASIC "dat file" for the specific microcontroller.
             </p>
             <p>If the microcontroller DOES NOT have a T2CLKCON register then ALL Timer 2/4/6/8 timers on that chip are the first type, and
                are configured using:
             </p><pre class="screen">    _InitTimer2 (PreScale, PostScale)_   'Timer2 is example for timer 2/4/6 or 8</pre><p>If the microcontroller DOES have a T2CLKCON register then ALL Timer 2/4/6/8 timers on that chip are the second type and are
                configured using:
-            </p><pre class="screen">    _InitTimer2 (Source, PreScale, PostScale)_   'Timer2 is example for timer 2/4/6 or 8</pre><p>The possible <span class="emphasis"><em>Source</em></span>, <span class="emphasis"><em>PreScale</em></span> and <span class="emphasis"><em>PostScale</em></span> constants for each type are shown in the Great Cow BASIC Help file.  See each timer for the constants.
+            </p><pre class="screen">    _InitTimer2 (Source, PreScale, PostScale)_   'Timer2 is example for timer 2/4/6 or 8</pre><p>The possible <span class="emphasis"><em>Source</em></span>, <span class="emphasis"><em>PreScale</em></span> and <span class="emphasis"><em>PostScale</em></span> constants for each type are shown in the GCBASIC Help file.  See each timer for the constants.
             </p>
             <p>The "Period" of these timers is determined by the system clock speed, the prescale value and 8-bit value in the respective
                timer period register.   The timer period registers are PR2, PR4, PR6 or PR8 for timer2, timer4, timer6 and timer8 respectively.
@@ -305,8 +303,8 @@ border: none; background: none; font-weight: none; color: none; }
                </ul>
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
-                        <li><span class="file"><a href="_introducing_great_cow_basic.html" tabindex="1">Introducing Great Cow BASIC</a></span></li>
-                        <li><span class="file"><a href="_using_great_cow_basic.html" tabindex="1">Using Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
+                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
                         <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
                         <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                         <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
@@ -729,7 +727,6 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -909,32 +906,32 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_linux.html" tabindex="1">Great Cow BASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_arm_pi.html" tabindex="1">Great Cow BASIC for ARM &amp; Pi</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_apple_macos.html" tabindex="1">Great Cow BASIC for Apple macOS</a></span><ul>
-                              <li><span class="file"><a href="_overview_apple_macos_great_cow_basic.html" tabindex="1">Overview - Apple macOS Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
+                              <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_freebsd.html" tabindex="1">Great Cow BASIC for FreeBSD</a></span><ul>
-                              <li><span class="file"><a href="_overview_freebsd_great_cow_basic.html" tabindex="1">Overview - FreeBSD Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
+                              <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_maintenance_and_development.html" tabindex="1">Great Cow BASIC Maintenance and Development</a></span><ul>
-                              <li><span class="file"><a href="_great_cow_basic_maintenance.html" tabindex="1">Great Cow BASIC Maintenance</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
+                              <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_great_cow_basic_preferences_editor.html" tabindex="1">Development Guide for Great Cow BASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
                      </ul>

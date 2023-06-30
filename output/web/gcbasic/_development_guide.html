@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Development Guide -  - Great Cow BASIC documentation</title>
+      <title>Development Guide -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
-      <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
-      <link rel="up" href="_great_cow_basic_maintenance_and_development.html" title="Great Cow BASIC Maintenance and Development" />
-      <link rel="prev" href="_great_cow_basic_maintenance.html" title="Great Cow BASIC Maintenance" />
+      <link rel="home" href="index.html" title="GCBASIC documentation" />
+      <link rel="up" href="_gcbasic_maintenance_and_development.html" title="GCBASIC Maintenance and Development" />
+      <link rel="prev" href="_gcbasic_maintenance.html" title="GCBASIC Maintenance" />
       <link rel="next" href="_development_guide_for_gcbasic_exe_compiler.html" title="Development Guide for GCBASIC.EXE compiler" />
       <meta name="Section-title" content="Development Guide" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53019";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />Great Cow BASIC Maintenance and Development
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />GCBASIC Maintenance and Development
          </h1>
          <div id="navheader">
             <!---->
@@ -164,9 +164,9 @@ border: none; background: none; font-weight: none; color: none; }
                <tr>
                   <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
                                                     </a></td>
-                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_great_cow_basic_maintenance.html">Prev</a>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_gcbasic_maintenance.html">Prev</a>
                                                              |
-                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="_great_cow_basic_maintenance_and_development.html">Up</a>
+                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="_gcbasic_maintenance_and_development.html">Up</a>
                                                          |
                                                          <a accesskey="n" class="navLinkNext" tabindex="5" href="_development_guide_for_gcbasic_exe_compiler.html">Next</a></td>
                </tr>
@@ -184,25 +184,24 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p>There are lots of ways to contribute to the Great Cow BASIC project: coding, testing, improving the build process and tools,
-               or contributing to the documentation.
-               This guide provides information that will not only help you get started as a Great Cow BASIC contributor,
+            <p>There are lots of ways to contribute to the GCBASIC project: coding, testing, improving the build process and tools, or contributing
+               to the documentation.
+               This guide provides information that will not only help you get started as a GCBASIC contributor,
                but that you wiil find useful to refer to EVEN if you are already an experienced contributor.
             </p>
             <p><span class="strong"><strong>Need Help?</strong></span></p>
-            <p>The Great Cow BASIC community prides itself on being an open, accessible, and friendly community for new participants.
+            <p>The GCBASIC community prides itself on being an open, accessible, and friendly community for new participants.
                If you have any difficulties getting involved or finding answers to your questions, please bring those questions to the forum
                via the discussion boards, where we can help you get started.
             </p>
-            <p>We know EVEN before you start contributing that getting set up to work on Great Cow BASIC and finding a bug that is a good
-               fit for your skills can be a challenge.
-               We are always looking for ways to improve this process: making Great Cow BASIC more open, accessible, and easier to participate
-               with.
+            <p>We know EVEN before you start contributing that getting set up to work on GCBASIC and finding a bug that is a good fit for
+               your skills can be a challenge.
+               We are always looking for ways to improve this process: making GCBASIC more open, accessible, and easier to participate with.
                If you are having any trouble following this documentation, or hit a barrier you cannot get around, please contact use via
                the discussion forum.
-               We will solve hurdles for new contributors and make Great Cow BASIC better.
+               We will solve hurdles for new contributors and make GCBASIC better.
             </p>
-            <p>This section addresses developing libraries but this guide is appropriate to any Great Cow BASIC development.</p>
+            <p>This section addresses developing libraries but this guide is appropriate to any GCBASIC development.</p>
             <p>The section covers the recommended programming style, Constants, Variables, Script syntax (gotchas) and tab usage.</p>
             <p></p>
             <p><span class="strong"><strong>PROGRAMMING STYLES</strong></span></p>
@@ -229,10 +228,10 @@ border: none; background: none; font-weight: none; color: none; }
         END IF</pre><p></p>
             <p><span class="strong"><strong>CONSTANTS</strong></span></p>
             <p>A constant is a value that cannot be altered by the program during normal execution.  
-               Within Great Cow BASIC there are two ways to create constants.   
+               Within GCBASIC there are two ways to create constants.   
                1. with the <code class="literal">#DEFINE</code> instruction, or,
                2. via `#SCRIPT .. #ENDSCRIPT'. ;   Within a script constants can be created and changed.  A script is process that is executed
-                prior to the Great Cow BASIC source program is processing the main user program.
+                prior to the GCBASIC source program is processing the main user program.
             </p>
             <p>An example of using <code class="literal">#DEFINE</code> is
             </p><pre class="screen">        #DEFINE TIME_DELAY_VALUE    10</pre><p>The script construct is</p><pre class="screen">        #SCRIPT
@@ -422,9 +421,9 @@ End SUB</pre><p>and, not like this</p><pre class="screen">    Sub  ExampleSub (I
             <hr />
             <table width="100%" summary="Navigation footer">
                <tr>
-                  <td width="40%" align="left"><a accesskey="p" href="_great_cow_basic_maintenance.html">Prev</a> 
+                  <td width="40%" align="left"><a accesskey="p" href="_gcbasic_maintenance.html">Prev</a> 
                   </td>
-                  <td width="20%" align="center"><a accesskey="u" href="_great_cow_basic_maintenance_and_development.html">Up</a></td>
+                  <td width="20%" align="center"><a accesskey="u" href="_gcbasic_maintenance_and_development.html">Up</a></td>
                   <td width="40%" align="right"> <a accesskey="n" href="_development_guide_for_gcbasic_exe_compiler.html">Next</a></td>
                </tr>
                <tr>
@@ -444,8 +443,8 @@ End SUB</pre><p>and, not like this</p><pre class="screen">    Sub  ExampleSub (I
                </ul>
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
-                        <li><span class="file"><a href="_introducing_great_cow_basic.html" tabindex="1">Introducing Great Cow BASIC</a></span></li>
-                        <li><span class="file"><a href="_using_great_cow_basic.html" tabindex="1">Using Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
+                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
                         <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
                         <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                         <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
@@ -868,7 +867,6 @@ End SUB</pre><p>and, not like this</p><pre class="screen">    Sub  ExampleSub (I
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -1048,32 +1046,32 @@ End SUB</pre><p>and, not like this</p><pre class="screen">    Sub  ExampleSub (I
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_linux.html" tabindex="1">Great Cow BASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_arm_pi.html" tabindex="1">Great Cow BASIC for ARM &amp; Pi</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_apple_macos.html" tabindex="1">Great Cow BASIC for Apple macOS</a></span><ul>
-                              <li><span class="file"><a href="_overview_apple_macos_great_cow_basic.html" tabindex="1">Overview - Apple macOS Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
+                              <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_freebsd.html" tabindex="1">Great Cow BASIC for FreeBSD</a></span><ul>
-                              <li><span class="file"><a href="_overview_freebsd_great_cow_basic.html" tabindex="1">Overview - FreeBSD Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
+                              <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_maintenance_and_development.html" tabindex="1">Great Cow BASIC Maintenance and Development</a></span><ul>
-                              <li><span class="file"><a href="_great_cow_basic_maintenance.html" tabindex="1">Great Cow BASIC Maintenance</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
+                              <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li id="webhelp-currentid"><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_great_cow_basic_preferences_editor.html" tabindex="1">Development Guide for Great Cow BASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
                      </ul>

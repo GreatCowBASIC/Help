@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Frequently Asked Questions -  - Great Cow BASIC documentation</title>
+      <title>Frequently Asked Questions -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
-      <link rel="home" href="index.html" title="Great Cow BASIC documentation" />
-      <link rel="up" href="index.html" title="Great Cow BASIC documentation" />
+      <link rel="home" href="index.html" title="GCBASIC documentation" />
+      <link rel="up" href="index.html" title="GCBASIC documentation" />
       <link rel="prev" href="_a_glossary.html" title="A Glossary" />
       <link rel="next" href="_troubleshooting.html" title="Troubleshooting" />
       <meta name="Section-title" content="Frequently Asked Questions" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53019";
+            var treeCookieId = "treeview-53148";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Great Cow BASIC documentation<br />Frequently Asked Questions
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />Frequently Asked Questions
          </h1>
          <div id="navheader">
             <!---->
@@ -183,28 +183,28 @@ border: none; background: none; font-weight: none; color: none; }
                </div>
             </div>
             <p><span class="strong"><strong>Why doesn’t anything come up when I run GCBASIC.exe?</strong></span></p>
-            <p>Great Cow BASIC is a command line compiler. To compile a file, you can
+            <p>GCBASIC is a command line compiler. To compile a file, you can
                drag and drop it onto the GCBASIC.exe icon. There are also several
-               Integrated Development Environments, or IDEs, available for Great Cow BASIC.
+               Integrated Development Environments, or IDEs, available for GCBASIC.
                These will give you an area where you can edit your program and a button
-               to send the program to the chip. Several are listed on the Great Cow BASIC
+               to send the program to the chip. Several are listed on the GCBASIC
                website.
                <br />
                <br />
-               <span class="strong"><strong>What Microchip PIC and Atmel AVR microcontrollers does Great Cow BASIC support?</strong></span></p>
+               <span class="strong"><strong>What Microchip PIC and Atmel AVR microcontrollers does GCBASIC support?</strong></span></p>
             <p>Hopefully, all 8 bit Microchip PIC and Atmel AVR microcontrollers (those in the PIC10, PIC12, PIC16 and
-               PIC18 families). If you find one that Great Cow BASIC does not work with
+               PIC18 families). If you find one that GCBASIC does not work with
                properly, please post about it in the Compiler Problems section of the
-               Great Cow BASIC forum.
+               GCBASIC forum.
                <br />
                <br />
-               <span class="strong"><strong>Is Great Cow BASIC case sensitive?</strong></span></p>
+               <span class="strong"><strong>Is GCBASIC case sensitive?</strong></span></p>
             <p>No! For example, <code class="literal">Set</code>, <code class="literal">SET</code>, <code class="literal">set</code>, <code class="literal">SeT</code>, etc are all treated exactly the
-               same way by Great Cow BASIC.
+               same way by GCBASIC.
                <br />
                <br />
                <span class="strong"><strong>Can I specify the bit of a variable to alter using another variable?</strong></span></p>
-            <p>Great Cow BASIC support bitwise assignments. As follows:</p><pre class="screen">    portc.0 = !porta.1</pre><p>You can also use a shift function.  As in other languages, by using the Shift Function FnLSL.  AN example is:</p><pre class="screen">    MyVar = FnLSL( 1, BitNum)`  is Equivalent to `MyVar = 1&lt;&lt;BitNum`</pre><p>To set a bit of a port and to prevent glitches during operations, use <code class="literal">#option volatile</code> as folllows.
+            <p>GCBASIC support bitwise assignments. As follows:</p><pre class="screen">    portc.0 = !porta.1</pre><p>You can also use a shift function.  As in other languages, by using the Shift Function FnLSL.  AN example is:</p><pre class="screen">    MyVar = FnLSL( 1, BitNum)`  is Equivalent to `MyVar = 1&lt;&lt;BitNum`</pre><p>To set a bit of a port and to prevent glitches during operations, use <code class="literal">#option volatile</code> as folllows.
             </p><pre class="screen">    'add this option for a specific port.
     #option volatile portc.0
 
@@ -225,9 +225,8 @@ border: none; background: none; font-weight: none; color: none; }
                <br />
                <span class="strong"><strong>Why is x feature not implemented?</strong></span></p>
             <p>Because it hasn’t been thought of, or no-one has been able to implement
-               it! If there are any features that you would like to see in Great Cow
-               BASIC, please post them in the "Open Discussion" section of the Great Cow BASIC
-               forum. Or, if you can, have a go at adding the feature yourself!
+               it! If there are any features that you would like to see in GCBASIC, please post them in the "Open Discussion" section of
+               the GCBASIC forum. Or, if you can, have a go at adding the feature yourself!
                <br />
                <br />
                <span class="strong"><strong>When using an include file does this use lots of memory?</strong></span></p>
@@ -237,8 +236,8 @@ border: none; background: none; font-weight: none; color: none; }
                compiling, or does everything get included anyway. For instance, if I am
                not using the hardware I2C, does all the code related to hardware I2C
                still get compiled in the code?<br /></p>
-            <p>Great Cow BASIC only compiles functions and subroutines if they are called.
-               Great Cow BASIC starts by compiling the main routine, then anything called from
+            <p>GCBASIC only compiles functions and subroutines if they are called.
+               GCBASIC starts by compiling the main routine, then anything called from
                there. Each time it finds a new subroutine that is called, it compiles
                it and anything that it calls. If a subroutine is not needed, it does
                not get compiled.
@@ -250,8 +249,8 @@ border: none; background: none; font-weight: none; color: none; }
                <br />
                <br />
                <span class="strong"><strong>Atmel AVR memory usage displayed is incorrect?</strong></span></p>
-            <p>Atmel AVR memory values are specified in WORDS in Great Cow BASIC. The Great Cow BASIC compiler uses words, not bytes, for
-               consistency between Microchip PIC and Atmel AVR microcontrollers. This keeps parts of the compiler simpler.
+            <p>Atmel AVR memory values are specified in WORDS in GCBASIC. The GCBASIC compiler uses words, not bytes, for consistency between
+               Microchip PIC and Atmel AVR microcontrollers. This keeps parts of the compiler simpler.
                <br />
                <br />
                <span class="strong"><strong>I cannot open the Window Help File?</strong></span></p>
@@ -260,7 +259,7 @@ border: none; background: none; font-weight: none; color: none; }
                <br />
                <span class="strong"><strong>How do I revert the FOR-NEXT loop to the Legacy FOR-NEXT method ?</strong></span></p>
             <p>Some background.  
-               In 2021 the Great Cow BASIC compiler was updated to improve the operation of the FOR-NEXT loop.  
+               In 2021 the GCBASIC compiler was updated to improve the operation of the FOR-NEXT loop.  
                The improvement did increase the size of the ASM generated.  
                The legacy FOR-NEXT loop had some major issues that included never ending loops, incorrect end loop and unexpected operations.  
                This was all caused by the compiler, not the user, and in 2021 the compiler was updated to resolve these issues.  
@@ -299,8 +298,8 @@ border: none; background: none; font-weight: none; color: none; }
                </ul>
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
-                        <li><span class="file"><a href="_introducing_great_cow_basic.html" tabindex="1">Introducing Great Cow BASIC</a></span></li>
-                        <li><span class="file"><a href="_using_great_cow_basic.html" tabindex="1">Using Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
+                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
                         <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
                         <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                         <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
@@ -723,7 +722,6 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
-                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -903,32 +901,32 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_graphical_basic.html" tabindex="1">Great Cow Graphical BASIC</a></span><ul>
+                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_linux.html" tabindex="1">Great Cow BASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_arm_pi.html" tabindex="1">Great Cow BASIC for ARM &amp; Pi</a></span><ul>
+                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_apple_macos.html" tabindex="1">Great Cow BASIC for Apple macOS</a></span><ul>
-                              <li><span class="file"><a href="_overview_apple_macos_great_cow_basic.html" tabindex="1">Overview - Apple macOS Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
+                              <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_for_freebsd.html" tabindex="1">Great Cow BASIC for FreeBSD</a></span><ul>
-                              <li><span class="file"><a href="_overview_freebsd_great_cow_basic.html" tabindex="1">Overview - FreeBSD Great Cow BASIC</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
+                              <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_great_cow_basic_maintenance_and_development.html" tabindex="1">Great Cow BASIC Maintenance and Development</a></span><ul>
-                              <li><span class="file"><a href="_great_cow_basic_maintenance.html" tabindex="1">Great Cow BASIC Maintenance</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
+                              <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_great_cow_basic_preferences_editor.html" tabindex="1">Development Guide for Great Cow BASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
                      </ul>
