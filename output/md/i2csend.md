@@ -126,6 +126,37 @@ before sending.
     Loop
 ```
 
+<span class="strong">**Specific control of I2CSend**</span>
+
+The I2CSend method can be controller with command(s) the change the
+behaviour of method.  The behaviour can be changed as a Prefix or Suffix
+therefore the start or end of the method.
+
+The two macros ( defined constants) are I2CPreSendMacro and
+I2CPostSendMacro.  The macros must be a single line, with colon
+delimiters are permitted.
+
+<span class="emphasis">*Examples*</span>
+
+The following defined macros change the start and end behaviour.
+
+``` screen
+     #define I2CPreSendMacro if LabI2CState <> True then exit Sub  'I2CPreSendMacro to ensure GLCD operations only operate within specfic lab
+        #define I2CPostSendMacro if LabI2CState = True then MSSP =1   'I2CPostSendMacro to ensure GLCD operations only operate within specfic lab setting a specific variable.
+```
+
+The following defined macros changes- the start behaviour to call an
+alternative I2CSend method.
+
+``` screen
+        #define I2CPreSendMacro     myI2CSend: exit sub
+
+
+        sub myI2CSend
+            // your i2C handler
+        end sub
+```
+
 Supported in &lt;I2C.H&gt;
 
 </div>

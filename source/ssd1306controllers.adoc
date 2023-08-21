@@ -139,6 +139,26 @@ The GCBASIC constants for control display characteristics are shown in the table
 |Define this constant to restrict pixel operations with the pixel limits
 |Not defined
 
+|*Rotate GCLD Constants*
+|
+|
+
+|`GLCDYFLIP`
+|Define this constant to rotate the GLCD  display
+|Not defined
+
+|`GLCDXFLIP`
+|Define this constant to rotate the GLCD  display
+|Not defined
+
+|`GLCDXYFLIP`
+|Define this constant to rotate the GLCD  display
+|Not defined
+
+|*Memory Management Constants*
+|
+|
+
 |`GLCD_TYPE_SSD1306_CHARACTER_MODE_ONLY`
 |Specifies that the display controller will operate in text mode and BMP
 draw mode only. +
@@ -151,17 +171,6 @@ When selected ONLY text related commands are suppored. For grapical commands you
 |Specifies that the display controller will operate in Low Memory mode.
 |Optional
 
-|`GLCD_OLED_FONT`
-|Specifies the use of the optional OLED font set.
-
-The GLCDfntDefaultsize can be set to 1 or 2 only.
-
-`GLCDfntDefaultsize=  1`.   A small 8 height pixel font with variable width.
-`GLCDfntDefaultsize=  2`.   A larger 10 width * 16 height pixel font.
-
-|Optional
-
-
 
 |===
 
@@ -173,28 +182,39 @@ These variables control the user definable parameters of a specific GLCD.
 |*Purpose*
 |*Type*
 
-|`GLCDBackground`
+|`GLCD_OLED_FONT`
+|Specifies the use of the optional OLED font set.
+
+The GLCDFNTDEFAULTSIZE can be set to 1 or 2 only.
+
+`GLCDFNTDEFAULTSIZE=  1`.   A small 8 height pixel font with variable width.
+`GLCDFNTDEFAULTSIZE=  2`.   A larger 10 width * 16 height pixel font.
+
+|Optional
+
+
+|`GLCDBACKGROUND`
 |GLCD background state.
 |A monochrome value. +
 For mono GLCDs the default is White or 0x0001.
 
-|`GLCDForeground`
+|`GLCDFOREGROUND`
 |Color of GLCD foreground.
 |A monochrome value. +
 For mono GLCDs the default is non-white or 0x0000.
 
-|`GLCDFontWidth`
+|`GLCDFONTWIDTH`
 |Width of the current GLCD font.
 |Default is 6 pixels.
 
-|`GLCDfntDefault`
+|`GLCDFNTDEFAULT`
 |Size of the current GLCD font.
 |Default is 0.
 
 
 This equates to the standard GCB font set.
 
-|`GLCDfntDefaultsize`
+|`GLCDFNTDEFAULTSIZE`
 |Size of the current GLCD font.
 |Default is 1.
 

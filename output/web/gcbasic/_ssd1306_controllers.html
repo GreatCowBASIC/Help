@@ -16,7 +16,7 @@
       <link rel="next" href="_ssd1331_controllers.html" title="SSD1331 Controllers" />
       <meta name="Section-title" content="SSD1306 Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53148";
+            var treeCookieId = "treeview-53379";
             var language = "en";
             var w = new Object();
             //Localization
@@ -432,6 +432,53 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
+                           <p><span class="strong"><strong>Rotate GCLD Constants</strong></span></p>
+                        </td>
+                        <td align="left" valign="top"> </td>
+                        <td align="left" valign="top"> </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCDYFLIP</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Define this constant to rotate the GLCD  display</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Not defined</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCDXFLIP</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Define this constant to rotate the GLCD  display</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Not defined</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCDXYFLIP</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Define this constant to rotate the GLCD  display</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Not defined</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><span class="strong"><strong>Memory Management Constants</strong></span></p>
+                        </td>
+                        <td align="left" valign="top"> </td>
+                        <td align="left" valign="top"> </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
                            <p><code class="literal">GLCD_TYPE_SSD1306_CHARACTER_MODE_ONLY</code></p>
                         </td>
                         <td align="left" valign="top">
@@ -452,25 +499,6 @@ border: none; background: none; font-weight: none; color: none; }
                         </td>
                         <td align="left" valign="top">
                            <p>Specifies that the display controller will operate in Low Memory mode.</p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>Optional</p>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td align="left" valign="top">
-                           <p><code class="literal">GLCD_OLED_FONT</code></p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>Specifies the use of the optional OLED font set.
-                              
-                           </p>
-                           <p>The GLCDfntDefaultsize can be set to 1 or 2 only.
-                              
-                           </p>
-                           <p><code class="literal">GLCDfntDefaultsize=  1</code>.   A small 8 height pixel font with variable width.
-                              <code class="literal">GLCDfntDefaultsize=  2</code>.   A larger 10 width * 16 height pixel font.
-                           </p>
                         </td>
                         <td align="left" valign="top">
                            <p>Optional</p>
@@ -499,7 +527,26 @@ border: none; background: none; font-weight: none; color: none; }
                   <tbody>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">GLCDBackground</code></p>
+                           <p><code class="literal">GLCD_OLED_FONT</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Specifies the use of the optional OLED font set.
+                              
+                           </p>
+                           <p>The GLCDFNTDEFAULTSIZE can be set to 1 or 2 only.
+                              
+                           </p>
+                           <p><code class="literal">GLCDFNTDEFAULTSIZE=  1</code>.   A small 8 height pixel font with variable width.
+                              <code class="literal">GLCDFNTDEFAULTSIZE=  2</code>.   A larger 10 width * 16 height pixel font.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Optional</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCDBACKGROUND</code></p>
                         </td>
                         <td align="left" valign="top">
                            <p>GLCD background state.</p>
@@ -512,7 +559,7 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">GLCDForeground</code></p>
+                           <p><code class="literal">GLCDFOREGROUND</code></p>
                         </td>
                         <td align="left" valign="top">
                            <p>Color of GLCD foreground.</p>
@@ -525,7 +572,7 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">GLCDFontWidth</code></p>
+                           <p><code class="literal">GLCDFONTWIDTH</code></p>
                         </td>
                         <td align="left" valign="top">
                            <p>Width of the current GLCD font.</p>
@@ -536,7 +583,7 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">GLCDfntDefault</code></p>
+                           <p><code class="literal">GLCDFNTDEFAULT</code></p>
                         </td>
                         <td align="left" valign="top">
                            <p>Size of the current GLCD font.</p>
@@ -551,7 +598,7 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">GLCDfntDefaultsize</code></p>
+                           <p><code class="literal">GLCDFNTDEFAULTSIZE</code></p>
                         </td>
                         <td align="left" valign="top">
                            <p>Size of the current GLCD font.</p>
@@ -1330,6 +1377,10 @@ border: none; background: none; font-weight: none; color: none; }
                                           </li>
                                           <li><span class="file"><a href="_lcd_io_12.html" tabindex="1">LCD_IO 12</a></span><ul>
                                                 <li><span class="file"><a href="_lcd_io_12_port_configuration.html" tabindex="1">LCD_IO 12 Port Configuration</a></span></li>
+                                             </ul>
+                                          </li>
+                                          <li><span class="file"><a href="_lcd_io_14.html" tabindex="1">LCD_IO 14</a></span><ul>
+                                                <li><span class="file"><a href="_lcd_io_14_port_configuration.html" tabindex="1">LCD_IO 14 Port Configuration</a></span></li>
                                              </ul>
                                           </li>
                                           <li><span class="file"><a href="_lcd_io_107.html" tabindex="1">LCD_IO 107</a></span></li>

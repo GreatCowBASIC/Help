@@ -609,13 +609,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2023-06-30<br>
-09:40:12 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2023-08-21<br>
+21:24:53 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2023-06-30<br>
-08:53:59 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2023-08-18<br>
+06:18:01 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -1178,19 +1178,22 @@ The name of the chip will be the same as that on the chip data file.</span></p>
 <p><strong>Why doesn&#8217;t anything come up when I run GCBASIC.exe?</strong></p>
 </div>
 <div class="paragraph">
-<p>GCBASIC is a command line compiler. To compile a file, you can
-drag and drop it onto the GCBASIC.exe icon. There are also several
-Integrated Development Environments, or IDEs, available for GCBASIC.
-These will give you an area where you can edit your program and a button
-to send the program to the chip. Several are listed on the GCBASIC
-website.
-<br>
-<br>
-<strong>What Microchip PIC and Atmel AVR microcontrollers does GCBASIC support?</strong></p>
+<p>GCBASIC IS a command line compiler. To compile a file, you can
+drag and drop it onto the GCBASIC.exe icon.</p>
 </div>
 <div class="paragraph">
-<p>Hopefully, all 8 bit Microchip PIC and Atmel AVR microcontrollers (those in the PIC10, PIC12, PIC16 and
-PIC18 families). If you find one that GCBASIC does not work with
+<p>If you use an Integrated Development Environment (IDE) you can edit your program and press an ICON  to send the program to the chip. Several are listed on the GCBASIC website.</p>
+</div>
+<div class="paragraph">
+<p>The recommended IDE for Windows is GCCODE.</p>
+</div>
+<div class="paragraph">
+<p><br>
+<br>
+<strong>What Microchip PIC, Atmel AVR or LGT microcontrollers does GCBASIC support?</strong></p>
+</div>
+<div class="paragraph">
+<p>Hopefully, all 8 bit Microchip PIC, Atmel AVR and LGT microcontrollers and (those in the PIC10, PIC12, PIC16 and PIC18 families). If you find one that GCBASIC does not work with
 properly, please post about it in the Compiler Problems section of the
 GCBASIC forum.
 <br>
@@ -1280,19 +1283,25 @@ same way by GCBASIC.
 <strong>Why is x feature not implemented?</strong></p>
 </div>
 <div class="paragraph">
-<p>Because it hasn&#8217;t been thought of, or no-one has been able to implement
-it! If there are any features that you would like to see in GCBASIC, please post them in the "Open Discussion" section of the GCBASIC forum. Or, if you can, have a go at adding the feature yourself!
-<br>
-<br>
-<strong>When using an include file does this use lots of memory?</strong></p>
+<p>Because it has not been thought of, or no-one has been able to implement
+it!</p>
 </div>
 <div class="paragraph">
-<p>When using include files, in this instance the &lt;ds3231.h&gt; include, if
-you are not using all the functions of the include file, does GCB know
-not to include the non used functions within the include file when
-compiling, or does everything get included anyway. For instance, if I am
-not using the hardware I2C, does all the code related to hardware I2C
-still get compiled in the code?<br></p>
+<p>If there are any features that you would like to see in GCBASIC, please post them in the "Open Discussion" section of the GCBASIC forum. Or, if you can, have a go at adding the feature yourself!
+<br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>When using an include file does this use lots of memory?</strong></p>
+</div>
+<div class="paragraph">
+<p>When using include files, for instance the &lt;ds3231.h&gt; include, if
+you are not using all the functions of the include file, GCBASIC knows
+not to include the  unused functions within the user program when
+compiling.</p>
+</div>
+<div class="paragraph">
+<p><strong>If I am using the hardware I2C, does all the code related to hardware I2C still get compiled in the code?</strong></p>
 </div>
 <div class="paragraph">
 <p>GCBASIC only compiles functions and subroutines if they are called.
@@ -20176,6 +20185,31 @@ Parameter is dim value</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Not defined</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Rotate GCLD Constants</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDYFLIP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Define this constant to rotate the GLCD  display</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDXFLIP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Define this constant to rotate the GLCD  display</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDXYFLIP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Define this constant to rotate the GLCD  display</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not defined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Memory Management Constants</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE_SSD1306_CHARACTER_MODE_ONLY</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies that the display controller will operate in text mode and BMP
 draw mode only.<br>
@@ -20187,14 +20221,6 @@ When selected ONLY text related commands are suppored. For grapical commands you
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE_SSD1306_LOWMEMORY_GLCD_MODE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies that the display controller will operate in Low Memory mode.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_OLED_FONT</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the use of the optional OLED font set.
-</p><p class="tableblock">The GLCDfntDefaultsize can be set to 1 or 2 only.
-</p><p class="tableblock"><code>GLCDfntDefaultsize=  1</code>.   A small 8 height pixel font with variable width.
-<code>GLCDfntDefaultsize=  2</code>.   A larger 10 width * 16 height pixel font.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
 </tr>
 </tbody>
@@ -20218,30 +20244,38 @@ These variables control the user definable parameters of a specific GLCD.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDBackground</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_OLED_FONT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the use of the optional OLED font set.
+</p><p class="tableblock">The GLCDFNTDEFAULTSIZE can be set to 1 or 2 only.
+</p><p class="tableblock"><code>GLCDFNTDEFAULTSIZE=  1</code>.   A small 8 height pixel font with variable width.
+<code>GLCDFNTDEFAULTSIZE=  2</code>.   A larger 10 width * 16 height pixel font.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDBACKGROUND</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GLCD background state.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A monochrome value.<br>
 For mono GLCDs the default is White or 0x0001.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDForeground</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDFOREGROUND</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color of GLCD foreground.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A monochrome value.<br>
 For mono GLCDs the default is non-white or 0x0000.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDFontWidth</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDFONTWIDTH</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Width of the current GLCD font.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Default is 6 pixels.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDfntDefault</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDFNTDEFAULT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Size of the current GLCD font.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Default is 0.
 </p><p class="tableblock"></p><p class="tableblock">This equates to the standard GCB font set.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDfntDefaultsize</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCDFNTDEFAULTSIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Size of the current GLCD font.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Default is 1.
 </p><p class="tableblock"></p><p class="tableblock">This equates to the 8 pixel high.</p></td>
@@ -27161,6 +27195,192 @@ program code.</p>
     #define i2c_lcd_d5 i2c_lcd_byte.2
     #define i2c_lcd_d6 i2c_lcd_byte.1
     #define i2c_lcd_d7 i2c_lcd_byte.0</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_lcd_io_14">LCD_IO 14</h5>
+<div class="paragraph">
+<p><strong>Using connection mode 14:</strong></p>
+</div>
+<div class="paragraph">
+<p>Using this LCD IO methof the LCD is controlled via an SPI expander.</p>
+</div>
+<div class="paragraph">
+<p>To use mode 14 you must define the SPI ports as normal in your GCB code.
+Then, define the LCD type, set the SPI address of the SPI expander, and, the LCD speed, if required.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/lcd_io_14_1.png" alt="graphic">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Relevant Constants:</strong></p>
+</div>
+<div class="paragraph">
+<p>These constants are used to control settings for the LCD routines included with GCBASIC.&#160;&#160; To set them, place a line in the main program file that uses <code>#define</code> to assign a value to the particular constant.</p>
+</div>
+<div class="paragraph">
+<p>When using this mode only three constants are mandated - all others can be ignored.</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Constant Name</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Controls</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_IO</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I/O mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>14</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_SPI_DO</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microcontroller SPI data out port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_SPI_SCK</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microcontroller SPI clock out port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_SPI_CS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microcontroller SPI chip select port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Connectivity</strong></p>
+</div>
+<div class="paragraph">
+<p>The connectivity is shown below.&#160;&#160;The microcontroller connections are as shown below.&#160;&#160;This is an example using the Microchip Explorer 8 board.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    RC3 &gt; Expander SPI SCK ( clock)
+    RC5 &gt; Expander SPI SI (slave in)
+    RA2 &gt; Expander SPI CS ( chip select) - could be set to 0v0
+    RB5 &gt; Expander Reset ( optional)</pre>
+</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/lcd_io_14_2.png" alt="graphic">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Optional configuration</strong></p>
+</div>
+<div class="paragraph">
+<p>There are some options you can tweak. See the example setup below. You can play with the use of hardware or software SPI, SPI frequency ( HWSPIMODE MASTERFAST). LED speed, the connectivity between the expander and the LCD and otheroptions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        //Constants - LCD connectivity type; controls whether to use HW SPI; The inter character delay
+        #define LCD_IO 14
+        #define LCD_HARDWARESPI
+        #define LCD_SPEED FAST
+        #define HWSPIMODE MASTERFAST
+
+        //These are the phyiscal connections from the expander to the LCD.  These are automatically set in the library and are shown here purely for clarity.
+        #define     LCD_SPI_EXPD_ADDRESS        0x40     // address of the expander
+        #define LCD_SPI_EXPANDER_E_ADDRESS      0x40     // GPA6 on the expander
+        #define LCD_SPI_EXPANDER_RS_ADDRESS     0x80     // GPA7 on the expander
+
+        //Pin mappings for LCD IO SPI Expander
+        #define LCD_SPI_DO          portc.5             // constant is mandated
+        #define LCD_SPI_SCK         portc.3             // constant is mandated
+        #define LCD_SPI_CS          porta.2             // constant is required.
+        // Optional(s) reset Port.Pin connection to expander, select one.
+            // #define LCD_SPI_RESET_IN       portb.5
+            #define LCD_SPI_RESET_OUT      portb.5</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For code examples see <a href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">LCD Solutions</a>.</p>
+</div>
+<div class="paragraph">
+<p>See the separate sections of the Help file for the specifics of each
+Connection Mode.</p>
+</div>
+<div class="paragraph">
+<p><strong>For more help, see</strong>
+<a href="#_lcd_io_0">LCD_IO 0</a>, <a href="#_lcd_io_1">LCD_IO 1</a>, <a href="#_lcd_io_2">LCD_IO 2</a>
+<a href="#_lcd_io_2_74xx164">LCD_IO 2_74xx164</a>, <a href="#_lcd_io_2_74xx174">LCD_IO 2_74xx174</a>,
+<a href="#_lcd_io_4">LCD_IO 4</a>, <a href="#_lcd_io_8">LCD_IO 8</a>,
+<a href="#_lcd_io_10">LCD_IO 10</a>, <a href="#_lcd_io_10">LCD_IO 12</a></p>
+</div>
+<div class="sect5">
+<h6 id="_lcd_io_14_port_configuration">LCD_IO 14 Port Configuration</h6>
+<div class="paragraph">
+<p><strong>Using mode 14:</strong></p>
+</div>
+<div class="paragraph">
+<p>When using LCD mode 14 this is an example program to show a working solution,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        #chip 18F67K40, 8
+        #option explicit
+
+            'PPS Tool version: 0.0.6.3
+            // Generated for 18f67k40
+
+            #startup InitPPS, 85
+            #define PPSToolPart 18f67k40
+
+            Sub InitPPS
+
+                    #ifdef LCD_HARDWARESPI
+                        SSP1CLKPPS = 0x13;   //RC3-&gt;MSSP1:SCK1;
+                        RC3PPS = 0x19;   //RC3-&gt;MSSP1:SCK1;
+                        RC5PPS = 0x1A;   //RC5-&gt;MSSP1:SDO1;
+                        SSP1DATPPS = 0x14;   //RC4-&gt;MSSP1:SDI1;
+                    #endif
+
+                End Sub
+
+            //Constants - LCD connectivity type
+            #define LCD_IO 14
+
+            //Comment out to use software SPI
+            #define LCD_HARDWARESPI
+
+            #define LCD_SPEED FAST
+
+            //Optional. Can also select MASTERSLOW or MASTER.  The compiler will set automatically.
+            #define HWSPIMODE MASTERFAST
+
+            //These are phyiscal connections from the expander to the LCD.  These are automatically set in the library and are shown here purely for clarity.
+                #define     LCD_SPI_EXPD_ADDRESS        0x40
+                #define LCD_SPI_EXPANDER_E_ADDRESS      0x40     // GPA6 on the expander
+                #define LCD_SPI_EXPANDER_RS_ADDRESS     0x80     // GPA7 on the expander
+
+            //Mandated Pin mappings for LCD IO SPI Expander
+            #define LCD_SPI_DO          portc.5
+            #define LCD_SPI_SCK         portc.3
+            #define LCD_SPI_CS          porta.2
+            // Optional(s) reset Port.Pin connection to expander, select one.
+                // #define LCD_SPI_RESET_IN       portb.5
+                #define LCD_SPI_RESET_OUT      portb.5
+
+
+        ; ----- Main body of program commences here.
+
+        ClS
+        Print "Hello World"</pre>
 </div>
 </div>
 </div>
@@ -37904,6 +38124,40 @@ sending.</p>
 
 		Wait 5 ms
 	Loop</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Specific control of I2CSend</strong></p>
+</div>
+<div class="paragraph">
+<p>The I2CSend method can be controller with command(s) the change the behaviour of method.&#160;&#160;The behaviour can be changed as a Prefix or Suffix therefore the start or end of the method.</p>
+</div>
+<div class="paragraph">
+<p>The two macros ( defined constants) are I2CPreSendMacro and I2CPostSendMacro.&#160;&#160;The macros must be a single line, with colon delimiters are permitted.</p>
+</div>
+<div class="paragraph">
+<p><em>Examples</em></p>
+</div>
+<div class="paragraph">
+<p>The following defined macros change the start and end behaviour.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>		#define I2CPreSendMacro if LabI2CState &lt;&gt; True then exit Sub  'I2CPreSendMacro to ensure GLCD operations only operate within specfic lab
+		#define I2CPostSendMacro if LabI2CState = True then MSSP =1   'I2CPostSendMacro to ensure GLCD operations only operate within specfic lab setting a specific variable.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following defined macros changes- the start  behaviour to call an alternative I2CSend method.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>		#define I2CPreSendMacro     myI2CSend: exit sub
+
+
+        sub myI2CSend
+            // your i2C handler
+        end sub</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -54220,7 +54474,7 @@ The list shows the installation of the Sharp Develop IDE.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-06-30 08:53:59 GMT Summer Time
+Last updated 2023-08-18 06:18:01 GMT Summer Time
 </div>
 </div>
 </body>

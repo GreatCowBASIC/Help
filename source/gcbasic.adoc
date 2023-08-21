@@ -486,6 +486,10 @@ include::lcd_io12.adoc[]
 
 include::lcd_io12portconfiguration.adoc[]
 
+include::lcd_io14.adoc[]
+
+include::lcd_io14portconfiguration.adoc[]
+
 include::lcd_io107.adoc[]
 
 include::lcd_variants.adoc[]

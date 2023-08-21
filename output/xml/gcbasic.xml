@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2023-06-30</date>
+<date>2023-08-18</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team @ 2023</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2023-06-30<?asciidoc-br?>
-09:40:10 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2023-08-21<?asciidoc-br?>
+21:24:51 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2023-06-30<?asciidoc-br?>
-08:53:59 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2023-08-18<?asciidoc-br?>
+06:18:01 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -476,17 +476,14 @@ The name of the chip will be the same as that on the chip data file.</phrase></s
 <section xml:id="_frequently_asked_questions">
 <title>Frequently Asked Questions</title>
 <simpara><emphasis role="strong">Why doesn&#8217;t anything come up when I run GCBASIC.exe?</emphasis></simpara>
-<simpara>GCBASIC is a command line compiler. To compile a file, you can
-drag and drop it onto the GCBASIC.exe icon. There are also several
-Integrated Development Environments, or IDEs, available for GCBASIC.
-These will give you an area where you can edit your program and a button
-to send the program to the chip. Several are listed on the GCBASIC
-website.
+<simpara>GCBASIC IS a command line compiler. To compile a file, you can
+drag and drop it onto the GCBASIC.exe icon.</simpara>
+<simpara>If you use an Integrated Development Environment (IDE) you can edit your program and press an ICON  to send the program to the chip. Several are listed on the GCBASIC website.</simpara>
+<simpara>The recommended IDE for Windows is GCCODE.</simpara>
+<simpara><?asciidoc-br?>
 <?asciidoc-br?>
-<?asciidoc-br?>
-<emphasis role="strong">What Microchip PIC and Atmel AVR microcontrollers does GCBASIC support?</emphasis></simpara>
-<simpara>Hopefully, all 8 bit Microchip PIC and Atmel AVR microcontrollers (those in the PIC10, PIC12, PIC16 and
-PIC18 families). If you find one that GCBASIC does not work with
+<emphasis role="strong">What Microchip PIC, Atmel AVR or LGT microcontrollers does GCBASIC support?</emphasis></simpara>
+<simpara>Hopefully, all 8 bit Microchip PIC, Atmel AVR and LGT microcontrollers and (those in the PIC10, PIC12, PIC16 and PIC18 families). If you find one that GCBASIC does not work with
 properly, please post about it in the Compiler Problems section of the
 GCBASIC forum.
 <?asciidoc-br?>
@@ -528,17 +525,17 @@ same way by GCBASIC.
 <?asciidoc-br?>
 <?asciidoc-br?>
 <emphasis role="strong">Why is x feature not implemented?</emphasis></simpara>
-<simpara>Because it hasn&#8217;t been thought of, or no-one has been able to implement
-it! If there are any features that you would like to see in GCBASIC, please post them in the "Open Discussion" section of the GCBASIC forum. Or, if you can, have a go at adding the feature yourself!
+<simpara>Because it has not been thought of, or no-one has been able to implement
+it!</simpara>
+<simpara>If there are any features that you would like to see in GCBASIC, please post them in the "Open Discussion" section of the GCBASIC forum. Or, if you can, have a go at adding the feature yourself!
 <?asciidoc-br?>
-<?asciidoc-br?>
-<emphasis role="strong">When using an include file does this use lots of memory?</emphasis></simpara>
-<simpara>When using include files, in this instance the &lt;ds3231.h&gt; include, if
-you are not using all the functions of the include file, does GCB know
-not to include the non used functions within the include file when
-compiling, or does everything get included anyway. For instance, if I am
-not using the hardware I2C, does all the code related to hardware I2C
-still get compiled in the code?<?asciidoc-br?></simpara>
+<?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">When using an include file does this use lots of memory?</emphasis></simpara>
+<simpara>When using include files, for instance the &lt;ds3231.h&gt; include, if
+you are not using all the functions of the include file, GCBASIC knows
+not to include the  unused functions within the user program when
+compiling.</simpara>
+<simpara><emphasis role="strong">If I am using the hardware I2C, does all the code related to hardware I2C still get compiled in the code?</emphasis></simpara>
 <simpara>GCBASIC only compiles functions and subroutines if they are called.
 GCBASIC starts by compiling the main routine, then anything called from
 there. Each time it finds a new subroutine that is called, it compiles
@@ -14908,6 +14905,31 @@ Parameter is dim value</simpara></entry>
 <entry align="left" valign="top"><simpara>Not defined</simpara></entry>
 </row>
 <row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Rotate GCLD Constants</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCDYFLIP</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Define this constant to rotate the GLCD  display</simpara></entry>
+<entry align="left" valign="top"><simpara>Not defined</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCDXFLIP</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Define this constant to rotate the GLCD  display</simpara></entry>
+<entry align="left" valign="top"><simpara>Not defined</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCDXYFLIP</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Define this constant to rotate the GLCD  display</simpara></entry>
+<entry align="left" valign="top"><simpara>Not defined</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Memory Management Constants</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
 <entry align="left" valign="top"><simpara><literal>GLCD_TYPE_SSD1306_CHARACTER_MODE_ONLY</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Specifies that the display controller will operate in text mode and BMP
 draw mode only.<?asciidoc-br?>
@@ -14919,14 +14941,6 @@ When selected ONLY text related commands are suppored. For grapical commands you
 <row>
 <entry align="left" valign="top"><simpara><literal>GLCD_TYPE_SSD1306_LOWMEMORY_GLCD_MODE</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Specifies that the display controller will operate in Low Memory mode.</simpara></entry>
-<entry align="left" valign="top"><simpara>Optional</simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara><literal>GLCD_OLED_FONT</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>Specifies the use of the optional OLED font set.
-</simpara><simpara>The GLCDfntDefaultsize can be set to 1 or 2 only.
-</simpara><simpara><literal>GLCDfntDefaultsize=  1</literal>.   A small 8 height pixel font with variable width.
-<literal>GLCDfntDefaultsize=  2</literal>.   A larger 10 width * 16 height pixel font.</simpara></entry>
 <entry align="left" valign="top"><simpara>Optional</simpara></entry>
 </row>
 </tbody>
@@ -14948,30 +14962,38 @@ These variables control the user definable parameters of a specific GLCD.</simpa
 </thead>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara><literal>GLCDBackground</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>GLCD_OLED_FONT</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the use of the optional OLED font set.
+</simpara><simpara>The GLCDFNTDEFAULTSIZE can be set to 1 or 2 only.
+</simpara><simpara><literal>GLCDFNTDEFAULTSIZE=  1</literal>.   A small 8 height pixel font with variable width.
+<literal>GLCDFNTDEFAULTSIZE=  2</literal>.   A larger 10 width * 16 height pixel font.</simpara></entry>
+<entry align="left" valign="top"><simpara>Optional</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCDBACKGROUND</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>GLCD background state.</simpara></entry>
 <entry align="left" valign="top"><simpara>A monochrome value.<?asciidoc-br?>
 For mono GLCDs the default is White or 0x0001.</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>GLCDForeground</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>GLCDFOREGROUND</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Color of GLCD foreground.</simpara></entry>
 <entry align="left" valign="top"><simpara>A monochrome value.<?asciidoc-br?>
 For mono GLCDs the default is non-white or 0x0000.</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>GLCDFontWidth</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>GLCDFONTWIDTH</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Width of the current GLCD font.</simpara></entry>
 <entry align="left" valign="top"><simpara>Default is 6 pixels.</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>GLCDfntDefault</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>GLCDFNTDEFAULT</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Size of the current GLCD font.</simpara></entry>
 <entry align="left" valign="top"><simpara>Default is 0.
 </simpara><simpara></simpara><simpara>This equates to the standard GCB font set.</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>GLCDfntDefaultsize</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>GLCDFNTDEFAULTSIZE</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Size of the current GLCD font.</simpara></entry>
 <entry align="left" valign="top"><simpara>Default is 1.
 </simpara><simpara></simpara><simpara>This equates to the 8 pixel high.</simpara></entry>
@@ -20288,6 +20310,156 @@ program code.</simpara>
     #define i2c_lcd_d5 i2c_lcd_byte.2
     #define i2c_lcd_d6 i2c_lcd_byte.1
     #define i2c_lcd_d7 i2c_lcd_byte.0</screen>
+</section>
+</section>
+<section xml:id="_lcd_io_14">
+<title>LCD_IO 14</title>
+<simpara><emphasis role="strong">Using connection mode 14:</emphasis></simpara>
+<simpara>Using this LCD IO methof the LCD is controlled via an SPI expander.</simpara>
+<simpara>To use mode 14 you must define the SPI ports as normal in your GCB code.
+Then, define the LCD type, set the SPI address of the SPI expander, and, the LCD speed, if required.</simpara>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/lcd_io_14_1.png" align="center"/>
+</imageobject>
+<textobject><phrase>graphic</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara><emphasis role="strong">Relevant Constants:</emphasis></simpara>
+<simpara>These constants are used to control settings for the LCD routines included with GCBASIC.&#160;&#160; To set them, place a line in the main program file that uses <literal>#define</literal> to assign a value to the particular constant.</simpara>
+<simpara>When using this mode only three constants are mandated - all others can be ignored.</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="33*"/>
+<colspec colname="col_3" colwidth="33*"/>
+<thead>
+<row>
+<entry align="left" valign="top"><emphasis role="strong">Constant Name</emphasis></entry>
+<entry align="left" valign="top"><emphasis role="strong">Controls</emphasis></entry>
+<entry align="left" valign="top"><emphasis role="strong">Value</emphasis></entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_IO</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>I/O mode</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>14</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_SPI_DO</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Microcontroller SPI data out port</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_SPI_SCK</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Microcontroller SPI clock out port</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_SPI_CS</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Microcontroller SPI chip select port</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><emphasis role="strong">Connectivity</emphasis></simpara>
+<simpara>The connectivity is shown below.&#160;&#160;The microcontroller connections are as shown below.&#160;&#160;This is an example using the Microchip Explorer 8 board.</simpara>
+<screen>    RC3 &gt; Expander SPI SCK ( clock)
+    RC5 &gt; Expander SPI SI (slave in)
+    RA2 &gt; Expander SPI CS ( chip select) - could be set to 0v0
+    RB5 &gt; Expander Reset ( optional)</screen>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/lcd_io_14_2.png" align="center"/>
+</imageobject>
+<textobject><phrase>graphic</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara><emphasis role="strong">Optional configuration</emphasis></simpara>
+<simpara>There are some options you can tweak. See the example setup below. You can play with the use of hardware or software SPI, SPI frequency ( HWSPIMODE MASTERFAST). LED speed, the connectivity between the expander and the LCD and otheroptions.</simpara>
+<screen>        //Constants - LCD connectivity type; controls whether to use HW SPI; The inter character delay
+        #define LCD_IO 14
+        #define LCD_HARDWARESPI
+        #define LCD_SPEED FAST
+        #define HWSPIMODE MASTERFAST
+
+        //These are the phyiscal connections from the expander to the LCD.  These are automatically set in the library and are shown here purely for clarity.
+        #define     LCD_SPI_EXPD_ADDRESS        0x40     // address of the expander
+        #define LCD_SPI_EXPANDER_E_ADDRESS      0x40     // GPA6 on the expander
+        #define LCD_SPI_EXPANDER_RS_ADDRESS     0x80     // GPA7 on the expander
+
+        //Pin mappings for LCD IO SPI Expander
+        #define LCD_SPI_DO          portc.5             // constant is mandated
+        #define LCD_SPI_SCK         portc.3             // constant is mandated
+        #define LCD_SPI_CS          porta.2             // constant is required.
+        // Optional(s) reset Port.Pin connection to expander, select one.
+            // #define LCD_SPI_RESET_IN       portb.5
+            #define LCD_SPI_RESET_OUT      portb.5</screen>
+<simpara>For code examples see <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">LCD Solutions</link>.</simpara>
+<simpara>See the separate sections of the Help file for the specifics of each
+Connection Mode.</simpara>
+<simpara><emphasis role="strong">For more help, see</emphasis>
+<link linkend="_lcd_io_0">LCD_IO 0</link>, <link linkend="_lcd_io_1">LCD_IO 1</link>, <link linkend="_lcd_io_2">LCD_IO 2</link>
+<link linkend="_lcd_io_2_74xx164">LCD_IO 2_74xx164</link>, <link linkend="_lcd_io_2_74xx174">LCD_IO 2_74xx174</link>,
+<link linkend="_lcd_io_4">LCD_IO 4</link>, <link linkend="_lcd_io_8">LCD_IO 8</link>,
+<link linkend="_lcd_io_10">LCD_IO 10</link>, <link linkend="_lcd_io_10">LCD_IO 12</link></simpara>
+<section xml:id="_lcd_io_14_port_configuration">
+<title>LCD_IO 14 Port Configuration</title>
+<simpara><emphasis role="strong">Using mode 14:</emphasis></simpara>
+<simpara>When using LCD mode 14 this is an example program to show a working solution,</simpara>
+<screen>        #chip 18F67K40, 8
+        #option explicit
+
+            'PPS Tool version: 0.0.6.3
+            // Generated for 18f67k40
+
+            #startup InitPPS, 85
+            #define PPSToolPart 18f67k40
+
+            Sub InitPPS
+
+                    #ifdef LCD_HARDWARESPI
+                        SSP1CLKPPS = 0x13;   //RC3-&gt;MSSP1:SCK1;
+                        RC3PPS = 0x19;   //RC3-&gt;MSSP1:SCK1;
+                        RC5PPS = 0x1A;   //RC5-&gt;MSSP1:SDO1;
+                        SSP1DATPPS = 0x14;   //RC4-&gt;MSSP1:SDI1;
+                    #endif
+
+                End Sub
+
+            //Constants - LCD connectivity type
+            #define LCD_IO 14
+
+            //Comment out to use software SPI
+            #define LCD_HARDWARESPI
+
+            #define LCD_SPEED FAST
+
+            //Optional. Can also select MASTERSLOW or MASTER.  The compiler will set automatically.
+            #define HWSPIMODE MASTERFAST
+
+            //These are phyiscal connections from the expander to the LCD.  These are automatically set in the library and are shown here purely for clarity.
+                #define     LCD_SPI_EXPD_ADDRESS        0x40
+                #define LCD_SPI_EXPANDER_E_ADDRESS      0x40     // GPA6 on the expander
+                #define LCD_SPI_EXPANDER_RS_ADDRESS     0x80     // GPA7 on the expander
+
+            //Mandated Pin mappings for LCD IO SPI Expander
+            #define LCD_SPI_DO          portc.5
+            #define LCD_SPI_SCK         portc.3
+            #define LCD_SPI_CS          porta.2
+            // Optional(s) reset Port.Pin connection to expander, select one.
+                // #define LCD_SPI_RESET_IN       portb.5
+                #define LCD_SPI_RESET_OUT      portb.5
+
+
+        ; ----- Main body of program commences here.
+
+        ClS
+        Print "Hello World"</screen>
 </section>
 </section>
 <section xml:id="_lcd_io_107">
@@ -27965,6 +28137,20 @@ sending.</simpara>
 
 		Wait 5 ms
 	Loop</screen>
+<simpara><emphasis role="strong">Specific control of I2CSend</emphasis></simpara>
+<simpara>The I2CSend method can be controller with command(s) the change the behaviour of method.&#160;&#160;The behaviour can be changed as a Prefix or Suffix therefore the start or end of the method.</simpara>
+<simpara>The two macros ( defined constants) are I2CPreSendMacro and I2CPostSendMacro.&#160;&#160;The macros must be a single line, with colon delimiters are permitted.</simpara>
+<simpara><emphasis>Examples</emphasis></simpara>
+<simpara>The following defined macros change the start and end behaviour.</simpara>
+<screen>		#define I2CPreSendMacro if LabI2CState &lt;&gt; True then exit Sub  'I2CPreSendMacro to ensure GLCD operations only operate within specfic lab
+		#define I2CPostSendMacro if LabI2CState = True then MSSP =1   'I2CPostSendMacro to ensure GLCD operations only operate within specfic lab setting a specific variable.</screen>
+<simpara>The following defined macros changes- the start  behaviour to call an alternative I2CSend method.</simpara>
+<screen>		#define I2CPreSendMacro     myI2CSend: exit sub
+
+
+        sub myI2CSend
+            // your i2C handler
+        end sub</screen>
 <simpara>Supported in &lt;I2C.H&gt;</simpara>
 </section>
 <section xml:id="_i2cstart">

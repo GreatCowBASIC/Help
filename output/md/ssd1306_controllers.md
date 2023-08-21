@@ -152,22 +152,40 @@ the table below.
 <td style="text-align: left;"><p>Not defined</p></td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"><p><span class="strong"><strong>Rotate GCLD Constants</strong></span></p></td>
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p><code class="literal">GLCDYFLIP</code></p></td>
+<td style="text-align: left;"><p>Define this constant to rotate the GLCD display</p></td>
+<td style="text-align: left;"><p>Not defined</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">GLCDXFLIP</code></p></td>
+<td style="text-align: left;"><p>Define this constant to rotate the GLCD display</p></td>
+<td style="text-align: left;"><p>Not defined</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p><code class="literal">GLCDXYFLIP</code></p></td>
+<td style="text-align: left;"><p>Define this constant to rotate the GLCD display</p></td>
+<td style="text-align: left;"><p>Not defined</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p><span class="strong"><strong>Memory Management Constants</strong></span></p></td>
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;"><p><code class="literal">GLCD_TYPE_SSD1306_CHARACTER_MODE_ONLY</code></p></td>
 <td style="text-align: left;"><p>Specifies that the display controller will operate in text mode and BMP draw mode only.<br />
 For microcontrollers with low RAM this will be set be default.<br />
 When selected ONLY text related commands are suppored. For grapical commands you must have sufficient memory to use Full GLCD mode or use <code class="literal">GLCD_TYPE_SSD1306_LOWMEMORY_GLCD_MODE</code></p></td>
 <td style="text-align: left;"><p>Optional</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><code class="literal">GLCD_TYPE_SSD1306_LOWMEMORY_GLCD_MODE</code></p></td>
 <td style="text-align: left;"><p>Specifies that the display controller will operate in Low Memory mode.</p></td>
-<td style="text-align: left;"><p>Optional</p></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><p><code class="literal">GLCD_OLED_FONT</code></p></td>
-<td style="text-align: left;"><p>Specifies the use of the optional OLED font set.</p>
-<p>The GLCDfntDefaultsize can be set to 1 or 2 only.</p>
-<p><code class="literal">GLCDfntDefaultsize=  1</code>. A small 8 height pixel font with variable width. <code class="literal">GLCDfntDefaultsize=  2</code>. A larger 10 width * 16 height pixel font.</p></td>
 <td style="text-align: left;"><p>Optional</p></td>
 </tr>
 </tbody>
@@ -191,30 +209,37 @@ of a specific GLCD.
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><p><code class="literal">GLCDBackground</code></p></td>
+<td style="text-align: left;"><p><code class="literal">GLCD_OLED_FONT</code></p></td>
+<td style="text-align: left;"><p>Specifies the use of the optional OLED font set.</p>
+<p>The GLCDFNTDEFAULTSIZE can be set to 1 or 2 only.</p>
+<p><code class="literal">GLCDFNTDEFAULTSIZE=  1</code>. A small 8 height pixel font with variable width. <code class="literal">GLCDFNTDEFAULTSIZE=  2</code>. A larger 10 width * 16 height pixel font.</p></td>
+<td style="text-align: left;"><p>Optional</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">GLCDBACKGROUND</code></p></td>
 <td style="text-align: left;"><p>GLCD background state.</p></td>
 <td style="text-align: left;"><p>A monochrome value.<br />
 For mono GLCDs the default is White or 0x0001.</p></td>
 </tr>
-<tr class="even">
-<td style="text-align: left;"><p><code class="literal">GLCDForeground</code></p></td>
+<tr class="odd">
+<td style="text-align: left;"><p><code class="literal">GLCDFOREGROUND</code></p></td>
 <td style="text-align: left;"><p>Color of GLCD foreground.</p></td>
 <td style="text-align: left;"><p>A monochrome value.<br />
 For mono GLCDs the default is non-white or 0x0000.</p></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;"><p><code class="literal">GLCDFontWidth</code></p></td>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">GLCDFONTWIDTH</code></p></td>
 <td style="text-align: left;"><p>Width of the current GLCD font.</p></td>
 <td style="text-align: left;"><p>Default is 6 pixels.</p></td>
 </tr>
-<tr class="even">
-<td style="text-align: left;"><p><code class="literal">GLCDfntDefault</code></p></td>
+<tr class="odd">
+<td style="text-align: left;"><p><code class="literal">GLCDFNTDEFAULT</code></p></td>
 <td style="text-align: left;"><p>Size of the current GLCD font.</p></td>
 <td style="text-align: left;"><p>Default is 0.</p>
 <p>This equates to the standard GCB font set.</p></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;"><p><code class="literal">GLCDfntDefaultsize</code></p></td>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">GLCDFNTDEFAULTSIZE</code></p></td>
 <td style="text-align: left;"><p>Size of the current GLCD font.</p></td>
 <td style="text-align: left;"><p>Default is 1.</p>
 <p>This equates to the 8 pixel high.</p></td>

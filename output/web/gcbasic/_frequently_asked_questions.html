@@ -16,7 +16,7 @@
       <link rel="next" href="_troubleshooting.html" title="Troubleshooting" />
       <meta name="Section-title" content="Frequently Asked Questions" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53148";
+            var treeCookieId = "treeview-53379";
             var language = "en";
             var w = new Object();
             //Localization
@@ -183,17 +183,18 @@ border: none; background: none; font-weight: none; color: none; }
                </div>
             </div>
             <p><span class="strong"><strong>Why doesn’t anything come up when I run GCBASIC.exe?</strong></span></p>
-            <p>GCBASIC is a command line compiler. To compile a file, you can
-               drag and drop it onto the GCBASIC.exe icon. There are also several
-               Integrated Development Environments, or IDEs, available for GCBASIC.
-               These will give you an area where you can edit your program and a button
-               to send the program to the chip. Several are listed on the GCBASIC
-               website.
+            <p>GCBASIC IS a command line compiler. To compile a file, you can
+               drag and drop it onto the GCBASIC.exe icon.
+            </p>
+            <p>If you use an Integrated Development Environment (IDE) you can edit your program and press an ICON  to send the program to
+               the chip. Several are listed on the GCBASIC website.
+            </p>
+            <p>The recommended IDE for Windows is GCCODE.</p>
+            <p><br />
                <br />
-               <br />
-               <span class="strong"><strong>What Microchip PIC and Atmel AVR microcontrollers does GCBASIC support?</strong></span></p>
-            <p>Hopefully, all 8 bit Microchip PIC and Atmel AVR microcontrollers (those in the PIC10, PIC12, PIC16 and
-               PIC18 families). If you find one that GCBASIC does not work with
+               <span class="strong"><strong>What Microchip PIC, Atmel AVR or LGT microcontrollers does GCBASIC support?</strong></span></p>
+            <p>Hopefully, all 8 bit Microchip PIC, Atmel AVR and LGT microcontrollers and (those in the PIC10, PIC12, PIC16 and PIC18 families).
+               If you find one that GCBASIC does not work with
                properly, please post about it in the Compiler Problems section of the
                GCBASIC forum.
                <br />
@@ -224,18 +225,20 @@ border: none; background: none; font-weight: none; color: none; }
                <br />
                <br />
                <span class="strong"><strong>Why is x feature not implemented?</strong></span></p>
-            <p>Because it hasn’t been thought of, or no-one has been able to implement
-               it! If there are any features that you would like to see in GCBASIC, please post them in the "Open Discussion" section of
-               the GCBASIC forum. Or, if you can, have a go at adding the feature yourself!
+            <p>Because it has not been thought of, or no-one has been able to implement
+               it!
+            </p>
+            <p>If there are any features that you would like to see in GCBASIC, please post them in the "Open Discussion" section of the
+               GCBASIC forum. Or, if you can, have a go at adding the feature yourself!
                <br />
-               <br />
-               <span class="strong"><strong>When using an include file does this use lots of memory?</strong></span></p>
-            <p>When using include files, in this instance the &lt;ds3231.h&gt; include, if
-               you are not using all the functions of the include file, does GCB know
-               not to include the non used functions within the include file when
-               compiling, or does everything get included anyway. For instance, if I am
-               not using the hardware I2C, does all the code related to hardware I2C
-               still get compiled in the code?<br /></p>
+               <br /></p>
+            <p><span class="strong"><strong>When using an include file does this use lots of memory?</strong></span></p>
+            <p>When using include files, for instance the &lt;ds3231.h&gt; include, if
+               you are not using all the functions of the include file, GCBASIC knows
+               not to include the  unused functions within the user program when
+               compiling.
+            </p>
+            <p><span class="strong"><strong>If I am using the hardware I2C, does all the code related to hardware I2C still get compiled in the code?</strong></span></p>
             <p>GCBASIC only compiles functions and subroutines if they are called.
                GCBASIC starts by compiling the main routine, then anything called from
                there. Each time it finds a new subroutine that is called, it compiles
@@ -540,6 +543,10 @@ border: none; background: none; font-weight: none; color: none; }
                                           </li>
                                           <li><span class="file"><a href="_lcd_io_12.html" tabindex="1">LCD_IO 12</a></span><ul>
                                                 <li><span class="file"><a href="_lcd_io_12_port_configuration.html" tabindex="1">LCD_IO 12 Port Configuration</a></span></li>
+                                             </ul>
+                                          </li>
+                                          <li><span class="file"><a href="_lcd_io_14.html" tabindex="1">LCD_IO 14</a></span><ul>
+                                                <li><span class="file"><a href="_lcd_io_14_port_configuration.html" tabindex="1">LCD_IO 14 Port Configuration</a></span></li>
                                              </ul>
                                           </li>
                                           <li><span class="file"><a href="_lcd_io_107.html" tabindex="1">LCD_IO 107</a></span></li>
