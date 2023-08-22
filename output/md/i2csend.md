@@ -145,16 +145,54 @@ The following defined macros change the start and end behaviour.
         #define I2CPostSendMacro if LabI2CState = True then MSSP =1   'I2CPostSendMacro to ensure GLCD operations only operate within specfic lab setting a specific variable.
 ```
 
-The following defined macros changes- the start behaviour to call an
+The following defined macro changes- the start behaviour to call an
 alternative I2CSend method.
 
 ``` screen
-        #define I2CPreSendMacro     myI2CSend: exit sub
+     #define I2CPreSendMacro     myI2CSend: exit sub
 
 
         sub myI2CSend
             // your i2C handler
         end sub
+```
+
+The following defined macros changes- the start behaviour to call an
+alternative I2CSend method, then jump to the I2CPostSendMacroLabel which
+is at the end of I2CSend method.
+
+``` screen
+     #define I2CPreSendMacro         myI2CSend: goto I2CPostSendMacroLabel
+        #define I2CPostSendMacro        NOP
+
+        sub myI2CSend
+            // your i2C handler
+        end sub
+```
+
+This will generate the following ASM.  The I2CPreSendMacro calls the
+MYI2CSEND() methhod, then BRAnches to the label I2CPOSTSENDMACROLABEL as
+the end of the method.
+
+``` screen
+      ;Source: i2c.h (339)
+        I2CSEND
+        ;I2CPreSendMacro
+            rcall   MYI2CSEND
+            bra I2CPOSTSENDMACROLABEL
+        ;I2C_CLOCK_LOW                 'begin with SCL=0
+            bcf TRISC,3,ACCESS
+            bcf LATC,3,ACCESS
+        ...
+        lots of ASM
+        ...
+        ;wait I2C_BIT_DELAY            'wait the usual bit length
+            nop
+            nop
+        I2CPOSTSENDMACROLABEL
+        ;I2CPostSendMacro
+            nop
+            return
 ```
 
 Supported in &lt;I2C.H&gt;
