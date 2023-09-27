@@ -42,6 +42,53 @@ Now you can create and compile GCBASIC source files.
 
 To program your microcontroller with your GCBASIC created hex file, you will need additional programming and programmer software.
 
-For Microchip PIC microcontroller programming, you might find what you need at: http://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120
+For Microchip PIC microcontroller programming, you might find what you need at: www.pickitplus.co.uk  The PICKitPlus Team provide programmers and Linux software.
 
 For Atmel AVR microcontroller programming, you will need `avrdude`. It should be available in your distributions repository. If not, check here: http://www.nongnu.org/avrdude/
+
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+
+=== Overview - Make ASM, Make HEX and Programming Operations using the provider Linux scripts
+
+The scripts provided are intented assist in the creation of the ASM file ( from a GCBASIC source file ), creation of the HEX file ( also from a GCBASIC source file ) and to support programming operations ( often called `FLASH`ing the microcontroller ).
+
+[cols=3, options="header,autowidth",width="80%"]
+|===
+|*Script*
+|*Usage*
+|*Example*
+
+|`makeasm.sh`
+|To compile the GCBASIC source program to create the ASM.
+|`makeasm.sh sourcefile.gcb`
+
+
+|`makehex.sh``
+|To compile and asseble the GCBASIC source program to create the ASM and a microcontroller specific HEX file.
+|`makehex.sh sourcefile.gcb`
+
+
+|flash.sh
+|To compile,asseble the GCBASIC source program to create the ASM and a microcontroller specific HEX file, and, then to program the microcontroller
+|`flash.sh sourcefile.gcb`
+
+|===
+
+*Examples*
+
+There are multiple constructs to run multiple programs on a single command line.&#160;&#160;The most common are ';' and '&&'
+
+To run another command immadiately after running makehex.sh.&#160;&#160;Use the following: 
+----
+   makehex.sh sourcefile.gcb; anothercommand
+----
+
+To run another command only if makehex.sh does not exit with an error such as a compiler error.&#160;&#160;Use the following: 
+
+----
+   makehex.sh sourcefile.gcb && anothercommand
+----
+
