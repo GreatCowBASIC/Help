@@ -66,12 +66,12 @@ The scripts provided are intented assist in the creation of the ASM file ( from 
 |`makeasm.sh sourcefile.gcb`
 
 
-|`makehex.sh``
+|`makehex.sh`
 |To compile and asseble the GCBASIC source program to create the ASM and a microcontroller specific HEX file.
 |`makehex.sh sourcefile.gcb`
 
 
-|flash.sh
+|`flash.sh`
 |To compile,asseble the GCBASIC source program to create the ASM and a microcontroller specific HEX file, and, then to program the microcontroller
 |`flash.sh sourcefile.gcb`
 
