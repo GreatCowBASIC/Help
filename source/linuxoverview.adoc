@@ -14,12 +14,12 @@ Complete the following steps to compile and install GCBASIC for Linux:
  . Download the "GCBASIC - Linux Distribution" from SourceForge at https://sourceforge.net/projects/gcbasic/files/
 
 
- . Unrar/unpack GCB@Syn.rar to a location of your choice within your home directory (eg. within Downloads) with either a file manager or from a console.
+ . Unrar/unpack GCBASIC.rar to a location of your choice within your home directory (eg. within Downloads) with either a file manager or from a console.
 
 
  . From a console, change to the GCBASIC Sources in the unpacked directory:
 ----
-   eg. cd ~/Downloads/GCB@Syn/GCBASIC/Sources/GCBASIC
+   eg. cd ~/Downloads/sources/linuxbuild/
 ----
 [start=5]
  . Make sure that `install.sh` is set as executable (ie. `chmod +x install.sh`), and then execute: ./install.sh build
