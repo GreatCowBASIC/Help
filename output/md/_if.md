@@ -6,7 +6,7 @@
 
 <div>
 
-### <span id="_if"></span>\#if
+#### <span id="_if"></span>If
 
 </div>
 
@@ -17,50 +17,95 @@
 <span class="strong">**Syntax:**</span>
 
 ``` screen
-    #if Condition
-      ...
-    [#else]
-      ...
-    #endif
+Short form:
+
+    If condition Then command
+
+Long form:
+
+    If condition Then
+    ...
+    program code
+    ...
+    End If
+
+Using Else:
+
+    If condition Then
+      code to run if true
+    Else
+      code to run if false
+    End If
+
+Using If Else:
+
+    If condition Then
+      code to run if true
+    Else if nextcondition then
+      code to run if nextcondition true
+    Else
+      code to run if false
+    End If
 ```
+
+<span class="strong">**Command Availability:**</span>
+
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `#if` directive is used to prevent a section of code from compiling
-unless `Condition` is true.
+The `If` command is the most common command used to make decisions. If
+`condition` is `true`, then `command` (short) or `program code` (long)
+will be run. If it is `false`, then the microcontroller will skip to the
+code located on the next line (short) or after the `End If` (long form).
 
-`Condition` has the same syntax as the condition in a normal GCBASIC if
-command. The only difference is that it uses constants instead of
-variables and does not use "then".
+If `Else` is used, then the condition between `If` and `Else` will run
+if the condition is `true`, and the code between `Else` and `End If`
+will run if the condition is `false`.
+
+If `Else if` is used, then the condition after the `Else if` will run if
+the condition is `true`.
+
+<span class="strong">**Note:**</span> `Else` must be on a separate line
+in the source code.
+
+Supported:
+
+``` screen
+    <instruction> 'is supported
+    Else
+    <instruction>
+```
+
+``` screen
+    <instruction> Else 'Not Supported, but will compile
+    <instruction>
+```
 
 <span class="strong">**Example:**</span>
 
 ``` screen
-    'This program will pulse an adjustable number of pins on PORTB
-    'The number of pins is controlled by the FlashPins constant
-    #chip 16F88, 8
+    'Turn a light on or off depending on a light sensor
 
-    'The number of pins to flash
-    #define FlashPins 2
+    #chip 12F683, 8
 
-    'Initialise
-    Dir PORTB Out
+    #define LIGHT GPIO.1
+    #define SENSOR AN3
+    #define SENSOR_PORT GPIO.4
 
-    'Main loop
+    Dir LIGHT Out
+    Dir SENSOR_PORT In
+
     Do
-        #if FlashPins >= 1
-            PulseOut PORTB.0, 250 ms
-        #endif
-        #if FlashPins >= 2
-            PulseOut PORTB.1, 250 ms
-        #endif
-        #if FlashPins >= 3
-            PulseOut PORTB.2, 250 ms
-        #endif
-        #if FlashPins >= 4
-            PulseOut PORTB.3, 250 ms
-        #endif
+      If ReadAD(SENSOR) > 128 Then
+        Set LIGHT Off
+      Else
+        Set LIGHT On
+      End If
     Loop
 ```
+
+<span class="strong">**For more help, see
+<a href="_conditions.html" class="link" title="Conditions">Conditions</a>**</span>
 
 </div>
