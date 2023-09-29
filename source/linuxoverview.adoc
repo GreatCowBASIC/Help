@@ -53,7 +53,7 @@ For Atmel AVR microcontroller programming, you will need `avrdude`. It should be
 
 === Make ASM, Make HEX and Programming Operations using the provided Linux scripts
 
-The scripts provided are intented assist in the creation of the ASM file ( from a GCBASIC source file ), creation of the HEX file ( also from a GCBASIC source file ) and to support programming operations ( often called `FLASH`ing the microcontroller ).
+The scripts provided are intended to assist in the creation of the ASM file ( from a GCBASIC source file ), creation of the HEX file ( also from a GCBASIC source file ) and to support programming operations ( often called `FLASH`ing the microcontroller ).
 
 [cols=3, options="header,autowidth",width="80%"]
 |===
