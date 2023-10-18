@@ -33,7 +33,7 @@ Select the URL to view the link:SSP0700A.pdf[LCD Module PDF User Manual]
 *Display*
 
 LT768x is a high-performance TFT-LCD graphic accelerated display controller.&#160;&#160;
-The LT768x supports the control of the contents on the TFT screen.&#160;&#16;
+The LT768x supports the control of the contents on the TFT screen.&#160;&#160;
 The LT768x also provides graphic acceleration, PIP (picture-in-picture), geometry graphics and other functions.&#160;&#160;
 In addition to enhancing the display efficiency, LT768x can also ease the MCU loading on processing graphic data.&#160;&#160;
 The LT768x supports 16bit RGB interface.&#160;&#160;
@@ -90,7 +90,7 @@ Communications.
 
 The GLCD comes with a 20 way ribbon cable.&#160;&#160;This could be connected to the 3-wire SPI Interface connector.
 
-.Surunoo Display
+.Surunoo PCB
 [#img-pcb,image=pcboverview.jpg] 
 image::pcboverview.jpg[display,50%,align="center"]  
 {empty} +
@@ -98,13 +98,9 @@ image::pcboverview.jpg[display,50%,align="center"]
 
 To provide a robust connection a Straight Surface Mount Pin Header is recommended.
 
-
 Mfr. Part No.:
-TSM-110-01-F-DV   link:A700000007168287.pdf[Connector Datasheet]
-Brand:
-Samtec
 
-https://uk.rs-online.com/web/p/pcb-headers/2086379
+Samtec TSM-110-01-F-DV   link:A700000007168287.pdf[Connector Datasheet]. An example  link:https://uk.rs-online.com/web/p/pcb-headers/2086379[product  listing]
 
 
 == Operating Voltage of the GLCD
