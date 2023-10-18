@@ -65,6 +65,8 @@ This GLCD library has many features similar to the Nextion GLCD.  However, GCBAS
 .Surunoo Display
 [#img-display,image=7inchdisplay.png,] 
 image::7inchdisplay.png[display,50%,align="center"]  
+{empty} +
+{empty} +
 
 
 
@@ -91,8 +93,8 @@ The GLCD comes with a 20 way ribbon cable.&#160;&#160;This could be connected to
 .Surunoo Display
 [#img-pcb,image=pcboverview.jpg] 
 image::pcboverview.jpg[display,50%,align="center"]  
-
-
+{empty} +
+{empty} +
 
 To provide a robust connection a Straight Surface Mount Pin Header is recommended.
 
