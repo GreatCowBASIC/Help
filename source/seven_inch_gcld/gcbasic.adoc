@@ -24,15 +24,15 @@ If there is anything else that you need help on, please visit the *GCBASIC forum
 
 == 7 Inch GLCD Library
 
-The 7 Inch GLCD Library supports the 7.0 Inch 1024*600 or 800*480 with the LT7686 controller with 3 or 4 Wire Serial SPI interface.&#160;&#160;
+The 7 Inch GLCD Library uses the SSP0700 Series displays.  The GLCD supports 7.0 Inch 1024*600 or 800*480 with the LT7686 controller with 3 or 4 Wire Serial SPI interface.&#160;&#160;
 The library also supports Capacitive Touch Panel with the GT5426 with an I2C interface.
 
-link:SSP0700A.pdf[Overview]
+Select the URL to view the link:SSP0700A.pdf[LCD Module PDF User Manual]
 
 
-*GLCD*
+*Display*
 
-LT768x is a series of high-performance TFT-LCD graphic accelerated display controllers.&#160;&#160;
+LT768x is a high-performance TFT-LCD graphic accelerated display controller.&#160;&#160;
 The LT768x supports the control of the contents on the TFT screen.&#160;&#16;
 The LT768x also provides graphic acceleration, PIP (picture-in-picture), geometry graphics and other functions.&#160;&#160;
 In addition to enhancing the display efficiency, LT768x can also ease the MCU loading on processing graphic data.&#160;&#160;
@@ -42,11 +42,10 @@ LT768x supports a variety of MCU interface, including SPI, I2C serial port,
 and 8-bit/16-bit parallel interface.&#160;&#160;The GCBASIC library supports SPI only, this is a constraint of the GLCD implementation.&#160;&#160;
 In order to achieve multi-layers high-resolution display effect, it has a built-in 128Mb Display RAM, which can support assorted color depths from 1bit per pixel (2 gray shades) to
 24bits per pixel (16M color), and alleviate the processing burden on MCU while displaying animation.&#160;&#160;
-With built-in geometric drawing engine, LT768X supports drawing points, lines, curves, ellipse, triangle, rectangle,
-rounded rectangle, and other functions.&#160;&#160;In addition, LT768x has an embedded hardware graphics acceleration
-engine (BTE), which provides command-type graphic operations such as screen rotation, flipping, mirroring, PIP
-and graphics blending, and transparent display. These functions can greatly enhance the display performance,
-and ease the processing burden on the MCU.  
+With built-in geometric drawing engine, LT768X supports drawing points, lines, curves, ellipse, triangle, rectangle, rounded rectangle, and other functions.
+
+&#160;&#160;In addition, LT768x has an embedded hardware graphics acceleration
+engine (BTE), which provides command-type graphic operations such as screen rotation, flipping, mirroring, PIP and graphics blending, and transparent display. These functions can greatly enhance the display performance, and ease the processing burden on the MCU.  
 
 The powerful display performance of LT768x is ideal for embedded systems with TFT-LCD displays such as home appliances, industrial controls, electronic instruments,
 medical devices, human-machine interfaces, industrial equipment, inspection equipment, charging stations, multi-function machines, elevator, check-in gate, etc.
@@ -54,28 +53,26 @@ medical devices, human-machine interfaces, industrial equipment, inspection equi
 
 The GLCD operating voltage (VCC) is 5v0 with microcontroller signals at 3v3.
 
-The glcd has a shape drawing engine to provide smart drawing features:  Line, Rectangle, Triangle, Polygon, Poly-Line, Circle, Ellipse, Arc, and Rounded-Rectangle. 
+The GLCD has a shape drawing engine to provide smart drawing features:  Line, Rectangle, Triangle, Polygon, Poly-Line, Circle, Ellipse, Arc, and Rounded-Rectangle. 
 Characters/text features  embedded 8*16, 12*24, 16*32 character sets of iso/iec 8859-1/2/4/5  user-defined characters support half size & full size for 8*16, 12*24 and 16*32
 
-link:LT768x_DS_V42_ENG.pdf[GLCD Datasheet]
+Select the URL to view the link:LT768x_DS_V42_ENG.pdf[Display Datasheet]
 
-No other GLCD has these features.  GCBASIC has to bit bang all this out.  
-So, a clear screen may not be so slow… it could be 0,0, maxX, maxY, color sent direct to the MCU!  No load on GC BASIC!
+This GLCD library has many features similar to the Nextion GLCD.  However, GCBASIC has to control more of the display events and pixel controller.  
+
+
+image::7inchdisplay.png[graphic,align="center"]
 
 *Touch*
-
-
-INTRODUCTION
 
 The FT5X26 is single-chip capacitive touch panel controllers with built-in enhanced Micro-controller unit (MCU). 
 It provides the benefits of full screen common mode scan technology,fast response time and high level of accuracy.
 It can drive capacitive type touch panel with up to 35 driving and 21 sensing lines.
 
-Operating VCC is 2.7 ~ +3.6  - does the PCB have a voltage leveller ? or, do you run the whole things at 3v3 for safety ?
-Signals at 3v3
-                
+The Touch operating voltage (VCC) is 2v7 to +3v6 with microcontroller signals at 3v3.
 
-link:FocalTech-FT5x26.pdf[Touch Datasheet]
+
+Select the URL to view the link:FocalTech-FT5x26.pdf[Touch Datasheet]
 
 Communications.
                 SPI to LCD
