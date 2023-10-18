@@ -60,8 +60,13 @@ Select the URL to view the link:LT768x_DS_V42_ENG.pdf[Display Datasheet]
 
 This GLCD library has many features similar to the Nextion GLCD.  However, GCBASIC has to control more of the display events and pixel controller.  
 
+//image::7inchdisplay.png[graphic,align="center"]
 
-image::7inchdisplay.png[graphic,align="center"]
+.Surunoo Display
+[#img-display,image=7inchdisplay.png,] 
+image::7inchdisplay.png[display,50%,align="center"]  
+
+
 
 *Touch*
 
@@ -81,7 +86,13 @@ Communications.
 == Connecting the GLCD 
 
 
-The GLCD comes with a 20 way ribbon cable.&#160;&#160;
+The GLCD comes with a 20 way ribbon cable.&#160;&#160;This could be connected to the 3-wire SPI Interface connector.
+
+.Surunoo Display
+[#img-pcb,image=pcboverview.jpg] 
+image::pcboverview.jpg[display,50%,align="center"]  
+
+
 
 To provide a robust connection a Straight Surface Mount Pin Header is recommended.
 
