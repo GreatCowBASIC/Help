@@ -1,0 +1,56 @@
+= GCBASIC documentation
+The GCBASIC development team @ 2023
+
+
+
+:toc:
+:toclevels: 5
+:imagesdir: ./images
+
+
+== Introducing the 7 Inch GLCD library
+
+Hello, and welcome to GCBASIC 7 Inch GLCD library help. This help file is intended
+to provide you insights and knowledge to use of the GCBASIC 7 Inch GLCD library.
+
+For information on installing GCBASIC and several other programs that
+may be helpful, please see *Getting Started with GCBASIC* 
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;\http://gcbasic.sourceforge.net/starting.html
+
+If there is anything else that you need help on, please visit the *GCBASIC forum*
+    
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;\http://sourceforge.net/forum/?group_id=169286
+
+== 
+
+
+7.0 Inch 1024*600 800*480 LT7686 3 4 Wire Serial SPI TFT LCD Module Display Screen GT5426 IIC I2C Capacitive Touch Panel
+
+link:FocalTech-FT5x26.pdf[Overview]
+
+
+*GLCD*
+
+Operating VCC is 5v0
+Signals at 3v3
+
+The glcd has a shape drawing engine to provide smart drawing features:  Line, Rectangle, Triangle, Polygon, Poly-Line, Circle, Ellipse, Arc, and Rounded-Rectangle. 
+Characters/text features  embedded 8*16, 12*24, 16*32 character sets of iso/iec 8859-1/2/4/5  user-defined characters support half size & full size for 8*16, 12*24 and 16*32
+Support Rotate 90 Degrees
+
+link:LT768x_DS_V42_ENG.pdf[GLCD Datasheet]
+
+No other GLCD has these features.  GCBASIC has to bit bang all this out.  
+So, a clear screen may not be so slow… it could be 0,0, maxX, maxY, color sent direct to the MCU!  No load on GC BASIC!
+
+*Touch*
+Operating VCC is 2.7 ~ +3.6  - does the PCB have a voltage leveller ? or, do you run the whole things at 3v3 for safety ?
+Signals at 3v3
+                
+
+link:FocalTech-FT5x26.pdf[Touch Datasheet]
+
+Communications.
+                SPI to LCD
+                I2C to Touch
