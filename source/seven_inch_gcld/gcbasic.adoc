@@ -22,54 +22,40 @@ If there is anything else that you need help on, please visit the *GCBASIC forum
     
 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;\http://sourceforge.net/forum/?group_id=169286
 
-== 
+== 7 Inch GLCD Library
 
-
-7.0 Inch 1024*600 or 800*480 LT7686 3 4 Wire Serial SPI TFT LCD Module Display Screen GT5426 IIC I2C Capacitive Touch Panel
-
-
-
-
-
-
-
+The 7 Inch GLCD Library supports the 7.0 Inch 1024*600 or 800*480 with the LT7686 controller with 3 or 4 Wire Serial SPI interface.&#160;&#160;
+The library also supports Capacitive Touch Panel with the GT5426 with an I2C interface.
 
 link:SSP0700A.pdf[Overview]
 
 
 *GLCD*
 
-LT768x is a series of high-performance TFT-LCD graphic accelerated
-display controllers. Its main function is to assist MCU to display the
-contents on the TFT screen. LT768x provides graphic acceleration, PIP
-(picture-in-picture), geometry graphics and other functions. In addition to
-enhancing the display efficiency, LT768x can also ease the MCU loading
-on processing graphic data. LT768x supports 16/18/24-bits RGB interface
-TFT LCD with various display resolutions ranging from 320*240 (QVGA)
-to 1280*1024 (SXGA).
+LT768x is a series of high-performance TFT-LCD graphic accelerated display controllers.&#160;&#160;
+The LT768x supports the control of the contents on the TFT screen.&#160;&#16;
+The LT768x also provides graphic acceleration, PIP (picture-in-picture), geometry graphics and other functions.&#160;&#160;
+In addition to enhancing the display efficiency, LT768x can also ease the MCU loading on processing graphic data.&#160;&#160;
+The LT768x supports 16bit RGB interface.&#160;&#160;
 
 LT768x supports a variety of MCU interface, including SPI, I2C serial port,
-and 8-bit/16-bit parallel interface. In order to achieve multi-layers
-high-resolution display effect, it has a built-in 128Mb Display RAM, which
-can support assorted color depths from 1bit per pixel (2 gray shades) to
-24bits per pixel (16M color), and alleviate the processing burden on MCU while displaying animation. With
-built-in geometric drawing engine, LT768X supports drawing points, lines, curves, ellipse, triangle, rectangle,
-rounded rectangle, and other functions. In addition, LT768x has an embedded hardware graphics acceleration
+and 8-bit/16-bit parallel interface.&#160;&#160;The GCBASIC library supports SPI only, this is a constraint of the GLCD implementation.&#160;&#160;
+In order to achieve multi-layers high-resolution display effect, it has a built-in 128Mb Display RAM, which can support assorted color depths from 1bit per pixel (2 gray shades) to
+24bits per pixel (16M color), and alleviate the processing burden on MCU while displaying animation.&#160;&#160;
+With built-in geometric drawing engine, LT768X supports drawing points, lines, curves, ellipse, triangle, rectangle,
+rounded rectangle, and other functions.&#160;&#160;In addition, LT768x has an embedded hardware graphics acceleration
 engine (BTE), which provides command-type graphic operations such as screen rotation, flipping, mirroring, PIP
 and graphics blending, and transparent display. These functions can greatly enhance the display performance,
-and ease the processing burden on the MCU. Furthermore, users can use SPI interface to connect with MCU,
-and save the I/O ports of the MCU for other purposes. The powerful display performance of LT768x is ideal for
-embedded systems with TFT-LCD displays such as home appliances, industrial controls, electronic instruments,
-medical devices, human-machine interfaces, industrial equipment, inspection equipment, charging stations,
-multi-function machines, elevator, check-in gate, etc.
+and ease the processing burden on the MCU.  
+
+The powerful display performance of LT768x is ideal for embedded systems with TFT-LCD displays such as home appliances, industrial controls, electronic instruments,
+medical devices, human-machine interfaces, industrial equipment, inspection equipment, charging stations, multi-function machines, elevator, check-in gate, etc.
 
 
-Operating VCC is 5v0
-Signals at 3v3
+The GLCD operating voltage (VCC) is 5v0 with microcontroller signals at 3v3.
 
 The glcd has a shape drawing engine to provide smart drawing features:  Line, Rectangle, Triangle, Polygon, Poly-Line, Circle, Ellipse, Arc, and Rounded-Rectangle. 
 Characters/text features  embedded 8*16, 12*24, 16*32 character sets of iso/iec 8859-1/2/4/5  user-defined characters support half size & full size for 8*16, 12*24 and 16*32
-Support Rotate 90 Degrees
 
 link:LT768x_DS_V42_ENG.pdf[GLCD Datasheet]
 
