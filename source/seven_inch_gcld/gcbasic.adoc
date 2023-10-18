@@ -25,12 +25,44 @@ If there is anything else that you need help on, please visit the *GCBASIC forum
 == 
 
 
-7.0 Inch 1024*600 800*480 LT7686 3 4 Wire Serial SPI TFT LCD Module Display Screen GT5426 IIC I2C Capacitive Touch Panel
+7.0 Inch 1024*600 or 800*480 LT7686 3 4 Wire Serial SPI TFT LCD Module Display Screen GT5426 IIC I2C Capacitive Touch Panel
 
-link:FocalTech-FT5x26.pdf[Overview]
+
+
+
+
+
+
+
+link:SSP0700A.pdf[Overview]
 
 
 *GLCD*
+
+LT768x is a series of high-performance TFT-LCD graphic accelerated
+display controllers. Its main function is to assist MCU to display the
+contents on the TFT screen. LT768x provides graphic acceleration, PIP
+(picture-in-picture), geometry graphics and other functions. In addition to
+enhancing the display efficiency, LT768x can also ease the MCU loading
+on processing graphic data. LT768x supports 16/18/24-bits RGB interface
+TFT LCD with various display resolutions ranging from 320*240 (QVGA)
+to 1280*1024 (SXGA).
+
+LT768x supports a variety of MCU interface, including SPI, I2C serial port,
+and 8-bit/16-bit parallel interface. In order to achieve multi-layers
+high-resolution display effect, it has a built-in 128Mb Display RAM, which
+can support assorted color depths from 1bit per pixel (2 gray shades) to
+24bits per pixel (16M color), and alleviate the processing burden on MCU while displaying animation. With
+built-in geometric drawing engine, LT768X supports drawing points, lines, curves, ellipse, triangle, rectangle,
+rounded rectangle, and other functions. In addition, LT768x has an embedded hardware graphics acceleration
+engine (BTE), which provides command-type graphic operations such as screen rotation, flipping, mirroring, PIP
+and graphics blending, and transparent display. These functions can greatly enhance the display performance,
+and ease the processing burden on the MCU. Furthermore, users can use SPI interface to connect with MCU,
+and save the I/O ports of the MCU for other purposes. The powerful display performance of LT768x is ideal for
+embedded systems with TFT-LCD displays such as home appliances, industrial controls, electronic instruments,
+medical devices, human-machine interfaces, industrial equipment, inspection equipment, charging stations,
+multi-function machines, elevator, check-in gate, etc.
+
 
 Operating VCC is 5v0
 Signals at 3v3
@@ -45,6 +77,14 @@ No other GLCD has these features.  GCBASIC has to bit bang all this out.
 So, a clear screen may not be so slow… it could be 0,0, maxX, maxY, color sent direct to the MCU!  No load on GC BASIC!
 
 *Touch*
+
+
+INTRODUCTION
+
+The FT5X26 is single-chip capacitive touch panel controllers with built-in enhanced Micro-controller unit (MCU). 
+It provides the benefits of full screen common mode scan technology,fast response time and high level of accuracy.
+It can drive capacitive type touch panel with up to 35 driving and 21 sensing lines.
+
 Operating VCC is 2.7 ~ +3.6  - does the PCB have a voltage leveller ? or, do you run the whole things at 3v3 for safety ?
 Signals at 3v3
                 
@@ -54,3 +94,19 @@ link:FocalTech-FT5x26.pdf[Touch Datasheet]
 Communications.
                 SPI to LCD
                 I2C to Touch
+
+== Connecting the GLCD to the Microcontroller
+
+
+The GLCD comes with a 20 way ribbon cable.&#160;&#160;
+
+To provide a robust connection a Straight Surface Mount Pin Header is recommended.
+
+
+Mfr. Part No.:
+TSM-110-01-F-DV   link:A700000007168287.pdf[Connector Datasheet]
+Brand:
+Samtec
+
+https://uk.rs-online.com/web/p/pcb-headers/2086379
+
