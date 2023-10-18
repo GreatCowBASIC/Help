@@ -95,7 +95,7 @@ Communications.
                 SPI to LCD
                 I2C to Touch
 
-== Connecting the GLCD to the Microcontroller
+== Connecting the GLCD 
 
 
 The GLCD comes with a 20 way ribbon cable.&#160;&#160;
@@ -109,4 +109,41 @@ Brand:
 Samtec
 
 https://uk.rs-online.com/web/p/pcb-headers/2086379
+
+
+== Operating Voltage of the GLCD
+
+TBD
+
+== Operating Voltage of the Microcontroller
+
+TBD
+
+== Testing the connectivity between the GLCD to the Microcontroller
+
+TBD
+
+== Developing the GLCD library
+
+TBD
+
+== Configuration of the GLCD library
+
+TBD
+
+== Usage of the GLCD library
+
+TBD
+
+== Developing the Touch library
+
+TBD
+
+== Configuration of the Touch library
+
+TBD
+
+== Usage of the Touch library
+
+TBD
 
