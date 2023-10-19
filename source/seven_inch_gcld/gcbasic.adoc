@@ -232,7 +232,7 @@ image::connector1.png[display,30%,align="center"]
 
 And, when the connector is  fitted, the connector looks like this:
 
-.Connector on PCB
+.20 Way Connector on PCB
 [#img-connector2,image=connector2] 
 image::connector2.png[display,50%,align="center"]  
 {empty} +
@@ -240,11 +240,21 @@ image::connector2.png[display,50%,align="center"]
 
 == Operating Voltage of the GLCD
 
-TBD
+The PCB has a VCC of 5V0, and, all signals must be 3v3 ( for LCD and CTP ). 
+
+The datasheets state the PCB has a VCC5V, and the `LCD I/O operating voltage` as 3v3.&#160;&#160;This makes sense but it could be better stated as `LCD I/O signal voltage`` as 3v3.
+
+  
+The datasheets also state the CTP `supply voltage` as 3.3..&#160;&#160;This would be better written as `CTP I/O signal voltage` as 3v3.
+
+Note: The microcontroller signals *MUST* be 3v3 for the GLCD to operate within the operating constraints. 
 
 == Operating Voltage of the Microcontroller
 
-TBD
+The microcontroller operating must be correct for the operating voltage of the GLCD..&#160;&#160;The safe option is to operate the microcontroller at 3v3..&#160;&#160;Another option would be operate the microcontroller at 5v0 and use a voltage leveler translator.
+
+A voltage level translator, also called level converter or logic level shifter, or level shifter, is a circuit used to translate signals from one logic level or voltage domain to another, allowing compatibility between integrated circuits with different voltage requirements, such as the microcontroller to the GLCD.
+
 
 == Testing the connectivity between the GLCD to the Microcontroller
 
