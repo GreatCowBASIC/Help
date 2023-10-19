@@ -232,7 +232,7 @@ image::connector1.png[display,30%,align="center"]
 
 And, when the connector is  fitted, the connector looks like this:
 
-.20 Way Connector on PCB
+.20 Way SMD Connector on PCB
 [#img-connector2,image=connector2] 
 image::connector2.png[display,50%,align="center"]  
 {empty} +
@@ -247,13 +247,60 @@ The datasheets state the PCB has a VCC5V, and the `LCD I/O operating voltage` as
   
 The datasheets also state the CTP `supply voltage` as 3.3..&#160;&#160;This would be better written as `CTP I/O signal voltage` as 3v3.
 
+
 Note: The microcontroller signals *MUST* be 3v3 for the GLCD to operate within the operating constraints. 
 
-== Operating Voltage of the Microcontroller
+== Operating and Signal Voltages of the Microcontroller
 
-The microcontroller operating must be correct for the operating voltage of the GLCD..&#160;&#160;The safe option is to operate the microcontroller at 3v3..&#160;&#160;Another option would be operate the microcontroller at 5v0 and use a voltage leveler translator.
+The microcontroller operating must be correct for the operating voltage of the GLCD..&#160;&#160;The safe option is to operate the microcontroller at 3v3.&#160;&#160;Another option would be operate the microcontroller at 5v0 and use a voltage leveler translator.
 
-A voltage level translator, also called level converter or logic level shifter, or level shifter, is a circuit used to translate signals from one logic level or voltage domain to another, allowing compatibility between integrated circuits with different voltage requirements, such as the microcontroller to the GLCD.
+A voltage level translator, also called level converter or logic level shifter, or level shifter, is a circuit used to translate signals from one logic level or voltage domain to another, allowing compatibility between the GLCD and the microcontroller.
+
+
+If a voltage level translator is required then two 8-bit voltage level translators will be required to support the 10-bit GLCD and CTP signals.&#160;&#160;6-bits for the GLCD and 4-bits for the CTP.&#160;&#160;A common 0v0 (GND), 3v3 and 5v0 is required across the microcontroller, the PCB and the voltage level translators.
+
+== Connections between Microcontroller and the GLCD
+
+The following table shows the connections required to operate the GLCD and the CTP.&#160;&#160;
+
+The diagram below shows the basic connection to with the microcontroller operating at 3v3.
+----
+
+    PCB  ---
+            \----------|- 5v0 power supply to LCD PCB
+            PCB -------|- 3v3 all signals from microcontroller
+            /----------|- 0v0 ( GND ) common
+    
+----
+
+The diagram below shows the basic connection when using a voltage level translator.
+
+----
+
+    PCB  ---                                      
+            \-------------------------------------|- 5v0 power supply to LCD PCB    
+             \                                    /----|- 3v3 all signals from microcontroller   
+             PCB ---- Voltage Level Translator --|
+                                                  \- 3v3 power supply to voltage level translator(s)
+            /-------------------------------------|-  0v0 ( GND ) common
+           
+----
+
+The advised method is to connect as follows:
+
+1. Connect the 0v0 and 5v0.&#160;&#160;Inspect the current to ensure this is within operating limit.
+2. Connect the LCD.&#160;&#160;Inspect the current to ensure this is within operating limit.&#160;&#160;Use the `GLCD_PORTTEST_7INCHSURENOO.GCB` to ensure each signal is correct.&#160;&#160;See the next section for details.
+3. Connect the CPT.&#160;&#160;Inspect the current to ensure this is within operating limit.&#160;&#160;Use the `CPT_PORTTEST_7INCHSURENOO.GCB` to ensure each signal is correct.&#160;&#160;See the next section for details.
+
+{empty} +
+{empty} +
+
+.20 Way Connections
+[#img-twentywat,image=20wayConnectorPinout.png] 
+image::20wayConnectorPinout.png[display,75%,align="center"]  
+{empty} +
+{empty} +
+
 
 
 == Testing the connectivity between the GLCD to the Microcontroller
