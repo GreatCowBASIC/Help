@@ -108,11 +108,12 @@ The following table is a summary of the hardware options avaialbe from Surenoo.
 LT7686 & GT5426 library
 |GLCD 800x480 with Capacitive Multipoint Touch	
 |800x480
-185.00×105.00×7.98 mm	
+185.00×105.00 
+x7.98 mm	
 |3 Wire SPI	
 |BLUE	
 |SSP0700A1CTP-800480	
-|https://www.aliexpress.com/item/32978278905.html
+|https://www.aliexpress.com/item/32978278905.html[Aliexpress URL]
 |link:SSP0700A.pdf[SSP0700A.pdf]
 
 |2	
@@ -121,11 +122,12 @@ LT7686 & GT5426 library
 LT7686 & GT5426 library
 |GLCD 1024x600 with Capacitive Multipoint Touch	
 |1024x600
-185.00×105.00×7.98 mm	
+185.00×105.00
+×7.98 mm	
 |3 Wire SPI	
 |BLUE	
 |SSP0700A2CTP-1024600	
-|https://www.aliexpress.com/item/32978278905.html
+|https://www.aliexpress.com/item/32978278905.html[Aliexpress URL]
 |link:SSP0700A.pdf[SSP0700A.pdf]
 
 |3
@@ -134,11 +136,12 @@ LT7686 & GT5426 library
 LT7686 & GT5426 library
 |GLCD 1024x600 with Capacitive Multipoint Touch	
 |1024x600
-164.90×100.00×7.98 mm	
+164.90×100.00
+×7.98 mm	
 |4 Wire SPI	
 |BLACK	
 |SSP0700B-CTP-IPS	
-|https://www.aliexpress.com/item/3256805709535490.html
+|https://www.aliexpress.com/item/3256805709535490.html[Aliexpress URL]
 |link:SSP0700B.pdf[SSP0700B.pdf]
 
 |4
@@ -147,11 +150,12 @@ LT7686 & GT5426 library
 LT7686 library
 |GLCD 1024x600 with NO Touch	
 |1024x600
-164.90×100.00×5.98 mm	
+164.90×100.00
+×5.98 mm	
 |4 Wire SPI	
 |BLACK	
 |SSP0700B-NTP-IPS	
-|https://www.aliexpress.com/item/3256805709535490.html
+|https://www.aliexpress.com/item/3256805709535490.html[Aliexpress URL]
 |link:SSP0700B.pdf[SSP0700B.pdf]
 
 |5	
@@ -160,11 +164,12 @@ LT7686 library
 LT7686 & GT5426 library
 |GLCD 1024x600 Screen with Larger Capacitive Multipoint  Touch
 |1024x600
-178.80×110.72×7.98 mm	
+178.80×110.72
+×7.98 mm	
 |4 Wire SPI	
 |BLACK	
 |SSP0700B-LTP-IPS	
-|https://www.aliexpress.com/item/3256805709535490.html
+|https://www.aliexpress.com/item/3256805709535490.html[Aliexpress URL]
 |link:SSP0700B.pdf[SSP0700B.pdf]
 
 |6
@@ -173,11 +178,12 @@ LT7686 & GT5426 library
 LT7686 library. Touch not supported - no library exists.
 |GLCD 1024x600 with Touch using Resistor Touch Panel	
 |1024x600
-164.90×100.00×7.98 mm
+164.90×100.00
+×7.98 mm
 |4 Wire SPI	
 |BLACK	
 |SSP0700B-RTP-IPS	
-|https://www.aliexpress.com/item/3256805709535490.html
+|https://www.aliexpress.com/item/3256805709535490.html[Aliexpress URL]
 |link:SSP0700B.pdf[SSP0700B.pdf]
 |===
 
