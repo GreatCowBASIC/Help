@@ -104,6 +104,7 @@ The following table is a summary of the hardware options avaialbe from Surenoo.
 
 |1
 |Yes
+
 LT7686 & GT5426 library
 |GLCD 800x480 with Capacitive Multipoint Touch	
 |800x480
@@ -116,6 +117,7 @@ LT7686 & GT5426 library
 
 |2	
 |Yes
+
 LT7686 & GT5426 library
 |GLCD 1024x600 with Capacitive Multipoint Touch	
 |1024x600
@@ -128,6 +130,7 @@ LT7686 & GT5426 library
 
 |3
 |Yes	
+
 LT7686 & GT5426 library
 |GLCD 1024x600 with Capacitive Multipoint Touch	
 |1024x600
@@ -140,6 +143,7 @@ LT7686 & GT5426 library
 
 |4
 |Yes
+
 LT7686 library
 |GLCD 1024x600 with NO Touch	
 |1024x600
@@ -152,6 +156,7 @@ LT7686 library
 
 |5	
 |Yes
+
 LT7686 & GT5426 library
 |GLCD 1024x600 Screen with Larger Capacitive Multipoint  Touch
 |1024x600
@@ -164,6 +169,7 @@ LT7686 & GT5426 library
 
 |6
 |No
+
 LT7686 library. Touch not supported - no library exists.
 |GLCD 1024x600 with Touch using Resistor Touch Panel	
 |1024x600
@@ -175,6 +181,25 @@ LT7686 library. Touch not supported - no library exists.
 |link:SSP0700B.pdf[SSP0700B.pdf]
 |===
 
+*Blue PCBs.. identification*
+
+The Blue PCB supports the two resolutions. The table shown below is not always complete by Surenoo.  
+
+.PCB Table
+[#img-pcbtable,image=pcbtable.png] 
+image::pcbtable.png[display,40%,align="center"]  
+{empty} +
+{empty} +
+The table should have the SPI type and the resolution.&#160;&#160;Many supplied GLCD have no table data.  To identify the GLCD the following photograph will help.
+
+.Identifing the type of GLCD
+[#img-idglcd,image=BluePCBTypes.png] 
+image::BluePCBTypes.png[display,40%,align="center"]  
+{empty} +
+{empty} +
+The ribbon cable is different on each resolution.&#160;&#160;This identifies the GLCD resolution.
+
+NOTE: All BLUE PCBs are 3 Wire SPI for GLCD control. 
 
 == Connecting the GLCD 
 
@@ -199,7 +224,7 @@ image::connector1.png[display,30%,align="center"]
 {empty} +
 {empty} +
 
-And, when the connector is  fitted, like this:
+And, when the connector is  fitted, the connector looks like this:
 
 .Connector on PCB
 [#img-connector2,image=connector2] 
