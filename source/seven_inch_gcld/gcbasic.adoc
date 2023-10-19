@@ -189,7 +189,7 @@ LT7686 library. Touch not supported - no library exists.
 
 *Blue PCBs.. identification*
 
-The Blue PCB supports the two resolutions. The table shown below is not always complete by Surenoo.  
+The Blue PCB supports the two resolutions. The table shown below is not always completed by Surenoo.  
 
 .PCB Table
 [#img-pcbtable,image=pcbtable.png] 
