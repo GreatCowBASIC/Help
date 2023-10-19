@@ -69,7 +69,6 @@ image::7inchdisplay.png[display,50%,align="center"]
 {empty} +
 
 
-
 *Touch*
 
 The FT5X26 is single-chip capacitive touch panel controllers with built-in enhanced Micro-controller unit (MCU). 
@@ -85,6 +84,98 @@ Communications.
                 SPI to LCD
                 I2C to Touch
 
+*LCD Hardware Options*
+
+The following table is a summary of the hardware options avaialbe from Surenoo.
+
+.Display Options
+[cols=9, options="header,autowidth"]
+|===
+|Item No
+|GCBASIC Support
+|Product
+|Pixels/Module Size
+|Interface
+|PCB Color
+|Part No/SKU
+|URL
+|Datasheet
+
+
+|1
+|Yes
+LT7686 & GT5426 library
+|GLCD 800x480 with Capacitive Multipoint Touch	
+|800x480
+185.00×105.00×7.98 mm	
+|3 Wire SPI	
+|BLUE	
+|SSP0700A1CTP-800480	
+|https://www.aliexpress.com/item/32978278905.html
+|link:SSP0700A.pdf[SSP0700A.pdf]
+
+|2	
+|Yes
+LT7686 & GT5426 library
+|GLCD 1024x600 with Capacitive Multipoint Touch	
+|1024x600
+185.00×105.00×7.98 mm	
+|3 Wire SPI	
+|BLUE	
+|SSP0700A2CTP-1024600	
+|https://www.aliexpress.com/item/32978278905.html
+|link:SSP0700A.pdf[SSP0700A.pdf]
+
+|3
+|Yes	
+LT7686 & GT5426 library
+|GLCD 1024x600 with Capacitive Multipoint Touch	
+|1024x600
+164.90×100.00×7.98 mm	
+|4 Wire SPI	
+|BLACK	
+|SSP0700B-CTP-IPS	
+|https://www.aliexpress.com/item/3256805709535490.html
+|link:SSP0700B.pdf[SSP0700B.pdf]
+
+|4
+|Yes
+LT7686 library
+|GLCD 1024x600 with NO Touch	
+|1024x600
+164.90×100.00×5.98 mm	
+|4 Wire SPI	
+|BLACK	
+|SSP0700B-NTP-IPS	
+|https://www.aliexpress.com/item/3256805709535490.html
+|link:SSP0700B.pdf[SSP0700B.pdf]
+
+|5	
+|Yes
+LT7686 & GT5426 library
+|GLCD 1024x600 Screen with Larger Capacitive Multipoint  Touch
+|1024x600
+178.80×110.72×7.98 mm	
+|4 Wire SPI	
+|BLACK	
+|SSP0700B-LTP-IPS	
+|https://www.aliexpress.com/item/3256805709535490.html
+|link:SSP0700B.pdf[SSP0700B.pdf]
+
+|6
+|No
+LT7686 library. Touch not supported - no library exists.
+|GLCD 1024x600 with Touch using Resistor Touch Panel	
+|1024x600
+164.90×100.00×7.98 mm
+|4 Wire SPI	
+|BLACK	
+|SSP0700B-RTP-IPS	
+|https://www.aliexpress.com/item/3256805709535490.html
+|link:SSP0700B.pdf[SSP0700B.pdf]
+|===
+
+
 == Connecting the GLCD 
 
 
@@ -98,10 +189,23 @@ image::pcboverview.jpg[display,50%,align="center"]
 
 To provide a robust connection a Straight Surface Mount Pin Header is recommended.
 
-Mfr. Part No.:
+Mfr. Part No.:  Samtec TSM-110-01-F-DV   link:A700000007168287.pdf[Connector Datasheet]. An example  link:https://uk.rs-online.com/web/p/pcb-headers/2086379[product  listing]
 
-Samtec TSM-110-01-F-DV   link:A700000007168287.pdf[Connector Datasheet]. An example  link:https://uk.rs-online.com/web/p/pcb-headers/2086379[product  listing]
+The connector looks like this:
 
+.Connector on bench
+[#img-connector1,image=connector1] 
+image::connector1.png[display,30%,align="center"]  
+{empty} +
+{empty} +
+
+And, when the connector is  fitted, like this:
+
+.Connector on PCB
+[#img-connector2,image=connector2] 
+image::connector2.png[display,50%,align="center"]  
+{empty} +
+{empty} +
 
 == Operating Voltage of the GLCD
 
