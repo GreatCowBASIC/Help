@@ -27,7 +27,12 @@ If there is anything else that you need help on, please visit the *GCBASIC forum
 The 7 Inch GLCD Library uses the SSP0700 Series displays.  The GLCD supports 7.0 Inch 1024*600 or 800*480 with the LT7686 controller with 3 or 4 Wire Serial SPI interface.&#160;&#160;
 The library also supports Capacitive Touch Panel with the GT5426 with an I2C interface.
 
-Select the URL to view the link:SSP0700A.pdf[LCD Module PDF User Manual]
+Select the correct URL for the specific PCB 
+    
+&#160;&#160;&#160;&#160;&#160;&#160;link:SSP0700A.pdf[Blue  PCB - LCD Module PDF User Manual]
+
+&#160;&#160;&#160;&#160;&#160;&#160;link:SSP0700B.pdf[Black PCB - LCD Module PDF User Manual]
+    
 
 
 *Display*
@@ -286,7 +291,7 @@ The diagram below shows the basic connection when using a voltage level translat
            
 ----
 
-The advised method is to connect as follows:
+The advised method to connect as follows:
 
 1. Connect the 0v0 and 5v0.&#160;&#160;Inspect the current to ensure this is within operating limit.
 2. Connect the LCD.&#160;&#160;Inspect the current to ensure this is within operating limit.&#160;&#160;Use the `GLCD_PORTTEST_7INCHSURENOO.GCB` to ensure each signal is correct.&#160;&#160;See the next section for details.
