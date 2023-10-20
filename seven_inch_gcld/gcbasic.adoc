@@ -214,8 +214,8 @@ The ribbon cable is different on each resolution.&#160;&#160;These photographs w
 |===
 |800x480 pixel display
 |1024x800 pixel display
-| image::unit1.png[display,80%,align="center"] 
-| image::unit2.png[display,80%,align="center"] 
+| image::Unit1.png[display,80%,align="center"] 
+| image::Unit2.png[display,80%,align="center"] 
 |===
 
 
