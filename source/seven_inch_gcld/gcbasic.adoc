@@ -29,9 +29,9 @@ The library also supports Capacitive Touch Panel with the GT5426 with an I2C int
 
 Select the correct URL for the specific PCB 
     
-&#160;&#160;&#160;&#160;&#160;&#160;link:SSP0700A.pdf[Blue  PCB - LCD Module PDF User Manual]
+&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/SSP0700A.pdf#[Blue  PCB - LCD Module PDF User Manual]
 
-&#160;&#160;&#160;&#160;&#160;&#160;link:SSP0700B.pdf[Black PCB - LCD Module PDF User Manual]
+&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/SSP0700B.pdf#[Black PCB - LCD Module PDF User Manual]
     
 
 
@@ -61,7 +61,7 @@ The GLCD operating voltage (VCC) is 5v0 with microcontroller signals at 3v3.
 The GLCD has a shape drawing engine to provide smart drawing features:  Line, Rectangle, Triangle, Polygon, Poly-Line, Circle, Ellipse, Arc, and Rounded-Rectangle. 
 Characters/text features  embedded 8*16, 12*24, 16*32 character sets of iso/iec 8859-1/2/4/5  user-defined characters support half size & full size for 8*16, 12*24 and 16*32
 
-Select the URL to view the link:LT768x_DS_V42_ENG.pdf[Display Datasheet]
+Select the URL to view the link:referencedocs/LT768x_DS_V42_ENG.pdf[Display Datasheet]
 
 This GLCD library has many features similar to the Nextion GLCD.  However, GCBASIC has to control more of the display events and pixel controller.  
 
@@ -83,7 +83,7 @@ It can drive capacitive type touch panel with up to 35 driving and 21 sensing li
 The Touch operating voltage (VCC) is 2v7 to +3v6 with microcontroller signals at 3v3.
 
 
-Select the URL to view the link:FocalTech-FT5x26.pdf[Touch Datasheet]
+Select the URL to view the link:referencedocs/FocalTech-FT5x26.pdf[Touch Datasheet]
 
 Communications.
                 SPI to LCD
@@ -119,7 +119,7 @@ x7.98 mm
 |BLUE	
 |SSP0700A1CTP-800480	
 |https://www.aliexpress.com/item/32978278905.html[Aliexpress URL]
-|link:SSP0700A.pdf[SSP0700A.pdf]
+|link:referencedocs/SSP0700A.pdf[SSP0700A.pdf]
 
 |2	
 |Yes
@@ -133,7 +133,7 @@ LT7686 & GT5426 library
 |BLUE	
 |SSP0700A2CTP-1024600	
 |https://www.aliexpress.com/item/32978278905.html[Aliexpress URL]
-|link:SSP0700A.pdf[SSP0700A.pdf]
+|link:referencedocs/SSP0700A.pdf[SSP0700A.pdf]
 
 |3
 |Yes	
@@ -147,7 +147,7 @@ LT7686 & GT5426 library
 |BLACK	
 |SSP0700B-CTP-IPS	
 |https://www.aliexpress.com/item/3256805709535490.html[Aliexpress URL]
-|link:SSP0700B.pdf[SSP0700B.pdf]
+|link:referencedocs/SSP0700B.pdf[SSP0700B.pdf]
 
 |4
 |Yes
@@ -161,7 +161,7 @@ LT7686 library
 |BLACK	
 |SSP0700B-NTP-IPS	
 |https://www.aliexpress.com/item/3256805709535490.html[Aliexpress URL]
-|link:SSP0700B.pdf[SSP0700B.pdf]
+|link:referencedocs/SSP0700B.pdf[SSP0700B.pdf]
 
 |5	
 |Yes
@@ -175,7 +175,7 @@ LT7686 & GT5426 library
 |BLACK	
 |SSP0700B-LTP-IPS	
 |https://www.aliexpress.com/item/3256805709535490.html[Aliexpress URL]
-|link:SSP0700B.pdf[SSP0700B.pdf]
+|link:referencedocs/SSP0700B.pdf[SSP0700B.pdf]
 
 |6
 |No
@@ -189,7 +189,7 @@ LT7686 library. Touch not supported - no library exists.
 |BLACK	
 |SSP0700B-RTP-IPS	
 |https://www.aliexpress.com/item/3256805709535490.html[Aliexpress URL]
-|link:SSP0700B.pdf[SSP0700B.pdf]
+|link:referencedocs/SSP0700B.pdf[SSP0700B.pdf]
 |===
 
 *Blue PCBs.. identification*
@@ -205,7 +205,7 @@ The table should have the SPI type and the resolution.&#160;&#160;Many supplied 
 
 .Identifing the type of GLCD
 [#img-idglcd,image=BluePCBTypes.png] 
-image::BluePCBTypes.png[display,40%,align="center"]  
+image::BluePCBTypes.png[display,20%,align="center"]  
 {empty} +
 {empty} +
 The ribbon cable is different on each resolution.&#160;&#160;This identifies the GLCD resolution.
@@ -215,7 +215,7 @@ NOTE: All BLUE PCBs are 3 Wire SPI for GLCD control.
 == Connecting the GLCD 
 
 
-The GLCD comes with a 20 way ribbon cable.&#160;&#160;This could be connected to the 3-wire SPI Interface connector.
+The GLCD comes with a 20 way ribbon cable.&#160;&#160;This should be connected to the 3-wire SPI Interface connector ( 20P/0.5MM ).
 
 .Surunoo PCB
 [#img-pcb,image=pcboverview.jpg] 
@@ -225,7 +225,7 @@ image::pcboverview.jpg[display,50%,align="center"]
 
 To provide a robust connection a Straight Surface Mount Pin Header is recommended.
 
-Mfr. Part No.:  Samtec TSM-110-01-F-DV   link:A700000007168287.pdf[Connector Datasheet]. An example  link:https://uk.rs-online.com/web/p/pcb-headers/2086379[product  listing]
+Mfr. Part No.:  Samtec TSM-110-01-F-DV   link:referencedocs/A700000007168287.pdf[Connector Datasheet]. An example  link:https://uk.rs-online.com/web/p/pcb-headers/2086379[product  listing]
 
 The connector looks like this:
 
