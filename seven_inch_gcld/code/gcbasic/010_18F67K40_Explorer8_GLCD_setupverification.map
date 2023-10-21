@@ -1,0 +1,334 @@
+Microchip MPLAB XC8 PIC(R) Assembler V2.45
+
+Linker command line:
+
+-W-3 \
+  --edf=C:\Program Files\Microchip\xc8\v2.45\pic\dat\20230818022343_en.msgs \
+  -cs \
+  -h+D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.sym \
+  --cmf=D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.cmf \
+  -z -Q18F67K40 -oC:\Users\admin\AppData\Local\Temp\xcAsdvo.\driver_tmp_3.o \
+  --fixupoverflow=error -ver=XC8 PIC(R) Assembler --fixupoverflow=lstwarn \
+  -MD:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.map \
+  -E1 --acfsm=1493 -ACODE=00h-01FFFFh -ACONST=00h-01FFFFh \
+  -ASMALLCONST=0E00h-0EFFhx498 -AMEDIUMCONST=0E00h-0FFFFh,010E00h-01FFFFh \
+  -ACOMRAM=00h-05Fh -AABS1=00h-0DE9h -ABIGRAM=00h-0DE9h \
+  -ARAM=060h-0FFh,0100h-01FFhx12,0D00h-0DE9h -ABANK0=060h-0FFh \
+  -ABANK1=0100h-01FFh -ABANK2=0200h-02FFh -ABANK3=0300h-03FFh \
+  -ABANK4=0400h-04FFh -ABANK5=0500h-05FFh -ABANK6=0600h-06FFh \
+  -ABANK7=0700h-07FFh -ABANK8=0800h-08FFh -ABANK9=0900h-09FFh \
+  -ABANK10=0A00h-0AFFh -ABANK11=0B00h-0BFFh -ABANK12=0C00h-0CFFh \
+  -ABANK13=0D00h-0DE9h \
+  -ASFR=0DEFh-0DFFh,0E00h-0EFFh,0F00h-0F5Fh,0F60h-0FFFh \
+  -ABIGSFR=0DEFh-0FFFh -AIDLOC=0200000h-020000Fh -AEEDATA=0310000h-03103FFh \
+  D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o 
+
+Object code version is 3.11
+
+Machine type is 18F67K40
+
+
+
+                Name                               Link     Load   Length Selector   Space Scale
+D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+                config                           300000   300000        C        0       4
+                RESETVEC                              0        0      67E        0       0
+
+TOTAL           Name                               Link     Load   Length     Space
+        CLASS   CODE           
+
+        CLASS   CONST          
+
+        CLASS   SMALLCONST     
+
+        CLASS   MEDIUMCONST    
+
+        CLASS   COMRAM         
+
+        CLASS   ABS1           
+
+        CLASS   BIGRAM         
+
+        CLASS   RAM            
+
+        CLASS   BANK0          
+
+        CLASS   BANK1          
+
+        CLASS   BANK2          
+
+        CLASS   BANK3          
+
+        CLASS   BANK4          
+
+        CLASS   BANK5          
+
+        CLASS   BANK6          
+
+        CLASS   BANK7          
+
+        CLASS   BANK8          
+
+        CLASS   BANK9          
+
+        CLASS   BANK10         
+
+        CLASS   BANK11         
+
+        CLASS   BANK12         
+
+        CLASS   BANK13         
+
+        CLASS   SFR            
+
+        CLASS   BIGSFR         
+
+        CLASS   IDLOC          
+
+        CLASS   EEDATA         
+
+        CLASS   CONFIG         
+                config                           300000   300000        C         4
+
+        CLASS   UNCLASSED
+                RESETVEC                              0        0      67E         0
+
+
+SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class
+
+
+
+UNUSED ADDRESS RANGES
+
+        Name                Unused          Largest block    Delta
+        BANK0            000060-0000FF               A0
+        BANK1            000100-0001FF              100
+        BANK10           000A00-000AFF              100
+        BANK11           000B00-000BFF              100
+        BANK12           000C00-000CFF              100
+        BANK13           000D00-000DE9               EA
+        BANK2            000200-0002FF              100
+        BANK3            000300-0003FF              100
+        BANK4            000400-0004FF              100
+        BANK5            000500-0005FF              100
+        BANK6            000600-0006FF              100
+        BANK7            000700-0007FF              100
+        BANK8            000800-0008FF              100
+        BANK9            000900-0009FF              100
+        BIGRAM           00067E-000DE9              76C
+        BIGSFR           000DEF-000FFF              211
+        CODE             00067E-01FFFF            1F982
+        COMRAM           000000-00005F               60
+        CONST            00067E-01FFFF            1F982
+        EEDATA           310000-3103FF              400
+        IDLOC            200000-20000F               10
+        MEDIUMCONST      000E00-00FFFF             F200
+                         010E00-01FFFF             F200
+        RAM              000060-000DE9              100
+        SFR              000DEF-000FFF              100
+        SMALLCONST       000E00-01FFFF              100
+
+                                  Symbol Table
+
+AFSR0                            (abs)        000FE9
+AFSR0_H                          (abs)        000FEA
+BASPROGRAMEND                    RESETVEC     00016C
+BASPROGRAMSTART                  RESETVEC     00000C
+BTNSTATE                         (abs)        00000A
+CLS                              RESETVEC     000170
+COMPORT                          (abs)        00000B
+D10US_START                      RESETVEC     00019E
+DELAYTEMP                        (abs)        000000
+DELAYTEMP2                       (abs)        000001
+DELAYUS0                         RESETVEC     0001A2
+DELAYUS1                         RESETVEC     00026C
+DELAYUS2                         RESETVEC     00018C
+DELAYUS3                         RESETVEC     000198
+DELAYUS4                         RESETVEC     000484
+DELAYUS5                         RESETVEC     000490
+DELAYUS6                         RESETVEC     0003A4
+DELAYUS7                         RESETVEC     000382
+DELAYUS8                         RESETVEC     00038E
+DELAYUSO2                        RESETVEC     00018A
+DELAYUSO4                        RESETVEC     000482
+DELAYUSO7                        RESETVEC     000380
+DELAY_10US                       RESETVEC     00019E
+DELAY_MS                         RESETVEC     0001AC
+DELAY_S                          RESETVEC     0001C8
+DMS_INNER                        RESETVEC     0001B6
+DMS_OUTER                        RESETVEC     0001B2
+DMS_START                        RESETVEC     0001AE
+DS_START                         RESETVEC     0001C8
+ELSE14_1                         RESETVEC     00037C
+ELSE4_1                          RESETVEC     000458
+ELSE8_1                          RESETVEC     0004E2
+ENDIF1                           RESETVEC     00050C
+ENDIF12                          RESETVEC     00021A
+ENDIF13                          RESETVEC     00021A
+ENDIF14                          RESETVEC     000392
+ENDIF3                           RESETVEC     000566
+ENDIF4                           RESETVEC     00047A
+ENDIF5                           RESETVEC     0004AA
+ENDIF6                           RESETVEC     0004AA
+ENDIF8                           RESETVEC     0004E4
+GLCDBACKGROUND                   (abs)        00000C
+GLCDBACKGROUND_H                 (abs)        00000D
+GLCDCLS_LT686                    RESETVEC     0001D8
+GLCDDEVICEHEIGHT                 (abs)        00000E
+GLCDDEVICEHEIGHT_H               (abs)        00000F
+GLCDDEVICEWIDTH                  (abs)        000010
+GLCDDEVICEWIDTH_H                (abs)        000011
+GLCDFNTDEFAULT                   (abs)        000012
+GLCDFNTDEFAULTHEIGHT             (abs)        000013
+GLCDFNTDEFAULTSIZE               (abs)        000014
+GLCDFONTWIDTH                    (abs)        000015
+GLCDFOREGROUND                   (abs)        000016
+GLCDFOREGROUND_H                 (abs)        000017
+GLCDROTATESTATE                  (abs)        000018
+HSERPRINT815                     RESETVEC     0001DA
+HSERPRINTCRLF                    RESETVEC     00021C
+HSERPRINTCRLFCOUNT               (abs)        000019
+HSERSEND805                      RESETVEC     000238
+HSERSENDUSART1HANDLER            RESETVEC     000238
+INITGLCD_LT686                   RESETVEC     00024A
+INITLCD                          RESETVEC     0002A4
+INITPPS                          RESETVEC     0002AC
+INITSYS                          RESETVEC     0002DE
+INITUSART                        RESETVEC     00032A
+LCDBYTE                          (abs)        00001A
+LCDCMD                           RESETVEC     000348
+LCDCOLUMN                        (abs)        00001B
+LCDLINE                          (abs)        00001C
+LCDVALUE                         (abs)        00001D
+LCD_SPI_EXPANDER_INITIALIZE      RESETVEC     000394
+LCD_SPI_EXPANDER_NORMALWRITEBYTE RESETVEC     000430
+LCD_SPI_WRITEIOEXPANDER          RESETVEC     0004AC
+LCD_STATE                        (abs)        00001E
+LOCATE                           RESETVEC     0004FA
+PRINT612                         RESETVEC     000524
+PRINTLEN                         (abs)        00001F
+SERDATA                          (abs)        000020
+SPICLOCKMODE                     (abs)        000021
+SPICURRENTMODE                   (abs)        000022
+SPIMODE764                       RESETVEC     000568
+STRINGPOINTER                    (abs)        000023
+STRINGTABLE1                     RESETVEC     000606
+STRINGTABLE2                     RESETVEC     00061C
+STRINGTABLE3                     RESETVEC     000636
+STRINGTABLE4                     RESETVEC     000648
+STRINGTABLE5                     RESETVEC     00065A
+STRINGTABLE6                     RESETVEC     00066C
+SWITCHEVENT                      (abs)        000024
+SYSBYTETEMPA                     (abs)        000005
+SYSBYTETEMPB                     (abs)        000009
+SYSBYTETEMPX                     (abs)        000000
+SYSCALCTEMPA                     (abs)        000005
+SYSCOMPEQUAL                     RESETVEC     0005D6
+SYSFORLOOP1                      RESETVEC     00053C
+SYSFORLOOP2                      RESETVEC     0004B0
+SYSFORLOOP3                      RESETVEC     0001F0
+SYSFORLOOPEND1                   RESETVEC     000566
+SYSFORLOOPEND2                   RESETVEC     0004F6
+SYSFORLOOPEND3                   RESETVEC     00021A
+SYSLCDTEMP                       (abs)        000025
+SYSPRINTDATAHANDLER              (abs)        000026
+SYSPRINTDATAHANDLER_H            (abs)        000027
+SYSPRINTTEMP                     (abs)        000028
+SYSREADSTRING                    RESETVEC     0005E0
+SYSREADSTRINGPART                RESETVEC     0005EC
+SYSREPEATLOOP1                   RESETVEC     0004DA
+SYSREPEATLOOP2                   RESETVEC     000226
+SYSREPEATLOOPEND1                RESETVEC     0004EE
+SYSREPEATLOOPEND2                RESETVEC     000236
+SYSREPEATTEMP1                   (abs)        000029
+SYSREPEATTEMP2                   (abs)        00002A
+SYSSELECT1CASE1                  RESETVEC     0004B2
+SYSSELECT1CASE2                  RESETVEC     0004BE
+SYSSELECT1CASE3                  RESETVEC     0004CA
+SYSSELECT2CASE1                  RESETVEC     000580
+SYSSELECT2CASE2                  RESETVEC     000592
+SYSSELECT2CASE3                  RESETVEC     00059C
+SYSSELECT2CASE4                  RESETVEC     0005A6
+SYSSELECT2CASE5                  RESETVEC     0005B2
+SYSSELECT2CASE6                  RESETVEC     0005BE
+SYSSELECT2CASE7                  RESETVEC     0005CA
+SYSSELECTEND1                    RESETVEC     0004D6
+SYSSELECTEND2                    RESETVEC     0005D2
+SYSSTRINGA                       (abs)        000007
+SYSSTRINGA_H                     (abs)        000008
+SYSSTRINGLENGTH                  (abs)        000006
+SYSSTRINGPARAM1                  (abs)        000DD1
+SYSSTRINGREAD                    RESETVEC     0005FA
+SYSSTRINGREADCHECK               RESETVEC     0005F4
+SYSSTRINGTABLES                  RESETVEC     000606
+SYSTEMP1                         (abs)        00002B
+SYSTEMP2                         (abs)        00002C
+SYSWAITLOOP1                     RESETVEC     000238
+SYSWAITLOOP2                     RESETVEC     00023E
+SYSWAITTEMP10US                  (abs)        000005
+SYSWAITTEMPMS                    (abs)        000002
+SYSWAITTEMPMS_H                  (abs)        000003
+SYSWAITTEMPS                     (abs)        000004
+SYSWAITTEMPUS                    (abs)        000005
+SYSWAITTEMPUS_H                  (abs)        000006
+__HRESETVEC                      RESETVEC     00067E
+__H__absolute__                  __absolute__ 000000
+__Hcode                          code         000000
+__Hconfig                        config       30000C
+__Hdata                          data         000000
+__Hedata                         edata        000000
+__Hspace_0                       (abs)        00067E
+__Hspace_1                       (abs)        000000
+__Hspace_3                       (abs)        000000
+__Hspace_4                       (abs)        60000C
+__Hudata                         udata        000000
+__Hudata_acs                     udata_acs    000000
+__Hudata_bank0                   udata_bank0  000000
+__Hudata_bank1                   udata_bank1  000000
+__Hudata_bank10                  udata_bank10 000000
+__Hudata_bank11                  udata_bank11 000000
+__Hudata_bank12                  udata_bank12 000000
+__Hudata_bank13                  udata_bank13 000000
+__Hudata_bank2                   udata_bank2  000000
+__Hudata_bank3                   udata_bank3  000000
+__Hudata_bank4                   udata_bank4  000000
+__Hudata_bank5                   udata_bank5  000000
+__Hudata_bank6                   udata_bank6  000000
+__Hudata_bank7                   udata_bank7  000000
+__Hudata_bank8                   udata_bank8  000000
+__Hudata_bank9                   udata_bank9  000000
+__LCDBYTE                        (abs)        00002D
+__LCDREG                         (abs)        00002E
+__LCD_OUTBUFFER                  (abs)        00002F
+__LCD_OUTBUFFERCOUNT             (abs)        000030
+__LRESETVEC                      RESETVEC     000000
+__L__absolute__                  __absolute__ 000000
+__Lcode                          code         000000
+__Lconfig                        config       000000
+__Ldata                          data         000000
+__Ledata                         edata        000000
+__Lspace_0                       (abs)        000000
+__Lspace_1                       (abs)        000000
+__Lspace_3                       (abs)        000000
+__Lspace_4                       (abs)        000000
+__Ludata                         udata        000000
+__Ludata_acs                     udata_acs    000000
+__Ludata_bank0                   udata_bank0  000000
+__Ludata_bank1                   udata_bank1  000000
+__Ludata_bank10                  udata_bank10 000000
+__Ludata_bank11                  udata_bank11 000000
+__Ludata_bank12                  udata_bank12 000000
+__Ludata_bank13                  udata_bank13 000000
+__Ludata_bank2                   udata_bank2  000000
+__Ludata_bank3                   udata_bank3  000000
+__Ludata_bank4                   udata_bank4  000000
+__Ludata_bank5                   udata_bank5  000000
+__Ludata_bank6                   udata_bank6  000000
+__Ludata_bank7                   udata_bank7  000000
+__Ludata_bank8                   udata_bank8  000000
+__Ludata_bank9                   udata_bank9  000000
+__S0                             (abs)        000000
+__S1                             (abs)        000000
+__S3                             (abs)        000000
+isa$std                          (abs)        000001
+isa$xinst                        (abs)        000000

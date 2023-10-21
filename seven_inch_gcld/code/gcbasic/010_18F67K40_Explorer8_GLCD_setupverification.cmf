@@ -1,0 +1,1047 @@
+%CMF
+# %PSECTS Section
+# For each object file, details of its psects are enumerated here.
+# The begining of the section is indicated by %PSECTS.  The first
+# line indicates the name of the first object file, e.g.
+#    $foo.obj
+# Each line that follows describes a psect in that object file, until
+# the next object file.  The lines that describe a psect have the
+# format:
+#    <psect name> <class name> <space> <link address> <load addresses> <length> <delta> <reloc>
+# All addresses and the length are given in unqualified hexadecimal
+# in delta units.  Any other numeric values are decimal.
+%PSECTS
+$D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+RESETVEC - 0 0 0 67E 1 1
+config CONFIG 4 300000 300000 C 1 1
+# %UNUSED Section
+# This section enumerates the unused ranges of each CLASS. Each entry
+# is described on a single line as follows:
+#    <class name> <range> <delta>
+# Addresses given in the range are in hexadecimal and units of delta.
+%UNUSED
+RAM 60-DE9 1
+SFR DEF-FFF 1
+BANK0 60-FF 1
+BANK1 100-1FF 1
+BANK2 200-2FF 1
+BANK3 300-3FF 1
+BANK4 400-4FF 1
+BANK5 500-5FF 1
+BANK6 600-6FF 1
+BANK7 700-7FF 1
+BANK8 800-8FF 1
+BANK9 900-9FF 1
+CONST 67E-1FFFF 1
+IDLOC 200000-20000F 1
+SMALLCONST E00-1FFFF 1
+CODE 67E-1FFFF 1
+BANK10 A00-AFF 1
+BANK11 B00-BFF 1
+BANK12 C00-CFF 1
+BANK13 D00-DE9 1
+BIGRAM 67E-DE9 1
+BIGSFR DEF-FFF 1
+COMRAM 0-5F 1
+EEDATA 310000-3103FF 1
+MEDIUMCONST E00-FFFF 1
+MEDIUMCONST 10E00-1FFFF 1
+# %LINETAB Section
+# This section enumerates the file/line to address mappings.
+# The beginning of the section is indicated by %LINETAB.
+# The first line indicates the name of the first object file, e.g.
+#   $foo.obj
+# Each line that follows describes a single mapping until the next
+# object file.  Mappings have the following format:
+#    <address> <psect name> <class name> ><line number>:<file name>
+# The address is absolute and given given in unqualified hex 
+# in delta units of the psect. All mappings within an object file
+# are in ascending order of addresses.
+# All other numeric values are in decimal.
+%LINETAB
+$D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+0 RESETVEC ABS >210:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+8 RESETVEC ABS >212:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+C RESETVEC ABS >221:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+E RESETVEC ABS >222:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+10 RESETVEC ABS >223:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+12 RESETVEC ABS >224:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+14 RESETVEC ABS >226:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+16 RESETVEC ABS >259:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+18 RESETVEC ABS >261:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1A RESETVEC ABS >263:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1C RESETVEC ABS >265:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1E RESETVEC ABS >267:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+20 RESETVEC ABS >269:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+22 RESETVEC ABS >271:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+24 RESETVEC ABS >273:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+26 RESETVEC ABS >275:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+28 RESETVEC ABS >277:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2A RESETVEC ABS >279:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2C RESETVEC ABS >281:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2E RESETVEC ABS >283:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+30 RESETVEC ABS >286:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+32 RESETVEC ABS >288:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+34 RESETVEC ABS >290:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+36 RESETVEC ABS >292:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+38 RESETVEC ABS >297:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3A RESETVEC ABS >300:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3C RESETVEC ABS >302:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3E RESETVEC ABS >303:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+40 RESETVEC ABS >304:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+42 RESETVEC ABS >305:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+44 RESETVEC ABS >306:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+46 RESETVEC ABS >308:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4A RESETVEC ABS >309:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4C RESETVEC ABS >310:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4E RESETVEC ABS >311:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+50 RESETVEC ABS >312:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+52 RESETVEC ABS >313:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+54 RESETVEC ABS >314:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+56 RESETVEC ABS >315:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+58 RESETVEC ABS >316:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5A RESETVEC ABS >317:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5C RESETVEC ABS >318:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5E RESETVEC ABS >319:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+60 RESETVEC ABS >320:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+62 RESETVEC ABS >321:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+64 RESETVEC ABS >323:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+66 RESETVEC ABS >325:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+68 RESETVEC ABS >326:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+6A RESETVEC ABS >327:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+6C RESETVEC ABS >328:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+6E RESETVEC ABS >329:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+70 RESETVEC ABS >331:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+74 RESETVEC ABS >332:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+76 RESETVEC ABS >333:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+78 RESETVEC ABS >334:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+7A RESETVEC ABS >335:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+7C RESETVEC ABS >336:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+7E RESETVEC ABS >337:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+80 RESETVEC ABS >338:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+82 RESETVEC ABS >339:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+84 RESETVEC ABS >340:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+86 RESETVEC ABS >341:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+88 RESETVEC ABS >342:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+8A RESETVEC ABS >343:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+8C RESETVEC ABS >344:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+8E RESETVEC ABS >346:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+90 RESETVEC ABS >348:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+92 RESETVEC ABS >349:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+94 RESETVEC ABS >350:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+96 RESETVEC ABS >351:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+98 RESETVEC ABS >352:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+9A RESETVEC ABS >354:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+9E RESETVEC ABS >355:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+A0 RESETVEC ABS >356:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+A2 RESETVEC ABS >357:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+A4 RESETVEC ABS >358:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+A6 RESETVEC ABS >359:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+A8 RESETVEC ABS >360:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+AA RESETVEC ABS >361:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+AC RESETVEC ABS >362:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+AE RESETVEC ABS >363:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+B0 RESETVEC ABS >364:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+B2 RESETVEC ABS >365:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+B4 RESETVEC ABS >367:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+B6 RESETVEC ABS >369:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+B8 RESETVEC ABS >370:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+BA RESETVEC ABS >371:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+BC RESETVEC ABS >372:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+BE RESETVEC ABS >374:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+C2 RESETVEC ABS >375:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+C4 RESETVEC ABS >376:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+C6 RESETVEC ABS >377:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+C8 RESETVEC ABS >378:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+CA RESETVEC ABS >379:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+CC RESETVEC ABS >380:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+CE RESETVEC ABS >381:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+D0 RESETVEC ABS >382:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+D2 RESETVEC ABS >383:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+D4 RESETVEC ABS >384:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+D6 RESETVEC ABS >385:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+D8 RESETVEC ABS >387:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+DA RESETVEC ABS >389:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+DC RESETVEC ABS >390:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+DE RESETVEC ABS >391:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+E0 RESETVEC ABS >393:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+E2 RESETVEC ABS >395:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+E6 RESETVEC ABS >396:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+E8 RESETVEC ABS >397:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+EA RESETVEC ABS >398:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+EC RESETVEC ABS >399:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+EE RESETVEC ABS >400:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+F0 RESETVEC ABS >401:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+F2 RESETVEC ABS >402:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+F4 RESETVEC ABS >403:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+F6 RESETVEC ABS >404:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+F8 RESETVEC ABS >405:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+FA RESETVEC ABS >406:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+FC RESETVEC ABS >408:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+FE RESETVEC ABS >410:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+100 RESETVEC ABS >411:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+102 RESETVEC ABS >412:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+104 RESETVEC ABS >413:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+106 RESETVEC ABS >415:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+10A RESETVEC ABS >416:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+10C RESETVEC ABS >417:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+10E RESETVEC ABS >418:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+110 RESETVEC ABS >419:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+112 RESETVEC ABS >420:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+114 RESETVEC ABS >421:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+116 RESETVEC ABS >422:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+118 RESETVEC ABS >423:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+11A RESETVEC ABS >424:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+11C RESETVEC ABS >425:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+11E RESETVEC ABS >426:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+120 RESETVEC ABS >428:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+122 RESETVEC ABS >430:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+124 RESETVEC ABS >431:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+126 RESETVEC ABS >432:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+128 RESETVEC ABS >434:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+12A RESETVEC ABS >436:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+12E RESETVEC ABS >437:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+130 RESETVEC ABS >438:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+132 RESETVEC ABS >439:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+134 RESETVEC ABS >440:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+136 RESETVEC ABS >441:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+138 RESETVEC ABS >442:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+13A RESETVEC ABS >443:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+13C RESETVEC ABS >444:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+13E RESETVEC ABS >445:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+140 RESETVEC ABS >446:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+142 RESETVEC ABS >447:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+144 RESETVEC ABS >449:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+146 RESETVEC ABS >451:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+148 RESETVEC ABS >452:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+14A RESETVEC ABS >453:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+14C RESETVEC ABS >454:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+14E RESETVEC ABS >456:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+152 RESETVEC ABS >457:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+154 RESETVEC ABS >458:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+156 RESETVEC ABS >459:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+158 RESETVEC ABS >460:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+15A RESETVEC ABS >461:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+15C RESETVEC ABS >462:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+15E RESETVEC ABS >463:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+160 RESETVEC ABS >464:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+162 RESETVEC ABS >465:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+164 RESETVEC ABS >466:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+166 RESETVEC ABS >467:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+168 RESETVEC ABS >469:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+16A RESETVEC ABS >471:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+16C RESETVEC ABS >491:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+16E RESETVEC ABS >492:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+170 RESETVEC ABS >501:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+172 RESETVEC ABS >504:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+174 RESETVEC ABS >505:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+176 RESETVEC ABS >506:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+178 RESETVEC ABS >508:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+17A RESETVEC ABS >509:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+17C RESETVEC ABS >510:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+17E RESETVEC ABS >511:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+180 RESETVEC ABS >514:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+182 RESETVEC ABS >515:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+184 RESETVEC ABS >516:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+186 RESETVEC ABS >518:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+188 RESETVEC ABS >519:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+18A RESETVEC ABS >522:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+18C RESETVEC ABS >525:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+18E RESETVEC ABS >526:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+190 RESETVEC ABS >527:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+192 RESETVEC ABS >528:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+194 RESETVEC ABS >529:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+196 RESETVEC ABS >530:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+198 RESETVEC ABS >533:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+19A RESETVEC ABS >534:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+19C RESETVEC ABS >535:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+19E RESETVEC ABS >543:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1A0 RESETVEC ABS >544:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1A2 RESETVEC ABS >547:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1A4 RESETVEC ABS >548:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1A6 RESETVEC ABS >549:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1A8 RESETVEC ABS >550:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1AA RESETVEC ABS >551:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1AC RESETVEC ABS >557:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1AE RESETVEC ABS >560:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1B0 RESETVEC ABS >561:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1B2 RESETVEC ABS >564:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1B4 RESETVEC ABS >565:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1B6 RESETVEC ABS >568:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1B8 RESETVEC ABS >569:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1BA RESETVEC ABS >570:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1BC RESETVEC ABS >571:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1BE RESETVEC ABS >572:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1C0 RESETVEC ABS >573:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1C2 RESETVEC ABS >574:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1C4 RESETVEC ABS >575:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1C6 RESETVEC ABS >576:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1C8 RESETVEC ABS >584:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1CA RESETVEC ABS >585:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1CC RESETVEC ABS >586:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1CE RESETVEC ABS >587:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1D0 RESETVEC ABS >588:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1D2 RESETVEC ABS >589:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1D4 RESETVEC ABS >590:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1D6 RESETVEC ABS >591:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1D8 RESETVEC ABS >598:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1DA RESETVEC ABS >606:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1DE RESETVEC ABS >607:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1E2 RESETVEC ABS >608:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1E6 RESETVEC ABS >610:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1E8 RESETVEC ABS >611:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1EA RESETVEC ABS >612:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1EC RESETVEC ABS >615:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1EE RESETVEC ABS >616:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1F0 RESETVEC ABS >620:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1F2 RESETVEC ABS >621:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1F4 RESETVEC ABS >622:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1F6 RESETVEC ABS >623:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1F8 RESETVEC ABS >624:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1FA RESETVEC ABS >625:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+1FC RESETVEC ABS >626:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+200 RESETVEC ABS >627:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+202 RESETVEC ABS >630:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+204 RESETVEC ABS >631:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+206 RESETVEC ABS >632:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+208 RESETVEC ABS >633:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+20C RESETVEC ABS >634:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+20E RESETVEC ABS >635:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+210 RESETVEC ABS >636:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+212 RESETVEC ABS >637:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+214 RESETVEC ABS >638:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+216 RESETVEC ABS >640:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+218 RESETVEC ABS >641:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+21A RESETVEC ABS >655:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+21C RESETVEC ABS >663:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+220 RESETVEC ABS >664:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+222 RESETVEC ABS >665:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+224 RESETVEC ABS >666:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+226 RESETVEC ABS >670:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+228 RESETVEC ABS >671:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+22A RESETVEC ABS >672:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+22C RESETVEC ABS >674:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+22E RESETVEC ABS >675:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+230 RESETVEC ABS >676:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+232 RESETVEC ABS >678:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+234 RESETVEC ABS >679:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+236 RESETVEC ABS >682:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+238 RESETVEC ABS >695:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+23A RESETVEC ABS >696:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+23C RESETVEC ABS >697:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+23E RESETVEC ABS >701:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+240 RESETVEC ABS >702:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+242 RESETVEC ABS >704:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+246 RESETVEC ABS >705:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+248 RESETVEC ABS >706:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+24A RESETVEC ABS >715:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+24C RESETVEC ABS >716:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+24E RESETVEC ABS >717:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+250 RESETVEC ABS >718:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+252 RESETVEC ABS >720:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+254 RESETVEC ABS >722:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+256 RESETVEC ABS >723:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+258 RESETVEC ABS >724:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+25A RESETVEC ABS >725:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+25C RESETVEC ABS >727:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+25E RESETVEC ABS >729:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+260 RESETVEC ABS >730:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+262 RESETVEC ABS >731:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+264 RESETVEC ABS >732:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+266 RESETVEC ABS >734:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+268 RESETVEC ABS >736:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+26A RESETVEC ABS >737:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+26C RESETVEC ABS >740:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+26E RESETVEC ABS >741:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+270 RESETVEC ABS >743:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+272 RESETVEC ABS >745:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+274 RESETVEC ABS >746:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+276 RESETVEC ABS >747:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+278 RESETVEC ABS >748:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+27A RESETVEC ABS >752:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+27C RESETVEC ABS >753:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+27E RESETVEC ABS >755:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+280 RESETVEC ABS >756:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+282 RESETVEC ABS >758:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+284 RESETVEC ABS >759:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+286 RESETVEC ABS >760:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+288 RESETVEC ABS >762:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+28A RESETVEC ABS >763:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+28C RESETVEC ABS >764:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+28E RESETVEC ABS >765:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+290 RESETVEC ABS >767:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+292 RESETVEC ABS >768:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+294 RESETVEC ABS >770:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+296 RESETVEC ABS >772:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+298 RESETVEC ABS >773:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+29A RESETVEC ABS >775:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+29C RESETVEC ABS >776:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+29E RESETVEC ABS >778:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2A0 RESETVEC ABS >779:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2A2 RESETVEC ABS >781:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2A4 RESETVEC ABS >793:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2A6 RESETVEC ABS >795:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2A8 RESETVEC ABS >796:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2AA RESETVEC ABS >797:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2AC RESETVEC ABS >805:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2AE RESETVEC ABS >806:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2B0 RESETVEC ABS >807:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2B2 RESETVEC ABS >810:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2B4 RESETVEC ABS >811:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2B6 RESETVEC ABS >813:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2B8 RESETVEC ABS >814:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2BA RESETVEC ABS >816:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2BC RESETVEC ABS >817:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2BE RESETVEC ABS >819:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2C0 RESETVEC ABS >820:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2C2 RESETVEC ABS >822:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2C4 RESETVEC ABS >823:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2C6 RESETVEC ABS >825:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2C8 RESETVEC ABS >826:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2CA RESETVEC ABS >828:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2CC RESETVEC ABS >829:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2CE RESETVEC ABS >831:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2D0 RESETVEC ABS >832:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2D2 RESETVEC ABS >834:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2D4 RESETVEC ABS >835:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2D6 RESETVEC ABS >837:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2D8 RESETVEC ABS >838:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2DA RESETVEC ABS >839:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2DC RESETVEC ABS >840:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2DE RESETVEC ABS >850:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2E0 RESETVEC ABS >852:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2E2 RESETVEC ABS >855:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2E4 RESETVEC ABS >860:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2E6 RESETVEC ABS >861:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2E8 RESETVEC ABS >862:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2EA RESETVEC ABS >865:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2EC RESETVEC ABS >868:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2EE RESETVEC ABS >871:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2F0 RESETVEC ABS >876:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2F2 RESETVEC ABS >877:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2F4 RESETVEC ABS >880:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2F6 RESETVEC ABS >882:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2F8 RESETVEC ABS >884:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2FA RESETVEC ABS >886:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2FC RESETVEC ABS >888:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+2FE RESETVEC ABS >889:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+300 RESETVEC ABS >893:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+302 RESETVEC ABS >896:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+304 RESETVEC ABS >899:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+306 RESETVEC ABS >901:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+308 RESETVEC ABS >903:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+30A RESETVEC ABS >905:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+30C RESETVEC ABS >907:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+30E RESETVEC ABS >909:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+310 RESETVEC ABS >911:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+312 RESETVEC ABS >914:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+314 RESETVEC ABS >916:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+316 RESETVEC ABS >920:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+318 RESETVEC ABS >922:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+31A RESETVEC ABS >924:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+31C RESETVEC ABS >926:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+31E RESETVEC ABS >928:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+320 RESETVEC ABS >930:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+322 RESETVEC ABS >932:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+324 RESETVEC ABS >934:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+326 RESETVEC ABS >935:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+328 RESETVEC ABS >936:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+32A RESETVEC ABS >945:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+32C RESETVEC ABS >946:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+32E RESETVEC ABS >950:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+330 RESETVEC ABS >951:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+332 RESETVEC ABS >953:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+334 RESETVEC ABS >954:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+336 RESETVEC ABS >956:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+338 RESETVEC ABS >957:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+33A RESETVEC ABS >959:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+33C RESETVEC ABS >961:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+33E RESETVEC ABS >963:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+340 RESETVEC ABS >965:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+342 RESETVEC ABS >967:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+344 RESETVEC ABS >969:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+346 RESETVEC ABS >970:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+348 RESETVEC ABS >979:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+34A RESETVEC ABS >981:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+34E RESETVEC ABS >982:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+350 RESETVEC ABS >984:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+354 RESETVEC ABS >985:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+356 RESETVEC ABS >986:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+358 RESETVEC ABS >987:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+35A RESETVEC ABS >988:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+35E RESETVEC ABS >989:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+362 RESETVEC ABS >990:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+364 RESETVEC ABS >991:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+366 RESETVEC ABS >992:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+368 RESETVEC ABS >993:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+36A RESETVEC ABS >994:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+36C RESETVEC ABS >995:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+36E RESETVEC ABS >996:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+370 RESETVEC ABS >997:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+372 RESETVEC ABS >999:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+374 RESETVEC ABS >1000:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+376 RESETVEC ABS >1001:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+378 RESETVEC ABS >1002:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+37A RESETVEC ABS >1004:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+37C RESETVEC ABS >1008:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+37E RESETVEC ABS >1009:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+380 RESETVEC ABS >1012:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+382 RESETVEC ABS >1015:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+384 RESETVEC ABS >1016:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+386 RESETVEC ABS >1017:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+388 RESETVEC ABS >1018:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+38A RESETVEC ABS >1019:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+38C RESETVEC ABS >1020:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+38E RESETVEC ABS >1023:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+390 RESETVEC ABS >1024:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+392 RESETVEC ABS >1028:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+394 RESETVEC ABS >1036:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+396 RESETVEC ABS >1040:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+398 RESETVEC ABS >1041:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+39A RESETVEC ABS >1042:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+39C RESETVEC ABS >1043:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+39E RESETVEC ABS >1045:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3A0 RESETVEC ABS >1047:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3A2 RESETVEC ABS >1048:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3A4 RESETVEC ABS >1051:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3A6 RESETVEC ABS >1052:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3A8 RESETVEC ABS >1053:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3AA RESETVEC ABS >1055:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3AC RESETVEC ABS >1057:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3AE RESETVEC ABS >1059:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3B0 RESETVEC ABS >1061:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3B2 RESETVEC ABS >1064:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3B4 RESETVEC ABS >1065:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3B6 RESETVEC ABS >1066:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3B8 RESETVEC ABS >1067:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3BA RESETVEC ABS >1069:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3BC RESETVEC ABS >1070:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3BE RESETVEC ABS >1071:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3C0 RESETVEC ABS >1073:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3C2 RESETVEC ABS >1074:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3C4 RESETVEC ABS >1075:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3C6 RESETVEC ABS >1076:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3C8 RESETVEC ABS >1078:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3CA RESETVEC ABS >1079:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3CC RESETVEC ABS >1080:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3CE RESETVEC ABS >1081:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3D0 RESETVEC ABS >1083:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3D2 RESETVEC ABS >1084:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3D4 RESETVEC ABS >1085:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3D6 RESETVEC ABS >1086:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3D8 RESETVEC ABS >1088:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3DA RESETVEC ABS >1089:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3DC RESETVEC ABS >1090:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3DE RESETVEC ABS >1091:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3E0 RESETVEC ABS >1092:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3E2 RESETVEC ABS >1094:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3E4 RESETVEC ABS >1095:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3E6 RESETVEC ABS >1096:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3E8 RESETVEC ABS >1097:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3EA RESETVEC ABS >1099:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3EC RESETVEC ABS >1100:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3EE RESETVEC ABS >1101:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3F0 RESETVEC ABS >1103:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3F2 RESETVEC ABS >1104:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3F4 RESETVEC ABS >1105:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3F6 RESETVEC ABS >1106:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3F8 RESETVEC ABS >1108:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3FA RESETVEC ABS >1109:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3FC RESETVEC ABS >1110:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+3FE RESETVEC ABS >1112:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+400 RESETVEC ABS >1113:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+402 RESETVEC ABS >1114:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+404 RESETVEC ABS >1115:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+406 RESETVEC ABS >1117:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+408 RESETVEC ABS >1118:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+40A RESETVEC ABS >1119:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+40C RESETVEC ABS >1121:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+40E RESETVEC ABS >1122:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+410 RESETVEC ABS >1123:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+412 RESETVEC ABS >1124:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+414 RESETVEC ABS >1126:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+416 RESETVEC ABS >1127:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+418 RESETVEC ABS >1128:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+41A RESETVEC ABS >1130:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+41C RESETVEC ABS >1131:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+41E RESETVEC ABS >1132:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+420 RESETVEC ABS >1133:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+422 RESETVEC ABS >1135:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+424 RESETVEC ABS >1136:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+426 RESETVEC ABS >1137:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+428 RESETVEC ABS >1139:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+42A RESETVEC ABS >1140:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+42C RESETVEC ABS >1141:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+42E RESETVEC ABS >1142:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+430 RESETVEC ABS >1157:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+432 RESETVEC ABS >1158:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+434 RESETVEC ABS >1162:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+436 RESETVEC ABS >1163:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+438 RESETVEC ABS >1164:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+43A RESETVEC ABS >1165:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+43C RESETVEC ABS >1166:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+43E RESETVEC ABS >1168:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+440 RESETVEC ABS >1169:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+442 RESETVEC ABS >1170:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+446 RESETVEC ABS >1171:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+448 RESETVEC ABS >1172:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+44C RESETVEC ABS >1174:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+44E RESETVEC ABS >1175:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+450 RESETVEC ABS >1176:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+452 RESETVEC ABS >1177:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+454 RESETVEC ABS >1178:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+456 RESETVEC ABS >1180:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+458 RESETVEC ABS >1187:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+45A RESETVEC ABS >1188:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+45C RESETVEC ABS >1189:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+45E RESETVEC ABS >1190:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+460 RESETVEC ABS >1191:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+462 RESETVEC ABS >1193:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+464 RESETVEC ABS >1194:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+466 RESETVEC ABS >1195:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+46A RESETVEC ABS >1196:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+46C RESETVEC ABS >1197:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+470 RESETVEC ABS >1202:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+472 RESETVEC ABS >1203:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+474 RESETVEC ABS >1204:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+476 RESETVEC ABS >1205:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+478 RESETVEC ABS >1206:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+47A RESETVEC ABS >1211:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+47C RESETVEC ABS >1212:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+47E RESETVEC ABS >1214:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+480 RESETVEC ABS >1215:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+482 RESETVEC ABS >1218:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+484 RESETVEC ABS >1221:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+486 RESETVEC ABS >1222:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+488 RESETVEC ABS >1223:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+48A RESETVEC ABS >1224:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+48C RESETVEC ABS >1225:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+48E RESETVEC ABS >1226:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+490 RESETVEC ABS >1229:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+492 RESETVEC ABS >1230:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+494 RESETVEC ABS >1233:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+496 RESETVEC ABS >1234:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+498 RESETVEC ABS >1236:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+49A RESETVEC ABS >1237:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+49C RESETVEC ABS >1238:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+49E RESETVEC ABS >1239:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4A0 RESETVEC ABS >1241:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4A2 RESETVEC ABS >1242:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4A4 RESETVEC ABS >1243:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4A6 RESETVEC ABS >1245:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4AA RESETVEC ABS >1253:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4AC RESETVEC ABS >1261:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4AE RESETVEC ABS >1266:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4B0 RESETVEC ABS >1269:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4B2 RESETVEC ABS >1274:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4B4 RESETVEC ABS >1275:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4B6 RESETVEC ABS >1276:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4B8 RESETVEC ABS >1278:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4BA RESETVEC ABS >1279:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4BC RESETVEC ABS >1281:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4BE RESETVEC ABS >1284:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4C0 RESETVEC ABS >1285:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4C2 RESETVEC ABS >1286:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4C4 RESETVEC ABS >1288:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4C8 RESETVEC ABS >1290:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4CA RESETVEC ABS >1293:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4CC RESETVEC ABS >1294:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4CE RESETVEC ABS >1295:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4D0 RESETVEC ABS >1296:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4D2 RESETVEC ABS >1298:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4D6 RESETVEC ABS >1303:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4D8 RESETVEC ABS >1304:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4DA RESETVEC ABS >1308:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4DC RESETVEC ABS >1309:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4DE RESETVEC ABS >1311:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4E0 RESETVEC ABS >1313:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4E2 RESETVEC ABS >1317:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4E4 RESETVEC ABS >1322:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4E6 RESETVEC ABS >1324:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4E8 RESETVEC ABS >1326:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4EA RESETVEC ABS >1328:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4EC RESETVEC ABS >1329:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4EE RESETVEC ABS >1333:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4F0 RESETVEC ABS >1334:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4F2 RESETVEC ABS >1335:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4F4 RESETVEC ABS >1336:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4F6 RESETVEC ABS >1340:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4F8 RESETVEC ABS >1341:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4FA RESETVEC ABS >1351:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4FC RESETVEC ABS >1353:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+4FE RESETVEC ABS >1354:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+500 RESETVEC ABS >1355:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+502 RESETVEC ABS >1356:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+504 RESETVEC ABS >1358:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+506 RESETVEC ABS >1359:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+508 RESETVEC ABS >1361:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+50A RESETVEC ABS >1362:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+50C RESETVEC ABS >1367:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+50E RESETVEC ABS >1368:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+510 RESETVEC ABS >1369:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+512 RESETVEC ABS >1370:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+514 RESETVEC ABS >1371:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+516 RESETVEC ABS >1372:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+518 RESETVEC ABS >1373:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+51A RESETVEC ABS >1374:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+51C RESETVEC ABS >1375:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+51E RESETVEC ABS >1377:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+520 RESETVEC ABS >1378:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+522 RESETVEC ABS >1379:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+524 RESETVEC ABS >1388:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+528 RESETVEC ABS >1389:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+52C RESETVEC ABS >1390:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+530 RESETVEC ABS >1392:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+532 RESETVEC ABS >1393:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+534 RESETVEC ABS >1395:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+536 RESETVEC ABS >1398:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+538 RESETVEC ABS >1401:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+53A RESETVEC ABS >1402:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+53C RESETVEC ABS >1406:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+53E RESETVEC ABS >1407:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+540 RESETVEC ABS >1408:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+542 RESETVEC ABS >1409:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+544 RESETVEC ABS >1410:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+546 RESETVEC ABS >1411:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+548 RESETVEC ABS >1412:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+54C RESETVEC ABS >1413:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+54E RESETVEC ABS >1416:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+550 RESETVEC ABS >1417:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+552 RESETVEC ABS >1418:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+554 RESETVEC ABS >1419:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+558 RESETVEC ABS >1420:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+55A RESETVEC ABS >1421:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+55C RESETVEC ABS >1422:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+55E RESETVEC ABS >1423:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+560 RESETVEC ABS >1424:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+562 RESETVEC ABS >1426:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+564 RESETVEC ABS >1427:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+566 RESETVEC ABS >1433:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+568 RESETVEC ABS >1447:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+56A RESETVEC ABS >1450:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+56C RESETVEC ABS >1452:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+56E RESETVEC ABS >1454:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+570 RESETVEC ABS >1456:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+572 RESETVEC ABS >1459:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+574 RESETVEC ABS >1461:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+576 RESETVEC ABS >1463:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+578 RESETVEC ABS >1468:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+57A RESETVEC ABS >1470:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+57C RESETVEC ABS >1472:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+57E RESETVEC ABS >1474:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+580 RESETVEC ABS >1479:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+582 RESETVEC ABS >1480:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+584 RESETVEC ABS >1481:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+586 RESETVEC ABS >1482:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+588 RESETVEC ABS >1484:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+58A RESETVEC ABS >1486:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+58C RESETVEC ABS >1488:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+58E RESETVEC ABS >1489:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+590 RESETVEC ABS >1491:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+592 RESETVEC ABS >1494:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+594 RESETVEC ABS >1495:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+596 RESETVEC ABS >1496:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+598 RESETVEC ABS >1497:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+59A RESETVEC ABS >1500:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+59C RESETVEC ABS >1503:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+59E RESETVEC ABS >1504:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5A0 RESETVEC ABS >1505:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5A2 RESETVEC ABS >1506:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5A4 RESETVEC ABS >1509:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5A6 RESETVEC ABS >1512:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5A8 RESETVEC ABS >1513:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5AA RESETVEC ABS >1514:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5AC RESETVEC ABS >1515:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5AE RESETVEC ABS >1517:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5B0 RESETVEC ABS >1519:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5B2 RESETVEC ABS >1522:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5B4 RESETVEC ABS >1523:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5B6 RESETVEC ABS >1524:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5B8 RESETVEC ABS >1525:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5BA RESETVEC ABS >1527:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5BC RESETVEC ABS >1529:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5BE RESETVEC ABS >1532:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5C0 RESETVEC ABS >1533:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5C2 RESETVEC ABS >1534:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5C4 RESETVEC ABS >1536:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5C6 RESETVEC ABS >1538:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5C8 RESETVEC ABS >1540:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5CA RESETVEC ABS >1543:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5CC RESETVEC ABS >1544:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5CE RESETVEC ABS >1545:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5D0 RESETVEC ABS >1547:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5D2 RESETVEC ABS >1553:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5D4 RESETVEC ABS >1554:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5D6 RESETVEC ABS >1563:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5D8 RESETVEC ABS >1565:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5DA RESETVEC ABS >1567:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5DC RESETVEC ABS >1569:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5DE RESETVEC ABS >1570:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5E0 RESETVEC ABS >1582:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5E2 RESETVEC ABS >1584:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5E6 RESETVEC ABS >1586:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5EA RESETVEC ABS >1588:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5EC RESETVEC ABS >1592:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5EE RESETVEC ABS >1594:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5F0 RESETVEC ABS >1596:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5F2 RESETVEC ABS >1598:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5F4 RESETVEC ABS >1604:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5F6 RESETVEC ABS >1606:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5F8 RESETVEC ABS >1608:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5FA RESETVEC ABS >1614:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+5FC RESETVEC ABS >1616:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+600 RESETVEC ABS >1618:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+602 RESETVEC ABS >1620:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+604 RESETVEC ABS >1621:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+606 RESETVEC ABS >1630:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+61C RESETVEC ABS >1636:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+636 RESETVEC ABS >1642:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+648 RESETVEC ABS >1648:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+65A RESETVEC ABS >1654:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+66C RESETVEC ABS >1660:D:\\GreatCowBASICGits\\Help.git\\trunk\\seven_inch_gcld\\code\\grbasic\\010_18F67K40_Explorer8_GLCD_setupverification.S
+# %SYMTAB Section
+# An enumeration of all symbols in the program.
+# The beginning of the section is indicated by %SYMTAB.
+# Each line describes a single symbol as follows:
+#    <label> <value> [-]<load-adj> <class> <space> <psect> <file-name>
+# The value and load-adj are both in unqualified hexadecimal.
+# All other numeric values are in decimal.  The load-adj is the
+# quantity one needs to add to the symbol value in order to obtain the load
+# address of the symbol.  This value may be signed. If the symbol
+# was defined in a psect then <psect> will be "-". File-name
+# is the name of the object file in which the symbol was defined.
+%SYMTAB
+__Hspace_0 67E 0 ABS 0 - -
+__Hspace_1 0 0 ABS 0 - -
+__Hspace_3 0 0 ABS 0 - -
+__Hspace_4 60000C 0 ABS 0 - -
+DELAYTEMP 0 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYUSO2 18A 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYUSO4 482 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYUSO7 380 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__Hudata_bank0 0 0 ABS 0 udata_bank0 -
+__Hudata_bank1 0 0 ABS 0 udata_bank1 -
+__Hudata_bank2 0 0 ABS 0 udata_bank2 -
+__Hudata_bank3 0 0 ABS 0 udata_bank3 -
+__Hudata_bank4 0 0 ABS 0 udata_bank4 -
+__Hudata_bank5 0 0 ABS 0 udata_bank5 -
+__Hudata_bank6 0 0 ABS 0 udata_bank6 -
+__Hudata_bank7 0 0 ABS 0 udata_bank7 -
+__Hudata_bank8 0 0 ABS 0 udata_bank8 -
+__Hudata_bank9 0 0 ABS 0 udata_bank9 -
+CLS 170 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__L__absolute__ 0 0 ABS 0 __absolute__ -
+AFSR0 FE9 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSTRINGLENGTH 6 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SPICLOCKMODE 21 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+GLCDDEVICEWIDTH 10 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+HSERPRINTCRLFCOUNT 19 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DS_START 1C8 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+LCD_SPI_EXPANDER_INITIALIZE 394 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSTRINGPARAM1 DD1 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SWITCHEVENT 24 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSLCDTEMP 25 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSPRINTDATAHANDLER 26 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAY_S 1C8 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSTRINGTABLES 606 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+GLCDFNTDEFAULTHEIGHT 13 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+BASPROGRAMEND 16C 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+LCD_SPI_WRITEIOEXPANDER 4AC 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SPIMODE764 568 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSCOMPEQUAL 5D6 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYTEMP2 1 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAY_10US 19E 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSWAITLOOP1 238 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSWAITLOOP2 23E 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSWAITTEMPS 4 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSPRINTDATAHANDLER_H 27 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+AFSR0_H FEA 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+D10US_START 19E 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSTRINGREADCHECK 5F4 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__Hudata_bank10 0 0 ABS 0 udata_bank10 -
+__Hudata_bank11 0 0 ABS 0 udata_bank11 -
+__Hudata_bank12 0 0 ABS 0 udata_bank12 -
+__Hudata_bank13 0 0 ABS 0 udata_bank13 -
+SYSSTRINGREAD 5FA 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSREADSTRING 5E0 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__LCDBYTE 2D 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+GLCDROTATESTATE 18 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+GLCDFOREGROUND_H 17 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSTRINGA 7 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSREADSTRINGPART 5EC 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__LCD_OUTBUFFERCOUNT 30 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+isa$xinst 0 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSFORLOOPEND1 566 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSFORLOOPEND2 4F6 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSFORLOOPEND3 21A 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+BTNSTATE A 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__Hedata 0 0 ABS 0 edata -
+__Hudata 0 0 ABS 0 udata -
+LCDVALUE 1D 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+GLCDCLS_LT686 1D8 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+HSERSEND805 238 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+GLCDFOREGROUND 16 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__Hconfig 30000C 0 CONFIG 4 config -
+__LCDREG 2E 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+LCDCOLUMN 1B 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__Ledata 0 0 ABS 0 edata -
+__Ludata 0 0 ABS 0 udata -
+SYSFORLOOP1 53C 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSFORLOOP2 4B0 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSFORLOOP3 1F0 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__Hcode 0 0 ABS 0 code -
+__Hdata 0 0 ABS 0 data -
+__Lcode 0 0 ABS 0 code -
+__Ldata 0 0 ABS 0 data -
+ELSE4_1 458 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+ELSE8_1 4E2 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__S0 0 0 ABS 0 - -
+__S1 0 0 ABS 0 - -
+__S3 0 0 ABS 0 - -
+ENDIF12 21A 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+ENDIF13 21A 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+ENDIF14 392 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+GLCDFNTDEFAULT 12 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+LCDBYTE 1A 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+LCDLINE 1C 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+GLCDDEVICEHEIGHT_H F 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSTRINGA_H 8 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__Ludata_bank10 0 0 ABS 0 udata_bank10 -
+__Ludata_bank11 0 0 ABS 0 udata_bank11 -
+__Ludata_bank12 0 0 ABS 0 udata_bank12 -
+__Ludata_bank13 0 0 ABS 0 udata_bank13 -
+GLCDDEVICEWIDTH_H 11 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+STRINGTABLE1 606 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+STRINGTABLE2 61C 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+STRINGTABLE3 636 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+STRINGTABLE4 648 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+STRINGTABLE5 65A 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+STRINGTABLE6 66C 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+HSERPRINTCRLF 21C 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSTEMP1 2B 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSTEMP2 2C 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SERDATA 20 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__Lconfig 0 0 CONFIG 4 config -
+GLCDFNTDEFAULTSIZE 14 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSELECTEND1 4D6 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSELECTEND2 5D2 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSPRINTTEMP 28 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+PRINT612 524 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+PRINTLEN 1F 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+isa$std 1 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+ENDIF1 50C 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+ENDIF3 566 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+ENDIF4 47A 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+ENDIF5 4AA 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+ENDIF6 4AA 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+ENDIF8 4E4 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__LRESETVEC 0 0 ABS 0 RESETVEC -
+INITLCD 2A4 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+INITPPS 2AC 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+INITSYS 2DE 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+LCD_STATE 1E 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYUS0 1A2 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYUS1 26C 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYUS2 18C 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYUS3 198 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYUS4 484 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYUS5 490 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYUS6 3A4 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYUS7 382 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAYUS8 38E 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DELAY_MS 1AC 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__Lspace_0 0 0 ABS 0 - -
+__Lspace_1 0 0 ABS 0 - -
+__Lspace_3 0 0 ABS 0 - -
+__Lspace_4 0 0 ABS 0 - -
+INITGLCD_LT686 24A 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSWAITTEMP10US 5 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSWAITTEMPMS_H 3 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSWAITTEMPUS_H 6 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SPICURRENTMODE 22 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+LCDCMD 348 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+LOCATE 4FA 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__LCD_OUTBUFFER 2F 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+LCD_SPI_EXPANDER_NORMALWRITEBYTE 430 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSREPEATLOOPEND1 4EE 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSREPEATLOOPEND2 236 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+HSERSENDUSART1HANDLER 238 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSWAITTEMPMS 2 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSWAITTEMPUS 5 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+GLCDBACKGROUND_H D 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+ELSE14_1 37C 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DMS_INNER 1B6 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DMS_OUTER 1B2 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+DMS_START 1AE 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__Ludata_bank0 0 0 ABS 0 udata_bank0 -
+__Ludata_bank1 0 0 ABS 0 udata_bank1 -
+__Ludata_bank2 0 0 ABS 0 udata_bank2 -
+__Ludata_bank3 0 0 ABS 0 udata_bank3 -
+__Ludata_bank4 0 0 ABS 0 udata_bank4 -
+__Ludata_bank5 0 0 ABS 0 udata_bank5 -
+__Ludata_bank6 0 0 ABS 0 udata_bank6 -
+__Ludata_bank7 0 0 ABS 0 udata_bank7 -
+__Ludata_bank8 0 0 ABS 0 udata_bank8 -
+__Ludata_bank9 0 0 ABS 0 udata_bank9 -
+__H__absolute__ 0 0 ABS 0 __absolute__ -
+SYSSELECT1CASE1 4B2 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSELECT1CASE2 4BE 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSELECT1CASE3 4CA 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSELECT2CASE1 580 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSELECT2CASE2 592 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSELECT2CASE3 59C 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSELECT2CASE4 5A6 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSELECT2CASE5 5B2 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSELECT2CASE6 5BE 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSSELECT2CASE7 5CA 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSCALCTEMPA 5 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__HRESETVEC 67E 0 ABS 0 RESETVEC -
+INITUSART 32A 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+COMPORT B 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+STRINGPOINTER 23 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__Hudata_acs 0 0 ABS 0 udata_acs -
+HSERPRINT815 1DA 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSREPEATLOOP1 4DA 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSREPEATLOOP2 226 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSREPEATTEMP1 29 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSREPEATTEMP2 2A 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+GLCDFONTWIDTH 15 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+GLCDBACKGROUND C 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+GLCDDEVICEHEIGHT E 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSBYTETEMPA 5 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSBYTETEMPB 9 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+SYSBYTETEMPX 0 0 ABS 0 - D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+__Ludata_acs 0 0 ABS 0 udata_acs -
+BASPROGRAMSTART C 0 ABS 0 RESETVEC D:\GreatCowBASICGits\Help.git\trunk\seven_inch_gcld\code\grbasic\010_18F67K40_Explorer8_GLCD_setupverification.o
+# %SPLITSTAB Section
+# This section enumerates all the psect splits performed by the assembler.
+# The beginning of the section is indicated by %SPLITSTAB.
+# Each line is a record a particular split, where the parent psect is on
+# the left and the child on the right.  Note that a child psect is always
+# split form the top of the parent psect. All splits from a given parent
+# are listed in the order in which they occurred.
+%SPLITSTAB
+# %DABS Section
+# This section contains a table of all usuage of the assember
+# directive DABS in the program. Each line has the following format:
+#   <name> <space> <address> <size>
+# If the DABS was originally labelled then that shall be <name>,
+# otherwise name will be "-".  The <space> number is in decimal.
+# <address> and <size> are in byte units as unqaulified hexadecimal
+%DABS
+# %SEGMENTS Section
+# This sections enumerates the segments of the program.  Each segment
+# is described on a single line as follows:
+#    <name> <space> <link address> <file address> <size> <delta>
+# Addresses and size are in unqualified hexadecimal.  The link address
+# and size are in units of delta. The file address is in units of bytes.
+# All other numeric quantities are in decimal.
+%SEGMENTS
+# %NOTES Section
+# This section contains data of all the note-psects.  The beginning of the section
+# is indicated by %NOTES. The first line indicates the name and decimal
+# byte-length of the first note-psect, e.g.
+#   $codecov_info_hdr 16
+# Each line that follows contains the byte-data of the psect in hexadecimal as a
+# space-separated list. These lines are limited to 16 bytes of data.
+%NOTES
