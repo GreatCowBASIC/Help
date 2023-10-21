@@ -28,8 +28,8 @@
         Sub InitPPS
                 
                 #ifdef USART_BAUD_RATE
-                    'Module: EUSART1
-                    RC6PPS = 0x000C    'TX1 > RC6
+                     //~ Module: EUSART1
+                    RC6PPS = 0x000C     //~ TX1 > RC6
                 #endif
 
                 #ifdef oneof(LCD_HARDWARESPI, LT686_HARDWARESPI)
@@ -40,13 +40,13 @@
                     SSP1DATPPS = 0x14;   //RC4->MSSP1:SDI1;  
                 #endif
 
-                'Module: CCP1
-                RC2PPS = 0x0005    'CCP1 > RC2
-                CCP1PPS = 0x0012    'RC2 > CCP1 (bi-directional)
-                RE5PPS = 0x0005    'CCP1 > RE5
-                CCP1PPS = 0x0025    'RE5 > CCP1 (bi-directional)
-                RE7PPS = 0x0005    'CCP1 > RE7
-                CCP1PPS = 0x0027    'RE7 > CCP1 (bi-directional)
+                 //~ Module: CCP1
+                RC2PPS = 0x0005     //~ CCP1 > RC2
+                CCP1PPS = 0x0012     //~ RC2 > CCP1 (bi-directional)
+                RE5PPS = 0x0005     //~ CCP1 > RE5
+                CCP1PPS = 0x0025     //~ RE5 > CCP1 (bi-directional)
+                RE7PPS = 0x0005     //~ CCP1 > RE7
+                CCP1PPS = 0x0027     //~ RE7 > CCP1 (bi-directional)
             
             End Sub
 
@@ -55,22 +55,21 @@
         #define USART_TX_BLOCKING
         #define USART_DELAY OFF
 
-    // Constants - GLCD connectivity type;controls whether to use HW SPI 
-        #define GLCD_LT686_1024x800
-        // #define GLCD_LT686_800x480
+    // Constants - GLCD connectivity type;controls whether to use HW SPI
+        #include <glcd.h> 
+        #define GLCD_TYPE GLCD_LT686_1024x800  //! or GLCD_LT686_800x480
 
-        #define GLCD_TYPE_LT686 99
         #define LT686_HARDWARESPI
         #define HWSPIMODE MASTERFAST
-        'Pin mappings for GLCD SPI
+         //~ Pin mappings for GLCD SPI
         // If PPS enabled then ports must match PPS config
         #define GLCD_DO          portc.5
         #define GLCD_DI          portc.4
         #define GLCD_SCK         portc.3
         // Ports to control GLCD
-        #define GLCD_INT         portc.33
-        #define GLCD_RESET       portb.52
-        #define GCLD_CS          porta.22
+        #define GLCD_INT         portc.0
+        #define GLCD_RESET       portb.0
+        #define GLCD_CS          porta.0
         
         
         
@@ -88,7 +87,7 @@
             #define LCD_SPI_EXPANDER_E_ADDRESS      0x40     // GPA6 on the expander
             #define LCD_SPI_EXPANDER_RS_ADDRESS     0x80     // GPA7 on the expander   
 
-        'Pin mappings for LCD IO SPI Expander
+         // Pin mappings for LCD IO SPI Expander
         #define LCD_SPI_DO          portc.5
         #define LCD_SPI_SCK         portc.3
         #define LCD_SPI_CS          porta.2
@@ -168,6 +167,7 @@
     Print "  to Explorer 8 "
 
 
+  InitGLCD
 /*
     Do Forever
         // Check button state
@@ -179,241 +179,6 @@
 
     Loop
 */
-
-
-'''Initialise the GLCD device
-Sub InitGLCD_LT686
-
-  #if GLCD_TYPE = GLCD_TYPE_LT686
-
-    '  Mapped to global variables to same RAM
-    ' dim LT686_GLCD_HEIGHT, LT686_GLCD_WIDTH as word
-
-    'Setup code for LT686 controllers
-
-    #ifdef LT686_SPI_MODE_SCRIPT 1
-        'SPI mode!!!
-    'Pin directions
-    Dir LT686_CS Out
-    Dir LT686_DC Out
-    Dir LT686_RST Out
-
-    #if bit(LT686_DI)
-      Dir LT686_DI In
-    #endif
-    Dir LT686_DO Out
-    Dir LT686_SCK Out
-
-    #ifdef LT686_HardwareSPI
-      ' harware SPI mode
-      asm showdebug SPI constant used equates to HWSPIMODESCRIPT
-      SPIMode HWSPIMODESCRIPT, 0
-    #endif
-
-   Set LT686_CS On
-   Set LT686_DC On
-    #endif
-
-
-    #ifdef LT686_8BIT_MODE_SCRIPT 1
-    '8bit bus mode !!
-      dir  LT686_DB7 OUT
-      dir  LT686_DB6 OUT
-      dir  LT686_DB5 OUT
-      dir  LT686_DB4 OUT
-      dir  LT686_DB3 OUT
-      dir  LT686_DB2 OUT
-      dir  LT686_DB1 OUT
-      dir  LT686_DB0 OUT
-
-      'Set pin directions
-      Dir LT686_RD  Out
-      Dir LT686_WR  Out
-      Dir LT686_RS  Out
-      Dir LT686_CS  Out
-      Dir LT686_RST Out
-
-      Set LT686_RD On
-      Set LT686_WR On
-      Set LT686_RS On
-      set LT686_CS ON
-      Set LT686_RST On
-    #endif
-
-    'Reset display
-    Wait 50 ms
-    Set LT686_RST On
-    Wait 15 ms
-    'Reset sequence (lower line for at least 10 us)
-    Set LT686_RST Off
-    Wait 15 us
-    Set LT686_RST On
-    Wait 15 ms
-
-  SendCommand_LT686(0xEF)
-  SendData_LT686(0x03)
-  SendData_LT686(0x80)
-  SendData_LT686(0x02)
-
-  SendCommand_LT686(0xCF)
-  SendData_LT686(0x00)
-  SendData_LT686(0XC1)
-  SendData_LT686(0X30)
-
-  SendCommand_LT686(0xED)
-  SendData_LT686(0x64)
-  SendData_LT686(0x03)
-  SendData_LT686(0X12)
-  SendData_LT686(0X81)
-
-  SendCommand_LT686(0xE8)
-  SendData_LT686(0x85)
-  SendData_LT686(0x00)
-  SendData_LT686(0x78)
-
-  SendCommand_LT686(0xCB)
-  SendData_LT686(0x39)
-  SendData_LT686(0x2C)
-  SendData_LT686(0x00)
-  SendData_LT686(0x34)
-  SendData_LT686(0x02)
-
-  SendCommand_LT686(0xF7)
-  SendData_LT686(0x20)
-
-  SendCommand_LT686(0xEA)
-  SendData_LT686(0x00)
-  SendData_LT686(0x00)
-
-  SendCommand_LT686(LT686_PWCTR1)    'Power control
-  SendData_LT686(0x2B)   'VRH[5:0]
-
-  SendCommand_LT686(LT686_PWCTR2)    'Power control
-  SendData_LT686(0x10)   'SAP[2:0];BT[3:0]
-
-  SendCommand_LT686(LT686_VMCTR1)    'VCM control
-  SendData_LT686(0x3e) '???????
-  SendData_LT686(0x28)
-
-  SendCommand_LT686(LT686_VMCTR2)    'VCM control2
-  SendData_LT686(0x86)  '--
-
-  SendCommand_LT686(LT686_MADCTL)    ' Memory Access Control
-  SendData_LT686(LT686_MADCTL_MX | LT686_MADCTL_BGR)
-
-  SendCommand_LT686(LT686_PIXFMT)
-  SendData_LT686(0x55)
-
-  SendCommand_LT686(LT686_FRMCTR1)
-  SendData_LT686(0x00)
-  SendData_LT686(0x18)
-
-  SendCommand_LT686(LT686_DFUNCTR)    ' Display Function Control
-  SendData_LT686(0x08)
-  SendData_LT686(0x82)
-  SendData_LT686(0x27)
-
-  SendCommand_LT686(0xF2)    ' 3Gamma Function Disable
-  SendData_LT686(0x00)
-
-  SendCommand_LT686(LT686_GAMMASET)    'Gamma curve selected
-  SendData_LT686(0x01)
-
-  SendCommand_LT686(LT686_GMCTRP1)    'Set Gamma
-  SendData_LT686(0x0F)
-  SendData_LT686(0x31)
-  SendData_LT686(0x2B)
-  SendData_LT686(0x0C)
-  SendData_LT686(0x0E)
-  SendData_LT686(0x08)
-  SendData_LT686(0x4E)
-  SendData_LT686(0xF1)
-  SendData_LT686(0x37)
-  SendData_LT686(0x07)
-  SendData_LT686(0x10)
-  SendData_LT686(0x03)
-  SendData_LT686(0x0E)
-  SendData_LT686(0x09)
-  SendData_LT686(0x00)
-
-  SendCommand_LT686(LT686_GMCTRN1)    'Set Gamma
-  SendData_LT686(0x00)
-  SendData_LT686(0x0E)
-  SendData_LT686(0x14)
-  SendData_LT686(0x03)
-  SendData_LT686(0x11)
-  SendData_LT686(0x07)
-  SendData_LT686(0x31)
-  SendData_LT686(0xC1)
-  SendData_LT686(0x48)
-  SendData_LT686(0x08)
-  SendData_LT686(0x0F)
-  SendData_LT686(0x0C)
-  SendData_LT686(0x31)
-  SendData_LT686(0x36)
-  SendData_LT686(0x0F)
-
-  SendCommand_LT686(LT686_SLPOUT)    'Exit Sleep
-  wait 150 ms
-  SendCommand_LT686(LT686_DISPON)    'Display on
-
-  'Default Colours
-  #ifdef DEFAULT_GLCDBACKGROUND
-    GLCDBACKGROUND = DEFAULT_GLCDBACKGROUND
-  #endif
-
-  #ifndef DEFAULT_GLCDBACKGROUND
-    GLCDBACKGROUND = LT686_BLACK
-  #endif
-
-
-  GLCDForeground = LT686_WHITE
-
-    'Variables required for device
-    LT686_GLCD_WIDTH = GLCD_WIDTH
-    LT686_GLCD_HEIGHT = GLCD_HEIGHT
-    #ifndef GLCD_OLED_FONT
-      GLCDFontWidth = 6
-    #endif
-
-    #ifdef GLCD_OLED_FONT
-      GLCDFontWidth = 5
-    #endif
-
-  GLCDfntDefault = 0
-  GLCDfntDefaultsize = 1
-  GLCDfntDefaultHeight = 7  'used by GLCDPrintString and GLCDPrintStringLn
-
-  #endif
-
-  GLCDRotateState = Portrait
-  'Clear screen
-  GLCDCLS
-
-End Sub
-
-'Sub
-'''Clears the GLCD screen
-Sub GLCDCLS_LT686 ( Optional In  GLCDBACKGROUND as word = GLCDBACKGROUND )
-
-End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -449,3 +214,177 @@ Sub checkButtonS2
 
 End Sub
 
+//****************************************************************************************************************************************
+
+//~ To be merged into GLCD.h
+  #define GLCD_LT686_1024x800 35
+  #define GLCD_LT686_800x480  36
+
+  #script
+
+  If GLCD_TYPE = GLCD_LT686_1024x800  Then
+    //  #include <GLCD_LT686.h>
+     InitGLCD = InitGLCD_LT686
+     GLCDCLS = GLCDCLS_LT686
+    //  GLCDDrawChar = GLCDDrawChar_LT686
+    //  GLCDDrawString = GLCDDrawString_LT686
+    //  FilledBox = FilledBox_LT686
+    //  Pset = Pset_LT686
+    //  GLCDRotate = GLCDRotate_LT686
+     glcd_type_string = "LT686"
+     GLCD_WIDTH = 1024
+     GLCD_HEIGHT = 800
+     LT686_GLCD_HEIGHT = GLCDDeviceHeight
+     LT686_GLCD_WIDTH = GLCDDeviceWidth
+  End If
+
+  If GLCD_TYPE = GLCD_LT686_800x480  Then
+    //  #include <GLCD_LT686.h>
+     InitGLCD = InitGLCD_LT686
+     GLCDCLS = GLCDCLS_LT686
+    //  GLCDDrawChar = GLCDDrawChar_LT686
+    //  GLCDDrawString = GLCDDrawString_LT686
+    //  FilledBox = FilledBox_LT686
+    //  Pset = Pset_LT686
+    //  GLCDRotate = GLCDRotate_LT686
+     glcd_type_string = "LT686"
+     GLCD_WIDTH = 800
+     GLCD_HEIGHT = 480
+     LT686_GLCD_HEIGHT = GLCDDeviceHeight
+     LT686_GLCD_WIDTH = GLCDDeviceWidth
+  End If
+
+
+  #endscript  
+
+
+// **************************************************************************************************
+
+'Pin mappings for LT686
+#define LT686_INT GLCD_INT
+#define LT686_CS  GLCD_CS
+#define LT686_RST GLCD_RESET
+
+#define LT686_DI  GLCD_DI ;DI IS NOT USED within the library - presence for completeness
+#define LT686_DO  GLCD_DO
+#define LT686_SCK GLCD_SCK
+
+
+'''Initialise the GLCD device
+Sub InitGLCD_LT686
+
+  #if GLCD_TYPE=GLCD_LT686_800x480 or GLCD_TYPE=GLCD_LT686_1024x800
+    //~ Setup code for LT686 controllers
+
+    #ifdef LT686_SPI_MODE_SCRIPT 1
+      //~ SPI mode
+      Dir LT686_CS Out
+      Dir LT686_INT In
+      Dir LT686_RST Out
+
+      #if bit(LT686_DI)
+        Dir LT686_DI In
+      #endif
+      Dir LT686_DO Out
+      Dir LT686_SCK Out
+    #endif
+
+    #ifdef LT686_HardwareSPI
+      // Harware SPI mode
+      SPIMode HWSPIMODESCRIPT, 0
+    #endif
+
+    Set LT686_CS On
+
+
+// void LT768_Init(void)
+// {
+// 	Delay_ms(200);                    //delay for LT768 power on
+// 	LT768_HW_Reset();                 //LT768.... reset
+
+      // GPIO_SetBits(GPIOD, GPIO_Pin_4 );		 	 
+      // Delay_ms(10);
+      // GPIO_ResetBits(GPIOD, GPIO_Pin_4);
+      // Delay_ms(100);				   
+      // GPIO_SetBits(GPIOD, GPIO_Pin_4 );		 	 
+      // Delay_ms(200);
+
+// 	test_SPIIO();
+// 	System_Check_Temp();	          //检测复位是否成功    ... Check whether the reset is successful
+// 	Delay_ms(100);
+// 	while(LCD_StatusRead()&0x02);	    //Initial_Display_test	and  set SW2 pin2 = 1
+// 	LT768_initial();
+	
+// }	
+
+    //~ Reset display
+    Wait 50 ms
+    Set LT686_RST On
+    Wait 15 ms
+     //~ Reset sequence (lower line for at least 10 us)
+    Set LT686_RST Off
+    Wait 15 us
+    Set LT686_RST On
+    Wait 15 ms
+
+    // SendCommand_LT686(0xEF)
+    // SendData_LT686(0x03)
+
+     //~ Default Colours
+    #ifdef DEFAULT_GLCDBACKGROUND
+      GLCDBACKGROUND = DEFAULT_GLCDBACKGROUND
+    #endif
+
+    #ifndef DEFAULT_GLCDBACKGROUND
+      GLCDBACKGROUND = TFT_BLACK
+    #endif
+
+
+    GLCDForeground = TFT_WHITE
+
+     //~ Variables required for device
+    LT686_GLCD_WIDTH = GLCD_WIDTH
+    LT686_GLCD_HEIGHT = GLCD_HEIGHT
+    #ifndef GLCD_OLED_FONT
+      GLCDFontWidth = 6
+    #endif
+
+    #ifdef GLCD_OLED_FONT
+      GLCDFontWidth = 5
+    #endif
+
+    GLCDfntDefault = 0
+    GLCDfntDefaultsize = 1
+    GLCDfntDefaultHeight = 7   //~ used by GLCDPrintString and GLCDPrintStringLn
+
+  #endif
+
+  GLCDRotateState = Portrait
+   //~ Clear screen
+  GLCDCLS
+
+End Sub
+
+'Sub
+'''Clears the GLCD screen
+Sub GLCDCLS_LT686 ( Optional In  GLCDBACKGROUND as word = GLCDBACKGROUND )
+
+// void LT768_DrawSquare_Fill
+// (
+//  unsigned short X1                // X1位置
+// ,unsigned short Y1                // Y1位置
+// ,unsigned short X2                // X2位置
+// ,unsigned short Y2                // Y2位置
+// ,unsigned long ForegroundColor    // 背景颜色
+// )
+// {
+//   //Foreground_color_65k(ForegroundColor);
+//   Foreground_color_16M(ForegroundColor);
+//   Square_Start_XY(X1,Y1);
+//   Square_End_XY(X2,Y2);
+//   Start_Square_Fill();
+//   Check_2D_Busy();
+// }
+
+
+End Sub
