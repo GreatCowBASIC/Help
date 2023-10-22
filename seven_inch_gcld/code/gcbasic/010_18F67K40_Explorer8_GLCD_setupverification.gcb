@@ -297,35 +297,34 @@ Sub InitGLCD_LT686
     Set LT686_CS On
 
 
-// void LT768_Init(void)
-// {
-// 	Delay_ms(200);                    //delay for LT768 power on
-// 	LT768_HW_Reset();                 //LT768.... reset
-
+    //! was void LT768_Init(void)
+    //// {
+    //// 	Delay_ms(200);                    //delay for LT768 power on
+    //! 	LT768_HW_Reset();                 //LT768.... reset
       // GPIO_SetBits(GPIOD, GPIO_Pin_4 );		 	 
       // Delay_ms(10);
       // GPIO_ResetBits(GPIOD, GPIO_Pin_4);
       // Delay_ms(100);				   
       // GPIO_SetBits(GPIOD, GPIO_Pin_4 );		 	 
       // Delay_ms(200);
+      Wait 200 ms
+      Set LT686_RST On
+      Wait 10 ms
+      Set LT686_RST Off
+      Wait 100 us
+      Set LT686_RST On
+      Wait 200 ms
 
-// 	test_SPIIO();
-// 	System_Check_Temp();	          //检测复位是否成功    ... Check whether the reset is successful
-// 	Delay_ms(100);
-// 	while(LCD_StatusRead()&0x02);	    //Initial_Display_test	and  set SW2 pin2 = 1
-// 	LT768_initial();
+  //! no idea what this! 	Ask Surenoo test_SPIIO();
+
+  //todo 	System_Check_Temp();	          //检测复位是否成功    ... Check whether the reset is successful
+  //todo 	Delay_ms(100);
+  //todo 	while(LCD_StatusRead()&0x02);	    //Initial_Display_test	and  set SW2 pin2 = 1
+  //todo 	LT768_initial();
 	
-// }	
+    //// }	
 
-    //~ Reset display
-    Wait 50 ms
-    Set LT686_RST On
-    Wait 15 ms
-     //~ Reset sequence (lower line for at least 10 us)
-    Set LT686_RST Off
-    Wait 15 us
-    Set LT686_RST On
-    Wait 15 ms
+
 
     // SendCommand_LT686(0xEF)
     // SendData_LT686(0x03)
