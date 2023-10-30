@@ -33,7 +33,7 @@ Select the correct URL for the specific PCB
 
 &#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/SSP0700B.pdf#[Black PCB - LCD Module PDF User Manual]
     
-
+// &#160;&#160;&#160;&#160;&#160;&#160;Example link:https://youtu.be/VVTF-MKvHPE[YouTube video], not using GCBASIC or an 8 -bit microconroller) but this the goal
 
 *Display*
 
@@ -61,17 +61,32 @@ The GLCD operating voltage (VCC) is 5v0 with microcontroller signals at 3v3.
 The GLCD has a shape drawing engine to provide smart drawing features:  Line, Rectangle, Triangle, Polygon, Poly-Line, Circle, Ellipse, Arc, and Rounded-Rectangle. 
 Characters/text features  embedded 8*16, 12*24, 16*32 character sets of iso/iec 8859-1/2/4/5  user-defined characters support half size & full size for 8*16, 12*24 and 16*32
 
-Select the URL to view the link:referencedocs/LT768x_DS_V42_ENG.pdf[Display Datasheet]
 
 This GLCD library has many features similar to the Nextion GLCD.  However, GCBASIC has to control more of the display events and pixel controller.  
 
 //image::7inchdisplay.png[graphic,align="center"]
 
-.Surunoo Display
-[#img-display,image=7inchdisplay.png,] 
-image::7inchdisplay.png[display,50%,align="center"]  
+.Surunoo Displays
+//[#img-display,image=7inchdisplay.png,] 
+//image::7inchdisplay.png[display,50%,align="center"]  
+//{empty} +
+//{empty} +
+
+[cols="a,a", frame=none, grid=none]
+|===
+|Blue PCB display
+|Black PCB display
+| image::7inchdisplay.png[display,80%,align="center"] 
+| image::7inchdisplayBlackCTP.png[display,80%,align="center"] 
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/LT768x_DS_V42_ENG.pdf[Display Datasheet] for the LCD driver.
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/LT768x_DS_V42_ENG.pdf[Display Datasheet] for the LCD driver.
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/FocalTech-FT5x26.pdf[Touch Datasheet] for FT5426
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/GT911_Datasheet.pdf[Touch Datasheet] for GT911
+|===
+
 {empty} +
 {empty} +
+
 
 
 *Touch*
@@ -83,7 +98,6 @@ It can drive capacitive type touch panel with up to 35 driving and 21 sensing li
 The Touch operating voltage (VCC) is 2v7 to +3v6 with microcontroller signals at 3v3.
 
 
-Select the URL to view the link:referencedocs/FocalTech-FT5x26.pdf[Touch Datasheet]
 
 Communications.
                 SPI to LCD
@@ -138,7 +152,7 @@ LT7686 & GT5426 library
 |3
 |Yes	
 
-LT7686 & GT5426 library
+LT7686 & GT911 library
 |GLCD 1024x600 with Capacitive Multipoint Touch	
 |1024x600
 164.90×100.00
@@ -166,7 +180,7 @@ LT7686 library
 |5	
 |Yes
 
-LT7686 & GT5426 library
+LT7686 & GT911 library
 |GLCD 1024x600 Screen with Larger Capacitive Multipoint  Touch
 |1024x600
 178.80×110.72
@@ -210,16 +224,24 @@ The table should have the SPI type and the resolution.&#160;&#160;Many supplied 
 //{empty} +
 The ribbon cable is different on each resolution.&#160;&#160;These photographs will assist in identification of the GLCD resolution.
 
-[cols="a,a", frame=none, grid=none]
+[cols="a,a,a", frame=none, grid=none]
 |===
 |800x480 pixel display
 |1024x800 pixel display
+|1024x800 pixel display
+
 | image::Unit1.png[display,80%,align="center"] 
 | image::Unit2.png[display,80%,align="center"] 
+| image::Unit3.png[display,80%,align="center"] 
+
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3 wire SPI only
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3 wire SPI only
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3 or 4 wire SPI
+
 |===
 
 
-NOTE: All BLUE PCBs are 3 Wire SPI for GLCD control. 
+
 
 == Connecting the GLCD 
 
@@ -227,8 +249,16 @@ NOTE: All BLUE PCBs are 3 Wire SPI for GLCD control.
 The GLCD comes with a 20 way ribbon cable.&#160;&#160;This should be connected to the 3-wire SPI Interface connector ( 20P/0.5MM ).
 
 .Surunoo PCB
-[#img-pcb,image=pcboverview.png] 
+
+[cols="a,a", frame=none, grid=none]
+|===
+|[#img-pcb,image=pcboverview.png] 
 image::pcboverview.png[display,50%,align="center"]  
+|[#img-pcb,image=pcboverview.png] 
+image::pcboverviewblack.png[display,50%,align="center"]  
+|===
+
+
 {empty} +
 {empty} +
 

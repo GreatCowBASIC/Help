@@ -104,8 +104,8 @@ Pi.
     $ wget "https://downloads.sourceforge.net/project/gcbasic/GCBasic%20-%20Linux%20Distribution/GCB%40Syn.rar"
     $ sudo apt install unar
     # the password when requested in the next step is "GCB"
-    $ unar GCB@Syn.rar
-    $ cd GCB@Syn/GCBASIC/sources/linuxbuild/
+    $ unar GCBASIC.rar
+    $ cd GCBASIC/sources/linuxbuild/
 ```
 
 <div class="orderedlist">
@@ -156,10 +156,10 @@ This will:
 To transfer your compiled .hex program files from your Pi to your
 microcontroller, you will need additional software.
 
-For most PIC microcontrollers, you can use
-<a href="https://wiki.kewl.org/dokuwiki/projects:pickle" class="link">pickle</a>.
-A description of how to use it is
-<a href="https://www.pedalpc.com/blog/program-pic-raspberry-pi/" class="link">here</a>
+For most PIC microcontrollers, you should use
+<a href="https://pickitplus.co.uk/Typesetter/index.php/PKCMD-Pi-Application" class="link">PICkitPlus for Pi</a>.
+PICKitPlus support the widest range of PICs including the latest PICs.
+It is fully supported application.
 
 For AVR microcontrollers, you will need `avrdude`. It should be
 available in your distribution’s repository. If not, check here:
