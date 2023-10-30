@@ -82,6 +82,8 @@ This GLCD library has many features similar to the Nextion GLCD.  However, GCBAS
 |&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/LT768x_DS_V42_ENG.pdf[Display Datasheet] for the LCD driver.
 |&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/FocalTech-FT5x26.pdf[Touch Datasheet] for FT5426
 |&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/GT911_Datasheet.pdf[Touch Datasheet] for GT911
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;https://youtu.be/oHksMAC8J84?si=ojw3o4qum8WEeD6D[Unboxing]
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;https://youtu.be/PZ-9b52B7JA?si=pxRQGUtnWSIHauvm[Unboxing]
 |===
 
 {empty} +
