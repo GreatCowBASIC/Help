@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      
+      <title>Introducing the 7 Inch GLCD Library -  - GCBASIC documentation</title>
+      <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+      <link rel="home" href="index.html" title="GCBASIC documentation" />
+      <link rel="up" href="index.html" title="GCBASIC documentation" />
+      <link rel="prev" href="_introducing_gcbasic.html" title="Introducing GCBASIC" />
+      <link rel="next" href="_connecting_the_glcd.html" title="Connecting the GLCD" />
+      <meta name="Section-title" content="Introducing the 7 Inch GLCD Library" /><script type="text/javascript">
+            //The id for tree cookie
+            var treeCookieId = "treeview-557";
+            var language = "en";
+            var w = new Object();
+            //Localization
+            txt_filesfound = 'Results';
+            txt_enter_at_least_1_char = "You must enter at least one character.";
+            txt_browser_not_supported = "JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.";
+            txt_please_wait = "Please wait. Search in progress...";
+            txt_results_for = "Results for: ";
+        </script><link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+      <link rel="stylesheet" type="text/css" href="common/css/positioning.css" />
+      <link rel="stylesheet" type="text/css" href="common/jquery/theme-redmond/jquery-ui-1.8.2.custom.css" />
+      <link rel="stylesheet" type="text/css" href="common/jquery/treeview/jquery.treeview.css" /><style type="text/css">
+
+#noscript{
+    font-weight:bold;
+	background-color: #55AA55;
+    font-weight: bold;
+    height: 25spx;
+    z-index: 3000;
+	top:0px;
+	width:100%;
+	position: relative;
+	border-bottom: solid 5px black;
+	text-align:center;
+	color: white;
+}
+
+input {
+    margin-bottom: 5px;
+    margin-top: 2px;
+}
+.folder {
+    display: block;
+    height: 22px;
+    padding-left: 20px;
+    background: transparent url(common/jquery/treeview/images/folder.gif) 0 0px no-repeat;
+}
+span.contentsTab {
+    padding-left: 20px;
+    background: url(common/images/toc-icon.png) no-repeat 0 center;
+}
+span.searchTab {
+    padding-left: 20px;
+    background: url(common/images/search-icon.png) no-repeat 0 center;
+}
+
+/* Overide jquery treeview's defaults for ul. */
+.treeview ul {
+    background-color: transparent;
+    margin-top: 4px;
+}		
+#webhelp-currentid {
+    background-color: #D8D8D8 !important;
+}
+.treeview .hover { color: black; }
+.filetree li span a { text-decoration: none; font-size: 12px; color: #517291; }
+
+/* Override jquery-ui's default css customizations. These are supposed to take precedence over those.*/
+.ui-widget-content {
+    border: 0px; 
+    background: none; 
+    color: none;     
+}
+.ui-widget-header {
+    color: #e9e8e9;
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    border-bottom: 1px solid #bbc4c5;
+    border-top: 4px solid #e5e5e5;
+    border: medium none;
+    background: #F4F4F4; /* old browsers */
+    background: -moz-linear-gradient(top, #F4F4F4 0%, #E6E4E5 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F4F4F4), color-stop(100%,#E6E4E5)); /* webkit */    
+    font-weight: none;
+}
+.ui-widget-header a { color: none; }
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { 
+border: none; background: none; font-weight: none; color: none; }
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: black; text-decoration: none; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: none; background: none; font-weight: none; color: none; }
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: none; background: none; font-weight: none; color: none; }
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { 
+    color: black; text-decoration: none; 	
+    background: #C6C6C6; /* old browsers */
+    background: -moz-linear-gradient(top, #C6C6C6 0%, #D8D8D8 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#C6C6C6), color-stop(100%,#D8D8D8)); /* webkit */
+    -webkit-border-radius:15px; -moz-border-radius:10px;
+    border: 1px solid #f1f1f1;
+}    
+.ui-corner-all { border-radius: 0 0 0 0; }
+
+.ui-tabs { padding: .2em;}
+.ui-tabs .ui-tabs-nav li { top: 0px; margin: -2px 0 1px; text-transform: uppercase; font-size: 10.5px;}
+.ui-tabs .ui-tabs-nav li a { padding: .25em 2em .25em 1em; margin: .5em; text-shadow: 0 1px 0 rgba(255,255,255,.5); }
+       /**
+	 *	Basic Layout Theme
+	 * 
+	 *	This theme uses the default layout class-names for all classes
+	 *	Add any 'custom class-names', from options: paneClass, resizerClass, togglerClass
+	 */
+
+	.ui-layout-pane { /* all 'panes' */ 
+		background: #FFF; 
+		border: 1px solid #BBB; 
+		padding: 05x; 
+		overflow: auto;
+	} 
+        
+	.ui-layout-resizer { /* all 'resizer-bars' */ 
+		background: #DDD; 
+                top:100px
+	} 
+
+	.ui-layout-toggler { /* all 'toggler-buttons' */ 
+		background: #AAA; 
+	} 
+    
+       </style>
+      <!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="../common/css/ie.css"/>
+	<![endif]--><script type="text/javascript" src="common/browserDetect.js">
+         <!----></script><script type="text/javascript" src="common/jquery/jquery-1.7.2.min.js">
+         <!----></script><script type="text/javascript" src="common/jquery/jquery.ui.all.js">
+         <!----></script><script type="text/javascript" src="common/jquery/jquery.cookie.js">
+         <!----></script><script type="text/javascript" src="common/jquery/treeview/jquery.treeview.min.js">
+         <!----></script><script type="text/javascript" src="common/jquery/layout/jquery.layout.js">
+         <!----></script><script type="text/javascript" src="search/l10n.js">
+         <!----></script><script type="text/javascript" src="search/htmlFileInfoList.js">
+         <!----></script><script type="text/javascript" src="search/nwSearchFnt.js">
+         <!----></script><script type="text/javascript" src="search/stemmers/en_stemmer.js">
+         <!--//make this scalable to other languages as well.--></script><script type="text/javascript" src="search/index-1.js">
+         <!----></script><script type="text/javascript" src="search/index-2.js">
+         <!----></script><script type="text/javascript" src="search/index-3.js">
+         <!----></script></head>
+   <body>
+      <noscript>
+         <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
+      </noscript>
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />Introducing the 7 Inch GLCD Library
+         </h1>
+         <div id="navheader">
+            <!---->
+            <table class="navLinks">
+               <tr>
+                  <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
+                                                    </a></td>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_introducing_gcbasic.html">Prev</a> 
+                                                         |
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_connecting_the_glcd.html">Next</a></td>
+               </tr>
+            </table>
+         </div>
+      </div>
+      <div id="content">
+         <!---->
+         <div class="section">
+            <div xmlns="" class="titlepage">
+               <div>
+                  <div>
+                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="_introducing_the_7_inch_glcd_library"></a>Introducing the 7 Inch GLCD Library
+                     </h2>
+                  </div>
+               </div>
+            </div>
+            <p>The 7 Inch GLCD Library uses the SSP0700 Series displays.  The GLCD supports 7.0 Inch 1024*600 or 800*480 with the LT7686
+               controller with 3 or 4 Wire Serial SPI interface.  
+               The library also supports Capacitive Touch Panel with the GT5426 with an I2C interface.
+            </p>
+            <p>Select the correct URL for the specific PCB</p>
+            <p>      <a class="link" href="referencedocs/SSP0700A.pdf#" target="_top">Blue  PCB - LCD Module PDF User Manual</a></p>
+            <p>      <a class="link" href="referencedocs/SSP0700B.pdf#" target="_top">Black PCB - LCD Module PDF User Manual</a></p>
+            <p><span class="strong"><strong>Display</strong></span></p>
+            <p>LT768x is a high-performance TFT-LCD graphic accelerated display controller.  
+               The LT768x supports the control of the contents on the TFT screen.  
+               The LT768x also provides graphic acceleration, PIP (picture-in-picture), geometry graphics and other functions.  
+               In addition to enhancing the display efficiency, LT768x can also ease the MCU loading on processing graphic data.  
+               The LT768x supports 16bit RGB interface.  
+            </p>
+            <p>LT768x supports a variety of MCU interface, including SPI, I2C serial port,
+               and 8-bit/16-bit parallel interface.  The GCBASIC library supports SPI only, this is a constraint of the GLCD implementation.  
+               In order to achieve multi-layers high-resolution display effect, it has a built-in 128Mb Display RAM, which can support assorted
+               color depths from 1bit per pixel (2 gray shades) to
+               24bits per pixel (16M color), and alleviate the processing burden on MCU while displaying animation.  
+               With built-in geometric drawing engine, LT768X supports drawing points, lines, curves, ellipse, triangle, rectangle, rounded
+               rectangle, and other functions.
+            </p>
+            <p>  In addition, LT768x has an embedded hardware graphics acceleration
+               engine (BTE), which provides command-type graphic operations such as screen rotation, flipping, mirroring, PIP and graphics
+               blending, and transparent display. These functions can greatly enhance the display performance, and ease the processing burden
+               on the MCU.
+            </p>
+            <p>The powerful display performance of LT768x is ideal for embedded systems with TFT-LCD displays such as home appliances, industrial
+               controls, electronic instruments,
+               medical devices, human-machine interfaces, industrial equipment, inspection equipment, charging stations, multi-function machines,
+               elevator, check-in gate, etc.
+            </p>
+            <p>The GLCD operating voltage (VCC) is 5v0 with microcontroller signals at 3v3.</p>
+            <p>The GLCD has a shape drawing engine to provide smart drawing features:  Line, Rectangle, Triangle, Polygon, Poly-Line, Circle,
+               Ellipse, Arc, and Rounded-Rectangle.
+               Characters/text features  embedded 8*16, 12*24, 16*32 character sets of iso/iec 8859-1/2/4/5  user-defined characters support
+               half size &amp; full size for 8*16, 12*24 and 16*32
+            </p>
+            <p>Select the URL to view the <a class="link" href="referencedocs/LT768x_DS_V42_ENG.pdf" target="_top">Display Datasheet</a></p>
+            <p>This GLCD library has many features similar to the Nextion GLCD.  However, GCBASIC has to control more of the display events
+               and pixel controller.
+            </p>
+            <div class="figure"><a id="img-display"></a><p class="title"><strong>Figure 1. Surunoo Display</strong></p>
+               <div class="figure-contents">
+                  <div class="mediaobject" align="center"><img src="./images/7inchdisplay.png" align="middle" width="270" alt="display" /></div>
+               </div>
+            </div><br class="figure-break" /><p><br />
+               <br /></p>
+            <p><span class="strong"><strong>Touch</strong></span></p>
+            <p>The FT5X26 is single-chip capacitive touch panel controllers with built-in enhanced Micro-controller unit (MCU).
+               It provides the benefits of full screen common mode scan technology,fast response time and high level of accuracy.
+               It can drive capacitive type touch panel with up to 35 driving and 21 sensing lines.
+            </p>
+            <p>The Touch operating voltage (VCC) is 2v7 to +3v6 with microcontroller signals at 3v3.</p>
+            <p>Select the URL to view the <a class="link" href="referencedocs/FocalTech-FT5x26.pdf" target="_top">Touch Datasheet</a></p>
+            <p>Communications.
+                               SPI to LCD
+                               I2C to Touch
+            </p>
+            <p><span class="strong"><strong>LCD Hardware Options</strong></span></p>
+            <p>The following table is a summary of the hardware options avaialbe from Surenoo.</p>
+            <div class="table"><a id="d0e101"></a><p class="title"><strong>Table 1. Display Options</strong></p>
+               <div class="table-contents">
+                  <table summary="Display Options" border="1">
+                     <colgroup>
+                        <col class="col_1" />
+                        <col class="col_2" />
+                        <col class="col_3" />
+                        <col class="col_4" />
+                        <col class="col_5" />
+                        <col class="col_6" />
+                        <col class="col_7" />
+                        <col class="col_8" />
+                        <col class="col_9" />
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th align="left" valign="top">Item No</th>
+                           <th align="left" valign="top">GCBASIC Support</th>
+                           <th align="left" valign="top">Product</th>
+                           <th align="left" valign="top">Pixels/Module Size</th>
+                           <th align="left" valign="top">Interface</th>
+                           <th align="left" valign="top">PCB Color</th>
+                           <th align="left" valign="top">Part No/SKU</th>
+                           <th align="left" valign="top">URL</th>
+                           <th align="left" valign="top">Datasheet</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td align="left" valign="top">
+                              <p>1</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>Yes
+                                 
+                              </p>
+                              <p>LT7686 &amp; GT5426 library</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>GLCD 800x480 with Capacitive Multipoint Touch</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>800x480
+                                 185.00×105.00
+                                 x7.98 mm
+                              </p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>3 Wire SPI</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>BLUE</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>SSP0700A1CTP-800480</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p><a class="link" href="https://www.aliexpress.com/item/32978278905.html" target="_top">Aliexpress URL</a></p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p><a class="link" href="referencedocs/SSP0700A.pdf" target="_top">SSP0700A.pdf</a></p>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td align="left" valign="top">
+                              <p>2</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>Yes
+                                 
+                              </p>
+                              <p>LT7686 &amp; GT5426 library</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>GLCD 1024x600 with Capacitive Multipoint Touch</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>1024x600
+                                 185.00×105.00
+                                 ×7.98 mm
+                              </p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>3 Wire SPI</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>BLUE</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>SSP0700A2CTP-1024600</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p><a class="link" href="https://www.aliexpress.com/item/32978278905.html" target="_top">Aliexpress URL</a></p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p><a class="link" href="referencedocs/SSP0700A.pdf" target="_top">SSP0700A.pdf</a></p>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td align="left" valign="top">
+                              <p>3</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>Yes
+                                 
+                              </p>
+                              <p>LT7686 &amp; GT5426 library</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>GLCD 1024x600 with Capacitive Multipoint Touch</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>1024x600
+                                 164.90×100.00
+                                 ×7.98 mm
+                              </p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>4 Wire SPI</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>BLACK</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>SSP0700B-CTP-IPS</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p><a class="link" href="https://www.aliexpress.com/item/3256805709535490.html" target="_top">Aliexpress URL</a></p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p><a class="link" href="referencedocs/SSP0700B.pdf" target="_top">SSP0700B.pdf</a></p>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td align="left" valign="top">
+                              <p>4</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>Yes
+                                 
+                              </p>
+                              <p>LT7686 library</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>GLCD 1024x600 with NO Touch</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>1024x600
+                                 164.90×100.00
+                                 ×5.98 mm
+                              </p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>4 Wire SPI</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>BLACK</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>SSP0700B-NTP-IPS</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p><a class="link" href="https://www.aliexpress.com/item/3256805709535490.html" target="_top">Aliexpress URL</a></p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p><a class="link" href="referencedocs/SSP0700B.pdf" target="_top">SSP0700B.pdf</a></p>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td align="left" valign="top">
+                              <p>5</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>Yes
+                                 
+                              </p>
+                              <p>LT7686 &amp; GT5426 library</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>GLCD 1024x600 Screen with Larger Capacitive Multipoint  Touch</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>1024x600
+                                 178.80×110.72
+                                 ×7.98 mm
+                              </p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>4 Wire SPI</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>BLACK</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>SSP0700B-LTP-IPS</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p><a class="link" href="https://www.aliexpress.com/item/3256805709535490.html" target="_top">Aliexpress URL</a></p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p><a class="link" href="referencedocs/SSP0700B.pdf" target="_top">SSP0700B.pdf</a></p>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td align="left" valign="top">
+                              <p>6</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>No
+                                 
+                              </p>
+                              <p>LT7686 library. Touch not supported - no library exists.</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>GLCD 1024x600 with Touch using Resistor Touch Panel</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>1024x600
+                                 164.90×100.00
+                                 ×7.98 mm
+                              </p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>4 Wire SPI</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>BLACK</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p>SSP0700B-RTP-IPS</p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p><a class="link" href="https://www.aliexpress.com/item/3256805709535490.html" target="_top">Aliexpress URL</a></p>
+                           </td>
+                           <td align="left" valign="top">
+                              <p><a class="link" href="referencedocs/SSP0700B.pdf" target="_top">SSP0700B.pdf</a></p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div><br class="table-break" /><p><span class="strong"><strong>Blue PCBs.. identification</strong></span></p>
+            <p>The Blue PCB supports the two resolutions. The table shown below is not always completed by Surenoo.</p>
+            <div class="figure"><a id="img-pcbtable"></a><p class="title"><strong>Figure 2. PCB Table</strong></p>
+               <div class="figure-contents">
+                  <div class="mediaobject" align="center"><img src="./images/pcbtable.png" align="middle" width="216" alt="display" /></div>
+               </div>
+            </div><br class="figure-break" /><p><br />
+               <br />
+               The table should have the SPI type and the resolution.  Many supplied GLCD have no table data.  To identify the GLCD the following
+               photograph will help.
+            </p>
+            <p><strong>Identifing the type of GLCD. </strong>The ribbon cable is different on each resolution.  These photographs will assist in identification of the GLCD resolution.
+            </p>
+            <div class="informaltable">
+               <table border="0">
+                  <colgroup>
+                     <col class="col_1" />
+                     <col class="col_2" />
+                  </colgroup>
+                  <tbody>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>800x480 pixel display</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>1024x800 pixel display</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <div class="informalfigure">
+                              <div class="mediaobject" align="center"><img src="./images/Unit1.png" align="middle" width="432" alt="display" /></div>
+                           </div>
+                        </td>
+                        <td align="left" valign="top">
+                           <div class="informalfigure">
+                              <div class="mediaobject" align="center"><img src="./images/Unit2.png" align="middle" width="432" alt="display" /></div>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Note</h3>
+               <p>All BLUE PCBs are 3 Wire SPI for GLCD control.</p>
+            </div>
+         </div><script type="text/javascript" src="common/main.js">
+            <!----></script><script type="text/javascript" src="common/splitterInit.js">
+            <!----></script><div class="navfooter">
+            <hr />
+            <table width="100%" summary="Navigation footer">
+               <tr>
+                  <td width="40%" align="left"><a accesskey="p" href="_introducing_gcbasic.html">Prev</a> 
+                  </td>
+                  <td width="20%" align="center"> </td>
+                  <td width="40%" align="right"> <a accesskey="n" href="_connecting_the_glcd.html">Next</a></td>
+               </tr>
+               <tr>
+                  <td width="40%" align="left" valign="top"> </td>
+                  <td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td>
+                  <td width="40%" align="right" valign="top"> </td>
+               </tr>
+            </table>
+         </div>
+      </div>
+      <div id="sidebar">
+         <div id="leftnavigation" style="padding-top:3px;">
+            <div id="tabs">
+               <ul>
+                  <li><a href="#treeDiv" style="outline:0;" tabindex="1"><span class="contentsTab">Contents</span></a></li>
+                  <li><a href="#searchDiv" style="outline:0;" tabindex="1" onclick="doSearch()"><span class="searchTab">Search</span></a></li>
+               </ul>
+               <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
+                     <ul id="tree" class="filetree">
+                        <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
+                        <li id="webhelp-currentid"><span class="file"><a href="_introducing_the_7_inch_glcd_library.html" tabindex="1">Introducing the 7 Inch GLCD Library</a></span></li>
+                        <li><span class="file"><a href="_connecting_the_glcd.html" tabindex="1">Connecting the GLCD</a></span></li>
+                        <li><span class="file"><a href="_operating_voltage_of_the_glcd.html" tabindex="1">Operating Voltage of the GLCD</a></span></li>
+                        <li><span class="file"><a href="_operating_and_signal_voltages_of_the_microcontroller.html" tabindex="1">Operating and Signal Voltages of the Microcontroller</a></span></li>
+                        <li><span class="file"><a href="_connections_between_microcontroller_and_the_glcd.html" tabindex="1">Connections between Microcontroller and the GLCD</a></span></li>
+                        <li><span class="file"><a href="_testing_the_connectivity_between_the_glcd_to_the_microcontroller.html" tabindex="1">Testing the connectivity between the GLCD to the Microcontroller</a></span></li>
+                        <li><span class="file"><a href="_developing_the_glcd_library.html" tabindex="1">Developing the GLCD library</a></span></li>
+                        <li><span class="file"><a href="_configuration_of_the_glcd_library.html" tabindex="1">Configuration of the GLCD library</a></span></li>
+                        <li><span class="file"><a href="_usage_of_the_glcd_library.html" tabindex="1">Usage of the GLCD library</a></span></li>
+                        <li><span class="file"><a href="_developing_the_touch_library.html" tabindex="1">Developing the Touch library</a></span></li>
+                        <li><span class="file"><a href="_configuration_of_the_touch_library.html" tabindex="1">Configuration of the Touch library</a></span></li>
+                        <li><span class="file"><a href="_usage_of_the_touch_library.html" tabindex="1">Usage of the Touch library</a></span></li>
+                     </ul>
+                  </div>
+               </div>
+               <div id="searchDiv">
+                  <div id="search">
+                     <form onsubmit="Verifie(searchForm);return false" name="searchForm" class="searchForm">
+                        <div><input id="textToSearch" name="textToSearch" type="search" placeholder="Search" class="searchText" tabindex="1" /> &nbsp; <input onclick="Verifie(searchForm)" type="button" class="searchButton" value="Go" id="doSearch" tabindex="1" /></div>
+                     </form>
+                  </div>
+                  <div id="searchResults">
+                     <center></center>
+                  </div>
+                  <p class="searchHighlight"><a href="#" onclick="toggleHighlight()">Search Highlighter (On/Off)</a></p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
