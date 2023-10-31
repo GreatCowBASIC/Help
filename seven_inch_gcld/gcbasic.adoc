@@ -351,7 +351,7 @@ image::20wayConnectorPinout.png[display,75%,align="center"]
 
 The initial power up of the GLCD to the correct operating unfortunately shows nothing on the GLCD.&#160;&#160;The integrated flash on the Blue or Black PC contains no default information for the LCD.&#160;&#160;
 
-Therefore, unfortunately, upon powering a GLCD black display is shown with no demonstration of activity to provide any operational assuraance.
+Therefore, unfortunately, upon powering a GLCD black display is shown with no demonstration of activity to provide any operational assurance.
 
     Note: Surenoo intend to load a default screen to the GLCD, and, the production of Development Board to showcase the features of these displays.
 
