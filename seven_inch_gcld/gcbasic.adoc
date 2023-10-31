@@ -254,9 +254,9 @@ The GLCD comes with a 20 way ribbon cable.&#160;&#160;This should be connected t
 
 [cols="a,a", frame=none, grid=none]
 |===
-|[#img-pcb,image=pcboverview.png] 
+|[#img-pcboverview,image=pcboverview.png] 
 image::pcboverview.png[display,50%,align="center"]  
-|[#img-pcb,image=pcboverview.png] 
+|[#img-pcboverviewblack,image=pcboverview.png] 
 image::pcboverviewblack.png[display,50%,align="center"]  
 |===
 
@@ -329,7 +329,7 @@ The diagram below shows the basic connection when using a voltage level translat
              PCB ---- Voltage Level Translator --|
                                                   \- 3v3 power supply to voltage level translator(s)
             /-------------------------------------|-  0v0 ( GND ) common
-           
+
 ----
 
 The advised method to connect as follows:
@@ -341,13 +341,17 @@ The advised method to connect as follows:
 {empty} +
 {empty} +
 
-.20 Way Connections
+.20 Way Connection
 [#img-twentywat,image=20wayConnectorPinout.png] 
 image::20wayConnectorPinout.png[display,75%,align="center"]  
 {empty} +
 {empty} +
 
+== Initial 'Power on' of GLCD 
 
+The initial power up of the GLCD to the correct operating unfornately shows nothing on the GLCD.&#160;&#160;The integrated flash on the Blue or Black PC contains no default information for the LCD.&#160;&#160;Therefore, unfortunately, upon powering the GLCD black display is shown.
+
+    Note: Surenoo intend to load a default screen to the GLCD, and, the production of Development Board to showcase the features of these displays.
 
 == Testing the connectivity between the GLCD to the Microcontroller
 
