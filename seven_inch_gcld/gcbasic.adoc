@@ -349,7 +349,7 @@ image::20wayConnectorPinout.png[display,75%,align="center"]
 
 == Initial 'Power on' of GLCD 
 
-The initial power up of the GLCD to the correct operating unfornately shows nothing on the GLCD.&#160;&#160;The integrated flash on the Blue or Black PC contains no default information for the LCD.&#160;&#160;
+The initial power up of the GLCD to the correct operating unfortunately shows nothing on the GLCD.&#160;&#160;The integrated flash on the Blue or Black PC contains no default information for the LCD.&#160;&#160;
 
 Therefore, unfortunately, upon powering a GLCD black display is shown with no demonstration of activity to provide any operational assuraance.
 
