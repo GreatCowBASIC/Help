@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>GCBASIC documentation</title>
+<date>2023-10-31</date>
+<author>
+<personname>
+<firstname>The GCBASIC development team @ 2023</firstname>
+</personname>
+</author>
+<authorinitials>T</authorinitials>
+</info>
+<section xml:id="_introducing_gcbasic">
+<title>Introducing GCBASIC</title>
+<simpara>Hello, and welcome to GCBASIC 7 Inch GLCD library help. This help file is intended
+to provide you insights and knowledge to use of the GCBASIC 7 Inch GLCD library.</simpara>
+<simpara>For information on installing GCBASIC and several other programs that
+may be helpful, please see <emphasis role="strong">Getting Started with GCBASIC</emphasis></simpara>
+<simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;http://gcbasic.sourceforge.net/starting.html</simpara>
+<simpara>If there is anything else that you need help on, please visit the <emphasis role="strong">GCBASIC forum</emphasis></simpara>
+<simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;http://sourceforge.net/forum/?group_id=169286</simpara>
+</section>
+<section xml:id="_introducing_the_7_inch_glcd_library">
+<title>Introducing the 7 Inch GLCD Library</title>
+<simpara>The 7 Inch GLCD Library uses the SSP0700 Series displays.  The GLCD supports 7.0 Inch 1024*600 or 800*480 with the LT7686 controller with 3 or 4 Wire Serial SPI interface.&#160;&#160;
+The library also supports Capacitive Touch Panel with the GT5426 with an I2C interface.</simpara>
+<simpara>Select the correct URL for the specific PCB</simpara>
+<simpara>&#160;&#160;&#160;&#160;&#160;&#160;<link xlink:href="referencedocs/SSP0700A.pdf#">Blue  PCB - LCD Module PDF User Manual</link></simpara>
+<simpara>&#160;&#160;&#160;&#160;&#160;&#160;<link xlink:href="referencedocs/SSP0700B.pdf#">Black PCB - LCD Module PDF User Manual</link></simpara>
+<simpara><emphasis role="strong">Display</emphasis></simpara>
+<simpara>LT768x is a high-performance TFT-LCD graphic accelerated display controller.&#160;&#160;
+The LT768x supports the control of the contents on the TFT screen.&#160;&#160;
+The LT768x also provides graphic acceleration, PIP (picture-in-picture), geometry graphics and other functions.&#160;&#160;
+In addition to enhancing the display efficiency, LT768x can also ease the MCU loading on processing graphic data.&#160;&#160;
+The LT768x supports 16bit RGB interface.&#160;&#160;</simpara>
+<simpara>LT768x supports a variety of MCU interface, including SPI, I2C serial port,
+and 8-bit/16-bit parallel interface.&#160;&#160;The GCBASIC library supports SPI only, this is a constraint of the GLCD implementation.&#160;&#160;
+In order to achieve multi-layers high-resolution display effect, it has a built-in 128Mb Display RAM, which can support assorted color depths from 1bit per pixel (2 gray shades) to
+24bits per pixel (16M color), and alleviate the processing burden on MCU while displaying animation.&#160;&#160;
+With built-in geometric drawing engine, LT768X supports drawing points, lines, curves, ellipse, triangle, rectangle, rounded rectangle, and other functions.</simpara>
+<simpara>&#160;&#160;In addition, LT768x has an embedded hardware graphics acceleration
+engine (BTE), which provides command-type graphic operations such as screen rotation, flipping, mirroring, PIP and graphics blending, and transparent display. These functions can greatly enhance the display performance, and ease the processing burden on the MCU.</simpara>
+<simpara>The powerful display performance of LT768x is ideal for embedded systems with TFT-LCD displays such as home appliances, industrial controls, electronic instruments,
+medical devices, human-machine interfaces, industrial equipment, inspection equipment, charging stations, multi-function machines, elevator, check-in gate, etc.</simpara>
+<simpara>The GLCD operating voltage (VCC) is 5v0 with microcontroller signals at 3v3.</simpara>
+<simpara>The GLCD has a shape drawing engine to provide smart drawing features:  Line, Rectangle, Triangle, Polygon, Poly-Line, Circle, Ellipse, Arc, and Rounded-Rectangle.
+Characters/text features  embedded 8*16, 12*24, 16*32 character sets of iso/iec 8859-1/2/4/5  user-defined characters support half size &amp; full size for 8*16, 12*24 and 16*32</simpara>
+<simpara>This GLCD library has many features similar to the Nextion GLCD.  However, GCBASIC has to control more of the display events and pixel controller.</simpara>
+<table frame="none" rowsep="0" colsep="0">
+<title>Surunoo Displays</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="50*"/>
+<colspec colname="col_2" colwidth="50*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Blue PCB display</simpara></entry>
+<entry align="left" valign="top"><simpara>Black PCB display</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/7inchdisplay.png" contentwidth="80%" align="center"/>
+</imageobject>
+<textobject><phrase>display</phrase></textobject>
+</mediaobject>
+</informalfigure></entry>
+<entry align="left" valign="top"><informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/7inchdisplayBlackCTP.png" contentwidth="80%" align="center"/>
+</imageobject>
+<textobject><phrase>display</phrase></textobject>
+</mediaobject>
+</informalfigure></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<link xlink:href="referencedocs/LT768x_DS_V42_ENG.pdf">Display Datasheet</link> for the LCD driver.</simpara></entry>
+<entry align="left" valign="top"><simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<link xlink:href="referencedocs/LT768x_DS_V42_ENG.pdf">Display Datasheet</link> for the LCD driver.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<link xlink:href="referencedocs/FocalTech-FT5x26.pdf">Touch Datasheet</link> for FT5426</simpara></entry>
+<entry align="left" valign="top"><simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<link xlink:href="referencedocs/GT911_Datasheet.pdf">Touch Datasheet</link> for GT911</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<link xlink:href="https://youtu.be/oHksMAC8J84?si=ojw3o4qum8WEeD6D">Unboxing</link></simpara></entry>
+<entry align="left" valign="top"><simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<link xlink:href="https://youtu.be/PZ-9b52B7JA?si=pxRQGUtnWSIHauvm">Unboxing</link></simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">Touch</emphasis></simpara>
+<simpara>The FT5X26 is single-chip capacitive touch panel controllers with built-in enhanced Micro-controller unit (MCU).
+It provides the benefits of full screen common mode scan technology,fast response time and high level of accuracy.
+It can drive capacitive type touch panel with up to 35 driving and 21 sensing lines.</simpara>
+<simpara>The Touch operating voltage (VCC) is 2v7 to +3v6 with microcontroller signals at 3v3.</simpara>
+<simpara>Communications.
+                SPI to LCD
+                I2C to Touch</simpara>
+<simpara><emphasis role="strong">LCD Hardware Options</emphasis></simpara>
+<simpara>The following table is a summary of the hardware options avaialbe from Surenoo.</simpara>
+<table frame="all" rowsep="1" colsep="1">
+<title>Display Options</title>
+<tgroup cols="9">
+<colspec colname="col_1" colwidth="11*"/>
+<colspec colname="col_2" colwidth="11*"/>
+<colspec colname="col_3" colwidth="11*"/>
+<colspec colname="col_4" colwidth="11*"/>
+<colspec colname="col_5" colwidth="11*"/>
+<colspec colname="col_6" colwidth="11*"/>
+<colspec colname="col_7" colwidth="11*"/>
+<colspec colname="col_8" colwidth="11*"/>
+<colspec colname="col_9" colwidth="11*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Item No</entry>
+<entry align="left" valign="top">GCBASIC Support</entry>
+<entry align="left" valign="top">Product</entry>
+<entry align="left" valign="top">Pixels/Module Size</entry>
+<entry align="left" valign="top">Interface</entry>
+<entry align="left" valign="top">PCB Color</entry>
+<entry align="left" valign="top">Part No/SKU</entry>
+<entry align="left" valign="top">URL</entry>
+<entry align="left" valign="top">Datasheet</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>1</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes
+</simpara><simpara>LT7686 &amp; GT5426 library</simpara></entry>
+<entry align="left" valign="top"><simpara>GLCD 800x480 with Capacitive Multipoint Touch</simpara></entry>
+<entry align="left" valign="top"><simpara>800x480
+185.00×105.00
+x7.98 mm</simpara></entry>
+<entry align="left" valign="top"><simpara>3 Wire SPI</simpara></entry>
+<entry align="left" valign="top"><simpara>BLUE</simpara></entry>
+<entry align="left" valign="top"><simpara>SSP0700A1CTP-800480</simpara></entry>
+<entry align="left" valign="top"><simpara><link xlink:href="https://www.aliexpress.com/item/32978278905.html">Aliexpress URL</link></simpara></entry>
+<entry align="left" valign="top"><simpara><link xlink:href="referencedocs/SSP0700A.pdf">SSP0700A.pdf</link></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>2</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes
+</simpara><simpara>LT7686 &amp; GT5426 library</simpara></entry>
+<entry align="left" valign="top"><simpara>GLCD 1024x600 with Capacitive Multipoint Touch</simpara></entry>
+<entry align="left" valign="top"><simpara>1024x600
+185.00×105.00
+×7.98 mm</simpara></entry>
+<entry align="left" valign="top"><simpara>3 Wire SPI</simpara></entry>
+<entry align="left" valign="top"><simpara>BLUE</simpara></entry>
+<entry align="left" valign="top"><simpara>SSP0700A2CTP-1024600</simpara></entry>
+<entry align="left" valign="top"><simpara><link xlink:href="https://www.aliexpress.com/item/32978278905.html">Aliexpress URL</link></simpara></entry>
+<entry align="left" valign="top"><simpara><link xlink:href="referencedocs/SSP0700A.pdf">SSP0700A.pdf</link></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>3</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes
+</simpara><simpara>LT7686 &amp; GT911 library</simpara></entry>
+<entry align="left" valign="top"><simpara>GLCD 1024x600 with Capacitive Multipoint Touch</simpara></entry>
+<entry align="left" valign="top"><simpara>1024x600
+164.90×100.00
+×7.98 mm</simpara></entry>
+<entry align="left" valign="top"><simpara>4 Wire SPI</simpara></entry>
+<entry align="left" valign="top"><simpara>BLACK</simpara></entry>
+<entry align="left" valign="top"><simpara>SSP0700B-CTP-IPS</simpara></entry>
+<entry align="left" valign="top"><simpara><link xlink:href="https://www.aliexpress.com/item/3256805709535490.html">Aliexpress URL</link></simpara></entry>
+<entry align="left" valign="top"><simpara><link xlink:href="referencedocs/SSP0700B.pdf">SSP0700B.pdf</link></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>4</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes
+</simpara><simpara>LT7686 library</simpara></entry>
+<entry align="left" valign="top"><simpara>GLCD 1024x600 with NO Touch</simpara></entry>
+<entry align="left" valign="top"><simpara>1024x600
+164.90×100.00
+×5.98 mm</simpara></entry>
+<entry align="left" valign="top"><simpara>4 Wire SPI</simpara></entry>
+<entry align="left" valign="top"><simpara>BLACK</simpara></entry>
+<entry align="left" valign="top"><simpara>SSP0700B-NTP-IPS</simpara></entry>
+<entry align="left" valign="top"><simpara><link xlink:href="https://www.aliexpress.com/item/3256805709535490.html">Aliexpress URL</link></simpara></entry>
+<entry align="left" valign="top"><simpara><link xlink:href="referencedocs/SSP0700B.pdf">SSP0700B.pdf</link></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>5</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes
+</simpara><simpara>LT7686 &amp; GT911 library</simpara></entry>
+<entry align="left" valign="top"><simpara>GLCD 1024x600 Screen with Larger Capacitive Multipoint  Touch</simpara></entry>
+<entry align="left" valign="top"><simpara>1024x600
+178.80×110.72
+×7.98 mm</simpara></entry>
+<entry align="left" valign="top"><simpara>4 Wire SPI</simpara></entry>
+<entry align="left" valign="top"><simpara>BLACK</simpara></entry>
+<entry align="left" valign="top"><simpara>SSP0700B-LTP-IPS</simpara></entry>
+<entry align="left" valign="top"><simpara><link xlink:href="https://www.aliexpress.com/item/3256805709535490.html">Aliexpress URL</link></simpara></entry>
+<entry align="left" valign="top"><simpara><link xlink:href="referencedocs/SSP0700B.pdf">SSP0700B.pdf</link></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>6</simpara></entry>
+<entry align="left" valign="top"><simpara>No
+</simpara><simpara>LT7686 library. Touch not supported - no library exists.</simpara></entry>
+<entry align="left" valign="top"><simpara>GLCD 1024x600 with Touch using Resistor Touch Panel</simpara></entry>
+<entry align="left" valign="top"><simpara>1024x600
+164.90×100.00
+×7.98 mm</simpara></entry>
+<entry align="left" valign="top"><simpara>4 Wire SPI</simpara></entry>
+<entry align="left" valign="top"><simpara>BLACK</simpara></entry>
+<entry align="left" valign="top"><simpara>SSP0700B-RTP-IPS</simpara></entry>
+<entry align="left" valign="top"><simpara><link xlink:href="https://www.aliexpress.com/item/3256805709535490.html">Aliexpress URL</link></simpara></entry>
+<entry align="left" valign="top"><simpara><link xlink:href="referencedocs/SSP0700B.pdf">SSP0700B.pdf</link></simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<simpara><emphasis role="strong">Blue PCBs.. identification</emphasis></simpara>
+<simpara>The Blue PCB supports the two resolutions. The table shown below is not always completed by Surenoo.</simpara>
+<figure xml:id="img-pcbtable">
+<title>PCB Table</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/pcbtable.png" contentwidth="40%" align="center"/>
+</imageobject>
+<textobject><phrase>display</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?>
+The table should have the SPI type and the resolution.&#160;&#160;Many supplied GLCD have no table data.  To identify the GLCD the following photograph will help.</simpara>
+<formalpara>
+<title>Identifing the type of GLCD</title>
+<para>The ribbon cable is different on each resolution.&#160;&#160;These photographs will assist in identification of the GLCD resolution.</para>
+</formalpara>
+<informaltable frame="none" rowsep="0" colsep="0">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="33*"/>
+<colspec colname="col_3" colwidth="33*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>800x480 pixel display</simpara></entry>
+<entry align="left" valign="top"><simpara>1024x800 pixel display</simpara></entry>
+<entry align="left" valign="top"><simpara>1024x800 pixel display</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/Unit1.png" contentwidth="80%" align="center"/>
+</imageobject>
+<textobject><phrase>display</phrase></textobject>
+</mediaobject>
+</informalfigure></entry>
+<entry align="left" valign="top"><informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/Unit2.png" contentwidth="80%" align="center"/>
+</imageobject>
+<textobject><phrase>display</phrase></textobject>
+</mediaobject>
+</informalfigure></entry>
+<entry align="left" valign="top"><informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/Unit3.png" contentwidth="80%" align="center"/>
+</imageobject>
+<textobject><phrase>display</phrase></textobject>
+</mediaobject>
+</informalfigure></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3 wire SPI only</simpara></entry>
+<entry align="left" valign="top"><simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3 wire SPI only</simpara></entry>
+<entry align="left" valign="top"><simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3 or 4 wire SPI</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</section>
+<section xml:id="_connecting_the_glcd">
+<title>Connecting the GLCD</title>
+<simpara>The GLCD comes with a 20 way ribbon cable.&#160;&#160;This should be connected to the 3-wire SPI Interface connector ( 20P/0.5MM ).</simpara>
+<table frame="none" rowsep="0" colsep="0">
+<title>Surunoo PCB</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="50*"/>
+<colspec colname="col_2" colwidth="50*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><informalfigure xml:id="img-pcboverview">
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/pcboverview.png" contentwidth="50%" align="center"/>
+</imageobject>
+<textobject><phrase>display</phrase></textobject>
+</mediaobject>
+</informalfigure></entry>
+<entry align="left" valign="top"><informalfigure xml:id="img-pcboverviewblack">
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/pcboverviewblack.png" contentwidth="50%" align="center"/>
+</imageobject>
+<textobject><phrase>display</phrase></textobject>
+</mediaobject>
+</informalfigure></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara>To provide a robust connection a Straight Surface Mount Pin Header is recommended.</simpara>
+<simpara>Mfr. Part No.:  Samtec TSM-110-01-F-DV   <link xlink:href="referencedocs/A700000007168287.pdf">Connector Datasheet</link>. An example  <link xlink:href="https://uk.rs-online.com/web/p/pcb-headers/2086379">product  listing</link></simpara>
+<simpara>The connector looks like this:</simpara>
+<figure xml:id="img-connector1">
+<title>Connector on bench</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/connector1.png" contentwidth="30%" align="center"/>
+</imageobject>
+<textobject><phrase>display</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara>And, when the connector is  fitted, the connector looks like this:</simpara>
+<figure xml:id="img-connector2">
+<title>20 Way SMD Connector on PCB</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/connector2.png" contentwidth="50%" align="center"/>
+</imageobject>
+<textobject><phrase>display</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+</section>
+<section xml:id="_operating_voltage_of_the_glcd">
+<title>Operating Voltage of the GLCD</title>
+<simpara>The PCB has a VCC of 5V0, and, all signals must be 3v3 ( for LCD and CTP ).</simpara>
+<simpara>The datasheets state the PCB has a VCC5V, and the <literal>LCD I/O operating voltage</literal> as 3v3.&#160;&#160;This makes sense but it could be better stated as <literal>LCD I/O signal voltage`</literal> as 3v3.</simpara>
+<simpara>The datasheets also state the CTP <literal>supply voltage</literal> as 3.3..&#160;&#160;This would be better written as <literal>CTP I/O signal voltage</literal> as 3v3.</simpara>
+<simpara>Note: The microcontroller signals <emphasis role="strong">MUST</emphasis> be 3v3 for the GLCD to operate within the operating constraints.</simpara>
+</section>
+<section xml:id="_operating_and_signal_voltages_of_the_microcontroller">
+<title>Operating and Signal Voltages of the Microcontroller</title>
+<simpara>The microcontroller operating must be correct for the operating voltage of the GLCD..&#160;&#160;The safe option is to operate the microcontroller at 3v3.&#160;&#160;Another option would be operate the microcontroller at 5v0 and use a voltage leveler translator.</simpara>
+<simpara>A voltage level translator, also called level converter or logic level shifter, or level shifter, is a circuit used to translate signals from one logic level or voltage domain to another, allowing compatibility between the GLCD and the microcontroller.</simpara>
+<simpara>If a voltage level translator is required then two 8-bit voltage level translators will be required to support the 10-bit GLCD and CTP signals.&#160;&#160;6-bits for the GLCD and 4-bits for the CTP.&#160;&#160;A common 0v0 (GND), 3v3 and 5v0 is required across the microcontroller, the PCB and the voltage level translators.</simpara>
+</section>
+<section xml:id="_connections_between_microcontroller_and_the_glcd">
+<title>Connections between Microcontroller and the GLCD</title>
+<simpara>The following table shows the connections required to operate the GLCD and the CTP.&#160;&#160;</simpara>
+<simpara>The diagram below shows the basic connection to with the microcontroller operating at 3v3.</simpara>
+<screen>    PCB  ---
+            \----------|- 5v0 power supply to LCD PCB
+            PCB -------|- 3v3 all signals from microcontroller
+            /----------|- 0v0 ( GND ) common</screen>
+<simpara>The diagram below shows the basic connection when using a voltage level translator.</simpara>
+<screen>    PCB  ---
+            \-------------------------------------|- 5v0 power supply to LCD PCB
+             \                                    /----|- 3v3 all signals from microcontroller
+             PCB ---- Voltage Level Translator --|
+                                                  \- 3v3 power supply to voltage level translator(s)
+            /-------------------------------------|-  0v0 ( GND ) common</screen>
+<simpara>The advised method to connect as follows:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Connect the 0v0 and 5v0.&#160;&#160;Inspect the current to ensure this is within operating limit.</simpara>
+</listitem>
+<listitem>
+<simpara>Connect the LCD.&#160;&#160;Inspect the current to ensure this is within operating limit.&#160;&#160;Use the <literal>GLCD_PORTTEST_7INCHSURENOO.GCB</literal> to ensure each signal is correct.&#160;&#160;See the next section for details.</simpara>
+</listitem>
+<listitem>
+<simpara>Connect the CPT.&#160;&#160;Inspect the current to ensure this is within operating limit.&#160;&#160;Use the <literal>CPT_PORTTEST_7INCHSURENOO.GCB</literal> to ensure each signal is correct.&#160;&#160;See the next section for details.</simpara>
+</listitem>
+</orderedlist>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<figure xml:id="img-twentywat">
+<title>20 Way Connection</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/20wayConnectorPinout.png" contentwidth="75%" align="center"/>
+</imageobject>
+<textobject><phrase>display</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+</section>
+<section xml:id="_initial_power_on_of_glcd">
+<title>Initial 'Power on' of GLCD</title>
+<simpara>The initial power up of the GLCD to the correct operating unfortunately shows nothing on the GLCD.&#160;&#160;The integrated flash on the Blue or Black PC contains no default information for the LCD.&#160;&#160;</simpara>
+<simpara>Therefore, unfortunately, upon powering a GLCD black display is shown with no demonstration of activity to provide any operational assurance.</simpara>
+<literallayout class="monospaced">Note: Surenoo intend to load a default screen to the GLCD, and, the production of Development Board to showcase the features of these displays.</literallayout>
+</section>
+<section xml:id="_testing_the_connectivity_between_the_glcd_to_the_microcontroller">
+<title>Testing the connectivity between the GLCD to the Microcontroller</title>
+<simpara>TBD</simpara>
+</section>
+<section xml:id="_developing_the_glcd_library">
+<title>Developing the GLCD library</title>
+<simpara>TBD</simpara>
+</section>
+<section xml:id="_configuration_of_the_glcd_library">
+<title>Configuration of the GLCD library</title>
+<simpara>TBD</simpara>
+</section>
+<section xml:id="_usage_of_the_glcd_library">
+<title>Usage of the GLCD library</title>
+<simpara>TBD</simpara>
+</section>
+<section xml:id="_developing_the_touch_library">
+<title>Developing the Touch library</title>
+<simpara>TBD</simpara>
+</section>
+<section xml:id="_configuration_of_the_touch_library">
+<title>Configuration of the Touch library</title>
+<simpara>TBD</simpara>
+</section>
+<section xml:id="_usage_of_the_touch_library">
+<title>Usage of the Touch library</title>
+<simpara>TBD</simpara>
+</section>
+</article>
