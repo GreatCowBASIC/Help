@@ -13,7 +13,7 @@ set GCBxsl=%GCBxsldir%\htmlhelp\htmlhelp.xsl
 set GCBweb=%GCBxsldir%\webhelp\webhelp.xsl
 rem set PATH=%JAVA_HOME%;%PATH_ANT%\bin;%GCBruby%;%PATH%;%GCBsax%;%GCButil%
 set PATH=%PATH_ANT%\bin;%GCBruby%;%PATH%;%GCBsax%;%GCButil%
-cd  .\PWM2Laser V1.3
+cd  .\PWM2Laser
 
 if -%1-==-- goto :ERR1
 if -%2-==-- goto :ERR2
@@ -24,21 +24,21 @@ if NOT ERRORLEVEL 1 goto :TEST1
 cd %GCBruby%
 echo Installing asciidoctor...
 call gem install -N asciidoctor
-cd %GCBase%\PWM2Laser V1.3
+cd %GCBase%\PWM2Laser
 :TEST1
 call asciidoctor-pdf -v 2> NUL
 if NOT ERRORLEVEL 1 goto :TEST2
 cd %GCBruby%
 echo Installing asciidoctor-pdf...
 call gem install --pre -N asciidoctor-pdf
-cd %GCBase%\PWM2Laser V1.3
+cd %GCBase%\PWM2Laser
 :TEST2
 call coderay -v 2> NUL
 if NOT ERRORLEVEL 1 goto :GOAHEAD
 cd %GCBruby%
 echo Installing coderay...
 call gem install -N coderay
-cd %GCBase%\PWM2Laser V1.3
+cd %GCBase%\PWM2Laser
 :GOAHEAD
 if /I %2 == pdf   goto  :pdf
 if /I %2 == chm   goto  :chm
@@ -60,15 +60,15 @@ xcopy .\images %GCBase%\output\chm\images /I /Y > NUL
 cd ..\output\chm
 if ERRORLEVEL 1 goto :ERROR
 set CLASSPATH=%GCBsax%\saxon.jar;%GCBxsl%\extensions\saxon65.jar
-call java com.icl.saxon.StyleSheet ..\..\PWM2Laser V1.3\%1.xml %GCBxsl% ^
+call java com.icl.saxon.StyleSheet ..\..\PWM2Laser\%1.xml %GCBxsl% ^
  chunk.separate.lots=0 chunk.section.depth=6 htmlhelp.remember.window.position=1 use.id.as.filename=1 ^
  htmlhelp.hhp="%1.hhp" htmlhelp.hhc="%1.hhc" htmlhelp.chm="%1.chm" generate.toc=" " ^
  generate.section.toc.level=6 chunk.first.sections=1 htmlhelp.hhc.show.root=0 ^
- htmlhelp.default.topic="_introducing_gcbasic.html" ^
+ htmlhelp.default.topic="_introduction.html" ^
  html.stylesheet="gcbdoc.css" generate.book.toc=0 htmlhelp.title="GCBASIC Help"
-if %1 == gcbasic call ..\..\PWM2Laser V1.3\cleanhhc.bat
-copy %GCBase%\PWM2Laser V1.3\gcbdoc.css .
-rem copy %GCBase%\PWM2Laser V1.3\images\logo.png .\images
+if %1 == gcbasic call ..\..\PWM2Laser\cleanhhc.bat
+copy %GCBase%\PWM2Laser\gcbdoc.css .
+rem copy %GCBase%\PWM2Laser\images\logo.png .\images
 call %GCBase%\prog\utils\hhc %1.hhp
 
 xcopy *.* ..\md /I /Y /S > nul
@@ -121,7 +121,7 @@ del /q ..\..\..\..\Help.wiki.git\trunk\*.css
 
 
 rem copy the files for the Help.wiki.git
-copy  ..\..\PWM2Laser V1.3\images ..\..\..\..\Help.wiki.git\trunk\images 
+copy  ..\..\PWM2Laser\images ..\..\..\..\Help.wiki.git\trunk\images 
 
 
 
@@ -136,7 +136,7 @@ rem pause
 REM End Make WIKI section
 
 
-cd %GCBase%\PWM2Laser V1.3
+cd %GCBase%\PWM2Laser
 del %1.xml
 set CLASSPATH=
 if /I %2 == chm goto :END

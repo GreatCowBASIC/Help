@@ -5,7 +5,7 @@
 :imagesdir: ./images
 
 
-== PWM2Laser
+== Introduction
 
 May 2022 - November 2023
 
@@ -1598,9 +1598,8 @@ settings of the microcontroller:
 image:image141.png[image,width=642,height=68]
 
 The microcontroller PIC16F18313 is a PPS chip, mean the microcontroller
-contains a
-https://microchipdeveloper.com/8bit:pps[[.underline]#P#eripheral
-[.underline]#P#in [.underline]#S#elect] module. The digital output pin
+contains a 
+https://microchipdeveloper.com/8bit:pps module.  The digital output pin
 from CCP1 module generating the PWM signal must be connected with the
 I/O pin RA2 of the PIC16F18313.
 
