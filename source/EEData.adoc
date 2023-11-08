@@ -4,7 +4,7 @@
 [subs="quotes"]
 ----
         EEPROM DataSetName [[,address]]
-            // mutliples values, strings etc.
+            // multiples values, strings etc.
             0,1,2,3 
         END EEPROM
 
@@ -16,22 +16,22 @@ Available on all microcontrollers with EEPROM memory.
 
 *Explanation:*
 
-The EEPROM construct creates an EEPROM dataset for use with the specific micrcontroller.  An EEPROM dataset is a list of values that are stored in the EEPROM memory of the microcontroller, which then can be accessed using the EPREAD() command or other EEPROM read operations.
+The EEPROM construct creates an EEPROM dataset for use with the specific microcontroller.  An EEPROM dataset is a list of values that are stored in the EEPROM memory of the microcontroller, which then can be accessed using the EPREAD() command or other EEPROM read operations.
 
 The advantage of an EEPROM dataset is that they are memory efficient being loaded directly into the EEPROM during programming operations.
 
 
 EEPROM datasets are defined as follows:
 
-. byte values&#160;&#160;
-. EEPROM addresses and EEPROM datasets CANNOT overlap.
-. EEPROM addresses must not overlap TABLE data.
-. TABLE data has precendence from address 0x00 until the the end of TABLE all data
-. Strings must be expressed as ASCII byte value(s)
-. multiple elements on a single line separated by commas
-. constants and calculations within the single line dataset entries are permitted
-. decimal values are NOT supported
-. access is via EPRread(), not supported by READTABLE()
+. Byte values,
+. EEPROM addresses and EEPROM datasets CANNOT overlap,
+. EEPROM addresses must not overlap TABLE data,
+. TABLE data has precedence from address 0x00 until the the end of TABLE all data,
+. Strings must be expressed as ASCII byte value(s),
+. Multiple elements on a single line separated by commas,
+. Constants and calculations within the single line dataset entries are permitted,
+. Decimal values are NOT supported,
+. Access is via EPRread(), not supported by READTABLE().
 {empty} +
 {empty} +
 
@@ -42,7 +42,7 @@ _Single data values_
 
 A single value on each line with in the dataset.&#160;&#160;The example dataset, shown below, has the data on different line in within the set.
 
-Simple example.&#160;&#160;This creates an EEPROM dataset at the first EEPROM location, then, the values of 12 .. 72 are the consectituve values.
+Simple example: This creates an EEPROM dataset at the first EEPROM location, then, the values of 12, 24, ... 72 are the consecutive values.
 
 ----
         EEPROM EEDataSet
@@ -57,7 +57,7 @@ Simple example.&#160;&#160;This creates an EEPROM dataset at the first EEPROM lo
 
 _Multiple data values of the same line_
 
-The following examples creates the EEPROM dataset at EEPROM offset address of 0x10.&#160;&#160;
+The following example creates the EEPROM dataset at EEPROM offset address of 0x10.&#160;&#160;
 
 Multiple elements on a single line separated by commas.&#160;&#160;The example dataset, shown below, has the data separated by `,` and on different line in within the dataset.
 
@@ -94,7 +94,7 @@ Any ASCII characters between any two "    " (double quotes) will be converted to
 
 A source string can be one string per line or comma separated strings, therefore, on the same line.
 
-Example.
+Example:
 
 ----
     EEPROM Test_1
@@ -116,7 +116,7 @@ Accepted escape strings are shown in the dataset below.
 |\l or \n |newline
 |\r |carriage return
 |\t |tab
-|\0 |Nul value, equates to ASCII 0. Same as \&000
+|\0 |Null value, equates to ASCII 0. Same as \&000
 |\&nnn  |ascii char in decimal
 |\\ |backslash
 |\" |double quote
@@ -125,7 +125,7 @@ Accepted escape strings are shown in the dataset below.
 
 
 
-*Complete worrking expample program*
+*Complete working example program*
 
 This example creates several EEPROM datasets.&#160;&#160;The example also create a lookup table.&#160;&#160;The EEPROM dataset are addressed with the additional parameter to ensure there is no EEPROM dataset overlap.&#160;&#160; 
 
@@ -144,10 +144,10 @@ This example creates several EEPROM datasets.&#160;&#160;The example also create
         HSerPrint myVar
 
 
-        // ****************** EXAMPLE EE DATA
-        // *                       THIS IS ONLY ACCESSIBLE VIA EPREAD or other EE read functions.
+        // *********************** EXAMPLE EE DATA ************************
+        // * THIS IS ONLY ACCESSIBLE VIA EPREAD or other EE read functions.
         /*
-        Usage:     'EEProm EEPromBlockName [[,] OffSet Address ]  
+        Usage:      EEProm EEPromBlockName [[,] OffSet Address ]  
                     OffSet address defaults to 0x00 if not stated. 
                     
                     Addresses and datasets CANNOT overlap.
@@ -156,22 +156,22 @@ This example creates several EEPROM datasets.&#160;&#160;The example also create
         */
 
 
-        EEProm EEDataSet1 0x10  // Locate EE Data at address
+        EEProm EEDataSet1 0x10    // Locate EE Data at address
         3,2,1
         End EEProm
 
-        EEProm VersionData 0x20  // Locate EE Data at address
+        EEProm VersionData 0x20   // Locate EE Data at address
         "    PWM2Laser   "
-        "  FABRICE ENGEL "
-        "  Version 1.4   "
-        "  November 2022 "
+        "  Fabrice ENGEL "
+        "   Version 1.4  "
+        "  November 2023 "
         End EEProm
 
         EEProm EEDataSet2 0x0D    // Locate EE Data at address
         1,2,3
         End EEProm
 
-        EEProm EEDataSet 0X04   // Locate EE Data at address
+        EEProm EEDataSet 0X04     // Locate EE Data at address
         1,2,3
         End EEProm
 
@@ -184,4 +184,4 @@ This example creates several EEPROM datasets.&#160;&#160;The example also create
 
 ----
 
-*For more help, see <<_epread,EPRead>>,<<_lookup_tables, Creating EEProm data from a Lookup Table>>*
+*For more help, see <<_epread,EPRead>>, <<_lookup_tables, Creating EEProm data from a Lookup Table>>*
