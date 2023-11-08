@@ -136,12 +136,14 @@ This is the Memory section of the Help file.  Please refer the sub-sections for 
 
 
 :leveloffset: +1
-=== EEPROM ( DFM )  
+=== MCU EEPROM ( DFM )  
 This is the EEPROM  ( PFM ) section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
 
 include::epread.adoc[]
 
 include::epwrite.adoc[]
+
+include::EEData.adoc[]
 
 ifdef::backend-pdf[<<<]
 
