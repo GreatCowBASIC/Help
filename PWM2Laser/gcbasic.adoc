@@ -97,8 +97,7 @@ Ripper] tool to generate auto-leveler correction gcode and obtain good
 PCB quality,
 
 - Microchip https://www.mikroe.com/mikrobasic-pic[MikroE mikroBasic PRO
-for PIC] development tool (basic language for PIC8bits),
-
+for PIC] development tool (basic language for PIC8bits), +
 (no license required, chosen microcontroller have maximum memory to be
 used with demo version).
 
@@ -106,12 +105,10 @@ used with demo version).
 https://gcbasic.sourceforge.io/Typesetter/index.php/Home[toolchain
 GCBASIC/GCStudio] was used to develop the PIC code.
 
-- PIC programmer like PICkit 2 (see
-http://kair.us/projects/pickitminus/[PICkitminus]), or
-https://www.mikroe.com/mikroprog-pic-dspic-pic32[mikroProg for PIC&#44;
-dsPIC and PIC32] +
+- PIC programmer like PICkit 2 or PICkit 3 (see https://pickitplus.co.uk/Typesetter/[PICKitPlus]),
+or https://www.mikroe.com/mikroprog-pic-dspic-pic32[mikroProg for
+PIC&#44; dsPIC and PIC32] +
 (fully interfaced with MikroE mikroBasic PRO for PIC).
-
 - To debug hardware and microcontroller firmware, an oscilloscope may be
 useful, but not required,
 
@@ -203,8 +200,8 @@ file.
 Unpacked file structure can be also downloaded from following Cloud
 storage source.
 
-Go to https://mega.nz/folder/DxcWCTjY#7FqW5tAA5Tu5wK24QdsTsQ[Link on
-MEGA] (File sharing Cloud platform).
+Go to https://drive.google.com/drive/folders/1yKQuzBfmvyDfUJx4YheDkpZMSE6a3yJc?usp=drive_link[Link
+on Google Drive] (File sharing Cloud platform).
 
 This will be also the internet place for updates (if of course this
 happens).
@@ -1125,7 +1122,7 @@ Before we can test the program on the electronic board, we need to
 program the PIC12F683. For that, connect your module over the ICSP port
 with the microcontroller programmer. In our example, we will use the
 Microchip PICkit 2 programmer. This is an outdated model but still
-useful and with http://kair.us/projects/pickitminus/[PICkitminus]
+useful and with https://pickitplus.co.uk/Typesetter/[PICKitPlus]
 application, still up to date. Traditional standalone
 https://ww1.microchip.com/downloads/en/DeviceDoc/51553E.pdf[PICkit 2
 GUI] can be also used here. Do the same job.
