@@ -3,7 +3,7 @@
 *Syntax:*
 [subs="quotes"]
 ----
-        EEPROM DataSetName [[,address]]
+        EEPROM DataSetName [[,]address]
             // multiples values, strings etc.
             0,1,2,3 
         END EEPROM
