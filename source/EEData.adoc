@@ -18,7 +18,7 @@ Available on all microcontrollers with EEPROM memory.
 
 The EEPROM construct creates an EEPROM dataset for use with the specific microcontroller.  An EEPROM dataset is a list of values that are stored in the EEPROM memory of the microcontroller, which then can be accessed using the EPREAD() command or other EEPROM read operations.
 
-The advantage of an EEPROM dataset is that they are memory efficient being loaded directly into the EEPROM during programming operations.
+The advantage of an EEPROM dataset is that they are memory efficient being loaded directly into the EEPROM during programming operations.;&#160;&#160This is MPASM constraint.
 
 
 EEPROM datasets are defined as follows:
@@ -32,6 +32,7 @@ EEPROM datasets are defined as follows:
 . Constants and calculations within the single line dataset entries are permitted,
 . Decimal values are NOT supported,
 . Access is via EPRread(), not supported by READTABLE().
+. 18F devices must use even address for EEPROM location, and, 18F will pad (with 0x00) datasets to even number length.   
 {empty} +
 {empty} +
 
