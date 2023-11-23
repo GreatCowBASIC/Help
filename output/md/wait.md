@@ -30,6 +30,13 @@ Delay:*</span>**</span>
     Wait {While | Until} condition
 ```
 
+<span class="strong">**<span class="emphasis">*Using a variable to
+specific US Delay with Warning supression:*</span>**</span>
+
+``` screen
+    Wait timevalue US #OVERRIDEWARNING
+```
+
 <span class="strong">**Command Availability:**</span>
 
 Available on all microcontrollers.
@@ -76,9 +83,10 @@ US Delays at lower Clock frequency’s is accurate ONLY when nn is
 divisible by 4. This is caused by the minimum ASM delay loop being a
 specific number of instructions.  
 US Delays at lower Clock frequency’ when not divisible by 4 will
-silently accept the nn value and incorrect delays will be produced.  
-Delays at Clock frequency’s below 500kHz may be impacted by previous
-instructions; testing of actual delays is advised.  
+silently accept the nn value and incorrect delays will be produced. +
+Use `#OVERRIDEWARNING` to supress warnings. Delays at Clock frequency’s
+below 500kHz may be impacted by previous instructions; testing of actual
+delays is advised.  
 
 </div>
 
@@ -114,6 +122,16 @@ instructions; testing of actual delays is advised.
         Wait 114 10us 'Wait for 114 x 10 us (1.14 ms)
       End Repeat
     Loop
+```
+
+To suppress warnings when using US.
+
+``` screen
+    dim timevariable as Word
+    timevariable = 100 // 100 is an example value that assigns the variable.
+
+    // Use #OVERRIDEWARNING to prevent warning messages
+    wait timevariable US #OVERRIDEWARNING
 ```
 
 <span class="strong">**For more help, see

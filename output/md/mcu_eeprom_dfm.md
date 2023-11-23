@@ -6,7 +6,7 @@
 
 <div>
 
-#### <span id="eeprom_dfm"></span>EEPROM ( DFM )
+#### <span id="mcu_eeprom_dfm"></span>MCU EEPROM ( DFM )
 
 </div>
 

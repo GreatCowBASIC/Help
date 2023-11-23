@@ -6,12 +6,17 @@
 
 *_Fixed Length Delay:_*
 ----
-    Wait time units
+    Wait time units  
 ----
 
 *_Conditional Delay:_*
 ----
     Wait {While | Until} condition
+----
+
+*_Using a variable to specific US Delay with Warning supression:_*
+----
+    Wait timevalue US #OVERRIDEWARNING   
 ----
 
 *Command Availability:*
@@ -72,7 +77,7 @@ WARNING: *PIC Devices Only* +
 MS Delays at Clock frequency’s below 28kHz are not supported and will silently fail. + 
 US Delays at Clock frequency’s below 250kHz are not supported and will silently fail. + 
 US Delays at lower Clock frequency’s is accurate ONLY when nn is divisible by 4. This is caused by the minimum ASM delay loop being a specific number of instructions. + 
-US Delays at lower Clock frequency’ when not divisible by 4 will silently accept the nn value and incorrect delays will be produced. + 
+US Delays at lower Clock frequency’ when not divisible by 4 will silently accept the nn value and incorrect delays will be produced. + Use `#OVERRIDEWARNING` to supress warnings.
 Delays at Clock frequency’s below 500kHz may be impacted by previous instructions; testing of actual delays is advised. + 
 
 
@@ -109,5 +114,16 @@ Delays at Clock frequency’s below 500kHz may be impacted by previous instructi
       End Repeat
     Loop
 ----
+
+To suppress warnings when using US.
+
+----
+    dim timevariable as Word
+    timevariable = 100 // 100 is an example value that assigns the variable.
+
+    // Use #OVERRIDEWARNING to prevent warning messages
+    wait timevariable US #OVERRIDEWARNING
+----
+
 
 *For more help, see <<_conditions,Conditions>>*

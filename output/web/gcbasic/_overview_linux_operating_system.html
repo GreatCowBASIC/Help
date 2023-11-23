@@ -13,10 +13,10 @@
       <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_gcbasic_for_linux.html" title="GCBASIC for Linux" />
       <link rel="prev" href="_gcbasic_for_linux.html" title="GCBASIC for Linux" />
-      <link rel="next" href="_gcbasic_for_arm_pi.html" title="GCBASIC for ARM &amp; Pi" />
+      <link rel="next" href="_make_asm_make_hex_and_programming_operations_using_the_provided_linux_scripts.html" title="Make ASM, Make HEX and Programming Operations using the provided Linux scripts" />
       <meta name="Section-title" content="Overview - Linux Operating System" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53387";
+            var treeCookieId = "treeview-53669";
             var language = "en";
             var w = new Object();
             //Localization
@@ -168,7 +168,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="_gcbasic_for_linux.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_gcbasic_for_arm_pi.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_make_asm_make_hex_and_programming_operations_using_the_provided_linux_scripts.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -195,11 +195,12 @@ border: none; background: none; font-weight: none; color: none; }
                <ol class="orderedlist" type="1">
                   <li class="listitem">Install FreeBasic from your distributions repository or <a class="link" href="http://www.freebasic.net/wiki/CompilerInstalling" target="_top">http://www.freebasic.net/wiki/CompilerInstalling</a></li>
                   <li class="listitem">Download the "GCBASIC - Linux Distribution" from SourceForge at <a class="link" href="https://sourceforge.net/projects/gcbasic/files/" target="_top">https://sourceforge.net/projects/gcbasic/files/</a></li>
-                  <li class="listitem">Unrar/unpack <a class="link" href="mailto:GCB@Syn.rar" target="_top">GCB@Syn.rar</a> to a location of your choice within your home directory (eg. within Downloads) with either a file manager or from a console.
+                  <li class="listitem">Unrar/unpack GCBASIC.rar to a location of your choice within your home directory (eg. within Downloads) with either a file
+                     manager or from a console.
                   </li>
                   <li class="listitem">From a console, change to the GCBASIC Sources in the unpacked directory:</li>
                </ol>
-            </div><pre class="screen">   eg. cd ~/Downloads/GCB@Syn/GCBASIC/Sources/GCBASIC</pre><div class="orderedlist">
+            </div><pre class="screen">   eg. cd ~/Downloads/sources/linuxbuild/</pre><div class="orderedlist">
                <ol class="orderedlist" start="5" type="1">
                   <li class="listitem">Make sure that <code class="literal">install.sh</code> is set as executable (ie. <code class="literal">chmod +x install.sh</code>), and then execute: ./install.sh build
                   </li>
@@ -216,8 +217,14 @@ border: none; background: none; font-weight: none; color: none; }
             <p>Now you can create and compile GCBASIC source files.</p>
             <p><span class="strong"><strong>Programming microcontrollers:</strong></span></p>
             <p>To program your microcontroller with your GCBASIC created hex file, you will need additional programming and programmer software.</p>
-            <p>For Microchip PIC microcontroller programming, you might find what you need at: <a class="link" href="http://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">http://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</a></p>
+            <p>For Microchip PIC microcontroller programming, you might find what you need at: www.pickitplus.co.uk  The PICKitPlus Team
+               provide programmers and Linux software.
+            </p>
             <p>For Atmel AVR microcontroller programming, you will need <code class="literal">avrdude</code>. It should be available in your distributions repository. If not, check here: <a class="link" href="http://www.nongnu.org/avrdude/" target="_top">http://www.nongnu.org/avrdude/</a></p>
+            <p><br />
+               <br />
+               <br />
+               <br /></p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -227,7 +234,7 @@ border: none; background: none; font-weight: none; color: none; }
                   <td width="40%" align="left"><a accesskey="p" href="_gcbasic_for_linux.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="_gcbasic_for_linux.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="_gcbasic_for_arm_pi.html">Next</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="_make_asm_make_hex_and_programming_operations_using_the_provided_linux_scripts.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -307,9 +314,10 @@ border: none; background: none; font-weight: none; color: none; }
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_memory.html" tabindex="1">Memory</a></span><ul>
-                                    <li><span class="file"><a href="_eeprom_dfm.html" tabindex="1">EEPROM ( DFM )</a></span><ul>
+                                    <li><span class="file"><a href="_mcu_eeprom_dfm.html" tabindex="1">MCU EEPROM ( DFM )</a></span><ul>
                                           <li><span class="file"><a href="_epread.html" tabindex="1">EPRead</a></span></li>
                                           <li><span class="file"><a href="_epwrite.html" tabindex="1">EPWrite</a></span></li>
+                                          <li><span class="file"><a href="_dataset_for_eeprom.html" tabindex="1">Dataset for EEPROM</a></span></li>
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_hefm_pfm.html" tabindex="1">HEFM ( PFM )</a></span><ul>
@@ -860,6 +868,7 @@ border: none; background: none; font-weight: none; color: none; }
                         </li>
                         <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li id="webhelp-currentid"><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
+                              <li><span class="file"><a href="_make_asm_make_hex_and_programming_operations_using_the_provided_linux_scripts.html" tabindex="1">Make ASM, Make HEX and Programming Operations using the provided Linux scripts</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>

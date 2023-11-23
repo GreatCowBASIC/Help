@@ -16,7 +16,7 @@
       <link rel="next" href="_gcbasic_for_apple_macos.html" title="GCBASIC for Apple macOS" />
       <meta name="Section-title" content="Overview - Raspberry Pi" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53387";
+            var treeCookieId = "treeview-53669";
             var language = "en";
             var w = new Object();
             //Localization
@@ -232,8 +232,8 @@ border: none; background: none; font-weight: none; color: none; }
             </div><pre class="screen">    $ wget "https://downloads.sourceforge.net/project/gcbasic/GCBasic%20-%20Linux%20Distribution/GCB%40Syn.rar"
     $ sudo apt install unar
     # the password when requested in the next step is "GCB"
-    $ unar GCB@Syn.rar
-    $ cd GCB@Syn/GCBASIC/sources/linuxbuild/</pre><div class="orderedlist">
+    $ unar GCBASIC.rar
+    $ cd GCBASIC/sources/linuxbuild/</pre><div class="orderedlist">
                <ol class="orderedlist" start="2" type="1">
                   <li class="listitem">Build and install the compiler:</li>
                </ol>
@@ -256,7 +256,8 @@ border: none; background: none; font-weight: none; color: none; }
             </div>
             <p><span class="strong"><strong>Programming</strong></span></p>
             <p>To transfer your compiled .hex program files from your Pi to your microcontroller, you will need additional software.</p>
-            <p>For most PIC microcontrollers, you can use <a class="link" href="https://wiki.kewl.org/dokuwiki/projects:pickle" target="_top">pickle</a>.  A description of how to use it is <a class="link" href="https://www.pedalpc.com/blog/program-pic-raspberry-pi/" target="_top">here</a></p>
+            <p>For most PIC microcontrollers, you should use <a class="link" href="https://pickitplus.co.uk/Typesetter/index.php/PKCMD-Pi-Application" target="_top">PICkitPlus for Pi</a>.  PICKitPlus support the widest range of PICs including the latest PICs. It is fully supported application.
+            </p>
             <p>For AVR microcontrollers, you will need <code class="literal">avrdude</code>. It should be available in your distribution’s repository. If not, check here: <a class="link" href="http://www.nongnu.org/avrdude/" target="_top">http://www.nongnu.org/avrdude/</a> .  Instructions on how to use it can be found <a class="link" href="https://learn.adafruit.com/program-an-avr-or-arduino-using-raspberry-pi-gpio-pins/overview" target="_top">here</a>.
             </p>
          </div><script type="text/javascript" src="common/main.js">
@@ -348,9 +349,10 @@ border: none; background: none; font-weight: none; color: none; }
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_memory.html" tabindex="1">Memory</a></span><ul>
-                                    <li><span class="file"><a href="_eeprom_dfm.html" tabindex="1">EEPROM ( DFM )</a></span><ul>
+                                    <li><span class="file"><a href="_mcu_eeprom_dfm.html" tabindex="1">MCU EEPROM ( DFM )</a></span><ul>
                                           <li><span class="file"><a href="_epread.html" tabindex="1">EPRead</a></span></li>
                                           <li><span class="file"><a href="_epwrite.html" tabindex="1">EPWrite</a></span></li>
+                                          <li><span class="file"><a href="_dataset_for_eeprom.html" tabindex="1">Dataset for EEPROM</a></span></li>
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_hefm_pfm.html" tabindex="1">HEFM ( PFM )</a></span><ul>
@@ -901,6 +903,7 @@ border: none; background: none; font-weight: none; color: none; }
                         </li>
                         <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
+                              <li><span class="file"><a href="_make_asm_make_hex_and_programming_operations_using_the_provided_linux_scripts.html" tabindex="1">Make ASM, Make HEX and Programming Operations using the provided Linux scripts</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
