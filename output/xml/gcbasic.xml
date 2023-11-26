@@ -163,8 +163,8 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2023-11-09<?asciidoc-br?>
-07:24:57 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2023-11-26<?asciidoc-br?>
+06:39:34 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
@@ -5150,14 +5150,15 @@ EEPROM, and can be a value or a variable.</simpara>
 <section xml:id="_dataset_for_eeprom">
 <title>Dataset for EEPROM</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
-<screen>        EEPROM DataSetName [[,address]]
+<screen>        EEPROM DataSetName [[,]address]
             // multiples values, strings etc.
             0,1,2,3
         END EEPROM</screen>
 <simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
-<simpara>Available on all microcontrollers with EEPROM memory.</simpara>
+<simpara>Available on all PIC microcontrollers with EEPROM memory.
+AVR support required use of AVR-ASM assembler.&#160;&#160;GCASM does not support AVR EEPROM operations.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
-<simpara>The EEPROM construct creates an EEPROM dataset for use with the specific microcontroller.  An EEPROM dataset is a list of values that are stored in the EEPROM memory of the microcontroller, which then can be accessed using the EPREAD() command or other EEPROM read operations.</simpara>
+<simpara>The EEPROM construct creates an EEPROM dataset for use with the specific microcontroller.&#160;&#160;An EEPROM dataset is a list of values that are stored in the EEPROM memory of the microcontroller, which then can be accessed using the EPREAD() command or other EEPROM read operations.</simpara>
 <simpara>The advantage of an EEPROM dataset is that they are memory efficient being loaded directly into the EEPROM during programming operations.</simpara>
 <simpara>EEPROM datasets are defined as follows:</simpara>
 <orderedlist numeration="arabic">
@@ -5186,7 +5187,10 @@ EEPROM, and can be a value or a variable.</simpara>
 <simpara>Decimal values are NOT supported,</simpara>
 </listitem>
 <listitem>
-<simpara>Access is via EPRread(), not supported by READTABLE().
+<simpara>Access is via EPRread(), not supported by READTABLE().</simpara>
+</listitem>
+<listitem>
+<simpara>18F devices must use even address for EEPROM location, and, 18F will pad (with 0x00) datasets to even number length.&#160;&#160;This is MPASM constraint and therefore the compiler and assembler will isssue specific error messages for odd EEPROM locations.
 <?asciidoc-br?>
 <?asciidoc-br?></simpara>
 </listitem>
@@ -8297,6 +8301,8 @@ on an LCD.</simpara>
 <screen>    Wait time units</screen>
 <simpara><emphasis role="strong"><emphasis>Conditional Delay:</emphasis></emphasis></simpara>
 <screen>    Wait {While | Until} condition</screen>
+<simpara><emphasis role="strong"><emphasis>Using a variable to specific US Delay with Warning supression:</emphasis></emphasis></simpara>
+<screen>    Wait timevalue US #OVERRIDEWARNING</screen>
 <simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
 <simpara>Available on all microcontrollers.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
@@ -8366,7 +8372,7 @@ work accurately.</simpara>
 MS Delays at Clock frequency’s below 28kHz are not supported and will silently fail.<?asciidoc-br?>
 US Delays at Clock frequency’s below 250kHz are not supported and will silently fail.<?asciidoc-br?>
 US Delays at lower Clock frequency’s is accurate ONLY when nn is divisible by 4. This is caused by the minimum ASM delay loop being a specific number of instructions.<?asciidoc-br?>
-US Delays at lower Clock frequency’ when not divisible by 4 will silently accept the nn value and incorrect delays will be produced.<?asciidoc-br?>
+US Delays at lower Clock frequency’ when not divisible by 4 will silently accept the nn value and incorrect delays will be produced. + Use <literal>#OVERRIDEWARNING</literal> to supress warnings.
 Delays at Clock frequency’s below 500kHz may be impacted by previous instructions; testing of actual delays is advised.<?asciidoc-br?></simpara>
 </warning>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
@@ -8399,6 +8405,12 @@ Delays at Clock frequency’s below 500kHz may be impacted by previous instructi
         Wait 114 10us 'Wait for 114 x 10 us (1.14 ms)
       End Repeat
     Loop</screen>
+<simpara>To suppress warnings when using US.</simpara>
+<screen>    dim timevariable as Word
+    timevariable = 100 // 100 is an example value that assigns the variable.
+
+    // Use #OVERRIDEWARNING to prevent warning messages
+    wait timevariable US #OVERRIDEWARNING</screen>
 <simpara><emphasis role="strong">For more help, see <link linkend="_conditions">Conditions</link></emphasis></simpara>
 </section>
 </section>
@@ -35780,6 +35792,11 @@ Any values of X and Y are usable including negative values provided they are bet
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
 <screen>    #asmraw [label]
     #asmraw [Mnemonics | Directives | Macros] [Operands] ['comments]</screen>
+<simpara>for ASM blocks use</simpara>
+<screen>    #asmraw[
+        [label]
+        [Mnemonics | Directives | Macros] [Operands] ['comments]
+    #asmraw]</screen>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara>The <literal>#asmraw</literal> directive is used to specify the assembly that GCBASIC will use.&#160;&#160;&#160;</simpara>
 <simpara>Anything following this directive will be inserted into ASM source file with no changes other than trimming spaces - no replacement of constants.&#160;&#160;&#160;</simpara>
@@ -35801,14 +35818,19 @@ Multiple operands must be separated by commas.&#160;&#160;&#160;</simpara>
 <simpara>White space is one or more spaces or tabs. White space is used to separate pieces of a source line.&#160;&#160;&#160;
 White space should be used to make your code easier for people to read.&#160;&#160;&#160;</simpara>
 <simpara><?asciidoc-br?>
-<?asciidoc-br?></simpara>
-<simpara><emphasis role="strong">Example</emphasis></simpara>
-<screen>         #asmraw lds SysValueCopy,TCCR0B
-         #asmraw andi SysValueCopy, 0xf8
-         #asmraw inc SysValueCopy
-         #asmraw sts TCCR0B, SysValueCopy</screen>
+<emphasis role="strong">Example 1</emphasis></simpara>
+<screen>        #asmraw lds SysValueCopy,TCCR0B
+        #asmraw andi SysValueCopy, 0xf8
+        #asmraw inc SysValueCopy
+        #asmraw sts TCCR0B, SysValueCopy</screen>
+<simpara><emphasis role="strong">Example 2</emphasis></simpara>
+<screen>        #asmraw[
+            lds SysValueCopy,TCCR0B
+            andi SysValueCopy, 0xf8
+            inc SysValueCopy
+            sts TCCR0B, SysValueCopy
+        #asmraw]</screen>
 <simpara><?asciidoc-br?>
-<?asciidoc-br?>
 This example will generate the following in the ASM source file.</simpara>
 <screen>        lds SysValueCopy,TCCR0B
         andi  SysValueCopy, 0xf8

@@ -16,7 +16,7 @@
       <link rel="next" href="__chip.html" title="#chip" />
       <meta name="Section-title" content="#asmraw" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53669";
+            var treeCookieId = "treeview-53688";
             var language = "en";
             var w = new Object();
             //Localization
@@ -185,7 +185,10 @@ border: none; background: none; font-weight: none; color: none; }
                </div>
             </div>
             <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    #asmraw [label]
-    #asmraw [Mnemonics | Directives | Macros] [Operands] ['comments]</pre><p><span class="strong"><strong>Explanation:</strong></span></p>
+    #asmraw [Mnemonics | Directives | Macros] [Operands] ['comments]</pre><p>for ASM blocks use</p><pre class="screen">    #asmraw[
+        [label]
+        [Mnemonics | Directives | Macros] [Operands] ['comments]
+    #asmraw]</pre><p><span class="strong"><strong>Explanation:</strong></span></p>
             <p>The <code class="literal">#asmraw</code> directive is used to specify the assembly that GCBASIC will use.   
             </p>
             <p>Anything following this directive will be inserted into ASM source file with no changes other than trimming spaces - no replacement
@@ -214,12 +217,15 @@ border: none; background: none; font-weight: none; color: none; }
                White space should be used to make your code easier for people to read.   
             </p>
             <p><br />
-               <br /></p>
-            <p><span class="strong"><strong>Example</strong></span></p><pre class="screen">         #asmraw lds SysValueCopy,TCCR0B
-         #asmraw andi SysValueCopy, 0xf8
-         #asmraw inc SysValueCopy
-         #asmraw sts TCCR0B, SysValueCopy</pre><p><br />
-               <br />
+               <span class="strong"><strong>Example 1</strong></span></p><pre class="screen">        #asmraw lds SysValueCopy,TCCR0B
+        #asmraw andi SysValueCopy, 0xf8
+        #asmraw inc SysValueCopy
+        #asmraw sts TCCR0B, SysValueCopy</pre><p><span class="strong"><strong>Example 2</strong></span></p><pre class="screen">        #asmraw[
+            lds SysValueCopy,TCCR0B
+            andi SysValueCopy, 0xf8
+            inc SysValueCopy
+            sts TCCR0B, SysValueCopy
+        #asmraw]</pre><p><br />
                This example will generate the following in the ASM source file.
             </p><pre class="screen">        lds SysValueCopy,TCCR0B
         andi  SysValueCopy, 0xf8

@@ -53,7 +53,11 @@ EEPROM datasets are defined as follows:
 7.  Constants and calculations within the single line dataset entries
     are permitted,
 8.  Decimal values are NOT supported,
-9.  Access is via EPRread(), not supported by READTABLE().  
+9.  Access is via EPRread(), not supported by READTABLE().
+10. 18F devices must use even address for EEPROM location, and, 18F will
+    pad (with 0x00) datasets to even number length.  This is MPASM
+    constraint and therefore the compiler and assembler will isssue
+    specific error messages for odd EEPROM locations.  
       
 
 </div>

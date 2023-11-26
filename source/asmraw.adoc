@@ -6,6 +6,17 @@
     #asmraw [label]
     #asmraw [Mnemonics | Directives | Macros] [Operands] ['comments]
 ----
+
+for ASM blocks use
+
+----
+    #asmraw[
+        [label]
+        [Mnemonics | Directives | Macros] [Operands] ['comments]
+    #asmraw]
+----
+
+
 *Explanation:*
 
 The `#asmraw` directive is used to specify the assembly that GCBASIC will use.&#160;&#160;&#160;
@@ -39,18 +50,23 @@ White space is one or more spaces or tabs. White space is used to separate piece
 White space should be used to make your code easier for people to read.&#160;&#160;&#160;
 
 {empty} +
-{empty} +
-
-
-*Example*
+*Example 1*
 ----
-         #asmraw lds SysValueCopy,TCCR0B
-         #asmraw andi SysValueCopy, 0xf8
-         #asmraw inc SysValueCopy
-         #asmraw sts TCCR0B, SysValueCopy
+        #asmraw lds SysValueCopy,TCCR0B
+        #asmraw andi SysValueCopy, 0xf8
+        #asmraw inc SysValueCopy
+        #asmraw sts TCCR0B, SysValueCopy
 
 ----
-{empty} +
+*Example 2*
+----
+        #asmraw[
+            lds SysValueCopy,TCCR0B
+            andi SysValueCopy, 0xf8
+            inc SysValueCopy
+            sts TCCR0B, SysValueCopy
+        #asmraw]
+----
 {empty} +
 This example will generate the following in the ASM source file.
 ----

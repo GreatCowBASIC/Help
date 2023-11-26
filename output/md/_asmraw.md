@@ -21,6 +21,15 @@
     #asmraw [Mnemonics | Directives | Macros] [Operands] ['comments]
 ```
 
+for ASM blocks use
+
+``` screen
+    #asmraw[
+        [label]
+        [Mnemonics | Directives | Macros] [Operands] ['comments]
+    #asmraw]
+```
+
 <span class="strong">**Explanation:**</span>
 
 The `#asmraw` directive is used to specify the assembly that GCBASIC
@@ -61,18 +70,26 @@ separate pieces of a source line.    White space should be used to make
 your code easier for people to read.   
 
   
-  
-
-<span class="strong">**Example**</span>
+<span class="strong">**Example 1**</span>
 
 ``` screen
-         #asmraw lds SysValueCopy,TCCR0B
-         #asmraw andi SysValueCopy, 0xf8
-         #asmraw inc SysValueCopy
-         #asmraw sts TCCR0B, SysValueCopy
+        #asmraw lds SysValueCopy,TCCR0B
+        #asmraw andi SysValueCopy, 0xf8
+        #asmraw inc SysValueCopy
+        #asmraw sts TCCR0B, SysValueCopy
 ```
 
-  
+<span class="strong">**Example 2**</span>
+
+``` screen
+        #asmraw[
+            lds SysValueCopy,TCCR0B
+            andi SysValueCopy, 0xf8
+            inc SysValueCopy
+            sts TCCR0B, SysValueCopy
+        #asmraw]
+```
+
   
 This example will generate the following in the ASM source file.
 

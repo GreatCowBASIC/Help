@@ -16,7 +16,7 @@
       <link rel="next" href="_hefm_pfm.html" title="HEFM ( PFM )" />
       <meta name="Section-title" content="Dataset for EEPROM" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53669";
+            var treeCookieId = "treeview-53688";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,13 +184,15 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">        EEPROM DataSetName [[,address]]
+            <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">        EEPROM DataSetName [[,]address]
             // multiples values, strings etc.
             0,1,2,3
         END EEPROM</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
-            <p>Available on all microcontrollers with EEPROM memory.</p>
+            <p>Available on all PIC microcontrollers with EEPROM memory.
+               AVR support required use of AVR-ASM assembler.  GCASM does not support AVR EEPROM operations.
+            </p>
             <p><span class="strong"><strong>Explanation:</strong></span></p>
-            <p>The EEPROM construct creates an EEPROM dataset for use with the specific microcontroller.  An EEPROM dataset is a list of
+            <p>The EEPROM construct creates an EEPROM dataset for use with the specific microcontroller.  An EEPROM dataset is a list of
                values that are stored in the EEPROM memory of the microcontroller, which then can be accessed using the EPREAD() command
                or other EEPROM read operations.
             </p>
@@ -208,7 +210,9 @@ border: none; background: none; font-weight: none; color: none; }
                   <li class="listitem">Multiple elements on a single line separated by commas,</li>
                   <li class="listitem">Constants and calculations within the single line dataset entries are permitted,</li>
                   <li class="listitem">Decimal values are NOT supported,</li>
-                  <li class="listitem">Access is via EPRread(), not supported by READTABLE().
+                  <li class="listitem">Access is via EPRread(), not supported by READTABLE().</li>
+                  <li class="listitem">18F devices must use even address for EEPROM location, and, 18F will pad (with 0x00) datasets to even number length.  This
+                     is MPASM constraint and therefore the compiler and assembler will isssue specific error messages for odd EEPROM locations.
                      <br />
                      <br /></li>
                </ol>

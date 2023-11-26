@@ -16,7 +16,7 @@
       <link rel="next" href="_fixed_voltage_reference.html" title="Fixed Voltage Reference" />
       <meta name="Section-title" content="Wait" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53669";
+            var treeCookieId = "treeview-53688";
             var language = "en";
             var w = new Object();
             //Localization
@@ -185,7 +185,7 @@ border: none; background: none; font-weight: none; color: none; }
                </div>
             </div>
             <p><span class="strong"><strong>Syntax:</strong></span></p>
-            <p><span class="strong"><strong><span class="emphasis"><em>Fixed Length Delay:</em></span></strong></span></p><pre class="screen">    Wait time units</pre><p><span class="strong"><strong><span class="emphasis"><em>Conditional Delay:</em></span></strong></span></p><pre class="screen">    Wait {While | Until} condition</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
+            <p><span class="strong"><strong><span class="emphasis"><em>Fixed Length Delay:</em></span></strong></span></p><pre class="screen">    Wait time units</pre><p><span class="strong"><strong><span class="emphasis"><em>Conditional Delay:</em></span></strong></span></p><pre class="screen">    Wait {While | Until} condition</pre><p><span class="strong"><strong><span class="emphasis"><em>Using a variable to specific US Delay with Warning supression:</em></span></strong></span></p><pre class="screen">    Wait timevalue US #OVERRIDEWARNING</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
             <p>Available on all microcontrollers.</p>
             <p><span class="strong"><strong>Explanation:</strong></span></p>
             <p>The <code class="literal">Wait</code> command will cause the program to wait for either a specified
@@ -304,7 +304,7 @@ border: none; background: none; font-weight: none; color: none; }
                   US Delays at lower Clock frequency’s is accurate ONLY when nn is divisible by 4. This is caused by the minimum ASM delay loop
                   being a specific number of instructions.<br />
                   US Delays at lower Clock frequency’ when not divisible by 4 will silently accept the nn value and incorrect delays will be
-                  produced.<br />
+                  produced. + Use <code class="literal">#OVERRIDEWARNING</code> to supress warnings.
                   Delays at Clock frequency’s below 500kHz may be impacted by previous instructions; testing of actual delays is advised.<br /></p>
             </div>
             <p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'This code will wait until a button is pressed, then it will flash
@@ -335,7 +335,11 @@ border: none; background: none; font-weight: none; color: none; }
         PulseOut SPEAKER, 1140 us
         Wait 114 10us 'Wait for 114 x 10 us (1.14 ms)
       End Repeat
-    Loop</pre><p><span class="strong"><strong>For more help, see <a class="link" href="_conditions.html" title="Conditions">Conditions</a></strong></span></p>
+    Loop</pre><p>To suppress warnings when using US.</p><pre class="screen">    dim timevariable as Word
+    timevariable = 100 // 100 is an example value that assigns the variable.
+
+    // Use #OVERRIDEWARNING to prevent warning messages
+    wait timevariable US #OVERRIDEWARNING</pre><p><span class="strong"><strong>For more help, see <a class="link" href="_conditions.html" title="Conditions">Conditions</a></strong></span></p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">

@@ -609,8 +609,8 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2023-11-09<br>
-07:24:58 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2023-11-26<br>
+06:39:36 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
@@ -8301,7 +8301,7 @@ Do not exceed the location ( also known as the EEProm address ) of the physical 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>        EEPROM DataSetName [[,address]]
+<pre>        EEPROM DataSetName [[,]address]
             // multiples values, strings etc.
             0,1,2,3
         END EEPROM</pre>
@@ -8311,13 +8311,14 @@ Do not exceed the location ( also known as the EEProm address ) of the physical 
 <p><strong>Command Availability:</strong></p>
 </div>
 <div class="paragraph">
-<p>Available on all microcontrollers with EEPROM memory.</p>
+<p>Available on all PIC microcontrollers with EEPROM memory.
+AVR support required use of AVR-ASM assembler.&#160;&#160;GCASM does not support AVR EEPROM operations.</p>
 </div>
 <div class="paragraph">
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p>The EEPROM construct creates an EEPROM dataset for use with the specific microcontroller.  An EEPROM dataset is a list of values that are stored in the EEPROM memory of the microcontroller, which then can be accessed using the EPREAD() command or other EEPROM read operations.</p>
+<p>The EEPROM construct creates an EEPROM dataset for use with the specific microcontroller.&#160;&#160;An EEPROM dataset is a list of values that are stored in the EEPROM memory of the microcontroller, which then can be accessed using the EPREAD() command or other EEPROM read operations.</p>
 </div>
 <div class="paragraph">
 <p>The advantage of an EEPROM dataset is that they are memory efficient being loaded directly into the EEPROM during programming operations.</p>
@@ -8352,7 +8353,10 @@ Do not exceed the location ( also known as the EEProm address ) of the physical 
 <p>Decimal values are NOT supported,</p>
 </li>
 <li>
-<p>Access is via EPRread(), not supported by READTABLE().
+<p>Access is via EPRread(), not supported by READTABLE().</p>
+</li>
+<li>
+<p>18F devices must use even address for EEPROM location, and, 18F will pad (with 0x00) datasets to even number length.&#160;&#160;This is MPASM constraint and therefore the compiler and assembler will isssue specific error messages for odd EEPROM locations.
 <br>
 <br></p>
 </li>
@@ -12536,6 +12540,14 @@ on an LCD.</p>
 </div>
 </div>
 <div class="paragraph">
+<p><strong><em>Using a variable to specific US Delay with Warning supression:</em></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Wait timevalue US #OVERRIDEWARNING</pre>
+</div>
+</div>
+<div class="paragraph">
 <p><strong>Command Availability:</strong></p>
 </div>
 <div class="paragraph">
@@ -12622,7 +12634,7 @@ work accurately.</p>
 MS Delays at Clock frequency’s below 28kHz are not supported and will silently fail.<br>
 US Delays at Clock frequency’s below 250kHz are not supported and will silently fail.<br>
 US Delays at lower Clock frequency’s is accurate ONLY when nn is divisible by 4. This is caused by the minimum ASM delay loop being a specific number of instructions.<br>
-US Delays at lower Clock frequency’ when not divisible by 4 will silently accept the nn value and incorrect delays will be produced.<br>
+US Delays at lower Clock frequency’ when not divisible by 4 will silently accept the nn value and incorrect delays will be produced. + Use <code>#OVERRIDEWARNING</code> to supress warnings.
 Delays at Clock frequency’s below 500kHz may be impacted by previous instructions; testing of actual delays is advised.<br>
 </td>
 </tr>
@@ -12662,6 +12674,18 @@ Delays at Clock frequency’s below 500kHz may be impacted by previous instructi
         Wait 114 10us 'Wait for 114 x 10 us (1.14 ms)
       End Repeat
     Loop</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To suppress warnings when using US.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    dim timevariable as Word
+    timevariable = 100 // 100 is an example value that assigns the variable.
+
+    // Use #OVERRIDEWARNING to prevent warning messages
+    wait timevariable US #OVERRIDEWARNING</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -49156,6 +49180,17 @@ Any values of X and Y are usable including negative values provided they are bet
 </div>
 </div>
 <div class="paragraph">
+<p>for ASM blocks use</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #asmraw[
+        [label]
+        [Mnemonics | Directives | Macros] [Operands] ['comments]
+    #asmraw]</pre>
+</div>
+</div>
+<div class="paragraph">
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
@@ -49201,22 +49236,31 @@ White space should be used to make your code easier for people to read.&#160;&#1
 </div>
 <div class="paragraph">
 <p><br>
-<br></p>
-</div>
-<div class="paragraph">
-<p><strong>Example</strong></p>
+<strong>Example 1</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>         #asmraw lds SysValueCopy,TCCR0B
-         #asmraw andi SysValueCopy, 0xf8
-         #asmraw inc SysValueCopy
-         #asmraw sts TCCR0B, SysValueCopy</pre>
+<pre>        #asmraw lds SysValueCopy,TCCR0B
+        #asmraw andi SysValueCopy, 0xf8
+        #asmraw inc SysValueCopy
+        #asmraw sts TCCR0B, SysValueCopy</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example 2</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        #asmraw[
+            lds SysValueCopy,TCCR0B
+            andi SysValueCopy, 0xf8
+            inc SysValueCopy
+            sts TCCR0B, SysValueCopy
+        #asmraw]</pre>
 </div>
 </div>
 <div class="paragraph">
 <p><br>
-<br>
 This example will generate the following in the ASM source file.</p>
 </div>
 <div class="listingblock">
