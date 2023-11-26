@@ -153,4 +153,5 @@ Table InitTFT
     // must, be stored in the same serial flash. 
     // If Host needs to switch to another serial flash then aAll the codes &
     // display data etc. will need to be stored to that serial flash
-Table EEPROM
+End Table
+
