@@ -1,0 +1,156 @@
+#chip 16F877A
+#option Explicit
+
+
+// Setup USART
+#DEFINE USART_BAUD_RATE 9600
+#DEFINE USART_TX_BLOCKING
+#DEFINE USART_DELAY OFF
+
+// Setup SPI
+    #ifdef FLASH_HARDWARESPI
+        // This is conditional to support Hardware SPI
+        SSP1CLKPPS = 0x13;   //RC3->MSSP1:SCK1;    
+        RC3PPS = 0x19;   //RC3->MSSP1:SCK1;    
+        RC5PPS = 0x1A;   //RC5->MSSP1:SDO1;    
+        SSP1DATPPS = 0x14;   //RC4->MSSP1:SDI1;  
+    #endif
+
+        // #define FLASH_HARDWARESPI
+        #define HWSPIMODE MASTERFAST
+
+        'Pin mappings for  SPI
+        #define FLASH_SPI_DO          portc.5
+        #define FLASH_SPI_SCK         portc.3
+        #define FLASH_SPI_CS          porta.2
+        #define FLASH_SPI_RESET_OUT   portb.5
+
+
+// Main program
+
+        Dim initlength, pointer as Word
+        Dim __FLASHreg, __FLASHbyte as Byte
+
+        readtable InitTFT, 0, initlength
+        HSerPrint initlength
+
+        For pointer = 1 to initlength 
+            readtable InitTFT, pointer, __FLASHbyte
+            FLASH_SPI_WritetoFlash ( __FLASHbyte )
+        Next 
+
+end
+
+    sub FLASH_SPI_WritetoFlash(  __FLASHbyte ) 
+        FLASH_SPI_CS = 0
+        #ifdef FLASH_HARDWARESPI
+            // Send via Hardware SPI
+            FastHWSPITransfer(__FLASHbyte)
+        #else
+            // Set the three parameters using Bit Banging
+            dim __FLASH_outbuffer, __FLASH_outbuffercount
+            __FLASH_outbuffer = __FLASHbyte            
+            repeat 8
+                if __FLASH_outbuffer.7 = ON  then
+                set FLASH_SPI_DO ON;
+                else
+                set FLASH_SPI_DO OFF;
+                end if
+                SET FLASH_SPI_SCK On;
+                rotate __FLASH_outbuffer left
+                set FLASH_SPI_SCK Off;
+            end repeat
+        #endif
+        FLASH_SPI_CS = 1
+    End Sub
+
+
+
+
+
+// Table is 285 elements.  Taken from Datasheet
+Table InitTFT
+    //, 0xAddr: 'h0000
+    0x61, 0x72, 0x77, 0x63, 0x77, 0x62, 0x78, 0x67 // ID
+    //Initial PLL
+    0x11, 0x05, 0x13, 0x8A // REG_WR('h05, 'h8A), Write, 0x8A to REG[05]
+    0x11, 0x06, 0x13, 0x31 // REG_WR('h06, 'h41)
+    0x11, 0x07, 0x13, 0x8A // REG_WR('h07, 'h8A)
+    0x11, 0x08, 0x13, 0x64 // REG_WR('h08, 'h64)
+    0x11, 0x09, 0x13, 0x8A // REG_WR('h09, 'h8A)
+    0x11, 0x0A, 0x13, 0x64 // REG_WR('h0A, 'h64)
+    0x11, 0x00, 0x13, 0x80 // REG_WR('h00, 'h80)
+    0x11, 0x01, 0x13, 0x82 // REG_WR('h01, 'h82)
+    0x11, 0x01, 0x12, 0x82 // REG_WR('h01, 'h82)
+    0x11, 0x02, 0x13, 0x30 // REG_WR('h02, 'h40)
+    0xAA, 0xAA, 0xAA, 0xAA // NOP
+    //Initial Display RAM
+    0x11, 0xE0, 0x13, 0x29 // REG_WR('hE0, 'h29)
+    0x11, 0xE1, 0x13, 0x03 // REG_WR('hE1, 'h03)
+    0x11, 0xE2, 0x13, 0x0B // REG_WR('hE2, 'h0B)
+    0x11, 0xE3, 0x13, 0x03 // REG_WR('hE3, 'h03)
+    0x11, 0xE4, 0x13, 0x01 // REG_WR('hE4, 'h01)
+    0xAA, 0xAA, 0xAA, 0xAA // NOP
+    //Setup GLCD Panel
+    0x11, 0x10, 0x13, 0x04 // REG_WR('h10, 'h04)
+    0x11, 0x12, 0x13, 0x85 // REG_WR('h12, 'h85)
+    0x11, 0x13, 0x13, 0x03 // REG_WR('h13, 'h03)
+    0x11, 0x14, 0x13, 0x7F // REG_WR('h14, 'h7F)
+    0x11, 0x15, 0x13, 0x00 // REG_WR('h15, 'h00)
+    0x11, 0x1A, 0x13, 0xFF // REG_WR('h1A, 'hFF)
+    0x11, 0x1B, 0x13, 0x02 // REG_WR('h1B, 'h02)
+    // Setup Main Window
+    0x11, 0x20, 0x13, 0x00 // REG_WR('h20, 'h00)
+    0x11, 0x21, 0x13, 0x00 // REG_WR('h21, 'h00)
+    0x11, 0x22, 0x13, 0x00 // REG_WR('h22, 'h00)
+    0x11, 0x23, 0x13, 0x00 // REG_WR('h23, 'h00)
+    0x11, 0x24, 0x13, 0x00 // REG_WR('h24, 'h00)
+    0x11, 0x25, 0x13, 0x04 // REG_WR('h25, 'h04)
+    0x11, 0x26, 0x13, 0x00 // REG_WR('h26, 'h00)
+    0x11, 0x27, 0x13, 0x00 // REG_WR('h27, 'h00)
+    0x11, 0x28, 0x13, 0x00 // REG_WR('h28, 'h00)
+    0x11, 0x29, 0x13, 0x00 // REG_WR('h29, 'h00)
+    0xAA, 0xAA, 0xAA, 0xAA // NOP
+    //Setup Canvas Window
+    0x11, 0x50, 0x13, 0x00 // REG_WR('h50, 'h00)
+    0x11, 0x51, 0x13, 0x00 // REG_WR('h51, 'h00)
+    0x11, 0x52, 0x13, 0x00 // REG_WR('h52, 'h00)
+    0x11, 0x53, 0x13, 0x00 // REG_WR('h53, 'h00)
+    0x11, 0x54, 0x13, 0x00 // REG_WR('h54, 'h00)
+    0x11, 0x55, 0x13, 0x04 // REG_WR('h55, 'h04)
+    //Setup, 0xActive Window
+    0x11, 0x56, 0x13, 0x00 // REG_WR('h56, 'h00)
+    0x11, 0x57, 0x13, 0x00 // REG_WR('h57, 'h00)
+    0x11, 0x58, 0x13, 0x00 // REG_WR('h58, 'h00)
+    0x11, 0x59, 0x13, 0x00 // REG_WR('h59, 'h00)
+    0x11, 0x5A, 0x13, 0x00 // REG_WR('h5A, 'h00)
+    0x11, 0x5B, 0x13, 0x04 // REG_WR('h5B, 'h04)
+    0x11, 0x5C, 0x13, 0x00 // REG_WR('h5C, 'h00)
+    0x11, 0x5D, 0x13, 0x03 // REG_WR('h5D, 'h03)
+    0x11, 0x5E, 0x13, 0x02 // REG_WR('h5E, 'h02)
+    //Setup DMA Transfer Data, 0xFrom, 0xFlash to Display RAM
+    0x11, 0xBC, 0x13, 0x00 // REG_WR('hBC, 'h00)
+    0x11, 0xBD, 0x13, 0x02 // REG_WR('hBD, 'h02)
+    0x11, 0xBE, 0x13, 0x00 // REG_WR('hBE, 'h00)
+    0x11, 0xBF, 0x13, 0x00 // REG_WR('hBF, 'h00)
+    0x11, 0xC0, 0x13, 0x00 // REG_WR('hC0,’h00)
+    0x11, 0xC1, 0x13, 0x00 // REG_WR('hC1 ,’h00)
+    0x11, 0xC2, 0x13, 0x00 // REG_WR('hC2, 'h00)
+    0x11, 0xC3, 0x13, 0x00 // REG_WR('hC3, 'h00)
+    0x11, 0xC6, 0x13, 0x00 // REG_WR('hC6, 'h00)
+    0x11, 0xC7, 0x13, 0x04 // REG_WR('hC7, 'h04)
+    0x11, 0xC8, 0x13, 0x00 // REG_WR('hC8, 'h00)
+    0x11, 0xC9, 0x13, 0x03 // REG_WR('hC9, 'h03)
+    0x11, 0xCA, 0x13, 0x00 // REG_WR('hCA, 'h00)
+    0x11, 0xCB, 0x13, 0x04 // REG_WR('hCB, 'h04)
+    0x11, 0xB7, 0x13, 0xC0 // REG_WR('hB7, 'hC0)
+    0x11, 0xB6, 0x13, 0x01 // REG_WR('hB6, 'h01)
+    0xAA, 0xAA, 0xAA, 0xAA // NOP
+    0x11, 0xB6, 0x12, 0x00 // REG_WR('hB6, 'h00)
+    0x11, 0x12, 0x13, 0x30 // REG_WR('h12, 'h40)
+    0x00 //, 0xExit
+    // Note: Power-on display unit requests program codes & display data, fonts,and required contents for program
+    // must, be stored in the same serial flash. 
+    // If Host needs to switch to another serial flash then aAll the codes &
+    // display data etc. will need to be stored to that serial flash
+Table EEPROM

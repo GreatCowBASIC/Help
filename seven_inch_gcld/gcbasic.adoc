@@ -355,6 +355,86 @@ Therefore, unfortunately, upon powering a GLCD black display is shown with no de
 
     Note: Surenoo intend to load a default screen to the GLCD, and, the production of Development Board to showcase the features of these displays.
 
+== Initialise SPI Flash 
+
+The GLCD has a power-on display circuit  embedded into small microprocessor unit.&#160;&#160;The main function is to quickly display the screen at boot time by executing the program code stored in Flash memory in the absence of
+Host, or when the Host is still in its start-up phase.&#160;&#160;
+To use this function, PWM[0] pin must connect to a 10K pull-up resistor, then the "Power-On Display" function will be enabled.&#160;&#160;
+When Power-on Display is enabled, the GLCD will automatically execute the program until the program code in the Flash memory is fully executed. After that, Host will retrieve the control of the system.
+
+The goal is to program the Flash memory to initialise the GLCD.&#160;&#160;This will be achieved using a GCBASIC program to program the FLASH memory to show a picture.&#160;&#160;This means the GLCD will be operting without the microcontroller to prove the GLCD is operating as expected.
+
+The steps are:
+
+1. Connect the microcontroller to the Flash memory SPI connector via a Flat Flexible Cable and a CB Converter Board Couple Extend Adapter.
+2. Provide 3v0, and, connect the microcontroller to the correct microcontroller ports.
+3. Program the Flash memory using the provide Flash memory GCBASIC program.&#160;&#160;See below.
+4. Disconnect the microcontroller and reset the GCLD.
+5. Enjoy the display on the GLCD.
+
+.SPI Connector
+[cols="a,a", frame=none, grid=none]
+|===
+|*Blue PCB - J3* not verified!
+|*Black PCB - P1*
+|[#img-J3,image=J3_interface.png] 
+image::J3_interface.png[display,70%,align="center"]  
+
+|[#img-P1,image=P1_interface.png] 
+image::P1_interface.png[display,70%,align="center"]  
+
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/w25q256jv_spi_revg_08032017-1489574.pdf#[Blue  PCB - Flash Memory Datasheet]
+
+
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/W25Q128JV%20RevI%2008232021%20Plus.pdf#[Black  PCB - Flash Memory Datasheet]
+
+|===
+
+Parts required to support programming of the Flash Memory
+
+.SPI Connector Additional Components
+[cols="a,a", frame=none, grid=none]
+|===
+|FFC FPC 10 Pin 0.5mm 1mm Pitch to DIP 2.0mm PCB Converter Board Couple Extend Adapter
+|FFC FPC Flat Flexible Cable, 10 Pin 0.5mm Pitch 100mm Long (A Type)  
+|[#img-10wayConnector,image=10wayConnector.png] 
+image::10wayConnector.png[display,70%,align="center"]  
+
+|[#img-10wayCable,image=10wayCable.png] 
+image::10wayCable.png[display,70%,align="center"]  
+
+|===
+
+
+Note:: The W25Q128JVSQ (128M-bit) Serial Flash memory provides a storage solution for systems with limited space, pins and power,sop8 package. The W25Q128JVSQ  offers flexibility and performance well beyond ordinary Serial Flash devices. They are ideal for code shadowing to RAM, executing code directly from Dual/Quad SPI (XIP) and storing voice, text and data. The device operates on a single 2.7V to 3.6V power supply with current consumption as low as 4mA active for power-down. All devices are offered in space-saving packages. + 
++ 
+The W25Q128JVSQ array is organized into 65,536 programmable pages of 256-bytes each. Up to 256 bytes can be programmed at a time. Pages can be erased in groups of 16 (4KB sector erase), groups of 128 (32KB block erase), groups of 256 (64KB block erase) or the entire chip (chip erase). 
++ 
+The W25Q128JVSQ has 4,096 erasable sectors and 256 erasable blocks respectively. The small 4KB sectors allow for greater flexibility in applications that require data and parameter storage.
++ 
+The W25Q128JVSQ support the standard Serial Peripheral Interface (SPI), Dual/Quad I/O SPI as well as 2-clocks instruction cycle Quad Peripheral Interface (QPI): Serial Clock, Chip Select, Serial Data I/O0 (DI),I/O1 (DO), I/O2 (/WP), and I/O3 (/HOLD). SPI clock frequencies of up to 104MHz are supported allowing equivalent clock rates of 208MHz (104MHz x 2) for Dual I/O and 416MHz (104MHz x 4) for Quad I/O when using the Fast Read Dual/Quad I/O and QPI instructions. These transfer rates can outperform standard Asynchronous 8 and 16-bit Parallel Flash memories. The Continuous Read Mode allows for efficient memory access with as few as 8-clocks of instruction-overhead to read a 24-bit address, allowing true XIP (execute in place) operation.  
++ 
+A Hold pin, Write Protect pin and programmable write protection, with top or bottom array control, provide further control flexibility. Additionally, the device supports JEDEC standard manufacturer and device ID and SFDP Register, a 64-bit Unique Serial Number and three 256-bytes Security Registers.
+
+*GCBASIC program*
+
+Setup the SPI and program the microcontroller.
+
+----
+
+        // Connect as show in SPI Connector section above
+        Assuring 3v3 NOT 5v0
+
+        // Example ports SPI - use port defintion, remember to set PPS as appropiate
+        #define FLASH_SPI_DO          portc.5
+        #define FLASH_SPI_SCK         portc.3
+        #define FLASH_SPI_CS          porta.2
+        #define FLASH_SPI_RESET_OUT   portb.5
+
+----
+
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:./code/gcbasic/005_FlashProgram.gcb[GCBASIC source to Program the Flash Memory]
+
 
 == Testing the connectivity between the GLCD to the Microcontroller
 
