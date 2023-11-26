@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Compilation Report</title>
+</head>
+<body>
+<h1>Compilation Report</h1>
+<p>Compiler Version (YYYY-MM-DD): 1.01.00 2023-11-23 (Windows 64 bit) : Build 1308</p>
+<h2>Compilation time</h2>
+<p> (Compile time: 1.492188 seconds)</p>
+<p> (Assembly time: 0.046875 seconds)</p>
+<p> (Download time: 0 seconds)</p>
+<p> (Total time: 1.539063 seconds)</p>
+<h2>Chip resource usage:</h2>
+<p>Chip Model: 16F877A</p>
+<p>Program Memory: 657/8192 words (8.02%)</p>
+<p>RAM: 33/368 bytes (4.08%)</p>
+<p> OSC: HS, 20Mhz (Clock source is not a primary internal oscillator. Ensure the clock source is correctly setup)</p>
+<h2>RAM Allocation</h2>
+<table border="1">
+</table>
+<h2>Subroutines</h2>
+<table border="1">
+<tr><th>Name</th><th>Code Size (lines)</th><th>Compiled Size (words)</th><th>Page</th><th>Outgoing calls</th></tr>
+<tr><td>Main</td><td>23</td><td>56</td><td>1</td><td>SYSCOMPLESSTHAN16(2), SYSCOMPEQUAL16(1), FLASH_SPI_WRITETOFLASH(1), HSERPRINT(1), INITSYS(13)</td></tr>
+<tr><td>FLASH_SPI_WRITETOFLASH</td><td>19</td><td>17</td><td>1</td><td></td></tr>
+<tr><td>INITSYS</td><td>903</td><td>22</td><td>1</td><td></td></tr>
+<tr><td>SYSDIVSUB16</td><td>38</td><td>56</td><td>1</td><td>SYSCOMPEQUAL16(1)</td></tr>
+<tr><td>SYSCOMPEQUAL16</td><td>34</td><td>11</td><td>1</td><td></td></tr>
+<tr><td>SYSCOMPLESSTHAN16</td><td>38</td><td>15</td><td>1</td><td></td></tr>
+<tr><td>INITUSART</td><td>298</td><td>12</td><td>1</td><td></td></tr>
+<tr><td>HSERSEND</td><td>242</td><td>11</td><td>1</td><td></td></tr>
+<tr><td>HSERPRINT</td><td>36</td><td>130</td><td>1</td><td>SYSDIVSUB16(4), SYSCOMPLESSTHAN16(4), HSERSEND(5)</td></tr>
+<tr><td>INITTFT</td><td>0</td><td>306</td><td>1</td><td></td></tr>
+<tr><td>INITTFT_H</td><td>0</td><td>21</td><td>1</td><td></td></tr>
+</table>
+</body>
+</html>
