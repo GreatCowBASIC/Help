@@ -388,6 +388,10 @@ image::P1_interface.png[display,70%,align="center"]
 
 |&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/W25Q128JV%20RevI%2008232021%20Plus.pdf#[Black  PCB - Flash Memory Datasheet]
 
+|missing...
+|[#img-W25Q128JV,image=W25Q128JV.png] 
+image::W25Q128JV.png[display,70%,align="center"]  
+
 |===
 
 Parts required to support programming of the Flash Memory
