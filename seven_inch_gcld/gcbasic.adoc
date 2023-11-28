@@ -390,7 +390,7 @@ image::P1_interface.png[display,70%,align="center"]
 
 |missing...
 |[#img-W25Q128JV,image=W25Q128JV.png] 
-image::W25Q128JV.png[display,70%,align="center"]  
+image::W25Q128JV.png[display,100%,align="center"]  
 
 |===
 
