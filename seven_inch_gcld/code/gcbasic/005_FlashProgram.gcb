@@ -8,11 +8,26 @@ https://gettobyte.com/w25q128jv-spi-flash-memory-part3/
 
 */
 
-#include <glcd.h>
 // Setup USART
 #define USART_BAUD_RATE 9600
 #define USART_TX_BLOCKING
 #define USART_DELAY OFF
+
+    // PIC PPS Tool version: 0.0.6.5
+    
+    #startup InitPPS, 85
+    #define PPSToolPart 18F27Q84
+
+    Sub InitPPS
+            
+            // Module: UART pin directions
+            Dir PORTC.6 Out    ' Make TX1 pin an output
+            // Module: UART1
+            RC6PPS = 0x0020    // TX1 > RC6
+        
+        End Sub
+    // Add this code segment to your GCBASIC source program
+
 
 // Setup SPI
     #ifdef FLASH_HARDWARESPI
@@ -27,64 +42,297 @@ https://gettobyte.com/w25q128jv-spi-flash-memory-part3/
         #define HWSPIMODE MASTERFAST
 
         'Pin mappings for  SPI
-        #define FLASH_SPI_W25_DO          portc.5
+        #define FLASH_SPI_W25_DO          portb.0
+        #define FLASH_SPI_W25_DI          portc.4
         #define FLASH_SPI_W25_SCK         portc.3
         #define FLASH_SPI_W25_CS          porta.2
-        #define FLASH_SPI_W25_RESET_OUT   portb.5
+        #define FLASH_SPI_W25_RST         portb.5
 
+        Dir FLASH_SPI_W25_DO              Out
+        Dir FLASH_SPI_W25_DI              In
+        Dir FLASH_SPI_W25_SCK             Out
+        Dir FLASH_SPI_W25_CS              Out
+        Dir FLASH_SPI_W25_RST             Out
 
+        #DEFINE FLASH_SPI_W25_LO_DELAY 23 us
+        #DEFINE FLASH_SPI_W25_HI_DELAY 20 us
+// Force SPI to known state for MODE 3
+        FLASH_SPI_W25_DO  = 1
+        FLASH_SPI_W25_DI  = 1
+        FLASH_SPI_W25_CS  = 1
+        FLASH_SPI_W25_SCK = 1
+
+        
 // Main program
-
+        wait 5 s
         HSerPrintStringCRLF "Commenced"
 
-        Dim pointer as Long
+        
         Dim initlength, __FLASHWord as Word
         Dim __FLASHreg, __FLASHbyte as Byte
 
         // Reset the chip
         FLASH_SPI_W25_Reset()
 
+        HSerPrint "Device ID 0x" + HEX(W25_Read_ID)
+        HserPrintCRLF 
 
+        HSerPrint "Status 1 0x" + ByteToBin(W25_Read_SR)
+        HserPrintCRLF 
+
+        Do while W25_Read_SR and 1 = 1
+        HSerPrint "Status 1 0x" + ByteToBin(W25_Read_SR)
+        HserPrintCRLF 
+        loop
+
+        // Exit address mode
+        FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_EXIT_4BYTE_ADDRES_MODE )
+        Do while W25_Read_SR and 1 = 1
+        HSerPrint "Status A 0x" + ByteToBin(W25_Read_SR)
+        HserPrintCRLF 
+        loop 
+
+        pointer = 0
+        readtable InitTFT, pointer, initlength        
+goto dump        
         // Erase chip
+        FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_WRITEENABLE  )
+        Do while W25_Read_SR and 1 = 1
+        HSerPrint "Status 2 0x" + ByteToBin(W25_Read_SR)
+        HserPrintCRLF 
+        loop        
+        HSerPrintStringCRLF "Erasing"
         FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_CHIPERASE )
-        Wait 10 ms
 
+        HSerPrint "Status 3 0x" + ByteToBin(W25_Read_SR)
+        HserPrintCRLF 
+        
+        Do while W25_Read_SR and 1 = 1
+        // HSerPrint "Status 3 0x" + ByteToBin(W25_Read_SR)
+        // HserPrintCRLF 
+        wait 1 ms
+        loop
+        HSerPrintStringCRLF "Erased"
 
         // Set address for this boot loader program
-        FLASH_SPI_W25_SetFlashAddress ( [Long]0x00 )
-
+        FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_WRITEENABLE )
+        Do while W25_Read_SR and 1 = 1
+        HSerPrint "Status 4 0x" + ByteToBin(W25_Read_SR)
+        HserPrintCRLF 
+        loop        
+        FLASH_SPI_W25_SetFlashAddress ( [Long]0x00, W25Q128JV_WRITEDATA )
         // Set the table to the chip, do not send the first byte, hence start at address plus 1. 
         pointer = 0
         readtable InitTFT, pointer, initlength
+        HSerPrint "Table Data Length" + str(initlength)
+        HserPrintCRLF 
         
-        FLASH_SPI_W25_WriteBuffertoFlash (  @TABLEINITTFT + 1, initlength )
+
+        FLASH_SPI_W25_WriteBuffertoFlash (  @TABLEINITTFT + 1, 256 )
+        Do while W25_Read_SR and 1 = 1
+        HSerPrint "Status 5 0x" + ByteToBin(W25_Read_SR)
+        HserPrintCRLF 
+        loop
+
+        // Set address for data
+        FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_WRITEENABLE )
+        Do while W25_Read_SR and 1 = 1
+        HSerPrint "Status 6 0x" + ByteToBin(W25_Read_SR)
+        HserPrintCRLF 
+        loop        
+        FLASH_SPI_W25_SetFlashAddress ( [Long]0x0100, W25Q128JV_WRITEDATA )
+        FLASH_SPI_W25_WriteBuffertoFlash (  @TABLEINITTFT + 257, initlength - 256 )
+        Do while W25_Read_SR and 1 = 1
+        HSerPrint "Status 7 0x" + ByteToBin(W25_Read_SR)
+        HserPrintCRLF 
+        loop
+
 
         HSerPrintStringCRLF "Completed bootloader"
 
+
+        FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_WRITEENABLE )
+        wait 100 ms
         // Set address to 0x00020000.  Can be a 24bit value. This address needs to match the bootloader code in the table
-        FLASH_SPI_W25_SetFlashAddress ( [Long]0x00020000 )
+        FLASH_SPI_W25_SetFlashAddress ( [Long]0x0000200 , W25Q128JV_WRITEDATA )
 
         // Set screen to RED 1024 * 768 = 0xC0000 words
-        FLASH_SPI_W25_WriteMultipleBytestoFlash (  0xC0000 , TFT_RED )
-        
+        FLASH_SPI_W25_WriteMultipleBytestoFlash (  4096 , 63488 )  // TFT_RED
+        wait 1 ms
+
+        FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_WRITEENABLE )
+        wait 100 ms
+        // Set address to 0x00020000.  Can be a 24bit value. This address needs to match the bootloader code in the table
+        FLASH_SPI_W25_SetFlashAddress ( [Long]0x0002000 , W25Q128JV_WRITEDATA )
+
+        // Set screen to RED 1024 * 768 = 0xC0000 words
+        FLASH_SPI_W25_WriteMultipleBytestoFlash (  4096 , 63488 )  // TFT_RED        
+
+        FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_WRITEENABLE )
+        wait 100 ms
+        // Set address to 0x00020000.  Can be a 24bit value. This address needs to match the bootloader code in the table
+        FLASH_SPI_W25_SetFlashAddress ( [Long]0x0020000 , W25Q128JV_WRITEDATA )
+
+        // Set screen to RED 1024 * 768 = 0xC0000 words
+        FLASH_SPI_W25_WriteMultipleBytestoFlash (  4096 , 63488 )  // TFT_RED
+
         HSerPrintStringCRLF "Completed color"
 
+        // Set address for this boot loader program
+        
+dump:
+
+        // Exit address mode
+        FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_EXIT_4BYTE_ADDRES_MODE )
+        Do while W25_Read_SR and 1 = 1
+        HSerPrint "Status C 0x" + ByteToBin(W25_Read_SR)
+        HserPrintCRLF 
+        loop 
+
+        FLASH_SPI_W25_CS = 0
+        ' Send W25Q128JV_READDATA
+                dim __FLASH_outbuffer as Byte
+                __FLASH_outbuffer = W25Q128JV_READDATA          
+                repeat 8
+                    if __FLASH_outbuffer.7 = ON  then
+                    set FLASH_SPI_W25_DO ON;
+                    else
+                    set FLASH_SPI_W25_DO OFF;
+                    end if
+                    SET FLASH_SPI_W25_SCK OFF;
+                    rotate __FLASH_outbuffer left
+                    Wait FLASH_SPI_W25_HI_DELAY
+                    set FLASH_SPI_W25_SCK ON;
+                    Wait FLASH_SPI_W25_LO_DELAY
+                end repeat
+        ' Send 0x000000
+                Repeat 3
+                    dim __FLASH_outbuffer as Byte
+                    __FLASH_outbuffer = 0            
+                    repeat 8
+                        if __FLASH_outbuffer.7 = ON  then
+                        set FLASH_SPI_W25_DO ON;
+                        else
+                        set FLASH_SPI_W25_DO OFF;
+                        end if
+                        SET FLASH_SPI_W25_SCK OFF;
+                        rotate __FLASH_outbuffer left
+                        Wait FLASH_SPI_W25_HI_DELAY
+                        set FLASH_SPI_W25_SCK ON;
+                        Wait FLASH_SPI_W25_LO_DELAY
+                    end repeat            
+                end repeat
+
+        Dim pointer as Long
+        For pointer = 0 to initlength-1 // The bootloader
+
+            __FLASHbyte = FLASH_SPI_W25_ReadBytefromChip
+            HSerPrint hex(__FLASHbyte)
+            HSerSend " "
+            if ( pointer+2) MOD 4 = 1 then HserPrintCRLF
+
+        Next
+
+        FLASH_SPI_W25_CS = 1
+        Wait 100 ms
+// read 0x02 00 00
+        HserPrintCRLF 2    
+        HSerPrintStringCRLF "EEPROM Address 0x000000"
+        // Exit address mode
+        FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_EXIT_4BYTE_ADDRES_MODE )
+        Do while W25_Read_SR and 1 = 1
+        HSerPrint "Status C 0x" + ByteToBin(W25_Read_SR)
+        HserPrintCRLF 
+        loop 
+
+        FLASH_SPI_W25_CS = 0
+        ' Send W25Q128JV_READDATA
+                dim __FLASH_outbuffer as Byte
+                __FLASH_outbuffer = W25Q128JV_READDATA          
+                repeat 8
+                    if __FLASH_outbuffer.7 = ON  then
+                    set FLASH_SPI_W25_DO ON;
+                    else
+                    set FLASH_SPI_W25_DO OFF;
+                    end if
+                    SET FLASH_SPI_W25_SCK OFF;
+                    rotate __FLASH_outbuffer left
+                    Wait FLASH_SPI_W25_HI_DELAY
+                    set FLASH_SPI_W25_SCK ON;
+                    Wait FLASH_SPI_W25_LO_DELAY
+                end repeat
+
+        ' Send address
+                dim xloop as Byte
+                For xloop = 0 to 2
+                    dim __FLASH_outbuffer as Byte
+
+                    __FLASH_outbuffer = 0            
+                    // if xloop = 1 then __FLASH_outbuffer = 0x02
+                    repeat 8
+                        if __FLASH_outbuffer.7 = ON  then
+                        set FLASH_SPI_W25_DO ON;
+                        else
+                        set FLASH_SPI_W25_DO OFF;
+                        end if
+                        SET FLASH_SPI_W25_SCK OFF;
+                        rotate __FLASH_outbuffer left
+                        Wait FLASH_SPI_W25_HI_DELAY
+                        set FLASH_SPI_W25_SCK ON;
+                        Wait FLASH_SPI_W25_LO_DELAY
+                    end repeat            
+                next
+
+        Dim pointer as Long
+        For pointer = 0 to 0x2FF // The bootloader
+
+            __FLASHbyte = FLASH_SPI_W25_ReadBytefromChip
+            HSerPrint hex(__FLASHbyte)
+            HSerSend " "
+            // if ( pointer+2) MOD 4 = 1 then HserPrintCRLF
+
+        Next
+        FLASH_SPI_W25_CS = 1
+        Wait 100 ms
+
+
+HserPrintCRLF
+HSerPrintStringCRLF "Completed"
+HSerPrint "Device ID 0x" + HEX(W25_Read_ID)
+HserPrintCRLF
+HSerPrintStringCRLF "End"
+wait 100 ms
 end
 
     sub FLASH_SPI_W25_Reset()
+
+        FLASH_SPI_W25_WriteWordtoFlash ( W25Q128JV_RESET_SEQUENCE, False )
         wait 100 ms
         FLASH_SPI_W25_WriteWordtoFlash ( W25Q128JV_RESET_SEQUENCE, False )
         wait 100 ms
+
     end sub
 
-    sub FLASH_SPI_W25_WriteEnable()
-        FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_WRITEENABLE )
-    end sub
 
     sub FLASH_SPI_W25_WriteMultipleBytestoFlash( IN __DataLength as Long ,  __FLASHWord as Word  ) 
         
-        FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_WRITEENABLE )
-
+        // FLASH_SPI_W25_CS = 0
+        
+        // dim __FLASH_outbuffer as Byte
+        // __FLASH_outbuffer = W25Q128JV_WRITEDATA            
+        // repeat 8
+        //     if __FLASH_outbuffer.7 = ON  then
+        //     set FLASH_SPI_W25_DO ON;
+        //     else
+        //     set FLASH_SPI_W25_DO OFF;
+        //     end if
+        //     SET FLASH_SPI_W25_SCK OFF;
+        //     rotate __FLASH_outbuffer left
+        //     set FLASH_SPI_W25_SCK ON;
+        // end repeat
+        // wait 100 ms
+        // FLASH_SPI_W25_CS = 1
+        
         FLASH_SPI_W25_CS = 0
         repeat  __DataLength
             
@@ -93,6 +341,7 @@ end
                 FastHWSPITransfer( __FLASHbyte_H)
                 FastHWSPITransfer( __FLASHbyte)
             #else
+        
                 // Set the three parameters using Bit Banging
                 dim __FLASH_outbuffer as Byte
                 __FLASH_outbuffer = __FLASHWord_H            
@@ -102,9 +351,11 @@ end
                     else
                     set FLASH_SPI_W25_DO OFF;
                     end if
-                    SET FLASH_SPI_W25_SCK On;
+                    SET FLASH_SPI_W25_SCK OFF;
+                    Wait FLASH_SPI_W25_HI_DELAY
                     rotate __FLASH_outbuffer left
-                    set FLASH_SPI_W25_SCK Off;
+                    set FLASH_SPI_W25_SCK ON;
+                    Wait FLASH_SPI_W25_LO_DELAY
                 end repeat
                 __FLASH_outbuffer = __FLASHWord
                 repeat 8
@@ -113,9 +364,11 @@ end
                     else
                     set FLASH_SPI_W25_DO OFF;
                     end if
-                    SET FLASH_SPI_W25_SCK On;
+                    SET FLASH_SPI_W25_SCK OFF;
+                    Wait FLASH_SPI_W25_HI_DELAY
                     rotate __FLASH_outbuffer left
-                    set FLASH_SPI_W25_SCK Off;
+                    set FLASH_SPI_W25_SCK ON;
+                    Wait FLASH_SPI_W25_LO_DELAY
                 end repeat                
             #endif
         end repeat   
@@ -129,7 +382,22 @@ end
 
         __DataPointer = 0
 
-        FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_WRITEENABLE )
+        // FLASH_SPI_W25_CS = 0
+
+        // dim __FLASH_outbuffer as Byte
+        // __FLASH_outbuffer = W25Q128JV_WRITEDATA            
+        // repeat 8
+        //     if __FLASH_outbuffer.7 = ON  then
+        //     set FLASH_SPI_W25_DO ON;
+        //     else
+        //     set FLASH_SPI_W25_DO OFF;
+        //     end if
+        //     SET FLASH_SPI_W25_SCK OFF;
+        //     rotate __FLASH_outbuffer left
+        //     set FLASH_SPI_W25_SCK ON;
+        // end repeat
+        // wait 100 ms
+        // FLASH_SPI_W25_CS = 1
 
         FLASH_SPI_W25_CS = 0
         repeat  __DataLength
@@ -137,13 +405,13 @@ end
             
             __DataPointer++
             // Force the last byte to be 0x00, as we are reading the progmem
-            if __DataLength = __DataPointer Then __FLASHbyte = 0
+            if __DataLength = __DataPointer AND  __DataLength <> 256 Then __FLASHbyte = 0
 
             #ifdef FLASH_HARDWARESPI
                 // Send via Hardware SPI
                 FastHWSPITransfer( __FLASHbyte)
             #else
-                // Set the three parameters using Bit Banging
+                // Using Bit Banging
                 dim __FLASH_outbuffer as Byte
                 __FLASH_outbuffer = __FLASHbyte            
                 repeat 8
@@ -152,9 +420,11 @@ end
                     else
                     set FLASH_SPI_W25_DO OFF;
                     end if
-                    SET FLASH_SPI_W25_SCK On;
+                    SET FLASH_SPI_W25_SCK OFF;
+                    Wait FLASH_SPI_W25_HI_DELAY
                     rotate __FLASH_outbuffer left
-                    set FLASH_SPI_W25_SCK Off;
+                    set FLASH_SPI_W25_SCK ON;
+                    Wait FLASH_SPI_W25_LO_DELAY
                 end repeat
             #endif
         end repeat   
@@ -168,7 +438,19 @@ end
             // Send via Hardware SPI
             FastHWSPITransfer( __FLASHbyte)
         #else
-            // Set the three parameters using Bit Banging
+            // dim __FLASH_outbuffer as Byte
+            // __FLASH_outbuffer = W25Q128JV_WRITEENABLE            
+            // repeat 8
+            //     if __FLASH_outbuffer.7 = ON  then
+            //     set FLASH_SPI_W25_DO ON;
+            //     else
+            //     set FLASH_SPI_W25_DO OFF;
+            //     end if
+            //     SET FLASH_SPI_W25_SCK OFF;
+            //     rotate __FLASH_outbuffer left
+            //     set FLASH_SPI_W25_SCK ON;
+            // end repeat
+            // Using Bit Banging
             dim __FLASH_outbuffer as Byte
             __FLASH_outbuffer = __FLASHbyte            
             repeat 8
@@ -177,9 +459,11 @@ end
                 else
                 set FLASH_SPI_W25_DO OFF;
                 end if
-                SET FLASH_SPI_W25_SCK On;
+                SET FLASH_SPI_W25_SCK OFF;
+                Wait FLASH_SPI_W25_HI_DELAY
                 rotate __FLASH_outbuffer left
-                set FLASH_SPI_W25_SCK Off;
+                set FLASH_SPI_W25_SCK ON;
+                Wait FLASH_SPI_W25_LO_DELAY
             end repeat
         #endif
         FLASH_SPI_W25_CS = 1
@@ -187,17 +471,46 @@ end
 
     sub FLASH_SPI_W25_WriteWordtoFlash(  __FLASHWord as Word, optional __FLASHSendEnable as Bit = 1 ) 
 
-        If __FLASHSendEnable = 1 Then
-            FLASH_SPI_W25_WriteBytetoFlash ( W25Q128JV_WRITEENABLE )
-        End If
+        FLASH_SPI_W25_CS = 0
+
+        dim __FLASH_outbuffer as Byte
+        __FLASH_outbuffer = W25Q128JV_WRITEENABLE            
+        repeat 8
+            if __FLASH_outbuffer.7 = ON  then
+            set FLASH_SPI_W25_DO ON;
+            else
+            set FLASH_SPI_W25_DO OFF;
+            end if
+            SET FLASH_SPI_W25_SCK OFF;
+            Wait FLASH_SPI_W25_HI_DELAY
+            rotate __FLASH_outbuffer left
+            set FLASH_SPI_W25_SCK ON;
+            Wait FLASH_SPI_W25_LO_DELAY
+        end repeat
+        FLASH_SPI_W25_CS = 1
 
         FLASH_SPI_W25_CS = 0
+
         #ifdef FLASH_HARDWARESPI
             // Send via Hardware SPI
             FastHWSPITransfer(__FLASHWord_H)
             FastHWSPITransfer(__FLASHWord)
         #else
-            // Set the three parameters using Bit Banging
+
+            // dim __FLASH_outbuffer as Byte
+            // __FLASH_outbuffer = W25Q128JV_WRITEENABLE            
+            // repeat 8
+            //     if __FLASH_outbuffer.7 = ON  then
+            //     set FLASH_SPI_W25_DO ON;
+            //     else
+            //     set FLASH_SPI_W25_DO OFF;
+            //     end if
+            //     SET FLASH_SPI_W25_SCK OFF;
+            //     rotate __FLASH_outbuffer left
+            //     set FLASH_SPI_W25_SCK ON;
+            // end repeat
+
+            // Using Bit Banging
             dim __FLASH_outbuffer as Word
             __FLASH_outbuffer = __FLASHWord            
             repeat 16
@@ -206,15 +519,57 @@ end
                 else
                 set FLASH_SPI_W25_DO OFF;
                 end if
-                SET FLASH_SPI_W25_SCK On;
+                SET FLASH_SPI_W25_SCK OFF;
+                Wait FLASH_SPI_W25_HI_DELAY
                 rotate __FLASH_outbuffer left
-                set FLASH_SPI_W25_SCK Off;
+                set FLASH_SPI_W25_SCK ON
+                Wait FLASH_SPI_W25_LO_DELAY
             end repeat
         #endif
         FLASH_SPI_W25_CS = 1
     End Sub
 
-    sub FLASH_SPI_W25_SetFlashAddress(  __FLASHLong as Long )
+    Function FLASH_SPI_W25_ReadBytefromChip as Byte
+
+        FLASH_SPI_W25_ReadBytefromChip = 0
+
+        #ifdef FLASH_HARDWARESPI
+            // Send via Hardware SPI
+            FastHWSPITransfer( FLASH_SPI_W25_ReadBytefromChip, FLASH_SPI_W25_ReadBytefromChip )
+        #else       
+            repeat 8
+
+                // 'Clock something out - this is not important
+                // if FLASH_SPI_W25_DI = ON  then
+                //     set FLASH_SPI_W25_DO OFF
+                // else
+                //     set FLASH_SPI_W25_DO ON
+                // end if
+
+                'Device is cpol = 0. Invert SCK if cpol = 1
+                SET FLASH_SPI_W25_SCK OFF
+                
+                rotate FLASH_SPI_W25_ReadBytefromChip left
+
+                Wait FLASH_SPI_W25_HI_DELAY
+
+                if FLASH_SPI_W25_DI = On then
+                    set FLASH_SPI_W25_ReadBytefromChip.0 On
+                Else
+                    set FLASH_SPI_W25_ReadBytefromChip.0 Off
+                end if
+                
+                set FLASH_SPI_W25_SCK ON
+                WAIT FLASH_SPI_W25_LO_DELAY
+
+            end repeat
+        #endif
+
+    End Function
+
+    sub FLASH_SPI_W25_SetFlashAddress(  __FLASHLong as Long, __FLASH_control )
+
+        dim __FLASH_outbuffer as Long
 
         FLASH_SPI_W25_CS = 0
         #ifdef FLASH_HARDWARESPI
@@ -223,8 +578,22 @@ end
             FastHWSPITransfer(__FLASHWord_H)
             FastHWSPITransfer(__FLASHWord)
         #else
+
+            __FLASH_outbuffer = __FLASH_control            
+            repeat 8
+                if __FLASH_outbuffer.7 = ON  then
+                set FLASH_SPI_W25_DO ON;
+                else
+                set FLASH_SPI_W25_DO OFF;
+                end if
+                SET FLASH_SPI_W25_SCK OFF;
+                Wait FLASH_SPI_W25_HI_DELAY
+                rotate __FLASH_outbuffer left
+                set FLASH_SPI_W25_SCK ON;
+                Wait FLASH_SPI_W25_LO_DELAY
+            end repeat
+
             // Set the three parameters using Bit Banging
-            dim __FLASH_outbuffer as Long
             __FLASH_outbuffer = __FLASHLong            
             repeat 24
                 if __FLASH_outbuffer.23 = ON  then
@@ -232,13 +601,202 @@ end
                 else
                 set FLASH_SPI_W25_DO OFF;
                 end if
-                SET FLASH_SPI_W25_SCK On;
+                SET FLASH_SPI_W25_SCK OFF;
+                Wait FLASH_SPI_W25_HI_DELAY
                 rotate __FLASH_outbuffer left
-                set FLASH_SPI_W25_SCK Off;
+                set FLASH_SPI_W25_SCK ON;
+                Wait FLASH_SPI_W25_LO_DELAY
+            end repeat
+        #endif
+        // FLASH_SPI_W25_CS = 1
+    End Sub
+
+Function W25_Read_ID
+
+        W25_Read_ID = 0x00
+
+        dim __FLASH_outbuffer as Long
+
+        FLASH_SPI_W25_CS = 0
+        Wait FLASH_SPI_W25_LO_DELAY
+
+        #ifdef FLASH_HARDWARESPI
+            // Send via Hardware SPI
+            FastHWSPITransfer(__FLASHWord_U)
+            FastHWSPITransfer(__FLASHWord_H)
+            FastHWSPITransfer(__FLASHWord)
+        #else
+
+            __FLASH_outbuffer = W25Q128JV_JEDECID            
+            repeat 8
+                if __FLASH_outbuffer.7 = ON  then
+                set FLASH_SPI_W25_DO ON;
+                else
+                set FLASH_SPI_W25_DO OFF;
+                end if
+                SET FLASH_SPI_W25_SCK OFF;
+                Wait FLASH_SPI_W25_HI_DELAY
+                rotate __FLASH_outbuffer left
+                set FLASH_SPI_W25_SCK ON;
+                Wait FLASH_SPI_W25_LO_DELAY
+            end repeat
+            
+            
+            repeat 8
+
+                // 'Clock something out - this is not important
+                // if FLASH_SPI_W25_DI = ON  then
+                //     set FLASH_SPI_W25_DO OFF
+                // else
+                //     set FLASH_SPI_W25_DO ON
+                // end if
+
+                'Device is cpol = 0. Invert SCK if cpol = 1
+                SET FLASH_SPI_W25_SCK OFF
+
+                Set C Off
+                rotate W25_Read_ID left
+
+                Wait FLASH_SPI_W25_HI_DELAY
+
+                if FLASH_SPI_W25_DI = On then
+                    set W25_Read_ID.0 On
+                Else
+                    set W25_Read_ID.0 Off
+                end if
+                
+                set FLASH_SPI_W25_SCK ON
+                WAIT FLASH_SPI_W25_LO_DELAY
+
+            end repeat
+        #endif
+        Wait FLASH_SPI_W25_HI_DELAY
+        FLASH_SPI_W25_CS = 1
+
+End Function
+
+Sub W25_Write_SR (  in __FLASH_control  )
+
+
+
+        dim __FLASH_outbuffer as Long
+
+        FLASH_SPI_W25_CS = 0
+        #ifdef FLASH_HARDWARESPI
+            // Send via Hardware SPI
+            FastHWSPITransfer(__FLASHWord_U)
+            FastHWSPITransfer(__FLASHWord_H)
+            FastHWSPITransfer(__FLASHWord)
+        #else
+
+            __FLASH_outbuffer = W25Q128JV_WRITESR1            
+            repeat 8
+                if __FLASH_outbuffer.7 = ON  then
+                set FLASH_SPI_W25_DO ON;
+                else
+                set FLASH_SPI_W25_DO OFF;
+                end if
+                SET FLASH_SPI_W25_SCK OFF;
+                Wait FLASH_SPI_W25_HI_DELAY
+                rotate __FLASH_outbuffer left
+                set FLASH_SPI_W25_SCK ON;
+                Wait FLASH_SPI_W25_LO_DELAY
+            end repeat
+            
+            
+            repeat 8
+
+                // 'Clock something out - this is not important
+                // if FLASH_SPI_W25_DI = ON  then
+                //     set FLASH_SPI_W25_DO OFF
+                // else
+                //     set FLASH_SPI_W25_DO ON
+                // end if
+
+                'Device is cpol = 0. Invert SCK if cpol = 1
+                dim __FLASH_outbuffer as Byte
+                __FLASH_outbuffer = __FLASHbyte            
+                repeat 8
+                    if __FLASH_outbuffer.7 = ON  then
+                    set FLASH_SPI_W25_DO ON;
+                    else
+                    set FLASH_SPI_W25_DO OFF;
+                    end if
+                    SET FLASH_SPI_W25_SCK OFF;
+                    Wait FLASH_SPI_W25_HI_DELAY
+                    rotate __FLASH_outbuffer left
+                    set FLASH_SPI_W25_SCK ON;
+                    Wait FLASH_SPI_W25_LO_DELAY
+                end repeat
+
+
             end repeat
         #endif
         FLASH_SPI_W25_CS = 1
-    End Sub
+
+End Sub
+
+
+Function W25_Read_SR
+
+        W25_Read_SR = 0x00
+
+        dim __FLASH_outbuffer as Long
+
+        FLASH_SPI_W25_CS = 0
+        #ifdef FLASH_HARDWARESPI
+            // Send via Hardware SPI
+            FastHWSPITransfer(__FLASHWord_U)
+            FastHWSPITransfer(__FLASHWord_H)
+            FastHWSPITransfer(__FLASHWord)
+        #else
+
+            __FLASH_outbuffer = W25Q128JV_READSR1            
+            repeat 8
+                if __FLASH_outbuffer.7 = ON  then
+                set FLASH_SPI_W25_DO ON;
+                else
+                set FLASH_SPI_W25_DO OFF;
+                end if
+                SET FLASH_SPI_W25_SCK OFF;
+                Wait FLASH_SPI_W25_HI_DELAY
+                rotate __FLASH_outbuffer left
+                set FLASH_SPI_W25_SCK ON;
+                Wait FLASH_SPI_W25_LO_DELAY
+            end repeat
+            
+            
+            repeat 8
+
+                // 'Clock something out - this is not important
+                // if FLASH_SPI_W25_DI = ON  then
+                //     set FLASH_SPI_W25_DO OFF
+                // else
+                //     set FLASH_SPI_W25_DO ON
+                // end if
+
+                'Device is cpol = 0. Invert SCK if cpol = 1
+                SET FLASH_SPI_W25_SCK OFF
+
+                Set C Off
+                rotate W25_Read_SR left
+
+                Wait FLASH_SPI_W25_HI_DELAY
+
+                if FLASH_SPI_W25_DI = On then
+                    set W25_Read_SR.0 On
+                Else
+                    set W25_Read_SR.0 Off
+                end if
+                
+                set FLASH_SPI_W25_SCK ON
+                WAIT FLASH_SPI_W25_LO_DELAY
+
+            end repeat
+        #endif
+        FLASH_SPI_W25_CS = 1
+
+End Function
 
 
 
@@ -249,14 +807,14 @@ Table InitTFT
 
     //Initial PLL
     0x11, 0x05, 0x13, 0x8A // REG_WR('h05, 'h8A), Write, 0x8A to REG[05]
-    0x11, 0x06, 0x13, 0x31 // REG_WR('h06, 'h41)
+    0x11, 0x06, 0x13, 0x41 // REG_WR('h06, 'h41)
     0x11, 0x07, 0x13, 0x8A // REG_WR('h07, 'h8A)
     0x11, 0x08, 0x13, 0x64 // REG_WR('h08, 'h64)
     0x11, 0x09, 0x13, 0x8A // REG_WR('h09, 'h8A)
     0x11, 0x0A, 0x13, 0x64 // REG_WR('h0A, 'h64)
     0x11, 0x00, 0x13, 0x80 // REG_WR('h00, 'h80)
     0x11, 0x01, 0x13, 0x82 // REG_WR('h01, 'h82)
-    0x11, 0x01, 0x12, 0x82 // REG_WR('h01, 'h82)
+    // 0x11, 0x01, 0x12, 0x82 // REG_WR('h01, 'h82) //Error
     0x11, 0x02, 0x13, 0x40 // REG_WR('h02, 'h40)
     0xAA, 0xAA, 0xAA, 0xAA // NOP
 
@@ -310,11 +868,11 @@ Table InitTFT
     0x11, 0x5E, 0x13, 0x02 // REG_WR('h5E, 'h02)
 
     //Setup DMA Transfer Data from Flash to Display RAM
-        //Setup Source Start Address 0x00020000
-        0x11, 0xBC, 0x13, 0x00 // REG_WR('hBC, 'h00)
-        0x11, 0xBD, 0x13, 0x02 // REG_WR('hBD, 'h02)
-        0x11, 0xBE, 0x13, 0x00 // REG_WR('hBE, 'h00)
-        0x11, 0xBF, 0x13, 0x00 // REG_WR('hBF, 'h00)
+        //Setup Source Start Address 0x00000200
+        0x11, 0xBC, 0x13, 0x00 // REG_WR('hBC, 'h00)  DMA_SSTR[7:0]
+        0x11, 0xBD, 0x13, 0x02 // REG_WR('hBD, 'h02)  DMA_SSTR[8:15]
+        0x11, 0xBE, 0x13, 0x00 // REG_WR('hBE, 'h00)  DMA_SSTR[16:23]
+        0x11, 0xBF, 0x13, 0x00 // REG_WR('hBF, 'h00)  DMA_SSTR[24:32]
         //Set Destination upper Left XY to 0,0
         0x11, 0xC0, 0x13, 0x00 // REG_WR('hC0, 'h00)
         0x11, 0xC1, 0x13, 0x00 // REG_WR('hC1, 'h00)
@@ -334,9 +892,9 @@ Table InitTFT
         0x11, 0xB6, 0x13, 0x01 // REG_WR('hB6, 'h01)
         0xAA, 0xAA, 0xAA, 0xAA // NOP
         //Setup start BIT0 = 0
-        0x11, 0xB6, 0x12, 0x00 // REG_WR('hB6, 'h00)
+        0x11, 0xB6, 0x13, 0x00 // REG_WR('hB6, 'h00)  // error
         //Display on BIT6=1
-        0x11, 0x12, 0x13, 0x40 // REG_WR('h12, 'h40)
+        0x11, 0x12, 0x13, 0x40 or 0x85 // REG_WR('h12, 'h40)  //error ? as this has overwritten 0x85 from previous write Op
     0x00                   // Exit
     // Note: Power-on display unit requests program codes & display data, fonts,and required contents for program
     // must, be stored in the same serial flash. 
@@ -370,4 +928,5 @@ End Table
 #define W25Q128JV_READ_ADDR2 0X030000
 #define W25Q128JV_READ_ADDR3 0X040000
 #define W25Q128JV_W25Q128JV_BUSY_BIT 0X01
-#define W25Q128JV_WRITE_ENABLE_LATCH 0X02
+#define W25Q128JV_WRITEENABLE_LATCH 0X02
+#define W25Q128JV_EXIT_4BYTE_ADDRES_MODE   0xE9

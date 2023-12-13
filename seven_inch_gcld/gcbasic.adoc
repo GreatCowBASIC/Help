@@ -78,10 +78,13 @@ This GLCD library has many features similar to the Nextion GLCD.  However, GCBAS
 |Black PCB display
 | image::7inchdisplay.png[display,80%,align="center"] 
 | image::7inchdisplayBlackCTP.png[display,80%,align="center"] 
-|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/LT768x_DS_V42_ENG.pdf[Display Datasheet] for the LCD driver.
-|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/LT768x_DS_V42_ENG.pdf[Display Datasheet] for the LCD driver.
+
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/LT768x_DS_V42_ENG.pdf[Display Datasheet] for the LT7686 LCD driver.
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/LT7680_DS_V20_ENG.pdf[Display Datasheet] for the LT7680A LCD driver.
+
 |&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/FocalTech-FT5x26.pdf[Touch Datasheet] for FT5426
 |&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/GT911_Datasheet.pdf[Touch Datasheet] for GT911
+
 |&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;https://youtu.be/oHksMAC8J84?si=ojw3o4qum8WEeD6D[Unboxing]
 |&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;https://youtu.be/PZ-9b52B7JA?si=pxRQGUtnWSIHauvm[Unboxing]
 |===
@@ -362,7 +365,7 @@ Host, or when the Host is still in its start-up phase.&#160;&#160;
 To use this function, PWM[0] pin must connect to a 10K pull-up resistor, then the "Power-On Display" function will be enabled.&#160;&#160;
 When Power-on Display is enabled, the GLCD will automatically execute the program until the program code in the Flash memory is fully executed. After that, Host will retrieve the control of the system.
 
-The goal is to program the Flash memory to initialise the GLCD.&#160;&#160;This will be achieved using a GCBASIC program to program the FLASH memory to show a picture.&#160;&#160;This means the GLCD will be operting without the microcontroller to prove the GLCD is operating as expected.
+The goal is to program the Flash memory to initialise the GLCD with your logo or other user specfic information.&#160;&#160;This will be achieved using a GCBASIC program to program the FLASH memory to show a picture.&#160;&#160;This means the GLCD will be operting without the microcontroller to prove the GLCD is operating as expected.
 
 The steps are:
 
@@ -419,10 +422,36 @@ The W25Q128JVSQ has 4,096 erasable sectors and 256 erasable blocks respectively.
 The W25Q128JVSQ support the standard Serial Peripheral Interface (SPI), Dual/Quad I/O SPI as well as 2-clocks instruction cycle Quad Peripheral Interface (QPI): Serial Clock, Chip Select, Serial Data I/O0 (DI),I/O1 (DO), I/O2 (/WP), and I/O3 (/HOLD). SPI clock frequencies of up to 104MHz are supported allowing equivalent clock rates of 208MHz (104MHz x 2) for Dual I/O and 416MHz (104MHz x 4) for Quad I/O when using the Fast Read Dual/Quad I/O and QPI instructions. These transfer rates can outperform standard Asynchronous 8 and 16-bit Parallel Flash memories. The Continuous Read Mode allows for efficient memory access with as few as 8-clocks of instruction-overhead to read a 24-bit address, allowing true XIP (execute in place) operation.  
 + 
 A Hold pin, Write Protect pin and programmable write protection, with top or bottom array control, provide further control flexibility. Additionally, the device supports JEDEC standard manufacturer and device ID and SFDP Register, a 64-bit Unique Serial Number and three 256-bytes Security Registers.
++
+The W25Q256JV is accessed through an SPI compatible bus consisting of four signals: Serial Clock (CLK), Chip Select (/CS), Serial Data Input (DI) and Serial Data Output (DO).&#160;&#160;Standard SPI instructions use the DI input pin to serially write instructions, addresses or data to the device on the rising edge of
+CLK.&#160;&#160;The DO output pin is used to read data or status from the device on the falling edge of CLK.&#160;&#160;
++
+SPI bus operation Mode 0 (0,0) and 3 (1,1) are supported. The primary difference between Mode 0 and Mode 3 concerns the normal state of the CLK signal when the SPI bus master is in standby and data is not being transferred to the Serial Flash.&#160;&#160;For Mode 0, the CLK signal is normally low on the falling and
+rising edges of /CS.&#160;&#160;For Mode 3, the CLK signal is normally high on the falling and rising edges of /CS
++
+The first clock signal falling can be used to prepare the data transmission.&#160;&#160;The clock idle state should be high.&#160;&#160;The data on DO and DI lines must be stable while the clock is high and can be changed when the clock is low.&#160;&#160;The data is set on the clocks low-to-high transition and propagated on high-to-low clock transition.
 
-*GCBASIC program*
+.SPI Mode
+[cols="a,a", frame=none, grid=none]
+|===
+|*Blue PCB SPI Mode*
+|*Black PCB SPI Mode*
 
-Setup the SPI and program the microcontroller.
+|SPI MODE 3 (1,1)
+|SPI MODE 3 (1,1)
+
+|CPOL=1, CPHA=1
+|CPOL=1, CPHA=1
+|===
+{empty} +
+The GLCD implementation of W25Q256JV requires a specific SPI Mode.&#160;&#160;The SPI mode is critical to update the EEPROM.&#160;&#160;The EEPROM has a shared data and clock lines with the GLCD IC.&#160;&#160;Therefore, the SPI mode used by GCBASIC needs to match the GLCD IC SPI mode.
+
+
+*GCBASIC program for EEPROM writing*
+
+Setup the program source, and, program the microcontroller.
+
+Note:: To program the EEPROM the GLCD must have the LCD_RST connection on the EEPROM connector to 0v0.&#160;&#160;**This is critical**.
 
 ----
 
@@ -433,8 +462,8 @@ Setup the SPI and program the microcontroller.
         #define FLASH_SPI_DO          portc.5
         #define FLASH_SPI_SCK         portc.3
         #define FLASH_SPI_CS          porta.2
-        #define FLASH_SPI_RESET_OUT   portb.5
 
+        // SPI MUST used MODE 3
 ----
 
 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;link:./code/gcbasic/005_FlashProgram.gcb[GCBASIC source to Program the Flash Memory]
@@ -446,7 +475,10 @@ TBD
 
 == Developing the GLCD library
 
-TBD
+&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/LT768x_AP-Note_V12_ENG.pdf#[Levetop LT768x Application Note]
+
+&#160;&#160;&#160;&#160;&#160;&#160;link:referencedocs/LT768x_TFT Module_Check_V16_ENG.pdf#[Levetop LT768x Advanced Application Note]
+
 
 == Configuration of the GLCD library
 

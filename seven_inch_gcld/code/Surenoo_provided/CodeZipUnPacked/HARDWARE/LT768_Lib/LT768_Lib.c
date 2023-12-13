@@ -1,19 +1,19 @@
 #include "usart.h" 
 #include "LT768_Lib.h"
 
-unsigned char CCLK;    // LT768µÄÄÚºËÊ±ÖÓÆµÂÊ    
-unsigned char MCLK;    // SDRAMµÄÊ±ÖÓÆµÂÊ
-unsigned char SCLK;    // LCDµÄÉ¨ÃèÊ±ÖÓÆµÂÊ
+unsigned char CCLK;    // LT768ï¿½ï¿½ï¿½Úºï¿½Ê±ï¿½ï¿½Æµï¿½ï¿½    
+unsigned char MCLK;    // SDRAMï¿½ï¿½Ê±ï¿½ï¿½Æµï¿½ï¿½
+unsigned char SCLK;    // LCDï¿½ï¿½É¨ï¿½ï¿½Ê±ï¿½ï¿½Æµï¿½ï¿½
 
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
-//¸´Î»LT768
+//ï¿½ï¿½Î»LT768
 void LT768_HW_Reset(void)
 {	
 	
 	GPIO_InitTypeDef GPIO_InitStructure;
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);//Ê¹ÄÜGPIODÊ±ÖÓ
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);//Ê¹ï¿½ï¿½GPIODÊ±ï¿½ï¿½
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;			
  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT; 
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;	
@@ -34,7 +34,7 @@ void LT768_HW_Reset(void)
 
 
 
-//¼ì²éLT768ÏµÍ³
+//ï¿½ï¿½ï¿½LT768ÏµÍ³
 void System_Check_Temp(void)
 {
 	unsigned char i=0;
@@ -44,12 +44,12 @@ void System_Check_Temp(void)
 	{
 		if((LCD_StatusRead()&0x02)==0x00)    
 		{
-			Delay_ms(1);                  //ÈôMCU ËÙ¶ÈÌ«¿ì£¬±ØÒª•rÊ¹ÓÃ
+			Delay_ms(1);                  //ï¿½ï¿½MCU ï¿½Ù¶ï¿½Ì«ï¿½ì£¬ï¿½ï¿½Òªï¿½rÊ¹ï¿½ï¿½
 			LCD_CmdWrite(0x01);
-			Delay_ms(1);                  //ÈôMCU ËÙ¶ÈÌ«¿ì£¬±ØÒª•rÊ¹ÓÃ
+			Delay_ms(1);                  //ï¿½ï¿½MCU ï¿½Ù¶ï¿½Ì«ï¿½ì£¬ï¿½ï¿½Òªï¿½rÊ¹ï¿½ï¿½
 			temp =LCD_DataRead();
 			//printf("R01h:0x%x\r\n",temp);
-			if((temp & 0x80)==0x80)       //¼ì²âCCR¼Ä´æÆ÷PLLÊÇ·ñ×¼±¸ºÃ
+			if((temp & 0x80)==0x80)       //ï¿½ï¿½ï¿½CCRï¿½Ä´ï¿½ï¿½ï¿½PLLï¿½Ç·ï¿½×¼ï¿½ï¿½ï¿½ï¿½
 			{
 				system_ok=1;
 				i=0;
@@ -57,9 +57,9 @@ void System_Check_Temp(void)
 			
 			else
 			{
-				Delay_ms(1); //ÈôMCU ËÙ¶ÈÌ«¿ì£¬±ØÒª•rÊ¹ÓÃ
+				Delay_ms(1); //ï¿½ï¿½MCU ï¿½Ù¶ï¿½Ì«ï¿½ì£¬ï¿½ï¿½Òªï¿½rÊ¹ï¿½ï¿½
 				LCD_CmdWrite(0x01);
-				Delay_ms(1); //ÈôMCU ËÙ¶ÈÌ«¿ì£¬±ØÒª•rÊ¹ÓÃ
+				Delay_ms(1); //ï¿½ï¿½MCU ï¿½Ù¶ï¿½Ì«ï¿½ì£¬ï¿½ï¿½Òªï¿½rÊ¹ï¿½ï¿½
 				LCD_DataWrite(0x80);
 			}
 		}
@@ -87,7 +87,13 @@ void LT768_PLL_Initial(void)
 	unsigned short lpllOD_sclk, lpllOD_cclk, lpllOD_mclk;
 	unsigned short lpllR_sclk, lpllR_cclk, lpllR_mclk;
 	unsigned short lpllN_sclk, lpllN_cclk, lpllN_mclk;
-	
+	#define LCD_VBPD		 23
+#define LCD_VFPD	 	 22
+#define LCD_VSPW		 1
+#define LCD_HBPD		 46
+#define LCD_HFPD		 210
+#define LCD_HSPW	   	 1
+
 	temp = (LCD_HBPD + LCD_HFPD + LCD_HSPW + LCD_XSIZE_TFT) * (LCD_VBPD + LCD_VFPD + LCD_VSPW+LCD_YSIZE_TFT) * 60;   
 	
 	temp1 = (temp%1000000)/100000;
@@ -132,7 +138,7 @@ void LT768_PLL_Initial(void)
 	Delay_us(1);
 	LCD_DataWrite(0x80);
 
-	Delay_ms(1);	//µ¥PLLÃ­
+	Delay_ms(1);	//ï¿½ï¿½PLLÃ­
 }
 
 
@@ -144,7 +150,7 @@ void LT768_SDRAM_initail(unsigned char mclk)
 	
 	LCD_RegisterWrite(0xe0,0x29);    
 	//LCD_RegisterWrite(0xe0,0x01);	
-	LCD_RegisterWrite(0xe1,0x03);	//CAS:2=0x02¡ACAS:3=0x03
+	LCD_RegisterWrite(0xe1,0x03);	//CAS:2=0x02ï¿½ACAS:3=0x03
 	sdram_itv = (64000000 / 8192) / (1000/mclk) ;
 	sdram_itv-=2;
 
@@ -163,7 +169,7 @@ void LT768_SDRAM_initail(unsigned char mclk)
 	
 	//LCD_RegisterWrite(0xe0,0x29);    
 	LCD_RegisterWrite(0xe0,0x01);	
-	LCD_RegisterWrite(0xe1,0x03);	//CAS:2=0x02¡ACAS:3=0x03
+	LCD_RegisterWrite(0xe1,0x03);	//CAS:2=0x02ï¿½ACAS:3=0x03
 	sdram_itv = (64000000 / 8192) / (1000/mclk) ;
 	sdram_itv-=2;
 
@@ -189,9 +195,9 @@ void Set_LCD_Panel(void)
 	TFT_24bit(); 
 	
 	#if STM32_FSMC_8
-	Host_Bus_8bit();    //Ö÷»ú×ÜÏß8bit
+	Host_Bus_8bit();    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8bit
 	#else
-	Host_Bus_16bit();	//Ö÷»ú×ÜÏß16bit
+	Host_Bus_16bit();	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½16bit
 	#endif
       
 	//**[02h]**//
@@ -205,11 +211,11 @@ void Set_LCD_Panel(void)
 	Graphic_Mode();
 	Memory_Select_SDRAM();
      
-	PCLK_Falling();	       	//REG[12h]:ÏÂ½µÑØ 
+	PCLK_Falling();	       	//REG[12h]:ï¿½Â½ï¿½ï¿½ï¿½ 
 	//PCLK_Rising();
 	
-	VSCAN_T_to_B();	        //REG[12h]:´ÓÉÏµ½ÏÂ
-	//VSCAN_B_to_T();				//´ÓÏÂµ½ÉÏ
+	VSCAN_T_to_B();	        //REG[12h]:ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½
+	//VSCAN_B_to_T();				//ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½
 	HSCAN_L_to_R();
 	
 	PDATA_Set_RGB();        //REG[12h]:Select RGB output
@@ -236,7 +242,7 @@ void Set_LCD_Panel(void)
 	LCD_VSYNC_Start_Position(LCD_VFPD);	                              
 	LCD_VSYNC_Pulse_Width(LCD_VSPW);		                            	
 
-	Memory_XY_Mode();	//Block mode (X-Y coordination addressing);¿éÄ£Ê½
+	Memory_XY_Mode();	//Block mode (X-Y coordination addressing);ï¿½ï¿½Ä£Ê½
 	//Memory_16bpp_Mode();
 	Memory_24bpp_Mode();	
 }
@@ -254,9 +260,9 @@ void LT768_initial(void)
 void LT768_Init(void)
 {
 	Delay_ms(200);                    //delay for LT768 power on
-	LT768_HW_Reset();                 //LT768¸´Î»
+	LT768_HW_Reset();                 //LT768ï¿½ï¿½Î»
 	test_SPIIO();
-	System_Check_Temp();	          //¼ì²â¸´Î»ÊÇ·ñ³É¹¦
+	System_Check_Temp();	          //ï¿½ï¿½â¸´Î»ï¿½Ç·ï¿½É¹ï¿½
 	Delay_ms(100);
 	while(LCD_StatusRead()&0x02);	    //Initial_Display_test	and  set SW2 pin2 = 1
 	LT768_initial();
@@ -271,11 +277,11 @@ void LT768_Init(void)
 
 void MPU8_8bpp_Memory_Write
 (
- unsigned short x           // x×ø±ê
-,unsigned short y           // y×ø±ê
-,unsigned short w           // ¿í¶È
-,unsigned short h           // ¸ß¶È
-,const unsigned char *data  // Êý¾ÝÊ×µØÖ·
+ unsigned short x           // xï¿½ï¿½ï¿½ï¿½
+,unsigned short y           // yï¿½ï¿½ï¿½ï¿½
+,unsigned short w           // ï¿½ï¿½ï¿½ï¿½
+,unsigned short h           // ï¿½ß¶ï¿½
+,const unsigned char *data  // ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )
 {														  
 	unsigned short i,j;
@@ -299,11 +305,11 @@ for(i=0;i< h;i++)
 			
 void MPU8_16bpp_Memory_Write
 (
- unsigned short x           // x×ø±ê
-,unsigned short y           // y×ø±ê
-,unsigned short w           // ¿í¶È
-,unsigned short h           // ¸ß¶È
-,const unsigned char *data  // Êý¾ÝÊ×µØÖ·
+ unsigned short x           // xï¿½ï¿½ï¿½ï¿½
+,unsigned short y           // yï¿½ï¿½ï¿½ï¿½
+,unsigned short w           // ï¿½ï¿½ï¿½ï¿½
+,unsigned short h           // ï¿½ß¶ï¿½
+,const unsigned char *data  // ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )
 {
 	unsigned short i,j;
@@ -330,11 +336,11 @@ for(i=0;i< h;i++)
 
 void MPU8_24bpp_Memory_Write 
 (
- unsigned short x           // x×ø±ê
-,unsigned short y           // y×ø±ê
-,unsigned short w           // ¿í¶È
-,unsigned short h           // ¸ß¶È
-,const unsigned char *data  // Êý¾ÝÊ×µØÖ·
+ unsigned short x           // xï¿½ï¿½ï¿½ï¿½
+,unsigned short y           // yï¿½ï¿½ï¿½ï¿½
+,unsigned short w           // ï¿½ï¿½ï¿½ï¿½
+,unsigned short h           // ï¿½ß¶ï¿½
+,const unsigned char *data  // ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )
 
 {
@@ -366,11 +372,11 @@ for(i=0;i< h;i++)
 
 void MPU16_16bpp_Memory_Write 
 (
- unsigned short x            // x×ø±ê
-,unsigned short y            // y×ø±ê
-,unsigned short w            // ¿í¶È
-,unsigned short h            // ¸ß¶È
-,const unsigned short *data  // Êý¾ÝÊ×µØÖ·
+ unsigned short x            // xï¿½ï¿½ï¿½ï¿½
+,unsigned short y            // yï¿½ï¿½ï¿½ï¿½
+,unsigned short w            // ï¿½ï¿½ï¿½ï¿½
+,unsigned short h            // ï¿½ß¶ï¿½
+,const unsigned short *data  // ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )			
 {
 	unsigned short i,j;
@@ -396,11 +402,11 @@ for(i=0;i< h;i++)
 
 void MPU16_24bpp_Mode1_Memory_Write 
 (
- unsigned short x            // x×ø±ê
-,unsigned short y            // y×ø±ê
-,unsigned short w            // ¿í¶È
-,unsigned short h            // ¸ß¶È
-,const unsigned short *data  // Êý¾ÝÊ×µØÖ·
+ unsigned short x            // xï¿½ï¿½ï¿½ï¿½
+,unsigned short y            // yï¿½ï¿½ï¿½ï¿½
+,unsigned short w            // ï¿½ï¿½ï¿½ï¿½
+,unsigned short h            // ï¿½ß¶ï¿½
+,const unsigned short *data  // ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )	
 {
 	unsigned short i,j;
@@ -430,11 +436,11 @@ for(i=0;i< h;i++)
 
 void MPU16_24bpp_Mode2_Memory_Write
 (
- unsigned short x            // x×ø±ê
-,unsigned short y            // y×ø±ê
-,unsigned short w            // ¿í¶È
-,unsigned short h            // ¸ß¶È
-,const unsigned short *data  // Êý¾ÝÊ×µØÖ·
+ unsigned short x            // xï¿½ï¿½ï¿½ï¿½
+,unsigned short y            // yï¿½ï¿½ï¿½ï¿½
+,unsigned short w            // ï¿½ï¿½ï¿½ï¿½
+,unsigned short h            // ï¿½ß¶ï¿½
+,const unsigned short *data  // ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )	
 {
 	unsigned short i,j;
@@ -466,14 +472,14 @@ for(i=0;i< h;i++)
 
 
 
-//------------------------------------- Ïß¶Î -----------------------------------------
+//------------------------------------- ï¿½ß¶ï¿½ -----------------------------------------
 void LT768_DrawLine
 (
- unsigned short X1        // X1×ø±ê
-,unsigned short Y1        // Y1×ø±ê
-,unsigned short X2        // X2×ø±ê
-,unsigned short Y2        // Y2×ø±ê
-,unsigned long  LineColor // Ïß¶ÎÑÕÉ«
+ unsigned short X1        // X1ï¿½ï¿½ï¿½ï¿½
+,unsigned short Y1        // Y1ï¿½ï¿½ï¿½ï¿½
+,unsigned short X2        // X2ï¿½ï¿½ï¿½ï¿½
+,unsigned short Y2        // Y2ï¿½ï¿½ï¿½ï¿½
+,unsigned long  LineColor // ï¿½ß¶ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(LineColor);
@@ -486,12 +492,12 @@ void LT768_DrawLine
 
 void LT768_DrawLine_Width
 (
- unsigned short X1        // X1×ø±ê
-,unsigned short Y1        // Y1×ø±ê
-,unsigned short X2        // X2×ø±ê
-,unsigned short Y2        // Y2×ø±ê
-,unsigned long  LineColor // Ïß¶ÎÑÕÉ«
-,unsigned short Width     // Ïß¶Î¿í¶È
+ unsigned short X1        // X1ï¿½ï¿½ï¿½ï¿½
+,unsigned short Y1        // Y1ï¿½ï¿½ï¿½ï¿½
+,unsigned short X2        // X2ï¿½ï¿½ï¿½ï¿½
+,unsigned short Y2        // Y2ï¿½ï¿½ï¿½ï¿½
+,unsigned long  LineColor // ï¿½ß¶ï¿½ï¿½ï¿½É«
+,unsigned short Width     // ï¿½ß¶Î¿ï¿½ï¿½ï¿½
 )
 {
 	unsigned short  i = 0;
@@ -527,10 +533,10 @@ void LT768_DrawLine_Width
 //------------------------------------- Ô² -----------------------------------------
 void LT768_DrawCircle
 (
- unsigned short XCenter           // Ô²ÐÄXÎ»ÖÃ
-,unsigned short YCenter           // Ô²ÐÄYÎ»ÖÃ
-,unsigned short R                 // °ë¾¶
-,unsigned long CircleColor        // »­ÏßÑÕÉ«
+ unsigned short XCenter           // Ô²ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // Ô²ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short R                 // ï¿½ë¾¶
+,unsigned long CircleColor        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(CircleColor);
@@ -544,10 +550,10 @@ void LT768_DrawCircle
 
 void LT768_DrawCircle_Fill
 (
- unsigned short XCenter           // Ô²ÐÄXÎ»ÖÃ
-,unsigned short YCenter           // Ô²ÐÄYÎ»ÖÃ
-,unsigned short R                 // °ë¾¶
-,unsigned long ForegroundColor    // ±³¾°ÑÕÉ«
+ unsigned short XCenter           // Ô²ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // Ô²ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short R                 // ï¿½ë¾¶
+,unsigned long ForegroundColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(ForegroundColor);
@@ -561,12 +567,12 @@ void LT768_DrawCircle_Fill
 
 void LT768_DrawCircle_Width
 (
- unsigned short XCenter          // Ô²ÐÄXÎ»ÖÃ
-,unsigned short YCenter          // Ô²ÐÄYÎ»ÖÃ
-,unsigned short R                // °ë¾¶
-,unsigned long CircleColor       // »­ÏßÑÕÉ«
-,unsigned long ForegroundColor   // ±³¾°ÑÕÉ«
-,unsigned short Width            // Ïß¿í
+ unsigned short XCenter          // Ô²ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter          // Ô²ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short R                // ï¿½ë¾¶
+,unsigned long CircleColor       // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned long ForegroundColor   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned short Width            // ï¿½ß¿ï¿½
 )
 {
 	LT768_DrawCircle_Fill(XCenter,YCenter,R+Width,CircleColor);
@@ -574,14 +580,14 @@ void LT768_DrawCircle_Width
 }
 
 
-//------------------------------------- ÍÖÔ² -----------------------------------------
+//------------------------------------- ï¿½ï¿½Ô² -----------------------------------------
 void LT768_DrawEllipse
 (
- unsigned short XCenter          // ÍÖÔ²ÐÄXÎ»ÖÃ
-,unsigned short YCenter          // ÍÖÔ²ÐÄYÎ»ÖÃ
-,unsigned short X_R              // ¿í°ë¾¶
-,unsigned short Y_R              // ³¤°ë¾¶
-,unsigned long EllipseColor      // »­ÏßÑÕÉ«
+ unsigned short XCenter          // ï¿½ï¿½Ô²ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter          // ï¿½ï¿½Ô²ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R              // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R              // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long EllipseColor      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(EllipseColor);
@@ -593,11 +599,11 @@ void LT768_DrawEllipse
 
 void LT768_DrawEllipse_Fill
 (
- unsigned short XCenter           // ÍÖÔ²ÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÍÖÔ²ÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long ForegroundColor    // ±³¾°ÑÕÉ«
+ unsigned short XCenter           // ï¿½ï¿½Ô²ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½Ô²ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long ForegroundColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(ForegroundColor);
@@ -610,13 +616,13 @@ void LT768_DrawEllipse_Fill
 
 void LT768_DrawEllipse_Width
 (
- unsigned short XCenter           // ÍÖÔ²ÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÍÖÔ²ÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long EllipseColor       // »­ÏßÑÕÉ«
-,unsigned long ForegroundColor    // ±³¾°ÑÕÉ«
-,unsigned short Width             // Ïß¿í
+ unsigned short XCenter           // ï¿½ï¿½Ô²ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½Ô²ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long EllipseColor       // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned long ForegroundColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned short Width             // ï¿½ß¿ï¿½
 )
 {
 	LT768_DrawEllipse_Fill(XCenter,YCenter,X_R+Width,Y_R+Width,EllipseColor);
@@ -625,14 +631,14 @@ void LT768_DrawEllipse_Width
 
 
 
-//------------------------------------- ¾ØÐÎ -----------------------------------------
+//------------------------------------- ï¿½ï¿½ï¿½ï¿½ -----------------------------------------
 void LT768_DrawSquare
 (
- unsigned short X1                // X1Î»ÖÃ
-,unsigned short Y1                // Y1Î»ÖÃ
-,unsigned short X2                // X2Î»ÖÃ
-,unsigned short Y2                // Y2Î»ÖÃ
-,unsigned long SquareColor        // »­ÏßÑÕÉ«
+ unsigned short X1                // X1Î»ï¿½ï¿½
+,unsigned short Y1                // Y1Î»ï¿½ï¿½
+,unsigned short X2                // X2Î»ï¿½ï¿½
+,unsigned short Y2                // Y2Î»ï¿½ï¿½
+,unsigned long SquareColor        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(SquareColor);
@@ -645,11 +651,11 @@ void LT768_DrawSquare
 
 void LT768_DrawSquare_Fill
 (
- unsigned short X1                // X1Î»ÖÃ
-,unsigned short Y1                // Y1Î»ÖÃ
-,unsigned short X2                // X2Î»ÖÃ
-,unsigned short Y2                // Y2Î»ÖÃ
-,unsigned long ForegroundColor    // ±³¾°ÑÕÉ«
+ unsigned short X1                // X1Î»ï¿½ï¿½
+,unsigned short Y1                // Y1Î»ï¿½ï¿½
+,unsigned short X2                // X2Î»ï¿½ï¿½
+,unsigned short Y2                // Y2Î»ï¿½ï¿½
+,unsigned long ForegroundColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
   //Foreground_color_65k(ForegroundColor);
@@ -663,13 +669,13 @@ void LT768_DrawSquare_Fill
 
 void LT768_DrawSquare_Width
 (
- unsigned short X1                // X1Î»ÖÃ
-,unsigned short Y1                // Y1Î»ÖÃ
-,unsigned short X2                // X2Î»ÖÃ
-,unsigned short Y2                // Y2Î»ÖÃ
-,unsigned long SquareColor        // »­ÏßÑÕÉ«
-,unsigned long ForegroundColor    // ±³¾°ÑÕÉ«
-,unsigned short Width             // Ïß¿í
+ unsigned short X1                // X1Î»ï¿½ï¿½
+,unsigned short Y1                // Y1Î»ï¿½ï¿½
+,unsigned short X2                // X2Î»ï¿½ï¿½
+,unsigned short Y2                // Y2Î»ï¿½ï¿½
+,unsigned long SquareColor        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned long ForegroundColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned short Width             // ï¿½ß¿ï¿½
 )
 {
 	LT768_DrawSquare_Fill(X1-Width,Y1-Width,X2+Width,Y2+Width,SquareColor);
@@ -677,16 +683,16 @@ void LT768_DrawSquare_Width
 }
 
 
-//------------------------------------- Ô²½Ç¾ØÐÎ -----------------------------------------
+//------------------------------------- Ô²ï¿½Ç¾ï¿½ï¿½ï¿½ -----------------------------------------
 void LT768_DrawCircleSquare
 (
- unsigned short X1                // X1Î»ÖÃ
-,unsigned short Y1                // Y1Î»ÖÃ
-,unsigned short X2                // X2Î»ÖÃ
-,unsigned short Y2                // Y2Î»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long CircleSquareColor  // »­ÏßÑÕÉ«
+ unsigned short X1                // X1Î»ï¿½ï¿½
+,unsigned short Y1                // Y1Î»ï¿½ï¿½
+,unsigned short X2                // X2Î»ï¿½ï¿½
+,unsigned short Y2                // Y2Î»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long CircleSquareColor  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
   Foreground_color_65k(CircleSquareColor);
@@ -701,13 +707,13 @@ void LT768_DrawCircleSquare
 
 void LT768_DrawCircleSquare_Fill
 (
- unsigned short X1                // X1Î»ÖÃ
-,unsigned short Y1                // Y1Î»ÖÃ
-,unsigned short X2                // X2Î»ÖÃ
-,unsigned short Y2                // Y2Î»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long ForegroundColor  // »­ÏßÑÕÉ«
+ unsigned short X1                // X1Î»ï¿½ï¿½
+,unsigned short Y1                // Y1Î»ï¿½ï¿½
+,unsigned short X2                // X2Î»ï¿½ï¿½
+,unsigned short Y2                // Y2Î»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long ForegroundColor  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(ForegroundColor);
@@ -722,15 +728,15 @@ void LT768_DrawCircleSquare_Fill
 
 void LT768_DrawCircleSquare_Width
 (
- unsigned short X1                // X1Î»ÖÃ
-,unsigned short Y1                // Y1Î»ÖÃ
-,unsigned short X2                // X2Î»ÖÃ
-,unsigned short Y2                // Y2Î»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long CircleSquareColor  // »­ÏßÑÕÉ«
-,unsigned long ForegroundColor    // »­ÏßÑÕÉ«
-,unsigned short Width             // ¿í¶È
+ unsigned short X1                // X1Î»ï¿½ï¿½
+,unsigned short Y1                // Y1Î»ï¿½ï¿½
+,unsigned short X2                // X2Î»ï¿½ï¿½
+,unsigned short Y2                // Y2Î»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long CircleSquareColor  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned long ForegroundColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned short Width             // ï¿½ï¿½ï¿½ï¿½
 )
 {
 	LT768_DrawCircleSquare_Fill(X1-Width,Y1-Width,X2+Width,Y2+Width,X_R,Y_R,CircleSquareColor);
@@ -738,16 +744,16 @@ void LT768_DrawCircleSquare_Width
 }
 
 
-//------------------------------------- Èý½ÇÐÎ -----------------------------------------
+//------------------------------------- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -----------------------------------------
 void LT768_DrawTriangle
 (
- unsigned short X1              // X1Î»ÖÃ
-,unsigned short Y1              // Y1Î»ÖÃ
-,unsigned short X2              // X2Î»ÖÃ
-,unsigned short Y2              // Y2Î»ÖÃ
-,unsigned short X3              // X3Î»ÖÃ
-,unsigned short Y3              // Y3Î»ÖÃ
-,unsigned long TriangleColor    // »­ÏßÑÕÉ«
+ unsigned short X1              // X1Î»ï¿½ï¿½
+,unsigned short Y1              // Y1Î»ï¿½ï¿½
+,unsigned short X2              // X2Î»ï¿½ï¿½
+,unsigned short Y2              // Y2Î»ï¿½ï¿½
+,unsigned short X3              // X3Î»ï¿½ï¿½
+,unsigned short Y3              // Y3Î»ï¿½ï¿½
+,unsigned long TriangleColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(TriangleColor);
@@ -762,13 +768,13 @@ void LT768_DrawTriangle
 
 void LT768_DrawTriangle_Fill
 (
- unsigned short X1              // X1Î»ÖÃ
-,unsigned short Y1              // Y1Î»ÖÃ
-,unsigned short X2              // X2Î»ÖÃ
-,unsigned short Y2              // Y2Î»ÖÃ
-,unsigned short X3              // X3Î»ÖÃ
-,unsigned short Y3              // Y3Î»ÖÃ
-,unsigned long ForegroundColor  // »­ÏßÑÕÉ«
+ unsigned short X1              // X1Î»ï¿½ï¿½
+,unsigned short Y1              // Y1Î»ï¿½ï¿½
+,unsigned short X2              // X2Î»ï¿½ï¿½
+,unsigned short Y2              // Y2Î»ï¿½ï¿½
+,unsigned short X3              // X3Î»ï¿½ï¿½
+,unsigned short Y3              // Y3Î»ï¿½ï¿½
+,unsigned long ForegroundColor  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(ForegroundColor);
@@ -781,14 +787,14 @@ void LT768_DrawTriangle_Fill
 
 void LT768_DrawTriangle_Frame
 (
- unsigned short X1              // X1Î»ÖÃ
-,unsigned short Y1              // Y1Î»ÖÃ
-,unsigned short X2              // X2Î»ÖÃ
-,unsigned short Y2              // Y2Î»ÖÃ
-,unsigned short X3              // X3Î»ÖÃ
-,unsigned short Y3              // Y3Î»ÖÃ
-,unsigned long TriangleColor    // »­ÏßÑÕÉ«
-,unsigned long ForegroundColor  // ±³¾°ÑÕÉ«
+ unsigned short X1              // X1Î»ï¿½ï¿½
+,unsigned short Y1              // Y1Î»ï¿½ï¿½
+,unsigned short X2              // X2Î»ï¿½ï¿½
+,unsigned short Y2              // Y2Î»ï¿½ï¿½
+,unsigned short X3              // X3Î»ï¿½ï¿½
+,unsigned short Y3              // Y3Î»ï¿½ï¿½
+,unsigned long TriangleColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned long ForegroundColor  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	LT768_DrawTriangle_Fill(X1,Y1,X2,Y2,X3,Y3,ForegroundColor);
@@ -797,14 +803,14 @@ void LT768_DrawTriangle_Frame
 
 
 
-//------------------------------------- ÇúÏß -----------------------------------------
+//------------------------------------- ï¿½ï¿½ï¿½ï¿½ -----------------------------------------
 void LT768_DrawLeftUpCurve
 ( 
- unsigned short XCenter           // ÇúÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÇúÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long CurveColor         // »­ÏßÑÕÉ«
+ unsigned short XCenter           // ï¿½ï¿½ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long CurveColor         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(CurveColor);
@@ -817,11 +823,11 @@ void LT768_DrawLeftUpCurve
 
 void LT768_DrawLeftDownCurve
 (
- unsigned short XCenter           // ÇúÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÇúÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long CurveColor         // »­ÏßÑÕÉ«
+ unsigned short XCenter           // ï¿½ï¿½ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long CurveColor         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(CurveColor);
@@ -834,11 +840,11 @@ void LT768_DrawLeftDownCurve
 
 void LT768_DrawRightUpCurve
 (
- unsigned short XCenter           // ÇúÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÇúÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long CurveColor         // »­ÏßÑÕÉ«
+ unsigned short XCenter           // ï¿½ï¿½ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long CurveColor         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(CurveColor);
@@ -851,11 +857,11 @@ void LT768_DrawRightUpCurve
 
 void LT768_DrawRightDownCurve
 (
- unsigned short XCenter           // ÇúÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÇúÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long CurveColor         // »­ÏßÑÕÉ«
+ unsigned short XCenter           // ï¿½ï¿½ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long CurveColor         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(CurveColor);
@@ -868,12 +874,12 @@ void LT768_DrawRightDownCurve
 
 void LT768_SelectDrawCurve
 (
- unsigned short XCenter           // ÇúÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÇúÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long CurveColor         // »­ÏßÑÕÉ«
-,unsigned short  Dir              // ·½Ïò
+ unsigned short XCenter           // ï¿½ï¿½ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long CurveColor         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned short  Dir              // ï¿½ï¿½ï¿½ï¿½
 )
 {
 	switch(Dir)
@@ -887,14 +893,14 @@ void LT768_SelectDrawCurve
 }
 
 
-//------------------------------------- 1/4ÊµÐÄÍÖÔ² -----------------------------------------
+//------------------------------------- 1/4Êµï¿½ï¿½ï¿½ï¿½Ô² -----------------------------------------
 void LT768_DrawLeftUpCurve_Fill
 (
- unsigned short XCenter           // ÇúÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÇúÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long ForegroundColor    // ±³¾°ÑÕÉ«
+ unsigned short XCenter           // ï¿½ï¿½ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long ForegroundColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
   Foreground_color_65k(ForegroundColor);
@@ -907,11 +913,11 @@ void LT768_DrawLeftUpCurve_Fill
 
 void LT768_DrawLeftDownCurve_Fill
 (
- unsigned short XCenter           // ÇúÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÇúÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long ForegroundColor    // ±³¾°ÑÕÉ«
+ unsigned short XCenter           // ï¿½ï¿½ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long ForegroundColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
   Foreground_color_65k(ForegroundColor);
@@ -924,11 +930,11 @@ void LT768_DrawLeftDownCurve_Fill
 
 void LT768_DrawRightUpCurve_Fill
 (
- unsigned short XCenter           // ÇúÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÇúÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long ForegroundColor    // ±³¾°ÑÕÉ«
+ unsigned short XCenter           // ï¿½ï¿½ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long ForegroundColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
   Foreground_color_65k(ForegroundColor);
@@ -941,11 +947,11 @@ void LT768_DrawRightUpCurve_Fill
 
 void LT768_DrawRightDownCurve_Fill
 (
- unsigned short XCenter           // ÇúÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÇúÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long ForegroundColor    // ±³¾°ÑÕÉ«
+ unsigned short XCenter           // ï¿½ï¿½ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long ForegroundColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
   Foreground_color_65k(ForegroundColor);
@@ -958,12 +964,12 @@ void LT768_DrawRightDownCurve_Fill
 
 void LT768_SelectDrawCurve_Fill
 (
- unsigned short XCenter           // ÇúÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÇúÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned long CurveColor         // »­ÏßÑÕÉ«
-,unsigned short  Dir              // ·½Ïò
+ unsigned short XCenter           // ï¿½ï¿½ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned long CurveColor         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned short  Dir              // ï¿½ï¿½ï¿½ï¿½
 )
 {
 	switch(Dir)
@@ -978,19 +984,19 @@ void LT768_SelectDrawCurve_Fill
 
 
 
-//------------------------------------- ËÄ±ßÐÎ -----------------------------------------
+//------------------------------------- ï¿½Ä±ï¿½ï¿½ï¿½ -----------------------------------------
 
 void LT768_DrawQuadrilateral
 (
- unsigned short X1              // X1Î»ÖÃ
-,unsigned short Y1              // Y1Î»ÖÃ
-,unsigned short X2              // X2Î»ÖÃ
-,unsigned short Y2              // Y2Î»ÖÃ
-,unsigned short X3              // X3Î»ÖÃ
-,unsigned short Y3              // Y3Î»ÖÃ
-,unsigned short X4              // X4Î»ÖÃ
-,unsigned short Y4              // Y4Î»ÖÃ
-,unsigned long ForegroundColor  // »­ÏßÑÕÉ«
+ unsigned short X1              // X1Î»ï¿½ï¿½
+,unsigned short Y1              // Y1Î»ï¿½ï¿½
+,unsigned short X2              // X2Î»ï¿½ï¿½
+,unsigned short Y2              // Y2Î»ï¿½ï¿½
+,unsigned short X3              // X3Î»ï¿½ï¿½
+,unsigned short Y3              // Y3Î»ï¿½ï¿½
+,unsigned short X4              // X4Î»ï¿½ï¿½
+,unsigned short Y4              // Y4Î»ï¿½ï¿½
+,unsigned long ForegroundColor  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(ForegroundColor);
@@ -1009,15 +1015,15 @@ void LT768_DrawQuadrilateral
 
 void LT768_DrawQuadrilateral_Fill
 (
- unsigned short X1              // X1Î»ÖÃ
-,unsigned short Y1              // Y1Î»ÖÃ
-,unsigned short X2              // X2Î»ÖÃ
-,unsigned short Y2              // Y2Î»ÖÃ
-,unsigned short X3              // X3Î»ÖÃ
-,unsigned short Y3              // Y3Î»ÖÃ
-,unsigned short X4              // X4Î»ÖÃ
-,unsigned short Y4              // Y4Î»ÖÃ
-,unsigned long ForegroundColor  // »­ÏßÑÕÉ«
+ unsigned short X1              // X1Î»ï¿½ï¿½
+,unsigned short Y1              // Y1Î»ï¿½ï¿½
+,unsigned short X2              // X2Î»ï¿½ï¿½
+,unsigned short Y2              // Y2Î»ï¿½ï¿½
+,unsigned short X3              // X3Î»ï¿½ï¿½
+,unsigned short Y3              // Y3Î»ï¿½ï¿½
+,unsigned short X4              // X4Î»ï¿½ï¿½
+,unsigned short Y4              // Y4Î»ï¿½ï¿½
+,unsigned long ForegroundColor  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(ForegroundColor);
@@ -1035,21 +1041,21 @@ void LT768_DrawQuadrilateral_Fill
 
 
 
-//------------------------------------- Îå±ßÐÎ -----------------------------------------
+//------------------------------------- ï¿½ï¿½ï¿½ï¿½ï¿½ -----------------------------------------
 
 void LT768_DrawPentagon
 (
- unsigned short X1              // X1Î»ÖÃ
-,unsigned short Y1              // Y1Î»ÖÃ
-,unsigned short X2              // X2Î»ÖÃ
-,unsigned short Y2              // Y2Î»ÖÃ
-,unsigned short X3              // X3Î»ÖÃ
-,unsigned short Y3              // Y3Î»ÖÃ
-,unsigned short X4              // X4Î»ÖÃ
-,unsigned short Y4              // Y4Î»ÖÃ
-,unsigned short X5              // X5Î»ÖÃ
-,unsigned short Y5              // Y5Î»ÖÃ
-,unsigned long ForegroundColor  // »­ÏßÑÕÉ«
+ unsigned short X1              // X1Î»ï¿½ï¿½
+,unsigned short Y1              // Y1Î»ï¿½ï¿½
+,unsigned short X2              // X2Î»ï¿½ï¿½
+,unsigned short Y2              // Y2Î»ï¿½ï¿½
+,unsigned short X3              // X3Î»ï¿½ï¿½
+,unsigned short Y3              // Y3Î»ï¿½ï¿½
+,unsigned short X4              // X4Î»ï¿½ï¿½
+,unsigned short Y4              // Y4Î»ï¿½ï¿½
+,unsigned short X5              // X5Î»ï¿½ï¿½
+,unsigned short Y5              // Y5Î»ï¿½ï¿½
+,unsigned long ForegroundColor  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(ForegroundColor);
@@ -1069,17 +1075,17 @@ void LT768_DrawPentagon
 
 void LT768_DrawPentagon_Fill
 (
- unsigned short X1              // X1Î»ÖÃ
-,unsigned short Y1              // Y1Î»ÖÃ
-,unsigned short X2              // X2Î»ÖÃ
-,unsigned short Y2              // Y2Î»ÖÃ
-,unsigned short X3              // X3Î»ÖÃ
-,unsigned short Y3              // Y3Î»ÖÃ
-,unsigned short X4              // X4Î»ÖÃ
-,unsigned short Y4              // Y4Î»ÖÃ
-,unsigned short X5              // X5Î»ÖÃ
-,unsigned short Y5              // Y5Î»ÖÃ
-,unsigned long ForegroundColor  // »­ÏßÑÕÉ«
+ unsigned short X1              // X1Î»ï¿½ï¿½
+,unsigned short Y1              // Y1Î»ï¿½ï¿½
+,unsigned short X2              // X2Î»ï¿½ï¿½
+,unsigned short Y2              // Y2Î»ï¿½ï¿½
+,unsigned short X3              // X3Î»ï¿½ï¿½
+,unsigned short Y3              // Y3Î»ï¿½ï¿½
+,unsigned short X4              // X4Î»ï¿½ï¿½
+,unsigned short Y4              // Y4Î»ï¿½ï¿½
+,unsigned short X5              // X5Î»ï¿½ï¿½
+,unsigned short Y5              // Y5Î»ï¿½ï¿½
+,unsigned long ForegroundColor  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	Foreground_color_65k(ForegroundColor);
@@ -1097,28 +1103,28 @@ void LT768_DrawPentagon_Fill
 }
 
 
-//------------------------------------- Ô²Öù -----------------------------------------
+//------------------------------------- Ô²ï¿½ï¿½ -----------------------------------------
 unsigned char LT768_DrawCylinder
 (
- unsigned short XCenter           // ÍÖÔ²ÐÄXÎ»ÖÃ
-,unsigned short YCenter           // ÍÖÔ²ÐÄYÎ»ÖÃ
-,unsigned short X_R               // ¿í°ë¾¶
-,unsigned short Y_R               // ³¤°ë¾¶
-,unsigned short H                 // ¸ß¶È
-,unsigned long CylinderColor      // »­ÏßÑÕÉ«
-,unsigned long ForegroundColor    // ±³¾°ÑÕÉ«
+ unsigned short XCenter           // ï¿½ï¿½Ô²ï¿½ï¿½XÎ»ï¿½ï¿½
+,unsigned short YCenter           // ï¿½ï¿½Ô²ï¿½ï¿½YÎ»ï¿½ï¿½
+,unsigned short X_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short Y_R               // ï¿½ï¿½ï¿½ë¾¶
+,unsigned short H                 // ï¿½ß¶ï¿½
+,unsigned long CylinderColor      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned long ForegroundColor    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	if(YCenter < H)	return 1;
 	
-	//µ×ÃæÍÖÔ²
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²
 	LT768_DrawEllipse_Fill(XCenter,YCenter,X_R,Y_R,ForegroundColor);
 	LT768_DrawEllipse(XCenter,YCenter,X_R,Y_R,CylinderColor);
 	
-	//ÖÐ¼ä¾ØÐÎ
+	//ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½
 	LT768_DrawSquare_Fill(XCenter-X_R,YCenter-H,XCenter+X_R,YCenter,ForegroundColor);
 	
-	//¶¥ÃæÍÖÔ²
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²
 	LT768_DrawEllipse_Fill(XCenter,YCenter-H,X_R,Y_R,ForegroundColor);
 	LT768_DrawEllipse(XCenter,YCenter-H,X_R,Y_R,CylinderColor);
 	
@@ -1129,7 +1135,7 @@ unsigned char LT768_DrawCylinder
 }
 
 
-//------------------------------------- ËÄÀâÖù -----------------------------------------
+//------------------------------------- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -----------------------------------------
 void LT768_DrawQuadrangular
 (
  unsigned short X1
@@ -1144,8 +1150,8 @@ void LT768_DrawQuadrangular
 ,unsigned short Y5
 ,unsigned short X6
 ,unsigned short Y6
-,unsigned long QuadrangularColor   // »­ÏßÑÕÉ«
-,unsigned long ForegroundColor     // ±³¾°ÑÕÉ«
+,unsigned long QuadrangularColor   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned long ForegroundColor     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 )
 {
 	LT768_DrawSquare_Fill(X1,Y1,X5,Y5,ForegroundColor);
@@ -1159,21 +1165,21 @@ void LT768_DrawQuadrangular
 }
 
 
-//----------------------------------------------------------------------±í¸ñ-------------------------------------------------------------------
+//----------------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½-------------------------------------------------------------------
 void LT768_MakeTable
 (
-	unsigned short X1,                  // ÆðÊ¼Î»ÖÃX1
-	unsigned short Y1,                  // ÆðÊ¼Î»ÖÃX2
-	unsigned short W,                   // ¿í¶È
-	unsigned short H,                   // ¸ß¶È
-	unsigned short Line,                // ÐÐÊý
-	unsigned short Row,                 // ÁÐÊý
-	unsigned long  TableColor,          // Ïß¿òÑÕÉ«C1
-	unsigned long  ItemColor,  					// ÏîÄ¿À¹±³¾°É«C2
-	unsigned long  ForegroundColor,     // ÄÚ²¿´°¿Ú±³¾°É«C3
-	unsigned short width1,              // ÄÚ¿ò¿í¶È
-	unsigned short width2,              // Íâ¿ò¿í¶È
-	unsigned char  mode                 // 0£ºÏîÄ¿À¸×ÝÏò   1£ºÏîÄ¿À¸ºáÏò 
+	unsigned short X1,                  // ï¿½ï¿½Ê¼Î»ï¿½ï¿½X1
+	unsigned short Y1,                  // ï¿½ï¿½Ê¼Î»ï¿½ï¿½X2
+	unsigned short W,                   // ï¿½ï¿½ï¿½ï¿½
+	unsigned short H,                   // ï¿½ß¶ï¿½
+	unsigned short Line,                // ï¿½ï¿½ï¿½ï¿½
+	unsigned short Row,                 // ï¿½ï¿½ï¿½ï¿½
+	unsigned long  TableColor,          // ï¿½ß¿ï¿½ï¿½ï¿½É«C1
+	unsigned long  ItemColor,  					// ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«C2
+	unsigned long  ForegroundColor,     // ï¿½Ú²ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½É«C3
+	unsigned short width1,              // ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½
+	unsigned short width2,              // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	unsigned char  mode                 // 0ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   1ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 )
 {
 	unsigned short i = 0;
@@ -1224,25 +1230,25 @@ void LT768_Color_Bar_OFF(void)
 
 void LT768_DMA_24bit_Linear
 (
- unsigned char SCS              // Ñ¡ÔñÍâ¹ÒµÄSPI   : SCS£º0       SCS£º1
-,unsigned char Clk              // SPIÊ±ÖÓ·ÖÆµ²ÎÊý : SPI Clock = System Clock /{(Clk+1)*2}
-,unsigned long flash_addr       // Òª´Óflash¶ÁÈ¡Êý¾ÝµÄÆðÊ¼µØÖ·   
-,unsigned long memory_addr      // Êý¾ÝÒª´«Êäµ½SDRAMµÄÆðÊ¼µØÖ·
-,unsigned long data_num         // ´«ÊäµÄÊý¾ÝÁ¿
+ unsigned char SCS              // Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI   : SCSï¿½ï¿½0       SCSï¿½ï¿½1
+,unsigned char Clk              // SPIÊ±ï¿½Ó·ï¿½Æµï¿½ï¿½ï¿½ï¿½ : SPI Clock = System Clock /{(Clk+1)*2}
+,unsigned long flash_addr       // Òªï¿½ï¿½flashï¿½ï¿½È¡ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·   
+,unsigned long memory_addr      // ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½äµ½SDRAMï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned long data_num         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 )
 {
 	
-	Enable_SFlash_SPI();									             // Ê¹ÄÜSPI¹¦ÄÜ
-  if(SCS == 0)		Select_SFI_0();										 // Ñ¡ÔñÍâ¹ÒµÄSPI0
-  if(SCS == 1)		Select_SFI_1();										 // Ñ¡ÔñÍâ¹ÒµÄSPI1
+	Enable_SFlash_SPI();									             // Ê¹ï¿½ï¿½SPIï¿½ï¿½ï¿½ï¿½
+  if(SCS == 0)		Select_SFI_0();										 // Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI0
+  if(SCS == 1)		Select_SFI_1();										 // Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI1
 	
 	Memory_Linear_Mode();
-	Select_SFI_DMA_Mode();								             // ÉèÖÃSPIµÄDMAÄ£Ê½
+	Select_SFI_DMA_Mode();								             // ï¿½ï¿½ï¿½ï¿½SPIï¿½ï¿½DMAÄ£Ê½
 	
-	SPI_Clock_Period(Clk);                             // SPIËÙÂÊ 
-	SFI_DMA_Destination_Start_Address(memory_addr);  	 // Ö¸¶¨µÄÄÚ´æµÄ¿ªÊ¼µØÖ·
-	SFI_DMA_Transfer_Number(data_num);                 // DMA´«ÊäµÄÊýÁ¿
-	SFI_DMA_Source_Start_Address(flash_addr);          // flashµØÖ·
+	SPI_Clock_Period(Clk);                             // SPIï¿½ï¿½ï¿½ï¿½ 
+	SFI_DMA_Destination_Start_Address(memory_addr);  	 // Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ä¿ï¿½Ê¼ï¿½ï¿½Ö·
+	SFI_DMA_Transfer_Number(data_num);                 // DMAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SFI_DMA_Source_Start_Address(flash_addr);          // flashï¿½ï¿½Ö·
 	Check_Busy_SFI_DMA(); 
 	Start_SFI_DMA();
 	Check_Busy_SFI_DMA();
@@ -1253,25 +1259,25 @@ void LT768_DMA_24bit_Linear
 
 void LT768_DMA_32bit_Linear
 (
- unsigned char SCS              // Ñ¡ÔñÍâ¹ÒµÄSPI   : SCS£º0       SCS£º1
-,unsigned char Clk              // SPIÊ±ÖÓ·ÖÆµ²ÎÊý : SPI Clock = System Clock /{(Clk+1)*2}
-,unsigned long flash_addr       // Òª´Óflash¶ÁÈ¡Êý¾ÝµÄÆðÊ¼µØÖ·   
-,unsigned long memory_addr      // Êý¾ÝÒª´«Êäµ½SDRAMµÄÆðÊ¼µØÖ·
-,unsigned long data_num         // ´«ÊäµÄÊý¾ÝÁ¿
+ unsigned char SCS              // Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI   : SCSï¿½ï¿½0       SCSï¿½ï¿½1
+,unsigned char Clk              // SPIÊ±ï¿½Ó·ï¿½Æµï¿½ï¿½ï¿½ï¿½ : SPI Clock = System Clock /{(Clk+1)*2}
+,unsigned long flash_addr       // Òªï¿½ï¿½flashï¿½ï¿½È¡ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·   
+,unsigned long memory_addr      // ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½äµ½SDRAMï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned long data_num         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 )
 {
-	Enable_SFlash_SPI();									             // Ê¹ÄÜSPI¹¦ÄÜ
-  if(SCS == 0)		Select_SFI_0();								     // Ñ¡ÔñÍâ¹ÒµÄSPI0
-  if(SCS == 1)		Select_SFI_1();										 // Ñ¡ÔñÍâ¹ÒµÄSPI1
+	Enable_SFlash_SPI();									             // Ê¹ï¿½ï¿½SPIï¿½ï¿½ï¿½ï¿½
+  if(SCS == 0)		Select_SFI_0();								     // Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI0
+  if(SCS == 1)		Select_SFI_1();										 // Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI1
 	
 	Memory_Linear_Mode();
-	Select_SFI_DMA_Mode();								            // ÉèÖÃSPIµÄDMAÄ£Ê½
+	Select_SFI_DMA_Mode();								            // ï¿½ï¿½ï¿½ï¿½SPIï¿½ï¿½DMAÄ£Ê½
 	Select_SFI_32bit_Address();
 	
-	SPI_Clock_Period(Clk);                             // SPIËÙÂÊ 
-	SFI_DMA_Destination_Start_Address(memory_addr);  	 // Ö¸¶¨µÄÄÚ´æµÄ¿ªÊ¼µØÖ·
-	SFI_DMA_Transfer_Number(data_num);                 // DMA´«ÊäµÄÊýÁ¿
-	SFI_DMA_Source_Start_Address(flash_addr);          // flashµØÖ·
+	SPI_Clock_Period(Clk);                             // SPIï¿½ï¿½ï¿½ï¿½ 
+	SFI_DMA_Destination_Start_Address(memory_addr);  	 // Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ä¿ï¿½Ê¼ï¿½ï¿½Ö·
+	SFI_DMA_Transfer_Number(data_num);                 // DMAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SFI_DMA_Source_Start_Address(flash_addr);          // flashï¿½ï¿½Ö·
 	Check_Busy_SFI_DMA(); 
 	Start_SFI_DMA();
 	Check_Busy_SFI_DMA();
@@ -1282,47 +1288,47 @@ void LT768_DMA_32bit_Linear
 
 void LT768_DMA_24bit_Block
 (
- unsigned char SCS         // Ñ¡ÔñÍâ¹ÒµÄSPI   : SCS£º0       SCS£º1
-,unsigned char Clk         // SPIÊ±ÖÓ·ÖÆµ²ÎÊý : SPI Clock = System Clock /{(Clk+1)*2}
-,unsigned short X1         // ´«Êäµ½ÄÚ´æX1µÄÎ»ÖÃ
-,unsigned short Y1         // ´«Êäµ½ÄÚ´æY1µÄÎ»ÖÃ
-,unsigned short X_W        // DMA´«ÊäÊý¾ÝµÄ¿í¶È
-,unsigned short Y_H        // DMA´«ÊäÊý¾ÝµÄ¸ß¶È
-,unsigned short P_W        // Í¼Æ¬µÄ¿í¶È
-,unsigned long Addr        // FlashµÄµØÖ·
+ unsigned char SCS         // Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI   : SCSï¿½ï¿½0       SCSï¿½ï¿½1
+,unsigned char Clk         // SPIÊ±ï¿½Ó·ï¿½Æµï¿½ï¿½ï¿½ï¿½ : SPI Clock = System Clock /{(Clk+1)*2}
+,unsigned short X1         // ï¿½ï¿½ï¿½äµ½ï¿½Ú´ï¿½X1ï¿½ï¿½Î»ï¿½ï¿½
+,unsigned short Y1         // ï¿½ï¿½ï¿½äµ½ï¿½Ú´ï¿½Y1ï¿½ï¿½Î»ï¿½ï¿½
+,unsigned short X_W        // DMAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ¿ï¿½ï¿½ï¿½
+,unsigned short Y_H        // DMAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ¸ß¶ï¿½
+,unsigned short P_W        // Í¼Æ¬ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned long Addr        // Flashï¿½Äµï¿½Ö·
 )
 {  
 
-  Enable_SFlash_SPI();									          // Ê¹ÄÜSPI¹¦ÄÜ
-  if(SCS == 0)	Select_SFI_0();										// Ñ¡ÔñÍâ¹ÒµÄSPI0
-  if(SCS == 1)	Select_SFI_1();									  // Ñ¡ÔñÍâ¹ÒµÄSPI1
+  Enable_SFlash_SPI();									          // Ê¹ï¿½ï¿½SPIï¿½ï¿½ï¿½ï¿½
+  if(SCS == 0)	Select_SFI_0();										// Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI0
+  if(SCS == 1)	Select_SFI_1();									  // Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI1
  
 										   
-  Select_SFI_DMA_Mode();								          // ÉèÖÃSPIµÄDMAÄ£Ê½
-  SPI_Clock_Period(Clk);                          // ÉèÖÃSPIµÄ·ÖÆµÏµÊý
+  Select_SFI_DMA_Mode();								          // ï¿½ï¿½ï¿½ï¿½SPIï¿½ï¿½DMAÄ£Ê½
+  SPI_Clock_Period(Clk);                          // ï¿½ï¿½ï¿½ï¿½SPIï¿½Ä·ï¿½ÆµÏµï¿½ï¿½
 
-  Goto_Pixel_XY(X1,Y1);									          // ÔÚÍ¼ÐÎÄ£Ê½ÖÐÉèÖÃÄÚ´æµÄÎ»ÖÃ
-  SFI_DMA_Destination_Upper_Left_Corner(X1,Y1);		// DMA´«ÊäµÄÄ¿µÄµØ£¨ÄÚ´æµÄÎ»ÖÃ£©
-  SFI_DMA_Transfer_Width_Height(X_W,Y_H);				  // ÉèÖÃ¿éÊý¾ÝµÄ¿í¶ÈºÍ¸ß¶È
-  SFI_DMA_Source_Width(P_W);							        // ÉèÖÃÔ´Êý¾ÝµÄ¿í¶È
-  SFI_DMA_Source_Start_Address(Addr); 					  // ÉèÖÃÔ´Êý¾ÝÔÚFlashµÄµØÖ·
+  Goto_Pixel_XY(X1,Y1);									          // ï¿½ï¿½Í¼ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Î»ï¿½ï¿½
+  SFI_DMA_Destination_Upper_Left_Corner(X1,Y1);		// DMAï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ÄµØ£ï¿½ï¿½Ú´ï¿½ï¿½Î»ï¿½Ã£ï¿½
+  SFI_DMA_Transfer_Width_Height(X_W,Y_H);				  // ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ÝµÄ¿ï¿½ï¿½ÈºÍ¸ß¶ï¿½
+  SFI_DMA_Source_Width(P_W);							        // ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ÝµÄ¿ï¿½ï¿½ï¿½
+  SFI_DMA_Source_Start_Address(Addr); 					  // ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Flashï¿½Äµï¿½Ö·
 
-  Start_SFI_DMA();									              // ¿ªÊ¼DMA´«Êä
-  Check_Busy_SFI_DMA();								            // ¼ì²âDMAÊÇ·ñ´«ÊäÍê³É
+  Start_SFI_DMA();									              // ï¿½ï¿½Ê¼DMAï¿½ï¿½ï¿½ï¿½
+  Check_Busy_SFI_DMA();								            // ï¿½ï¿½ï¿½DMAï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 
 
 void LT768_DMA_32bit_Block
 (
- unsigned char SCS         // Ñ¡ÔñÍâ¹ÒµÄSPI   : SCS£º0       SCS£º1
-,unsigned char Clk         // SPIÊ±ÖÓ·ÖÆµ²ÎÊý : SPI Clock = System Clock /{(Clk+1)*2}
-,unsigned short X1         // ÄÚ´æX1µÄÎ»ÖÃ
-,unsigned short Y1         // ÄÚ´æY1µÄÎ»ÖÃ
-,unsigned short X_W        // DMA´«ÊäÊý¾ÝµÄ¿í¶È
-,unsigned short Y_H        // DMA´«ÊäÊý¾ÝµÄ¸ß¶È
-,unsigned short P_W        // Í¼Æ¬µÄ¿í¶È
-,unsigned long Addr        // FlashµÄµØÖ·
+ unsigned char SCS         // Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI   : SCSï¿½ï¿½0       SCSï¿½ï¿½1
+,unsigned char Clk         // SPIÊ±ï¿½Ó·ï¿½Æµï¿½ï¿½ï¿½ï¿½ : SPI Clock = System Clock /{(Clk+1)*2}
+,unsigned short X1         // ï¿½Ú´ï¿½X1ï¿½ï¿½Î»ï¿½ï¿½
+,unsigned short Y1         // ï¿½Ú´ï¿½Y1ï¿½ï¿½Î»ï¿½ï¿½
+,unsigned short X_W        // DMAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ¿ï¿½ï¿½ï¿½
+,unsigned short Y_H        // DMAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ¸ß¶ï¿½
+,unsigned short P_W        // Í¼Æ¬ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned long Addr        // Flashï¿½Äµï¿½Ö·
 )
 {  
 
@@ -1352,14 +1358,14 @@ void LT768_DMA_32bit_Block
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
-/* Ñ¡ÔñÄÚ²¿¼¯³É×Ö¿â³õÊ¼»¯ */
+/* Ñ¡ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½Ê¼ï¿½ï¿½ */
 void LT768_Select_Internal_Font_Init
 (
- unsigned char Size         // ÉèÖÃ×ÖÌå´óÐ¡  16£º16*16     24:24*24    32:32*32
-,unsigned char XxN          // ×ÖÌåµÄ¿í¶È·Å´ó±¶Êý£º1~4
-,unsigned char YxN          // ×ÖÌåµÄ¸ß¶È·Å´ó±¶Êý£º1~4
-,unsigned char ChromaKey    // 0£º×ÖÌå±³¾°É«Í¸Ã÷    1£º¿ÉÒÔÉèÖÃ×ÖÌåµÄ±³¾°É«
-,unsigned char Alignment    // 0£º²»×ÖÌå²»¶ÔÆë      1£º×ÖÌå¶ÔÆë
+ unsigned char Size         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡  16ï¿½ï¿½16*16     24:24*24    32:32*32
+,unsigned char XxN          // ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È·Å´ï¿½ï¿½ï¿½ï¿½ï¿½1~4
+,unsigned char YxN          // ï¿½ï¿½ï¿½ï¿½Ä¸ß¶È·Å´ï¿½ï¿½ï¿½ï¿½ï¿½1~4
+,unsigned char ChromaKey    // 0ï¿½ï¿½ï¿½ï¿½ï¿½å±³ï¿½ï¿½É«Í¸ï¿½ï¿½    1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½É«
+,unsigned char Alignment    // 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å²»ï¿½ï¿½ï¿½ï¿½      1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 )
 {
 	if(Size==16)	Font_Select_8x16_16x16();
@@ -1388,14 +1394,14 @@ void LT768_Select_Internal_Font_Init
 }
 
 
-/* ÏÔÊ¾ÄÚ²¿¼¯³É×ÖÌå */
+/* ï¿½ï¿½Ê¾ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 void LT768_Print_Internal_Font_String
 (
- unsigned short x               // ×ÖÌå¿ªÊ¼ÏÔÊ¾µÄxÎ»ÖÃ
-,unsigned short y               // ×ÖÌå¿ªÊ¼ÏÔÊ¾µÄyÎ»ÖÃ
-,unsigned long FontColor        // ×ÖÌåµÄÑÕÉ«
-,unsigned long BackGroundColor  // ×ÖÌåµÄ±³¾°É«£¨×¢Òâ£ºµ±×ÖÌå±³¾°³õÊ¼»¯³ÉÍ¸Ã÷Ê±£¬ÉèÖÃ¸ÃÖµÎÞÐ§£©
-,char *c                        // Êý¾Ý»º³åµÄÊ×µØÖ·
+ unsigned short x               // ï¿½ï¿½ï¿½å¿ªÊ¼ï¿½ï¿½Ê¾ï¿½ï¿½xÎ»ï¿½ï¿½
+,unsigned short y               // ï¿½ï¿½ï¿½å¿ªÊ¼ï¿½ï¿½Ê¾ï¿½ï¿½yÎ»ï¿½ï¿½
+,unsigned long FontColor        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned long BackGroundColor  // ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½É«ï¿½ï¿½×¢ï¿½â£ºï¿½ï¿½ï¿½ï¿½ï¿½å±³ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½Öµï¿½ï¿½Ð§ï¿½ï¿½
+,char *c                        // ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )
 {
   Text_Mode();
@@ -1407,19 +1413,19 @@ void LT768_Print_Internal_Font_String
 }
 
 
-/* Ñ¡ÔñÍâ²¿¼¯³É×Ö¿â³õÊ¼»¯ */
+/* Ñ¡ï¿½ï¿½ï¿½â²¿ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½Ê¼ï¿½ï¿½ */
 void LT768_Select_Outside_Font_Init
 (
- unsigned char SCS           // Ñ¡ÔñÍâ¹ÒµÄSPI   : SCS£º0       SCS£º1
-,unsigned char Clk           // SPIÊ±ÖÓ·ÖÆµ²ÎÊý : SPI Clock = System Clock /{(Clk+1)*2}
-,unsigned long FlashAddr     // Ô´µØÖ·(Flash)
-,unsigned long MemoryAddr    // Ä¿µÄµØÖ·(SDRAM)
-,unsigned long Num           // ×Ö¿âµÄÊý¾ÝÁ¿´óÐ¡
-,unsigned char Size          // ÉèÖÃ×ÖÌå´óÐ¡  16£º16*16     24:24*24    32:32*32
-,unsigned char XxN           // ×ÖÌåµÄ¿í¶È·Å´ó±¶Êý£º1~4
-,unsigned char YxN           // ×ÖÌåµÄ¸ß¶È·Å´ó±¶Êý£º1~4
-,unsigned char ChromaKey     // 0£º×ÖÌå±³¾°É«Í¸Ã÷    1£º¿ÉÒÔÉèÖÃ×ÖÌåµÄ±³¾°É«
-,unsigned char Alignment     // 0£º²»×ÖÌå²»¶ÔÆë      1£º×ÖÌå¶ÔÆë
+ unsigned char SCS           // Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI   : SCSï¿½ï¿½0       SCSï¿½ï¿½1
+,unsigned char Clk           // SPIÊ±ï¿½Ó·ï¿½Æµï¿½ï¿½ï¿½ï¿½ : SPI Clock = System Clock /{(Clk+1)*2}
+,unsigned long FlashAddr     // Ô´ï¿½ï¿½Ö·(Flash)
+,unsigned long MemoryAddr    // Ä¿ï¿½Äµï¿½Ö·(SDRAM)
+,unsigned long Num           // ï¿½Ö¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
+,unsigned char Size          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡  16ï¿½ï¿½16*16     24:24*24    32:32*32
+,unsigned char XxN           // ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½È·Å´ï¿½ï¿½ï¿½ï¿½ï¿½1~4
+,unsigned char YxN           // ï¿½ï¿½ï¿½ï¿½Ä¸ß¶È·Å´ï¿½ï¿½ï¿½ï¿½ï¿½1~4
+,unsigned char ChromaKey     // 0ï¿½ï¿½ï¿½ï¿½ï¿½å±³ï¿½ï¿½É«Í¸ï¿½ï¿½    1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½É«
+,unsigned char Alignment     // 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å²»ï¿½ï¿½ï¿½ï¿½      1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 )
 {
 	if(Size==16)	Font_Select_8x16_16x16();
@@ -1450,14 +1456,14 @@ void LT768_Select_Outside_Font_Init
 	CGRAM_Start_address(MemoryAddr);        
 }
 
-/* ÏÔÊ¾Íâ²¿¼°ÄÚ²¿¼¯³É×ÖÌå */
+/* ï¿½ï¿½Ê¾ï¿½â²¿ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 void LT768_Print_Outside_Font_String
 (
- unsigned short x               // ×ÖÌå¿ªÊ¼ÏÔÊ¾µÄxÎ»ÖÃ
-,unsigned short y               // ×ÖÌå¿ªÊ¼ÏÔÊ¾µÄyÎ»ÖÃ
-,unsigned long FontColor        // ×ÖÌåµÄÑÕÉ«
-,unsigned long BackGroundColor  // ×ÖÌåµÄ±³¾°É«£¨×¢Òâ£ºµ±×ÖÌå±³¾°³õÊ¼»¯³ÉÍ¸Ã÷Ê±£¬ÉèÖÃ¸ÃÖµÎÞÐ§£©
-,unsigned char *c               // Êý¾Ý»º³åµÄÊ×µØÖ·
+ unsigned short x               // ï¿½ï¿½ï¿½å¿ªÊ¼ï¿½ï¿½Ê¾ï¿½ï¿½xÎ»ï¿½ï¿½
+,unsigned short y               // ï¿½ï¿½ï¿½å¿ªÊ¼ï¿½ï¿½Ê¾ï¿½ï¿½yÎ»ï¿½ï¿½
+,unsigned long FontColor        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned long BackGroundColor  // ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½É«ï¿½ï¿½×¢ï¿½â£ºï¿½ï¿½ï¿½ï¿½ï¿½å±³ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½Öµï¿½ï¿½Ð§ï¿½ï¿½
+,unsigned char *c               // ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )
 {
 	unsigned short temp_H = 0;
@@ -1475,7 +1481,7 @@ void LT768_Print_Outside_Font_String
   { 
 		if(c[i] < 0xa1)
 		{
-			CGROM_Select_Internal_CGROM();   // ÄÚ²¿CGROMÎª×Ö·ûÀ´Ô´
+			CGROM_Select_Internal_CGROM();   // ï¿½Ú²ï¿½CGROMÎªï¿½Ö·ï¿½ï¿½ï¿½Ô´
 			LCD_CmdWrite(0x04);
 			LCD_DataWrite(c[i]);
 			Check_Mem_WR_FIFO_not_Full();  
@@ -1483,7 +1489,7 @@ void LT768_Print_Outside_Font_String
 		}
 		else
 		{
-			Font_Select_UserDefine_Mode();   // ×Ô¶¨Òå×Ö¿â
+			Font_Select_UserDefine_Mode();   // ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½
 			LCD_CmdWrite(0x04);
 			temp_H = ((c[i] - 0xa1) & 0x00ff) * 94;
 			temp_L = c[i+1] - 0xa1;
@@ -1498,20 +1504,20 @@ void LT768_Print_Outside_Font_String
 	
   Check_2D_Busy();
 
-  Graphic_Mode(); //back to graphic mode;Í¼ÐÎÄ£Ê½
+  Graphic_Mode(); //back to graphic mode;Í¼ï¿½ï¿½Ä£Ê½
 }
 
-/*ÏÔÊ¾48*48¡¢72*72×ÖÌå*/
+/*ï¿½ï¿½Ê¾48*48ï¿½ï¿½72*72ï¿½ï¿½ï¿½ï¿½*/
 void LT768_BTE_Memory_Copy_ColorExpansion_8
 (
- unsigned long S0_Addr             // SOÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short YS0                // S0Í¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned long Des_Addr            // Ä¿µÄÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short Des_W              // Ä¿µÄÍ¼ÏñµÄ¿í¶È
-,unsigned short XDes               // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê(ÏÔÊ¾´°¿ÚµÄÆðÊ¼x×ø±ê)
-,unsigned short YDes               // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½Y×ø±ê(ÏÔÊ¾´°¿ÚµÄÆðÊ¼y×ø±ê)
-,unsigned short X_W                // ÏÔÊ¾´°¿ÚµÄ¿í¶È
-,unsigned short Y_H                // ÏÔÊ¾´°¿ÚµÄ³¤¶È
+ unsigned long S0_Addr             // SOÍ¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short YS0                // S0Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned long Des_Addr            // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short Des_W              // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XDes               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ê¼xï¿½ï¿½ï¿½ï¿½)
+,unsigned short YDes               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ê¼yï¿½ï¿½ï¿½ï¿½)
+,unsigned short X_W                // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
+,unsigned short Y_H                // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ÚµÄ³ï¿½ï¿½ï¿½
 ,unsigned long Foreground_color
 ,unsigned long Background_color
 )
@@ -1538,14 +1544,14 @@ void LT768_BTE_Memory_Copy_ColorExpansion_8
 
 void LT768_BTE_Memory_Copy_ColorExpansion_Chroma_key_8
 (
- unsigned long S0_Addr             // SOÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short YS0                // S0Í¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned long Des_Addr            // Ä¿µÄÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short Des_W              // Ä¿µÄÍ¼ÏñµÄ¿í¶È
-,unsigned short XDes               // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê(ÏÔÊ¾´°¿ÚµÄÆðÊ¼x×ø±ê)
-,unsigned short YDes               // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½Y×ø±ê(ÏÔÊ¾´°¿ÚµÄÆðÊ¼y×ø±ê)
-,unsigned short X_W                // ÏÔÊ¾´°¿ÚµÄ¿í¶È
-,unsigned short Y_H                // ÏÔÊ¾´°¿ÚµÄ³¤¶È
+ unsigned long S0_Addr             // SOÍ¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short YS0                // S0Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned long Des_Addr            // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short Des_W              // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XDes               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ê¼xï¿½ï¿½ï¿½ï¿½)
+,unsigned short YDes               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ê¼yï¿½ï¿½ï¿½ï¿½)
+,unsigned short X_W                // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
+,unsigned short Y_H                // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ÚµÄ³ï¿½ï¿½ï¿½
 ,unsigned long Foreground_color
 )
 {
@@ -1570,21 +1576,21 @@ void LT768_BTE_Memory_Copy_ColorExpansion_Chroma_key_8
 
 void LT768_Print_Outside_Font_GB2312_48_72
 (
- unsigned char SCS           		// Ñ¡ÔñÍâ¹ÒµÄSPI   : SCS£º0       SCS£º1
-,unsigned char Clk           		// SPIÊ±ÖÓ·ÖÆµ²ÎÊý : SPI Clock = System Clock /{(Clk+1)*2}
-,unsigned long FlashAddr     		// ×Ö¿âÔ´µØÖ·(Flash)
-,unsigned long MemoryAddr    		// Ä¿µÄµØÖ·(SDRAM)
-,unsigned long ShowAddr             // ÏÔÊ¾²ãµÄµØÖ·
-,unsigned short width               // ÏÔÊ¾²ãµÄ¿í¶È
-,unsigned char Size          		// ÉèÖÃ×ÖÌå´óÐ¡  48£º48*48     72:72*72
-,unsigned char ChromaKey     		// 0£º×ÖÌå±³¾°É«Í¸Ã÷    1£º¿ÉÒÔÉèÖÃ×ÖÌåµÄ±³¾°É«
-,unsigned short x                   // ×ÖÌå¿ªÊ¼ÏÔÊ¾µÄxÎ»ÖÃ
-,unsigned short y                   // ×ÖÌå¿ªÊ¼ÏÔÊ¾µÄyÎ»ÖÃ
-,unsigned long FontColor            // ×ÖÌåµÄÑÕÉ«
-,unsigned long BackGroundColor      // ×ÖÌåµÄ±³¾°É«£¨×¢Òâ£ºµ±×ÖÌå±³¾°³õÊ¼»¯³ÉÍ¸Ã÷Ê±£¬ÉèÖÃ¸ÃÖµÎÞÐ§£©
-,unsigned short w				// ×ÖÌå´ÖÏ¸£º0£º²»¼Ó´Ö  1£º¼Ó´Ö1¼¶  2£º¼Ó´Ö2¼¶
-,unsigned short s                   // ÐÐ¾à
-,unsigned char *c                   // Êý¾Ý»º³åµÄÊ×µØÖ·
+ unsigned char SCS           		// Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI   : SCSï¿½ï¿½0       SCSï¿½ï¿½1
+,unsigned char Clk           		// SPIÊ±ï¿½Ó·ï¿½Æµï¿½ï¿½ï¿½ï¿½ : SPI Clock = System Clock /{(Clk+1)*2}
+,unsigned long FlashAddr     		// ï¿½Ö¿ï¿½Ô´ï¿½ï¿½Ö·(Flash)
+,unsigned long MemoryAddr    		// Ä¿ï¿½Äµï¿½Ö·(SDRAM)
+,unsigned long ShowAddr             // ï¿½ï¿½Ê¾ï¿½ï¿½Äµï¿½Ö·
+,unsigned short width               // ï¿½ï¿½Ê¾ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned char Size          		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡  48ï¿½ï¿½48*48     72:72*72
+,unsigned char ChromaKey     		// 0ï¿½ï¿½ï¿½ï¿½ï¿½å±³ï¿½ï¿½É«Í¸ï¿½ï¿½    1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½É«
+,unsigned short x                   // ï¿½ï¿½ï¿½å¿ªÊ¼ï¿½ï¿½Ê¾ï¿½ï¿½xÎ»ï¿½ï¿½
+,unsigned short y                   // ï¿½ï¿½ï¿½å¿ªÊ¼ï¿½ï¿½Ê¾ï¿½ï¿½yÎ»ï¿½ï¿½
+,unsigned long FontColor            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned long BackGroundColor      // ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½É«ï¿½ï¿½×¢ï¿½â£ºï¿½ï¿½ï¿½ï¿½ï¿½å±³ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½Öµï¿½ï¿½Ð§ï¿½ï¿½
+,unsigned short w				// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½  1ï¿½ï¿½ï¿½Ó´ï¿½1ï¿½ï¿½  2ï¿½ï¿½ï¿½Ó´ï¿½2ï¿½ï¿½
+,unsigned short s                   // ï¿½Ð¾ï¿½
+,unsigned char *c                   // ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )
 {
 	unsigned short temp_H = 0;
@@ -1600,7 +1606,7 @@ void LT768_Print_Outside_Font_GB2312_48_72
 	unsigned short f = 0;
 	
 	h = x; k = y;
-	Memory_8bpp_Mode();//Ê¹ÓÃ8Î»É«ÉîÀ´´æ´¢Í¼Æ¬
+	Memory_8bpp_Mode();//Ê¹ï¿½ï¿½8Î»É«ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢Í¼Æ¬
  	Canvas_Image_Start_address(MemoryAddr);
  	Canvas_image_width(width);
 	while(c[i] != '\0')
@@ -1649,21 +1655,21 @@ void LT768_Print_Outside_Font_GB2312_48_72
 
 void LT768_Print_Outside_Font_BIG5_48_72
 (
- unsigned char SCS           		    // Ñ¡ÔñÍâ¹ÒµÄSPI   : SCS£º0       SCS£º1
-,unsigned char Clk           		    // SPIÊ±ÖÓ·ÖÆµ²ÎÊý : SPI Clock = System Clock /{(Clk+1)*2}
-,unsigned long FlashAddr     		    // ×Ö¿âÔ´µØÖ·(Flash)
-,unsigned long MemoryAddr    		    // Ä¿µÄµØÖ·(SDRAM)
-,unsigned long ShowAddr             // ÏÔÊ¾²ãµÄµØÖ·
-,unsigned short width               // ÏÔÊ¾²ãµÄ¿í¶È
-,unsigned char Size          		    // ÉèÖÃ×ÖÌå´óÐ¡  48£º48*48     72:72*72
-,unsigned char ChromaKey     		    // 0£º×ÖÌå±³¾°É«Í¸Ã÷    1£º¿ÉÒÔÉèÖÃ×ÖÌåµÄ±³¾°É«
-,unsigned short x                   // ×ÖÌå¿ªÊ¼ÏÔÊ¾µÄxÎ»ÖÃ
-,unsigned short y                   // ×ÖÌå¿ªÊ¼ÏÔÊ¾µÄyÎ»ÖÃ
-,unsigned long FontColor            // ×ÖÌåµÄÑÕÉ«
-,unsigned long BackGroundColor      // ×ÖÌåµÄ±³¾°É«£¨×¢Òâ£ºµ±×ÖÌå±³¾°³õÊ¼»¯³ÉÍ¸Ã÷Ê±£¬ÉèÖÃ¸ÃÖµÎÞÐ§£©
-,unsigned short w				            // ×ÖÌå´ÖÏ¸£º0£º²»¼Ó´Ö  1£º¼Ó´Ö1¼¶  2£º¼Ó´Ö2¼¶
-,unsigned short s                   // ÐÐ¾à
-,unsigned char *c                   // Êý¾Ý»º³åµÄÊ×µØÖ·
+ unsigned char SCS           		    // Ñ¡ï¿½ï¿½ï¿½ï¿½Òµï¿½SPI   : SCSï¿½ï¿½0       SCSï¿½ï¿½1
+,unsigned char Clk           		    // SPIÊ±ï¿½Ó·ï¿½Æµï¿½ï¿½ï¿½ï¿½ : SPI Clock = System Clock /{(Clk+1)*2}
+,unsigned long FlashAddr     		    // ï¿½Ö¿ï¿½Ô´ï¿½ï¿½Ö·(Flash)
+,unsigned long MemoryAddr    		    // Ä¿ï¿½Äµï¿½Ö·(SDRAM)
+,unsigned long ShowAddr             // ï¿½ï¿½Ê¾ï¿½ï¿½Äµï¿½Ö·
+,unsigned short width               // ï¿½ï¿½Ê¾ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned char Size          		    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡  48ï¿½ï¿½48*48     72:72*72
+,unsigned char ChromaKey     		    // 0ï¿½ï¿½ï¿½ï¿½ï¿½å±³ï¿½ï¿½É«Í¸ï¿½ï¿½    1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½É«
+,unsigned short x                   // ï¿½ï¿½ï¿½å¿ªÊ¼ï¿½ï¿½Ê¾ï¿½ï¿½xÎ»ï¿½ï¿½
+,unsigned short y                   // ï¿½ï¿½ï¿½å¿ªÊ¼ï¿½ï¿½Ê¾ï¿½ï¿½yÎ»ï¿½ï¿½
+,unsigned long FontColor            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+,unsigned long BackGroundColor      // ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½É«ï¿½ï¿½×¢ï¿½â£ºï¿½ï¿½ï¿½ï¿½ï¿½å±³ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½Öµï¿½ï¿½Ð§ï¿½ï¿½
+,unsigned short w				            // ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½  1ï¿½ï¿½ï¿½Ó´ï¿½1ï¿½ï¿½  2ï¿½ï¿½ï¿½Ó´ï¿½2ï¿½ï¿½
+,unsigned short s                   // ï¿½Ð¾ï¿½
+,unsigned char *c                   // ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )
 {
 	unsigned short temp_H = 0;
@@ -1678,7 +1684,7 @@ void LT768_Print_Outside_Font_BIG5_48_72
 	unsigned short g = 0;
 	unsigned short f = 0;
 	h = x; k = y;
-	Memory_8bpp_Mode();//Ê¹ÓÃ8Î»É«ÉîÀ´´æ´¢Í¼Æ¬
+	Memory_8bpp_Mode();//Ê¹ï¿½ï¿½8Î»É«ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢Í¼Æ¬
  	Canvas_Image_Start_address(MemoryAddr);
  	Canvas_image_width(width);
 	while(c[i] != '\0')
@@ -1697,7 +1703,7 @@ void LT768_Print_Outside_Font_BIG5_48_72
 		i+=2;
 		j++;
 	}
-	Memory_16bpp_Mode();   // ÒòÎªÏÔÊ¾ÊÇ16Î»µÄÉ«Éî£¬ËùÒÔÐèÒª×ªÎª16Î»É«Éî	
+	Memory_16bpp_Mode();   // ï¿½ï¿½Îªï¿½ï¿½Ê¾ï¿½ï¿½16Î»ï¿½ï¿½É«ï¿½î£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òª×ªÎª16Î»É«ï¿½ï¿½	
 	Canvas_Image_Start_address(ShowAddr);
 	Canvas_image_width(width);
 	j = 0; i = 0;
@@ -1731,10 +1737,10 @@ void LT768_Print_Outside_Font_BIG5_48_72
 
 void LT768_Text_cursor_Init
 (
- unsigned char On_Off_Blinking         // 0£º½ûÖ¹¹â±êÉÁË¸   1£ºÊ¹ÄÜ¹â±êÉÁË¸
-,unsigned short Blinking_Time          // ÉèÖÃÎÄ×Ö¹â±êÉÁË¸Ê±¼ä
-,unsigned short X_W                    // ÎÄ×Ö¹â±êË®Æ½´óÐ¡
-,unsigned short Y_W                    // ÎÄ×Ö¹â±ê´¹Ö±´óÐ¡
+ unsigned char On_Off_Blinking         // 0ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½Ë¸   1ï¿½ï¿½Ê¹ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½Ë¸
+,unsigned short Blinking_Time          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½Ë¸Ê±ï¿½ï¿½
+,unsigned short X_W                    // ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½Ë®Æ½ï¿½ï¿½Ð¡
+,unsigned short Y_W                    // ï¿½ï¿½ï¿½Ö¹ï¿½ê´¹Ö±ï¿½ï¿½Ð¡
 )
 {
 	if(On_Off_Blinking == 0)	Disable_Text_Cursor_Blinking();
@@ -1763,12 +1769,12 @@ void LT768_Disable_Text_Cursor(void)
 
 void LT768_Graphic_cursor_Init
 (
- unsigned char Cursor_N                  // Ñ¡Ôñ¹â±ê   1:¹â±ê1   2:¹â±ê2   3:¹â±ê3  4:¹â±ê4
-,unsigned char Color1                    // ÑÕÉ«1
-,unsigned char Color2                    // ÑÕÉ«2
-,unsigned short X_Pos                    // ÏÔÊ¾×ø±êX
-,unsigned short Y_Pos                    // ÏÔÊ¾×ø±êY
-,unsigned char *Cursor_Buf               // ¹â±êÊý¾ÝµÄ»º³åÊ×µØÖ·
+ unsigned char Cursor_N                  // Ñ¡ï¿½ï¿½ï¿½ï¿½   1:ï¿½ï¿½ï¿½1   2:ï¿½ï¿½ï¿½2   3:ï¿½ï¿½ï¿½3  4:ï¿½ï¿½ï¿½4
+,unsigned char Color1                    // ï¿½ï¿½É«1
+,unsigned char Color2                    // ï¿½ï¿½É«2
+,unsigned short X_Pos                    // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½X
+,unsigned short Y_Pos                    // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Y
+,unsigned char *Cursor_Buf               // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ»ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )
 {
 	unsigned int i ;
@@ -1791,7 +1797,7 @@ void LT768_Graphic_cursor_Init
 		LCD_DataWrite(Cursor_Buf[i]);
   }
 	
-	Memory_Select_SDRAM();//Ð´ÍêºóÇÐ»ØSDRAM
+	Memory_Select_SDRAM();//Ð´ï¿½ï¿½ï¿½ï¿½Ð»ï¿½SDRAM
 	Set_Graphic_Cursor_Color_1(Color1);
   Set_Graphic_Cursor_Color_2(Color2);
   Graphic_Cursor_XY(X_Pos,Y_Pos);
@@ -1802,9 +1808,9 @@ void LT768_Graphic_cursor_Init
 
 void LT768_Set_Graphic_cursor_Pos
 (
- unsigned char Cursor_N                  // Ñ¡Ôñ¹â±ê   1:¹â±ê1   2:¹â±ê2   3:¹â±ê3  4:¹â±ê4
-,unsigned short X_Pos                    // ÏÔÊ¾×ø±êX
-,unsigned short Y_Pos                    // ÏÔÊ¾×ø±êY
+ unsigned char Cursor_N                  // Ñ¡ï¿½ï¿½ï¿½ï¿½   1:ï¿½ï¿½ï¿½1   2:ï¿½ï¿½ï¿½2   3:ï¿½ï¿½ï¿½3  4:ï¿½ï¿½ï¿½4
+,unsigned short X_Pos                    // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½X
+,unsigned short Y_Pos                    // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Y
 )
 {
 	Graphic_Cursor_XY(X_Pos,Y_Pos);
@@ -1836,16 +1842,16 @@ void LT768_Disable_Graphic_Cursor(void)
 
 void LT768_PIP_Init
 (
- unsigned char On_Off         // 0 : ½ûÖ¹ PIP    1 : Ê¹ÄÜ PIP    2 : ±£³ÖÔ­À´µÄ×´Ì¬
-,unsigned char Select_PIP     // 1 : Ê¹ÓÃ PIP1   2 : Ê¹ÓÃ PIP2
-,unsigned long PAddr          // PIPµÄ¿ªÊ¼µØÖ·
-,unsigned short XP            // PIP´°¿ÚµÄX×ø±ê,±ØÐë±»4Õû³ý
-,unsigned short YP            // PIP´°¿ÚµÄY×ø±ê,±ØÐë±»4Õû³ý
-,unsigned long ImageWidth     // µ×Í¼µÄ¿í¶È
-,unsigned short X_Dis         // ÏÔÊ¾´°¿ÚµÄX×ø±ê
-,unsigned short Y_Dis         // ÏÔÊ¾´°¿ÚµÄY×ø±ê
-,unsigned short X_W           // ÏÔÊ¾´°¿ÚµÄ¿í¶È£¬±ØÐë±»4Õû³ý
-,unsigned short Y_H           // ÏÔÊ¾´°¿ÚµÄ³¤¶È£¬±ØÐë±»4Õû³ý
+ unsigned char On_Off         // 0 : ï¿½ï¿½Ö¹ PIP    1 : Ê¹ï¿½ï¿½ PIP    2 : ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½×´Ì¬
+,unsigned char Select_PIP     // 1 : Ê¹ï¿½ï¿½ PIP1   2 : Ê¹ï¿½ï¿½ PIP2
+,unsigned long PAddr          // PIPï¿½Ä¿ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short XP            // PIPï¿½ï¿½ï¿½Úµï¿½Xï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ë±»4ï¿½ï¿½ï¿½ï¿½
+,unsigned short YP            // PIPï¿½ï¿½ï¿½Úµï¿½Yï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ë±»4ï¿½ï¿½ï¿½ï¿½
+,unsigned long ImageWidth     // ï¿½ï¿½Í¼ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short X_Dis         // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Úµï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short Y_Dis         // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Úµï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned short X_W           // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ë±»4ï¿½ï¿½ï¿½ï¿½
+,unsigned short Y_H           // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ÚµÄ³ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ë±»4ï¿½ï¿½ï¿½ï¿½
 )
 {
 	if(Select_PIP == 1 )  
@@ -1882,10 +1888,10 @@ void LT768_PIP_Init
 
 void LT768_Set_DisWindowPos
 (
- unsigned char On_Off         // 0 : ½ûÖ¹ PIP, 1 : Ê¹ÄÜ PIP, 2 : ±£³ÖÔ­À´µÄ×´Ì¬
-,unsigned char Select_PIP     // 1 : Ê¹ÓÃ PIP1 , 2 : Ê¹ÓÃ PIP2
-,unsigned short X_Dis         // ÏÔÊ¾´°¿ÚµÄX×ø±ê
-,unsigned short Y_Dis         // ÏÔÊ¾´°¿ÚµÄY×ø±ê
+ unsigned char On_Off         // 0 : ï¿½ï¿½Ö¹ PIP, 1 : Ê¹ï¿½ï¿½ PIP, 2 : ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½×´Ì¬
+,unsigned char Select_PIP     // 1 : Ê¹ï¿½ï¿½ PIP1 , 2 : Ê¹ï¿½ï¿½ PIP2
+,unsigned short X_Dis         // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Úµï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short Y_Dis         // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Úµï¿½Yï¿½ï¿½ï¿½ï¿½
 )
 {
 	if(Select_PIP == 1 )  Select_PIP1_Parameter();
@@ -1916,13 +1922,13 @@ void LT768_Set_DisWindowPos
 
 void BTE_Solid_Fill
 (
- unsigned long Des_Addr           // Ìî³äµÄÄ¿µÄµØÖ· 
-,unsigned short Des_W             // Ä¿µÄµØÖ·Í¼Æ¬¿í¶È
-,unsigned short XDes              // x×ø±ê 
-,unsigned short YDes              // y×ø±ê 
-,unsigned short color             // Ìî³äµÄÑÕÉ« 
-,unsigned short X_W               // Ìî³äµÄ³¤¶È 
-,unsigned short Y_H               // Ìî³äµÄ¿í¶È 
+ unsigned long Des_Addr           // ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Äµï¿½Ö· 
+,unsigned short Des_W             // Ä¿ï¿½Äµï¿½Ö·Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
+,unsigned short XDes              // xï¿½ï¿½ï¿½ï¿½ 
+,unsigned short YDes              // yï¿½ï¿½ï¿½ï¿½ 
+,unsigned short color             // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É« 
+,unsigned short X_W               // ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ 
+,unsigned short Y_H               // ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ 
 )            
 {
 	
@@ -1940,22 +1946,22 @@ void BTE_Solid_Fill
   Check_BTE_Busy();     
 }
 
-/*  ½áºÏ¹âÕ¤²Ù×÷µÄBTEÄÚ´æ¸´ÖÆ */
+/*  ï¿½ï¿½Ï¹ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BTEï¿½Ú´æ¸´ï¿½ï¿½ */
 void LT768_BTE_Memory_Copy
 (
- unsigned long S0_Addr     // SOÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short S0_W       // S0Í¼ÏñµÄ¿í¶È
-,unsigned short XS0        // S0Í¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YS0        // S0Í¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned long S1_Addr     // S1Í¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short S1_W       // S1Í¼ÏñµÄ¿í¶È
-,unsigned short XS1        // S1Í¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YS1        // S1Í¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned long Des_Addr    // Ä¿µÄÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short Des_W      // Ä¿µÄÍ¼ÏñµÄ¿í¶È
-,unsigned short XDes       // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YDes       // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned int ROP_Code     // ¹âÕ¤²Ù×÷Ä£Ê½
+ unsigned long S0_Addr     // SOÍ¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short S0_W       // S0Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XS0        // S0Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YS0        // S0Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned long S1_Addr     // S1Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short S1_W       // S1Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XS1        // S1Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YS1        // S1Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned long Des_Addr    // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short Des_W      // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XDes       // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YDes       // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned int ROP_Code     // ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 /*ROP_Code :
    0000b		0(Blackness)
    0001b		~S0!E~S1 or ~(S0+S1)
@@ -1973,8 +1979,8 @@ void LT768_BTE_Memory_Copy
    1101b		S0+~S1
    1110b		S0+S1
    1111b		1(whiteness)*/
-,unsigned short X_W       // »î¶¯´°¿ÚµÄ¿í¶È
-,unsigned short Y_H       // »î¶¯´°¿ÚµÄ³¤¶È
+,unsigned short X_W       // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
+,unsigned short Y_H       // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ³ï¿½ï¿½ï¿½
 )
 {
 	BTE_S0_Color_16bpp();
@@ -2000,20 +2006,20 @@ void LT768_BTE_Memory_Copy
 }
 
 
-/*  ½áºÏ Chroma Key µÄÄÚ´æ¸´ÖÆ£¨²»º¬ ROP£© */
+/*  ï¿½ï¿½ï¿½ Chroma Key ï¿½ï¿½ï¿½Ú´æ¸´ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ ROPï¿½ï¿½ */
 void LT768_BTE_Memory_Copy_Chroma_key
 (
- unsigned long S0_Addr             // SOÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short S0_W               // S0Í¼ÏñµÄ¿í¶È
-,unsigned short XS0                // S0Í¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YS0                // S0Í¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned long Des_Addr            // Ä¿µÄÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short Des_W              // Ä¿µÄÍ¼ÏñµÄ¿í¶È
-,unsigned short XDes               // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YDes               // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned long Background_color    // Í¸Ã÷É«
-,unsigned short X_W                // »î¶¯´°¿ÚµÄ¿í¶È
-,unsigned short Y_H                // »î¶¯´°¿ÚµÄ³¤¶È
+ unsigned long S0_Addr             // SOÍ¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short S0_W               // S0Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XS0                // S0Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YS0                // S0Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned long Des_Addr            // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short Des_W              // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XDes               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YDes               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned long Background_color    // Í¸ï¿½ï¿½É«
+,unsigned short X_W                // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
+,unsigned short Y_H                // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ³ï¿½ï¿½ï¿½
 )
 {
 	Background_color_65k(Background_color); 
@@ -2038,15 +2044,15 @@ void LT768_BTE_Memory_Copy_Chroma_key
 void LT768_BTE_Pattern_Fill
 (
  unsigned char P_8x8_or_16x16      // 0 : use 8x8 Icon , 1 : use 16x16 Icon.
-,unsigned long S0_Addr             // SOÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short S0_W               // S0Í¼ÏñµÄ¿í¶È
-,unsigned short XS0                // S0Í¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YS0                // S0Í¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned long Des_Addr            // Ä¿µÄÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short Des_W              // Ä¿µÄÍ¼ÏñµÄ¿í¶È
-, unsigned short XDes              // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YDes               // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned int ROP_Code             // ¹âÕ¤²Ù×÷Ä£Ê½
+,unsigned long S0_Addr             // SOÍ¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short S0_W               // S0Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XS0                // S0Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YS0                // S0Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned long Des_Addr            // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short Des_W              // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+, unsigned short XDes              // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YDes               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned int ROP_Code             // ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 /*ROP_Code :
    0000b		0(Blackness)
    0001b		~S0!E~S1 or ~(S0+S1)
@@ -2064,8 +2070,8 @@ void LT768_BTE_Pattern_Fill
    1101b		S0+~S1
    1110b		S0+S1
    1111b		1(whiteness)*/
-,unsigned short X_W                // »î¶¯´°¿ÚµÄ¿í¶È
-,unsigned short Y_H                // »î¶¯´°¿ÚµÄ³¤¶È
+,unsigned short X_W                // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
+,unsigned short Y_H                // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ³ï¿½ï¿½ï¿½
 )
 {
 	if(P_8x8_or_16x16 == 0)
@@ -2099,15 +2105,15 @@ void LT768_BTE_Pattern_Fill
 void LT768_BTE_Pattern_Fill_With_Chroma_key
 (
  unsigned char P_8x8_or_16x16      // 0 : use 8x8 Icon , 1 : use 16x16 Icon.
-,unsigned long S0_Addr             // SOÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short S0_W               // S0Í¼ÏñµÄ¿í¶È
-,unsigned short XS0                // S0Í¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YS0                // S0Í¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned long Des_Addr            // Ä¿µÄÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short Des_W              // Ä¿µÄÍ¼ÏñµÄ¿í¶È
-,unsigned short XDes               // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YDes               // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned int ROP_Code             // ¹âÕ¤²Ù×÷Ä£Ê½
+,unsigned long S0_Addr             // SOÍ¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short S0_W               // S0Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XS0                // S0Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YS0                // S0Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned long Des_Addr            // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short Des_W              // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XDes               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YDes               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned int ROP_Code             // ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 /*ROP_Code :
    0000b		0(Blackness)
    0001b		~S0!E~S1 or ~(S0+S1)
@@ -2125,9 +2131,9 @@ void LT768_BTE_Pattern_Fill_With_Chroma_key
    1101b		S0+~S1
    1110b		S0+S1
    1111b		1(whiteness)*/
-,unsigned long Background_color   // Í¸Ã÷É«
-,unsigned short X_W               // »î¶¯´°¿ÚµÄ¿í¶È
-,unsigned short Y_H               // »î¶¯´°¿ÚµÄ³¤¶È
+,unsigned long Background_color   // Í¸ï¿½ï¿½É«
+,unsigned short X_W               // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
+,unsigned short Y_H               // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ³ï¿½ï¿½ï¿½
 )
 {
 	Background_color_65k(Background_color);
@@ -2162,15 +2168,15 @@ void LT768_BTE_Pattern_Fill_With_Chroma_key
 
 void LT768_BTE_MCU_Write_MCU_16bit
 (
- unsigned long S1_Addr              // S1Í¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short S1_W                // S1Í¼ÏñµÄ¿í¶È
-,unsigned short XS1                 // S1Í¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YS1                 // S1Í¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned long Des_Addr             // Ä¿µÄÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short Des_W               // Ä¿µÄÍ¼ÏñµÄ¿í¶È
-,unsigned short XDes                // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YDes                // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned int ROP_Code              // ¹âÕ¤²Ù×÷Ä£Ê½ 
+ unsigned long S1_Addr              // S1Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short S1_W                // S1Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XS1                 // S1Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YS1                 // S1Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned long Des_Addr             // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short Des_W               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XDes                // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YDes                // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned int ROP_Code              // ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½Ä£Ê½ 
 /*ROP_Code :
    0000b		0(Blackness)
    0001b		~S0!E~S1 or ~(S0+S1)
@@ -2188,9 +2194,9 @@ void LT768_BTE_MCU_Write_MCU_16bit
    1101b		S0+~S1
    1110b		S0+S1
    1111b		1(whiteness)*/
-,unsigned short X_W                 // »î¶¯´°¿ÚµÄ¿í¶È
-,unsigned short Y_H                 // »î¶¯´°¿ÚµÄ³¤¶È
-,const unsigned short *data         // S0µÄÊý¾ÝÊ×µØÖ·
+,unsigned short X_W                 // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
+,unsigned short Y_H                 // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ³ï¿½ï¿½ï¿½
+,const unsigned short *data         // S0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )
 {
 	unsigned short i,j;
@@ -2231,14 +2237,14 @@ void LT768_BTE_MCU_Write_MCU_16bit
 
 void LT768_BTE_MCU_Write_Chroma_key_MCU_16bit
 (
- unsigned long Des_Addr                 // Ä¿µÄÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short Des_W                   // Ä¿µÄÍ¼ÏñµÄ¿í¶È
-,unsigned short XDes                    // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YDes                    // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned long Background_color         // Í¸Ã÷É«
-,unsigned short X_W                     // »î¶¯´°¿ÚµÄ¿í¶È
-,unsigned short Y_H                     // »î¶¯´°¿ÚµÄ³¤¶È
-,const unsigned short *data             // S0µÄÊý¾ÝÊÕµØÖ·
+ unsigned long Des_Addr                 // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short Des_W                   // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XDes                    // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YDes                    // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned long Background_color         // Í¸ï¿½ï¿½É«
+,unsigned short X_W                     // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
+,unsigned short Y_H                     // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ³ï¿½ï¿½ï¿½
+,const unsigned short *data             // S0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½Ö·
 )
 {
 	unsigned int i,j;
@@ -2272,20 +2278,20 @@ void LT768_BTE_MCU_Write_Chroma_key_MCU_16bit
 }
 
 
-/* ½áºÏÀ©Õ¹É«²ÊµÄ MPU Œ‘Èë */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹É«ï¿½Êµï¿½ MPU ï¿½ï¿½ï¿½ï¿½ */
 void LT768_BTE_MCU_Write_ColorExpansion_MCU_16bit
 (
- unsigned long Des_Addr               // Ä¿µÄÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short Des_W                 // Ä¿µÄÍ¼ÏñµÄ¿í¶È
-,unsigned short XDes                  // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YDes                  // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned short X_W                   // »î¶¯´°¿ÚµÄ¿í¶È
-,unsigned short Y_H                   // »î¶¯´°¿ÚµÄ³¤¶È
-,unsigned long Foreground_color       // Ç°¾°É«
+ unsigned long Des_Addr               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short Des_W                 // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XDes                  // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YDes                  // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned short X_W                   // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
+,unsigned short Y_H                   // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ³ï¿½ï¿½ï¿½
+,unsigned long Foreground_color       // Ç°ï¿½ï¿½É«
 /*Foreground_color : The source (1bit map picture) map data 1 translate to Foreground color by color expansion*/
-,unsigned long Background_color       // ±³¾°É«
+,unsigned long Background_color       // ï¿½ï¿½ï¿½ï¿½É«
 /*Background_color : The source (1bit map picture) map data 0 translate to Background color by color expansion*/
-,const unsigned short *data           // Êý¾Ý»º´æÊ×µØÖ·
+,const unsigned short *data           // ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )
 {
 	unsigned short i,j;
@@ -2319,18 +2325,18 @@ void LT768_BTE_MCU_Write_ColorExpansion_MCU_16bit
 	Check_BTE_Busy();
 }
 
-/* ½áºÏÀ©Õ¹É«²ÊÓë Chroma key µÄ MPU Œ‘Èë */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹É«ï¿½ï¿½ï¿½ï¿½ Chroma key ï¿½ï¿½ MPU ï¿½ï¿½ï¿½ï¿½ */
 void LT768_BTE_MCU_Write_ColorExpansion_Chroma_key_MCU_16bit
 (
- unsigned long Des_Addr            // Ä¿µÄÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
-,unsigned short Des_W              // Ä¿µÄÍ¼ÏñµÄ¿í¶È
-,unsigned short XDes               // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê
-,unsigned short YDes               // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½Y×ø±ê
-,unsigned short X_W                // »î¶¯´°¿ÚµÄ¿í¶È
-,unsigned short Y_H                // »î¶¯´°¿ÚµÄ³¤¶È
-,unsigned long Foreground_color    // Ç°¾°É«
+ unsigned long Des_Addr            // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+,unsigned short Des_W              // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+,unsigned short XDes               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+,unsigned short YDes               // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+,unsigned short X_W                // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
+,unsigned short Y_H                // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ³ï¿½ï¿½ï¿½
+,unsigned long Foreground_color    // Ç°ï¿½ï¿½É«
 /*Foreground_color : The source (1bit map picture) map data 1 translate to Foreground color by color expansion*/
-,const unsigned short *data        // Êý¾Ý»º´æÊ×µØÖ·
+,const unsigned short *data        // ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½×µï¿½Ö·
 )
 {
 	unsigned short i,j;
@@ -2363,24 +2369,24 @@ void LT768_BTE_MCU_Write_ColorExpansion_Chroma_key_MCU_16bit
 	Check_BTE_Busy();
 }
 
-/* ½áºÏÍ¸Ã÷¶ÈµÄÄÚ´æ¸´ÖÆ */
+/* ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½Èµï¿½ï¿½Ú´æ¸´ï¿½ï¿½ */
 void BTE_Alpha_Blending
 (
- unsigned long S0_Addr         // SOÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
- ,unsigned short S0_W          // S0Í¼ÏñµÄ¿í¶È
- ,unsigned short XS0           // S0Í¼ÏñµÄ×óÉÏ·½X×ø±ê
- ,unsigned short YS0           // S0Í¼ÏñµÄ×óÉÏ·½Y×ø±ê
- ,unsigned long S1_Addr        // S1Í¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
- ,unsigned short S1_W          // S1Í¼ÏñµÄ¿í¶È
- ,unsigned short XS1           // S1Í¼ÏñµÄ×óÉÏ·½X×ø±ê
- ,unsigned short YS1           // S1Í¼ÏñµÄ×óÉÏ·½Y×ø±ê
- ,unsigned long Des_Addr       // Ä¿µÄÍ¼ÏñµÄÄÚ´æÆðÊ¼µØÖ·
- ,unsigned short Des_W         // Ä¿µÄÍ¼ÏñµÄ¿í¶È
- ,unsigned short XDes          // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê
- ,unsigned short YDes          // Ä¿µÄÍ¼ÏñµÄ×óÉÏ·½X×ø±ê
- ,unsigned short X_W           // »î¶¯´°¿ÚµÄ¿í¶È
- ,unsigned short Y_H           // »î¶¯´°¿ÚµÄ³¤¶È
- ,unsigned char alpha          // Í¸Ã÷¶ÈµÈ¼¶£¨32µÈ¼¶£©
+ unsigned long S0_Addr         // SOÍ¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+ ,unsigned short S0_W          // S0Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+ ,unsigned short XS0           // S0Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+ ,unsigned short YS0           // S0Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+ ,unsigned long S1_Addr        // S1Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+ ,unsigned short S1_W          // S1Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+ ,unsigned short XS1           // S1Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+ ,unsigned short YS1           // S1Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Yï¿½ï¿½ï¿½ï¿½
+ ,unsigned long Des_Addr       // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+ ,unsigned short Des_W         // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+ ,unsigned short XDes          // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+ ,unsigned short YDes          // Ä¿ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Xï¿½ï¿½ï¿½ï¿½
+ ,unsigned short X_W           // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ¿ï¿½ï¿½ï¿½
+ ,unsigned short Y_H           // ï¿½î¶¯ï¿½ï¿½ï¿½ÚµÄ³ï¿½ï¿½ï¿½
+ ,unsigned char alpha          // Í¸ï¿½ï¿½ï¿½ÈµÈ¼ï¿½ï¿½ï¿½32ï¿½È¼ï¿½ï¿½ï¿½
 )
 {	
 	BTE_S0_Color_16bpp();
@@ -2410,11 +2416,11 @@ void BTE_Alpha_Blending
 
 void LT768_PWM0_Init
 (
- unsigned char on_off                       // 0£º½ûÖ¹PWM0    1£ºÊ¹ÄÜPWM0
-,unsigned char Clock_Divided                // PWMÊ±ÖÓ·ÖÆµ  È¡Öµ·¶Î§ 0~3(1,1/2,1/4,1/8)
-,unsigned char Prescalar                    // Ê±ÖÓ·ÖÆµ     È¡Öµ·¶Î§ 1~256
-,unsigned short Count_Buffer                // ÉèÖÃPWMµÄÊä³öÖÜÆÚ
-,unsigned short Compare_Buffer              // ÉèÖÃÕ¼¿Õ±È
+ unsigned char on_off                       // 0ï¿½ï¿½ï¿½ï¿½Ö¹PWM0    1ï¿½ï¿½Ê¹ï¿½ï¿½PWM0
+,unsigned char Clock_Divided                // PWMÊ±ï¿½Ó·ï¿½Æµ  È¡Öµï¿½ï¿½Î§ 0~3(1,1/2,1/4,1/8)
+,unsigned char Prescalar                    // Ê±ï¿½Ó·ï¿½Æµ     È¡Öµï¿½ï¿½Î§ 1~256
+,unsigned short Count_Buffer                // ï¿½ï¿½ï¿½ï¿½PWMï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+,unsigned short Compare_Buffer              // ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½Õ±ï¿½
 )
 {
 	 Select_PWM0();
@@ -2442,11 +2448,11 @@ void LT768_PWM0_Duty(unsigned short Compare_Buffer)
 
 void LT768_PWM1_Init
 (
- unsigned char on_off                       // 0£º½ûÖ¹PWM0    1£ºÊ¹ÄÜPWM0
-,unsigned char Clock_Divided                // PWMÊ±ÖÓ·ÖÆµ  È¡Öµ·¶Î§ 0~3(1,1/2,1/4,1/8)
-,unsigned char Prescalar                    // Ê±ÖÓ·ÖÆµ     È¡Öµ·¶Î§ 1~256
-,unsigned short Count_Buffer                // ÉèÖÃPWMµÄÊä³öÖÜÆÚ
-,unsigned short Compare_Buffer              // ÉèÖÃÕ¼¿Õ±È
+ unsigned char on_off                       // 0ï¿½ï¿½ï¿½ï¿½Ö¹PWM0    1ï¿½ï¿½Ê¹ï¿½ï¿½PWM0
+,unsigned char Clock_Divided                // PWMÊ±ï¿½Ó·ï¿½Æµ  È¡Öµï¿½ï¿½Î§ 0~3(1,1/2,1/4,1/8)
+,unsigned char Prescalar                    // Ê±ï¿½Ó·ï¿½Æµ     È¡Öµï¿½ï¿½Î§ 1~256
+,unsigned short Count_Buffer                // ï¿½ï¿½ï¿½ï¿½PWMï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+,unsigned short Compare_Buffer              // ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½Õ±ï¿½
 )
 {
 	Select_PWM1();
@@ -2472,13 +2478,13 @@ void LT768_PWM1_Duty(unsigned short Compare_Buffer)
 
 //----------------------------------------------------------------------------------------------------------------------------------
 
-// LT768½øÈë´ýÃüÄ£Ê½
+// LT768ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 void LT768_Standby(void)
 {
 	Power_Saving_Standby_Mode();
 	Check_Power_is_Saving();
 }
-// ´Ó´ýÃüÄ£Ê½ÖÐ»½ÐÑ
+// ï¿½Ó´ï¿½ï¿½ï¿½Ä£Ê½ï¿½Ð»ï¿½ï¿½ï¿½
 void LT768_Wkup_Standby(void)
 {
 	Power_Normal_Mode();
@@ -2486,14 +2492,14 @@ void LT768_Wkup_Standby(void)
 }
 
 
-// LT768½øÈëÔÝÍ£Ä£Ê½
+// LT768ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£Ä£Ê½
 void LT768_Suspend(void)
 {
 	LT768_SDRAM_initail(10);
 	Power_Saving_Suspend_Mode();
 	Check_Power_is_Saving();
 }
-// ´ÓÔÝÍ£Ä£Ê½ÖÐ»½ÐÑ
+// ï¿½ï¿½ï¿½ï¿½Í£Ä£Ê½ï¿½Ð»ï¿½ï¿½ï¿½
 void LT768_Wkup_Suspend(void)
 {
 	Power_Normal_Mode();
@@ -2502,13 +2508,13 @@ void LT768_Wkup_Suspend(void)
 }
 
 
-// LT768½øÈëÐÝÃßÄ£Ê½
+// LT768ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 void LT768_SleepMode(void)
 {
 	Power_Saving_Sleep_Mode();
 	Check_Power_is_Saving();
 }
-// ´ÓÐÝÃßÄ£Ê½ÖÐ»½ÐÑ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½Ð»ï¿½ï¿½ï¿½
 void LT768_Wkup_Sleep(void)
 {
 	Power_Normal_Mode();

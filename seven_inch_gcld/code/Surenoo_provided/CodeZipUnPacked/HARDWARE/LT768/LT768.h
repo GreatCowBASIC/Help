@@ -3,7 +3,7 @@
 * Author          : Levetop Electronics
 * Version         : V1.0
 * Date            : 2017-8-25
-* Description     : ²Ù×÷LT768µÄ¼Ä´æÆ÷º¯Êý
+* Description     : ï¿½ï¿½ï¿½ï¿½LT768ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ****************************************************/
 
 #ifndef _LT768_h
@@ -686,7 +686,7 @@ unsigned char Read_Key_Strobe_Data_2(void);
 void Show_String(char *str);
 void Show_picture(unsigned long numbers,const unsigned short *data);
 
-void PWM0_ON(void);	  //¿ªPWM0
+void PWM0_ON(void);	  //ï¿½ï¿½PWM0
 
 void LT768_HW_Reset(void);
 void System_Check_Temp(void);
