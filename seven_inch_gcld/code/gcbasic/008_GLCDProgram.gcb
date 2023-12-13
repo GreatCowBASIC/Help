@@ -10,10 +10,8 @@
     // #define SCRIPTDEBUG                     // script debug
 
 #include <glcd.h>
-    #define GLCD_TYPE LT7686_800_600_BLUE
-    #define LT7686_800_600_BLUE          99             // to be moved to GLCD.h
-
-
+    #define GLCD_TYPE LT7686_800_480_BLUE
+    
 // Hardware setup
 
     // Setup USART used fro debugging
@@ -161,11 +159,16 @@ Sub InitPPS
             colors = Scale( Random, 0, 255, 0, 0xFFFF )
 
             Select Case Style
-                case 0: Circle ( xx, yy, rr, colors )
-                case 1: FilledCircle ( xx, yy, rr, colors )
-                case 2: Line (  xx, yy, xl, yl, colors )
-                case 3: Box (  xx, yy, xl, yl, colors )
-                case 4: FilledBox (  xx, yy, xl, yl, colors )
+                case 0: LT7686_Display_ColorBar ( TRUE )
+                    wait 1 s
+                    Style++
+                case 1: LT7686_Display_ColorBar ( FALSE )
+                    Style++
+                case 2: Circle ( xx, yy, rr, colors )
+                case 3: FilledCircle ( xx, yy, rr, colors )
+                case 4: Line (  xx, yy, xl, yl, colors )
+                case 5: Box (  xx, yy, xl, yl, colors )
+                case 6: FilledBox (  xx, yy, xl, yl, colors )
 
                 End Select
 
@@ -174,7 +177,7 @@ Sub InitPPS
                 drawcount = 0
                 Randomize TIMER0 
                 Style++
-                If Style = 5 then Style = 0
+                If Style = 7 then Style = 0
                 End If    
             drawcount++
         Loop
@@ -184,7 +187,7 @@ Sub InitPPS
 
 Sub InitGLCD_LT7686
 
-        #if GLCD_TYPE = LT7686_800_600_BLUE
+        #if GLCD_TYPE = LT7686_800_480_BLUE
 
             Dim LT7686status as Bit 
 
@@ -340,6 +343,24 @@ Sub InitGLCD_LT7686
             
     end sub
 
+Sub LT7686_Display_ColorBar ( in LT7686_Display_ColorBar_State as Byte )
+
+        // This method destroys the state of LT7686_Display_ColorBar_State to save a byte of RAM.
+
+        LT7686_WriteCMD( LT7686_REG_DPCR ) 
+        
+        If LT7686_Display_ColorBar_State = True Then
+            LT7686_Display_ColorBar_State = LT7686_DataRead()
+            LT7686_Display_ColorBar_State = LT7686_Display_ColorBar_State OR LT7686_SETB5
+        Else
+            LT7686_Display_ColorBar_State = LT7686_DataRead()
+            LT7686_Display_ColorBar_State = LT7686_Display_ColorBar_State AND LT7686_CLRB5
+        End If
+        LT7686_WriteCMD( LT7686_REG_DPCR )
+        LT7686_WriteData( LT7686_Display_ColorBar_State )      
+
+    End Sub
+
 Sub GLCDCLS_LT7686( Optional In  GLCDbackground as Long = GLCDbackground )
 
         Dim Linecolour as Word
@@ -401,6 +422,30 @@ Sub Box_LT7686(In LineX1 as word, In LineY1 as word, In LineX2 as word, In LineY
     End Sub
 
     // Mandates LineX1 as word, In LineY1 as word, In LineX2 as word, In LineY2 as word
+Macro CreateBoxdEV
+
+    LT7686_WriteCMD(0x68)
+    
+    // Continuous data write
+    LT7686_WriteCMD(0x04)
+    // CS low once for this transaction
+    LT7686_CS = 0
+        LT7686_WriteData_Continous(0x80)
+        LT7686_WriteData_Continous(LineX1)
+        LT7686_WriteData_Continous(LineX1_H)
+        LT7686_WriteData_Continous(LineY1)
+        LT7686_WriteData_Continous(LineY1_H)
+        LT7686_WriteData_Continous(LineX2)
+        LT7686_WriteData_Continous(LineX2_H)
+        LT7686_WriteData_Continous(LineY2)
+        LT7686_WriteData_Continous(LineY2_H)
+    LT7686_CS = 1
+    LT7686_Check_Busy_Draw
+    wait 10 ms
+    // 	Check_Mem_WR_FIFO_not_Full();
+	// Check_Mem_WR_FIFO_Empty();
+    End Macro
+
 Macro CreateBox
 
     LT7686_WriteCMD(0x68)
@@ -428,7 +473,6 @@ Macro CreateBox
     LT7686_WriteData(LineY2_H)
 
     End Macro
-
 Sub LINE_LT7686(In LineX1 as word, In LineY1 as word, In LineX2 as word, In LineY2 as word, Optional In LineColour as word = GLCDForeground)
 	
 	LT7686_WriteCMD(0x68)
@@ -737,6 +781,32 @@ Sub LT7686_WriteData( IN __outbyte as Byte )
         #endif
         LT7686_CS = 1
     End Sub
+
+Sub LT7686_WriteData_Continous( IN __outbyte as Byte )
+
+        #ifdef HARDWARESPI
+            // Send via Hardware SPI
+            FastHWSPITransfer( __outbyte)
+        #else
+
+            dim __LT7686_outbuffer as Byte
+            __LT7686_outbuffer = __outbyte            
+            repeat 8
+                if __LT7686_outbuffer.7 = ON  then
+                set LT7686_DO ON
+                else
+                set LT7686_DO OFF
+                end if
+                SET LT7686_SCK STATE1
+                Wait LT7686_STATE1_DELAY us
+                rotate __LT7686_outbuffer left
+                SET LT7686_SCK STATE2
+                Wait LT7686_STATE2_DELAY us
+            end repeat
+        #endif
+
+    End Sub
+
 
 Function LT7686_DataRead
 
@@ -1139,50 +1209,8 @@ Table LT7686_InitTFT_Dataset
     #define LT7686_WRITE_REGISTER_MEM       0x80
     #define LT7686_STATUS_WRITE_REGISTER    0xC0
     
+    #define LT7686_SETB5              0b00100000
+    #define LT7686_CLRB5              0b11011111
 
 
-#script
-    // script code for LT7686 library
-
-    If GLCD_TYPE = LT7686_800_600_BLUE Then
-        //  #include <GLCD_LT7686.h>
-        InitGLCD = InitGLCD_LT7686
-        GLCDCLS = GLCDCLS_LT7686
-        FilledBox = FilledBox_LT7686
-        Box = Box_LT7686
-        If DEF(PICAS) Then
-            _Line = LINE_LT7686
-        End If
-        If NODEF(PICAS) Then
-            Line = LINE_LT7686
-        End if
-        Circle = Circle_LT7686
-        FilledCircle = FilledCircle_LT7686
-
-        GLCDDrawChar = GLCDDrawChar_LT7686
-        GLCDDrawString = GLCDDrawString_LT7686
-
-        Pset = Pset_LT7686
-        GLCDRotate = GLCDRotate_LT7686
-        glcd_type_string = "LT7686"
-        GLCD_WIDTH = 800
-        GLCD_HEIGHT = 600
-        LT7686_GLCD_HEIGHT = GLCDDeviceHeight
-        LT7686_GLCD_WIDTH = GLCDDeviceWidth
-
-        IF NODEF(LT7686_STATE1_DELAY) THEN
-            LT7686_STATE1_DELAY = 0
-        END IF
-        IF NODEF(LT7686_STATE2_DELAY) THEN
-            LT7686_STATE2_DELAY = 0
-        END IF
-        SCRIPT_SDRAM_ITV = INT(((64000000 / 8192) / (1000 / LT7686_DRAM_FREQ))-2)
-        SCRIPT_SDRAM_ITV_H = INT(INT(((64000000 / 8192) / (1000 / LT7686_DRAM_FREQ))-2) / 256)
-        SCRIPT_SDRAM_ITV_L = (INT(((64000000 / 8192) / (1000 / LT7686_DRAM_FREQ))-2) AND 255)
-        IF DEF(SCRIPTDEBUG) THEN
-            warning SCRIPT_SDRAM_ITV
-        END IF
-    END IF
-
-    #endscript
 
