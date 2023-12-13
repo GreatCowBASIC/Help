@@ -44,7 +44,7 @@ In addition to enhancing the display efficiency, LT768x can also ease the MCU lo
 The LT768x supports 16bit RGB interface.&#160;&#160;
 
 LT768x supports a variety of MCU interface, including SPI, I2C serial port,
-and 8-bit/16-bit parallel interface.&#160;&#160;The GCBASIC library supports SPI only, this is a constraint of the GLCD implementation.&#160;&#160;
+and 8-bit/16-bit parallel interface.&#160;&#160;The GCBASIC library will support SPI , as this is a constraint of the GLCD hardware implementation.&#160;&#160;
 In order to achieve multi-layers high-resolution display effect, it has a built-in 128Mb Display RAM, which can support assorted color depths from 1bit per pixel (2 gray shades) to
 24bits per pixel (16M color), and alleviate the processing burden on MCU while displaying animation.&#160;&#160;
 With built-in geometric drawing engine, LT768X supports drawing points, lines, curves, ellipse, triangle, rectangle, rounded rectangle, and other functions.
@@ -134,7 +134,7 @@ LT7686 & GT5426 library
 |800x480
 185.00×105.00 
 x7.98 mm	
-|3 Wire SPI	
+|4 Wire SPI	
 |BLUE	
 |SSP0700A1CTP-800480	
 |https://www.aliexpress.com/item/32978278905.html[Aliexpress URL]
@@ -148,7 +148,7 @@ LT7686 & GT5426 library
 |1024x600
 185.00×105.00
 ×7.98 mm	
-|3 Wire SPI	
+|4 Wire SPI	
 |BLUE	
 |SSP0700A2CTP-1024600	
 |https://www.aliexpress.com/item/32978278905.html[Aliexpress URL]
@@ -162,7 +162,7 @@ LT7686 & GT911 library
 |1024x600
 164.90×100.00
 ×7.98 mm	
-|4 Wire SPI	
+|3 or 4 Wire SPI	
 |BLACK	
 |SSP0700B-CTP-IPS	
 |https://www.aliexpress.com/item/3256805709535490.html[Aliexpress URL]
@@ -176,7 +176,7 @@ LT7686 library
 |1024x600
 164.90×100.00
 ×5.98 mm	
-|4 Wire SPI	
+|3 or 4 Wire SPI
 |BLACK	
 |SSP0700B-NTP-IPS	
 |https://www.aliexpress.com/item/3256805709535490.html[Aliexpress URL]
@@ -190,7 +190,7 @@ LT7686 & GT911 library
 |1024x600
 178.80×110.72
 ×7.98 mm	
-|4 Wire SPI	
+|3 or 4 Wire SPI
 |BLACK	
 |SSP0700B-LTP-IPS	
 |https://www.aliexpress.com/item/3256805709535490.html[Aliexpress URL]
@@ -204,7 +204,7 @@ LT7686 library. Touch not supported - no library exists.
 |1024x600
 164.90×100.00
 ×7.98 mm
-|4 Wire SPI	
+|3 or 4 Wire SPI
 |BLACK	
 |SSP0700B-RTP-IPS	
 |https://www.aliexpress.com/item/3256805709535490.html[Aliexpress URL]
@@ -239,8 +239,8 @@ The ribbon cable is different on each resolution.&#160;&#160;These photographs w
 | image::Unit2.png[display,80%,align="center"] 
 | image::Unit3.png[display,80%,align="center"] 
 
-|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3 wire SPI only
-|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3 wire SPI only
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;4 wire SPI only
+|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;4 wire SPI only
 |&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;3 or 4 wire SPI
 
 |===
@@ -251,7 +251,7 @@ The ribbon cable is different on each resolution.&#160;&#160;These photographs w
 == Connecting the GLCD 
 
 
-The GLCD comes with a 20 way ribbon cable.&#160;&#160;This should be connected to the 3-wire SPI Interface connector ( 20P/0.5MM ).
+The GLCD comes with a 20 way ribbon cable.&#160;&#160;This should be connected to the SPI Interface connector ( 20P/0.5MM ).
 
 .Surunoo PCB
 
@@ -322,6 +322,8 @@ The diagram below shows the basic connection to with the microcontroller operati
     
 ----
 
+_Voltage Level Translator_
+
 The diagram below shows the basic connection when using a voltage level translator.
 
 ----
@@ -349,6 +351,19 @@ The advised method to connect as follows:
 image::20wayConnectorPinout.png[display,75%,align="center"]  
 {empty} +
 {empty} +
+
+
+_3 Wire  SPI Circuit_
+
+When using a GLCD with 3 Wire Serial SPI interface the following circuit can be used to provide an interface betwen the GLCD and the microcontroller.&#160;&#160;Ensure suitable resitor is used and the connectivity is tested.
+
+
+.3 Wire  SPI Circuit
+[#img-3lineSPI,image=3LineSPICircuit.png] 
+image::3LineSPICircuit.png[display,50%,align="center"]  
+{empty} +
+{empty} +
+
 
 == Initial 'Power on' of GLCD 
 
@@ -444,14 +459,14 @@ The first clock signal falling can be used to prepare the data transmission.&#16
 |CPOL=1, CPHA=1
 |===
 {empty} +
-The GLCD implementation of W25Q256JV requires a specific SPI Mode.&#160;&#160;The SPI mode is critical to update the EEPROM.&#160;&#160;The EEPROM has a shared data and clock lines with the GLCD IC.&#160;&#160;Therefore, the SPI mode used by GCBASIC needs to match the GLCD IC SPI mode.
+The GLCD implementation of W25Q256JV requires a specific SPI Mode.&#160;&#160;The SPI mode is critical to update the Flash Memory.&#160;&#160;The Flash Memory has a shared data and clock lines with the GLCD IC.&#160;&#160;Therefore, the SPI mode used by GCBASIC needs to match the GLCD IC SPI mode.
 
 
-*GCBASIC program for EEPROM writing*
+*GCBASIC program for Flash Memory writing*
 
 Setup the program source, and, program the microcontroller.
 
-Note:: To program the EEPROM the GLCD must have the LCD_RST connection on the EEPROM connector to 0v0.&#160;&#160;**This is critical**.
+Note:: To program the Flash Memory the GLCD must have the LCD_RST connection on the Flash Memory connector to 0v0.&#160;&#160;**This is critical**.
 
 ----
 
