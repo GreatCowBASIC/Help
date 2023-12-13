@@ -1,0 +1,123 @@
+// Prototype GLCD library
+#chip 18F27Q84, 64
+#option Explicit
+
+// Development configuration options
+    // #define SERIALDEBUG                     // serial debug, requires HW USART
+
+#include <glcd.h>
+    #define GLCD_TYPE LT7686_800_480_BLUE
+    
+// Hardware setup
+
+    // Setup USART used fro debugging
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF
+
+    // PIC PPS Tool version: 0.0.6.5
+    
+    #startup InitPPS, 85
+    #define PPSToolPart 18F27Q84
+
+    Sub InitPPS
+            
+            // Module: UART pin directions
+            Dir PORTC.6 Out    ' Make TX1 pin an output
+            // Module: UART1
+            RC6PPS = 0x0020    // TX1 > RC6
+        
+        End Sub
+    // Add this code segment to your GCBASIC source program
+
+// Pin mappings for  SPI
+    #define LT7686_DO          portb.0
+    #define LT7686_DI          portc.4
+    #define LT7686_SCK         portc.3
+    #define LT7686_CS          porta.3
+    #define LT7686_RST         portb.5
+    // end of hardware setup
+
+
+// Main program 
+    /*
+        #include "gcbversionnumber.cnt"
+            'Include the GCBVersionNumber.cnt to increment versionString and create the build time string called GCBBuildTimeStr.
+            ' versionString a string is created automatically.
+            ' GCBBuildTimeStr is a string that is also created automatically.
+            ' use "GCBVersionNumber.cnt" as this will create a local copy of the versionString tracker.
+            ' if you use <GCBVersionNumber.cnt> this is a system wide versionString tracker.
+
+
+            dim versionString as string * 40
+            versionString = "Build "+GCBBuildStr
+            versionString = versionString + " @ "+GCBBuildTimeStr
+
+            HSerPrintCRLF
+            HSerPrintStringCRLF "LT7686 Library Development " + versionString
+            HSerPrint "Proceeding with GLCDCLS()": HSerPrintCRLF
+
+                #ifdef SERIALDEBUG
+                    HserPrint "LT7686_REG_STSR status register 0b" + bytetobin(LT7686_StatusReadResult): HSerPrintCRLF
+                    HserPrint "    see datasheet 19.1": HSerPrintCRLF
+        
+                    // Dump registers to show end state of registers
+                    HserPrintCRLF
+                    dim xloop as Byte
+                    for xloop = 1 to 0xff
+
+                        LT7686_WriteCMD( xloop )
+                        hserprint hex(xloop)
+                        hserprint ":"
+                        HserPrint hex(LT7686_DataRead)
+                        LT7686_Check_Busy_Draw
+                        HserPrintCRLF
+                    next
+                #endif
+    */        
+        GLCDCLS  ( TFT_RED )
+        WAIT 1 s
+
+        Dim style, colors, drawcount, xx,yy,xl,yl, rr as Word
+        drawcount = 0
+
+        style = 0
+        Do
+            // generate XY random positions
+                xx = Scale( Random, 0, 255, 0, GLCDDeviceWidth - 1 )
+                xl = Scale( Random, 0, 255, 0, GLCDDeviceWidth - 1 - xx )
+                xl = xx + xl
+                yy = Scale( Random, 0, 255, 0, GLCDDeviceHeight - 1 )
+                yl = Scale( Random, 0, 255, 0, GLCDDeviceHeight - 1 - yy )
+                yl = yy + yl
+
+                rr = Scale( Random, 0, 255, 0, 20 )
+            
+            colors = Scale( Random, 0, 255, 0, 0xFFFF )
+
+            Select Case Style
+                case 0: LT7686_Display_ColorBar ( TRUE )
+                    wait 1 s
+                    Style++
+                case 1: LT7686_Display_ColorBar ( FALSE )
+                    Style++
+                case 2: Circle ( xx, yy, rr, colors )
+                case 3: FilledCircle ( xx, yy, rr, colors )
+                case 4: Line (  xx, yy, xl, yl, colors )
+                case 5: Box (  xx, yy, xl, yl, colors )
+                case 6: FilledBox (  xx, yy, xl, yl, colors )
+
+                End Select
+
+            If drawcount = 1024 Then 
+                GLCDCLS
+                drawcount = 0
+                Randomize TIMER0 
+                Style++
+                If Style = 7 then Style = 0
+                End If    
+            drawcount++
+        Loop
+    End
+
+
