@@ -1,5 +1,5 @@
 = GCBASIC documentation
-The GCBASIC development team @ 2023
+The GCBASIC development team @ 2024
 
 
 
@@ -49,20 +49,22 @@ In order to achieve multi-layers high-resolution display effect, it has a built-
 24bits per pixel (16M color), and alleviate the processing burden on MCU while displaying animation.&#160;&#160;
 With built-in geometric drawing engine, LT768X supports drawing points, lines, curves, ellipse, triangle, rectangle, rounded rectangle, and other functions.
 
-&#160;&#160;In addition, LT768x has an embedded hardware graphics acceleration
+In addition, LT768x has an embedded hardware graphics acceleration
 engine (BTE), which provides command-type graphic operations such as screen rotation, flipping, mirroring, PIP and graphics blending, and transparent display. These functions can greatly enhance the display performance, and ease the processing burden on the MCU.  
 
 The powerful display performance of LT768x is ideal for embedded systems with TFT-LCD displays such as home appliances, industrial controls, electronic instruments,
 medical devices, human-machine interfaces, industrial equipment, inspection equipment, charging stations, multi-function machines, elevator, check-in gate, etc.
 
+The official Levetop YouTube site is https://www.youtube.com/channel/UC-ieq6xtBdsOVwB00ysNHjQ
 
+The GLCD has a shape drawing engine to provide smart drawing features:  Line, Rectangle, Triangle, Polygon, Poly-Line, Circle, Ellipse, Arc, and Rounded-Rectangle.&#160;&#160; 
+Characters/text features  embedded 8*16, 12*24, 16*32 character sets of iso/iec 8859-1/2/4/5  user-defined characters support half size & full size for 8*16, 12*24 and 16*32.&#160;&#160;
 The GLCD operating voltage (VCC) is 5v0 with microcontroller signals at 3v3.
 
-The GLCD has a shape drawing engine to provide smart drawing features:  Line, Rectangle, Triangle, Polygon, Poly-Line, Circle, Ellipse, Arc, and Rounded-Rectangle. 
-Characters/text features  embedded 8*16, 12*24, 16*32 character sets of iso/iec 8859-1/2/4/5  user-defined characters support half size & full size for 8*16, 12*24 and 16*32
 
 
 This GLCD library has many features similar to the Nextion GLCD.  However, GCBASIC has to control more of the display events and pixel controller.  
+
 
 //image::7inchdisplay.png[graphic,align="center"]
 

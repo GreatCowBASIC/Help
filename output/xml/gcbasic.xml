@@ -163,8 +163,8 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2023-11-26<?asciidoc-br?>
-06:39:34 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2023-12-28<?asciidoc-br?>
+10:57:47 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
@@ -33675,7 +33675,10 @@ A subroutine uses a temporary variable of type byte, and relies on it overflowin
 
 
     <emphasis role="strong"><emphasis>For Arrays:</emphasis></emphasis>
-    Dim <emphasis>array</emphasis>(<emphasis>size</emphasis>) [As <emphasis>type</emphasis>] [At <emphasis>location</emphasis>]</screen>
+    Dim <emphasis>array</emphasis>(<emphasis>size</emphasis>) [As <emphasis>type</emphasis>] [At <emphasis>location</emphasis>]
+
+    <emphasis role="strong"><emphasis>For String:</emphasis></emphasis>
+    Dim <emphasis>string [* _size</emphasis>] [At <emphasis>location</emphasis>]</screen>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara>Dim has two uses:&#160;&#160;It can be used to define 1) variables of many types and 2) arrays.</simpara>
 <simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
@@ -33687,6 +33690,9 @@ A subroutine uses a temporary variable of type byte, and relies on it overflowin
 <simpara>When multiple variables are included on the one line, GCBASIC will set them all to the type that is specified at the end of the line. If there is no type specified, then GCBASIC will make the variable a byte.</simpara>
 <simpara><literal>Alias</literal> creates a variable using the same memory location as one or more other variables. &#160;&#160;It is mainly used internally in GCBASIC to treat system variables as a word.&#160;&#160; For example, this command is used to create a word variable, made up from the two memory locations used to store the result of an A/D conversion.&#160;&#160;`Alias` is mutually exclusive to <literal>At</literal> and therefore <literal>Alias</literal> and <literal>At</literal> on the same declaration line will cause an compiler error.</simpara>
 <simpara><literal>AT</literal> a variable can be placed at a specific location in the data memory of the chip using the At option. &#160;&#160;`<emphasis>location</emphasis>` will be used whether it is a valid location or not, but a warning will be generated if GCBASIC has already allocated the memory, or if the memory does not appear to be valid. &#160;&#160;This can be used for peripherals that have multi byte buffers in RAM.&#160;&#160;`At` is mutually exclusive to <literal>Alias</literal> and therefore <literal>At</literal> and <literal>Alias</literal> on the same declaration line will cause an compiler error.</simpara>
+<simpara>A String declared with a fixed size (numeric constant that can be evaluated at compile time) is a fixed length string. It has no descriptor and it is not resized to fit its contents. If data overflows the size of the string, the memory may be overwrtten.
+Fixed length strings are not NULL terminated, and they use size + 1 bytes of space.
+String variable names need not end in a dollar sign $ as in other dialects of BASIC.</simpara>
 <screen>    Dim ADResult As Word Alias ADRESH, ADRESL</screen>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <screen>    'This program will set up a array of ten bytes and a word variable

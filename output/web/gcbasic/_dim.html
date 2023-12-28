@@ -16,7 +16,7 @@
       <link rel="next" href="_alloc.html" title="Alloc" />
       <meta name="Section-title" content="Dim" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53688";
+            var treeCookieId = "treeview-53700";
             var language = "en";
             var w = new Object();
             //Localization
@@ -193,7 +193,10 @@ border: none; background: none; font-weight: none; color: none; }
 
 
     <span class="strong"><strong><span class="emphasis"><em>For Arrays:</em></span></strong></span>
-    Dim <span class="emphasis"><em>array</em></span>(<span class="emphasis"><em>size</em></span>) [As <span class="emphasis"><em>type</em></span>] [At <span class="emphasis"><em>location</em></span>]</pre><p><span class="strong"><strong>Explanation:</strong></span></p>
+    Dim <span class="emphasis"><em>array</em></span>(<span class="emphasis"><em>size</em></span>) [As <span class="emphasis"><em>type</em></span>] [At <span class="emphasis"><em>location</em></span>]
+
+    <span class="strong"><strong><span class="emphasis"><em>For String:</em></span></strong></span>
+    Dim <span class="emphasis"><em>string [* _size</em></span>] [At <span class="emphasis"><em>location</em></span>]</pre><p><span class="strong"><strong>Explanation:</strong></span></p>
             <p>Dim has two uses:  It can be used to define 1) variables of many types and 2) arrays.</p>
             <p><span class="strong"><strong>Command Availability:</strong></span></p>
             <p>Available on all microcontrollers.</p>
@@ -217,6 +220,11 @@ border: none; background: none; font-weight: none; color: none; }
             <p><code class="literal">AT</code> a variable can be placed at a specific location in the data memory of the chip using the At option.   `<span class="emphasis"><em>location</em></span>` will be used whether it is a valid location or not, but a warning will be generated if GCBASIC has already allocated the
                memory, or if the memory does not appear to be valid.   This can be used for peripherals that have multi byte buffers in RAM.  `At`
                is mutually exclusive to <code class="literal">Alias</code> and therefore <code class="literal">At</code> and <code class="literal">Alias</code> on the same declaration line will cause an compiler error.
+            </p>
+            <p>A String declared with a fixed size (numeric constant that can be evaluated at compile time) is a fixed length string. It
+               has no descriptor and it is not resized to fit its contents. If data overflows the size of the string, the memory may be overwrtten.
+               Fixed length strings are not NULL terminated, and they use size + 1 bytes of space.
+               String variable names need not end in a dollar sign $ as in other dialects of BASIC.
             </p><pre class="screen">    Dim ADResult As Word Alias ADRESH, ADRESL</pre><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'This program will set up a array of ten bytes and a word variable
 
     dim DataList(10)

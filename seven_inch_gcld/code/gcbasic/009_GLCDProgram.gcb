@@ -1,47 +1,9 @@
-// Prototype GLCD library
-#chip 18F27Q84, 64
+
+// This is a support program for the LT7686
+#IGNORECOMPILATION
+#define DRAWCOUNTMAX 250
 #option Explicit
-
-// Development configuration options
-    // #define SERIALDEBUG                     // serial debug, requires HW USART
-
-#include <glcd.h>
-    #define GLCD_TYPE LT7686_800_480_BLUE
-    
-// Hardware setup
-
-    // Setup USART used fro debugging
-    #define USART_BAUD_RATE 9600
-    #define USART_TX_BLOCKING
-    #define USART_DELAY OFF
-
-    // PIC PPS Tool version: 0.0.6.5
-    
-    #startup InitPPS, 85
-    #define PPSToolPart 18F27Q84
-
-    Sub InitPPS
-            
-            // Module: UART pin directions
-            Dir PORTC.6 Out    ' Make TX1 pin an output
-            // Module: UART1
-            RC6PPS = 0x0020    // TX1 > RC6
-        
-        End Sub
-    // Add this code segment to your GCBASIC source program
-
-// Pin mappings for  SPI
-    #define LT7686_DO          portb.0
-    #define LT7686_DI          portc.4
-    #define LT7686_SCK         portc.3
-    #define LT7686_CS          porta.3
-    #define LT7686_RST         portb.5
-    // end of hardware setup
-
-
-// Main program 
-    /*
-        #include "gcbversionnumber.cnt"
+        // #include "gcbversionnumber.cnt"  // has to be included in the main program.
             'Include the GCBVersionNumber.cnt to increment versionString and create the build time string called GCBBuildTimeStr.
             ' versionString a string is created automatically.
             ' GCBBuildTimeStr is a string that is also created automatically.
@@ -53,70 +15,335 @@
             versionString = "Build "+GCBBuildStr
             versionString = versionString + " @ "+GCBBuildTimeStr
 
-            HSerPrintCRLF
-            HSerPrintStringCRLF "LT7686 Library Development " + versionString
-            HSerPrint "Proceeding with GLCDCLS()": HSerPrintCRLF
-
                 #ifdef SERIALDEBUG
+                    HSerPrintCRLF
+                    HSerPrintStringCRLF "LT7686 Library Development " + versionString
+                    HSerPrint "Proceeding with GLCD operations": HSerPrintCRLF
+            
+                
                     HserPrint "LT7686_REG_STSR status register 0b" + bytetobin(LT7686_StatusReadResult): HSerPrintCRLF
-                    HserPrint "    see datasheet 19.1": HSerPrintCRLF
-        
+                    HserPrint "    see datasheet 19.1": HSerPrintCRLF 2
+
+                    HSerPrintStringCRLF "LT7686_initverifycounter ( should not be a big number!) " + str(LT7686_initverifycounter): HSerPrintCRLF
+
+                    HSerPrint "SLRCONA = 0x"+hex(SLRCONA): HSerPrint ". SLRCONB = 0x"+hex(SLRCONB): HSerPrint ". SLRCONC = 0x"+hex(SLRCONC) : HSerPrintCRLF 2
+
                     // Dump registers to show end state of registers
                     HserPrintCRLF
-                    dim xloop as Byte
-                    for xloop = 1 to 0xff
+                    dim xxloop,verify, regval, validreg as Byte
+                    dim tablepointer, tablelength, yy1oop as Word
+                    for xxloop = 1 to 0xff
 
-                        LT7686_WriteCMD( xloop )
-                        hserprint hex(xloop)
-                        hserprint ":"
-                        HserPrint hex(LT7686_DataRead)
-                        LT7686_Check_Busy_Draw
+                        ' get data from table
+                        tablepointer = 0
+                        validreg = 0
+                        readtable LT7686_InitTFT_Dataset_800_480, 0, tablelength
+
+                        for yy1oop = 3 to tablelength step 4
+                            readtable LT7686_InitTFT_Dataset_800_480, yy1oop, verify
+                            // hserprint hex(verify) 
+                            // hserprint ", "
+                            if verify = xxloop then 
+                                readtable LT7686_InitTFT_Dataset_800_480, yy1oop+2, verify
+                                validreg = 1
+                                exit for
+                            End if
+                        next
+
+                        HserPrint "Reg [0x"
+                        LT7686_WriteCMD( xxloop )
+                        hserprint hex(xxloop)
+                        hserprint "] :0x"
+                        regval = LT7686_DataRead()
+                        HserPrint hex(regval)
+                        if regval <> verify  and validreg = 1 then 
+                            Select Case xxloop
+                                Case 0x12
+                                    HserPrint "      Initial setting was "
+                                    HserPrint "0x" + hex(verify)
+                                Case 0x6C to 0x6F
+                                    HserPrint "      GLCD graphic commands overwrite  "
+                                    HserPrint "0x" + hex(verify)
+                                Case 0x8A
+                                    HserPrint "      Timer 0 running value  "
+                                    HserPrint "0x" + hex(verify)
+                                Case 0x8E
+                                    HserPrint "      Timer 1 running value  "
+                                    HserPrint "0x" + hex(verify)
+                                Case 0xAA
+                                    HserPrint "      Reg not initialised OK"
+                                Case Else
+                                    HserPrint " ERROR! should read "
+                                    HserPrint "0x" + hex(verify)
+
+                            End Select
+                        else if validreg = 1 Then
+                            HserPrint "      Verified 0x"
+                            HserPrint hex(verify)
+                        end if
+                        if validreg = 0 then  HserPrint "      Reg not initialised OK"
+                        
                         HserPrintCRLF
                     next
                 #endif
-    */        
-        GLCDCLS  ( TFT_RED )
-        WAIT 1 s
 
-        Dim style, colors, drawcount, xx,yy,xl,yl, rr as Word
+        Dim GLCD_info as String * 7
+        
+
+        style = 25
+
+        GLCD_info = Str(GLCDDeviceWidth) +"x"
+        GLCD_info += Str(GLCDDeviceHeight)
+
+
+        GLCDSelect_Internal_Font_Init( 16 )
+        GLCDPrint_Internal_Font( 0, 0,  "LeveTop LT768", TFT_WHITE )
+        GLCDPrint_Internal_Font( 0, 16, GLCD_info, TFT_YELLOW )
+
+        GLCDSelect_Internal_Font_Init( 32, 4, 4 )
+        GLCDPrint_Internal_Font( 200, 200,  "GCBASIC", TFT_WHITE )
+        GLCDSelect_Internal_Font_Init()
+        
+        #ifdef LT7686_HARDWARESPI
+            GLCDPrint_Internal_Font( 200, 340,  "Hardware SPI", TFT_WHITE )
+        #else
+            GLCDPrint_Internal_Font( 200, 340,  "Software SPI", TFT_WHITE )
+        #endif
+        GLCDPrint_Internal_Font( 200, 360,  CHIPNAMESTR , TFT_WHITE )
+        GLCDPrint_Internal_Font( 200, 380,  "Chipfamily " + str( CHIPSUBFAMILY ) , TFT_WHITE )
+        
+
+        If style = 0 Then
+            // Now legacy GLCD command
+            GLCDPrint 632, 0, "GCBASIC 2023", TFT_YELLOW
+            WAIT 5 s
+        Else
+            WAIT 1 s
+        End If
+        GLCDCLS
+
+        Dim style, colors, drawcount, xx,yy,zz,xx1,yy1,xx3,yy3,xx4,yy4,zl,rr,rr2 as Word
+        Dim xxloop, firstrun as Byte
         drawcount = 0
 
-        style = 0
+        
+
         Do
             // generate XY random positions
+            if style < 15 then 
                 xx = Scale( Random, 0, 255, 0, GLCDDeviceWidth - 1 )
-                xl = Scale( Random, 0, 255, 0, GLCDDeviceWidth - 1 - xx )
-                xl = xx + xl
+                xx1 = Scale( Random, 0, 255, 0, GLCDDeviceWidth - 1 - xx )
+                xx1 = xx + xx1
                 yy = Scale( Random, 0, 255, 0, GLCDDeviceHeight - 1 )
-                yl = Scale( Random, 0, 255, 0, GLCDDeviceHeight - 1 - yy )
-                yl = yy + yl
+                yy1 = Scale( Random, 0, 255, 0, GLCDDeviceHeight - 1 - yy )
+                yy1 = yy + yy1
 
-                rr = Scale( Random, 0, 255, 0, 20 )
-            
+
+                xx3 = Scale( Random, 0, 255, 0, GLCDDeviceWidth - 1 )
+                xx4 = Scale( Random, 0, 255, 0, GLCDDeviceWidth - 1 - xx3 )
+                xx4 = xx3 + xx4
+                yy3 = Scale( Random, 0, 255, 0, GLCDDeviceHeight - 1 )
+                yy4 = Scale( Random, 0, 255, 0, GLCDDeviceHeight - 1 - yy3 )
+                yy4 = yy3 + yy4
+
+
+                zz = Scale( Random, 0, 255, 0, GLCDDeviceHeight - 1 )
+                zl = Scale( Random, 0, 255, 0, GLCDDeviceHeight - 1 - zz )
+                zl = yy + zl
+
+                rr = Scale( Random, 0, 255, 1, 20 )
+                rr2 = Scale( Random, 0, 255, 1, 20 )
+            else
+                // ensure curves are within screen extents
+                rr = Scale( Random, 0, 255, 1, 100 )
+                rr2 = Scale( Random, 0, 255, 1, 100 )
+                xx = Scale( Random, 0, 255, rr, GLCDDeviceWidth - rr )
+                yy = Scale( Random, 0, 255, rr2, GLCDDeviceHeight - rr2 )
+            End if
+
             colors = Scale( Random, 0, 255, 0, 0xFFFF )
 
-            Select Case Style
+            Select Case style
                 case 0: LT7686_Display_ColorBar ( TRUE )
-                    wait 1 s
-                    Style++
+                    wait 5 s
+                    style++
                 case 1: LT7686_Display_ColorBar ( FALSE )
-                    Style++
-                case 2: Circle ( xx, yy, rr, colors )
+                    style++
+                    GLCDCLS
+                case 2: 
+                    If firstrun = TRUE Then 
+                        GLCDPrint_Internal_Font( 0, 0, "Circle", TFT_WHITE )
+                        firstrun = FALSE
+                    else
+                        Circle ( xx, yy, rr, colors )
+                    End if
                 case 3: FilledCircle ( xx, yy, rr, colors )
-                case 4: Line (  xx, yy, xl, yl, colors )
-                case 5: Box (  xx, yy, xl, yl, colors )
-                case 6: FilledBox (  xx, yy, xl, yl, colors )
+                case 4: Line (  xx, yy, xx1, yy1, colors )
+                case 5: Box (  xx, yy, xx1, yy1, colors )
+                case 6: FilledBox (  xx, yy, xx1, yy1, colors )
+                case 7: Ellipse (  xx, yy, random / 2, random / 2 , colors )
+                case 8: FilledEllipse (  xx, yy, random / 2 , random / 2 , colors )
+                case 9: RoundRect (  xx, yy, xx1, yy1, rr, rr, colors )
+                case 10: FilledRoundRect (  xx, yy, xx1, yy1, rr, rr, colors )
+                case 11: 
+                    If firstrun = TRUE Then 
+                            GLCDPrint_Internal_Font( 0, 0, "TRIANGLE", TFT_WHITE )
+                            firstrun = FALSE
+                    else
+                        Triangle (  xx, yy, xx1, yy1, zz, zl, colors )
+                    End if
+                case 12: 
+                    If firstrun = TRUE Then 
+                            GLCDPrint_Internal_Font( 0, 0, "FILLEDTRIANGLE", TFT_WHITE )
+                            firstrun = FALSE
+                    else
+                        FilledTriangle (  xx, yy, xx1, yy1, zz, zl, colors )
+                    End if
 
+
+
+                case 13:  // for PWM testing
+                    If firstrun = TRUE Then 
+                            GLCDPrint_Internal_Font( 0, 0, "PWM Testing", TFT_WHITE )
+                            firstrun = FALSE
+                    else
+                            FilledBox (  xx, yy, xx1, yy1, colors )
+                            For xxloop = 0 to 255
+                                LT7686_PWM_DUTY ( SCALE( xxloop, 0, 255, 1, LT7686_PWM_PRESCALER_MAX ) )
+                                wait 25 ms
+                            next
+                            // exit from doing this lots of time
+                            drawcount = DRAWCOUNTMAX
+                    End If
+                Case 14:
+                    If firstrun = TRUE Then 
+                            GLCDPrint_Internal_Font( 0, 0, "Draw Cylinder", TFT_WHITE )
+                            firstrun = FALSE
+                    else
+                        Repeat 4
+                            for yy = 0 to 150 step 5
+                                Cylinder (200, 300, 50, 5, 150, GLCDbackground, GLCDbackground )    
+                                Cylinder (200, 300, 50, 5, yy, TFT_RED, TFT_BLUE )
+                                wait 25 ms
+                            Next 
+                            for yy = 149 to 0 step -5
+                                Cylinder (200, 300, 50, 5, 150, GLCDbackground, GLCDbackground )    
+                                Cylinder (200, 300, 50, 5, yy, TFT_RED, TFT_BLUE )    
+                                wait 25 ms
+                            Next 
+                        End Repeat
+                        // exit from doing this lots of time
+                        drawcount = DRAWCOUNTMAX
+                    End if
+                Case 15: 
+                        LeftUpCurve(  xx, yy, rr, rr2, colors )
+                Case 16: 
+                        LeftDownCurve(  xx, yy, rr, rr2, colors )
+                Case 17:
+                        RightUpCurve(  xx, yy, rr, rr2, colors )
+                Case 18: 
+                        RightDownCurve(  xx, yy, rr, rr2, colors )
+                Case 19: 
+                        FilledLeftUpCurve(  xx, yy, rr, rr2, colors )
+                Case 20: 
+                        FilledLeftDownCurve(  xx, yy, rr, rr2, colors )
+                Case 21:
+                        FilledRightUpCurve(  xx, yy, rr, rr2, colors )
+                Case 22:
+                        FilledRightDownCurve(  xx, yy, rr, rr2, colors )
+                Case 23:
+                        If firstrun = TRUE Then 
+                            GLCDPrint_Internal_Font( 0, 0, "DrawQuadrilateral", TFT_WHITE )
+                            firstrun = FALSE
+                        End If                
+                        Quadrilateral       (  50, 50, 200, 80, 150, 130, 60, 100, colors )
+                        wait 5 s
+                        // exit from doing this lots of time
+                        drawcount = DRAWCOUNTMAX
+                Case 24:
+                        If firstrun = TRUE Then 
+                            GLCDPrint_Internal_Font( 0, 0, "FilledDrawQuadrilateral", TFT_WHITE )
+                            firstrun = FALSE
+                        End If                   
+                        FilledQuadrilateral (  150, 50, 300, 80, 250, 130, 160, 100, colors )
+                        wait 2 s
+                        // exit from doing this lots of time
+                        drawcount = DRAWCOUNTMAX
+                
+                Case 25: 
+                        If firstrun = TRUE Then 
+                            FilledTriangle (  22, 53, 75, 92, 43, 96, TFT_BLUE )
+                            FilledTriangle (  93, 99, 170, 66, 267, 219, TFT_DARKGREY )
+                            FilledTriangle (  94, 111, 231, 206, 159, 330, TFT_DARKGREY )
+                            FilledTriangle (  196, 91, 365, 106, 346, 328, TFT_BLUE )
+                            FilledTriangle (  368, 127, 373, 187, 397, 211, TFT_DARKGREY )
+                            FilledPentagon ( 46, 102, 79, 101, 107, 186, 12, 186, 2, 155, TFT_BLUE )
+                            GLCDSelect_Internal_Font_Init( 32, 4, 4 )
+                            GLCDPrint_Internal_Font( 300, 350,  "GCBASIC", TFT_WHITE )
+                            GLCDSelect_Internal_Font_Init()
+                            GLCDPrint_Internal_Font( 690 , 470,  "Dec 2023", TFT_WHITE )
+                            firstrun = FALSE
+                        Else
+                            GLCDPrint_Internal_Font( 10, 450, style )
+                            GLCDPrint_Internal_Font( 10, 462, drawcount )
+                            drawcount = drawcount + 10
+                            wait 25 ms
+                        End If
+                Case 26:
+                        LineWidth 0, 100, GLCDDeviceWidth - 1, 100, 0, TFT_WHITE
+
+                        LineWidth 0, 150, GLCDDeviceWidth - 1, 150, 1, TFT_WHITE
+                        LineWidth 0, 200, GLCDDeviceWidth - 1, 200, 2, TFT_WHITE
+                        LineWidth 0, 250, GLCDDeviceWidth - 1, 250, 4, TFT_WHITE
+                        LineWidth 0, 300, GLCDDeviceWidth - 1, 300, 5, TFT_WHITE
+
+                        LineWidth 0, 0, GLCDDeviceWidth - 1, 100, 0, TFT_WHITE
+                        LineWidth 0, 0, GLCDDeviceWidth - 1, 150, 1, TFT_WHITE
+                        LineWidth 0, 0, GLCDDeviceWidth - 1, 200, 2, TFT_WHITE
+                        LineWidth 0, 0, GLCDDeviceWidth - 1, 250, 4, TFT_WHITE
+                        LineWidth 0, 0, GLCDDeviceWidth - 1, 300, 5, TFT_WHITE
+
+                        LineWidth GLCDDeviceWidth - 1, 0, 0, 100, 0, TFT_WHITE
+                        LineWidth GLCDDeviceWidth - 1, 0, 0, 150, 1, TFT_WHITE
+                        LineWidth GLCDDeviceWidth - 1, 0, 0, 200, 2, TFT_WHITE
+                        LineWidth GLCDDeviceWidth - 1, 0, 0, 250, 4, TFT_WHITE
+                        LineWidth GLCDDeviceWidth - 1, 0, 0, 300, 5, TFT_WHITE
+
+                        LineWidth 0, 400, GLCDDeviceWidth - 1, 400, 80, TFT_BLUE
+                        If firstrun = TRUE Then 
+                            Wait 10 s
+                            // exit from doing this lots of time
+                            drawcount = DRAWCOUNTMAX
+                        End If
+                Case 27:
+                    FramedFilledCircle  ( xx, yy, rr, (rr/20), TFT_WHITE, colors)
+
+                    FramedFilledbox (  200, 60, 400, 150, 5, TFT_RED, TFT_WHITE)
+
+                    FramedFilledRoundRect ( 550, 60, 500, 350, 30, 20,  5, TFT_RED, TFT_WHITE)
+
+                    FramedFilledTriangle(100, 100, 50, 200, 150, 150, TFT_RED, TFT_WHITE)
+
+                    FilledCube (300, 300, 350, 250, 400, 250, 350, 300, 350, 350, 400, 300, TFT_RED, TFT_WHITE) 
+                    If firstrun = TRUE Then 
+                        Wait 10 s
+                        // exit from doing this lots of time
+                        drawcount = DRAWCOUNTMAX
+                    End If
                 End Select
 
-            If drawcount = 1024 Then 
-                GLCDCLS
-                drawcount = 0
-                Randomize TIMER0 
-                Style++
-                If Style = 7 then Style = 0
+
+                If drawcount => DRAWCOUNTMAX  Then 
+                    GLCDCLS TFT_BLACK
+                    firstrun = TRUE
+                    Wait 250 ms
+                    drawcount = 0
+                    Randomize TIMER0 
+                    style++
+                    If style = 30 then style = 0
                 End If    
             drawcount++
+            wait 10 ms
         Loop
     End
 

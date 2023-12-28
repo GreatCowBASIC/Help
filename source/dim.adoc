@@ -13,6 +13,10 @@
 
     *_For Arrays:_*
     Dim _array_(_size_) [As _type_] [At _location_]
+
+    *_For String:_*
+    Dim _string [* _size_] [At _location_]
+
 ----
 
 *Explanation:*
@@ -36,6 +40,10 @@ When multiple variables are included on the one line, GCBASIC will set them all 
 `Alias` creates a variable using the same memory location as one or more other variables. {nbsp}{nbsp}It is mainly used internally in GCBASIC to treat system variables as a word.{nbsp}{nbsp} For example, this command is used to create a word variable, made up from the two memory locations used to store the result of an A/D conversion.{nbsp}{nbsp}`Alias` is mutually exclusive to `At` and therefore `Alias` and `At` on the same declaration line will cause an compiler error.
 
 `AT` a variable can be placed at a specific location in the data memory of the chip using the At option. {nbsp}{nbsp}`_location_` will be used whether it is a valid location or not, but a warning will be generated if GCBASIC has already allocated the memory, or if the memory does not appear to be valid. {nbsp}{nbsp}This can be used for peripherals that have multi byte buffers in RAM.{nbsp}{nbsp}`At` is mutually exclusive to `Alias` and therefore `At` and `Alias` on the same declaration line will cause an compiler error.
+
+A String declared with a fixed size (numeric constant that can be evaluated at compile time) is a fixed length string. It has no descriptor and it is not resized to fit its contents. If data overflows the size of the string, the memory may be overwrtten.
+Fixed length strings are not NULL terminated, and they use size + 1 bytes of space.  
+String variable names need not end in a dollar sign $ as in other dialects of BASIC.
 
 ----
     Dim ADResult As Word Alias ADRESH, ADRESL

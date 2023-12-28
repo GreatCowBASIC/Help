@@ -30,7 +30,7 @@ BEGIN {
 		else if ( $1 == "AA" && $2 == "AA" && $3 != "AA"  ) {
 			p3 = $3
 			p4 = $4
-			print "0xAA, 0xAA"
+			print "0xAA, 0xAA, 0xAA, 0xAA"
 			next
 			}
 		else {

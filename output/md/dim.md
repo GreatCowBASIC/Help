@@ -27,6 +27,9 @@
 
     For Arrays:
     Dim array(size) [As type] [At location]
+
+    For String:
+    Dim string [* _size] [At location]
 ```
 
 <span class="strong">**Explanation:**</span>
@@ -76,6 +79,14 @@ allocated the memory, or if the memory does not appear to be valid.
   This can be used for peripherals that have multi byte buffers in
 RAM.  \`At\` is mutually exclusive to `Alias` and therefore `At` and
 `Alias` on the same declaration line will cause an compiler error.
+
+A String declared with a fixed size (numeric constant that can be
+evaluated at compile time) is a fixed length string. It has no
+descriptor and it is not resized to fit its contents. If data overflows
+the size of the string, the memory may be overwrtten. Fixed length
+strings are not NULL terminated, and they use size + 1 bytes of space.
+String variable names need not end in a dollar sign $ as in other
+dialects of BASIC.
 
 ``` screen
     Dim ADResult As Word Alias ADRESH, ADRESL

@@ -781,8 +781,8 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2023-11-26<br>
-06:39:37 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2023-12-28<br>
+10:57:51 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
@@ -45708,7 +45708,10 @@ A subroutine uses a temporary variable of type byte, and relies on it overflowin
 
 
     <strong><em>For Arrays:</em></strong>
-    Dim <em>array</em>(<em>size</em>) [As <em>type</em>] [At <em>location</em>]</pre>
+    Dim <em>array</em>(<em>size</em>) [As <em>type</em>] [At <em>location</em>]
+
+    <strong><em>For String:</em></strong>
+    Dim <em>string [* _size</em>] [At <em>location</em>]</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -45743,6 +45746,11 @@ A subroutine uses a temporary variable of type byte, and relies on it overflowin
 </div>
 <div class="paragraph">
 <p><code>AT</code> a variable can be placed at a specific location in the data memory of the chip using the At option. &#160;&#160;`<em>location</em>` will be used whether it is a valid location or not, but a warning will be generated if GCBASIC has already allocated the memory, or if the memory does not appear to be valid. &#160;&#160;This can be used for peripherals that have multi byte buffers in RAM.&#160;&#160;`At` is mutually exclusive to <code>Alias</code> and therefore <code>At</code> and <code>Alias</code> on the same declaration line will cause an compiler error.</p>
+</div>
+<div class="paragraph">
+<p>A String declared with a fixed size (numeric constant that can be evaluated at compile time) is a fixed length string. It has no descriptor and it is not resized to fit its contents. If data overflows the size of the string, the memory may be overwrtten.
+Fixed length strings are not NULL terminated, and they use size + 1 bytes of space.
+String variable names need not end in a dollar sign $ as in other dialects of BASIC.</p>
 </div>
 <div class="listingblock">
 <div class="content">
