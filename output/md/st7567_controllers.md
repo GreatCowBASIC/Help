@@ -358,7 +358,7 @@ with the built in commands of GCBASIC using Full Mode GLCD
     ; ----- Main program
 
         GLCDPrint 0, 0,   "GCBASIC"
-        GLCDPrint (0, 16, "Anobium 2023")
+        GLCDPrint (0, 16, "Anobium 2024")
         GLCDPrint (0, 32, "Portability Demo")
         GLCDPrint (0, 48, ChipNameStr )
 
@@ -447,7 +447,7 @@ program.
     'But it is allowed to use GLCD_Open_PageTransaction 0,7 to show the full screen update
     GLCD_Open_PageTransaction 0,7
        GLCDPrint 0, 0, "GCBASIC"
-       GLCDPrint (0, 16, "Anobium 2023")
+       GLCDPrint (0, 16, "Anobium 2024")
     GLCD_Close_PageTransaction
     wait 3 s
     DO forever

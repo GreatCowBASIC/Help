@@ -4,10 +4,10 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2023-11-08</date>
+<date>2023-12-28</date>
 <author>
 <personname>
-<firstname>The GCBASIC development team @ 2023</firstname>
+<firstname>The GCBASIC development team @ 2024</firstname>
 </personname>
 </author>
 <authorinitials>T</authorinitials>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2023-12-28<?asciidoc-br?>
-10:57:47 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-01-23<?asciidoc-br?>
+11:17:45 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2023-11-08<?asciidoc-br?>
-11:53:15 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2023-12-28<?asciidoc-br?>
+11:44:57 GMT Standard Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -16510,7 +16510,7 @@ Parameter is dim value</simpara></entry>
     ; ----- Main program
 
         GLCDPrint 0, 0,   "GCBASIC"
-        GLCDPrint (0, 16, "Anobium 2023")
+        GLCDPrint (0, 16, "Anobium 2024")
         GLCDPrint (0, 32, "Portability Demo")
         GLCDPrint (0, 48, ChipNameStr )
 
@@ -16590,7 +16590,7 @@ Note the use of <literal>GLCD_Open_PageTransaction</literal> and <literal>GLCD_C
     'But it is allowed to use GLCD_Open_PageTransaction 0,7 to show the full screen update
     GLCD_Open_PageTransaction 0,7
        GLCDPrint 0, 0, "GCBASIC"
-       GLCDPrint (0, 16, "Anobium 2023")
+       GLCDPrint (0, 16, "Anobium 2024")
     GLCD_Close_PageTransaction
     wait 3 s
     DO forever
@@ -36261,124 +36261,166 @@ Limitations on this directive are:</simpara>
 <colspec colname="col_4" colwidth="25*"/>
 <thead>
 <row>
-<entry align="left" valign="top"><emphasis role="strong">Directive</emphasis></entry>
-<entry align="left" valign="top"><emphasis role="strong">Description</emphasis></entry>
-<entry align="left" valign="top"><emphasis role="strong">Output Usage</emphasis></entry>
-<entry align="left" valign="top"><emphasis role="strong">Returns</emphasis></entry>
+<entry align="left" valign="top"><emphasis role="strong">Constants</emphasis></entry>
+<entry align="left" valign="top"><emphasis role="strong">Type</emphasis></entry>
+<entry align="left" valign="top"><emphasis role="strong">Usage</emphasis></entry>
+<entry align="left" valign="top"><emphasis role="strong">Decription</emphasis></entry>
 </row>
 </thead>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara><literal>ChipADC</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>String</simpara></entry>
-<entry align="left" valign="top"><simpara>#IFDEF &amp; Output commands</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>CHIPADC</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation  or output commands</simpara></entry>
 <entry align="left" valign="top"><simpara>The number of A/D inputs on the current chip</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>ChipEEprom</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>Number</simpara></entry>
-<entry align="left" valign="top"><simpara>#IFDEF &amp; Output commands</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>CHIPASSEMBLER</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation  or output commands</simpara></entry>
+<entry align="left" valign="top"><simpara>The select assemble GCASM/MPASM/PICAS etc</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>CHIPEEPROM</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation  or output commands</simpara></entry>
 <entry align="left" valign="top"><simpara>The number of Bytes in EEPROM memmory</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>ChipIO</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>String</simpara></entry>
-<entry align="left" valign="top"><simpara>#IFDEF &amp; Output commands</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>CHIPIO</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation  or output commands</simpara></entry>
 <entry align="left" valign="top"><simpara>The number of general purpose IO pins</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>ChipMHz</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>String</simpara></entry>
-<entry align="left" valign="top"><simpara>#IFDEF &amp; Output commands</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>CHIPMHZ</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation  or output commands</simpara></entry>
 <entry align="left" valign="top"><simpara>The microcontroller clock speed</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>ChipName</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>Number</simpara></entry>
-<entry align="left" valign="top"><simpara>#IFDEF Only</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>CHIPNAME</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation only</simpara></entry>
 <entry align="left" valign="top"><simpara>The microcontroller type</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>ChipNameStr</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>String</simpara></entry>
-<entry align="left" valign="top"><simpara>#IFDEF &amp; Output commands</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>CHIPNAMESTR</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation  or output commands</simpara></entry>
 <entry align="left" valign="top"><simpara>The microcontroller name</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>ChipPins</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>Number</simpara></entry>
-<entry align="left" valign="top"><simpara>#IFDEF &amp; Output commands</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>CHIPPINS</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation  or output commands</simpara></entry>
 <entry align="left" valign="top"><simpara>The number of microcontroller pins.</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>ChipReserveHighProg</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>Number</simpara></entry>
-<entry align="left" valign="top"><simpara>#Scripts, #IFDEF &amp; Output commands</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>CHIPRESERVEHIGHPROG</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Scripts, Conditional compilation, and  output commands</simpara></entry>
 <entry align="left" valign="top"><simpara>The value of the words reserved</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>ChipProgrammerNameStr</simpara></entry>
-<entry align="left" valign="top"><simpara>String</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>CHIPOSC</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Scripts, Conditional compilation, and  output commands</simpara></entry>
+<entry align="left" valign="top"><simpara>The frequency selected</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>CHIPUSINGINTOSC</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Scripts, Conditional compilation, and  output commands</simpara></entry>
+<entry align="left" valign="top"><simpara>The constant exists if the compiler has deternined the program is using the internal oscillator</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>CHIPPROGRAMMERNAMESTR</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>String constant</simpara></entry>
 <entry align="left" valign="top"><simpara>Name of the chip type to be used by a programmer</simpara></entry>
 <entry align="left" valign="top"><simpara>The psuedo microcontroller type</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>ChipRam</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>Number</simpara></entry>
-<entry align="left" valign="top"><simpara>#IFDEF &amp; Output commands</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>CHIPRAM</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation  or output commands</simpara></entry>
 <entry align="left" valign="top"><simpara>The RAM size</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>ChipFamily</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>Number</simpara></entry>
-<entry align="left" valign="top"><simpara>#IFDEF &amp; Output commands</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>CHIPSHAREDRAM</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation  or output commands</simpara></entry>
+<entry align="left" valign="top"><simpara>The first RAM location</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>CHIPFAMILY</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation  or output commands</simpara></entry>
 <entry align="left" valign="top"><simpara>See the table below</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>ChipWords</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>Number</simpara></entry>
-<entry align="left" valign="top"><simpara>#IFDEF &amp; Output commands</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>CHIPWORDS</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation  or output commands</simpara></entry>
 <entry align="left" valign="top"><simpara>The number of WORDS in Flash memmory</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>SOURCEFILE</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Constant string</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation  or output commands</simpara></entry>
+<entry align="left" valign="top"><simpara>The name of the source GCB file</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Function</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Type</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Usage</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Description</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>Var()</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Function</simpara></entry>
-<entry align="left" valign="top"><simpara>Not applicable</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation only</simpara></entry>
 <entry align="left" valign="top"><simpara>True if a register is declared (or false if not declared) in the currently specficied microcontroller&#8217;s .dat file.
 </simpara><simpara>Var(register_name)</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>NoVar()</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Function</simpara></entry>
-<entry align="left" valign="top"><simpara>Not applicable</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation only</simpara></entry>
 <entry align="left" valign="top"><simpara>True if a register is NOT declared (or false if declared) in the currently specficied microcontroller&#8217;s .dat file.
 </simpara><simpara>NoVar(register_name)</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>Bit()</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Function</simpara></entry>
-<entry align="left" valign="top"><simpara>Not applicable</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation only</simpara></entry>
 <entry align="left" valign="top"><simpara>True if a bit is declared (or false if not declared) in the currently specficied microcontroller&#8217;s .dat file.
 </simpara><simpara>Bit(bit_name)</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>NoBit()</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Function</simpara></entry>
-<entry align="left" valign="top"><simpara>Not applicable</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation only</simpara></entry>
 <entry align="left" valign="top"><simpara>True if a bit is NOT declared (or false if declared) in the currently specficied microcontroller&#8217;s .dat file.
 </simpara><simpara>NoBit(bit_name)</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>Allof()</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Function</simpara></entry>
-<entry align="left" valign="top"><simpara>Not applicable</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation only</simpara></entry>
 <entry align="left" valign="top"><simpara>True if all defines are declared:
 </simpara><simpara><literal>AllOf(define1, define2, …)</literal></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>OneOf()</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Function</simpara></entry>
-<entry align="left" valign="top"><simpara>Not applicable</simpara></entry>
+<entry align="left" valign="top"><simpara>Conditional compilation only</simpara></entry>
 <entry align="left" valign="top"><simpara>True if one of the defines is declared:
 </simpara><simpara><literal>OneOf(define1, define2, …)</literal></simpara></entry>
 </row>

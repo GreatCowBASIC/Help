@@ -16,7 +16,7 @@
       <link rel="next" href="_compiler_options.html" title="Compiler Options" />
       <meta name="Section-title" content="Other directives" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53700";
+            var treeCookieId = "treeview-53793";
             var language = "en";
             var w = new Object();
             //Localization
@@ -196,22 +196,22 @@ border: none; background: none; font-weight: none; color: none; }
                   </colgroup>
                   <thead>
                      <tr>
-                        <th align="left" valign="top"><span class="strong"><strong>Directive</strong></span></th>
-                        <th align="left" valign="top"><span class="strong"><strong>Description</strong></span></th>
-                        <th align="left" valign="top"><span class="strong"><strong>Output Usage</strong></span></th>
-                        <th align="left" valign="top"><span class="strong"><strong>Returns</strong></span></th>
+                        <th align="left" valign="top"><span class="strong"><strong>Constants</strong></span></th>
+                        <th align="left" valign="top"><span class="strong"><strong>Type</strong></span></th>
+                        <th align="left" valign="top"><span class="strong"><strong>Usage</strong></span></th>
+                        <th align="left" valign="top"><span class="strong"><strong>Decription</strong></span></th>
                      </tr>
                   </thead>
                   <tbody>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">ChipADC</code></p>
+                           <p><code class="literal">CHIPADC</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>String</p>
+                           <p>Constant</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>#IFDEF &amp; Output commands</p>
+                           <p>Conditional compilation  or output commands</p>
                         </td>
                         <td align="left" valign="top">
                            <p>The number of A/D inputs on the current chip</p>
@@ -219,13 +219,27 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">ChipEEprom</code></p>
+                           <p><code class="literal">CHIPASSEMBLER</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Number</p>
+                           <p>Constant</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>#IFDEF &amp; Output commands</p>
+                           <p>Conditional compilation  or output commands</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>The select assemble GCASM/MPASM/PICAS etc</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">CHIPEEPROM</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Constant</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Conditional compilation  or output commands</p>
                         </td>
                         <td align="left" valign="top">
                            <p>The number of Bytes in EEPROM memmory</p>
@@ -233,13 +247,13 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">ChipIO</code></p>
+                           <p><code class="literal">CHIPIO</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>String</p>
+                           <p>Constant</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>#IFDEF &amp; Output commands</p>
+                           <p>Conditional compilation  or output commands</p>
                         </td>
                         <td align="left" valign="top">
                            <p>The number of general purpose IO pins</p>
@@ -247,13 +261,13 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">ChipMHz</code></p>
+                           <p><code class="literal">CHIPMHZ</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>String</p>
+                           <p>Constant</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>#IFDEF &amp; Output commands</p>
+                           <p>Conditional compilation  or output commands</p>
                         </td>
                         <td align="left" valign="top">
                            <p>The microcontroller clock speed</p>
@@ -261,13 +275,13 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">ChipName</code></p>
+                           <p><code class="literal">CHIPNAME</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Number</p>
+                           <p>Constant</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>#IFDEF Only</p>
+                           <p>Conditional compilation only</p>
                         </td>
                         <td align="left" valign="top">
                            <p>The microcontroller type</p>
@@ -275,13 +289,13 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">ChipNameStr</code></p>
+                           <p><code class="literal">CHIPNAMESTR</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>String</p>
+                           <p>Constant</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>#IFDEF &amp; Output commands</p>
+                           <p>Conditional compilation  or output commands</p>
                         </td>
                         <td align="left" valign="top">
                            <p>The microcontroller name</p>
@@ -289,13 +303,13 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">ChipPins</code></p>
+                           <p><code class="literal">CHIPPINS</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Number</p>
+                           <p>Constant</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>#IFDEF &amp; Output commands</p>
+                           <p>Conditional compilation  or output commands</p>
                         </td>
                         <td align="left" valign="top">
                            <p>The number of microcontroller pins.</p>
@@ -303,13 +317,13 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">ChipReserveHighProg</code></p>
+                           <p><code class="literal">CHIPRESERVEHIGHPROG</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Number</p>
+                           <p>Constant</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>#Scripts, #IFDEF &amp; Output commands</p>
+                           <p>Scripts, Conditional compilation, and  output commands</p>
                         </td>
                         <td align="left" valign="top">
                            <p>The value of the words reserved</p>
@@ -317,10 +331,38 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p>ChipProgrammerNameStr</p>
+                           <p><code class="literal">CHIPOSC</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>String</p>
+                           <p>Constant</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Scripts, Conditional compilation, and  output commands</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>The frequency selected</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">CHIPUSINGINTOSC</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Constant</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Scripts, Conditional compilation, and  output commands</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>The constant exists if the compiler has deternined the program is using the internal oscillator</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">CHIPPROGRAMMERNAMESTR</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>String constant</p>
                         </td>
                         <td align="left" valign="top">
                            <p>Name of the chip type to be used by a programmer</p>
@@ -331,13 +373,13 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">ChipRam</code></p>
+                           <p><code class="literal">CHIPRAM</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Number</p>
+                           <p>Constant</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>#IFDEF &amp; Output commands</p>
+                           <p>Conditional compilation  or output commands</p>
                         </td>
                         <td align="left" valign="top">
                            <p>The RAM size</p>
@@ -345,13 +387,27 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">ChipFamily</code></p>
+                           <p><code class="literal">CHIPSHAREDRAM</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Number</p>
+                           <p>Constant</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>#IFDEF &amp; Output commands</p>
+                           <p>Conditional compilation  or output commands</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>The first RAM location</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">CHIPFAMILY</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Constant</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Conditional compilation  or output commands</p>
                         </td>
                         <td align="left" valign="top">
                            <p>See the table below</p>
@@ -359,16 +415,50 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">ChipWords</code></p>
+                           <p><code class="literal">CHIPWORDS</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Number</p>
+                           <p>Constant</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>#IFDEF &amp; Output commands</p>
+                           <p>Conditional compilation  or output commands</p>
                         </td>
                         <td align="left" valign="top">
                            <p>The number of WORDS in Flash memmory</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">SOURCEFILE</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Constant string</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Conditional compilation  or output commands</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>The name of the source GCB file</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top"> </td>
+                        <td align="left" valign="top"> </td>
+                        <td align="left" valign="top"> </td>
+                        <td align="left" valign="top"> </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><span class="strong"><strong>Function</strong></span></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><span class="strong"><strong>Type</strong></span></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><span class="strong"><strong>Usage</strong></span></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><span class="strong"><strong>Description</strong></span></p>
                         </td>
                      </tr>
                      <tr>
@@ -379,7 +469,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>Function</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Not applicable</p>
+                           <p>Conditional compilation only</p>
                         </td>
                         <td align="left" valign="top">
                            <p>True if a register is declared (or false if not declared) in the currently specficied microcontroller’s .dat file.
@@ -396,7 +486,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>Function</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Not applicable</p>
+                           <p>Conditional compilation only</p>
                         </td>
                         <td align="left" valign="top">
                            <p>True if a register is NOT declared (or false if declared) in the currently specficied microcontroller’s .dat file.
@@ -413,7 +503,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>Function</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Not applicable</p>
+                           <p>Conditional compilation only</p>
                         </td>
                         <td align="left" valign="top">
                            <p>True if a bit is declared (or false if not declared) in the currently specficied microcontroller’s .dat file.
@@ -430,7 +520,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>Function</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Not applicable</p>
+                           <p>Conditional compilation only</p>
                         </td>
                         <td align="left" valign="top">
                            <p>True if a bit is NOT declared (or false if declared) in the currently specficied microcontroller’s .dat file.
@@ -447,7 +537,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>Function</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Not applicable</p>
+                           <p>Conditional compilation only</p>
                         </td>
                         <td align="left" valign="top">
                            <p>True if all defines are declared:
@@ -464,7 +554,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>Function</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Not applicable</p>
+                           <p>Conditional compilation only</p>
                         </td>
                         <td align="left" valign="top">
                            <p>True if one of the defines is declared:

@@ -15,7 +15,7 @@ pause
 goto fin
 )
 
-svn up ..\..\..\help.git
+
 call all
 :jump1
 if exist ..\output\chm\gcbasic.chm (

@@ -23,124 +23,166 @@ string in HSerPrint, SerPrint and other string related commands.
 <table data-border="1">
 <thead>
 <tr class="header">
-<th style="text-align: left;"><span class="strong"><strong>Directive</strong></span></th>
-<th style="text-align: left;"><span class="strong"><strong>Description</strong></span></th>
-<th style="text-align: left;"><span class="strong"><strong>Output Usage</strong></span></th>
-<th style="text-align: left;"><span class="strong"><strong>Returns</strong></span></th>
+<th style="text-align: left;"><span class="strong"><strong>Constants</strong></span></th>
+<th style="text-align: left;"><span class="strong"><strong>Type</strong></span></th>
+<th style="text-align: left;"><span class="strong"><strong>Usage</strong></span></th>
+<th style="text-align: left;"><span class="strong"><strong>Decription</strong></span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><p><code class="literal">ChipADC</code></p></td>
-<td style="text-align: left;"><p>String</p></td>
-<td style="text-align: left;"><p>#IFDEF &amp; Output commands</p></td>
+<td style="text-align: left;"><p><code class="literal">CHIPADC</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Conditional compilation or output commands</p></td>
 <td style="text-align: left;"><p>The number of A/D inputs on the current chip</p></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><p><code class="literal">ChipEEprom</code></p></td>
-<td style="text-align: left;"><p>Number</p></td>
-<td style="text-align: left;"><p>#IFDEF &amp; Output commands</p></td>
+<td style="text-align: left;"><p><code class="literal">CHIPASSEMBLER</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Conditional compilation or output commands</p></td>
+<td style="text-align: left;"><p>The select assemble GCASM/MPASM/PICAS etc</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p><code class="literal">CHIPEEPROM</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Conditional compilation or output commands</p></td>
 <td style="text-align: left;"><p>The number of Bytes in EEPROM memmory</p></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;"><p><code class="literal">ChipIO</code></p></td>
-<td style="text-align: left;"><p>String</p></td>
-<td style="text-align: left;"><p>#IFDEF &amp; Output commands</p></td>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">CHIPIO</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Conditional compilation or output commands</p></td>
 <td style="text-align: left;"><p>The number of general purpose IO pins</p></td>
 </tr>
-<tr class="even">
-<td style="text-align: left;"><p><code class="literal">ChipMHz</code></p></td>
-<td style="text-align: left;"><p>String</p></td>
-<td style="text-align: left;"><p>#IFDEF &amp; Output commands</p></td>
+<tr class="odd">
+<td style="text-align: left;"><p><code class="literal">CHIPMHZ</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Conditional compilation or output commands</p></td>
 <td style="text-align: left;"><p>The microcontroller clock speed</p></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;"><p><code class="literal">ChipName</code></p></td>
-<td style="text-align: left;"><p>Number</p></td>
-<td style="text-align: left;"><p>#IFDEF Only</p></td>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">CHIPNAME</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Conditional compilation only</p></td>
 <td style="text-align: left;"><p>The microcontroller type</p></td>
 </tr>
-<tr class="even">
-<td style="text-align: left;"><p><code class="literal">ChipNameStr</code></p></td>
-<td style="text-align: left;"><p>String</p></td>
-<td style="text-align: left;"><p>#IFDEF &amp; Output commands</p></td>
+<tr class="odd">
+<td style="text-align: left;"><p><code class="literal">CHIPNAMESTR</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Conditional compilation or output commands</p></td>
 <td style="text-align: left;"><p>The microcontroller name</p></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;"><p><code class="literal">ChipPins</code></p></td>
-<td style="text-align: left;"><p>Number</p></td>
-<td style="text-align: left;"><p>#IFDEF &amp; Output commands</p></td>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">CHIPPINS</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Conditional compilation or output commands</p></td>
 <td style="text-align: left;"><p>The number of microcontroller pins.</p></td>
 </tr>
-<tr class="even">
-<td style="text-align: left;"><p><code class="literal">ChipReserveHighProg</code></p></td>
-<td style="text-align: left;"><p>Number</p></td>
-<td style="text-align: left;"><p>#Scripts, #IFDEF &amp; Output commands</p></td>
+<tr class="odd">
+<td style="text-align: left;"><p><code class="literal">CHIPRESERVEHIGHPROG</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Scripts, Conditional compilation, and output commands</p></td>
 <td style="text-align: left;"><p>The value of the words reserved</p></td>
 </tr>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">CHIPOSC</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Scripts, Conditional compilation, and output commands</p></td>
+<td style="text-align: left;"><p>The frequency selected</p></td>
+</tr>
 <tr class="odd">
-<td style="text-align: left;"><p>ChipProgrammerNameStr</p></td>
-<td style="text-align: left;"><p>String</p></td>
+<td style="text-align: left;"><p><code class="literal">CHIPUSINGINTOSC</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Scripts, Conditional compilation, and output commands</p></td>
+<td style="text-align: left;"><p>The constant exists if the compiler has deternined the program is using the internal oscillator</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">CHIPPROGRAMMERNAMESTR</code></p></td>
+<td style="text-align: left;"><p>String constant</p></td>
 <td style="text-align: left;"><p>Name of the chip type to be used by a programmer</p></td>
 <td style="text-align: left;"><p>The psuedo microcontroller type</p></td>
 </tr>
-<tr class="even">
-<td style="text-align: left;"><p><code class="literal">ChipRam</code></p></td>
-<td style="text-align: left;"><p>Number</p></td>
-<td style="text-align: left;"><p>#IFDEF &amp; Output commands</p></td>
+<tr class="odd">
+<td style="text-align: left;"><p><code class="literal">CHIPRAM</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Conditional compilation or output commands</p></td>
 <td style="text-align: left;"><p>The RAM size</p></td>
 </tr>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">CHIPSHAREDRAM</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Conditional compilation or output commands</p></td>
+<td style="text-align: left;"><p>The first RAM location</p></td>
+</tr>
 <tr class="odd">
-<td style="text-align: left;"><p><code class="literal">ChipFamily</code></p></td>
-<td style="text-align: left;"><p>Number</p></td>
-<td style="text-align: left;"><p>#IFDEF &amp; Output commands</p></td>
+<td style="text-align: left;"><p><code class="literal">CHIPFAMILY</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Conditional compilation or output commands</p></td>
 <td style="text-align: left;"><p>See the table below</p></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><p><code class="literal">ChipWords</code></p></td>
-<td style="text-align: left;"><p>Number</p></td>
-<td style="text-align: left;"><p>#IFDEF &amp; Output commands</p></td>
+<td style="text-align: left;"><p><code class="literal">CHIPWORDS</code></p></td>
+<td style="text-align: left;"><p>Constant</p></td>
+<td style="text-align: left;"><p>Conditional compilation or output commands</p></td>
 <td style="text-align: left;"><p>The number of WORDS in Flash memmory</p></td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;"><p><code class="literal">SOURCEFILE</code></p></td>
+<td style="text-align: left;"><p>Constant string</p></td>
+<td style="text-align: left;"><p>Conditional compilation or output commands</p></td>
+<td style="text-align: left;"><p>The name of the source GCB file</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p><span class="strong"><strong>Function</strong></span></p></td>
+<td style="text-align: left;"><p><span class="strong"><strong>Type</strong></span></p></td>
+<td style="text-align: left;"><p><span class="strong"><strong>Usage</strong></span></p></td>
+<td style="text-align: left;"><p><span class="strong"><strong>Description</strong></span></p></td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><p><code class="literal">Var()</code></p></td>
 <td style="text-align: left;"><p>Function</p></td>
-<td style="text-align: left;"><p>Not applicable</p></td>
+<td style="text-align: left;"><p>Conditional compilation only</p></td>
 <td style="text-align: left;"><p>True if a register is declared (or false if not declared) in the currently specficied microcontroller’s .dat file.</p>
 <p>Var(register_name)</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><code class="literal">NoVar()</code></p></td>
 <td style="text-align: left;"><p>Function</p></td>
-<td style="text-align: left;"><p>Not applicable</p></td>
+<td style="text-align: left;"><p>Conditional compilation only</p></td>
 <td style="text-align: left;"><p>True if a register is NOT declared (or false if declared) in the currently specficied microcontroller’s .dat file.</p>
 <p>NoVar(register_name)</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><code class="literal">Bit()</code></p></td>
 <td style="text-align: left;"><p>Function</p></td>
-<td style="text-align: left;"><p>Not applicable</p></td>
+<td style="text-align: left;"><p>Conditional compilation only</p></td>
 <td style="text-align: left;"><p>True if a bit is declared (or false if not declared) in the currently specficied microcontroller’s .dat file.</p>
 <p>Bit(bit_name)</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><code class="literal">NoBit()</code></p></td>
 <td style="text-align: left;"><p>Function</p></td>
-<td style="text-align: left;"><p>Not applicable</p></td>
+<td style="text-align: left;"><p>Conditional compilation only</p></td>
 <td style="text-align: left;"><p>True if a bit is NOT declared (or false if declared) in the currently specficied microcontroller’s .dat file.</p>
 <p>NoBit(bit_name)</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><code class="literal">Allof()</code></p></td>
 <td style="text-align: left;"><p>Function</p></td>
-<td style="text-align: left;"><p>Not applicable</p></td>
+<td style="text-align: left;"><p>Conditional compilation only</p></td>
 <td style="text-align: left;"><p>True if all defines are declared:</p>
 <p><code class="literal">AllOf(define1, define2, …)</code></p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><code class="literal">OneOf()</code></p></td>
 <td style="text-align: left;"><p>Function</p></td>
-<td style="text-align: left;"><p>Not applicable</p></td>
+<td style="text-align: left;"><p>Conditional compilation only</p></td>
 <td style="text-align: left;"><p>True if one of the defines is declared:</p>
 <p><code class="literal">OneOf(define1, define2, …)</code></p></td>
 </tr>

@@ -12,7 +12,7 @@
 
 <div class="author">
 
-### <span class="firstname">The GCBASIC development team @ 2023</span>
+### <span class="firstname">The GCBASIC development team @ 2024</span>
 
 </div>
 
