@@ -1,0 +1,132 @@
+// Prototype GLCD library
+#chip  18F27Q43
+#option Explicit
+
+// Development configuration options
+    #define SERIALDEBUG                     // serial debug, requires HW USART
+    #include "gcbversionnumber.cnt"
+
+    #include <glcd.h>
+    #define GLCD_TYPE LT7686_1024_600_BLUE
+
+// Hardware setup
+
+    // Setup USART used fro debugging
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF
+
+    // PIC PPS
+    #startup InitPPS, 85
+    #define PPSToolPart 18F27xxx
+
+    Sub InitPPS
+
+
+            #IF CHIPSUBFAMILY = 16106
+                // Module: UART pin directions
+                Dir PORTC.6 Out    ' Make TX1 pin an output
+                // Module: UART1
+                RC6PPS = 0x0020    // TX1 > RC6
+                #IFDEF LT7686_HARDWARESPI
+                   // Module: SPI1
+                    SPI1SDIPPS = 0x0014    // RC4 > SDI1
+                    RB0PPS = 0x0032    // SDO1 > RB0
+                    RC3PPS = 0x0031    // SCK1 > RC3
+                    SPI1SCKPPS = 0x0013    // RC3 > SCK1 (bi-directional)
+
+                    SLRCONC.3 = 0
+                #ELSE
+                    // Essential that SLRCON for LT7686_SCK is set to 0
+                    SLRCONC.3 = 0
+                #ENDIF
+
+            #ENDIF
+
+            #IF CHIPSUBFAMILY = 16104
+                RC6PPS = 0x0009    // TX1 > RC6
+                #IFDEF LT7686_HARDWARESPI
+                    // Module: MSSP1
+                    SSP1CLKPPS = 0x13       //RC3->MSSP1:SCK1
+                    RC3PPS = 0x0F           //RC3->MSSP1:SCK1
+                    RB0PPS = 0x10           //RB0->MSSP1:SDO1
+                    SSP1DATPPS = 0x14       //RC4->MSSP1:SDI1
+
+                    // Essential that SLRCON for LT7686_SCK is set to 0
+                    SLRCONC.3 = 0
+                    SLRCONB.0 = 0
+                    SLRCONA.3 = 0
+                #ELSE
+                    // Essential that SLRCON for LT7686_SCK is set to 0
+                    SLRCONC.3 = 0
+                #ENDIF
+            #ENDIF
+
+            #IF CHIPSUBFAMILY = 16103   // K42
+                SLRCONC.3 = 0
+                #IFDEF LT7686_HARDWARESPI
+                    // Module: SPI1
+                    SPI1SDIPPS = 0x0014    // RC4 > SDI1
+                    RC3PPS = 0x001E    // SCK1 > RC3
+                    SPI1SCKPPS = 0x0013    // RC3 > SCK1 (bi-directional)
+                    RB0PPS = 0x001F    // SDO1 > RB0
+                #ENDIF
+            #ENDIF/*  */
+
+            #IF CHIPSUBFAMILY = 16101   // Q43
+                SLRCONC.3 = 0
+
+                Dir PORTC.6 Out    ' Make TX1 pin an output
+                RC6PPS = 0x0020    // TX1 > RC6
+
+                #IFDEF LT7686_HARDWARESPI
+                    // Module: SPI1
+                    SPI1SDIPPS = 0x0014    // RC4 > SDI1
+                    RB0PPS = 0x0032    // SDO1 > RB0
+                    RC3PPS = 0x0031    // SCK1 > RC3
+                    SPI1SCKPPS = 0x0013    // RC3 > SCK1 (bi-directional)
+                #ENDIF
+            #ENDIF
+        End Sub
+    // Add this code segment to your GCBASIC source program
+
+// Pin mappings for LCD SPI
+    #define LT7686_DO          portb.0
+    #define LT7686_DI          portc.4
+    #define LT7686_SCK         portc.3
+    #define LT7686_CS          porta.3
+    #define LT7686_RST         portb.5
+
+    #SCRIPT
+        //This is script to enable changing the default clock delays
+        //This a script to create constants
+        IF NODEF(LT7686_HARDWARESPI) THEN
+            // Set these clock delays to 20 then work down towards zero.
+            LT7686_STATE1_DELAY = 20
+            LT7686_STATE2_DELAY = 20
+        END IF
+    #ENDSCRIPT
+
+    // Comment out the next line... but you MUST disable the PPS!!! This is done via Conditional statement in this program
+    #define LT7686_HARDWARESPI
+
+    #IFDEF LT7686_HARDWARESPI
+        //~ MASTER works, once you have it proven that MASTER works, then, increase the SPI clock speed by changing to MASTERFAST
+        #define HWSPIMODE MASTERFAST
+    #ENDIF
+
+    // end of hardware setup
+
+// Inserts
+    #insert "009_GLCDProgram.gcb"    // Tests lots of primitiv
+    // #insert "010_GLCDProgram.gcb"    // Show GCBASIC logo
+    // #insert "011_GLCDProgram.gcb"    // Show GCBASIC test screen
+    // #insert "012_GLCDProgram.gcb"    // Show Framed primitives
+    // #insert "014_GLCDProgram.gcb"    // Shows all the colors and PWM control on ADC0
+    // #insert "015_GLCDProgram.gcb"    // Shows ADC values on a table
+    // #insert "016_GLCDProgram.gcb"    // Rotate.. or, lack of ROTATE!!!
+    // #insert "017_GLCDProgram.gcb"    // Shows super computer
+    // #insert "018_GLCDProgram.gcb"    // Shows color strips.
+    // #insert "019_GLCDProgram.gcb"    // Shows Elite Galaxy
+    #insert "020_GLCDProgram.gcb"      //Meter for Steve
+        #include <trig2places.h>

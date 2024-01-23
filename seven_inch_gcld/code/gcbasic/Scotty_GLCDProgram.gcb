@@ -1,0 +1,86 @@
+// Prototype GLCD library
+#CHIP 18F67K40, 16
+#option Explicit
+
+#CONFIG FEXTOSC = ECH	    'EC (external clock) above 8 MHz; PFM set to high power
+#CONFIG RSTOSC = EXTOSC	    'EXTOSC operating per FEXTOSC bits (device manufacturing default)
+#CONFIG CLKOUTEN = OFF	    'CLKOUT function is disabled
+#CONFIG CSWEN = ON	        'Writing to NOSC and NDIV is allowed
+#CONFIG FCMEN = OFF	        'Fail-Safe Clock Monitor disnabled
+#config MCLR = ON           'Uses the RESET pushbutton
+#CONFIG MCLRE = INTMCLR	    'If LVP = 0, MCLR pin function is port defined function; If LVP =1, RE3 pin fuction is MCLR
+#CONFIG PWRTE = ON	        'Power up timer enabled
+#CONFIG LPBOREN = OFF	    'ULPBOR disabled
+#CONFIG BOREN = SBORDIS	    'Brown-out Reset enabled , SBOREN bit is ignored
+#CONFIG BORV = VBOR_285	    'Brown-out Reset Voltage (VBOR) set to 2.85V
+#config LVP = ON           'HV on MCLR/VPP must be used for programming
+'#config SLRCONH = 0         'Sets SLEW to max rate
+'#config SLRCONG = 0         'Sets SLEW to max rate
+
+// Development configuration options
+    #define SERIALDEBUG                     // serial debug, requires HW USART
+
+#include <glcd.h>
+    #define GLCD_TYPE LT7686_800_480_BLUE
+    
+// Hardware setup
+
+    // Setup USART used fro debugging
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF
+
+    // PIC PPS Tool version: 0.0.6.5
+    
+    #startup InitPPS, 85
+    #define PPSToolPart 18F67K40
+
+    Sub InitPPS
+            
+            // Module: UART pin directions
+            Dir PORTC.6 Out    ' Make TX1 pin an output
+            // Module: UART1
+            RC6PPS = 0x0020    // TX1 > RC6
+        
+        End Sub
+    // Add this code segment to your GCBASIC source program
+
+// Pin mappings for LCD SPI
+    #define LT7686_DO          PORTC.4
+    #define LT7686_DI          PORTC.6
+    #define LT7686_SCK         PORTC.3
+    #define LT7686_CS          PORTH.2
+    #define LT7686_RST         PORTG.4
+    // end of hardware setup
+
+/*
+'Port bit testing - all pulsed at the correct voltage 3.3v
+Dir PORTB.0 Out 
+Dir PORTC.3 Out
+Dir PORTC.4 Out
+Dir PORTA.3 Out
+Dir PORTB.5 Out
+Do
+    LT7686_DO =! LT7686_DO
+    Wait 10 ms
+    LT7686_DI =! LT7686_DI   
+    Wait 10 ms
+    LT7686_SCK =! LT7686_CS     
+    Wait 10 ms   
+    LT7686_CS =! LT7686_CS
+    Wait 10 ms
+    LT7686_RST =! LT7686_RST
+    Wait 10 ms    
+Loop
+*/
+
+/*
+LT7686_DO = 1
+LT7686_DI = 1
+LT7686_SCK = 1 
+LT7686_CS = 1 
+LT7686_RST = 1
+*/
+
+#insert "H:\Engineering\CowBasic\7 inch GLCD info\Dev Code\009_GLCDProgram.gcb"
+// Main program 

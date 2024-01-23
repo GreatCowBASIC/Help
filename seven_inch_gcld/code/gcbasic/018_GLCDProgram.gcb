@@ -1,0 +1,76 @@
+#IGNORECOMPILATION
+#option explicit
+/*
+
+*/
+
+    #define XSTARTPOS           3
+    #define YSTARTPOS           0
+    #define CELLW               15
+    #define CELLH               32
+    #define NUMOFCOLS           1
+    #define NUMOFROWS           ( GLCDDeviceWidth- YSTARTPOS ) / CELLH  'calc will fill screen
+    #define INNERFRAME          1
+    #define OUTERFRAME          3
+    // These control the accent of the table
+    #define TOPROWACCENT        2
+    #define LEFTCOLUMNACCENT    1
+    #define NOACCENT            0
+
+
+
+// Select the internal font
+        /* Function:    GLCDSelect_Internal_Font_Init                                            */
+        /*                                                                                       */
+        /* Parameters:                                                                           */
+        /*                   Size: Font size  16: 16*16   24: 24*24    32: 32*32                 */
+        /*                    XxN: Width magnification: 1~4                                      */
+        /*                    YxN: Height magnification: 1~4                                     */
+        /*              ChromaKey: 0: Background color transparent; 1: Background color          */
+        /*              Alignment: 0: Non-alignment; 1: Alignment                                */                                                                  */
+        /* Description: Initialize the internal font                                             */
+    GLCDSelect_Internal_Font_Init( 16, 1, 1, 0, 0 )
+
+    Dim ybase, CC as Word
+    Dim outstring as String
+
+    Do
+
+        ybase = 0   
+        GLCDSelect_Internal_Font_Init( 16, 1, 1, 0, 0 )
+
+        Repeat 3 // to fill screen
+            FilledBox  0, ybase, GLCDDeviceWidth -1 , ybase + 31, TFT_BLACK
+                outstring = "0x": outstring +=hex(TFT_BLACK/256): outstring +=hex(TFT_BLACK): GLCDPrint_Internal_Font ( 10, ybase + 10, outstring):ybase +=32
+            
+            FilledBox  0, ybase, GLCDDeviceWidth -1 , ybase + 31, TFT_BLUE
+                outstring = "0x": outstring +=hex(TFT_BLUE/256): outstring +=hex(TFT_BLUE): GLCDPrint_Internal_Font ( 10, ybase + 10, outstring):ybase +=32
+                        
+            FilledBox  0, ybase, GLCDDeviceWidth -1 , ybase + 31, TFT_GREEN
+                outstring = "0x": outstring +=hex(TFT_GREEN/256 AND 255): outstring +=hex(TFT_GREEN AND 255): GLCDPrint_Internal_Font ( 10, ybase + 10, outstring):ybase +=32
+                        
+            FilledBox  0, ybase, GLCDDeviceWidth -1 , ybase + 31, TFT_CYAN
+                outstring = "0x": outstring +=hex(TFT_CYAN/256): outstring +=hex(TFT_CYAN AND 255): GLCDPrint_Internal_Font ( 10, ybase + 10, outstring):ybase +=32
+                        
+            FilledBox  0, ybase, GLCDDeviceWidth -1 , ybase + 31, TFT_RED
+                outstring = "0x": outstring +=hex(TFT_RED/256): outstring +=hex(TFT_RED AND 255): GLCDPrint_Internal_Font ( 10, ybase + 10, outstring):ybase +=32
+                        
+            FilledBox  0, ybase, GLCDDeviceWidth -1 , ybase + 31, TFT_MAGENTA
+                outstring = "0x": outstring +=hex(TFT_MAGENTA/256): outstring +=hex(TFT_MAGENTA AND 255): GLCDPrint_Internal_Font ( 10, ybase + 10, outstring):ybase +=32
+                        
+            FilledBox  0, ybase, GLCDDeviceWidth -1 , ybase + 31, TFT_YELLOW
+                outstring = "0x": outstring +=hex(TFT_YELLOW/256): outstring +=hex(TFT_YELLOW AND 255): GLCDPrint_Internal_Font ( 10, ybase + 10, outstring):ybase +=32
+                        
+            FilledBox  0, ybase, GLCDDeviceWidth -1 , ybase + 31, TFT_WHITE
+                outstring = "0x": outstring +=hex(TFT_WHITE/256): outstring +=hex(TFT_WHITE AND 255): GLCDPrint_Internal_Font ( 10, ybase + 10, outstring):ybase +=32
+            
+        End Repeat
+
+        GLCDPrint_Internal_Font ( 250, 10, "GCBASIC Display_Color Test")
+
+        wait 1 s
+
+        LT7686_Display_ColorBar ( TRUE ) 
+        wait 1 s
+        LT7686_Display_ColorBar ( OFF ) 
+    loop

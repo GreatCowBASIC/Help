@@ -8,111 +8,155 @@ The built-in `#defines` are used to support the `#IFDEF` command set are as foll
 
 [cols=4, options="header,autowidth"]
 |===
-|*Directive*
-|*Description*
-|*Output Usage*
-|*Returns*
+|*Constants*
+|*Type*
+|*Usage*
+|*Decription*
 
-|`ChipADC`
-|String
-|#IFDEF & Output commands
+|`CHIPADC`
+|Constant
+|Conditional compilation  or output commands
 |The number of A/D inputs on the current chip
 
 
-|`ChipEEprom`
-|Number
-|#IFDEF & Output commands
+|`CHIPASSEMBLER`
+|Constant
+|Conditional compilation  or output commands
+|The select assemble GCASM/MPASM/PICAS etc
+
+
+|`CHIPEEPROM`
+|Constant
+|Conditional compilation  or output commands
 |The number of Bytes in EEPROM memmory
 
-|`ChipIO`
-|String
-|#IFDEF & Output commands
+|`CHIPIO`
+|Constant
+|Conditional compilation  or output commands
 |The number of general purpose IO pins
 
 
-|`ChipMHz`
-|String
-|#IFDEF & Output commands
+|`CHIPMHZ`
+|Constant
+|Conditional compilation  or output commands
 |The microcontroller clock speed
 
-|`ChipName`
-|Number
-|#IFDEF Only
+|`CHIPNAME`
+|Constant
+|Conditional compilation only
 |The microcontroller type
 
-|`ChipNameStr`
-|String
-|#IFDEF & Output commands
+|`CHIPNAMESTR`
+|Constant
+|Conditional compilation  or output commands
 |The microcontroller name
 
-|`ChipPins`
-|Number
-|#IFDEF & Output commands
+|`CHIPPINS`
+|Constant
+|Conditional compilation  or output commands
 |The number of microcontroller pins.
 
-|`ChipReserveHighProg`
-|Number
-|#Scripts, #IFDEF & Output commands
+|`CHIPRESERVEHIGHPROG`
+|Constant
+|Scripts, Conditional compilation, and  output commands
 |The value of the words reserved
 
-|ChipProgrammerNameStr
-|String
+
+|`CHIPOSC`
+|Constant
+|Scripts, Conditional compilation, and  output commands
+|The frequency selected
+
+
+|`CHIPUSINGINTOSC`
+|Constant
+|Scripts, Conditional compilation, and  output commands
+|The constant exists if the compiler has deternined the program is using the internal oscillator
+
+
+
+
+
+|`CHIPPROGRAMMERNAMESTR`
+|String constant
 |Name of the chip type to be used by a programmer
 |The psuedo microcontroller type
 
-|`ChipRam`
-|Number
-|#IFDEF & Output commands
+|`CHIPRAM`
+|Constant
+|Conditional compilation  or output commands
 |The RAM size
 
-|`ChipFamily`
-|Number
-|#IFDEF & Output commands
+|`CHIPSHAREDRAM`
+|Constant
+|Conditional compilation  or output commands
+|The first RAM location
+
+|`CHIPFAMILY`
+|Constant
+|Conditional compilation  or output commands
 |See the table below
 
-|`ChipWords`
-|Number
-|#IFDEF & Output commands
+|`CHIPWORDS`
+|Constant
+|Conditional compilation  or output commands
 |The number of WORDS in Flash memmory
+
+
+|`SOURCEFILE`
+|Constant string
+|Conditional compilation  or output commands
+|The name of the source GCB file
+
+|
+|
+|
+|
+
+|*Function*
+|*Type*
+|*Usage*
+|*Description*
+
 
 |`Var()`
 |Function
-|Not applicable
+|Conditional compilation only
 |True if a register is declared (or false if not declared) in the currently specficied microcontroller's .dat file.
 
 Var(register_name)
 
 |`NoVar()`
 |Function
-|Not applicable
+|Conditional compilation only
 |True if a register is NOT declared (or false if declared) in the currently specficied microcontroller's .dat file.
 
 NoVar(register_name)
 
 |`Bit()`
 |Function
-|Not applicable
+|Conditional compilation only
 |True if a bit is declared (or false if not declared) in the currently specficied microcontroller's .dat file.
 
 Bit(bit_name)
 
 |`NoBit()`
 |Function
-|Not applicable
+|Conditional compilation only
 |True if a bit is NOT declared (or false if declared) in the currently specficied microcontroller's .dat file.
 
 NoBit(bit_name)
 
 |`Allof()`
 |Function
-|Not applicable
+|Conditional compilation only
 |True if all defines are declared:
 
 `AllOf(define1, define2, …)`
 
 |`OneOf()`
 |Function
-|Not applicable
+|Conditional compilation only
 |True if one of the defines is declared:
 
 `OneOf(define1, define2, …)`

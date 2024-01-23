@@ -1,0 +1,163 @@
+#IGNORECOMPILATION
+/*
+  #define TFT_BLACK       0x0000
+  #define TFT_NAVY        0x000F
+  #define TFT_DARKGREEN   0x03E0
+  #define TFT_DARKCYAN    0x03EF
+  #define TFT_MAROON      0x7800
+  #define TFT_PURPLE      0x780F
+  #define TFT_OLIVE       0x7BE0
+  #define TFT_LIGHTGREY   0xC618
+  #define TFT_DARKGREY    0x7BEF
+  #define TFT_BLUE        0x001F
+  #define TFT_GREEN       0x07E0
+  #define TFT_CYAN        0x77FF
+  #define TFT_RED         0xF800
+  #define TFT_MAGENTA     0xF81F
+  #define TFT_YELLOW      0xFFE0
+  #define TFT_WHITE       0xFFFF
+  #define TFT_ORANGE      0xFD20
+  #define TFT_GREENYELLOW 0xAFE5
+  #define TFT_PINK        0xF81F
+  */
+
+
+// Select the internal font
+    /* Function:    GLCDSelect_Internal_Font_Init                                            */
+    /*                                                                                       */
+    /* Parameters:                                                                           */
+    /*                   Size: Font size  16: 16*16   24: 24*24    32: 32*32                 */
+    /*                    XxN: Width magnification: 1~4                                      */
+    /*                    YxN: Height magnification: 1~4                                     */
+    /*              ChromaKey: 0: Background color transparent; 1: Background color          */
+    /*              Alignment: 0: Non-alignment; 1: Alignment                                */                                                                  */
+    /* Description: Initialize the internal font   */  
+
+GLCDSelect_Internal_Font_Init( 16, 1, 1, 0, 0 )
+
+
+FilledBox ( 0, 0, 29, 400, TFT_BLACK )
+Box       ( 0, 0, 400, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 1 , 40,  "BLACK", TFT_WHITE )
+
+FilledBox ( 40, 0, 79, 400, TFT_NAVY )
+Box       ( 40, 0, 79, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 41 , 80,  "NAVY", TFT_WHITE )
+
+FilledBox ( 80, 0, 119, 400, TFT_DARKGREEN )
+Box       ( 80, 0, 119, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 81 , 120,  "DARKGREEN", TFT_WHITE )
+
+FilledBox ( 120, 0, 159, 400, TFT_DARKCYAN )
+Box       ( 120, 0, 159, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 121 , 160,  "DARKCYAN", TFT_WHITE )
+
+FilledBox ( 160, 0, 199, 400, TFT_MAROON )
+Box       ( 160, 0, 199, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 161 , 200,  "MAROON", TFT_WHITE )
+
+FilledBox ( 200, 0, 239, 400, TFT_PURPLE )
+Box       ( 200, 0, 239, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 201 , 220,  "PURPLE", TFT_WHITE )
+
+FilledBox ( 240, 0, 279, 400, TFT_OLIVE )
+Box       ( 240, 0, 279, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 241 , 260,  "OLIVE", TFT_WHITE )
+
+FilledBox ( 280, 0, 319, 400, TFT_LIGHTGREY )
+Box       ( 280, 0, 319, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 281 , 280,  "LIGHTGREY", TFT_WHITE )
+
+FilledBox ( 320, 0, 359, 400, TFT_DARKGREY )
+Box       ( 320, 0, 359, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 321 , 300,  "DARKGREY", TFT_WHITE )
+
+FilledBox ( 360, 0, 399, 400, TFT_BLUE )
+Box       ( 360, 0, 399, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 361 , 320,  "BLUE", TFT_WHITE )
+
+FilledBox ( 400, 0, 439, 400, TFT_GREEN )
+Box       ( 400, 0, 439, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 401 , 340,  "GREEN", TFT_WHITE )
+
+FilledBox ( 440, 0, 479, 400, TFT_CYAN )
+Box       ( 440, 0, 479, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 441 , 360,  "CYAN", TFT_WHITE )
+
+FilledBox ( 480, 0, 519, 400, TFT_RED )
+Box       ( 480, 0, 519, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 481 , 380,  "RED", TFT_WHITE )
+
+FilledBox ( 520, 0, 559, 400, TFT_MAGENTA )
+Box       ( 520, 0, 559, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 521 , 360,  "MAGENTA", TFT_WHITE )
+
+FilledBox ( 560, 0, 599, 400, TFT_YELLOW )
+Box       ( 560, 0, 599, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 561 , 340,  "YELLOW", TFT_WHITE )
+
+
+FilledBox ( 600, 0, 639, 400, TFT_WHITE )
+Box       ( 600, 0, 639, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 601 , 320,  "WHITE", TFT_BLACK )
+
+
+FilledBox ( 640, 0, 679, 400, TFT_ORANGE )
+Box       ( 640, 0, 679, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 641 , 300,  "ORANGE", TFT_WHITE )
+
+
+FilledBox ( 680, 0, 719, 400, TFT_GREENYELLOW )
+Box       ( 680, 0, 719, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 681 , 280,  "GREENYELLOW", TFT_WHITE )
+
+
+FilledBox ( 720, 0, 759, 400, TFT_PINK )
+Box       ( 720, 0, 759, 400, TFT_WHITE )
+GLCDPrint_Internal_Font( 721 , 240,  "PINK", TFT_WHITE )
+
+
+FilledBox ( 760, 0, 800, 400, TFT_BLACK )
+Box       ( 760, 0, 800, 400, TFT_WHITE )
+
+Dim adcvalue, oldadcvalue,  cc as Byte
+Dim outstring as String * 10
+cc = 0
+adcvalue = 255
+oldadcvalue = 0
+Do
+    /* Read the ADC,
+    Scale to max value,
+    Ensure Range is 1 to max value,
+    Set the PWM Duty
+
+    The max duty value is a function of the constant 
+        SCRIPT_LT7686_PWM_PRESCALER_MAX = 200
+        where 200 is the default value.
+        This is set in glcd.h
+    */
+
+    
+    adcvalue = SCALE( READAD( AN0 ), 0, 255, 0, ( LT7686_PWM_PRESCALER_MAX /2 ) -1 )
+    if adcvalue <> oldadcvalue then
+      LT7686_PWM_DUTY ( adcvalue )
+      oldadcvalue = adcvalue
+
+      outstring = Str(adcvalue)
+      outstring = "ADC = " + Leftpad(outstring, 3, " ")
+      GLCDPrint_Internal_Font( 200 , 10, outstring , TFT_WHITE )
+
+    end if
+
+    Text_cursor_Init ( 1, 10, 1, 127 )
+    wait 500 ms
+    outstring = Leftpad(Str(cc), 3, " ")
+    GLCDPrint_Internal_Font( 100 , 10, outstring , TFT_WHITE )
+    cc++
+
+
+Loop
+
+
+
+#DEFINE  SYSDEFAULTCONCATSTRING  10

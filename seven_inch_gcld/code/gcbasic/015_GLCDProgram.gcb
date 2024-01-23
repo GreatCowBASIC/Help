@@ -1,0 +1,78 @@
+#IGNORECOMPILATION
+
+/*
+Example: Drawing a horizontal table window at (20, 20) position. The sub-table size is 80*40, table
+number of row is 9, table number of column is 11, the frame color is red, foreground color of
+Item table is green, foreground color of content table is white, inner frame width is 1, outer
+frame width is 3.
+GLCDMakeTable (XSTARTPOS, YSTARTPOS, CELLW, CELLH, NUMOFCOLS, NUMOFROWS, 1, 3, 3, TFT_RED, TFT_GREEN, TFT_WHITE)
+*/
+    #define XSTARTPOS           3
+    #define YSTARTPOS           2
+    #define CELLW               30
+    #define CELLH               20
+    #define NUMOFCOLS           ( GLCDDeviceWidth- XSTARTPOS - 1 ) / CELLW  'calc will fill screen or 25 
+    #define NUMOFROWS           ( GLCDDeviceHeight- YSTARTPOS - 1 ) / CELLH  'calc will fill screen or 22 
+    #define INNERFRAME          1
+    #define OUTERFRAME          3
+    // These control the accent of the table
+    #define TOPROWACCENT        2
+    #define LEFTCOLUMNACCENT    1
+    #define NOACCENT            0
+    
+    // Select the internal font
+        /* Function:    GLCDSelect_Internal_Font_Init                                            */
+        /*                                                                                       */
+        /* Parameters:                                                                           */
+        /*                   Size: Font size  16: 16*16   24: 24*24    32: 32*32                 */
+        /*                    XxN: Width magnification: 1~4                                      */
+        /*                    YxN: Height magnification: 1~4                                     */
+        /*              ChromaKey: 0: Background color transparent; 1: Background color          */
+        /*              Alignment: 0: Non-alignment; 1: Alignment                                */                                                                  */
+        /* Description: Initialize the internal font                                             */
+    GLCDSelect_Internal_Font_Init( 16, 1, 1, 0, 0 )
+
+    // Set PWM for LCD
+    LT7686_PWM_DUTY ( LT7686_PWM_PRESCALER_MAX )
+
+    // Dim the variables
+    Dim logadc, posx, posy, printx, printy as word
+
+    // Make the TABLE
+    GLCDMakeTable ( XSTARTPOS, YSTARTPOS, CELLW, CELLH, NUMOFCOLS, NUMOFROWS, INNERFRAME, OUTERFRAME,  TOPROWACCENT + LEFTCOLUMNACCENT, TFT_RED, TFT_GREEN, TFT_WHITE )
+    
+    // Set the BackgroundColor
+    GLCDSetBackgroundColor ( TFT_WHITE )
+
+    // Show LCD extents
+    box 0,0,GLCDDeviceWidth-1, GLCDDeviceHeight-1, TFT_YELLOW
+    box GLCDDeviceWidth-15, GLCDDeviceHeight-15,GLCDDeviceWidth-1, GLCDDeviceHeight-1, TFT_WHITE
+
+
+    Do
+
+        // loop throught the dimensions of the GCLD for each axis
+        // use many of the constants for the numbers
+        For posy = ( CELLH * 1 ) to ( NUMOFROWS - 1 ) * CELLH step CELLH
+            For posx = ( CELLW * 1 ) to ( NUMOFCOLS - 1) * CELLW step CELLW
+                
+                // read the ADC
+                logadc = ReadAD( AN0 )
+
+                // calculate the XY position on the GLCD
+                printx = posx + XSTARTPOS + 3
+                printy = posy + YSTARTPOS + 3
+                
+                /* 
+                Display the ADC value on the table.
+                The value needs to be formatted, it needs to have leading spaces, and, be three chars long.
+                */
+                GLCDPrint_Internal_Font ( printx, printy, right(leftpad(str(logadc),3," "),3), TFT_BLACK )
+                //  Hilight data point
+                Box ( posx + XSTARTPOS + 2, posy + YSTARTPOS + 2, posx + XSTARTPOS + CELLW - 2 , posy + YSTARTPOS + CELLH - 2 , TFT_RED )
+                wait 100 ms
+                Box ( posx + XSTARTPOS + 2, posy + YSTARTPOS + 2, posx + XSTARTPOS + CELLW - 2 , posy + YSTARTPOS + CELLH - 2 , TFT_WHITE )
+            Next
+        Next
+    Loop
+

@@ -1,0 +1,39 @@
+#IGNORECOMPILATION
+
+
+    // Rotate... or NOT!
+
+        dim _temp_LT7686, __temp_LT7686 as byte
+
+        LT7686_WriteCMD(LT7686_REG_MACR)
+        __temp_LT7686 = LT7686_DataRead()
+
+        LT7686_WriteCMD(LT7686_REG_DPCR)
+        _temp_LT7686 = LT7686_DataRead()
+
+        dim pp, ll as Byte
+    
+        GLCDSelect_Internal_Font_Init( 16, 1, 1, 0, 0 )
+        
+        for ll = 0 to 1
+            for pp = 0 to 3
+                    _temp_LT7686.3 = ll.0
+
+                    __temp_LT7686.2 = pp.1
+                    __temp_LT7686.1 = pp.0      
+
+                    LT7686_WriteCMD(LT7686_REG_MACR)
+                    LT7686_WriteData(__temp_LT7686)
+                    LT7686_Check_Busy_Draw
+
+                    LT7686_WriteCMD(LT7686_REG_DPCR)
+                    LT7686_WriteData(_temp_LT7686)
+                    LT7686_Check_Busy_Draw
+                    GLCDCLS
+                    GLCDPrint ( 0,0, "hello" )
+
+                    GLCDPrint ( 0,20, ll )
+                    GLCDPrint ( 0,40, pp )
+                    wait 5 s
+            next
+        next

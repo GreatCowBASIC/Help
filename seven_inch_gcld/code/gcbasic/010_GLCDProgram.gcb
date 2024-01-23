@@ -1,0 +1,16 @@
+#IGNORECOMPILATION
+
+    GLCDCLS TFT_BLACK
+    FilledTriangle (  122, 53, 175, 92, 143, 96, 0x23d6 )
+    FilledTriangle (  193, 99, 270, 66, 367, 219, 0x738e )
+    FilledTriangle (  194, 111, 331, 206, 259, 330, 0x738e )
+    FilledTriangle (  296, 91, 465, 106, 446, 328, 0x2c38 )
+    FilledTriangle (  468, 127, 473, 187, 497, 211, 0x738e )
+    FilledPentagon (  146, 102, 179, 101, 207, 186, 102, 186, 102, 155, 0x4cfb )
+    GLCDSelect_Internal_Font_Init( 32, 4, 4, 1, 1 )
+    GLCDPrint_Internal_Font( 300, 350,  "GCBASIC", TFT_WHITE )
+    GLCDSelect_Internal_Font_Init()
+    GLCDPrint_Internal_Font( 690 , 462,  "Jan 2024", TFT_YELLOW )
+    wait 1 s
+    
+

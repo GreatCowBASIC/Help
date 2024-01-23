@@ -1,0 +1,11 @@
+#IGNORECOMPILATION
+
+FramedFilledEllipse_LT7686  ( 150, 300, 100, 50, 10, TFT_RED, TFT_WHITE)
+
+FramedFilledbox (  200, 60, 400, 150, 5, TFT_RED, TFT_WHITE)
+
+FramedFilledRoundRect ( 550, 60, 500, 350, 30, 20,  5, TFT_RED, TFT_WHITE)
+
+FramedFilledTriangle(100, 100, 50, 200, 150, 150, TFT_RED, TFT_WHITE)
+
+FilledCube (300, 300, 350, 250, 400, 250, 350, 300, 350, 350, 400, 300, TFT_RED, TFT_WHITE) 

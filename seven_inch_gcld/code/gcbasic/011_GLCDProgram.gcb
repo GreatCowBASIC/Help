@@ -1,0 +1,89 @@
+#IGNORECOMPILATION
+
+    'GLCDCLS  supports GLCDBackground as default
+    'GLCDCLS  also support passing color parameter.
+    'GLCDCLS [color]
+
+    Dim CCOUNT, BYTENUMBER, OLDFONT, OLDFONT as Byte
+
+    CCount = 31
+    dim longNumber as long
+    longNumber = 0 ' max value = 4294967290
+    dim wordNumber as Word
+    wordNumber = 0
+    byteNumber = 0
+
+    GLCDCLS TFT_BLUE
+    'Set font size... this also selects the demo routine......
+    GLCDfntDefaultsize = 1
+    longNumber = 0 ' max value = 4294967290
+    wordNumber = 0
+    byteNumber = 0
+
+    GLCDRotate ( Portrait )
+
+    GLCDSelect_Internal_Font_Init( 16 )
+    GLCDPrint_Internal_Font( 6, 4,  "GCBASIC", TFT_WHITE )
+    GLCDPrint_Internal_Font( 56, 4,  "V1.xx" )
+
+    GLCDPrint_Internal_Font( 6, 32, "DrawStr" )
+ 
+    GLCDPrint_Internal_Font( 60, 50, "Long Number" )
+    GLCDPrint_Internal_Font( 60, 70, "Word Number" )
+    GLCDPrint_Internal_Font( 60, 90, "Byte Number" )
+
+
+    GLCDPrint_Internal_Font( 90, 16, "Asc:" )
+
+    box 0,0,GLCDDeviceWidth-1, GLCDDeviceHeight-1, TFT_YELLOW
+    box GLCDDeviceWidth-15, GLCDDeviceHeight-15,GLCDDeviceWidth-1, GLCDDeviceHeight-1, TFT_WHITE
+
+    Circle( GLCDDeviceWidth/2, GLCDDeviceHeight/2, 50, TFT_WHITE )            ;center
+    FilledCircle( GLCDDeviceWidth/2, GLCDDeviceHeight/2, 25, TFT_LIGHTGREY     )
+
+    line 0,  GLCDDeviceHeight-1 , GLCDDeviceWidth/2 +100,  (GLCDDeviceHeight /2) - 50, TFT_CYAN
+    line  0, (GLCDDeviceHeight /2) - 50, GLCDDeviceWidth/2 +100, (GLCDDeviceHeight /2) - 50, TFT_CYAN
+
+    filledbox 2,GLCDDeviceHeight/2+10,42,GLCDDeviceHeight/2+50, TFT_RED
+
+    oldfont = GLCDfntDefaultsize
+    GLCDSelect_Internal_Font_Init( 32 )
+    GLCDPrint_Internal_Font( 80, GLCDDeviceHeight - 40 , "LT7686" , TFT_WHITE )
+    GLCDSelect_Internal_Font_Init( 16 )
+
+
+    GLCDPrint_Internal_Font ( GLCDDeviceWidth - 70, 2 , "Mar 2023" , TFT_WHITE )
+
+    'Revert the font size
+    GLCDForeground = TFT_WHITE
+    GLCDBackground = TFT_BLUE
+
+    DO forever
+
+        GLCDPrint_Internal_Font ( 160 , 50, str(longNumber))
+        GLCDPrint_Internal_Font ( 160 , 70, pad( str(wordnumber),5))
+        GLCDPrint_Internal_Font ( 160 , 90, pad( str(bytenumber),3))
+
+        GLCDPrint_Internal_Font(54, 16, chr(CCount) )
+        Box 52,15,62,26, TFT_WHITE                'Draw a box around the Char below
+
+        GLCDPrint_Internal_Font ( 100, 32 , pad( str(CCount),3) )
+
+        CCount++
+        if CCount = 0 then CCount = 31
+        if CCount = 128 then CCount = 192
+        longNumber = longNumber + 7
+
+        wordNumber = wordNumber + 3
+        byteNumber++
+
+    LOOP
+
+
+
+
+
+
+
+
+

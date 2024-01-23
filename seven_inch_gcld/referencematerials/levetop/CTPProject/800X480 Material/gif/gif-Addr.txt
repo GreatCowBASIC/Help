@@ -1,0 +1,61 @@
+//0
+{223, 134, 0x00000000, 0x0000E974},//Elsa.gif-Frames0
+
+{223, 134, 0x0000E974, 0x0000E974},//Elsa.gif-Frames1
+
+{223, 134, 0x0001D2E8, 0x0000E974},//Elsa.gif-Frames2
+
+{223, 134, 0x0002BC5C, 0x0000E974},//Elsa.gif-Frames3
+
+{223, 134, 0x0003A5D0, 0x0000E974},//Elsa.gif-Frames4
+
+{223, 134, 0x00048F44, 0x0000E974},//Elsa.gif-Frames5
+
+{223, 134, 0x000578B8, 0x0000E974},//Elsa.gif-Frames6
+
+{223, 134, 0x0006622C, 0x0000E974},//Elsa.gif-Frames7
+
+{223, 134, 0x00074BA0, 0x0000E974},//Elsa.gif-Frames8
+
+{223, 134, 0x00083514, 0x0000E974},//Elsa.gif-Frames9
+
+{223, 134, 0x00091E88, 0x0000E974},//Elsa.gif-Frames10
+
+{223, 134, 0x000A07FC, 0x0000E974},//Elsa.gif-Frames11
+
+{223, 134, 0x000AF170, 0x0000E974},//Elsa.gif-Frames12
+
+{223, 134, 0x000BDAE4, 0x0000E974},//Elsa.gif-Frames13
+
+{223, 134, 0x000CC458, 0x0000E974},//Elsa.gif-Frames14
+
+{223, 134, 0x000DADCC, 0x0000E974},//Elsa.gif-Frames15
+
+{223, 134, 0x000E9740, 0x0000E974},//Elsa.gif-Frames16
+
+{223, 134, 0x000F80B4, 0x0000E974},//Elsa.gif-Frames17
+
+{223, 134, 0x00106A28, 0x0000E974},//Elsa.gif-Frames18
+
+{223, 134, 0x0011539C, 0x0000E974},//Elsa.gif-Frames19
+
+{223, 134, 0x00123D10, 0x0000E974},//Elsa.gif-Frames20
+
+{223, 134, 0x00132684, 0x0000E974},//Elsa.gif-Frames21
+
+{223, 134, 0x00140FF8, 0x0000E974},//Elsa.gif-Frames22
+
+{223, 134, 0x0014F96C, 0x0000E974},//Elsa.gif-Frames23
+
+{223, 134, 0x0015E2E0, 0x0000E974},//Elsa.gif-Frames24
+
+{223, 134, 0x0016CC54, 0x0000E974},//Elsa.gif-Frames25
+
+{223, 134, 0x0017B5C8, 0x0000E974},//Elsa.gif-Frames26
+
+{223, 134, 0x00189F3C, 0x0000E974},//Elsa.gif-Frames27
+
+{223, 134, 0x001988B0, 0x0000E974},//Elsa.gif-Frames28
+
+{223, 134, 0x001A7224, 0x0000E974},//Elsa.gif-Frames29
+

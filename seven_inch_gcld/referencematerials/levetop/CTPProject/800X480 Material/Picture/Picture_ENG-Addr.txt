@@ -1,0 +1,13 @@
+{800, 480, 0x00000000, 0x000bb800},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/1.bmp
+{800, 480, 0x000bb800, 0x000bb800},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/2.bmp
+{800, 480, 0x00177000, 0x000bb800},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/3.png
+{800, 480, 0x00232800, 0x000bb800},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/4.bmp
+{800, 480, 0x002ee000, 0x000bb800},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/5.bmp
+{182, 182, 0x003a9800, 0x000102c8},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/aa.bmp
+{182, 182, 0x003b9ac8, 0x000102c8},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/bb.bmp
+{182, 182, 0x003c9d90, 0x000102c8},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/cc.bmp
+{182, 182, 0x003da058, 0x000102c8},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/dd.bmp
+{182, 182, 0x003ea320, 0x000102c8},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/ee.bmp
+{182, 182, 0x003fa5e8, 0x000102c8},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/ff.bmp
+{70, 48, 0x0040a8b0, 0x00001a40},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/gg.bmp
+{70, 48, 0x0040c2f0, 0x00001a40},//LT_ZipIndex=0,C:/1_Jerry/Levetop/1_DemoBoard/LT768x/800X480 ¯À§÷/?¤ù/hh.bmp

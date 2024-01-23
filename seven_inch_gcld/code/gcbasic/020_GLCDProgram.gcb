@@ -1,0 +1,74 @@
+#IGNORECOMPILATION
+
+#define ADCChannelSelected AN0
+
+dim radius,xcentre,ycentre,xend,old_xend,yend,old_yend as word
+dim angle,old_angle,adcval as integer
+dim linesize as byte
+dim volts as string * 5
+xcentre=GLCD_WIDTH / 2
+ycentre=GLCD_HEIGHT - 50
+linesize = 4
+;draw dial
+GLCDCLS
+
+radius      = 325
+angle       = 0
+old_angle   = 360
+
+    // Select the internal font
+        /* Function:    GLCDSelect_Internal_Font_Init                                            */
+        /*                                                                                       */
+        /* Parameters:                                                                           */
+        /*                   Size: Font size  16: 16*16   24: 24*24    32: 32*32                 */
+        /*                    XxN: Width magnification: 1~4                                      */
+        /*                    YxN: Height magnification: 1~4                                     */
+        /*              ChromaKey: 0: Background color transparent; 1: Background color          */
+        /*              Alignment: 0: Non-alignment; 1: Alignment                                */                                                                  */
+        /* Description: Initialize the internal font    */
+GLCDSelect_Internal_Font_Init( 32, 4, 4, 0, 0 )
+GLCDBackground = TFT_BLACK
+
+LeftUpCurve_LT7686  ( xcentre,ycentre, radius+1, radius+1, TFT_RED )
+RightUpCurve_LT7686 ( xcentre,ycentre, radius+1, radius+1, TFT_RED )
+
+
+do
+
+    ;--- DVM
+    adcval=ReadAD(ADCChannelSelected)
+    angle=Scale( adcval, 0, 255, -80, 80)   // this will equate to 160 degrees later
+
+    // do some scaling
+    adcval=scale( adcval, 0, 255, 0, 500)
+    volts=str(adcval)
+
+    if adcval<10 then
+        volts="0.0"+left(volts,1,1)
+        goto volt_format_done
+    end if
+    if adcval<100 then
+        volts="0."+mid(volts,1,2)
+    else
+        volts=left(volts,1,1)+"."+mid(volts,2,2)
+    end if
+    volt_format_done:
+
+    ;---
+    xend = xcentre + ([INTEGER]( radius  * sin ([integer]angle) )) / 100 
+    yend = ycentre - ([INTEGER]( radius  * cos ([integer]angle) )) / 100
+    
+    if old_angle<>angle then ;-- update screen if the data has changed
+
+        // GLCDSelect_Internal_Font_Init( 32, 4, 4, 0, 0 )
+        GLCDPrint_Internal_Font ( 0, 0, volts, TFT_WHITE)
+        
+        LineWidth(xcentre,ycentre,old_xend,old_yend,  linesize,  TFT_BLACK)
+        FilledCircle xcentre,ycentre, linesize  * 3, TFT_RED 
+        LineWidth(xcentre,ycentre,xend,yend,          linesize,  TFT_RED)
+        
+        old_angle = angle
+        old_xend = xend
+        old_yend = yend
+    end if
+loop
