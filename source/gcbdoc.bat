@@ -75,7 +75,6 @@ call %GCBase%\prog\utils\hhc %1.hhp
 
 cd
 echo Copy HTML generated to MD folder
-pause
 xcopy *.* ..\md /I /Y /S
 
 del *.htm*
@@ -98,6 +97,7 @@ del *.mod > nul
 Echo delete the files for the Help.wiki.git
 del ..\..\..\Help.wiki\*.* /Q
 
+echo AWK process HTML generated to MOD file in MD folder
 FOR /F "tokens=*" %%G IN ('dir/b /s ^"*.html^"') DO (
 	echo %%G
 	rem "%~d1%~p1%~n1.lst"
@@ -125,7 +125,7 @@ del /q ..\..\..\Help.wiki\*.css
 
 
 
-rem copy the files for the Help.wiki.git
+Echo Copy the MD files for the Help.wiki.git
 copy  ..\..\source\images ..\..\..\Help.wiki\images 
 
 
