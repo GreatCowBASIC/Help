@@ -1,4 +1,4 @@
-@echo off
+@echo on
 setlocal
 cd ..
 set GCBase=%CD%
@@ -38,6 +38,9 @@ cd %GCBruby%
 echo Installing coderay...
 call gem install -N coderay
 cd %GCBase%\source
+
+
+
 :GOAHEAD
 if /I %2 == pdf   goto  :pdf
 if /I %2 == chm   goto  :chm
@@ -70,14 +73,17 @@ copy %GCBase%\source\gcbdoc.css .
 rem copy %GCBase%\source\images\logo.png .\images
 call %GCBase%\prog\utils\hhc %1.hhp
 
-xcopy *.* ..\md /I /Y /S > nul
+cd
+echo Copy HTML generated to MD folder
+pause
+xcopy *.* ..\md /I /Y /S
 
 del *.htm*
 del *.hh*
 del *.css
 rmdir .\images /s /q
 
-
+:wiki
 REM Make WIKI section
 rem pause
 echo on
@@ -90,7 +96,7 @@ del *.mod > nul
 
 
 Echo delete the files for the Help.wiki.git
-del ..\..\..\..\Help.wiki.git\trunk\*.* /Q
+del ..\..\..\Help.wiki\*.* /Q
 
 FOR /F "tokens=*" %%G IN ('dir/b /s ^"*.html^"') DO (
 	echo %%G
@@ -111,16 +117,16 @@ ren ..\md\index.md  "home.md"
 
 
 REM delete the files for the Help.wiki.git - assuming it is the same folder
-del /q ..\..\..\..\Help.wiki.git\trunk\*.*
-copy ..\md\*.* ..\..\..\..\Help.wiki.git\trunk
-del /q ..\..\..\..\Help.wiki.git\trunk\*.ht*
-del /q ..\..\..\..\Help.wiki.git\trunk\gcbasic.*
-del /q ..\..\..\..\Help.wiki.git\trunk\*.css
+del /q ..\..\Help.wiki\*.*
+copy ..\md\*.* ..\..\..\Help.wiki
+del /q ..\..\..\Help.wiki\*.ht*
+del /q ..\..\..\Help.wiki\gcbasic.*
+del /q ..\..\..\Help.wiki\*.css
 
 
 
 rem copy the files for the Help.wiki.git
-copy  ..\..\source\images ..\..\..\..\Help.wiki.git\trunk\images 
+copy  ..\..\source\images ..\..\..\Help.wiki\images 
 
 
 
@@ -179,6 +185,8 @@ echo   ^<import file="%GCBxsldir%\webhelp\build.xml"/^>									>> build.xml
 echo ^</project^>																		>> build.xml
 rem
 echo calling ant...
+cd
+
 call ant webhelp
 if ERRORLEVEL 1 goto :ERROR
 del %1.xml
