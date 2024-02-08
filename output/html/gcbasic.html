@@ -609,8 +609,8 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-02-06<br>
-10:25:46 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-02-08<br>
+08:23:53 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
@@ -5106,19 +5106,39 @@ Scripts are highest priority, then constants in the main program, then constants
 </div>
 <div class="sect2">
 <h3 id="_functions">Functions</h3>
+<div class="listingblock">
+<div class="content">
+<pre>    Function identifier  [( arg1 [ as Type ], arg2... argx) ] [As return_type]
+        statements
+        ...
+        identifier = return_value
+        ...
+    End Function</pre>
+</div>
+</div>
 <div class="paragraph">
 <p><strong>About Functions</strong></p>
 </div>
 <div class="paragraph">
-<p>Functions are a special type of subroutine that can return a value. This
-means that when the name of the function is used in the place of a
+<p>Functions are a special type of subroutine that can return a value.&#160;&#160;
+This means that when the name of the function is used in the place of a
 variable, GCBASIC will call the function, get a value from it, and then
 put the value into the line of code in the place of the variable.</p>
 </div>
 <div class="paragraph">
-<p>Functions may also have parameters - these are treated in exactly the
-same way as parameters for subroutines. The only exception is that
-brackets are required around any parameters when calling a function.</p>
+<p>Functions are strict.&#160;&#160;The function MUST be assigned to an appropiate variable or passed to another subroutine.&#160;&#160;Calling a function with no assignment or returned value usage will raise an error condition.</p>
+</div>
+<div class="paragraph">
+<p>Functions may have parameters - these are treated in exactly the
+same way as parameters for subroutines.&#160;&#160;
+The only exception is that brackets are required around any parameters when calling a function. &#160;&#160;The argument&#8217;s type is given by "As type" following the parameter. If a parameter in the declaration is given a default value, the parameter is optional. Array parameters are specified by following an identifier with an empty parenthesis.</p>
+</div>
+<div class="paragraph">
+<p>Returning values : <code>return_type</code> specifies the data type returned by a function upon exit.&#160;&#160;If no data type is specified, then the function will return the default data type which is a byte.&#160;&#160;
+Functions return values by assigning the Function keyword or the function&#8217;s <code>identifier</code> to the desired return value, this method do not cause the function to exit, however.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>Exit Function keyword in a same function is unsupported when returning objects with constructors.&#160;&#160;Since functions return values, function calls evaluate to expressions. Thus, function calls can be made wherever an expression is expected, like in Assignments or If statements.&#160;&#160;Parentheses surrounding the argument list are required on function calls in expressions and even highly recommended if there are no arguments.</p>
 </div>
 <div class="paragraph">
 <p><strong>Using Functions</strong></p>
@@ -5142,16 +5162,16 @@ readings, and then make a decision based on the average:</p>
 
     'Main code
     Do
-    Set PORTB.0 Off
-    If AverageAD &gt; 128 Then Set PORTB.0 On
-    wait 10 ms
+        Set PORTB.0 Off
+        If AverageAD &gt; 128 Then Set PORTB.0 On
+        wait 10 ms
     Loop
 
     Function AverageAD
-    'Get 2 readings, divide by 2, store in AverageAD
-    'Note the cast, the result of ReadAD needs to be converted to
-    'a word before adding, or the result may overflow.
-    AverageAD = ([word]ReadAD(Sensor) + ReadAD(Sensor)) / 2
+        'Get 2 readings, divide by 2, store in AverageAD
+        'Note the cast, the result of ReadAD needs to be converted to
+        'a word before adding, or the result may overflow.
+        AverageAD = ([word]ReadAD(Sensor) + ReadAD(Sensor)) / 2
     end function</pre>
 </div>
 </div>

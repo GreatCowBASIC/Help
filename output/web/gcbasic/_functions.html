@@ -16,7 +16,7 @@
       <link rel="next" href="_labels.html" title="Labels" />
       <meta name="Section-title" content="Functions" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-53795";
+            var treeCookieId = "treeview-53809";
             var language = "en";
             var w = new Object();
             //Localization
@@ -183,16 +183,34 @@ border: none; background: none; font-weight: none; color: none; }
                      </h3>
                   </div>
                </div>
-            </div>
-            <p><span class="strong"><strong>About Functions</strong></span></p>
-            <p>Functions are a special type of subroutine that can return a value. This
-               means that when the name of the function is used in the place of a
+            </div><pre class="screen">    Function identifier  [( arg1 [ as Type ], arg2... argx) ] [As return_type]
+        statements
+        ...
+        identifier = return_value
+        ...
+    End Function</pre><p><span class="strong"><strong>About Functions</strong></span></p>
+            <p>Functions are a special type of subroutine that can return a value.  
+               This means that when the name of the function is used in the place of a
                variable, GCBASIC will call the function, get a value from it, and then
                put the value into the line of code in the place of the variable.
             </p>
-            <p>Functions may also have parameters - these are treated in exactly the
-               same way as parameters for subroutines. The only exception is that
-               brackets are required around any parameters when calling a function.
+            <p>Functions are strict.  The function MUST be assigned to an appropiate variable or passed to another subroutine.  Calling a
+               function with no assignment or returned value usage will raise an error condition.
+            </p>
+            <p>Functions may have parameters - these are treated in exactly the
+               same way as parameters for subroutines.  
+               The only exception is that brackets are required around any parameters when calling a function.   The argument’s type is given
+               by "As type" following the parameter. If a parameter in the declaration is given a default value, the parameter is optional.
+               Array parameters are specified by following an identifier with an empty parenthesis.
+            </p>
+            <p>Returning values : <code class="literal">return_type</code> specifies the data type returned by a function upon exit.  If no data type is specified, then the function will return the
+               default data type which is a byte.  
+               Functions return values by assigning the Function keyword or the function’s <code class="literal">identifier</code> to the desired return value, this method do not cause the function to exit, however.  
+            </p>
+            <p>Exit Function keyword in a same function is unsupported when returning objects with constructors.  Since functions return
+               values, function calls evaluate to expressions. Thus, function calls can be made wherever an expression is expected, like
+               in Assignments or If statements.  Parentheses surrounding the argument list are required on function calls in expressions
+               and even highly recommended if there are no arguments.
             </p>
             <p><span class="strong"><strong>Using Functions</strong></span></p>
             <p>This program uses a function called <code class="literal">AverageAD</code> to take two analog
@@ -210,16 +228,16 @@ border: none; background: none; font-weight: none; color: none; }
 
     'Main code
     Do
-    Set PORTB.0 Off
-    If AverageAD &gt; 128 Then Set PORTB.0 On
-    wait 10 ms
+        Set PORTB.0 Off
+        If AverageAD &gt; 128 Then Set PORTB.0 On
+        wait 10 ms
     Loop
 
     Function AverageAD
-    'Get 2 readings, divide by 2, store in AverageAD
-    'Note the cast, the result of ReadAD needs to be converted to
-    'a word before adding, or the result may overflow.
-    AverageAD = ([word]ReadAD(Sensor) + ReadAD(Sensor)) / 2
+        'Get 2 readings, divide by 2, store in AverageAD
+        'Note the cast, the result of ReadAD needs to be converted to
+        'a word before adding, or the result may overflow.
+        AverageAD = ([word]ReadAD(Sensor) + ReadAD(Sensor)) / 2
     end function</pre><p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_subroutines.html" title="Subroutines">Subroutines</a>, <a class="link" href="_exit.html" title="Exit">Exit</a></p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">

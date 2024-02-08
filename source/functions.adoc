@@ -16,7 +16,7 @@ This means that when the name of the function is used in the place of a
 variable, GCBASIC will call the function, get a value from it, and then
 put the value into the line of code in the place of the variable.
 
-Functions are strict.&#160;&#160;The function MUST be assigned to an appropiate or passed to another subroutine.&#160;&#160;Calling a function with no assignment or function usage will raise an error condition.
+Functions are strict.&#160;&#160;The function MUST be assigned to an appropiate variable or passed to another subroutine.&#160;&#160;Calling a function with no assignment or returned value usage will raise an error condition.
 
 Functions may have parameters - these are treated in exactly the
 same way as parameters for subroutines.&#160;&#160;
