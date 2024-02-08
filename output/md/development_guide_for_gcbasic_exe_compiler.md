@@ -52,16 +52,16 @@ of the then available compilers - they were hard to use and not free.
 
 Hugh believes that GCBASIC should be free to all - forever.  
 
-The original software was called GCBASIC, but, he had some resistance in
-getting high schools in Australia to use and agree to the use of text
-based programming.   Graphical GCBASIC was created to address the need
-for a graphical user interface.  Graphical GCBASIC acts like a set of
-training wheels.    The concept of Graphical GCBASIC is that the icons
-make it less scary, and since they all share names with the BASIC
-commands it is then easy to remember what command corresponds to each
-icon..   Using Graphical GCBASIC users can then switch to text mode
-whenever they want to, go backwards and forwards a few times if they
-want, and finally end up using just the text programming.   It is a
+The original software was called Great Cow BASIC, but, he had some
+resistance in getting high schools in Australia to use and agree to the
+use of text based programming.   Graphical GCBASIC was created to
+address the need for a graphical user interface.  Graphical GCBASIC acts
+like a set of training wheels.    The concept of Graphical GCBASIC is
+that the icons make it less scary, and since they all share names with
+the BASIC commands it is then easy to remember what command corresponds
+to each icon..   Using Graphical GCBASIC users can then switch to text
+mode whenever they want to, go backwards and forwards a few times if
+they want, and finally end up using just the text programming.   It is a
 journey from a graphical user interface to text based programming.    
   
 Those who already have programming experience can go straight to
@@ -77,7 +77,7 @@ decided against it on finding out the slang meaning of bear.   Final
 name was GCBASIC, which is named after something his sister and he came
 up with (when aged 12 and 15!!).   No-one else had that name, it had no
 meanings that could offend, and it was something odd enough to be
-memorable, so GCBASIC it was.
+memorable, so Great CoW CBASIC it was.
 
 In 2013 Evan Venn joined the team as a compiler developer, with others
 joining in Bernd Dau, Trevor Roydhouse, Pete Everett, Theo Loermans,
@@ -89,6 +89,8 @@ improvements to the GCBASIC compiler.
 
 In 2021 we are still having new developers join the project like ToniG
 adding a new capability for handling Tables.
+
+In 2023 we renamed to GCBASIC.  The Cow is no more.
 
   
   
@@ -172,9 +174,10 @@ the ASM source and the HEX file from the user source program.
                     RF = File number
                     L  = Line number in source file
                     S  = Sub Routine number
-        iv.    Find compiler directives, except SCRIPT, ENDSCRIPT, IFDEF and ENDIF - including all the #DEINEs outside of condiontal statements
-        v.     ReadChipData
-        vi.    CheckClockSpeed
+        iv.    Find compiler directives, except SCRIPT, ENDSCRIPT, IFDEF and ENDIF - including all the #DEFINEs outside of condiontal statements
+        v.     If GLCD_TYPE in user source program is found, then, determine the library and load that library with all dependent libraries. This method improves compiler performance by only loading the required libraries
+        vi.    ReadChipData
+        vii.   CheckClockSpeed
         viii.  ReadOptions
         ix.    PreparePageData
         x.     PrepareBuiltIn.  Initialise built-in data, and prepare built-in subs.
