@@ -27,13 +27,14 @@ Dim has two uses:{nbsp}{nbsp}It can be used to define 1) variables of many types
 
 Available on all microcontrollers.
 
+
 The `Dim` variable command is used to instruct GCBASIC to allocate variables or to create alternate names for existing  variables (using Alias) or to create variables at a specific memory location (using At).
 
 The `Dim array` command also sets up array variables. The maximum array size is determined by the parameter `_size_` is dynamically allocated by the compiler and depends on the specific chip used, as well as the complexity of the program.
 
 The limit on array size varies dependent on the chip type.  See the *Maximum Array Size* section in <<_array,Arrays>> for more information.
 
-`_type_` specifies the type of variable that is to be created. Different variable types can hold values over different ranges, and use different amounts of RAM. See the <<_variables,Variables>> article for more information.
+`_type_` specifies the type of variable that is to be created. Different variable types can hold values over different ranges, and use different amounts of RAM. See the <<_variable_types,Variables Types>> article for more information.
 
 When multiple variables are included on the one line, GCBASIC will set them all to the type that is specified at the end of the line. If there is no type specified, then GCBASIC will make the variable a byte.
 

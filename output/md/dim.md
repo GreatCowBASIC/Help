@@ -56,8 +56,9 @@ class="strong">**Maximum Array Size**</span> section in
 
 `type` specifies the type of variable that is to be created. Different
 variable types can hold values over different ranges, and use different
-amounts of RAM. See the <a href="" class="link">Variables</a> article
-for more information.
+amounts of RAM. See the
+<a href="variable_types" class="link" title="Variable Types">Variables Types</a>
+article for more information.
 
 When multiple variables are included on the one line, GCBASIC will set
 them all to the type that is specified at the end of the line. If there
