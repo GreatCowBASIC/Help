@@ -333,18 +333,18 @@ multiplication of the initial value using a for-next loop.  
     HSerPrint "Use floats with multiplier maths"
     HSerPrintCRLF
 
-    'Assign a value to a double variable
+    'Assign a value to the variable
     ccount   = 4.5
 
+      'Do some maths... multiplier x ccount
       For  multiplier = 0 to 40000 step 2500
-        'Do some maths... multiplier x ccount
 
-        HSerPrint "4.5"
+        HSerPrint SingleToString(ccount)
         HSerPrint " x "
         HSerPrint left(WordToString(multiplier)+"        ", 10 )
         HSerPrint " = "
 
-        'Convert Single to Long to get the result
+        'Calculate the result
         result = multiplier * ccount
         HSerPrint left(SingleToString(result)+"          ", 10 )
         HSerPrintCRLF

@@ -164,7 +164,7 @@ Select the drop down menu to see the menu
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
 <entry align="center" valign="top"><simpara>2024-03-09<?asciidoc-br?>
-09:18:34 GMT Standard Time</simpara></entry>
+10:06:32 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
@@ -2398,18 +2398,18 @@ The program shows setting up the advanced variables, assigned a value and comple
     HSerPrint "Use floats with multiplier maths"
     HSerPrintCRLF
 
-    'Assign a value to a double variable
+    'Assign a value to the variable
     ccount   = 4.5
 
+      'Do some maths... multiplier x ccount
       For  multiplier = 0 to 40000 step 2500
-        'Do some maths... multiplier x ccount
 
-        HSerPrint "4.5"
+        HSerPrint SingleToString(ccount)
         HSerPrint " x "
         HSerPrint left(WordToString(multiplier)+"        ", 10 )
         HSerPrint " = "
 
-        'Convert Single to Long to get the result
+        'Calculate the result
         result = multiplier * ccount
         HSerPrint left(SingleToString(result)+"          ", 10 )
         HSerPrintCRLF
