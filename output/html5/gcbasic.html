@@ -440,11 +440,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_inputs_outputs">Inputs/Outputs</a></li>
 <li><a href="#_configuration">Configuration</a></li>
+<li><a href="#_usb_drivers_installer">USB Drivers Installer</a></li>
+</ul>
+</li>
+<li><a href="#_variables">Variables</a>
+<ul class="sectlevel2">
 <li><a href="#_data_types">Data Types</a></li>
 <li><a href="#_variable_types">Variable Types</a></li>
-<li><a href="#_variable_advanced_types">Variable Advanced Types</a></li>
+<li><a href="#_advanced_variabletypes">Advanced VariableTypes</a></li>
 <li><a href="#_variable_memory_allocation">Variable Memory Allocation</a></li>
-<li><a href="#_usb_drivers_installer">USB Drivers Installer</a></li>
 </ul>
 </li>
 <li><a href="#_syntax">Syntax</a>
@@ -518,6 +522,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#__option_explicit">#Option Explicit</a></li>
 <li><a href="#__option_noconfig">#Option NoConfig</a></li>
 <li><a href="#__option_bootloader">#Option Bootloader</a></li>
+<li><a href="#__option_float">#Option Float</a></li>
 <li><a href="#__option_nocontextsave">#Option NoContextSave</a></li>
 <li><a href="#__option_nolatch">#Option NoLatch</a></li>
 <li><a href="#__option_required">#Option Required</a></li>
@@ -781,13 +786,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-02-08<br>
-08:23:54 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-09<br>
+09:18:37 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2023-12-28<br>
-11:44:57 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-09<br>
+09:14:53 GMT Standard Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -2472,7 +2477,7 @@ GCBASIC supports the following core libraries.   These libraries are automatical
 <p>Chuck Hellebuyck - His documentation for the GLCD and other pieces, see <a href="http://www.elproducts.com" class="bare">http://www.elproducts.com</a>.</p>
 </div>
 <div class="paragraph">
-<p>Frank Steinberg - GCB@SYN IDE for GCBASIC.</p>
+<p>Frank Steinberg - GCode IDE for GCBASIC.</p>
 </div>
 <div class="paragraph">
 <p>Alexy T. - SynWrite IDE used for GCB IDE, see <a href="http://www.uvviewsoft.com/synwrite" class="bare">http://www.uvviewsoft.com/synwrite</a></p>
@@ -3257,6 +3262,134 @@ one file do not conflict with those in another.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_usb_drivers_installer">USB Drivers Installer</h3>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+Installing the USB driver is only required when using the GCBASIC USB library.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Description:</strong></p>
+</div>
+<div class="paragraph">
+<p>The drivers for windows x86 and x64 correspond to the USB LIBKWIN capability of GCBasic for supported PIC microcontrollers.</p>
+</div>
+<div class="paragraph">
+<p>For security reasons, in Microsoft windows for a driver to be installed, it is necessary that it be digitally signed by Microsoft.</p>
+</div>
+<div class="paragraph">
+<p>Microsoft did make a special “Test” mode for developers to install MANUALLY unsigned drivers for debug and testing, being a technical advanced and not user-friendly procedure; at the same time the windows developers make efforts to disable the capability of doing this in an automated fashion by the concerns of being used as a vulnerability of the operating system.</p>
+</div>
+<div class="paragraph">
+<p>This scenario will make installing test drivers difficult and frustrating for the uninitiated, at the same time for a useful Hobby project it will be not practical to make end users to take all this drama.</p>
+</div>
+<div class="paragraph">
+<p>This driver installer method resolves the constraints imposed by the Windows operating system, and, therefore will allow you to install the drivers in the easiest way possible, almost like any driver of a well-known company.</p>
+</div>
+<div class="paragraph">
+<p><strong>Usage:</strong></p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+The installer will reboot the system without notice. Please close all programs and save any work you have open before begin whit the driver install.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>1 - Open the installer, it will request admin rights.</p>
+</div>
+<div class="paragraph">
+<p>2 - Navigate thru the wizard to automatically extract the driver files (there aren’t any options to select).</p>
+</div>
+<div class="paragraph">
+<p>3 - At the end of the wizard, after you click the exit button, the system will restart automatically</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+In the case where your computer has Secure Boot enabled, the installer will advise you of extra steps needed after reboot, at the end of this page you will find a graphic reflecting those steeps and what elements you need to select.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>4 - After restart and login in to your user account, a window will inform you that the driver is not signed and you will be asked if you want to install the driver, please allow it.</p>
+</div>
+<div class="paragraph">
+<p>5 - when the driver has been installed, the computer will restart automatically.</p>
+</div>
+<div class="paragraph">
+<p><br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Secure Boot Enabled, Boot menu steps</strong>
+<br>
+<br></p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/winresteepsm.png" alt="graphic">
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>USB Driver details</strong></p>
+</div>
+<div class="paragraph">
+<p>The driver uses the following USB flags.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    USB_VID 0x1209
+    USB_PID 0x2006
+    USB_REV 0x0000</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For others, need to modify and recompile the USB library.</p>
+</div>
+<div class="paragraph">
+<p>USB_PRODUCT_NAME and USB_VENDOR_NAME can change without problem (windows device manager will show the name reported by the hardware not the driver</p>
+</div>
+<div class="paragraph">
+<p><strong>Tested on (but not limited to)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Windows 11 pro x64 secureboot disabled, os build Dev 21H2 22000.194
+    Windows 11 pro x64 secureboot enabled, os build Dev rs_prerelease 22458.1000
+    Windows 10 pro x64 secureboot disabled, os build stable 20H2 19042.867
+    Windows 7 pro x86 secureboot disabled, os service pack 1 build 6.1.7601</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_variables">Variables</h2>
+<div class="sectionbody">
+<div class="sect2">
 <h3 id="_data_types">Data Types</h3>
 <div class="paragraph">
 <p>This section discusses the different types and sizes of data variables used by GCBASIC, and how they are interpreted or handled by GCBASIC methods.</p>
@@ -3788,21 +3921,9 @@ To apply operations to individual bits of variables see, <a href="#_set">Set</a>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_variable_advanced_types">Variable Advanced Types</h3>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Warning</div>
-</td>
-<td class="content">
-Experimental - Not Supported - For Development Team use only
-</td>
-</tr>
-</table>
-</div>
+<h3 id="_advanced_variabletypes">Advanced VariableTypes</h3>
 <div class="paragraph">
-<p><strong>About Variable Advanced Types</strong></p>
+<p><strong>About Advanced Variable Types</strong></p>
 </div>
 <div class="paragraph">
 <p>A variable is an area of memory on the microcontroller that can be used to store a number or other data.&#160;&#160;
@@ -3816,23 +3937,32 @@ Choosing a name for a variable is easy - do not include spaces or any symbols (o
 <p><strong>Advanced Types</strong></p>
 </div>
 <div class="paragraph">
-<p>There are a number different types of advanced variable types, and each type can store a different range of numeric information.&#160;&#160;
-With respect to advanced variables GCBASIC supports:</p>
+<p>There are a number different types of advanced variable types, and each type can store a different range of numeric information.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>With respect to advanced variables GCBASIC supports:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>large integers which can be signed &amp; unsigned</p>
-</li>
-<li>
-<p>floating points floats) which can be signed and unsigned.&#160;&#160;</p>
+<p>single floats which can be signed and unsigned.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>However, using large integers and floats point maths is also much slower than integer maths when performing calculations and loops, therefore should be avoided if.&#160;&#160;
+<p>With respect to used advanced variables - please use Singles in your program as these have been tested.  The other types are documented for completeness and should be used by developers in libraries.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>double floats, and the large integers which can be signed &amp; unsigned</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Using advanced variable type maths is also much slower than integer maths when performing calculations and loops, therefore should be avoided if.&#160;&#160;
 You should convert float calculations to integer maths to increase operation of your solution.&#160;&#160;
-The example program (shown below) shows how use a float maths and how to achieve the same calculation using integer maths.&#160;&#160;
+The example program (shown below) shows how use a float maths and you shuld try to do the same with integers and time the overall time for comparison.&#160;&#160;Typically, floats are 18%-20% slower than similar integer maths operations.
 <br>
 <br>
 The advanced variable types that GCBASIC supports are:</p>
@@ -3842,17 +3972,38 @@ The advanced variable types that GCBASIC supports are:</p>
 <col>
 <col>
 <col>
+<col>
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top"><strong>Advanced Variable type</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Supported</strong></th>
 <th class="tableblock halign-left valign-top"><strong>Information that this variable can store</strong></th>
 <th class="tableblock halign-left valign-top"><strong>Example uses for this type of variable</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Single</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A numeric floating point values that range from -3.4x10 ^ 38 and +3.4x10 ^ 38  with up to seven significant digits.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Storing decimal numbers that could be a negative number and positive.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Developers Only</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Developers Only</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Developers Only</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Developers Only</strong></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LongINT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Libraries only</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A list of whole numbers between - (2 ^ 63) and 2 ^ 63 - 1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Storing very, very big integer numbers that could be a negative number.
 </p><p class="tableblock">The GCBASIC range is -9999999999999990 to 9999999999999990.
@@ -3860,16 +4011,13 @@ The advanced variable types that GCBASIC supports are:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">uLongINT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Libraries only</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A whole number between 0 and 2 ^ 64 - 1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Storing very, very, very big integer numbers</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Single</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A numeric floating point values that range from -3.4x10 ^ 38 and +3.4x10 ^ 38  with up to seven significant digits.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Storing decimal numbers that could be a negative number and positive.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Double</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Libraries only</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A numeric floating point values that range from  -1.7x10 ^ 308 and +1.7x10 ^ 308 with up to 15 significant digits.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Storing decimal numbers that could be a negative number and positive.</p></td>
 </tr>
@@ -3900,7 +4048,7 @@ The format of these bytes is:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    Dim workvariable as longInt
+<pre>    Dim workvariable as Single
     workvariable = 21845
     Dim lowb as byte
     Dim highb as byte
@@ -3915,6 +4063,28 @@ The format of these bytes is:</p>
 </div>
 </div>
 <div class="paragraph">
+<p><strong>Using the Byte components of Advanced Variables</strong></p>
+</div>
+<div class="paragraph">
+<p>This is strict.  Accessing BYTE values of advanced variables requires the use cast.  Failure to use cast will cause issue with the low byte ( the low byte will tranformed into a Long integer and you will provide the low byte of the Long integer).</p>
+</div>
+<div class="paragraph">
+<p>Example. Mandated  use of cast for floats</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Dim sNumC as Single
+
+    HserPrint "Hex with [CAST] / "
+    HSerPrint "0x"
+    HserPrint Hex([BYTE]sNumC_E)
+    HserPrint Hex([BYTE]sNumC_U)
+    HserPrint Hex([BYTE]sNumC_H)
+    HserPrint Hex([BYTE]sNumC)
+    HserPrintCRLF</pre>
+</div>
+</div>
+<div class="paragraph">
 <p><br>
 <br>
 <strong>Using Advanced Variables</strong></p>
@@ -3925,14 +4095,16 @@ to tell GCBASIC that it is dealing with an advanced variable.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    Dim myLongInt as LongInt
+<pre>    Dim mySingle as Single
+    mySingle= 1.1
+
+    // The following types are for Libraries only
+
+    Dim myLongInt as LongInt
     myLongInt = 9999999999999990          'see the Help for constraints
 
     Dim myuLongInt as uLongInt
     myuLongInt = 0xFFFFFFFFFFFFF          'see the Help for constraints
-
-    Dim mySingle as Single
-    mySingle= 1.1
 
     Dim myDouble as Double
     myDouble=3.141592</pre>
@@ -3947,9 +4119,6 @@ to tell GCBASIC that it is dealing with an advanced variable.</p>
 </div>
 <div class="paragraph">
 <p>Advanced variables are only supported by a subset of the functions of GCBASIC.&#160;&#160;</p>
-</div>
-<div class="paragraph">
-<p>If the function is NOT shown below assume the function is NOT supported.&#160;&#160;If you use a function that is not shown below then you may get a silent failure and you may not get the results you expected.</p>
 </div>
 <div class="paragraph">
 <p>The functional characteristics are:</p>
@@ -3998,25 +4167,6 @@ to tell GCBASIC that it is dealing with an advanced variable.</p>
 <li>
 <p>Use of  float variable(s) as global variables. &#160;&#160;Passing float variable(s) as parameters to methods ( sub, function and macro) not supported.</p>
 </li>
-</ul>
-</div>
-<div class="paragraph">
-<p><br>
-<br></p>
-</div>
-<div class="paragraph">
-<p>Functions explicitly not supported</p>
-</div>
-<div class="paragraph">
-<p>These are the functions that are not supported.&#160;&#160;
-Assuming that a function is not supported is the best approach when using advanced variables.&#160;&#160;
-Use of these functions may cause an error message or may silently fail producing invalid ASM.
-<br>
-Functionality explicitly not supported is shown below.&#160;&#160;
-<br></p>
-</div>
-<div class="ulist">
-<ul>
 <li>
 <p>Support for conditional statements</p>
 </li>
@@ -4039,16 +4189,7 @@ Functionality explicitly not supported is shown below.&#160;&#160;
 <p>Modulo</p>
 </li>
 <li>
-<p>IntToString</p>
-</li>
-<li>
 <p>SingleToString</p>
-</li>
-<li>
-<p>StringToVal</p>
-</li>
-<li>
-<p>StringToInt</p>
 </li>
 <li>
 <p>StringToSingle</p>
@@ -4057,16 +4198,7 @@ Functionality explicitly not supported is shown below.&#160;&#160;
 <p>Advanced variable(s) to string functions</p>
 </li>
 <li>
-<p>Math functions for float variable(s) (see below for pseudo functions)</p>
-</li>
-<li>
-<p>Rotate of single &amp; double advanced variable(s)</p>
-</li>
-<li>
-<p>Negate of single &amp; double advanced variable(s)</p>
-</li>
-<li>
-<p>Reliable serial operations using methods like HSerPrint or SerPrint.</p>
+<p>Math functions for float variable(s) ( plus pseudo functions shown below)</p>
 </li>
 </ul>
 </div>
@@ -4085,8 +4217,8 @@ Functionality explicitly not supported is shown below.&#160;&#160;
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    Dim myLontINT as LontINT
-    myLontINT = 0XFFFFFF       'assign the value of 16777215</pre>
+<pre>    Dim mySingle as Single
+    mySingle = 123.4567       'assign the value</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4094,15 +4226,14 @@ Functionality explicitly not supported is shown below.&#160;&#160;
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    myLontINT.16 = 1  'set the single bit to 1</pre>
+<pre>    mySingle.16 = 1  'set the single bit to 1</pre>
 </div>
 </div>
 <div class="paragraph">
-<p><br>
-<br></p>
+<p> +<br></p>
 </div>
 <div class="paragraph">
-<p><strong>INT() and ROUND()</strong></p>
+<p><strong>INT() and SINGLRROUND()</strong></p>
 </div>
 <div class="paragraph">
 <p>Floating point numbers are not exact, and may yield unexpected results when compared using conditions (IF etc).&#160;&#160;
@@ -4111,15 +4242,15 @@ Users should instead check that the absolute value of the difference between the
 <br></p>
 </div>
 <div class="paragraph">
-<p>These techniques replace the INT() and ROUND() functions.
+<p>These techniques can replace the INT() and SINGLEROUND() functions.
 <br>
 <br></p>
 </div>
 <div class="paragraph">
-<p><em>Pseudo INT()</em></p>
+<p><em>Alternative to INT()</em></p>
 </div>
 <div class="paragraph">
-<p>Using the INT() function is not supported.&#160;&#160;</p>
+<p>Assignment of a Single variable to an Interger variable is supported.&#160;&#160;</p>
 </div>
 <div class="paragraph">
 <p>So, use the conversion from floating point to integer as this results in integer truncation.</p>
@@ -4138,13 +4269,13 @@ Users should instead check that the absolute value of the difference between the
 <br></p>
 </div>
 <div class="paragraph">
-<p><em>Pseudo ROUND()</em></p>
+<p><em>Alterntive tp ROUNDSSINGLE()</em></p>
 </div>
 <div class="paragraph">
-<p>Using the ROUND() function is not supported.&#160;&#160;</p>
+<p>As an alternative to using the ROUNDSSINGLE() function.&#160;&#160;</p>
 </div>
 <div class="paragraph">
-<p>So, to round off during the conversion process,  add 0.5:&#160;&#160;As follows:</p>
+<p>Create your own round conversion,  add 0.5 to return the nearest integer.&#160;&#160;As follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4154,7 +4285,7 @@ Users should instead check that the absolute value of the difference between the
         mySingleVar = 2.9
 
         dim myLongVar as Long
-        myLongVar= mySingleVar + [single]0.5  '3</pre>
+        myLongVar= mySingleVar + [single]0.5</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4166,12 +4297,7 @@ Users should instead check that the absolute value of the difference between the
 </div>
 <div class="paragraph">
 <p>This program shows the values of calculation of 4.5 * multiplied by a number ( 4.5 x a range of 0 to 40,000).&#160;&#160;
-The program shows setting up the advanced variables, assigned a value and completing the multiplication of the initial value using a repeat loop.&#160;&#160;
-The repeat loop is used as advanced variables are are not supported by multiplication ( or division ), so, using the repeat an alternative to multiplication, just a lot slower.&#160;&#160;</p>
-</div>
-<div class="paragraph">
-<p>The program using advanced variables to show the results, and, then uses factorised ineger maths to show the results.&#160;&#160;
-The performance of each approach can be examined on the serial terminal.</p>
+The program shows setting up the advanced variables, assigned a value and completing the multiplication of the initial value using a for-next loop.&#160;&#160;</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4180,73 +4306,31 @@ The performance of each approach can be examined on the serial terminal.</p>
     HSerPrintCRLF 2
 
     DIM multiplier as Word
-    DIM ccount as Double
-    DIM calcresult as Single
-    Dim result as Long
+    DIM ccount as Single
+    Dim result as Single
 
-    HSerPrint "Use floats with pseudo multiplier  maths"
+    HSerPrint "Use floats with multiplier maths"
     HSerPrintCRLF
 
     'Assign a value to a double variable
     ccount   = 4.5
 
       For  multiplier = 0 to 40000 step 2500
-        calcresult = 0
-
-        'Do some maths... multiplier x ccount .... slow but as there is NO multi or divide for floats.. this is a method to simulate a multiplier operation
-        Repeat multiplier
-            calcresult = calcresult + ccount
-        End Repeat
+        'Do some maths... multiplier x ccount
 
         HSerPrint "4.5"
         HSerPrint " x "
-        HSerPrint left(str32(multiplier)+"        ", 8 )
+        HSerPrint left(WordToString(multiplier)+"        ", 10 )
         HSerPrint " = "
 
         'Convert Single to Long to get the result
-        result = calcresult
-        HSerPrint left(str32(result)+"        ", 8 )
-
-        'Now do the scale maths - this can all be done in integer maths
-        HSerPrint " scaled result = "
-        result = 180-(result/1000)
-        HSerPrint Result
+        result = multiplier * ccount
+        HSerPrint left(SingleToString(result)+"          ", 10 )
         HSerPrintCRLF
-        wait 100 ms
-
       next
 
-
-    'Use conventional Integer number using facttoristion
-    HSerPrint "Use factored integer maths"
-    HSerPrintCRLF
-    dim ccount_int as Byte 'integer byte
-
-    'Factored the 4.5 x 10 larger
-    ccount_int   = 45
-
-    For  multiplier = 0 to 40000 step 2500
-
-      'Do some maths... multiplier x ccount
-      result = multiplier * ccount_int
-
-      HSerPrint "45"
-      HSerPrint " x "
-      HSerPrint left(str32(multiplier)+"        ", 8 )
-      HSerPrint " = "
-
-      HSerPrint left(str32(result)+"        ", 8 )
-
-      'Now do the scale maths - this can all be done in integer maths
-      HSerPrint " scaled result = "
-
-      'Factored calculation is 10 x larger
-      result = 180-(result/10000)
-      HSerPrint Result
-      HSerPrintCRLF
-      wait 100 ms
-
-    next</pre>
+      Do Forever
+      Loop</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4500,129 +4584,6 @@ On 18Fs, it will guess based on where the lowest SFR is, and from what the total
 <div class="paragraph">
 <p><br>
 <br></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_usb_drivers_installer">USB Drivers Installer</h3>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Warning</div>
-</td>
-<td class="content">
-Installing the USB driver is only required when using the GCBASIC USB library.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><strong>Description:</strong></p>
-</div>
-<div class="paragraph">
-<p>The drivers for windows x86 and x64 correspond to the USB LIBKWIN capability of GCBasic for supported PIC microcontrollers.</p>
-</div>
-<div class="paragraph">
-<p>For security reasons, in Microsoft windows for a driver to be installed, it is necessary that it be digitally signed by Microsoft.</p>
-</div>
-<div class="paragraph">
-<p>Microsoft did make a special “Test” mode for developers to install MANUALLY unsigned drivers for debug and testing, being a technical advanced and not user-friendly procedure; at the same time the windows developers make efforts to disable the capability of doing this in an automated fashion by the concerns of being used as a vulnerability of the operating system.</p>
-</div>
-<div class="paragraph">
-<p>This scenario will make installing test drivers difficult and frustrating for the uninitiated, at the same time for a useful Hobby project it will be not practical to make end users to take all this drama.</p>
-</div>
-<div class="paragraph">
-<p>This driver installer method resolves the constraints imposed by the Windows operating system, and, therefore will allow you to install the drivers in the easiest way possible, almost like any driver of a well-known company.</p>
-</div>
-<div class="paragraph">
-<p><strong>Usage:</strong></p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Warning</div>
-</td>
-<td class="content">
-The installer will reboot the system without notice. Please close all programs and save any work you have open before begin whit the driver install.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>1 - Open the installer, it will request admin rights.</p>
-</div>
-<div class="paragraph">
-<p>2 - Navigate thru the wizard to automatically extract the driver files (there aren’t any options to select).</p>
-</div>
-<div class="paragraph">
-<p>3 - At the end of the wizard, after you click the exit button, the system will restart automatically</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Warning</div>
-</td>
-<td class="content">
-In the case where your computer has Secure Boot enabled, the installer will advise you of extra steps needed after reboot, at the end of this page you will find a graphic reflecting those steeps and what elements you need to select.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>4 - After restart and login in to your user account, a window will inform you that the driver is not signed and you will be asked if you want to install the driver, please allow it.</p>
-</div>
-<div class="paragraph">
-<p>5 - when the driver has been installed, the computer will restart automatically.</p>
-</div>
-<div class="paragraph">
-<p><br>
-<br></p>
-</div>
-<div class="paragraph">
-<p><strong>Secure Boot Enabled, Boot menu steps</strong>
-<br>
-<br></p>
-</div>
-<div class="imageblock" style="text-align: center">
-<div class="content">
-<img src="./images/winresteepsm.png" alt="graphic">
-</div>
-</div>
-<div class="paragraph">
-<p><br>
-<br></p>
-</div>
-<div class="paragraph">
-<p><strong>USB Driver details</strong></p>
-</div>
-<div class="paragraph">
-<p>The driver uses the following USB flags.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    USB_VID 0x1209
-    USB_PID 0x2006
-    USB_REV 0x0000</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For others, need to modify and recompile the USB library.</p>
-</div>
-<div class="paragraph">
-<p>USB_PRODUCT_NAME and USB_VENDOR_NAME can change without problem (windows device manager will show the name reported by the hardware not the driver</p>
-</div>
-<div class="paragraph">
-<p><strong>Tested on (but not limited to)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    Windows 11 pro x64 secureboot disabled, os build Dev 21H2 22000.194
-    Windows 11 pro x64 secureboot enabled, os build Dev rs_prerelease 22458.1000
-    Windows 10 pro x64 secureboot disabled, os build stable 20H2 19042.867
-    Windows 7 pro x86 secureboot disabled, os service pack 1 build 6.1.7601</pre>
-</div>
 </div>
 </div>
 </div>
@@ -7891,7 +7852,7 @@ For 16f1688x and similar microcontrollers please see the second table.</p>
 <div class="content">
 <pre>    '''  PIC: 16F18855
     '''  Compiler: GCB
-    '''  IDE: GCB@SYN
+    '''  IDE: GCode
     '''
     '''  Board: Xpress Evaluation Board
     '''  Date: 13.3.2021
@@ -11961,6 +11922,9 @@ loops, <code><em>increment</em></code> is added to <code><em>counter</em></code>
 will increment <code><em>counter</em></code> by 1 each time the code is run.</p>
 </div>
 <div class="paragraph">
+<p>Step is an integer value.&#160;&#160;Step value can positive of negative.&#160;&#160;When using advanced variable you must cast the step value as an integer, see the example below.</p>
+</div>
+<div class="paragraph">
 <p><code><em>increment</em></code> can be a positive or negative constant or an integer.</p>
 </div>
 <div class="paragraph">
@@ -12031,6 +11995,31 @@ The use of <code>#DEFINE USELEGACYFORNEXT</code> is NOT recommended.
     Next
     Set LED2 OFF
     goto main</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example 3:</strong></p>
+</div>
+<div class="paragraph">
+<p>This example show casting the step value as an integer.&#160;&#160;The step value in this example is the integer value of 2.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #script
+        // Create a constant
+        Pi = 22/7
+    #endscript
+
+    Dim myCircumference, myRadius as Single
+    Dim myDiameter as Single Alias myCircumference_E, myCircumference_U, myCircumference_H, myCircumference
+
+    HserPrintCRLF
+
+    For MyRadius = 0.5 to 10.5 step [integer]2
+        myCircumference=myRadius * Pi * 2
+        HSerPrint "myRadius = " + ltrim(SingleToString(myRadius))
+        HSerPrintStringCRLF " myCircumference = " + ltrim(SingleToString(myCircumference))
+    next</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -45603,7 +45592,7 @@ This example shows how the error handler compares to not have the <code>[canskip
 <br></p>
 </div>
 <div class="paragraph">
-<p><strong>For more help, see:</strong> <a href="#Variables">Variables</a></p>
+<p><strong>For more help, see:</strong> <a href="#_variables">Variables</a></p>
 </div>
 </div>
 <div class="sect3">
@@ -45756,7 +45745,7 @@ A subroutine uses a temporary variable of type byte, and relies on it overflowin
 <p>The limit on array size varies dependent on the chip type.  See the <strong>Maximum Array Size</strong> section in <a href="#_array">Arrays</a> for more information.</p>
 </div>
 <div class="paragraph">
-<p><code><em>type</em></code> specifies the type of variable that is to be created. Different variable types can hold values over different ranges, and use different amounts of RAM. See the <a href="#_variables">Variables</a> article for more information.</p>
+<p><code><em>type</em></code> specifies the type of variable that is to be created. Different variable types can hold values over different ranges, and use different amounts of RAM. See the <a href="#_variable_types">Variables Types</a> article for more information.</p>
 </div>
 <div class="paragraph">
 <p>When multiple variables are included on the one line, GCBASIC will set them all to the type that is specified at the end of the line. If there is no type specified, then GCBASIC will make the variable a byte.</p>
@@ -46346,29 +46335,6 @@ Use <code>Set C Off</code> before using the <code>Rotate</code> command to clear
 <div class="paragraph">
 <p>This is the String Manipulation section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
 </div>
-<div class="paragraph">
-<p><a href="#_asc">Asc</a>,
-<a href="#_bytetobin">Bytetobin</a>,
-<a href="#_chr">Chr</a>,
-<a href="#_fill">Fill</a>,
-<a href="#_hex">Hex</a>,
-<a href="#_instr">Instr</a>,
-<a href="#_lcase">Lcase</a>,
-<a href="#_left">Left</a>,
-<a href="#_leftpad">Leftpad</a>,
-<a href="#_len">Len</a>,
-<a href="#_mid">Mid</a>,
-<a href="#_pad">Pad</a>,
-<a href="#_right">Right</a>,
-<a href="#_rtrim">Rtrim</a>,
-<a href="#_str">Str</a>,
-<a href="#_trim">Trim</a>,
-<a href="#_ucase">Ucase</a>,
-<a href="#_val">Val</a>,
-<a href="#_wordtobin">Wordtobin</a>,
-<a href="#_setting_variables">Setting Variables</a> or
-<a href="#_concatenation">concatenation</a></p>
-</div>
 <div class="sect3">
 <h4 id="_asc">Asc</h4>
 <div class="paragraph">
@@ -46459,6 +46425,189 @@ Supports BYTE variables only.  For WORD variables use <code>WordToBin</code></p>
 </div>
 <div class="paragraph">
 <p><strong>For more help, see</strong> <a href="#_wordtobin">WordToBin</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_bytetohex">ByteToHex</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = ByteToHex(<em>number</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>Hex</code> function will convert a byte number into hexadecimal format. The input <code><em>number</em></code> should be a byte variable, or a fixed number between 0 and 255 inclusive. After running the function, the string variable <code><em>stringvar</em></code> will contain a 2 digit hexadecimal number.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+
+    'Send EEPROM data over serial connection
+    'Uses Hex to display as hexadecimal
+    For CurrentLocation = 0 to 255
+        'Send location
+        HSerPrint ByteToHex(CurrentLocation)
+        HSerPrint ":"
+        'Read byte and send
+        EPRead CurrentLocation, CurrByte
+        HSerPrint Hex(CurrByte)
+        'Send carriage return/line feed
+        HSerPrintCRLF
+    Next</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>See Also</strong> <a href="#_wordtohex">WordToHex</a>,<a href="#_longtohex_">LongToHex</a>, <a href="#_integertohex">IntegerToHex</a>, <a href="#_singletohex">SingleToHex</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_bytetostring">ByteToString</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = ByteToString(<em>byte_variable</em>)     'supports byte.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>ByteToString</code> function will convert a number into a string. <code><em>number</em></code> can be any byte variable, or a fixed number constant between 0 and 255 inclusive.&#160;&#160;For Word number use <code>WordToString()</code>, Long numbers use <code>LongToString()</code>, for Integer numbers use <code>IntegerToString()</code> and for Single numbers use <code>SingleToString()</code></p>
+</div>
+<div class="paragraph">
+<p>The string variable <code><em>stringvar</em></code> will contain the same number, represented as a string.&#160;&#160;The length of the string returned is 5 characters.</p>
+</div>
+<div class="paragraph">
+<p>This function is especially useful if a number needs to added to the end of a string, or if a custom data sending routine has been created but only supports the output of string variables.
+<br>
+<br>
+These methods will not support  conversion of hexadecimal number strings.
+<br>
+<br>
+<strong>Example1:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+    Dim SensorReading as Byte
+
+    'Take an A/D reading
+    SensorReading = ReadAD(AN0)
+
+    'Create a string variable
+    Dim OutVar As String
+
+    'Fill string with sensor reading
+    OutVar = ByteToString(SensorReading)
+
+    'Send
+    HSerPrint OutVar
+    HSerPrintCRLF
+
+    When using the functions ByteToString() do not leave space between the function
+    call and the left brace. You will get a compiler error that is
+    meaningless.
+
+    ' use this, note this is no space between the ByteToString() and the left brace!
+    ByteToString(number_variable)
+    ' do not use, note the space!
+    ByteToString (number_variable)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br>
+<strong>Example2:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    '''
+    '''
+    '''
+    '''
+    '''************************************************************************
+    '''
+    '''  PIC: 16F18855
+    '''  Compiler: GCB
+    '''  IDE: GCode
+    '''
+    '''  Board: Xpress Evaluation Board
+    '''  Date: June 2021
+    '''
+    ' ----- Configuration
+      'Chip Settings.
+      #chip 16f18855,32
+      #Config CLRE_ON
+      #option Explicit
+
+    ; ----- Define Hardware settings
+
+      'Set the PPS of the RS232 ports.
+      UNLOCKPPS
+        RC0PPS = 0x0010     'RC0-&gt;EUSART:TX;
+        RXPPS  = 0x0011     'RC1-&gt;EUSART:RX;
+      LOCKPPS
+
+    ; ----- Constants
+      #define USART_BAUD_RATE 19200
+      #define USART_TX_BLOCKING
+
+    ; ----- Variables
+    dim bytevar as Byte
+
+    ; ----- Main body of program commences here.
+    bytevar = 0xff
+
+    do
+       wait 100 ms
+
+       HSerPrint ByteToString( bytevar )
+       HSerPrintCRLF
+       wait 1 s
+    loop
+    end
+
+; ----- Support methods.  Subroutines and Functions</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br>
+<strong>See Also</strong> <a href="#_wordtohex">WordToString</a>, <a href="#_longtohex">LongToString</a>, <a href="#_integertohex">IntegerToString</a>, <a href="#_singletohex">SingleToString</a>, <a href="#_bytetohex">ByteToHex</a></p>
 </div>
 </div>
 <div class="sect3">
@@ -46553,13 +46702,13 @@ The character used to pad the string is specified by the second parameter, this 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_hex">Hex</h4>
+<h4 id="_integertobin">IntegerToBin</h4>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    <em>stringvar</em> = Hex(<em>number</em>)</pre>
+<pre>    <em>stringvar</em> = IntegerToBin(<em>integervar</em>)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -46572,7 +46721,47 @@ The character used to pad the string is specified by the second parameter, this 
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p>The <code>Hex</code> function will convert a number into hexadecimal format. The input <code><em>number</em></code> should be a byte variable, or a fixed number between 0 and 255 inclusive. After running the function, the string variable <code><em>stringvar</em></code> will contain a 2 digit hexadecimal number.</p>
+<p>The <code>IntegerToBin</code> function creates a string of a ANSI (signed 15 digit string ) characters.
+The function converts a number to a string consisting of ones and zeros that represents the binary value.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong>
+Supports Integer variables only.  For BYTE variables use <code>VarToBin</code>, for Word variables use <code>WordToBin</code> and for LONG variables use <code>LongToBin</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    string = IntegerToBin( 1 )   ' Returns "+000000000000001"
+    string = IntegerToBin( -1 )  ' Returns "-000000000000001"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>For more help, see</strong> <a href="#_bytetobin">ByteToBin</a>, <a href="#_wordtobin">WordToBin</a>, <a href="#_longtobin">LongToBin</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_integertohex">IntegerToHex</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = IntegerToHex(<em>number</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>Hex</code> function will convert a Integer number into hexadecimal format. The input <code><em>number</em></code> should be a Integer variable, or a fixed number between -32767 and -32767 inclusive. After running the function, the string variable <code><em>stringvar</em></code> will contain an 4 digit hexadecimal number.</p>
 </div>
 <div class="paragraph">
 <p><strong>Example:</strong></p>
@@ -46589,20 +46778,150 @@ The character used to pad the string is specified by the second parameter, this 
 
     'Send EEPROM data over serial connection
     'Uses Hex to display as hexadecimal
-    For CurrentLocation = 0 to 255
+    For CurrentLocation = 0 to 65535
         'Send location
-        HSerPrint Hex(CurrentLocation)
+        HSerPrint IntegerToHex(CurrentLocation)
         HSerPrint ":"
-        'Read byte and send
-        EPRead CurrentLocation, CurrByte
-        HSerPrint Hex(CurrByte)
+        'Read Integer and send
+        EPRead CurrentLocation, CurrInteger
+        HSerPrint Hex(CurrInteger)
         'Send carriage return/line feed
         HSerPrintCRLF
     Next</pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>See Also</strong> <a href="#_str">Str</a>, <a href="#_val">Val</a></p>
+<p><strong>See Also</strong> <a href="#_bytetohex">ByteToHex</a>,<a href="#_wordtohex_">WordToHex</a>, <a href="#_longtohex">LongToHex</a>, <a href="#_singletohex">SingleToHex</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_integertostring">IntegerToString</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = IntegerToString(<em>Integer_variable</em>)     'supports Integer.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>IntegerToString</code> function will convert a number into a string. <code><em>number</em></code> can be any Integer variable, or a fixed number constant between 0 and 4294967295 inclusive.&#160;&#160;For Byte number use <code>ByteToString()</code>, Word numbers use <code>WordToString()</code>, for Integer numbers use <code>IntegerToString()</code> and for Single numbers use <code>SingleToString()</code></p>
+</div>
+<div class="paragraph">
+<p>The string variable <code><em>stringvar</em></code> will contain the same number, represented as a string.&#160;&#160;The length of the string returned is 9 characters.</p>
+</div>
+<div class="paragraph">
+<p>This function is especially useful if a number needs to added to the end of a string, or if a custom data sending routine has been created but only supports the output of string variables.
+<br>
+<br>
+These methods will not support  conversion of hexadecimal number strings.
+<br>
+<br>
+<strong>Example1:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+    Dim SensorReading as Integer
+
+    'Take an A/D reading
+    SensorReading = ReadAD10(AN0)
+
+    'Create a string variable
+    Dim OutVar As String
+
+    'Fill string with sensor reading
+    OutVar = IntegerToString(SensorReading)
+
+    'Send
+    HSerPrint OutVar
+    HSerPrintCRLF
+
+    When using the functions IntegerToString() do not leave space between the function
+    call and the left brace. You will get a compiler error that is
+    meaningless.
+
+    ' use this, note this is no space between the IntegerToString() and the left brace!
+    IntegerToString(number_variable)
+    ' do not use, note the space!
+    IntegerToString (number_variable)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br>
+<strong>Example2:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    '''
+    '''
+    '''
+    '''
+    '''************************************************************************
+    '''
+    '''  PIC: 16F18855
+    '''  Compiler: GCB
+    '''  IDE: GCode
+    '''
+    '''  Board: Xpress Evaluation Board
+    '''  Date: June 2021
+    '''
+    ' ----- Configuration
+      'Chip Settings.
+      #chip 16f18855,32
+      #Config CLRE_ON
+      #option Explicit
+
+    ; ----- Define Hardware settings
+
+      'Set the PPS of the RS232 ports.
+      UNLOCKPPS
+        RC0PPS = 0x0010     'RC0-&gt;EUSART:TX;
+        RXPPS  = 0x0011     'RC1-&gt;EUSART:RX;
+      LOCKPPS
+
+    ; ----- Constants
+      #define USART_BAUD_RATE 19200
+      #define USART_TX_BLOCKING
+
+    ; ----- Variables
+    dim Integervar as Integer
+
+    ; ----- Main body of program commences here.
+    Integervar = -10
+
+    do
+       wait 100 ms
+
+       HSerPrint IntegerToString( Integervar )
+       HSerPrintCRLF
+       wait 1 s
+    loop
+    end
+
+; ----- Support methods.  Subroutines and Functions</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br>
+<strong>See Also</strong> <a href="#_bytetohex">ByteToString</a>, <a href="#_wordtohex">WordToString</a>, <a href="#_longtohex">LongToString</a>, <a href="#_singletohex">SingleToString</a>, <a href="#_bytetohex">ByteToHex</a></p>
 </div>
 </div>
 <div class="sect3">
@@ -46895,6 +47214,230 @@ The character used to pad the string is specified by the second parameter, this 
 </div>
 </div>
 <div class="sect3">
+<h4 id="_longtobin">LongToBin</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = LongToBin(<em>longvar</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>LongToBin</code> function creates a string of a ANSI (32) characters.
+The function converts a number to a string consisting of ones and zeros that represents the binary value.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong>
+Supports LONG variables only.  For BYTE variables use <code>VarToBin</code>, for WORD variables use <code>VarWToBinand</code> for INTEGER variables use <code>VarIntegerToBin</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    string = LongToBin( 1 )   ' Returns "0000000000000001"
+
+    string = LongToBin( 254 ) ' Returns "0000000011111110"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>For more help, see</strong> <a href="#_vartobin">VarToBin</a>, <a href="#_varWtobin">VarWToBin</a>, <a href="#_varintegertobin">VarIntegerToBin</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_longtohex">LongToHex</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = LongToHex(<em>number</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>Hex</code> function will convert a Long number into hexadecimal format. The input <code><em>number</em></code> should be a Long variable, or a fixed number between 0 and 4294967295 inclusive. After running the function, the string variable <code><em>stringvar</em></code> will contain an 8 digit hexadecimal number.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+
+    'Send EEPROM data over serial connection
+    'Uses Hex to display as hexadecimal
+    For CurrentLocation = 0 to 65535
+        'Send location
+        HSerPrint LongToHex(CurrentLocation)
+        HSerPrint ":"
+        'Read Long and send
+        EPRead CurrentLocation, CurrLong
+        HSerPrint Hex(CurrLong)
+        'Send carriage return/line feed
+        HSerPrintCRLF
+    Next</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>See Also</strong> <a href="#_bytetohex">ByteToHex</a>,<a href="#_wordtohex_">WordToHex</a>, <a href="#_integertohex">IntegerToHex</a>, <a href="#_singletohex">SingleToHex</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_longtostring">LongToString</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = LongToString(<em>Long_variable</em>)     'supports Long.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>LongToString</code> function will convert a number into a string. <code><em>number</em></code> can be any Long variable, or a fixed number constant between 0 and 4294967295 inclusive.&#160;&#160;For Byte number use <code>ByteToString()</code>, Word numbers use <code>WordToString()</code>, for Integer numbers use <code>IntegerToString()</code> and for Single numbers use <code>SingleToString()</code></p>
+</div>
+<div class="paragraph">
+<p>The string variable <code><em>stringvar</em></code> will contain the same number, represented as a string.&#160;&#160;The length of the string returned is 10 characters.</p>
+</div>
+<div class="paragraph">
+<p>This function is especially useful if a number needs to added to the end of a string, or if a custom data sending routine has been created but only supports the output of string variables.
+<br>
+<br>
+These methods will not support  conversion of hexadecimal number strings.
+<br>
+<br>
+<strong>Example1:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+    Dim SensorReading as Long
+
+    'Take an A/D reading
+    SensorReading = ReadAD12(AN0)
+
+    'Create a string variable
+    Dim OutVar As String
+
+    'Fill string with sensor reading
+    OutVar = LongToString(SensorReading)
+
+    'Send
+    HSerPrint OutVar
+    HSerPrintCRLF
+
+    When using the functions LongToString() do not leave space between the function
+    call and the left brace. You will get a compiler error that is
+    meaningless.
+
+    ' use this, note this is no space between the LongToString() and the left brace!
+    LongToString(number_variable)
+    ' do not use, note the space!
+    LongToString (number_variable)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br>
+<strong>Example2:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    '''
+    '''
+    '''
+    '''
+    '''************************************************************************
+    '''
+    '''  PIC: 16F18855
+    '''  Compiler: GCB
+    '''  IDE: GCode
+    '''
+    '''  Board: Xpress Evaluation Board
+    '''  Date: June 2021
+    '''
+    ' ----- Configuration
+      'Chip Settings.
+      #chip 16f18855,32
+      #Config CLRE_ON
+      #option Explicit
+
+    ; ----- Define Hardware settings
+
+      'Set the PPS of the RS232 ports.
+      UNLOCKPPS
+        RC0PPS = 0x0010     'RC0-&gt;EUSART:TX;
+        RXPPS  = 0x0011     'RC1-&gt;EUSART:RX;
+      LOCKPPS
+
+    ; ----- Constants
+      #define USART_BAUD_RATE 19200
+      #define USART_TX_BLOCKING
+
+    ; ----- Variables
+    dim Longvar as Long
+
+    ; ----- Main body of program commences here.
+    Longvar = 0xffffffff
+
+    do
+       wait 100 ms
+
+       HSerPrint LongToString( Longvar )
+       HSerPrintCRLF
+       wait 1 s
+    loop
+    end
+
+; ----- Support methods.  Subroutines and Functions</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br>
+<strong>See Also</strong> <a href="#_bytetohex">ByteToString</a>, <a href="#_wordtohex">WordToString</a>, <a href="#_integertohex">IntegerToString</a>, <a href="#_singletohex">SingleToString</a>, <a href="#_bytetohex">ByteToHex</a></p>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_ltrim">Ltrim</h4>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
@@ -47139,9 +47682,1131 @@ The character used to pad the string is specified by the second parameter, this 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_str">Str</h4>
+<h4 id="_trim">Trim</h4>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>  <em>stringvar</em> = Trim(<em>stringvar</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>Trim</code> function will trim the 7-bit ASCII space character (value 32) from text.</p>
+</div>
+<div class="paragraph">
+<p><code>Trim</code> removes all spaces from text except for single spaces between words. Use <code>Trim</code> on text that you have received from another source that may have irregular spacing at the left or right hand ends of the string.</p>
+</div>
+<div class="paragraph">
+<p><strong>See Also</strong> <a href="#_ltrim">Ltrim</a>, <a href="#_rtrim">Rtrim</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ucase">UCase</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>  <em>output</em> = UCase(<em>source</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>UCase</code> function will convert all of the letters in the string <code><em>source</em></code> to upper case, and return the result.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+
+    'Fill a string with a message
+    Dim TestData As String
+    TestData = "Hello, world!"
+
+    'Display the string in upper case
+    'Will display "HELLO, WORLD!"
+    HSerPrint UCase(TestData)
+    HSerPrintCRLF</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>See Also</strong> <a href="#_lcase">LCase</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_longtobin_2">LongToBin</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = SingleToBin(<em>Singlevar</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>SingleToBin</code> function creates a string of a ANSI (32) characters.
+The function converts a number to a string consisting of ones and zeros that represents the binary value.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong>
+Supports Single variables only.  For BYTE variables use <code>VarToBin</code>, for WORD variables use <code>VarWToBinand</code> for INTEGER variables use <code>VarIntegerToBin</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    string = SingleToBin( 1 )   ' Returns "00000000000000000000000000000001"
+
+    string = SingleToBin( 254 ) ' Returns "00000000000000000000000011111110"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>For more help, see</strong> <a href="#_vartobin">ByteToBin</a>, <a href="#_varWtobin">WordToBin</a>, <a href="#_varintegertobin">IntegerToBin</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_singletohex">SingleToHex</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = SingleToHex(<em>number</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>Hex</code> function will convert a Single number into hexadecimal format. The input <code><em>number</em></code> should be a Single variable, or a fixed number between -3.4x10 ^ 38 and +3.4x10 ^ 38 inclusive. After running the function, the string variable <code><em>stringvar</em></code> will contain an 4 digit hexadecimal number.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+
+    'Send EEPROM data over serial connection
+    'Uses Hex to display as hexadecimal
+    For CurrentLocation = 0 to 9999999
+        'Send location
+        HSerPrint SingleToHex(CurrentLocation)
+        HSerPrint ":"
+        'Read Single and send
+        EPRead CurrentLocation, CurrSingle
+        HSerPrint Hex(CurrSingle)
+        'Send carriage return/line feed
+        HSerPrintCRLF
+    Next</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>See Also</strong> <a href="#_bytetohex">ByteToHex</a>,<a href="#_wordtohex_">WordToHex</a>, <a href="#_longtohex">LongToHex</a>, <a href="#_integertohex">IntegerToHex</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_singletostring">SingleToString</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = SingleToString(<em>Single_variable</em>)     'supports Single.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>SingleToString</code> function will convert a number into a string. <code><em>number</em></code> can be any Single variable, or a fixed number constant between 0 and 4294967295 inclusive.&#160;&#160;For Byte number use <code>ByteToString()</code>, Word numbers use <code>WordToString()</code>, for Integer numbers use <code>IntegerToString()</code> and for Long numbers use <code>LongToString()</code></p>
+</div>
+<div class="paragraph">
+<p>The string variable <code><em>stringvar</em></code> will contain the same number, represented as a string.&#160;&#160;The length of the string returned is 9 characters.</p>
+</div>
+<div class="paragraph">
+<p>This function is especially useful if a number needs to added to the end of a string, or if a custom data sending routine has been created but only supports the output of string variables.
+<br>
+<br>
+These methods will not support  conversion of hexadecimal number strings.
+<br>
+<br>
+<strong>Example1:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+    Dim SensorReading as Single
+
+    'Take an A/D reading
+    SensorReading = ReadAD(AN0)
+
+    'Create a string variable
+    Dim OutVar As String
+
+    'Fill string with sensor reading
+    OutVar = SingleToString(SensorReading)
+
+    'Send
+    HSerPrint OutVar
+    HSerPrintCRLF
+
+    When using the functions SingleToString() do not leave space between the function
+    call and the left brace. You will get a compiler error that is
+    meaningless.
+
+    ' use this, note this is no space between the SingleToString() and the left brace!
+    SingleToString(number_variable)
+    ' do not use, note the space!
+    SingleToString (number_variable)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br>
+<strong>Example2:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    '''
+    '''
+    '''
+    '''
+    '''************************************************************************
+    '''
+    '''  PIC: 16F18855
+    '''  Compiler: GCB
+    '''  IDE: GCode
+    '''
+    '''  Board: Xpress Evaluation Board
+    '''  Date: June 2021
+    '''
+    ' ----- Configuration
+      'Chip Settings.
+      #chip 16f18855,32
+      #Config CLRE_ON
+      #option Explicit
+
+    ; ----- Define Hardware settings
+
+      'Set the PPS of the RS232 ports.
+      UNLOCKPPS
+        RC0PPS = 0x0010     'RC0-&gt;EUSART:TX;
+        RXPPS  = 0x0011     'RC1-&gt;EUSART:RX;
+      LOCKPPS
+
+    ; ----- Constants
+      #define USART_BAUD_RATE 19200
+      #define USART_TX_BLOCKING
+
+    ; ----- Variables
+    dim Singlevar as Single
+
+    ; ----- Main body of program commences here.
+    Singlevar = -10
+
+    do
+       wait 100 ms
+
+       HSerPrint SingleToString( Singlevar )
+       HSerPrintCRLF
+       wait 1 s
+    loop
+    end
+
+; ----- Support methods.  Subroutines and Functions</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br>
+<strong>See Also</strong> <a href="#_bytetohex">ByteToString</a>, <a href="#_wordtohex">WordToString</a>, <a href="#_longtohex">LongToString</a>, <a href="#_singletohex">SingleToString</a>, <a href="#_bytetohex">ByteToHex</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_stringtobyte">StringToByte</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    var = StringToByte(<em>string</em>)   'Supports decimal byte range strings only.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>StringToByte</code> function will extract a number from a string variable, and store it in a byte variable. One potential use is reading numbers that are sent in ASCII format over a serial connection.
+<br>
+<br>
+The <code>StringToByte</code> function will not extract a StringToByte from a hexadecimal string.
+<br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Example1:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    ' ----- Configuration
+    'Chip Settings.
+    #chip 16f18855,32
+    #Config MCLRE_ON
+
+    ; ----- Define Hardware settings
+
+    '' -------------------LATA-----------------
+    '' Bit#:  -7---6---5---4---3---2---1---0---
+    '' LED:   ---------------|D5 |D4 |D3 |D2 |-
+    ''-----------------------------------------
+    ''
+
+    'Set the PPS of the RS232 ports.
+    UNLOCKPPS
+      RC0PPS = 0x0010     'RC0-&gt;EUSART:TX;
+      RXPPS  = 0x0011     'RC1-&gt;EUSART:RX;
+    LOCKPPS
+
+    ; ----- Constants
+    #define USART_BAUD_RATE 19200
+    #define USART_TX_BLOCKING
+
+    #define LEDD2 PORTA.0
+    #define LEDD3 PORTA.1
+    #define LEDD4 PORTA.2
+    #define LEDD5 PORTA.3
+    Dir     LEDD2 OUT
+    Dir     LEDD3 OUT
+    Dir     LEDD4 OUT
+    Dir     LEDD5 OUT
+
+
+    #define Potentiometer       PORTA.4
+    DIR     Potentiometer In
+
+    #define SWITCH_DOWN         0
+    #define SWITCH_UP           1
+    #define SWITCH              PORTA.5
+    Dir SWITCH                  In
+
+    ; ----- Variables
+    dim bytevar as Byte
+    dim wordvar as Word
+    dim longvar as long
+
+    bytevar = 0
+    wordvar = 0
+    longvar = 0
+
+
+
+    ; ----- Main body of program commences here.
+
+     #option Explicit
+
+     do
+         wait 100 ms
+
+         bytevar = StringToByte( "255" )
+         HSerPrint bytevar
+         HSerPrintCRLF
+
+         wait 1 s
+      loop
+    end
+
+  ; ----- Support methods.  Subroutines and Functions</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_stringtolong">StringToLong</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    var = StringToLong(<em>string</em>)   'Supports decimal Long range strings only.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>StringToLong</code> function will extract a number from a string variable, and store it in a Long variable. One potential use is reading numbers that are sent in ASCII format over a serial connection.
+<br>
+<br>
+The <code>StringToLong</code> function will not extract a StringToLong from a hexadecimal string.
+<br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Example1:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    ' ----- Configuration
+    'Chip Settings.
+    #chip 16f18855,32
+    #Config MCLRE_ON
+
+    ; ----- Define Hardware settings
+
+    '' -------------------LATA-----------------
+    '' Bit#:  -7---6---5---4---3---2---1---0---
+    '' LED:   ---------------|D5 |D4 |D3 |D2 |-
+    ''-----------------------------------------
+    ''
+
+    'Set the PPS of the RS232 ports.
+    UNLOCKPPS
+      RC0PPS = 0x0010     'RC0-&gt;EUSART:TX;
+      RXPPS  = 0x0011     'RC1-&gt;EUSART:RX;
+    LOCKPPS
+
+    ; ----- Constants
+    #define USART_BAUD_RATE 19200
+    #define USART_TX_BLOCKING
+
+    #define LEDD2 PORTA.0
+    #define LEDD3 PORTA.1
+    #define LEDD4 PORTA.2
+    #define LEDD5 PORTA.3
+    Dir     LEDD2 OUT
+    Dir     LEDD3 OUT
+    Dir     LEDD4 OUT
+    Dir     LEDD5 OUT
+
+
+    #define Potentiometer       PORTA.4
+    DIR     Potentiometer In
+
+    #define SWITCH_DOWN         0
+    #define SWITCH_UP           1
+    #define SWITCH              PORTA.5
+    Dir SWITCH                  In
+
+    ; ----- Variables
+    dim bytevar as Byte
+    dim wordvar as Word
+    dim longvar as long
+
+    bytevar = 0
+    wordvar = 0
+    longvar = 0
+
+
+
+    ; ----- Main body of program commences here.
+
+     #option Explicit
+
+     do
+         wait 100 ms
+
+         Longvar = StringToLong( "255" )
+         HSerPrint Longvar
+         HSerPrintCRLF
+
+         wait 1 s
+      loop
+    end
+
+  ; ----- Support methods.  Subroutines and Functions</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_stringtosingle">StringToSingle</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    var = StringToSingle(<em>string</em>)   'Supports decimal Single range strings only.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>StringToSingle</code> function will extract a number from a string variable, and store it in a Single variable. One potential use is reading numbers that are sent in ASCII format over a serial connection.
+<br>
+<br>
+The <code>StringToSingle</code> function will not extract a StringToSingle from a hexadecimal string.
+<br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Example1:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    ' ----- Configuration
+    'Chip Settings.
+    #chip 16f18855,32
+    #Config MCLRE_ON
+
+    ; ----- Define Hardware settings
+
+    '' -------------------LATA-----------------
+    '' Bit#:  -7---6---5---4---3---2---1---0---
+    '' LED:   ---------------|D5 |D4 |D3 |D2 |-
+    ''-----------------------------------------
+    ''
+
+    'Set the PPS of the RS232 ports.
+    UNLOCKPPS
+      RC0PPS = 0x0010     'RC0-&gt;EUSART:TX;
+      RXPPS  = 0x0011     'RC1-&gt;EUSART:RX;
+    LOCKPPS
+
+    ; ----- Constants
+    #define USART_BAUD_RATE 19200
+    #define USART_TX_BLOCKING
+
+    #define LEDD2 PORTA.0
+    #define LEDD3 PORTA.1
+    #define LEDD4 PORTA.2
+    #define LEDD5 PORTA.3
+    Dir     LEDD2 OUT
+    Dir     LEDD3 OUT
+    Dir     LEDD4 OUT
+    Dir     LEDD5 OUT
+
+
+    #define Potentiometer       PORTA.4
+    DIR     Potentiometer In
+
+    #define SWITCH_DOWN         0
+    #define SWITCH_UP           1
+    #define SWITCH              PORTA.5
+    Dir SWITCH                  In
+
+    ; ----- Variables
+    dim bytevar as Byte
+    dim wordvar as Word
+    dim Singlevar as Single
+
+    bytevar = 0
+    wordvar = 0
+    Singlevar = 0
+
+
+
+    ; ----- Main body of program commences here.
+
+     #option Explicit
+
+     do
+         wait 100 ms
+
+         Singlevar = StringToSingle( "255" )
+         HSerPrint SingltoString(Singlevar)
+         HSerPrintCRLF
+
+         wait 1 s
+      loop
+    end
+
+  ; ----- Support methods.  Subroutines and Functions</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_stringtoword">StringToWord</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    var = StringToWord(<em>string</em>)   'Supports decimal Word range strings only.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>StringToWord</code> function will extract a number from a string variable, and store it in a Word variable. One potential use is reading numbers that are sent in ASCII format over a serial connection.
+<br>
+<br>
+The <code>StringToWord</code> function will not extract a StringToWord from a hexadecimal string.
+<br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Example1:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    ' ----- Configuration
+    'Chip Settings.
+    #chip 16f18855,32
+    #Config MCLRE_ON
+
+    ; ----- Define Hardware settings
+
+    '' -------------------LATA-----------------
+    '' Bit#:  -7---6---5---4---3---2---1---0---
+    '' LED:   ---------------|D5 |D4 |D3 |D2 |-
+    ''-----------------------------------------
+    ''
+
+    'Set the PPS of the RS232 ports.
+    UNLOCKPPS
+      RC0PPS = 0x0010     'RC0-&gt;EUSART:TX;
+      RXPPS  = 0x0011     'RC1-&gt;EUSART:RX;
+    LOCKPPS
+
+    ; ----- Constants
+    #define USART_BAUD_RATE 19200
+    #define USART_TX_BLOCKING
+
+    #define LEDD2 PORTA.0
+    #define LEDD3 PORTA.1
+    #define LEDD4 PORTA.2
+    #define LEDD5 PORTA.3
+    Dir     LEDD2 OUT
+    Dir     LEDD3 OUT
+    Dir     LEDD4 OUT
+    Dir     LEDD5 OUT
+
+
+    #define Potentiometer       PORTA.4
+    DIR     Potentiometer In
+
+    #define SWITCH_DOWN         0
+    #define SWITCH_UP           1
+    #define SWITCH              PORTA.5
+    Dir SWITCH                  In
+
+    ; ----- Variables
+    dim bytevar as Byte
+    dim wordvar as Word
+    dim longvar as long
+
+    bytevar = 0
+    wordvar = 0
+    longvar = 0
+
+
+
+    ; ----- Main body of program commences here.
+
+     #option Explicit
+
+     do
+         wait 100 ms
+
+         Wordvar = StringToWord( "65535" )
+         HSerPrint WordVar
+         HSerPrintCRLF
+
+         wait 1 s
+      loop
+    end
+
+  ; ----- Support methods.  Subroutines and Functions</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_wordtobin">WordToBin</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>  <em>stringvar</em> = WordToBin(<em>bytevar</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong>
+Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>WordToBin</code> function creates a string of a ANSI (8-byte) characters.
+The function converts a number to a string consisting of ones and zeros that represents the binary value.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>string</em> = WordToBin(1)       ' Returns "0000000000000001"
+
+    <em>string</em> = WordToBin(37654)   ' Returns "1001001100010110"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>For more help, see</strong> <a href="#_bytetobin">ByteToBin</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_wordtohex">WordToHex</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = WordToHex(<em>number</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>Hex</code> function will convert a Word number into hexadecimal format. The input <code><em>number</em></code> should be a Word variable, or a fixed number between 0 and 65525 inclusive. After running the function, the string variable <code><em>stringvar</em></code> will contain a 4 digit hexadecimal number.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+
+    'Send EEPROM data over serial connection
+    'Uses Hex to display as hexadecimal
+    For CurrentLocation = 0 to 65535
+        'Send location
+        HSerPrint WordToHex(CurrentLocation)
+        HSerPrint ":"
+        'Read Word and send
+        EPRead CurrentLocation, CurrWord
+        HSerPrint Hex(CurrWord)
+        'Send carriage return/line feed
+        HSerPrintCRLF
+    Next</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>See Also</strong> <a href="#_bytetohex">ByteToHex</a>,<a href="#_longtohex_">LongToHex</a>, <a href="#_integertohex">IntegerToHex</a>, <a href="#_singletohex">SingleToHex</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_wordtostring">WordToString</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = WordToString(<em>Word_variable</em>)     'supports Word.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>WordToString</code> function will convert a number into a string. <code><em>number</em></code> can be any Word variable, or a fixed number constant between 0 and 65535 inclusive.&#160;&#160;For Word number use <code>WordToString()</code>, Long numbers use <code>LongToString()</code>, for Integer numbers use <code>IntegerToString()</code> and for Single numbers use <code>SingleToString()</code></p>
+</div>
+<div class="paragraph">
+<p>The string variable <code><em>stringvar</em></code> will contain the same number, represented as a string.&#160;&#160;The length of the string returned is 5 characters.</p>
+</div>
+<div class="paragraph">
+<p>This function is especially useful if a number needs to added to the end of a string, or if a custom data sending routine has been created but only supports the output of string variables.
+<br>
+<br>
+These methods will not support  conversion of hexadecimal number strings.
+<br>
+<br>
+<strong>Example1:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+    Dim SensorReading as Word
+
+    'Take an A/D reading
+    SensorReading = ReadAD10(AN0)
+
+    'Create a string variable
+    Dim OutVar As String
+
+    'Fill string with sensor reading
+    OutVar = WordToString(SensorReading)
+
+    'Send
+    HSerPrint OutVar
+    HSerPrintCRLF
+
+    When using the functions WordToString() do not leave space between the function
+    call and the left brace. You will get a compiler error that is
+    meaningless.
+
+    ' use this, note this is no space between the WordToString() and the left brace!
+    WordToString(number_variable)
+    ' do not use, note the space!
+    WordToString (number_variable)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br>
+<strong>Example2:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    '''
+    '''
+    '''
+    '''
+    '''************************************************************************
+    '''
+    '''  PIC: 16F18855
+    '''  Compiler: GCB
+    '''  IDE: GCode
+    '''
+    '''  Board: Xpress Evaluation Board
+    '''  Date: June 2021
+    '''
+    ' ----- Configuration
+      'Chip Settings.
+      #chip 16f18855,32
+      #Config CLRE_ON
+      #option Explicit
+
+    ; ----- Define Hardware settings
+
+      'Set the PPS of the RS232 ports.
+      UNLOCKPPS
+        RC0PPS = 0x0010     'RC0-&gt;EUSART:TX;
+        RXPPS  = 0x0011     'RC1-&gt;EUSART:RX;
+      LOCKPPS
+
+    ; ----- Constants
+      #define USART_BAUD_RATE 19200
+      #define USART_TX_BLOCKING
+
+    ; ----- Variables
+    dim Wordvar as Word
+
+    ; ----- Main body of program commences here.
+    Wordvar = 0xffff
+
+    do
+       wait 100 ms
+
+       HSerPrint WordToString( Wordvar )
+       HSerPrintCRLF
+       wait 1 s
+    loop
+    end
+
+; ----- Support methods.  Subroutines and Functions</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br>
+<strong>See Also</strong> <a href="#_bytetohex">ByteToString</a>, <a href="#_longtohex">LongToString</a>, <a href="#_integertohex">IntegerToString</a>, <a href="#_singletohex">SingleToString</a>, <a href="#_bytetohex">ByteToHex</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_concatenation">Concatenation</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = variable1 + variable2</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The method joins two variables into another variable.</p>
+</div>
+<div class="paragraph">
+<p>This method does not change the existing strings, but returns a <strong>new</strong> string containing the text of the joined variables, see Concatenated String Constraint below.</p>
+</div>
+<div class="paragraph">
+<p>Concatenation joins the elements of a specified values using the specified separator between each variable.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+Using concatenation as a parameter with commands like HSerPrint or Print the compiler will create a system string variable.&#160;&#160;  An examples of concatenating two strings constants like HSerPrint ("123"+"456") may yield incorrect results.&#160;&#160;Use the constant SYSDEFAULTCONCATSTRING to resolve.&#160;&#160;Without using SYSDEFAULTCONCATSTRING there is a risk that the compiler does not allocate sufficient RAM to hold the concatenated string.&#160;&#160;
+The resulting string may be corrupted as the size of the system string variable is not sufficient.&#160;&#160;Use SYSDEFAULTCONCATSTRING within the source program to resolve.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Set a specific size of compiler created system string variable</strong></p>
+</div>
+<div class="paragraph">
+<p>Use the following to set the size of the system string variable used during concatenation.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>The compiler will create system string variables when you concatenate on a commands line like <code>HSerPrint</code>, <code>Print</code> and many others commands.&#160;&#160;
+Using concatenate with a command is bad practice, using a lot of RAM and may create a number of system string variables.&#160;&#160;
+It is recommended to define a string (of a known length), concatenate using an assignment then use the string.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>To control the size of system string variable use the following.&#160;&#160;
+Also, use this constant to set the size when the compiler does not create a system string variable.&#160;&#160;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Define the constant to control the size of system created string variables called SYSSTRINGPARAM1, SYSSTRINGPARAM2 etc.
+    Use #DEFINE  SYSDEFAULTCONCATSTRING  4
+
+    'Then, use
+    HSerPrint "A"+"123"   'will print A123. Without the SYSDEFAULTCONCATSTRING constant some microcontrollers may corrupt the result of the concatenation.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This concatenation constraint does not apply using concatenation as an assignment.&#160;&#160;
+<br>
+<br>
+<strong>Example 1:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    timevariable = 999
+    <em>stringvar</em> = "Time = " + str(timevariable) ' Convert the <em>timevariable</em> to a String.  This operation returns <strong>Time = 999</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example 2:</strong></p>
+</div>
+<div class="paragraph">
+<p>An example showing how to set a string to an escape sequence for an ANSI terminal.&#160;&#160;You can `Dim`ension a string and then assign the elements like an array.
+{empty} +
+{empty} +</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    dim line2 as string
+    line2 =  27, "[", "2", "H", 27, "[","K"
+    HSerPrint line2</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Will send the following to the terminal.
+&lt;esc&gt;[2H&lt;esc&gt;[K
+<br>
+<br>
+<strong>Example 3: Assigning concatenated string to same string</strong></p>
+</div>
+<div class="paragraph">
+<p>For reliable coding you must not assign a string concatenation to same source variable.&#160;&#160;You must assign the result of string concatenation to another string. &#160;&#160;To resolve see below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Dim outstring, tmpstring as string * 16
+    Dim outnumber as byte
+
+    outnumber = 24
+    outstring = "Result = "
+    'This concatenation may yield an incorrect string on 10f, 12f or 16f chips
+    outstring = outstring + str(outnumber)
+    HserPrintCRLF 2
+    HSerPrint outstring
+    HserPrintCRLF 2
+
+    outstring = "Result = "
+    'This concatenation will yield an the correct string. With tmpstring1 containing the correct concatenated string
+    tmpstring = outstring +str(outnumber)
+    HSerPrint tmpstring
+    HserPrintCRLF 2
+    end</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+To resolve the constraint simply assign the source string to another string.</p>
+</div>
+<div class="paragraph">
+<p><br>
+<br></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_deprecated_string_functions">Deprecated string functions.</h4>
+<div class="paragraph">
+<p>Use the alternative updated functions.</p>
+</div>
+<div class="sect4">
+<h5 id="_hex">Hex</h5>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = Hex(<em>number</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>Hex</code> function will convert a number into hexadecimal format. The input <code><em>number</em></code> should be a byte variable, or a fixed number between 0 and 255 inclusive. After running the function, the string variable <code><em>stringvar</em></code> will contain a 2 digit hexadecimal number.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+
+    'Send EEPROM data over serial connection
+    'Uses Hex to display as hexadecimal
+    For CurrentLocation = 0 to 255
+        'Send location
+        HSerPrint Hex(CurrentLocation)
+        HSerPrint ":"
+        'Read byte and send
+        EPRead CurrentLocation, CurrByte
+        HSerPrint Hex(CurrByte)
+        'Send carriage return/line feed
+        HSerPrintCRLF
+    Next</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>See Also</strong> <a href="#_str">Str</a>, <a href="#_val">Val</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_str">Str</h5>
+<div class="paragraph">
+<p><strong>Syntax: Deprecated use ByteToString()</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -47226,7 +48891,7 @@ These methods will not support  conversion of hexadecimal number strings.
     '''
     '''  PIC: 16F18855
     '''  Compiler: GCB
-    '''  IDE: GCB@SYN
+    '''  IDE: GCode
     '''
     '''  Board: Xpress Evaluation Board
     '''  Date: June 2021
@@ -47318,86 +48983,8 @@ These methods will not support  conversion of hexadecimal number strings.
 <strong>See Also</strong> <a href="#_hex">Hex</a>, <a href="#_val">Val</a></p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_trim">Trim</h4>
-<div class="paragraph">
-<p><strong>Syntax:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>  <em>stringvar</em> = Trim(<em>stringvar</em>)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Command Availability:</strong></p>
-</div>
-<div class="paragraph">
-<p>Available on all microcontrollers</p>
-</div>
-<div class="paragraph">
-<p><strong>Explanation:</strong></p>
-</div>
-<div class="paragraph">
-<p>The <code>Trim</code> function will trim the 7-bit ASCII space character (value 32) from text.</p>
-</div>
-<div class="paragraph">
-<p><code>Trim</code> removes all spaces from text except for single spaces between words. Use <code>Trim</code> on text that you have received from another source that may have irregular spacing at the left or right hand ends of the string.</p>
-</div>
-<div class="paragraph">
-<p><strong>See Also</strong> <a href="#_ltrim">Ltrim</a>, <a href="#_rtrim">Rtrim</a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_ucase">UCase</h4>
-<div class="paragraph">
-<p><strong>Syntax:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>  <em>output</em> = UCase(<em>source</em>)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Command Availability:</strong></p>
-</div>
-<div class="paragraph">
-<p>Available on all microcontrollers</p>
-</div>
-<div class="paragraph">
-<p><strong>Explanation:</strong></p>
-</div>
-<div class="paragraph">
-<p>The <code>UCase</code> function will convert all of the letters in the string <code><em>source</em></code> to upper case, and return the result.</p>
-</div>
-<div class="paragraph">
-<p><strong>Example:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    'Set chip model
-    #chip 16F1936
-
-    'Set up hardware serial connection
-    #define USART_BAUD_RATE 9600
-    #define USART_TX_BLOCKING
-
-
-    'Fill a string with a message
-    Dim TestData As String
-    TestData = "Hello, world!"
-
-    'Display the string in upper case
-    'Will display "HELLO, WORLD!"
-    HSerPrint UCase(TestData)
-    HSerPrintCRLF</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>See Also</strong> <a href="#_lcase">LCase</a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_val">Val</h4>
+<div class="sect4">
+<h5 id="_val">Val</h5>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
 </div>
@@ -47574,253 +49161,6 @@ The <code>Val</code> function will not extract a value from a hexadecimal string
 <div class="paragraph">
 <p><strong>See Also</strong> <a href="#_hex">Hex</a>, <a href="#_str">Str</a></p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_integertobin">IntegerToBin</h4>
-<div class="paragraph">
-<p><strong>Syntax:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    <em>stringvar</em> = IntegerToBin(<em>integervar</em>)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Command Availability:</strong></p>
-</div>
-<div class="paragraph">
-<p>Available on all microcontrollers</p>
-</div>
-<div class="paragraph">
-<p><strong>Explanation:</strong></p>
-</div>
-<div class="paragraph">
-<p>The <code>IntegerToBin</code> function creates a string of a ANSI (signed 15 digit string ) characters.
-The function converts a number to a string consisting of ones and zeros that represents the binary value.</p>
-</div>
-<div class="paragraph">
-<p><strong>Note:</strong>
-Supports Integer variables only.  For BYTE variables use <code>VarToBin</code>, for Word variables use <code>WordToBin</code> and for LONG variables use <code>LongToBin</code></p>
-</div>
-<div class="paragraph">
-<p><strong>Example:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    string = IntegerToBin( 1 )   ' Returns "+000000000000001"
-    string = IntegerToBin( -1 )  ' Returns "-000000000000001"</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>For more help, see</strong> <a href="#_bytetobin">ByteToBin</a>, <a href="#_wordtobin">WordToBin</a>, <a href="#_longtobin">LongToBin</a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_longtobin">LongToBin</h4>
-<div class="paragraph">
-<p><strong>Syntax:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    <em>stringvar</em> = LongToBin(<em>longvar</em>)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Command Availability:</strong></p>
-</div>
-<div class="paragraph">
-<p>Available on all microcontrollers</p>
-</div>
-<div class="paragraph">
-<p><strong>Explanation:</strong></p>
-</div>
-<div class="paragraph">
-<p>The <code>LongToBin</code> function creates a string of a ANSI (32) characters.
-The function converts a number to a string consisting of ones and zeros that represents the binary value.</p>
-</div>
-<div class="paragraph">
-<p><strong>Note:</strong>
-Supports LONG variables only.  For BYTE variables use <code>VarToBin</code>, for WORD variables use <code>VarWToBinand</code> for INTEGER variables use <code>VarIntegerToBin</code></p>
-</div>
-<div class="paragraph">
-<p><strong>Example:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    string = LongToBin( 1 )   ' Returns "0000000000000001"
-
-    string = LongToBin( 254 ) ' Returns "0000000011111110"</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>For more help, see</strong> <a href="#_vartobin">VarToBin</a>, <a href="#_varWtobin">VarWToBin</a>, <a href="#_varintegertobin">VarIntegerToBin</a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_wordtobin">WordToBin</h4>
-<div class="paragraph">
-<p><strong>Syntax:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>  <em>stringvar</em> = WordToBin(<em>bytevar</em>)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Command Availability:</strong>
-Available on all microcontrollers</p>
-</div>
-<div class="paragraph">
-<p><strong>Explanation:</strong></p>
-</div>
-<div class="paragraph">
-<p>The <code>WordToBin</code> function creates a string of a ANSI (8-byte) characters.
-The function converts a number to a string consisting of ones and zeros that represents the binary value.</p>
-</div>
-<div class="paragraph">
-<p><strong>Example:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    <em>string</em> = WordToBin(1)       ' Returns "0000000000000001"
-
-    <em>string</em> = WordToBin(37654)   ' Returns "1001001100010110"</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>For more help, see</strong> <a href="#_bytetobin">ByteToBin</a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_concatenation">Concatenation</h4>
-<div class="paragraph">
-<p><strong>Syntax:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    <em>stringvar</em> = variable1 + variable2</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Command Availability:</strong></p>
-</div>
-<div class="paragraph">
-<p>Available on all microcontrollers</p>
-</div>
-<div class="paragraph">
-<p><strong>Explanation:</strong></p>
-</div>
-<div class="paragraph">
-<p>The method joins two variables into another variable.</p>
-</div>
-<div class="paragraph">
-<p>This method does not change the existing strings, but returns a <strong>new</strong> string containing the text of the joined variables, see Concatenated String Constraint below.</p>
-</div>
-<div class="paragraph">
-<p>Concatenation joins the elements of a specified values using the specified separator between each variable.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Warning</div>
-</td>
-<td class="content">
-Using concatenation as a parameter with commands like HSerPrint or Print the compiler will create a system string variable.&#160;&#160;  An examples of concatenating two strings constants like HSerPrint ("123"+"456") may yield incorrect results.&#160;&#160;Use the constant SYSDEFAULTCONCATSTRING to resolve.&#160;&#160;Without using SYSDEFAULTCONCATSTRING there is a risk that the compiler does not allocate sufficient RAM to hold the concatenated string.&#160;&#160;
-The resulting string may be corrupted as the size of the system string variable is not sufficient.&#160;&#160;Use SYSDEFAULTCONCATSTRING within the source program to resolve.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><strong>Set a specific size of compiler created system string variable</strong></p>
-</div>
-<div class="paragraph">
-<p>Use the following to set the size of the system string variable used during concatenation.&#160;&#160;</p>
-</div>
-<div class="paragraph">
-<p>The compiler will create system string variables when you concatenate on a commands line like <code>HSerPrint</code>, <code>Print</code> and many others commands.&#160;&#160;
-Using concatenate with a command is bad practice, using a lot of RAM and may create a number of system string variables.&#160;&#160;
-It is recommended to define a string (of a known length), concatenate using an assignment then use the string.&#160;&#160;</p>
-</div>
-<div class="paragraph">
-<p>To control the size of system string variable use the following.&#160;&#160;
-Also, use this constant to set the size when the compiler does not create a system string variable.&#160;&#160;</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    'Define the constant to control the size of system created string variables called SYSSTRINGPARAM1, SYSSTRINGPARAM2 etc.
-    Use #DEFINE  SYSDEFAULTCONCATSTRING  4
-
-    'Then, use
-    HSerPrint "A"+"123"   'will print A123. Without the SYSDEFAULTCONCATSTRING constant some microcontrollers may corrupt the result of the concatenation.</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This concatenation constraint does not apply using concatenation as an assignment.&#160;&#160;
-<br>
-<br>
-<strong>Example 1:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    timevariable = 999
-    <em>stringvar</em> = "Time = " + str(timevariable) ' Convert the <em>timevariable</em> to a String.  This operation returns <strong>Time = 999</strong></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Example 2:</strong></p>
-</div>
-<div class="paragraph">
-<p>An example showing how to set a string to an escape sequence for an ANSI terminal.&#160;&#160;You can `Dim`ension a string and then assign the elements like an array.
-{empty} +
-{empty} +</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    dim line2 as string
-    line2 =  27, "[", "2", "H", 27, "[","K"
-    HSerPrint line2</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Will send the following to the terminal.
-&lt;esc&gt;[2H&lt;esc&gt;[K
-<br>
-<br>
-<strong>Example 3: Assigning concatenated string to same string</strong></p>
-</div>
-<div class="paragraph">
-<p>For reliable coding you must not assign a string concatenation to same source variable.&#160;&#160;You must assign the result of string concatenation to another string. &#160;&#160;To resolve see below:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    Dim outstring, tmpstring as string * 16
-    Dim outnumber as byte
-
-    outnumber = 24
-    outstring = "Result = "
-    'This concatenation may yield an incorrect string on 10f, 12f or 16f chips
-    outstring = outstring + str(outnumber)
-    HserPrintCRLF 2
-    HSerPrint outstring
-    HserPrintCRLF 2
-
-    outstring = "Result = "
-    'This concatenation will yield an the correct string. With tmpstring1 containing the correct concatenated string
-    tmpstring = outstring +str(outnumber)
-    HSerPrint tmpstring
-    HserPrintCRLF 2
-    end</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><br>
-To resolve the constraint simply assign the source string to another string.</p>
-</div>
-<div class="paragraph">
-<p><br>
-<br></p>
 </div>
 </div>
 </div>
@@ -48607,6 +49947,37 @@ IF Temp.2 OFF THEN SET red ON</pre>
 </div>
 </div>
 <div class="sect3">
+<h4 id="_int">Int</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    integer_variable = Int( single_variable )</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers.</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>Int</code> function will compute the integer value of a single nteger number therefore will return the range of single variable.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    integer_value = Int(  _singlevariable_ )  ' Will return  the range of single variable.</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_logarithms">Logarithms</h4>
 <div class="paragraph">
 <p><strong>Explanation:</strong></p>
@@ -48821,6 +50192,40 @@ Non-negative numbers are assumed throughout.</p>
 </div>
 <div class="paragraph">
 <p><strong>Supported in &lt;MATHS.H&gt;</strong></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_roundsingle">RoundSingle</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    rounded_single_value = RoundSingle( single_variable )</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers.</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>RoundSingle</code> function will return a floating point number that is a rounded version of the specified number.</p>
+</div>
+<div class="paragraph">
+<p>This operates the same as Microsoft floor().</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    rounded_single_value = RoundSingle(  _singlevariable_ )  ' Will return  the range of single variable.</pre>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -50734,6 +52139,70 @@ If any of the variables do not exist, the compiler will create a constant mappin
 <div class="content">
 <pre>    #option bootloader 0x800</pre>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="__option_float">#Option Float</h3>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #option Float 1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This option enables float support in the user program.</p>
+</div>
+<div class="paragraph">
+<p>This option ensures that all advanced variables are permitted in the user program.</p>
+</div>
+<div class="paragraph">
+<p><strong>Options:</strong></p>
+</div>
+<div class="paragraph">
+<p>There are four bitwise settings for the different tpye of advanced variables, as follows:</p>
+</div>
+<div class="paragraph">
+<p>1 = singles
+2 = doubles
+4 = longint
+8 = uLongINT</p>
+</div>
+<div class="paragraph">
+<p><strong>Example 1:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16f877a
+
+    'Example command
+    #option Float 1   // Enable Single 1 = 1
+
+    dim myuserflag as single
+
+    myuserflag = 123.456</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example 2:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16f877a
+
+    'Example command
+    #option Float 3   // Enable Single and Double 1 + 2 = 3
+
+    dim myuserflag as single
+
+    myuserflag = 123.456</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>For more help, see</strong> <a href="#_variable_lifecycle">Variable Lifecycle</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -54953,50 +56422,33 @@ The comments are NOT part of an INI file.&#160;&#160;</p>
 <div class="listingblock">
 <div class="content">
 <pre>    [gcbasic]
-    'The current order of the programmers as shown in Prefs Editor
-    programmer = tinybootloader, lgt8fx8p, arduinouno, pickitpluscmd0, nsprog
-
-    'Show the progress counters when compiling.  This can be changed in the INI or by a command line switch. There is no support in Prefs Editor to change this parameter.
-    showprogresscounters = n
-
-    'Show verbose when compiling.  This can be changed in the INI or by a command line switch
-    verbose = n
-
-    'Show source code in the generated ASM or .S files. This can be changed in the INI or by a command line switch
-    preserve = a
-
-    'Treat warning as errors. This can be changed in the INI or by a command line switch.&amp;#160;&amp;#160;There is no support in Prefs Editor to change this parameter.
-    warningsaserrors = n
-
-    'Pause after compilation. This can be changed in the INI or by a command line switch.&amp;#160;&amp;#160;There is no support in Prefs Editor to change this parameter.
-    pauseaftercompile = n
-
-    'Flash the chip only. This can be changed in the INI or by a command line switch. There is no support in Prefs Editor to change this parameter.
-    flashonly = n
-
-    'Selected assembler. This can be changed in the INI or by a command line switch.
-    assembler = PIC-AS
-
-    'Add comments to hex to show source compiler. This can be changed in the INI or by a command line switch.
-    hexappendgcbmessage = n
-
-    'Mute banners when compiling. This can be changed in the INI or by a command line switch. There is no support in Prefs Editor to change this parameter.
-    mutebanners = n
-
-    'Show the extended verbose messages when compiling. his can only be changed in the INI. There is no support in Prefs Editor or a command line switch to change this parameter.  Not managed by Prefs Editor.
-    evbs = n
-
-    'Use LAXSYNTAX supports lax validation.  This disables reserved word inspection, permits use of reserved words in GOTO statement.  Not managed by Prefs Editor.
-    laxsyntax = y
-
-    'Use NoSummary supports minimal compiler and assembly information when set to y.  Supports y|n.  Not managed by Prefs Editor.
-    nosummary = n
-
-    'Use the system temp directory for compiler temp files.  Options are "tempdir" or "instdir" or remove the option.
-    workingdir = "tempdir"
-
-    'Display conditional statement debug for the specified file.  Options are any valid source file or nothing. The enry will be remove if a prefixed by a comment ( a single quote ).
-    conditionaldebugfile =</pre>
+    programmer = arduinouno, pickitpluscmd1, lgt8f328p-1, xpress, pickit2cmdline, nsprog            - the currently selected available programmers
+    showprogresscounters = n                                                                        - show percent values as compiler runs. requires Verbose = y
+    verbose = y                                                                                     - show verbose compiler information
+    preserve = n                                                                                    - preservice source program in ASM
+    warningsaserrors = n                                                                            - treat Warnings from scripts as errors. Errors will cause the compiler to cease on an Error(s)
+    pauseaftercompile = n                                                                           - pause after compiler. Do not do this with IDEs
+    flashonly = n                                                                                   - Flash the chip is source older that hex file
+    assembler = GCASM                                                                               - currently selected Assembler
+    hexappendgcbmessage = n                                                                         - appends a message in the HEX file
+    laxsyntax = n                                                                                   - use lax syntax when Y, the compiler will not check that reserved words are being used
+    mutebanners = n                                                                                 - mutes the post compilation messages
+    evbs = n                                                                                        - show extra verbose compiler information, requires Verbose = y
+    nosummary = n                                                                                   - mutes almost all messages psot compilation
+    extendedverbosemessages = n                                                                     - show even more verbose compiler information, requires Verbose = y
+    conditionaldebugfile =                                                                          - creates CDF file
+    columnwidth = 180                                                                               - ASM width before wrapping
+    picasdebug = n                                                                                  - adds PIC-AS preprocessor message to .S file
+    datfileinspection = y                                                                           - inspects DAT for memory validation
+    methodstructuredebug  = n                                                                       - show method structure start &amp; end for validation
+    floatcapability =  1                                                                            - 1 = singles
+                                                                                                    - 2 = doubles
+                                                                                                    - 4 = longint
+                                                                                                    - 8 = uLongINT
+    compilerdebug =  0                                                                              - 1 = COMPILECALCADD
+                                                                                                    - 2 = VAR SET
+                                                                                                    - 4 = CALCOPS
+                                                                                                    - 8 = COMPILECALCMULT</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -55147,7 +56599,7 @@ The list shows the installation of the Sharp Develop IDE.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-12-28 11:44:57 GMT Standard Time
+Last updated 2024-03-09 09:14:53 GMT Standard Time
 </div>
 </div>
 </body>

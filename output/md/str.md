@@ -6,7 +6,7 @@
 
 <div>
 
-#### <span id="str"></span>Str
+##### <span id="str"></span>Str
 
 </div>
 
@@ -14,7 +14,7 @@
 
 </div>
 
-<span class="strong">**Syntax:**</span>
+<span class="strong">**Syntax: Deprecated use ByteToString()**</span>
 
 ``` screen
     stringvar = Str(number)     'supports decimal byte and word strings only.
@@ -95,7 +95,7 @@ strings.
     '''
     '''  PIC: 16F18855
     '''  Compiler: GCB
-    '''  IDE: GCB@SYN
+    '''  IDE: GCode
     '''
     '''  Board: Xpress Evaluation Board
     '''  Date: June 2021

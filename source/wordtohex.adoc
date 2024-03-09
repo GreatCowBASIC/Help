@@ -1,0 +1,40 @@
+==== WordToHex
+
+*Syntax:*
+[subs="quotes"]
+----
+    __stringvar__ = WordToHex(__number__)
+----
+*Command Availability:*
+
+Available on all microcontrollers
+
+*Explanation:*
+
+The `Hex` function will convert a Word number into hexadecimal format. The input `_number_` should be a Word variable, or a fixed number between 0 and 65525 inclusive. After running the function, the string variable `_stringvar_` will contain a 4 digit hexadecimal number.
+
+*Example:*
+----
+    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+
+    'Send EEPROM data over serial connection
+    'Uses Hex to display as hexadecimal
+    For CurrentLocation = 0 to 65535
+        'Send location
+        HSerPrint WordToHex(CurrentLocation)
+        HSerPrint ":"
+        'Read Word and send
+        EPRead CurrentLocation, CurrWord
+        HSerPrint Hex(CurrWord)
+        'Send carriage return/line feed
+        HSerPrintCRLF
+    Next
+----
+
+*See Also* <<_bytetohex,ByteToHex>>,<<_longtohex_,LongToHex>>, <<_integertohex,IntegerToHex>>, <<_singletohex,SingleToHex>> 

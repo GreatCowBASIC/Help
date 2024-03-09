@@ -267,6 +267,6 @@ Will send the following to the terminal. &lt;esc&gt;\[2H&lt;esc&gt;\[K
   
 
 <span class="strong">**For more help, see:**</span>
-<a href="" class="link">Variables</a>
+<a href="variables" class="link" title="Variables">Variables</a>
 
 </div>

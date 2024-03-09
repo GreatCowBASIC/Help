@@ -1,6 +1,8 @@
 ==== Str
 
-*Syntax:*
+
+
+*Syntax: Deprecated use ByteToString()*
 [subs="quotes"]
 ----
     _stringvar_ = Str(_number_)     'supports decimal byte and word strings only.
@@ -10,8 +12,6 @@
 
     'Use the following to support decimal integer number strings.
     _stringvar_ = StrInteger(_integer number_)     ' decimal integer number strings.
-
-
 ----
 *Command Availability:*
 
@@ -73,7 +73,7 @@ These methods will not support  conversion of hexadecimal number strings.
     '''
     '''  PIC: 16F18855
     '''  Compiler: GCB
-    '''  IDE: GCB@SYN
+    '''  IDE: GCode
     '''
     '''  Board: Xpress Evaluation Board
     '''  Date: June 2021

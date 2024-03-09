@@ -50,6 +50,11 @@ include::inputsoutputs.adoc[]
 
 include::configuration.adoc[]
 
+include::usbdriversinstaller.adoc[]
+
+ifdef::backend-pdf[<<<]
+== Variables
+
 include::numbervariabletypes.adoc[]
 
 include::variables.adoc[]
@@ -57,8 +62,6 @@ include::variables.adoc[]
 include::variablesadvanced.adoc[]
 
 include::variableassignment.adoc[]
-
-include::usbdriversinstaller.adoc[]
 
 
 ifdef::backend-pdf[<<<]
@@ -944,41 +947,24 @@ ifdef::backend-pdf[<<<]
 
 This is the String Manipulation section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
 
-//Revised erv 19/12/2016
-
-<<_asc,Asc>>,
-<<_bytetobin, Bytetobin>>,
-<<_chr,Chr>>,
-<<_fill,Fill>>,
-<<_hex,Hex>>,
-<<_instr,Instr>>,
-<<_lcase,Lcase>>,
-<<_left,Left>>,
-<<_leftpad,Leftpad>>,
-<<_len,Len>>,
-<<_mid,Mid>>,
-<<_pad,Pad>>,
-<<_right,Right>>,
-<<_rtrim,Rtrim>>,
-<<_str,Str>>,
-<<_trim,Trim>>,
-<<_ucase,Ucase>>,
-<<_val,Val>>,
-<<_wordtobin,Wordtobin>>,
-<<_setting_variables, Setting Variables>> or
-<<_concatenation,concatenation>>
-
-
 
 include::asc.adoc[]
 
 include::bytetobin.adoc[]
 
+include::bytetohex.adoc[]
+
+include::bytetostring.adoc[]
+
 include::chr.adoc[]
 
 include::fill.adoc[]
 
-include::hex.adoc[]
+include::VarIntegerToBin.adoc[]
+
+include::integertohex.adoc[]
+
+include::integertostring.adoc[]
 
 include::instr.adoc[]
 
@@ -990,6 +976,12 @@ include::leftpad.adoc[]
 
 include::len.adoc[]
 
+include::VarLongToBin.adoc[]
+
+include::longtohex.adoc[]
+
+include::longtostring.adoc[]
+
 include::ltrim.adoc[]
 
 include::mid.adoc[]
@@ -1000,21 +992,45 @@ include::right.adoc[]
 
 include::rtrim.adoc[]
 
-include::str.adoc[]
-
 include::trim.adoc[]
 
 include::ucase.adoc[]
 
-include::val.adoc[]
+include::varsingletobin.adoc[]
 
-include::VarIntegerToBin.adoc[]
+include::singletohex.adoc[]
 
-include::VarLongToBin.adoc[]
+include::singletostring.adoc[]
+
+include::stringtobyte.adoc[]
+
+include::stringtolong.adoc[]
+
+include::stringtosingle.adoc[]
+
+include::stringtoword.adoc[]
 
 include::wordtobin.adoc[]
 
+include::wordtohex.adoc[]
+
+include::wordtostring.adoc[]
+
 include::concatenation.adoc[]
+
+:leveloffset: +1
+
+=== Deprecated string functions.
+
+Use the alternative updated functions.
+
+include::hex.adoc[]
+
+include::str.adoc[]
+
+include::val.adoc[]
+
+:leveloffset: -1
 
 ifdef::backend-pdf[<<<]
 === Miscellaneous Commands
@@ -1053,6 +1069,8 @@ include::average.adoc[]
 
 include::difference.adoc[]
 
+include::int.adoc[]
+
 include::logarithms.adoc[]
 
 :leveloffset: +1
@@ -1066,6 +1084,9 @@ include::log10.adoc[]
 :leveloffset: -1
 
 include::power.adoc[]
+
+include::roundsingle.adoc[]
+
 
 include::scale.adoc[]
 
@@ -1137,6 +1158,8 @@ include::optionexplicit.adoc[]
 include::optionnoconfig.adoc[]
 
 include::optionbootloader.adoc[]
+
+include::optionfloat.adoc[]
 
 include::optionnocontextsave.adoc[]
 

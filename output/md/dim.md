@@ -110,7 +110,8 @@ dialects of BASIC.
 <span class="strong">**For more help,
 see:  **</span><a href="serprint" class="link" title="SerPrint">SerPrint</a>
 articles as these articales show how to use Dim to create string
-variables and <a href="" class="link">Variables</a> for more details in
-creating and managing strings lengths.
+variables and
+<a href="variables" class="link" title="Variables">Variables</a>
+for more details in creating and managing strings lengths.
 
 </div>

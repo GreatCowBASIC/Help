@@ -192,7 +192,7 @@ save 149 bytes of program memory.
 ``` screen
     '''  PIC: 16F18855
     '''  Compiler: GCB
-    '''  IDE: GCB@SYN
+    '''  IDE: GCode
     '''
     '''  Board: Xpress Evaluation Board
     '''  Date: 13.3.2021

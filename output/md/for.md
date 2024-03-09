@@ -42,6 +42,10 @@ loops, `increment` is added to `counter`, until `counter` is equal to
 `Step` and `increment` are optionals. If Step is not specified, GCBASIC
 will increment `counter` by 1 each time the code is run.
 
+Step is an integer value.  Step value can positive of negative.  When
+using advanced variable you must cast the step value as an integer, see
+the example below.
+
 `increment` can be a positive or negative constant or an integer.
 
 The `Exit For` is optional and can be used to exit the loop upon a
@@ -104,6 +108,29 @@ cause your program to operate incorrectly.    The use of
     Next
     Set LED2 OFF
     goto main
+```
+
+<span class="strong">**Example 3:**</span>
+
+This example show casting the step value as an integer.  The step value
+in this example is the integer value of 2.
+
+``` screen
+    #script
+        // Create a constant
+        Pi = 22/7
+    #endscript
+
+    Dim myCircumference, myRadius as Single
+    Dim myDiameter as Single Alias myCircumference_E, myCircumference_U, myCircumference_H, myCircumference
+
+    HserPrintCRLF
+
+    For MyRadius = 0.5 to 10.5 step [integer]2
+        myCircumference=myRadius * Pi * 2
+        HSerPrint "myRadius = " + ltrim(SingleToString(myRadius))
+        HSerPrintStringCRLF " myCircumference = " + ltrim(SingleToString(myCircumference))
+    next
 ```
 
 <span class="strong">**For more help, see

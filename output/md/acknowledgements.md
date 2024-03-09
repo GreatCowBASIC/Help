@@ -45,7 +45,7 @@ Russ Hensel - GCBASIC Notes.
 Chuck Hellebuyck - His documentation for the GLCD and other pieces, see
 <http://www.elproducts.com>.
 
-Frank Steinberg - GCB@SYN IDE for GCBASIC.
+Frank Steinberg - GCode IDE for GCBASIC.
 
 Alexy T. - SynWrite IDE used for GCB IDE, see
 <http://www.uvviewsoft.com/synwrite>

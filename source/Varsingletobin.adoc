@@ -1,0 +1,27 @@
+==== LongToBin
+
+*Syntax:*
+[subs="quotes"]
+----
+    __stringvar__ = SingleToBin(__Singlevar__)
+----
+
+*Command Availability:*
+
+Available on all microcontrollers
+
+*Explanation:*
+
+The `SingleToBin` function creates a string of a ANSI (32) characters.
+The function converts a number to a string consisting of ones and zeros that represents the binary value.
+
+*Note:*
+Supports Single variables only.  For BYTE variables use `VarToBin`, for WORD variables use `VarWToBinand` for INTEGER variables use `VarIntegerToBin`
+
+*Example:*
+----
+    string = SingleToBin( 1 )   ' Returns "00000000000000000000000000000001"
+
+    string = SingleToBin( 254 ) ' Returns "00000000000000000000000011111110"
+----
+*For more help, see* <<_vartobin,ByteToBin>>, <<_varWtobin,WordToBin>>, <<_varintegertobin,IntegerToBin>>

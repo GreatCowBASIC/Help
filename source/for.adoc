@@ -27,7 +27,9 @@ loops, `_increment_` is added to `_counter_`, until `_counter_` is equal to
 `_end_`. Then, the program continues beyond the Next.
 
 `_Step_` and `_increment_` are optionals. If Step is not specified, GCBASIC
-will increment `_counter_` by 1 each time the code is run.
+will increment `_counter_` by 1 each time the code is run.  
+
+Step is an integer value.&#160;&#160;Step value can positive of negative.&#160;&#160;When using advanced variable you must cast the step value as an integer, see the example below.
 
 `_increment_` can be a positive or negative constant or an integer.
 
@@ -88,6 +90,28 @@ The use of `#DEFINE USELEGACYFORNEXT` is NOT recommended.
     goto main
 ----
 
+*Example 3:*
 
+This example show casting the step value as an integer.&#160;&#160;The step value in this example is the integer value of 2.
+
+----
+
+    #script
+        // Create a constant
+        Pi = 22/7
+    #endscript
+
+    Dim myCircumference, myRadius as Single
+    Dim myDiameter as Single Alias myCircumference_E, myCircumference_U, myCircumference_H, myCircumference
+
+    HserPrintCRLF
+
+    For MyRadius = 0.5 to 10.5 step [integer]2
+        myCircumference=myRadius * Pi * 2
+        HSerPrint "myRadius = " + ltrim(SingleToString(myRadius))
+        HSerPrintStringCRLF " myCircumference = " + ltrim(SingleToString(myCircumference))
+    next
+
+----
 
 *For more help, see <<_repeat,Repeat>>*
