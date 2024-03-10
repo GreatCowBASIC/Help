@@ -29,21 +29,13 @@ The function supports two messages to support usage.
   '   SysByte_STS_Err.4 = non numeric chars found
 
 
-*Example1:*
+*Example Usage 1:*
 ----
 
     ' ----- Configuration
     'Chip Settings.
     #chip 16f18855,32
     #Config MCLRE_ON
-
-    ; ----- Define Hardware settings
-
-    '' -------------------LATA-----------------
-    '' Bit#:  -7---6---5---4---3---2---1---0---
-    '' LED:   ---------------|D5 |D4 |D3 |D2 |-
-    ''-----------------------------------------
-    ''
 
     'Set the PPS of the RS232 ports.
     UNLOCKPPS
@@ -54,24 +46,6 @@ The function supports two messages to support usage.
     ; ----- Constants
     #define USART_BAUD_RATE 19200
     #define USART_TX_BLOCKING
-
-    #define LEDD2 PORTA.0
-    #define LEDD3 PORTA.1
-    #define LEDD4 PORTA.2
-    #define LEDD5 PORTA.3
-    Dir     LEDD2 OUT
-    Dir     LEDD3 OUT
-    Dir     LEDD4 OUT
-    Dir     LEDD5 OUT
-
-
-    #define Potentiometer       PORTA.4
-    DIR     Potentiometer In
-
-    #define SWITCH_DOWN         0
-    #define SWITCH_UP           1
-    #define SWITCH              PORTA.5
-    Dir SWITCH                  In
 
     ; ----- Variables
     dim bytevar as Byte

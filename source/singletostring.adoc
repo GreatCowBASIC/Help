@@ -11,9 +11,9 @@ Available on all microcontrollers
 
 *Explanation:*
 
-The `SingleToString` function will convert a number into a string. `_number_` can be any Single variable, or a fixed number constant between 0 and 4294967295 inclusive.&#160;&#160;For Byte number use `ByteToString()`, Word numbers use `WordToString()`, for Integer numbers use `IntegerToString()` and for Long numbers use `LongToString()`
+The `SingleToString` function will convert a number into a string. `_number_` can be any Single variable.&#160;&#160;For Byte numbers use `ByteToString()`, Word numbers use `WordToString()`, for Integer numbers use `IntegerToString()` and for Long numbers use `LongToString()`
 
-The string variable `_stringvar_` will contain the same number, represented as a string.&#160;&#160;The length of the string returned is 9 characters.
+The string variable `_stringvar_` will contain the ACSII representation of the input number.&#160;&#160;The length of the string is variable length dependent on the input variable value.
 
 This function is especially useful if a number needs to added to the end of a string, or if a custom data sending routine has been created but only supports the output of string variables.
 {empty} +
@@ -21,7 +21,34 @@ This function is especially useful if a number needs to added to the end of a st
 These methods will not support  conversion of hexadecimal number strings.
 {empty} +
 {empty} +
-*Example1:*
+
+*Operational Returned Controls*
+
+The function returns either the number string or the message "Error ".&#160;&#160;The reasons for "Error " are:
+
+- Very small number that actaully compute as 0.0
+- The input values is too large
+- Too many chars-out of range
+
+There is a public variable available after using this function.&#160;&#160;`SysByte_STS_Err` - this variable returns the following:
+
+&#160;&#160;&#160;&#160;SysByte_STS_Err   where 1 or 9 equates to no error.  
+
+&#160;&#160;&#160;&#160;1 equates to a properly formatted number string.
+
+&#160;&#160;&#160;&#160;8 equateq to a properly formatted integer number string.
+
+_Bitwise returned details_
+
+    SysByte_STS_Err.0 :  1 = good or 0 = bad
+    SysByte_STS_Err.1 :  1 = decimals places to many chars or 0 = ok
+    SysByte_STS_Err.2 :  1 = integer places to many chars-out of range or 0 = ok
+    SysByte_STS_Err.3 :  1 = no decimal point, info only
+    SysByte_STS_Err.4 :  1 = non numeric chars found
+
+
+
+*Example Usage 1:*
 ----
     'Set chip model
     #chip 16F1936
@@ -53,10 +80,15 @@ These methods will not support  conversion of hexadecimal number strings.
     SingleToString(number_variable)
     ' do not use, note the space!
     SingleToString (number_variable)
+
+    Do
+    Loop
+
+    End
 ----
 {empty} +
 {empty} +
-*Example2:*
+*Example Usage 2:*
 ----
     '''
     '''
@@ -102,9 +134,10 @@ These methods will not support  conversion of hexadecimal number strings.
        HSerPrintCRLF
        wait 1 s
     loop
+
     end
 
-; ----- Support methods.  Subroutines and Functions
+
 
 ----
 
