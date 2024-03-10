@@ -12,12 +12,21 @@ Available on all microcontrollers
 
 *Explanation:*
 
-The `StringToSingle` function will extract a number from a string variable, and store it in a Single variable. One potential use is reading numbers that are sent in ASCII format over a serial connection.
+The `StringToSingle` function will extract a number from a string variable, and store it in a Single variable.&#160;&#160;One potential use is formatting a serial number recieve via a serial connection.
 {empty} +
 {empty} +
 The `StringToSingle` function will not extract a StringToSingle from a hexadecimal string.
 {empty} +
 {empty} +
+
+The function supports two messages to support usage.   
+
+  '   SysByte_STS_Err = 0 if no error
+  '   SysByte_STS_Err.0 = 1 good - 0 - bad
+  '   SysByte_STS_Err.1 = 1 decimals places to many chars,  0 = ok
+  '   SysByte_STS_Err.2 = 1 integer places to many chars-out of range,   0 = ok
+  '   SysByte_STS_Err.3 = 1 no decimal point, info only
+  '   SysByte_STS_Err.4 = non numeric chars found
 
 
 *Example1:*
