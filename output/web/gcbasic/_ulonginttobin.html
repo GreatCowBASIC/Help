@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>LongToBin -  - GCBASIC documentation</title>
+      <title>ULongIntToBin -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
       <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_string_manipulation.html" title="String Manipulation" />
-      <link rel="prev" href="_ucase.html" title="UCase" />
-      <link rel="next" href="_singletohex.html" title="SingleToHex" />
-      <meta name="Section-title" content="LongToBin" /><script type="text/javascript">
+      <link rel="prev" href="_stringtoword.html" title="StringToWord" />
+      <link rel="next" href="_wordtobin.html" title="WordToBin" />
+      <meta name="Section-title" content="ULongIntToBin" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-54815";
+            var treeCookieId = "treeview-54871";
             var language = "en";
             var w = new Object();
             //Localization
@@ -164,11 +164,11 @@ border: none; background: none; font-weight: none; color: none; }
                <tr>
                   <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
                                                     </a></td>
-                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_ucase.html">Prev</a>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_stringtoword.html">Prev</a>
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="_string_manipulation.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_singletohex.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_wordtobin.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -179,32 +179,32 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="_longtobin_2"></a>LongToBin
+                     <h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="_ulonginttobin"></a>ULongIntToBin
                      </h4>
                   </div>
                </div>
             </div>
-            <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>stringvar</em></span> = SingleToBin(<span class="emphasis"><em>Singlevar</em></span>)</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
+            <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>stringvar</em></span> = ULongIntToBin(<span class="emphasis"><em>ULongIntvar</em></span>)</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
             <p>Available on all microcontrollers</p>
             <p><span class="strong"><strong>Explanation:</strong></span></p>
-            <p>The <code class="literal">SingleToBin</code> function creates a string of a ANSI (32) characters.
+            <p>The <code class="literal">ULongIntToBin</code> function creates a string of a ANSI (32) characters.
                The function converts a number to a string consisting of ones and zeros that represents the binary value.
             </p>
             <p><span class="strong"><strong>Note:</strong></span>
-               Supports Single variables only.  For BYTE variables use <code class="literal">VarToBin</code>, for WORD variables use <code class="literal">VarWToBinand</code> for INTEGER variables use <code class="literal">VarIntegerToBin</code></p>
-            <p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    string = SingleToBin( 1 )   ' Returns "00000000000000000000000000000001"
+               Supports ULongInt variables only.  For BYTE variables use <code class="literal">VarToBin</code>, for WORD variables use <code class="literal">VarWToBinand</code> for INTEGER variables use <code class="literal">VarIntegerToBin</code></p>
+            <p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    string = ULongIntToBin( 1 )   ' Returns "00000000000000000000000000000001"
 
-    string = SingleToBin( 254 ) ' Returns "00000000000000000000000011111110"</pre><p><span class="strong"><strong>For more help, see</strong></span> <a class="link" href="">ByteToBin</a>, <a class="link" href="">WordToBin</a>, <a class="link" href="">IntegerToBin</a></p>
+    string = ULongIntToBin( 254 ) ' Returns "00000000000000000000000011111110"</pre><p><span class="strong"><strong>For more help, see</strong></span> <a class="link" href="">ByteToBin</a>, <a class="link" href="">WordToBin</a>, <a class="link" href="">IntegerToBin</a></p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
             <table width="100%" summary="Navigation footer">
                <tr>
-                  <td width="40%" align="left"><a accesskey="p" href="_ucase.html">Prev</a> 
+                  <td width="40%" align="left"><a accesskey="p" href="_stringtoword.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="_string_manipulation.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="_singletohex.html">Next</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="_wordtobin.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -736,13 +736,14 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_rtrim.html" tabindex="1">Rtrim</a></span></li>
                                     <li><span class="file"><a href="_trim.html" tabindex="1">Trim</a></span></li>
                                     <li><span class="file"><a href="_ucase.html" tabindex="1">UCase</a></span></li>
-                                    <li id="webhelp-currentid"><span class="file"><a href="_longtobin_2.html" tabindex="1">LongToBin</a></span></li>
+                                    <li><span class="file"><a href="_singletobin.html" tabindex="1">SingleToBin</a></span></li>
                                     <li><span class="file"><a href="_singletohex.html" tabindex="1">SingleToHex</a></span></li>
                                     <li><span class="file"><a href="_singletostring.html" tabindex="1">SingleToString</a></span></li>
                                     <li><span class="file"><a href="_stringtobyte.html" tabindex="1">StringToByte</a></span></li>
                                     <li><span class="file"><a href="_stringtolong.html" tabindex="1">StringToLong</a></span></li>
                                     <li><span class="file"><a href="_stringtosingle.html" tabindex="1">StringToSingle</a></span></li>
                                     <li><span class="file"><a href="_stringtoword.html" tabindex="1">StringToWord</a></span></li>
+                                    <li id="webhelp-currentid"><span class="file"><a href="_ulonginttobin.html" tabindex="1">ULongIntToBin</a></span></li>
                                     <li><span class="file"><a href="_wordtobin.html" tabindex="1">WordToBin</a></span></li>
                                     <li><span class="file"><a href="_wordtohex.html" tabindex="1">WordToHex</a></span></li>
                                     <li><span class="file"><a href="_wordtostring.html" tabindex="1">WordToString</a></span></li>

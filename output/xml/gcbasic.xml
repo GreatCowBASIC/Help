@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2024-03-11</date>
+<date>2024-03-14</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team @ 2024</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-03-11<?asciidoc-br?>
-13:16:43 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-03-14<?asciidoc-br?>
+11:17:06 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-03-11<?asciidoc-br?>
-07:53:44 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-03-14<?asciidoc-br?>
+08:06:48 GMT Standard Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -34886,8 +34886,8 @@ These methods will not support  conversion of hexadecimal number strings.
     HSerPrintCRLF</screen>
 <simpara><emphasis role="strong">See Also</emphasis> <link linkend="_lcase">LCase</link></simpara>
 </section>
-<section xml:id="_longtobin_2">
-<title>LongToBin</title>
+<section xml:id="_singletobin">
+<title>SingleToBin</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
 <screen>    <emphasis>stringvar</emphasis> = SingleToBin(<emphasis>Singlevar</emphasis>)</screen>
 <simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
@@ -35373,6 +35373,23 @@ The <literal>StringToWord</literal> function will not extract a StringToWord fro
     end
 
   ; ----- Support methods.  Subroutines and Functions</screen>
+</section>
+<section xml:id="_ulonginttobin">
+<title>ULongIntToBin</title>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    <emphasis>stringvar</emphasis> = ULongIntToBin(<emphasis>ULongIntvar</emphasis>)</screen>
+<simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
+<simpara>Available on all microcontrollers</simpara>
+<simpara><emphasis role="strong">Explanation:</emphasis></simpara>
+<simpara>The <literal>ULongIntToBin</literal> function creates a string of a ANSI (32) characters.
+The function converts a number to a string consisting of ones and zeros that represents the binary value.</simpara>
+<simpara><emphasis role="strong">Note:</emphasis>
+Supports ULongInt variables only.  For BYTE variables use <literal>VarToBin</literal>, for WORD variables use <literal>VarWToBinand</literal> for INTEGER variables use <literal>VarIntegerToBin</literal></simpara>
+<simpara><emphasis role="strong">Example:</emphasis></simpara>
+<screen>    string = ULongIntToBin( 1 )   ' Returns "00000000000000000000000000000001"
+
+    string = ULongIntToBin( 254 ) ' Returns "00000000000000000000000011111110"</screen>
+<simpara><emphasis role="strong">For more help, see</emphasis> <link linkend="_vartobin">ByteToBin</link>, <link linkend="_varWtobin">WordToBin</link>, <link linkend="_varintegertobin">IntegerToBin</link></simpara>
 </section>
 <section xml:id="_wordtobin">
 <title>WordToBin</title>

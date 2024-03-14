@@ -6,7 +6,7 @@
 
 <div>
 
-#### <span id="longtobin_2"></span>LongToBin
+#### <span id="singletobin"></span>SingleToBin
 
 </div>
 

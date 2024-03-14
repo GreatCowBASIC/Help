@@ -609,13 +609,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-11<br>
-13:16:45 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-14<br>
+11:17:08 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-11<br>
-07:53:44 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-14<br>
+08:06:48 GMT Standard Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -47583,7 +47583,7 @@ These methods will not support  conversion of hexadecimal number strings.
 </div>
 </div>
 <div class="sect3">
-<h4 id="_longtobin_2">LongToBin</h4>
+<h4 id="_singletobin">SingleToBin</h4>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
 </div>
@@ -48252,6 +48252,47 @@ The <code>StringToWord</code> function will not extract a StringToWord from a he
 
   ; ----- Support methods.  Subroutines and Functions</pre>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ulonginttobin">ULongIntToBin</h4>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    <em>stringvar</em> = ULongIntToBin(<em>ULongIntvar</em>)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all microcontrollers</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>ULongIntToBin</code> function creates a string of a ANSI (32) characters.
+The function converts a number to a string consisting of ones and zeros that represents the binary value.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong>
+Supports ULongInt variables only.  For BYTE variables use <code>VarToBin</code>, for WORD variables use <code>VarWToBinand</code> for INTEGER variables use <code>VarIntegerToBin</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    string = ULongIntToBin( 1 )   ' Returns "00000000000000000000000000000001"
+
+    string = ULongIntToBin( 254 ) ' Returns "00000000000000000000000011111110"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>For more help, see</strong> <a href="#_vartobin">ByteToBin</a>, <a href="#_varWtobin">WordToBin</a>, <a href="#_varintegertobin">IntegerToBin</a></p>
 </div>
 </div>
 <div class="sect3">
@@ -56394,7 +56435,7 @@ The list shows the installation of the Sharp Develop IDE.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-11 07:53:44 GMT Standard Time
+Last updated 2024-03-14 08:06:48 GMT Standard Time
 </div>
 </div>
 </body>
