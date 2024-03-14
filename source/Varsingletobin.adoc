@@ -1,4 +1,4 @@
-==== LongToBin
+==== SingleToBin
 
 *Syntax:*
 [subs="quotes"]

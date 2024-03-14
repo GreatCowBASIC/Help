@@ -609,13 +609,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-09<br>
-10:06:34 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-11<br>
+13:16:45 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-09<br>
-09:14:53 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-11<br>
+07:53:44 GMT Standard Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -47696,10 +47696,10 @@ Supports Single variables only.  For BYTE variables use <code>VarToBin</code>, f
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p>The <code>SingleToString</code> function will convert a number into a string. <code><em>number</em></code> can be any Single variable, or a fixed number constant between 0 and 4294967295 inclusive.&#160;&#160;For Byte number use <code>ByteToString()</code>, Word numbers use <code>WordToString()</code>, for Integer numbers use <code>IntegerToString()</code> and for Long numbers use <code>LongToString()</code></p>
+<p>The <code>SingleToString</code> function will convert a number into a string. <code><em>number</em></code> can be any Single variable.&#160;&#160;For Byte numbers use <code>ByteToString()</code>, Word numbers use <code>WordToString()</code>, for Integer numbers use <code>IntegerToString()</code> and for Long numbers use <code>LongToString()</code></p>
 </div>
 <div class="paragraph">
-<p>The string variable <code><em>stringvar</em></code> will contain the same number, represented as a string.&#160;&#160;The length of the string returned is 9 characters.</p>
+<p>The string variable <code><em>stringvar</em></code> will contain the ACSII representation of the input number.&#160;&#160;The length of the string is variable length dependent on the input variable value.</p>
 </div>
 <div class="paragraph">
 <p>This function is especially useful if a number needs to added to the end of a string, or if a custom data sending routine has been created but only supports the output of string variables.
@@ -47707,8 +47707,53 @@ Supports Single variables only.  For BYTE variables use <code>VarToBin</code>, f
 <br>
 These methods will not support  conversion of hexadecimal number strings.
 <br>
-<br>
-<strong>Example1:</strong></p>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Operational Returned Controls</strong></p>
+</div>
+<div class="paragraph">
+<p>The function returns either the number string or the message "Error ".&#160;&#160;The reasons for "Error " are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Very small number that actaully compute as 0.0</p>
+</li>
+<li>
+<p>The input values is too large</p>
+</li>
+<li>
+<p>Too many chars-out of range</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There is a public variable available after using this function.&#160;&#160;`SysByte_STS_Err` - this variable returns the following:</p>
+</div>
+<div class="paragraph">
+<p>&#160;&#160;&#160;&#160;SysByte_STS_Err   where 1 or 9 equates to no error.</p>
+</div>
+<div class="paragraph">
+<p>&#160;&#160;&#160;&#160;1 equates to a properly formatted number string.</p>
+</div>
+<div class="paragraph">
+<p>&#160;&#160;&#160;&#160;8 equateq to a properly formatted integer number string.</p>
+</div>
+<div class="paragraph">
+<p><em>Bitwise returned details</em></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>SysByte_STS_Err.0 :  1 = good, or, 0 = bad
+SysByte_STS_Err.1 :  1 = decimals places to many chars, or, 0 = ok
+SysByte_STS_Err.2 :  1 = integer places to many chars-out of range, or, 0 = ok
+SysByte_STS_Err.3 :  1 = no decimal point, info only
+SysByte_STS_Err.4 :  1 = non numeric chars found</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example Usage 1:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -47741,13 +47786,18 @@ These methods will not support  conversion of hexadecimal number strings.
     ' use this, note this is no space between the SingleToString() and the left brace!
     SingleToString(number_variable)
     ' do not use, note the space!
-    SingleToString (number_variable)</pre>
+    SingleToString (number_variable)
+
+    Do
+    Loop
+
+    End</pre>
 </div>
 </div>
 <div class="paragraph">
 <p><br>
 <br>
-<strong>Example2:</strong></p>
+<strong>Example Usage 2:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -47795,9 +47845,8 @@ These methods will not support  conversion of hexadecimal number strings.
        HSerPrintCRLF
        wait 1 s
     loop
-    end
 
-; ----- Support methods.  Subroutines and Functions</pre>
+    end</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -48032,7 +48081,7 @@ The <code>StringToLong</code> function will not extract a StringToLong from a he
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p>The <code>StringToSingle</code> function will extract a number from a string variable, and store it in a Single variable. One potential use is reading numbers that are sent in ASCII format over a serial connection.
+<p>The <code>StringToSingle</code> function will extract a number from a string variable, and store it in a Single variable.&#160;&#160;One potential use is formatting a serial number recieve via a serial connection.
 <br>
 <br>
 The <code>StringToSingle</code> function will not extract a StringToSingle from a hexadecimal string.
@@ -48040,7 +48089,20 @@ The <code>StringToSingle</code> function will not extract a StringToSingle from 
 <br></p>
 </div>
 <div class="paragraph">
-<p><strong>Example1:</strong></p>
+<p>The function supports two messages to support usage.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>'   SysByte_STS_Err = 0 if no error
+'   SysByte_STS_Err.0 = 1 good - 0 - bad
+'   SysByte_STS_Err.1 = 1 decimals places to many chars,  0 = ok
+'   SysByte_STS_Err.2 = 1 integer places to many chars-out of range,   0 = ok
+'   SysByte_STS_Err.3 = 1 no decimal point, info only
+'   SysByte_STS_Err.4 = non numeric chars found</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example Usage 1:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -48048,14 +48110,6 @@ The <code>StringToSingle</code> function will not extract a StringToSingle from 
     'Chip Settings.
     #chip 16f18855,32
     #Config MCLRE_ON
-
-    ; ----- Define Hardware settings
-
-    '' -------------------LATA-----------------
-    '' Bit#:  -7---6---5---4---3---2---1---0---
-    '' LED:   ---------------|D5 |D4 |D3 |D2 |-
-    ''-----------------------------------------
-    ''
 
     'Set the PPS of the RS232 ports.
     UNLOCKPPS
@@ -48066,24 +48120,6 @@ The <code>StringToSingle</code> function will not extract a StringToSingle from 
     ; ----- Constants
     #define USART_BAUD_RATE 19200
     #define USART_TX_BLOCKING
-
-    #define LEDD2 PORTA.0
-    #define LEDD3 PORTA.1
-    #define LEDD4 PORTA.2
-    #define LEDD5 PORTA.3
-    Dir     LEDD2 OUT
-    Dir     LEDD3 OUT
-    Dir     LEDD4 OUT
-    Dir     LEDD5 OUT
-
-
-    #define Potentiometer       PORTA.4
-    DIR     Potentiometer In
-
-    #define SWITCH_DOWN         0
-    #define SWITCH_UP           1
-    #define SWITCH              PORTA.5
-    Dir SWITCH                  In
 
     ; ----- Variables
     dim bytevar as Byte
@@ -49789,7 +49825,7 @@ IF Temp.2 OFF THEN SET red ON</pre>
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p>The <code>Int</code> function will compute the integer value of a single nteger number therefore will return the range of single variable.</p>
+<p>The <code>Int</code> function will compute the integer value of an integer number therefore will return the range of single variable.</p>
 </div>
 <div class="paragraph">
 <p><strong>Example:</strong></p>
@@ -51962,70 +51998,6 @@ If any of the variables do not exist, the compiler will create a constant mappin
 <div class="content">
 <pre>    #option bootloader 0x800</pre>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="__option_float">#Option Float</h3>
-<div class="paragraph">
-<p><strong>Syntax:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    #option Float 1</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This option enables float support in the user program.</p>
-</div>
-<div class="paragraph">
-<p>This option ensures that all advanced variables are permitted in the user program.</p>
-</div>
-<div class="paragraph">
-<p><strong>Options:</strong></p>
-</div>
-<div class="paragraph">
-<p>There are four bitwise settings for the different tpye of advanced variables, as follows:</p>
-</div>
-<div class="paragraph">
-<p>1 = singles
-2 = doubles
-4 = longint
-8 = uLongINT</p>
-</div>
-<div class="paragraph">
-<p><strong>Example 1:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    'Set chip model
-    #chip 16f877a
-
-    'Example command
-    #option Float 1   // Enable Single 1 = 1
-
-    dim myuserflag as single
-
-    myuserflag = 123.456</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Example 2:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    'Set chip model
-    #chip 16f877a
-
-    'Example command
-    #option Float 3   // Enable Single and Double 1 + 2 = 3
-
-    dim myuserflag as single
-
-    myuserflag = 123.456</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>For more help, see</strong> <a href="#_variable_lifecycle">Variable Lifecycle</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -56422,7 +56394,7 @@ The list shows the installation of the Sharp Develop IDE.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-09 09:14:53 GMT Standard Time
+Last updated 2024-03-11 07:53:44 GMT Standard Time
 </div>
 </div>
 </body>

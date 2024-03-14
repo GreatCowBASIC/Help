@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2024-03-09</date>
+<date>2024-03-11</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team @ 2024</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-03-09<?asciidoc-br?>
-10:06:32 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-03-11<?asciidoc-br?>
+13:16:43 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-03-09<?asciidoc-br?>
-09:14:53 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-03-11<?asciidoc-br?>
+07:53:44 GMT Standard Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -34941,15 +34941,38 @@ Supports Single variables only.  For BYTE variables use <literal>VarToBin</liter
 <simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
 <simpara>Available on all microcontrollers</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
-<simpara>The <literal>SingleToString</literal> function will convert a number into a string. <literal><emphasis>number</emphasis></literal> can be any Single variable, or a fixed number constant between 0 and 4294967295 inclusive.&#160;&#160;For Byte number use <literal>ByteToString()</literal>, Word numbers use <literal>WordToString()</literal>, for Integer numbers use <literal>IntegerToString()</literal> and for Long numbers use <literal>LongToString()</literal></simpara>
-<simpara>The string variable <literal><emphasis>stringvar</emphasis></literal> will contain the same number, represented as a string.&#160;&#160;The length of the string returned is 9 characters.</simpara>
+<simpara>The <literal>SingleToString</literal> function will convert a number into a string. <literal><emphasis>number</emphasis></literal> can be any Single variable.&#160;&#160;For Byte numbers use <literal>ByteToString()</literal>, Word numbers use <literal>WordToString()</literal>, for Integer numbers use <literal>IntegerToString()</literal> and for Long numbers use <literal>LongToString()</literal></simpara>
+<simpara>The string variable <literal><emphasis>stringvar</emphasis></literal> will contain the ACSII representation of the input number.&#160;&#160;The length of the string is variable length dependent on the input variable value.</simpara>
 <simpara>This function is especially useful if a number needs to added to the end of a string, or if a custom data sending routine has been created but only supports the output of string variables.
 <?asciidoc-br?>
 <?asciidoc-br?>
 These methods will not support  conversion of hexadecimal number strings.
 <?asciidoc-br?>
-<?asciidoc-br?>
-<emphasis role="strong">Example1:</emphasis></simpara>
+<?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">Operational Returned Controls</emphasis></simpara>
+<simpara>The function returns either the number string or the message "Error ".&#160;&#160;The reasons for "Error " are:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Very small number that actaully compute as 0.0</simpara>
+</listitem>
+<listitem>
+<simpara>The input values is too large</simpara>
+</listitem>
+<listitem>
+<simpara>Too many chars-out of range</simpara>
+</listitem>
+</itemizedlist>
+<simpara>There is a public variable available after using this function.&#160;&#160;`SysByte_STS_Err` - this variable returns the following:</simpara>
+<simpara>&#160;&#160;&#160;&#160;SysByte_STS_Err   where 1 or 9 equates to no error.</simpara>
+<simpara>&#160;&#160;&#160;&#160;1 equates to a properly formatted number string.</simpara>
+<simpara>&#160;&#160;&#160;&#160;8 equateq to a properly formatted integer number string.</simpara>
+<simpara><emphasis>Bitwise returned details</emphasis></simpara>
+<literallayout class="monospaced">SysByte_STS_Err.0 :  1 = good, or, 0 = bad
+SysByte_STS_Err.1 :  1 = decimals places to many chars, or, 0 = ok
+SysByte_STS_Err.2 :  1 = integer places to many chars-out of range, or, 0 = ok
+SysByte_STS_Err.3 :  1 = no decimal point, info only
+SysByte_STS_Err.4 :  1 = non numeric chars found</literallayout>
+<simpara><emphasis role="strong">Example Usage 1:</emphasis></simpara>
 <screen>    'Set chip model
     #chip 16F1936
 
@@ -34979,10 +35002,15 @@ These methods will not support  conversion of hexadecimal number strings.
     ' use this, note this is no space between the SingleToString() and the left brace!
     SingleToString(number_variable)
     ' do not use, note the space!
-    SingleToString (number_variable)</screen>
+    SingleToString (number_variable)
+
+    Do
+    Loop
+
+    End</screen>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?>
-<emphasis role="strong">Example2:</emphasis></simpara>
+<emphasis role="strong">Example Usage 2:</emphasis></simpara>
 <screen>    '''
     '''
     '''
@@ -35027,9 +35055,8 @@ These methods will not support  conversion of hexadecimal number strings.
        HSerPrintCRLF
        wait 1 s
     loop
-    end
 
-; ----- Support methods.  Subroutines and Functions</screen>
+    end</screen>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?>
 <emphasis role="strong">See Also</emphasis> <link linkend="_bytetohex">ByteToString</link>, <link linkend="_wordtohex">WordToString</link>, <link linkend="_longtohex">LongToString</link>, <link linkend="_singletohex">SingleToString</link>, <link linkend="_bytetohex">ByteToHex</link></simpara>
@@ -35207,25 +35234,24 @@ The <literal>StringToLong</literal> function will not extract a StringToLong fro
 <simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
 <simpara>Available on all microcontrollers</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
-<simpara>The <literal>StringToSingle</literal> function will extract a number from a string variable, and store it in a Single variable. One potential use is reading numbers that are sent in ASCII format over a serial connection.
+<simpara>The <literal>StringToSingle</literal> function will extract a number from a string variable, and store it in a Single variable.&#160;&#160;One potential use is formatting a serial number recieve via a serial connection.
 <?asciidoc-br?>
 <?asciidoc-br?>
 The <literal>StringToSingle</literal> function will not extract a StringToSingle from a hexadecimal string.
 <?asciidoc-br?>
 <?asciidoc-br?></simpara>
-<simpara><emphasis role="strong">Example1:</emphasis></simpara>
+<simpara>The function supports two messages to support usage.</simpara>
+<literallayout class="monospaced">'   SysByte_STS_Err = 0 if no error
+'   SysByte_STS_Err.0 = 1 good - 0 - bad
+'   SysByte_STS_Err.1 = 1 decimals places to many chars,  0 = ok
+'   SysByte_STS_Err.2 = 1 integer places to many chars-out of range,   0 = ok
+'   SysByte_STS_Err.3 = 1 no decimal point, info only
+'   SysByte_STS_Err.4 = non numeric chars found</literallayout>
+<simpara><emphasis role="strong">Example Usage 1:</emphasis></simpara>
 <screen>    ' ----- Configuration
     'Chip Settings.
     #chip 16f18855,32
     #Config MCLRE_ON
-
-    ; ----- Define Hardware settings
-
-    '' -------------------LATA-----------------
-    '' Bit#:  -7---6---5---4---3---2---1---0---
-    '' LED:   ---------------|D5 |D4 |D3 |D2 |-
-    ''-----------------------------------------
-    ''
 
     'Set the PPS of the RS232 ports.
     UNLOCKPPS
@@ -35236,24 +35262,6 @@ The <literal>StringToSingle</literal> function will not extract a StringToSingle
     ; ----- Constants
     #define USART_BAUD_RATE 19200
     #define USART_TX_BLOCKING
-
-    #define LEDD2 PORTA.0
-    #define LEDD3 PORTA.1
-    #define LEDD4 PORTA.2
-    #define LEDD5 PORTA.3
-    Dir     LEDD2 OUT
-    Dir     LEDD3 OUT
-    Dir     LEDD4 OUT
-    Dir     LEDD5 OUT
-
-
-    #define Potentiometer       PORTA.4
-    DIR     Potentiometer In
-
-    #define SWITCH_DOWN         0
-    #define SWITCH_UP           1
-    #define SWITCH              PORTA.5
-    Dir SWITCH                  In
 
     ; ----- Variables
     dim bytevar as Byte
@@ -36346,7 +36354,7 @@ IF Temp.2 OFF THEN SET red ON</screen>
 <simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
 <simpara>Available on all microcontrollers.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
-<simpara>The <literal>Int</literal> function will compute the integer value of a single nteger number therefore will return the range of single variable.</simpara>
+<simpara>The <literal>Int</literal> function will compute the integer value of an integer number therefore will return the range of single variable.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <screen>    integer_value = Int(  _singlevariable_ )  ' Will return  the range of single variable.</screen>
 </section>
@@ -37629,40 +37637,6 @@ If any of the variables do not exist, the compiler will create a constant mappin
 <simpara>See <link xlink:href="https://sourceforge.net/projects/tinypicbootload/files/">example bootload software.</link></simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <screen>    #option bootloader 0x800</screen>
-</section>
-<section xml:id="__option_float">
-<title>#Option Float</title>
-<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
-<screen>    #option Float 1</screen>
-<simpara>This option enables float support in the user program.</simpara>
-<simpara>This option ensures that all advanced variables are permitted in the user program.</simpara>
-<simpara><emphasis role="strong">Options:</emphasis></simpara>
-<simpara>There are four bitwise settings for the different tpye of advanced variables, as follows:</simpara>
-<simpara>1 = singles
-2 = doubles
-4 = longint
-8 = uLongINT</simpara>
-<simpara><emphasis role="strong">Example 1:</emphasis></simpara>
-<screen>    'Set chip model
-    #chip 16f877a
-
-    'Example command
-    #option Float 1   // Enable Single 1 = 1
-
-    dim myuserflag as single
-
-    myuserflag = 123.456</screen>
-<simpara><emphasis role="strong">Example 2:</emphasis></simpara>
-<screen>    'Set chip model
-    #chip 16f877a
-
-    'Example command
-    #option Float 3   // Enable Single and Double 1 + 2 = 3
-
-    dim myuserflag as single
-
-    myuserflag = 123.456</screen>
-<simpara><emphasis role="strong">For more help, see</emphasis> <link linkend="_variable_lifecycle">Variable Lifecycle</link></simpara>
 </section>
 <section xml:id="__option_nocontextsave">
 <title>#Option NoContextSave</title>

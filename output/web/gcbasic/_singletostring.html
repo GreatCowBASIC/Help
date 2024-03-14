@@ -16,7 +16,7 @@
       <link rel="next" href="_stringtobyte.html" title="StringToByte" />
       <meta name="Section-title" content="SingleToString" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-54818";
+            var treeCookieId = "treeview-54815";
             var language = "en";
             var w = new Object();
             //Localization
@@ -187,8 +187,9 @@ border: none; background: none; font-weight: none; color: none; }
             <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>stringvar</em></span> = SingleToString(<span class="emphasis"><em>Single_variable</em></span>)     'supports Single.</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
             <p>Available on all microcontrollers</p>
             <p><span class="strong"><strong>Explanation:</strong></span></p>
-            <p>The <code class="literal">SingleToString</code> function will convert a number into a string. <code class="literal"><span class="emphasis"><em>number</em></span></code> can be any Single variable, or a fixed number constant between 0 and 4294967295 inclusive.  For Byte number use <code class="literal">ByteToString()</code>, Word numbers use <code class="literal">WordToString()</code>, for Integer numbers use <code class="literal">IntegerToString()</code> and for Long numbers use <code class="literal">LongToString()</code></p>
-            <p>The string variable <code class="literal"><span class="emphasis"><em>stringvar</em></span></code> will contain the same number, represented as a string.  The length of the string returned is 9 characters.
+            <p>The <code class="literal">SingleToString</code> function will convert a number into a string. <code class="literal"><span class="emphasis"><em>number</em></span></code> can be any Single variable.  For Byte numbers use <code class="literal">ByteToString()</code>, Word numbers use <code class="literal">WordToString()</code>, for Integer numbers use <code class="literal">IntegerToString()</code> and for Long numbers use <code class="literal">LongToString()</code></p>
+            <p>The string variable <code class="literal"><span class="emphasis"><em>stringvar</em></span></code> will contain the ACSII representation of the input number.  The length of the string is variable length dependent on the
+               input variable value.
             </p>
             <p>This function is especially useful if a number needs to added to the end of a string, or if a custom data sending routine
                has been created but only supports the output of string variables.
@@ -196,8 +197,25 @@ border: none; background: none; font-weight: none; color: none; }
                <br />
                These methods will not support  conversion of hexadecimal number strings.
                <br />
-               <br />
-               <span class="strong"><strong>Example1:</strong></span></p><pre class="screen">    'Set chip model
+               <br /></p>
+            <p><span class="strong"><strong>Operational Returned Controls</strong></span></p>
+            <p>The function returns either the number string or the message "Error ".  The reasons for "Error " are:</p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">Very small number that actaully compute as 0.0</li>
+                  <li class="listitem">The input values is too large</li>
+                  <li class="listitem">Too many chars-out of range</li>
+               </ul>
+            </div>
+            <p>There is a public variable available after using this function.  `SysByte_STS_Err` - this variable returns the following:</p>
+            <p>    SysByte_STS_Err   where 1 or 9 equates to no error.</p>
+            <p>    1 equates to a properly formatted number string.</p>
+            <p>    8 equateq to a properly formatted integer number string.</p>
+            <p><span class="emphasis"><em>Bitwise returned details</em></span></p><pre class="literallayout">SysByte_STS_Err.0 :  1 = good, or, 0 = bad
+SysByte_STS_Err.1 :  1 = decimals places to many chars, or, 0 = ok
+SysByte_STS_Err.2 :  1 = integer places to many chars-out of range, or, 0 = ok
+SysByte_STS_Err.3 :  1 = no decimal point, info only
+SysByte_STS_Err.4 :  1 = non numeric chars found</pre><p><span class="strong"><strong>Example Usage 1:</strong></span></p><pre class="screen">    'Set chip model
     #chip 16F1936
 
     'Set up hardware serial connection
@@ -226,9 +244,14 @@ border: none; background: none; font-weight: none; color: none; }
     ' use this, note this is no space between the SingleToString() and the left brace!
     SingleToString(number_variable)
     ' do not use, note the space!
-    SingleToString (number_variable)</pre><p><br />
+    SingleToString (number_variable)
+
+    Do
+    Loop
+
+    End</pre><p><br />
                <br />
-               <span class="strong"><strong>Example2:</strong></span></p><pre class="screen">    '''
+               <span class="strong"><strong>Example Usage 2:</strong></span></p><pre class="screen">    '''
     '''
     '''
     '''
@@ -272,9 +295,8 @@ border: none; background: none; font-weight: none; color: none; }
        HSerPrintCRLF
        wait 1 s
     loop
-    end
 
-; ----- Support methods.  Subroutines and Functions</pre><p><br />
+    end</pre><p><br />
                <br />
                <span class="strong"><strong>See Also</strong></span> <a class="link" href="_bytetohex.html" title="ByteToHex">ByteToString</a>, <a class="link" href="_wordtohex.html" title="WordToHex">WordToString</a>, <a class="link" href="_longtohex.html" title="LongToHex">LongToString</a>, <a class="link" href="_singletohex.html" title="SingleToHex">SingleToString</a>, <a class="link" href="_bytetohex.html" title="ByteToHex">ByteToHex</a></p>
          </div><script type="text/javascript" src="common/main.js">
@@ -899,7 +921,6 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="__option_explicit.html" tabindex="1">#Option Explicit</a></span></li>
                               <li><span class="file"><a href="__option_noconfig.html" tabindex="1">#Option NoConfig</a></span></li>
                               <li><span class="file"><a href="__option_bootloader.html" tabindex="1">#Option Bootloader</a></span></li>
-                              <li><span class="file"><a href="__option_float.html" tabindex="1">#Option Float</a></span></li>
                               <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
                               <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
                               <li><span class="file"><a href="__option_required.html" tabindex="1">#Option Required</a></span></li>

@@ -27,29 +27,31 @@ Available on all microcontrollers
 <span class="strong">**Explanation:**</span>
 
 The `StringToSingle` function will extract a number from a string
-variable, and store it in a Single variable. One potential use is
-reading numbers that are sent in ASCII format over a serial
-connection.  
+variable, and store it in a Single variable.  One potential use is
+formatting a serial number recieve via a serial connection.  
   
 The `StringToSingle` function will not extract a StringToSingle from a
 hexadecimal string.  
   
 
-<span class="strong">**Example1:**</span>
+The function supports two messages to support usage.
+
+``` literallayout
+'   SysByte_STS_Err = 0 if no error
+'   SysByte_STS_Err.0 = 1 good - 0 - bad
+'   SysByte_STS_Err.1 = 1 decimals places to many chars,  0 = ok
+'   SysByte_STS_Err.2 = 1 integer places to many chars-out of range,   0 = ok
+'   SysByte_STS_Err.3 = 1 no decimal point, info only
+'   SysByte_STS_Err.4 = non numeric chars found
+```
+
+<span class="strong">**Example Usage 1:**</span>
 
 ``` screen
     ' ----- Configuration
     'Chip Settings.
     #chip 16f18855,32
     #Config MCLRE_ON
-
-    ; ----- Define Hardware settings
-
-    '' -------------------LATA-----------------
-    '' Bit#:  -7---6---5---4---3---2---1---0---
-    '' LED:   ---------------|D5 |D4 |D3 |D2 |-
-    ''-----------------------------------------
-    ''
 
     'Set the PPS of the RS232 ports.
     UNLOCKPPS
@@ -60,24 +62,6 @@ hexadecimal string.
     ; ----- Constants
     #define USART_BAUD_RATE 19200
     #define USART_TX_BLOCKING
-
-    #define LEDD2 PORTA.0
-    #define LEDD3 PORTA.1
-    #define LEDD4 PORTA.2
-    #define LEDD5 PORTA.3
-    Dir     LEDD2 OUT
-    Dir     LEDD3 OUT
-    Dir     LEDD4 OUT
-    Dir     LEDD5 OUT
-
-
-    #define Potentiometer       PORTA.4
-    DIR     Potentiometer In
-
-    #define SWITCH_DOWN         0
-    #define SWITCH_UP           1
-    #define SWITCH              PORTA.5
-    Dir SWITCH                  In
 
     ; ----- Variables
     dim bytevar as Byte

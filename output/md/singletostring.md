@@ -27,14 +27,13 @@ Available on all microcontrollers
 <span class="strong">**Explanation:**</span>
 
 The `SingleToString` function will convert a number into a string.
-`number` can be any Single variable, or a fixed number constant between
-0 and 4294967295 inclusive.  For Byte number use `ByteToString()`, Word
-numbers use `WordToString()`, for Integer numbers use
-`IntegerToString()` and for Long numbers use `LongToString()`
+`number` can be any Single variable.  For Byte numbers use
+`ByteToString()`, Word numbers use `WordToString()`, for Integer numbers
+use `IntegerToString()` and for Long numbers use `LongToString()`
 
-The string variable `stringvar` will contain the same number,
-represented as a string.  The length of the string returned is 9
-characters.
+The string variable `stringvar` will contain the ACSII representation of
+the input number.  The length of the string is variable length dependent
+on the input variable value.
 
 This function is especially useful if a number needs to added to the end
 of a string, or if a custom data sending routine has been created but
@@ -43,7 +42,40 @@ only supports the output of string variables.
 These methods will not support conversion of hexadecimal number
 strings.  
   
-<span class="strong">**Example1:**</span>
+
+<span class="strong">**Operational Returned Controls**</span>
+
+The function returns either the number string or the message "Error
+".  The reasons for "Error " are:
+
+<div class="itemizedlist">
+
+-   Very small number that actaully compute as 0.0
+-   The input values is too large
+-   Too many chars-out of range
+
+</div>
+
+There is a public variable available after using this
+function.  \`SysByte\_STS\_Err\` - this variable returns the following:
+
+    SysByte\_STS\_Err where 1 or 9 equates to no error.
+
+    1 equates to a properly formatted number string.
+
+    8 equateq to a properly formatted integer number string.
+
+<span class="emphasis">*Bitwise returned details*</span>
+
+``` literallayout
+SysByte_STS_Err.0 :  1 = good, or, 0 = bad
+SysByte_STS_Err.1 :  1 = decimals places to many chars, or, 0 = ok
+SysByte_STS_Err.2 :  1 = integer places to many chars-out of range, or, 0 = ok
+SysByte_STS_Err.3 :  1 = no decimal point, info only
+SysByte_STS_Err.4 :  1 = non numeric chars found
+```
+
+<span class="strong">**Example Usage 1:**</span>
 
 ``` screen
     'Set chip model
@@ -76,11 +108,16 @@ strings.
     SingleToString(number_variable)
     ' do not use, note the space!
     SingleToString (number_variable)
+
+    Do
+    Loop
+
+    End
 ```
 
   
   
-<span class="strong">**Example2:**</span>
+<span class="strong">**Example Usage 2:**</span>
 
 ``` screen
     '''
@@ -127,9 +164,8 @@ strings.
        HSerPrintCRLF
        wait 1 s
     loop
-    end
 
-; ----- Support methods.  Subroutines and Functions
+    end
 ```
 
   

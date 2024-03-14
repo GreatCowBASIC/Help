@@ -1010,6 +1010,8 @@ include::stringtosingle.adoc[]
 
 include::stringtoword.adoc[]
 
+include::VarsULongInttobin.adoc[]
+
 include::wordtobin.adoc[]
 
 include::wordtohex.adoc[]
@@ -1159,7 +1161,7 @@ include::optionnoconfig.adoc[]
 
 include::optionbootloader.adoc[]
 
-include::optionfloat.adoc[]
+// removed 10022024 include::optionfloat.adoc[]
 
 include::optionnocontextsave.adoc[]
 

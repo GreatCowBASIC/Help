@@ -16,7 +16,7 @@
       <link rel="next" href="_stringtoword.html" title="StringToWord" />
       <meta name="Section-title" content="StringToSingle" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-54818";
+            var treeCookieId = "treeview-54815";
             var language = "en";
             var w = new Object();
             //Localization
@@ -187,25 +187,22 @@ border: none; background: none; font-weight: none; color: none; }
             <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    var = StringToSingle(<span class="emphasis"><em>string</em></span>)   'Supports decimal Single range strings only.</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
             <p>Available on all microcontrollers</p>
             <p><span class="strong"><strong>Explanation:</strong></span></p>
-            <p>The <code class="literal">StringToSingle</code> function will extract a number from a string variable, and store it in a Single variable. One potential use is reading numbers
-               that are sent in ASCII format over a serial connection.
+            <p>The <code class="literal">StringToSingle</code> function will extract a number from a string variable, and store it in a Single variable.  One potential use is formatting
+               a serial number recieve via a serial connection.
                <br />
                <br />
                The <code class="literal">StringToSingle</code> function will not extract a StringToSingle from a hexadecimal string.
                <br />
                <br /></p>
-            <p><span class="strong"><strong>Example1:</strong></span></p><pre class="screen">    ' ----- Configuration
+            <p>The function supports two messages to support usage.</p><pre class="literallayout">'   SysByte_STS_Err = 0 if no error
+'   SysByte_STS_Err.0 = 1 good - 0 - bad
+'   SysByte_STS_Err.1 = 1 decimals places to many chars,  0 = ok
+'   SysByte_STS_Err.2 = 1 integer places to many chars-out of range,   0 = ok
+'   SysByte_STS_Err.3 = 1 no decimal point, info only
+'   SysByte_STS_Err.4 = non numeric chars found</pre><p><span class="strong"><strong>Example Usage 1:</strong></span></p><pre class="screen">    ' ----- Configuration
     'Chip Settings.
     #chip 16f18855,32
     #Config MCLRE_ON
-
-    ; ----- Define Hardware settings
-
-    '' -------------------LATA-----------------
-    '' Bit#:  -7---6---5---4---3---2---1---0---
-    '' LED:   ---------------|D5 |D4 |D3 |D2 |-
-    ''-----------------------------------------
-    ''
 
     'Set the PPS of the RS232 ports.
     UNLOCKPPS
@@ -216,24 +213,6 @@ border: none; background: none; font-weight: none; color: none; }
     ; ----- Constants
     #define USART_BAUD_RATE 19200
     #define USART_TX_BLOCKING
-
-    #define LEDD2 PORTA.0
-    #define LEDD3 PORTA.1
-    #define LEDD4 PORTA.2
-    #define LEDD5 PORTA.3
-    Dir     LEDD2 OUT
-    Dir     LEDD3 OUT
-    Dir     LEDD4 OUT
-    Dir     LEDD5 OUT
-
-
-    #define Potentiometer       PORTA.4
-    DIR     Potentiometer In
-
-    #define SWITCH_DOWN         0
-    #define SWITCH_UP           1
-    #define SWITCH              PORTA.5
-    Dir SWITCH                  In
 
     ; ----- Variables
     dim bytevar as Byte
@@ -883,7 +862,6 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="__option_explicit.html" tabindex="1">#Option Explicit</a></span></li>
                               <li><span class="file"><a href="__option_noconfig.html" tabindex="1">#Option NoConfig</a></span></li>
                               <li><span class="file"><a href="__option_bootloader.html" tabindex="1">#Option Bootloader</a></span></li>
-                              <li><span class="file"><a href="__option_float.html" tabindex="1">#Option Float</a></span></li>
                               <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
                               <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
                               <li><span class="file"><a href="__option_required.html" tabindex="1">#Option Required</a></span></li>

@@ -26,8 +26,8 @@ Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `Int` function will compute the integer value of a single nteger
-number therefore will return the range of single variable.
+The `Int` function will compute the integer value of an integer number
+therefore will return the range of single variable.
 
 <span class="strong">**Example:**</span>
 
