@@ -112,7 +112,7 @@ Example of accessing the lowest byte, the _H, _U and the _A bytes.
 
 This is strict.  Accessing BYTE values of advanced variables requires the use cast.  Failure to use cast will cause issue with the low byte ( the low byte will tranformed into a Long integer and you will provide the low byte of the Long integer).
 
-Example. Mandated  use of cast for floats
+Example. Mandated  use of cast for single/float
 
 ----
     Dim sNumC as Single
@@ -125,6 +125,33 @@ Example. Mandated  use of cast for floats
     HserPrint Hex([BYTE]sNumC)
     HserPrintCRLF
 ----
+
+Example assigning a HEX value to a single/float
+
+----
+  //  Assing 0x3F19999A equates to 0.6
+
+    [BYTE]mySingle  = 0x9A      // Strict usage of BYTE cast to ensure the correct value is assinged the low byte of the single variable.
+    mySingle_H= 0x99            // Assign _H byte
+    mySingle_U= 0x19            // Assign _U byte
+    mySingle_E= 0x3f            // Assign _E byte
+
+----
+
+Working example of assigning d0.5 or 0x3F000000 ( which is the IEEE574 hex value for d0.5 )
+
+----
+    // Decimal assignement 
+      mySingle = 0.5
+    
+    // Hex assignment
+        [BYTE]mySingle  = [single]0x00
+        mySingle_H      = 0x00
+        mySingle_U      = 0x00
+        mySingle_E      = 0x3f
+        
+----
+
 
 
 {empty} +
