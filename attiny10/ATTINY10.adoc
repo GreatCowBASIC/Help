@@ -15,7 +15,7 @@ Pin connections : see pic below:
 image::atmel AVRISP MKII DEVICE MANAGER USB DEVICE.jpg[A picture of something]
 {empty} +
 
-image::atmel AVRISP MKII FIRMWARE UPGRADE TO 1.18 B.jpg[]
+image::atmel AVRISP MKII FIRMWARE UPGRADE TO 1.18 B.jpg[75%]
 {empty} +
 image::atmel AVRISP MKII FIRMWARE UPGRADE TO 1.18.jpg[]
 {empty} +
