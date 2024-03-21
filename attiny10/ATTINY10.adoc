@@ -31,10 +31,16 @@ Pin connections: see pic below.
 
 image::Atmel Device attiny10 info.jpg[]
 {empty} +
-image::avr circuit.jpg[]
+
+image::avrcircuit.jpg[]
 {empty} +
+
 image::AVRISP MKII CONNECTIONS.jpg[]
 {empty} +
+
 image::GCSTUDIO PROGRAMMER.jpg[]
-image::USBtinyISP to ATTINY10 connections.jpg[]
 {empty} +
+
+image::USBtinyISPtoATTINY10connections.png[]
+{empty} +
+
