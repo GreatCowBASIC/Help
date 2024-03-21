@@ -1,5 +1,10 @@
 == Using a ATTiny10  with AVRISP and USBtinyISP programmer
 
+
+// Hidden information
+// the pictures are linked,  there is no specific order and I ( Anboium ) do not know the correct sequence.&#160;&#160; 
+
+
 USBtinyISP :
 
 Windows 10 Device Manager Driver: libusb-win32 (from Zadig)
@@ -7,10 +12,13 @@ Windows 10 Device Manager Driver: libusb-win32 (from Zadig)
 Pin connections : see pic below:
 
 
-image::atmel AVRISP MKII DEVICE MANAGER USB DEVICE.jpg[]
-image::atmel AVRISP MKII FIRMWARE UPGRADE TO 1.18 B.jpg[]
-image::atmel AVRISP MKII FIRMWARE UPGRADE TO 1.18.jpg[]
+image::atmel AVRISP MKII DEVICE MANAGER USB DEVICE.jpg[A picture of something]
+{empty} +
 
+image::atmel AVRISP MKII FIRMWARE UPGRADE TO 1.18 B.jpg[]
+{empty} +
+image::atmel AVRISP MKII FIRMWARE UPGRADE TO 1.18.jpg[]
+{empty} +
 
 
 AVRISP MKII:
@@ -22,7 +30,11 @@ Pin connections: see pic below.
 
 
 image::Atmel Device attiny10 info.jpg[]
+{empty} +
 image::avr circuit.jpg[]
+{empty} +
 image::AVRISP MKII CONNECTIONS.jpg[]
+{empty} +
 image::GCSTUDIO PROGRAMMER.jpg[]
 image::USBtinyISP to ATTINY10 connections.jpg{}
+{empty} +
