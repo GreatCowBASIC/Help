@@ -36,5 +36,5 @@ image::avr circuit.jpg[]
 image::AVRISP MKII CONNECTIONS.jpg[]
 {empty} +
 image::GCSTUDIO PROGRAMMER.jpg[]
-image::USBtinyISP to ATTINY10 connections.jpg{}
+image::USBtinyISP to ATTINY10 connections.jpg[]
 {empty} +
