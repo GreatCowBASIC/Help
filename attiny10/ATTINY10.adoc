@@ -1,0 +1,28 @@
+== Using a ATTiny10  with AVRISP and USBtinyISP programmer
+
+USBtinyISP :
+
+Windows 10 Device Manager Driver: libusb-win32 (from Zadig)
+
+Pin connections : see pic below:
+
+
+image::atmel AVRISP MKII DEVICE MANAGER USB DEVICE.jpg[]
+image::atmel AVRISP MKII FIRMWARE UPGRADE TO 1.18 B.jpg[]
+image::atmel AVRISP MKII FIRMWARE UPGRADE TO 1.18.jpg[]
+
+
+
+AVRISP MKII:
+
+Windows 10 Device Manager Driver: libusbK (from ATMEL Studio 7) see pic below
+Needed to upgrade firmware version to 1.18 with ATMEL Studio 7 (using device programming sub menu under Tools)
+
+Pin connections: see pic below.
+
+
+image::Atmel Device attiny10 info.jpg[]
+image::avr circuit.jpg[]
+image::AVRISP MKII CONNECTIONS.jpg[]
+image::GCSTUDIO PROGRAMMER.jpg[]
+image::USBtinyISP to ATTINY10 connections.jpg{}
