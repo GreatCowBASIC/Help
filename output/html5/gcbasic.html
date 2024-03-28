@@ -590,6 +590,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_development_guide_for_gcbasic_preferences_editor">Development Guide for GCBASIC Preferences Editor</a></li>
 </ul>
 </li>
+<li><a href="#_gcbasic_with_the_avrisp_or_mkii_programmer">GCBASIC with the AVRISP or MKII Programmer</a>
+<ul class="sectlevel2">
+<li><a href="#_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows_10">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -785,13 +790,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-14<br>
-11:17:09 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-28<br>
+12:20:34 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-14<br>
-08:06:48 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-28<br>
+11:43:02 GMT Standard Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -4068,7 +4073,7 @@ The format of these bytes is:</p>
 <p>This is strict.  Accessing BYTE values of advanced variables requires the use cast.  Failure to use cast will cause issue with the low byte ( the low byte will tranformed into a Long integer and you will provide the low byte of the Long integer).</p>
 </div>
 <div class="paragraph">
-<p>Example. Mandated  use of cast for floats</p>
+<p>Example. Mandated  use of cast for single/float</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4081,6 +4086,34 @@ The format of these bytes is:</p>
     HserPrint Hex([BYTE]sNumC_H)
     HserPrint Hex([BYTE]sNumC)
     HserPrintCRLF</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example assigning a HEX value to a single/float</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>  //  Assing 0x3F19999A equates to 0.6
+
+    [BYTE]mySingle  = 0x9A      // Strict usage of BYTE cast to ensure the correct value is assinged the low byte of the single variable.
+    mySingle_H= 0x99            // Assign _H byte
+    mySingle_U= 0x19            // Assign _U byte
+    mySingle_E= 0x3f            // Assign _E byte</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Working example of assigning d0.5 or 0x3F000000 ( which is the IEEE574 hex value for d0.5 )</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    // Decimal assignement
+      mySingle = 0.5
+
+    // Hex assignment
+        [BYTE]mySingle  = [single]0x00
+        mySingle_H      = 0x00
+        mySingle_U      = 0x00
+        mySingle_E      = 0x3f</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -56608,10 +56641,216 @@ The list shows the installation of the Sharp Develop IDE.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_gcbasic_with_the_avrisp_or_mkii_programmer">GCBASIC with the AVRISP or MKII Programmer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is the GCBASIC section of the Help file that explains how to use an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10</p>
+</div>
+<div class="sect2">
+<h3 id="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows_10">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10</h3>
+<div class="paragraph">
+<p><strong>AVRISP MKII Setup:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Download and install Zadig Driver Utility software <a href="https://zadig.akeo.ie/" class="bare">https://zadig.akeo.ie/</a></p>
+</li>
+<li>
+<p>Connect the USB cable from the AVRISP MKII to your PC.</p>
+</li>
+<li>
+<p>Open Zadig and from the menu select Options / List All Devices.</p>
+</li>
+<li>
+<p>From the device list select AVRISP MKII.</p>
+</li>
+<li>
+<p>Select the target driver libusbK and click (Install / Replace Driver) button.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>After the installation is completed, open Windows Device Manager and verify the driver installation.</p>
+</div>
+<div class="paragraph">
+<p>Close Zadig</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/1%20%20-%20AVRISP%20MKII%20Zadig%20Setup.png" alt="Setup">
+</div>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
+<div class="paragraph">
+<p>Next in the process is to upgrade the firmware of the AVRISP MKII.</p>
+</div>
+<div class="paragraph">
+<p>This process shows the installation of Atmel Studio 7, however, you may have to use Atmel Studio 6 because of operation system constraint.</p>
+</div>
+<div class="paragraph">
+<p>Download and Install Atmel Studio 7 from the GCBASIC file store</p>
+</div>
+<div class="paragraph">
+<p><a href="https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/" class="bare">https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/</a></p>
+</div>
+<div class="paragraph">
+<p>After the installation open ATMEL STUDIO 7</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Select Tools / Device Programming</p>
+</li>
+<li>
+<p>Make sure the AVRISP MKII is selected</p>
+</li>
+<li>
+<p>At this point ATMEL STUDIO will notified to upgrade the firmware to version 1.8</p>
+</li>
+<li>
+<p>Click the Upgrade  button</p>
+</li>
+<li>
+<p>Once the firmware is upgraded, close ATMEL STUDIO 7</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/2%20%20-%20ATMEL%20STUDIO.png" alt="Studio">
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>AVRISP MKII to ATTINY10 Connections:</strong></p>
+</div>
+<div class="paragraph">
+<p>Connect the AVRISP MKII to the ATTINY10 as show in the Diagram.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/3%20%20-%20AVRISP%20MKII%20Connections.png" alt="Connections">
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>GCStudio Programmer Setup:</strong></p>
+</div>
+<div class="paragraph">
+<p>Open GCStudio and set the Programmers to use as show below</p>
+</div>
+<div class="paragraph">
+<p>For AVRISP MKII use the AVR ISP XPII [KANDA] and drag it to the top of the list and click OK.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/4%20%20-%20GCStudio%20AVRISP%20MKII%20use%20the%20AVR%20ISP%20XPII%20%5BKANDA%5D.png" alt="4%20%20 %20GCStudio%20AVRISP%20MKII%20use%20the%20AVR%20ISP%20XPII%20%5BKANDA%5D">
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br></p>
+</div>
+<div class="paragraph">
+<p>Now you’re ready to upload your first program to an ATTINY10.</p>
+</div>
+<div class="paragraph">
+<p><strong>USBtinyISP Setup:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Download and install ZADIG Driver Utility  software <a href="https://zadig.akeo.ie/" class="bare">https://zadig.akeo.ie/</a></p>
+</li>
+<li>
+<p>Connect the USB cable from the USBtinyISP to your PC.</p>
+</li>
+<li>
+<p>Open Zadig and from the menu select Options / List All Devices.</p>
+</li>
+<li>
+<p>From the device list select USBtinyISP.</p>
+</li>
+<li>
+<p>Select the target driver libusb-win32 and click (Install / Replace Driver) button.</p>
+</li>
+<li>
+<p>After the installation, open Windows Device Manager and verify the driver installation.</p>
+</li>
+<li>
+<p>Close ZADIG</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/5%20%20-%20USBtinyISP%20Zadig%20setup.png" alt="5%20%20 %20USBtinyISP%20Zadig%20setup">
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>USBtinyISP to ATTINY10 Connections:</strong></p>
+</div>
+<div class="paragraph">
+<p>Connect the USBtinyISP to the ATTINY10 as show in the Diagram.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/6%20%20-%20USBtinyISP%20Copnections.png" alt="6%20%20 %20USBtinyISP%20Copnections">
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>GCStudio Programmer Setup:</strong></p>
+</div>
+<div class="paragraph">
+<p>Open GCStudio and set the Programmers to use as show below</p>
+</div>
+<div class="paragraph">
+<p>Select and Drag  the Avrdude (USBtinyISP) programmer to the top of the list.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/7%20%20-%20GCStudio%20Avrdude%20%28USBtinyISP%29.png" alt="7%20%20 %20GCStudio%20Avrdude%20%28USBtinyISP%29">
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<br></p>
+</div>
+<div class="paragraph">
+<p>Now you are ready to upload your first program to an ATTINY10</p>
+</div>
+<div class="paragraph">
+<p>More informations about ATTiny10 see <a href="http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf" class="bare">http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf</a></p>
+</div>
+<div class="paragraph">
+<p><br>
+<br></p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-14 08:06:48 GMT Standard Time
+Last updated 2024-03-28 11:43:02 GMT Standard Time
 </div>
 </div>
 </body>

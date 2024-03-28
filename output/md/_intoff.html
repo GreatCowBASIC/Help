@@ -1,9 +1,0 @@
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-   <title>IntOff</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_interrupts.html" title="Interrupts"><link rel="prev" href="_interrupts_overview.html" title="Interrupts overview"><link rel="next" href="_inton.html" title="IntOn"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_intoff"></a>IntOff</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    IntOff</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on Microchip PIC and Atmel AVR microcontrollers with interrupt support. Will
-be automatically removed on chips without interrupts.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p><code class="literal">IntOff</code> is used to disable interrupts on the microcontroller. It should
-be used at the start of code which is timing-sensitive, and which would
-not function correctly if paused and restarted.</p><p>It is essential that <code class="literal">IntOn</code> is used to turn interrupts on again after the
-timing-sensitive code has finished running. If not, no interrupts will
-be handled.</p><p>It is recommended that IntOff be placed before all code that is timing
-sensitive, in case interrupts are implemented later.</p><p><code class="literal">IntOff</code> will be removed from the assembler if no interrupts are used.</p><p><span class="strong"><strong>See also</strong></span> <a class="link" href="_inton.html" title="IntOn">IntOn</a>, <a class="link" href="_interrupts.html" title="Interrupts">Interrupts</a></p></div></body></html>
