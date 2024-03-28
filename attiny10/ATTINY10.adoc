@@ -10,7 +10,7 @@
 •	After the installation is completed, open Windows Device Manager and verify the driver installation.
 •	Close Zadig
 
-image::1%20%20-%20AVRISP%20MKII%20Zadig%20Setup.jpg[Setup]
+image::1%20%20-%20AVRISP%20MKII%20Zadig%20Setup.png[Setup]
 {empty} +
 
 
@@ -25,7 +25,7 @@ image::1%20%20-%20AVRISP%20MKII%20Zadig%20Setup.jpg[Setup]
 •	Click the Upgrade  button
 •	Once the firmware is upgraded, close ATMEL STUDIO 7
 
-image::2%20%20-%20ATMEL%20STUDIO.jpg[Studio]
+image::2%20%20-%20ATMEL%20STUDIO.png[Studio]
 {empty} +
 {empty} +
 
@@ -33,7 +33,7 @@ image::2%20%20-%20ATMEL%20STUDIO.jpg[Studio]
 
 •	Connect the AVRISP MKII to the ATTINY10 as show in the Diagram.
 
-image::3%20%20-%20AVRISP%20MKII%20Connections.jpg[Connections]
+image::3%20%20-%20AVRISP%20MKII%20Connections.png[Connections]
 {empty} +
 {empty} +
 
@@ -42,7 +42,7 @@ image::3%20%20-%20AVRISP%20MKII%20Connections.jpg[Connections]
 •	Open GCStudio and set the Programmers to use as show below 
 •	For AVRISP MKII use the AVR ISP XPII [KANDA] and drag it to the top of the list and click OK.
 
-image::4%20%20-%20GCStudio%20AVRISP%20MKII%20use%20the%20AVR%20ISP%20XPII%20%5BKANDA%5D.jpg[]
+image::4%20%20-%20GCStudio%20AVRISP%20MKII%20use%20the%20AVR%20ISP%20XPII%20%5BKANDA%5D.png[]
 {empty} +
 {empty} +
 
@@ -59,14 +59,14 @@ Now you’re ready to upload your first program to an ATTINY10.
 •	After the installation, open Windows Device Manager and verify the driver installation.
 •	Close ZADIG
 
-image::5%20%20-%20USBtinyISP%20Zadig%20setup.jpg[]
+image::5%20%20-%20USBtinyISP%20Zadig%20setup.png[]
 {empty} +
 {empty} +
 
 **USBtinyISP to ATTINY10 Connections:**
 •	Connect the USBtinyISP to the ATTINY10 as show in the Diagram.
 
-image::6%20%20-%20USBtinyISP%20Copnections.jpg[]
+image::6%20%20-%20USBtinyISP%20Copnections.png[]
 {empty} +
 {empty} +
 
@@ -74,7 +74,7 @@ image::6%20%20-%20USBtinyISP%20Copnections.jpg[]
 •	Open GCStudio and set the Programmers to use as show below 
 •	Select and Drag  the Avrdude (USBtinyISP) programmer to the top of the list.
 
-image::7%20%20-%20GCStudio%20Avrdude%20%28USBtinyISP%29.jpg[]
+image::7%20%20-%20GCStudio%20Avrdude%20%28USBtinyISP%29.png[]
 {empty} +
 {empty} +
 
