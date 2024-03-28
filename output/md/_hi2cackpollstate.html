@@ -1,0 +1,17 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>HI2CAckPollState</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_i2c_twi_hardware_module.html" title="I2C/TWI Hardware Module"><link rel="prev" href="_hi2c_overview.html" title="HI2C Overview"><link rel="next" href="_hi2creceive.html" title="HI2CReceive"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_hi2cackpollstate"></a>HI2CAckPollState</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    &lt;test condition[s]&gt; HI2CAckPollState</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Only available for microcontrollers with the hardware I2C or TWI module.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>Should only be used when I2C routines are operating in Master mode, this
+command will return the last state of the acknowledge response from a
+specific I2C device on the I2C bus.</p><p><code class="literal">HI2CSend</code> sets the state of variable <code class="literal">HI2CAckPollState</code>.<br>
+<code class="literal">HI2CAckPollState</code> can only read - it cannot be set.</p><p><span class="strong"><strong>Note:</strong></span></p><p>This command is also available on microcontrollers with a second hardware I2C port.</p><pre class="screen">    &lt;test condition[s]&gt; HI2C2AckPollState</pre><p><span class="strong"><strong>Example:</strong></span></p><p>This example code would display the devices on the I2C bus.</p><pre class="screen">     ...
+    for deviceID = 0 to 255
+      HI2CStart
+      HI2CSend ( deviceID )
+
+      if <code class="literal">HI2CAckPollState</code> = false then
+      HSerPrint "ID: 0x"
+      HSerPrint hex(deviceID)
+      HSerSend 9
+      end if
+    next
+     ...</pre><p>Supported in &lt;HI2C.H&gt;</p></div></body></html>

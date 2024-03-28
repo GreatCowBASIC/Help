@@ -1,0 +1,14 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Reading Timers</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_timers.html" title="Timers"><link rel="prev" href="_stoptimer.html" title="StopTimer"><link rel="next" href="_smt_timers.html" title="SMT Timers"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_reading_timers"></a>Reading Timers</h4></div></div></div><p>GCBASIC has the following functions to read the current timer value. They
+are:</p><pre class="screen">    Timer0()
+    Timer1()
+    Timer2()
+    Timer3()
+    Timer4()
+    Timer5()
+    Timer6()
+    Timer7()
+    Timer8()
+    Timer10()
+    Timer12()</pre><p>Note that these functions should only be used to read the timer value.  To write the timer value, <code class="literal">settimer</code> should be used.</p><p>Not all of these functions are available on all microcontrollers. For example, if a microcontrollers has three timers, then typically only <code class="literal">Timer0</code>, <code class="literal">Timer1</code> and <code class="literal">Timer2</code> will be available.</p><p>Please refer to the datasheet for your microcontroller to determine the supported timer numbers, and if a specific timer is 8-bit or 16-bit.</p></div></body></html>

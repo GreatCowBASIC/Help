@@ -1,0 +1,32 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>More on setting Variables and Constants</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_variables_operations.html" title="Variables Operations"><link rel="prev" href="_using_variables.html" title="Using Variables"><link rel="next" href="_setting_variables.html" title="Setting Variables"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_more_on_setting_variables_and_constants"></a>More on setting Variables and Constants</h4></div></div></div><p><span class="strong"><strong>Explanation</strong></span></p><p>Within GCBASIC you can use regular variable assignments. But, you can also use C like maths assignments.</p><p>The following methods are also supported.</p><pre class="screen">    GLCDPrintLoc += 6
+    CharCode -= 15
+    CharCode++
+    CharCode---</pre><p>Within GCBASIC you can define binary, hexidecimal and decimal constants, see <a class="link" href="_constants.html" title="Constants">Constants</a>. Please note what is and what is not support with respect to assigning numbers to constants. An example program examines what is supported.</p><pre class="screen">    #chip 16F88, 4
+    #config Osc = MCLRE_OFF
+
+    ' All these work
+    #define Test1 0b11111111
+    #define Test2 0B11111111
+    #define Test3 255
+    #define Test4 0xFF
+    #define Test5 0xff
+    #define Test6 0Xff
+
+    # Proof - select each option one in turn
+    dir porta Out
+
+    porta = test1
+    porta = test2
+    porta = test3
+    porta = test4
+    porta = test5
+    porta = test6</pre><p>You can assigned values/numbers with all the methods shown above (for constants and variables) but please be aware that you must Use '0' not '00'. One zero equates to zero and two zeros will give you an unassigned variable.</p><p><span class="strong"><strong>Constants:</strong></span></p><p>A few critical constants are defined within GCBASIC , you can re-use these constants. They include:</p><pre class="screen">    #define ON 1       ' These are defined in System.h
+    #define OFF 0
+    #define TRUE 255
+    #define FALSE 0
+
+    #define OSC = 1    ' These are defined in TIMER.H
+    #define EXT = 2    ' and, are used by InitTimer0 command
+    #define EXTOSC = 3</pre></div></body></html>

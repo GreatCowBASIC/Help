@@ -1,0 +1,28 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>KeypadRaw</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_keypad.html" title="Keypad"><link rel="prev" href="_keypaddata.html" title="KeypadData"><link rel="next" href="_graphical_lcd.html" title="Graphical LCD"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_keypadraw"></a>KeypadRaw</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>largevar</em></span> = KeypadRaw</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>This function will return a 16 bit value, in which each bit corresponds
+to a key on the keypad. If the key is pressed its bit will hold 1, and
+if it is released its bit will contain a 0.</p><p>This table shows the key that each bit corresponds to:</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="center" valign="top"><span class="strong"><strong>Bit</strong></span></th><th align="center" valign="top"><span class="strong"><strong>Key Position (row, col)</strong></span></th><th align="center" valign="top"><span class="strong"><strong>Common Key Symbol</strong></span></th></tr></thead><tbody><tr><td align="center" valign="top"><p>15</p></td><td align="center" valign="top"><p>1,1</p></td><td align="center" valign="top"><p>1</p></td></tr><tr><td align="center" valign="top"><p>14</p></td><td align="center" valign="top"><p>1,2</p></td><td align="center" valign="top"><p>2</p></td></tr><tr><td align="center" valign="top"><p>13</p></td><td align="center" valign="top"><p>1,3</p></td><td align="center" valign="top"><p>3</p></td></tr><tr><td align="center" valign="top"><p>12</p></td><td align="center" valign="top"><p>1,4</p></td><td align="center" valign="top"><p>A</p></td></tr><tr><td align="center" valign="top"><p>11</p></td><td align="center" valign="top"><p>2,1</p></td><td align="center" valign="top"><p>4</p></td></tr><tr><td align="center" valign="top"><p>10</p></td><td align="center" valign="top"><p>2,2</p></td><td align="center" valign="top"><p>5</p></td></tr><tr><td align="center" valign="top"><p>9</p></td><td align="center" valign="top"><p>2,3</p></td><td align="center" valign="top"><p>6</p></td></tr><tr><td align="center" valign="top"><p>8</p></td><td align="center" valign="top"><p>2,4</p></td><td align="center" valign="top"><p>B</p></td></tr><tr><td align="center" valign="top"><p>7</p></td><td align="center" valign="top"><p>3,1</p></td><td align="center" valign="top"><p>7</p></td></tr><tr><td align="center" valign="top"><p>6</p></td><td align="center" valign="top"><p>3,2</p></td><td align="center" valign="top"><p>8</p></td></tr><tr><td align="center" valign="top"><p>5</p></td><td align="center" valign="top"><p>3,3</p></td><td align="center" valign="top"><p>9</p></td></tr><tr><td align="center" valign="top"><p>4</p></td><td align="center" valign="top"><p>3,4</p></td><td align="center" valign="top"><p>C</p></td></tr><tr><td align="center" valign="top"><p>3</p></td><td align="center" valign="top"><p>4,1</p></td><td align="center" valign="top"><p>*</p></td></tr><tr><td align="center" valign="top"><p>2</p></td><td align="center" valign="top"><p>4,2</p></td><td align="center" valign="top"><p>0</p></td></tr><tr><td align="center" valign="top"><p>1</p></td><td align="center" valign="top"><p>4,3</p></td><td align="center" valign="top"><p>#</p></td></tr><tr><td align="center" valign="top"><p>0</p></td><td align="center" valign="top"><p>4,4</p></td><td align="center" valign="top"><p>D</p></td></tr></tbody></table></div><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Program to show the keypad status using LEDs
+    #chip 16F877A, 20
+
+    'Keypad connection settings
+    #define KeypadPort PORTB
+
+    'LEDs
+    #define LED1 PORTC
+    #define LED2 PORTD
+    Dir LED1 Out
+    Dir LED2 Out
+
+    'Declare a 16 bit variable for the key value
+    Dim KeyStatus As Word
+
+    'Main loop
+    Do
+        'Get key
+        KeyStatus = KeypadRaw
+
+        'Display
+        LED1 = KeyStatus_H 'High Byte
+        LED2 = KeyStatus 'Low Byte
+    Loop</pre><p><span class="strong"><strong>For more help, see</strong></span> <a class="link" href="_keypad_overview.html" title="Keypad Overview">Keypad Overview</a></p></div></body></html>

@@ -1,0 +1,60 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Frequently Asked Questions</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="index.html" title="GCBASIC documentation"><link rel="prev" href="_a_glossary.html" title="A Glossary"><link rel="next" href="_troubleshooting.html" title="Troubleshooting"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_frequently_asked_questions"></a>Frequently Asked Questions</h2></div></div></div><p><span class="strong"><strong>Why doesn&#8217;t anything come up when I run GCBASIC.exe?</strong></span></p><p>GCBASIC IS a command line compiler. To compile a file, you can
+drag and drop it onto the GCBASIC.exe icon.</p><p>If you use an Integrated Development Environment (IDE) you can edit your program and press an ICON  to send the program to the chip. Several are listed on the GCBASIC website.</p><p>The recommended IDE for Windows is GCCODE.</p><p><br>
+<br>
+<span class="strong"><strong>What Microchip PIC, Atmel AVR or LGT microcontrollers does GCBASIC support?</strong></span></p><p>Hopefully, all 8 bit Microchip PIC, Atmel AVR and LGT microcontrollers and (those in the PIC10, PIC12, PIC16 and PIC18 families). If you find one that GCBASIC does not work with
+properly, please post about it in the Compiler Problems section of the
+GCBASIC forum.
+<br>
+<br>
+<span class="strong"><strong>Is GCBASIC case sensitive?</strong></span></p><p>No! For example, <code class="literal">Set</code>, <code class="literal">SET</code>, <code class="literal">set</code>, <code class="literal">SeT</code>, etc are all treated exactly the
+same way by GCBASIC.
+<br>
+<br>
+<span class="strong"><strong>Can I specify the bit of a variable to alter using another variable?</strong></span></p><p>GCBASIC support bitwise assignments. As follows:</p><pre class="screen">    portc.0 = !porta.1</pre><p>You can also use a shift function.  As in other languages, by using the Shift Function FnLSL.  AN example is:</p><pre class="screen">    MyVar = FnLSL( 1, BitNum)`  is Equivalent to `MyVar = 1&lt;&lt;BitNum`</pre><p>To set a bit of a port and to prevent glitches during operations, use <code class="literal">#option volatile</code> as folllows.</p><pre class="screen">    'add this option for a specific port.
+    #option volatile portc.0
+
+    'then in your code
+    portc.0 = !porta.1</pre><p>To set a bit of a port or variable. Encapsulate it in the SetWith method, this also eliminates any glitches during the update, use this method.</p><pre class="screen">    SetWith(MyPORT, MyPORT OR FnLSL( 1, BitNum))</pre><p>To clear a bit of a port, use this method.</p><pre class="screen">    MyPORT = MyPORT AND NOT FnLSL( 1, BitNum))</pre><p>To set a bit within an array, use this method.</p><pre class="screen">    video_buffer_A1(video_adress) = video_buffer_A1(video_adress) OR FnLSL( 1, BitNum)</pre><p>To set a bit within a variable, use this method.</p><pre class="screen">    Dim my_variable as byte
+    Dim my_bit_address_variable as byte
+
+    'example
+    my_variable = 0
+    my_bit_address_variable = 7
+
+    my_variable.my_bit_address_variable = 1   ' where 1 or 0 or any bit address is valid
+
+    'Sets bit 7 of my_variable therefore 128</pre><p>See also  <a class="link" href="_set.html" title="Set">Set</a>, <a class="link" href="_fnlsl.html" title="FnLSL">FnLSL</a>, <a class="link" href="_fnlsr.html" title="FnLSR">FnLSR</a> and <a class="link" href="_rotate.html" title="Rotate">Rotate</a>
+<br>
+<br>
+<span class="strong"><strong>Why is x feature not implemented?</strong></span></p><p>Because it has not been thought of, or no-one has been able to implement
+it!</p><p>If there are any features that you would like to see in GCBASIC, please post them in the "Open Discussion" section of the GCBASIC forum. Or, if you can, have a go at adding the feature yourself!
+<br>
+<br></p><p><span class="strong"><strong>When using an include file does this use lots of memory?</strong></span></p><p>When using include files, for instance the &lt;ds3231.h&gt; include, if
+you are not using all the functions of the include file, GCBASIC knows
+not to include the  unused functions within the user program when
+compiling.</p><p><span class="strong"><strong>If I am using the hardware I2C, does all the code related to hardware I2C still get compiled in the code?</strong></span></p><p>GCBASIC only compiles functions and subroutines if they are called.
+GCBASIC starts by compiling the main routine, then anything called from
+there. Each time it finds a new subroutine that is called, it compiles
+it and anything that it calls. If a subroutine is not needed, it does
+not get compiled.
+<br>
+<br>
+<span class="strong"><strong>My LCD will not operate as expected?</strong></span></p><p>Try adding. <code class="literal">#define LCD_SPEED SLOW</code></p><p>This will slow the writing to the LCD.
+<br>
+<br>
+<span class="strong"><strong>Atmel AVR memory usage displayed is incorrect?</strong></span></p><p>Atmel AVR memory values are specified in WORDS in GCBASIC. The GCBASIC compiler uses words, not bytes, for consistency between Microchip PIC and Atmel AVR microcontrollers. This keeps parts of the compiler simpler.
+<br>
+<br>
+<span class="strong"><strong>I cannot open the Window Help File?</strong></span></p><p>See <a class="link" href="http://digital.ni.com/public.nsf/allkb/B59D2B24D624B823862575FC0056F3D0" target="_top">http://digital.ni.com/public.nsf/allkb/B59D2B24D624B823862575FC0056F3D0</a>
+<br>
+<br>
+<span class="strong"><strong>How do I revert the FOR-NEXT loop to the Legacy FOR-NEXT method ?</strong></span></p><p>Some background.&nbsp;&nbsp;
+In 2021 the GCBASIC compiler was updated to improve the operation of the FOR-NEXT loop.&nbsp;&nbsp;
+The improvement did increase the size of the ASM generated.&nbsp;&nbsp;
+The legacy FOR-NEXT loop had some major issues that included never ending loops, incorrect end loop and unexpected operations.&nbsp;&nbsp;
+This was all caused by the compiler, not the user, and in 2021 the compiler was updated to resolve these issues.&nbsp;&nbsp;</p><p>However, there is a risk that the new FOR-NEXT method causes 1) larger ASM that will not fit in small microcontrollers or 2) the new code does not operate as expected.&nbsp;&nbsp;
+In either case you can disable the new FOR-NEXT method by adding a constant as shown below.&nbsp;&nbsp;
+Adding this constant will revert the FOR-NEXT loop asm generated to the legacy method.&nbsp;&nbsp;</p><pre class="screen">    #DEFINE USELEGACYFORNEXT</pre><p><br>
+<br></p></div></body></html>

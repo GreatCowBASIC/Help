@@ -1,0 +1,27 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Peek</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_miscellaneous_commands.html" title="Miscellaneous Commands"><link rel="prev" href="_pulseininv.html" title="PulseInInv"><link rel="next" href="_poke.html" title="Poke"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_peek"></a>Peek</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>OutputVariable</em></span> = Peek (<span class="emphasis"><em>location</em></span>)</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The <code class="literal">Peek</code> function is used to read information from the on-chip RAM of the microcontroller.</p><p><code class="literal"><span class="emphasis"><em>location</em></span></code> is a word variable that gives the address to read. The exact range of valid values varies from chip to chip.</p><p>This command should not normally be used, as it will make the porting of code to another chip very difficult.</p><p><span class="strong"><strong>Example #1 :</strong></span></p><pre class="screen">    'This program will read and check a value from PORTA
+    'This specific peek will only work on some microcontrollers
+    Temp = Peek(5)
+    IF Temp.2 ON THEN SET green ON
+IF Temp.2 OFF THEN SET red ON</pre><p><span class="strong"><strong>Example #2</strong></span></p><pre class="screen">    ' This subroutine will toggle the pin state.
+    ' You must change the parameters for your specific chip.
+    ' Usage as show in examples below.
+    '
+    '      Toggle @PORTE, 2 ' equates to RE1.
+    '      Wait 100  ms
+    '      Toggle @PORTE, 2
+    '      Wait 100 ms
+
+
+    ' Port , Pin address in Binary
+    ' Pin0 = 1
+    ' Pin1 = 2
+    ' Pin2 = 4
+    ' Pin3 = 8
+    '
+    ' You can toggle any number of pins.
+    ' Toggle @PORTE, 0x55
+    Sub Toggle ( In DestPort As word, In DestBit )
+          Poke DestPort, Peek(DestPort) xor DestBit
+    End sub</pre><p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_poke.html" title="Poke">Poke</a></p></div></body></html>

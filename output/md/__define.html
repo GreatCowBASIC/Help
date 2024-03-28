@@ -1,0 +1,12 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>#DEFINE</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_compiler_directives.html" title="Compiler Directives"><link rel="prev" href="__config.html" title="#config"><link rel="next" href="__undefine.html" title="#UNDEFINE"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="__define"></a>#DEFINE</h3></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    #DEFINE SYMBOL <span class="emphasis"><em>body</em></span></pre><p><span class="strong"><strong>Explanation:</strong></span>
+<br>
+<br>
+<code class="literal">#DEFINE</code> allows to declare text-based preprocessor symbols.&nbsp;&nbsp;</p><p>Once the compiler has seen a #DEFINE, it will start replacing further occurrences of symbol with body. &nbsp;&nbsp;
+Body may be empty.&nbsp;&nbsp;
+The expansion is done recursively, until there is nothing more to expand and the compiler can continue analyzing the resulting code.</p><p>#UNDEFINE can be used to make the compiler forget about a #DEFINE.</p><p><br>
+<br>
+The compiler replaces a SYMBOL with the value, it then searches the line for constants again and will make any more replacements needed.&nbsp;&nbsp;
+It will do this up to 100 times on a line, then it will stop replacing and show an error. &nbsp;&nbsp;The limitation of 100 iteractions is to prevent something like "#DEFINE Const_A Const_B" and then "#DEFINE Const_B Const_A" from causing an infinite loop in the compiler.</p><p><br>
+<br></p><p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_constants.html" title="Constants">DEFINEs</a></p></div></body></html>

@@ -1,0 +1,30 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>SAFEraseBlock</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_safm.html" title="SAFM"><link rel="prev" href="_safwriteblock.html" title="SAFWriteBlock"><link rel="next" href="_eeram_device.html" title="EERAM ( Device )"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_saferaseblock"></a>SAFEraseBlock</h5></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    SAFEraseBlock ( block_number )</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all PIC micro-controllers with SAFM memory.
+<span class="strong"><strong>Explanation:</strong></span>
+<br>
+<br>
+SAFEraseBlock is used to erase all data locations within the SAFM block.&nbsp;&nbsp;&nbsp; HEFM data within the HEFM block to the erase state value of the device.&nbsp;&nbsp;&nbsp;
+This Value is 0xFF for each location and will read 0xFFFF if the program memory word is displayed.
+Use Caution. Once the SAFM block is erased, the SAFEM data is gone forever and cannot be recovered unless it was previpusly saved.
+<br>
+<br>
+The single parameter is as follows:</p><p><code class="literal">block_number</code> represents the block to be erased.&nbsp;&nbsp;&nbsp;
+The block_number parameter is used to calculate the physical memory location(s) that are updated.
+<br>
+<br></p><p><span class="strong"><strong>Example 1:</strong></span></p><p>Erase a specific block of SAFEM.</p><pre class="screen">    '... code preamble to select part
+    '... code to setup PPS, if needed
+    '... code to setup serial, if needed
+
+    'Erase block 2 of HEFM
+    HEFEraseBlock ( 2)</pre><p><br>
+<br>
+See also
+<a class="link" href="_safm_overview.html" title="SAFM Overview">SAFM Overview</a>,
+<a class="link" href="_safread.html" title="SAFRead">SAFRead</a>,
+<a class="link" href="_safreadword.html" title="SAFReadWord">SAFReadWord</a>,
+<a class="link" href="_safwrite.html" title="SAFWrite">SAFWrite</a>,
+<a class="link" href="_safwriteword.html" title="SAFWriteWord">SAFWriteWord</a>,
+<a class="link" href="_safreadblock.html" title="SAFReadBlock">SAFReadBlock</a>,
+<a class="link" href="_safwriteblock.html" title="SAFWriteBlock">SAFWriteBlock</a>,
+<a class="link" href="_saferaseblock.html" title="SAFEraseBlock">SAFEraseBlock</a></p></div></body></html>

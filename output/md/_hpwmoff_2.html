@@ -1,0 +1,22 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>HPWMOff</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_hpwm_ccptimern.html" title="HPWM_CCPTimerN"><link rel="prev" href="_hpwm_ccptimern.html" title="HPWM_CCPTimerN"><link rel="next" href="_hpwm_10_bit.html" title="HPWM 10 Bit"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="_hpwmoff_2"></a>HPWMOff</h6></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    HPWMOff ( channel )   'selectively turn off the CCP channel
+
+    HPWMOff               'turn off CCP channel 1 only</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Only available on Microchip PIC microcontrollers with Capture&amp;Compare/PWM (CCP) modules.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>This command will disable the output of the CCP1/PWM module on the Microchip PIC chip.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Select chip model and speed
+    #chip 16F877A, 20
+
+    'Set the CCP1 pin to output mode
+    DIR PORTC.2 out
+
+    'Main code
+    do
+        'Turn up brightness over 2.5 seconds
+        For Bright = 1 to 255
+            HPWM 1, 40, Bright
+            wait 10 ms
+        next
+
+        wait 1 s
+        HPWMOff ( 1 )' turn off the PWM channel
+
+    loop</pre><p><span class="strong"><strong>For more help, see</strong></span> <a class="link" href="_hpwmoff.html" title="HPWMOff">HPWMOff</a></p></div></body></html>

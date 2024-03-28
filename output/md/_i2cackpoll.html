@@ -1,0 +1,11 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>I2CAckpoll</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_i2c_software.html" title="I2C Software"><link rel="prev" href="_i2cackpollstate.html" title="I2CAckPollState"><link rel="next" href="_i2creceive.html" title="I2CReceive"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_i2cackpoll"></a>I2CAckpoll</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">	I2CAckpoll ( <span class="emphasis"><em>I2C_device_address</em></span> )</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers except 12 bit instruction Microchip PIC microcontrollers (10F,
+12F5xx, 16F5xx chips)</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>Should only be used when I2C routines are operating in Master mode, this
+command will look for a specific I2C device on the I2C bus.</p><p>This sets a global variable <code class="literal">I2CAckPollState</code> that can be inspected in
+your calling routine.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">	 ...
+	' ACK polling removes the need to for the 24xxxxx device to have a 5ms write time
+	I2CACKPOLL( eeprom_device )
+	' You check the exit state, use I2CAckPollState to check the state of
+	' the acknowledge from the target device
+	 ...</pre><p>Supported in &lt;I2C.H&gt;</p></div></body></html>

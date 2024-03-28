@@ -1,0 +1,61 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>ReadAD12</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_analog_digital_conversion.html" title="Analog/Digital conversion"><link rel="prev" href="_readad10.html" title="ReadAD10"><link rel="next" href="_analog_digital_conversion_code_optimisation.html" title="Analog/Digital Conversion Code Optimisation"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_readad12"></a>ReadAD12</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><p>For a normal ( also called a Single Channel )  read use.</p><pre class="screen">    user_variable = ReadAD12( ANX )</pre><p>For a Differential Channel read use the following.&nbsp;&nbsp;Where ANpX is the positive port, and ANnY is the negative port.</p><pre class="screen">    user_variable = ReadAD12( ANpX , ANnY )</pre><p>To obtain a 12-bit value from an AD Channel use the following to force a 12 bit AD Channel to respond with the correct value, in terms of the range of [0 to 4095]</p><pre class="screen">    user_variable = ReadAD12( ANX , TRUE )</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>When using <span class="strong"><strong>ReadAD12</strong></span> ( ANX ) the returned value is an 12 bit number [0-4095].&nbsp;&nbsp;The user variable can be a word, integer or long.</p><p>When using <span class="strong"><strong>ReadAD12</strong></span> ( ANpX , ANnY ) the returned value is an integer as negative values can be returned.</p><p><span class="strong"><strong>ReadAD12</strong></span>  is a function that can be used to read the built-in analog to digital converter that many microcontroller chips include.&nbsp;&nbsp;Port should be specified as AN0, AN1, AN2, etc., up to the number of analog inputs available on the chip that is in use.&nbsp;&nbsp;Those familiar with Atmel AVR microcontrollers can also refer to the ports as ADC0, ADC1, etc.&nbsp;&nbsp;Refer to the datasheet for the microcontroller chip to find the number of ports available.&nbsp;&nbsp;(Note: it&#8217;s perfectly acceptable to use ANx on AVR, or ADCx on the microcontroller.)</p><p>Other functions that are similar are <span class="strong"><strong>ReadAD</strong></span> and <span class="strong"><strong>ReadAD10</strong></span>.&nbsp;&nbsp;See the relevant Help page for the specific usage of each function.</p><p><span class="strong"><strong>AD_Delay</strong></span> controls is the acquisition delay.&nbsp;&nbsp; The default value is 20 us.&nbsp;&nbsp;This can be changed to a longer acquisition delay by adding the following constant.</p><pre class="screen">    #define AD_Delay 4 10us</pre><p><span class="strong"><strong>ADSpeed</strong></span>( controls the source of the clock for the ADC module.&nbsp;&nbsp; It varies from one microcontroller to another.&nbsp;&nbsp; InternalClock is a Microchip PIC microcontroller only option that will drive the ADC from an internal RC oscillator.&nbsp;&nbsp;The default value is 128.</p><pre class="screen">    'default value
+    #define ADSpeed MediumSpeed
+
+
+    'pre-defined constants
+    #define HighSpeed 255
+    #define MediumSpeed 128
+    #define LowSpeed 0</pre><p><span class="strong"><strong>AD_Acquisition_Time_Select_bits</strong></span> also controls the Acquisition Time Select bits.&nbsp;&nbsp; Acquisition time is the duration that the AD charge
+holding capacitor remains connected to AD channel from the instant the read is commenced is set until conversions begins.</p><p>The default value of AD_Acquisition_Time_Select_bits is 0b100 or decimal 4, where all three ACQT bits will be set.&nbsp;&nbsp;To change use the following.</p><pre class="screen">    'change the default value
+    #define AD_Acquisition_Time_Select_bits 0b001    'this will only set ACQT bit 0, ACQT bits 1 and 2 will be cleared.</pre><p><span class="strong"><strong>Example 1  - Read 12-bit ADC</strong></span></p><pre class="screen">    #chip 16F1788, 8
+
+    'Set the input pin direction
+    Dir PORTA.0 In
+
+
+    'Print 255 readings
+    For CurrentAddress = 0 to 255
+
+        'Take a reading and show it
+        Print str(ReadAD12(AN0))
+
+        'Wait 10 minutes before getting another reading
+        Wait 10 min
+    Next</pre><p><span class="strong"><strong>Example 2  - Force a 12-bit value to be returned</strong></span></p><pre class="screen">    #chip 16F1788, 8
+
+
+    'Set the input pin direction
+    Dir PORTA.0 In
+
+
+    'Print 255 readings
+    For CurrentAddress = 0 to 255
+
+        'Take a reading and show it
+        Print str(ReadAD12(AN0), TRUE)
+
+        'Wait 10 minutes before getting another reading
+        Wait 10 min
+    Next</pre><p><span class="strong"><strong>Example 3</strong></span></p><p>This example used the diffential capabilities of ADC port and writes the output to the EEPROM.&nbsp;&nbsp;The output value will be in the range of [-4095 to 4095].</p><p>AN0 and AN2 are used for the diffential ADC reading.</p><pre class="screen">    #chip 16F1789, 8
+
+    'USART settings
+    #define USART_BAUD_RATE 9600  'Initializes USART port with 9600 baud
+    #define USART_TX_BLOCKING ' wait for tx register to be empty
+    wait 100 ms
+
+    'Set the input pin direction
+    Dir PORTA.0 In
+    Dir PORTA.2 In
+
+    'Loop to take readings until the EEPROM is full
+    For CurrentAddress = 0 to 255
+
+        'Take a reading and log it
+        HSerPrint ReadAD12( AN0, AN2 )
+        HserPrintCRLF
+        'Wait 10 minutes before getting another reading
+        Wait 10 min
+
+    Next</pre><p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_readad.html" title="ReadAD">ReadAD</a>, <a class="link" href="_readad10.html" title="ReadAD10">ReadAD10</a></p></div></body></html>

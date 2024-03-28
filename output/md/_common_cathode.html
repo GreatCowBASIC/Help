@@ -1,0 +1,54 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Common Cathode</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_7_segment_displays_legacy.html" title="7 Segment Displays - Legacy"><link rel="prev" href="_7_segment_displays_legacy.html" title="7 Segment Displays - Legacy"><link rel="next" href="_common_anode.html" title="Common Anode"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="_common_cathode"></a>Common Cathode</h6></div></div></div><p>This is a Common Cathode 7 Segment display example.</p><p>No additional configuration is required when using Common Cathnode.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Constant Name</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Controls</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Comment</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">7Seg_CommonAnode</code></p></td><td align="left" valign="top"><p>Inverts controls for Common Anode displays</p></td><td align="left" valign="top"><p>Required for Common Cathode displays</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">7Seg_HighSide</code></p></td><td align="left" valign="top"><p>Support PFET or PNP high side driving of the display</p></td><td align="left" valign="top"><p>Inverts Common Cathode addressing pin logic for multiplexed displays</p></td></tr></tbody></table></div><p>This is a Common Cathode 7 Segment display example.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Chip model
+    #chip 16f1783,8
+
+    'Output ports for the 7-segment device
+    #define DISP_SEG_A PORTC.0
+    #define DISP_SEG_B PORTC.1
+    #define DISP_SEG_C PORTC.2
+    #define DISP_SEG_D PORTC.3
+    #define DISP_SEG_E PORTC.4
+    #define DISP_SEG_F PORTC.5
+    #define DISP_SEG_G PORTC.6
+
+    ' This is the usage of the SEG_DOT for decimal point support
+	' An optional third parameter of '1' will turn on the decimal point
+	' of that digit when using DisplayValue command
+    #define DISP_SEG_DOT PortC.7
+
+    'Select ports for the 7-segment device
+    #define Disp_Sel_1 PortA.1
+    #define Disp_Sel_2 PortA.2
+    #define Disp_Sel_3 PortA.3
+
+    dim count as word
+    dim number as word
+
+    Do Forever
+        For count = 0 to 999
+            number = count
+            Num2 = 0
+            Num3 = 0
+            If number &gt;= 100 Then
+              Num3 = number / 100
+              'SysCalcTempX is the remainder after a division has been completed
+              number = SysCalcTempX
+            End if
+            If number &gt;= 10 Then
+              Num2 = number / 10
+              number = SysCalcTempX
+            end if
+            Num1 = number
+            Repeat 10
+              DisplayValue 1, Num1,1  'Optional third parameter turns on the dp dot on that digit
+              wait 5 ms
+              DisplayValue 2, Num2
+              wait 5 ms
+              DisplayValue 3, Num3
+              wait 5 ms
+
+            end Repeat
+        Next
+    Loop</pre><p><span class="strong"><strong>Also, see</strong></span>
+<a class="link" href="_7_segment_displays_overview.html" title="7 Segment Displays Overview">7 Degment Display Overview</a>,<a class="link" href="_displaychar.html" title="DisplayChar">DisplayChar</a>, <a class="link" href="_displayvalue.html" title="DisplayValue">DisplayValue</a></p></div></body></html>

@@ -1,0 +1,139 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>ILI9488 Controllers</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_glcd_overview.html" title="GLCD Overview"><link rel="prev" href="_ili9486_l_controllers.html" title="ILI9486(L) Controllers"><link rel="next" href="_ks0108_controllers.html" title="KS0108 Controllers"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_ili9488_controllers"></a>ILI9488 Controllers</h5></div></div></div><p>This section covers GLCD devices that use the ILI9488 graphics controller.</p><p>ILI9488 is a 262k-color single-chip SoC driver for a-TFT liquid crystal display with resolution of 320 x 240 resolution, 16.7M-color and with internal GRAM .</p><p>GCBASIC supports 65K-color mode operations.</p><p>The GCBASIC constants shown below control the configuration of the ILI9488 controller.
+&nbsp;&nbsp;&nbsp;The GCBASIC constants for control and data line connections are shown
+in the table below. Only SPI is available for connectivity:</p><p>To use the ILI9488 driver simply include the following in your user code.  This will initialise the driver.</p><p><br>
+<br>
+<span class="strong"><strong>SPI mode</strong></span></p><pre class="screen">    'Pin mappings for SPI
+
+    #include &lt;glcd.h&gt;
+    #DEFINE GLCD_TYPE GLCD_TYPE_ILI9488
+
+    #DEFINE GLCD_DC       PORTB.3           ' Data command line
+    #DEFINE GLCD_CS       PORTB.5           ' Chip select line
+    #DEFINE GLCD_RST      PORTB.4           ' Reset line
+
+    #DEFINE GLCD_DI       PORTB.2          ' Data in | MISO
+    #DEFINE GLCD_DO       PORTB.0          ' Data out | MOSI
+    #DEFINE GLCD_SCK      PORTB.1          ' Clock Line</pre><p><br>
+<br></p><p><br>
+<br>
+The GCBASIC constants for the interface to the controller are shown in the table below.
+<br>
+<br></p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top">Constants</th><th align="left" valign="top">Controls</th><th align="left" valign="top">Options</th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">GLCD_TYPE</code></p></td><td align="left" valign="top"><p>GLCD_TYPE_ILI9488</p></td><td align="left" valign="top">&nbsp;</td></tr><tr><td align="left" valign="top"><p><code class="literal">ILI9488_HARDWARESPI</code></p></td><td align="left" valign="top"><p>Specifies to use the microcontrollers SPI module.
+For PPS microcontrollers the libary assumes PPS for SPI has been configured.</p></td><td align="left" valign="top"><p>Optional</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">HWSPIMODE MASTERFAST</code></p></td><td align="left" valign="top"><p>Specifies the speed of the SPI communications.</p></td><td align="left" valign="top"><p>Optional</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_RST</code></p></td><td align="left" valign="top"><p>Specifies the output pin that is connected to Reset IO pin on the GLCD.</p></td><td align="left" valign="top"><p>Required</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_CS</code></p></td><td align="left" valign="top"><p>Specifies the output pin that is connected to Chip Select (CS)  on the GLCD.</p></td><td align="left" valign="top"><p>Required</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_RS</code></p></td><td align="left" valign="top"><p>Specifies the output pin that is connected to Data/Command pin on the GLCD.</p></td><td align="left" valign="top"><p>Required</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_DI</code></p></td><td align="left" valign="top"><p>Specifies the output pin that is connected to Data In (RW or WDR) pin on the GLCD.</p></td><td align="left" valign="top"><p>Required</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_DO</code></p></td><td align="left" valign="top"><p>Specifies the output pin that is connected to Data Out (RD or RDR) pin on the GLCD.</p></td><td align="left" valign="top"><p>Required</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_SCK</code></p></td><td align="left" valign="top"><p>Specifies the output pin that is connected to Clock pin on the GLCD.</p></td><td align="left" valign="top"><p>Required</p></td></tr></tbody></table></div><p><br>
+<br>
+The GCBASIC constants for control display characteristics are shown in the table below.
+<br>
+<br></p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top">Constants</th><th align="left" valign="top">Controls</th><th align="left" valign="top">Default</th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">GLCD_WIDTH</code></p></td><td align="left" valign="top"><p>The width parameter of the GLCD</p></td><td align="left" valign="top"><p><code class="literal">320</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_HEIGHT</code></p></td><td align="left" valign="top"><p>The height parameter of the GLCD</p></td><td align="left" valign="top"><p><code class="literal">480</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDFontWidth</code></p></td><td align="left" valign="top"><p>Specifies the font width of the GCBASIC font set.</p></td><td align="left" valign="top"><p><code class="literal">6</code></p></td></tr></tbody></table></div><p><br>
+<br></p><p>The GCBASIC commands supported for this GLCD are shown in the table below.&nbsp;&nbsp;Always review the appropiate library for the latest full set of supported commands.
+<br>
+<br></p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top">Command</th><th align="left" valign="top">Purpose</th><th align="left" valign="top">Example</th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">GLCDCLS</code></p></td><td align="left" valign="top"><p>Clear screen of GLCD</p></td><td align="left" valign="top"><p><code class="literal">GLCDCLS  [,Optional LineColour]</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDPrint</code></p></td><td align="left" valign="top"><p>Print string of characters on GLCD using GCB font set</p></td><td align="left" valign="top"><p><code class="literal">GLCDPrint( Xposition, Yposition, Stringvariable )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDDrawChar</code></p></td><td align="left" valign="top"><p>Print character on GLCD using GCB font set</p></td><td align="left" valign="top"><p><code class="literal">GLCDDrawChar( Xposition, Yposition, CharCode [,Optional LineColour] )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDDrawString</code></p></td><td align="left" valign="top"><p>Print characters on GLCD using GCB font set</p></td><td align="left" valign="top"><p><code class="literal">GLCDDrawString( Xposition, Yposition, Stringvariable [,Optional LineColour] )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">Box</code></p></td><td align="left" valign="top"><p>Draw a box on the GLCD to a specific size</p></td><td align="left" valign="top"><p><code class="literal">Box ( Xposition1, Yposition1, Xposition2, Yposition2 [,Optional LineColour]</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">FilledBox</code></p></td><td align="left" valign="top"><p>Draw a box on the GLCD to a specific size that is filled with the foreground colour.</p></td><td align="left" valign="top"><p><code class="literal">FilledBox (Xposition1, Yposition1, Xposition2, Yposition2  [,Optional LineColour] )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">Line</code></p></td><td align="left" valign="top"><p>Draw a line on the GLCD to a specific length that is filled with the specific attribute.</p></td><td align="left" valign="top"><p><code class="literal">Line ( Xposition1, Yposition1, Xposition2, Yposition2 [,Optional LineColour] )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">PSet</code></p></td><td align="left" valign="top"><p>Set a pixel on the GLCD at a specific position that is set with the specific attribute.</p></td><td align="left" valign="top"><p><code class="literal">PSet(Xposition, Yposition, Pixel Colour)</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDRotate</code></p></td><td align="left" valign="top"><p>Rotate the display</p></td><td align="left" valign="top"><p><code class="literal">LANDSCAPE</code>, <code class="literal">PORTRAIT_REV</code>, <code class="literal">LANDSCAPE_REV</code> and <code class="literal">PORTRAIT</code> are supported</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">ILI9488__TFT_[color]</code></p></td><td align="left" valign="top"><p>Specify color as a parameter for many GLCD commands</p></td><td align="left" valign="top"><p>Color constants for this device are shown in the list below, butm you can use the generic TFT color scheme.<br>
+</p><p></p><p> Any color can be defined using a valid hexidecimal word value between 0x0000 to 0xFFFF.</p></td></tr></tbody></table></div><p><br>
+<br></p><pre class="screen">    ILI9488_TFT_BLACK       //0x000000
+    ILI9488_TFT_RED         //0xFC0000
+    ILI9488_TFT_GREEN       //0x00FC00
+    ILI9488_TFT_BLUE        //0x0000FC
+    ILI9488_TFT_WHITE       //0xFFFFFF
+
+    ILI9488_TFT_CYAN        //0x003F3F
+    ILI9488_TFT_DARKCYAN    //0x00AFAF
+    ILI9488_TFT_DARKGREEN   //0x002100
+    ILI9488_TFT_DARKGREY    //0xAAAAAA
+    ILI9488_TFT_GREENYELLOW //0x93FC33
+    ILI9488_TFT_LIGHTGREY   //0xC9C9C9
+    ILI9488_TFT_MAGENTA     //0xCC00CC
+    ILI9488_TFT_MAROON      //0x7E007E
+    ILI9488_TFT_NAVY        //0x00003E
+    ILI9488_TFT_OLIVE       //0x783E00
+    ILI9488_TFT_ORANGE      //0xFC2900
+    ILI9488_TFT_PINK        //0xFC000F
+    ILI9488_TFT_PURPLE      //0xF01F9E
+    ILI9488_TFT_YELLOW      //0xFC7E00</pre><p><br>
+<br></p><p>These examples show how to drive a ILI9488 based Graphic LCD module with the built in commands of GCBASIC.</p><p><br>
+<br>
+<span class="strong"><strong>Examples - PPS Enabled</strong></span></p><pre class="screen">    #chip 18F26K83, 64
+    #option Explicit
+
+    'Generated by PIC PPS Tool for GCBASIC
+    #startup InitPPS, 85
+    #DEFINE PPSToolPart 18f26k83
+
+    Sub InitPPS
+        'Module: UART pin directions
+        Dir PORTC.7 Out    ' Make TX1 pin an output
+        'Module: UART1
+        RC7PPS = 0x0013    'TX1 &gt; RC7
+
+        #IFDEF ILI9488_HardwareSPI
+            UNLOCKPPS
+            'Module: SPI1
+            RB0PPS = 0x001F    'SDO1 &gt; RB0
+            RB1PPS = 0x001E    'SCK1 &gt; RB1
+            SPI1SCKPPS = 0x0009    'RB1 &gt; SCK1 (bi-directional)
+            SPI1SDIPPS = 0x000A    'RB2 &gt; SDI1
+        #ELSE
+            RB0PPS = 0
+            RB1PPS = 0
+        #ENDIF
+    End Sub
+    // Template comment at the end of the config file
+
+    #include &lt;glcd.h&gt;
+    #DEFINE GLCD_TYPE GLCD_TYPE_ILI9488
+    #DEFINE ILI9488_HARDWARESPI
+    #DEFINE HWSPIMODE MASTERFAST
+    #DEFINE GLCD_DC       PORTB.3           ' Data command line
+    #DEFINE GLCD_CS       PORTB.5           ' Chip select line
+    #DEFINE GLCD_RST      PORTB.4           ' Reset line
+
+    #DEFINE GLCD_DI       PORTB.2          ' Data in | MISO
+    #DEFINE GLCD_DO       PORTB.0          ' Data out | MOSI
+    #DEFINE GLCD_SCK      PORTB.1          ' Clock Line
+
+    '''********************************************************************************
+
+    'main program start here
+
+    // Set the background
+    #DEFINE DEFAULT_GLCDBACKGROUND TFT_WHITE
+
+
+    GLCDPrint 0, 0, "Test of the ILI9488 Device", TFT_BLACK
+    end</pre><p><br>
+<br>
+<br>
+<br>
+<span class="strong"><strong>Examples - Legacy non PPS microcontroller</strong></span></p><pre class="screen">    #chip 16F1939
+    #option Explicit
+
+
+
+    #include &lt;glcd.h&gt;
+    #DEFINE GLCD_TYPE GLCD_TYPE_ILI9488
+    #DEFINE GLCD_DC       PORTB.3           ' Data command line
+    #DEFINE GLCD_CS       PORTB.5           ' Chip select line
+    #DEFINE GLCD_RST      PORTB.4           ' Reset line
+
+    #DEFINE GLCD_DI       PORTB.2          ' Data in | MISO
+    #DEFINE GLCD_DO       PORTB.0          ' Data out | MOSI
+    #DEFINE GLCD_SCK      PORTB.1          ' Clock Line
+
+    '''********************************************************************************
+
+    'main program start here
+
+    // Set the background
+    #DEFINE DEFAULT_GLCDBACKGROUND TFT_WHITE
+
+
+    GLCDPrint 0, 0, "Test of the ILI9488 Device", TFT_BLACK
+    end</pre><p><br>
+<br></p><pre class="screen"></pre><p><br>
+<br></p><p><span class="strong"><strong>For more help, see</strong></span>
+<a class="link" href="_glcdcls.html" title="GLCDCLS">GLCDCLS</a>,  <a class="link" href="_glcddrawchar.html" title="GLCDDrawChar">GLCDDrawChar</a>, <a class="link" href="_glcdprint.html" title="GLCDPrint">GLCDPrint</a>, <a class="link" href="_glcdreadbyte.html" title="GLCDReadByte">GLCDReadByte</a>, <a class="link" href="_glcdwritebyte.html" title="GLCDWriteByte">GLCDWriteByte</a> or <a class="link" href="_pset.html" title="Pset">Pset</a>
+<br>
+<br>
+Supported in &lt;GLCD.H&gt;</p><p><br>
+<br>
+<span class="strong"><strong>Developer Notes</strong></span></p><p>The ILI9488 library implemented uses BRG color scheme which is different from other GLCD libraries.</p><p>The ILI9488 library implemented also uses 18bits for color definition where the color scheme is defined as shown below:</p><div class="informalfigure"><div class="mediaobject" align="center"><img src="./images/ili9488.png" align="middle" height="360" alt="graphic"></div></div><p>The ILI9488 library implemented there has the following differences from a typical GLCD library.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">The colors are defined as RGB left justified 6 bits.</li><li class="listitem">The colors are defined as Longs ( not Words other GLCDs are Words).</li><li class="listitem">The color information uses a 18bit macro for SPI communications.&nbsp;&nbsp;Color information is sent to the GLCD in three bytes.</li><li class="listitem">The color contraints are based on the SPI constraints specified in the ILI9488 datasheet.</li></ol></div></div></body></html>

@@ -1,0 +1,33 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>HPWM Fixed Mode for AVR</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_atmel_avr_pwm_overview.html" title="ATMEL AVR PWM Overview"><link rel="prev" href="_hpwm_avr_ocrnx.html" title="HPWM AVR OCRnx"><link rel="next" href="_pwmon_for_avr.html" title="PWMOn for AVR"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_hpwm_fixed_mode_for_avr"></a>HPWM Fixed Mode for AVR</h5></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    PWMOn
+
+    'or
+
+    PWMOff</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>This command is only available on the Atmel AVR microcontrollers with a Timer/Counter0 OC0B register.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The PWMOn command will only enable the output of the OC0B/PWM module of the Atmel AVR microcontroller.</p><p>This command is not available for any other OCnx/PWM modules.</p><p>This command sets up the hardware PWM module of the Atmel AVR microcontroller to generate
+a PWM waveform of the given frequency and duty cycle. &nbsp;&nbsp;Once PWMON method
+is called, the PWM will be emitted until PWMOff is called.</p><p>These constants are required for PWMOn.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Constant Name</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Controls</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Default Value</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">PWM_Freq</code></p></td><td align="left" valign="top"><p>Specifies the output frequency of the PWM module in KHz.</p></td><td align="left" valign="top"><p>38</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">PWM_Duty</code></p></td><td align="left" valign="top"><p>Sets the duty cycle of the PWM module output. Given as percentage.</p></td><td align="left" valign="top"><p>50</p></td></tr></tbody></table></div><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'This program demonstrates the PWMOn and PWMOff commands
+    'of the fixed mode HPWM on OC0B pin.
+
+    #chip mega328p,16
+
+    'activate appropriate PWM output pins
+    dir PortD.5 Out     'OC0B
+
+    'define PWM_Freq in kHz
+    'define PWM_Duty in %
+
+    #define PWM_Freq 40
+    #define PWM_Duty 50
+
+    do
+
+      'turn on/off single channel 40 KHz PWM on OC0B pin
+      PWMON
+      wait 5 s
+      PWMOFF
+      wait 5 s
+
+    loop</pre><p><br>
+<br>
+<span class="strong"><strong>For more help, see</strong></span> <a class="link" href="_pwmon_for_avr.html" title="PWMOn for AVR">PWMOn</a> and <a class="link" href="_pwmoff_for_avr.html" title="PWMOff for AVR">PWMOff</a> <span class="strong"><strong>or, for Microchip microcontrollers see</strong></span> <a class="link" href="_hpwm_fixed_mode.html" title="HPWM Fixed Mode">Fixed Mode PWM for Microchip</a></p></div></body></html>

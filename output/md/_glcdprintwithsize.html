@@ -1,0 +1,25 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>GLCDPrintWithSize</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_graphical_lcd.html" title="Graphical LCD"><link rel="prev" href="_glcdprintlargefont.html" title="GLCDPrintLargeFont"><link rel="next" href="_glcdlocatestring.html" title="GLCDLocateString"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_glcdprintwithsize"></a>GLCDPrintWithSize</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    GLCDPrintWithSize(PrintLocX, PrintLocY, PrintData_Byte , FontSize [, Color ] )    ',or
+    GLCDPrintWithSize(PrintLocX, PrintLocY, PrintData_Word , FontSize [, Color ] )    ',or
+    GLCDPrintWithSize(PrintLocX, PrintLocY, PrintData_Long , FontSize [, Color ] )    ',or
+
+    GLCDPrintWithSize(PrintLocX, PrintLocY, PrintData_String , FontSize [, Color ] )</pre><p><br>
+<br>
+<code class="literal">PrintLocX</code> is the X corrdinate location for the data<br>
+<code class="literal">PrintLocY</code> is the Y coordinate location for the data<br>
+<code class="literal">PrintData_[type]</code> is a variable or constant to be displayed<br>
+<code class="literal">FontSize</code> is the GLCD fontsize.&nbsp;&nbsp; Typical values are 1, 2 or 3<br>
+<code class="literal">Color</code> is an optional parameter to change the color the GLCD printed text.
+<br>
+<br>
+<span class="strong"><strong>Explanation:</strong></span>
+<br>
+<br>
+Prints data values (byte, word, long or string) at a specified location on the GLCD screen with a specific font size.
+<br>
+<br>
+To display a string using font size two use:
+<br>
+<br></p><pre class="screen">    GLCDPrintWithSize(PrintLocX, PrintLocY, "Using font size #2", 2 )</pre><p><br>
+<br></p></div></body></html>

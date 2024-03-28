@@ -1,0 +1,22 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>SingleToHex</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_string_manipulation.html" title="String Manipulation"><link rel="prev" href="_singletobin.html" title="SingleToBin"><link rel="next" href="_singletostring.html" title="SingleToString"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_singletohex"></a>SingleToHex</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>stringvar</em></span> = SingleToHex(<span class="emphasis"><em>number</em></span>)</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The <code class="literal">Hex</code> function will convert a Single number into hexadecimal format. The input <code class="literal"><span class="emphasis"><em>number</em></span></code> should be a Single variable, or a fixed number between -3.4x10 ^ 38 and +3.4x10 ^ 38 inclusive. After running the function, the string variable <code class="literal"><span class="emphasis"><em>stringvar</em></span></code> will contain an 4 digit hexadecimal number.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Set chip model
+    #chip 16F1936
+
+    'Set up hardware serial connection
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+
+
+    'Send EEPROM data over serial connection
+    'Uses Hex to display as hexadecimal
+    For CurrentLocation = 0 to 9999999
+        'Send location
+        HSerPrint SingleToHex(CurrentLocation)
+        HSerPrint ":"
+        'Read Single and send
+        EPRead CurrentLocation, CurrSingle
+        HSerPrint Hex(CurrSingle)
+        'Send carriage return/line feed
+        HSerPrintCRLF
+    Next</pre><p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_bytetohex.html" title="ByteToHex">ByteToHex</a>,<a class="link" href="">WordToHex</a>, <a class="link" href="_longtohex.html" title="LongToHex">LongToHex</a>, <a class="link" href="_integertohex.html" title="IntegerToHex">IntegerToHex</a></p></div></body></html>

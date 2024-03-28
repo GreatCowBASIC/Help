@@ -1,0 +1,22 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Randomize</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_random_numbers.html" title="Random Numbers"><link rel="prev" href="_random.html" title="Random"><link rel="next" href="_7_segment_displays.html" title="7-Segment Displays"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_randomize"></a>Randomize</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    Randomize
+    Randomize <span class="emphasis"><em>seed</em></span></pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>Randomize is used to seed the pseudo random number generator, so that it
+will produce a different sequence of numbers each time it is used.</p><p>The random number generator in GCBASIC is a 16 bit linear feedback shift register,
+which is explained here: <a class="link" href="http://en.wikipedia.org/wiki/Linear_feedback_shift_register" target="_top">http://en.wikipedia.org/wiki/Linear_feedback_shift_register</a></p><p>Generally, you will get the same sequence every time it is used.&nbsp;&nbsp;However, you can seed it so that it will start at a different point at the sequence using the Randomize command.</p><p>If you wanted to use an analog reading to seed the generator, this would work:</p><pre class="literallayout">Randomize ReadAD10(AN0)</pre><p>If no <span class="emphasis"><em>seed</em></span> is specified, then the RANDOMIZE_SEED constant will be used
+as the seed.&nbsp;&nbsp;If <span class="emphasis"><em>seed</em></span> is specified, then it will be used to seed the
+generator.</p><p>It is important that the seed is different every time that Randomize is
+used. If the seed is always the same, then the sequence of numbers will
+always be the same.&nbsp;&nbsp; It is best to use a running timer, an input port, or
+the analog to digital converter as the source of the seed, since these
+will normally provide a different value each time the program runs.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Set chip model
+    #chip tiny2313, 1
+
+    'Use randomize, with the value on PORTD as the seed
+    Randomize PORTD
+
+    'Generate random numbers, and output on PORTB
+    Do
+        PORTB = Random
+        Wait 1 s
+    Loop</pre></div></body></html>

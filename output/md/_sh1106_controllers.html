@@ -1,0 +1,156 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>SH1106 Controllers</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_glcd_overview.html" title="GLCD Overview"><link rel="prev" href="_sdd1289_controllers.html" title="SDD1289 Controllers"><link rel="next" href="_ssd1306_controllers.html" title="SSD1306 Controllers"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_sh1106_controllers"></a>SH1106 Controllers</h5></div></div></div><p>This section covers GLCD devices that use the SH1106 graphics controller.  THe SH1106 is a single-chip CMOS OLED/PLED driver with controller for organic/polymer light emitting diode dot-matrix graphic display system.  SH1106 consists of 132 segments, 64 commons that can support a maximum display resolution of 132 X 64. It is designed for Common Cathode type OLED panel.</p><p>The GCBASIC constants shown below control the configuration of the SH1106 controller. &nbsp;&nbsp;&nbsp;GCBASIC supports i2C hardware and software connectivity  - this is shown in the tables below.</p><p>The SH1106 is a monochrome device.</p><p>To use the SH1106 driver simply include the following in your user code.  This will initialise the driver.  You can select Full Mode GLCD, Low Memory Mode GLCD or Text mode these require 1024, 128 or 0 byte GLCD buffer respectively - you microcontroller requires sufficient RAM to support the selected mode of GLCD operation.</p><pre class="screen">    #include &lt;glcd.h&gt;
+
+    ; ----- Define GLCD Hardware settings
+    #define GLCD_TYPE GLCD_TYPE_SH1106
+    #define GLCD_I2C_Address 0x78
+    '#define GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE        'select Low Memory mode of operation
+    '#define GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY        'select Text mode of operation
+
+    ; ----- Define Hardware settings
+    ' Define I2C settings
+    #define HI2C_BAUD_RATE 400
+    #define HI2C_DATA
+    HI2CMode Master</pre><p>The GCBASIC constants for control display characteristics are shown in the table below.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Constants</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Controls</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Options</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">GLCD_TYPE</code></p></td><td align="left" valign="top"><p><code class="literal">GLCD_TYPE_SH1106</code></p></td><td align="left" valign="top"><p>Required</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_I2C_Address</code></p></td><td align="left" valign="top"><p>I2C address of the GLCD.</p></td><td align="left" valign="top"><p>Required</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">HI2C_BAUD_RATE</code></p></td><td align="left" valign="top"><p><code class="literal">HI2C_BAUD_RATE</code></p></td><td align="left" valign="top"><p>400 or 100</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">HI2C_DATA</code></p></td><td align="left" valign="top"><p><code class="literal">HI2C_DATA</code></p></td><td align="left" valign="top"><p>Mandated, plus<br>
+<code class="literal">HI2CMode Master</code> is required.</p></td></tr></tbody></table></div><p>The GCBASIC constants for control display characteristics are shown in the table below.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Constants</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Controls</strong></span></th><th align="center" valign="top"><span class="strong"><strong>Default</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">GLCD_WIDTH</code></p></td><td align="left" valign="top"><p>The width parameter of the GLCD</p></td><td align="center" valign="top"><p><code class="literal">128</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_HEIGHT</code></p></td><td align="left" valign="top"><p>The height parameter of the GLCD</p></td><td align="center" valign="top"><p><code class="literal">64</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDFontWidth</code></p></td><td align="left" valign="top"><p>Specifies the font width of the GCBASIC font set.</p></td><td align="center" valign="top"><p><code class="literal">6</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY</code></p></td><td align="left" valign="top"><p>Specifies that the display controller will operate in text mode and BMP
+draw mode only.<br>
+For microcontrollers with low RAM this will be set be
+default.<br>
+When selected ONLY text related commands are suppored. For grapical commands you must have sufficient memory to use Full GLCD mode or use <code class="literal">GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE</code></p></td><td align="center" valign="top"><p>Optional</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE</code></p></td><td align="left" valign="top"><p>Specifies that the display controller will operate in Low Memory mode.</p></td><td align="center" valign="top"><p>Optional</p></td></tr></tbody></table></div><p>The GCBASIC commands supported for this GLCD are shown in the table below.&nbsp;&nbsp;&nbsp;Always review the appropiate library for the latest full set of supported commands.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Command</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Purpose</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Example</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">GLCDCLS</code></p></td><td align="left" valign="top"><p>Clear screen of GLCD</p></td><td align="left" valign="top"><p><code class="literal">GLCDCLS</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDPrint</code></p></td><td align="left" valign="top"><p>Print string of characters on GLCD using GCB font set</p></td><td align="left" valign="top"><p><code class="literal">GLCDPrint( Xposition, Yposition, Stringvariable )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDDrawChar</code></p></td><td align="left" valign="top"><p>Print character on GLCD using GCB font set</p></td><td align="left" valign="top"><p><code class="literal">GLCDDrawChar( Xposition, Yposition, CharCode )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDDrawString</code></p></td><td align="left" valign="top"><p>Print characters on GLCD using GCB font set</p></td><td align="left" valign="top"><p><code class="literal">GLCDDrawString( Xposition, Yposition, Stringvariable )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">Box</code></p></td><td align="left" valign="top"><p>Draw a box on the GLCD to a specific size</p></td><td align="left" valign="top"><p><code class="literal">Box ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In
+LineColour as 0 or 1] )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">FilledBox</code></p></td><td align="left" valign="top"><p>Draw a box on the GLCD to a specific size that is filled with the
+foreground colour.</p></td><td align="left" valign="top"><p><code class="literal">FilledBox (Xposition1, Yposition1, Xposition2, Yposition2, [Optional In
+LineColour 0 or 1] )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">Line</code></p></td><td align="left" valign="top"><p>Draw a line on the GLCD to a specific length that is filled with the
+specific attribute.</p></td><td align="left" valign="top"><p><code class="literal">Line ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In
+LineColour 0 or 1] )</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">PSet</code></p></td><td align="left" valign="top"><p>Set a pixel on the GLCD at a specific position that is set with the
+specific attribute.</p></td><td align="left" valign="top"><p><code class="literal">PSet(Xposition, Yposition, Pixel Colour 0 or 1)</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDWriteByte</code></p></td><td align="left" valign="top"><p>Set a byte value to the controller, see the datasheet for usage.</p></td><td align="left" valign="top"><p><code class="literal">GLCDWriteByte (LCDByte)</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDReadByte</code></p></td><td align="left" valign="top"><p>Read a byte value from the controller, see the datasheet for usage.</p></td><td align="left" valign="top"><p><code class="literal">bytevariable = GLCDReadByte</code></p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_Open_PageTransaction</code></p></td><td align="left" valign="top"><p>Commence a series of GLCD commands when in low memory mode.  Must be followed a  <code class="literal">GLCD_Close_PageTransaction</code> command.</p></td><td align="left" valign="top"><p><code class="literal">GLCD_Close_PageTransaction 0, 7</code> where 0 and 7 are the range of pages to be updated</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCD_Close_PageTransaction</code></p></td><td align="left" valign="top"><p>Commence a series of GLCD commands when in low memory mode.  Must follow a <code class="literal">GLCD_Open_PageTransaction</code> command.</p></td><td align="left" valign="top">&nbsp;</td></tr></tbody></table></div><p>The additional GCBASIC commands for this GLCD are shown in the table below.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"></colgroup><thead><tr><th align="left" valign="top">Command</th><th align="left" valign="top">Purpose</th></tr></thead><tbody><tr><td align="left" valign="top"><p><code class="literal">GLCDSetDisplayInvertMode</code></p></td><td align="left" valign="top"><p>Inverts the display</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDSetDisplayNormalMode</code></p></td><td align="left" valign="top"><p>Set the display to normal mode</p></td></tr><tr><td align="left" valign="top"><p><code class="literal">GLCDSetContrast ( dim_state )</code></p></td><td align="left" valign="top"><p>Sets the constrast between 0 and 255. The contrast increases as the value increases.<br>
+Parameter is dim value</p></td></tr></tbody></table></div><p>For a SH1106 datasheet, please refer <a class="link" href="http://gcbasic.sourceforge.net/library/DISPLAY/SH1106.pdf" target="_top">here</a>.</p><p>This example shows how to drive a SH1106 based Graphic LCD module with the built in commands of GCBASIC.</p><pre class="screen">; ----- Configuration
+    #chip mega328p,16
+    #include &lt;glcd.h&gt;
+
+    ; ----- Define Hardware settings
+    ' Define I2C settings
+    #define HI2C_BAUD_RATE 400
+    #define HI2C_DATA
+    HI2CMode Master
+
+    ; ----- Define GLCD Hardware settings
+    #define GLCD_TYPE GLCD_TYPE_SH1106
+    #define GLCD_I2C_Address 0x78
+
+    GLCDCLS
+    GLCDPrint 0, 0, "GCBASIC"
+    GLCDPrint (0, 16, "Anobium 2021")
+
+    wait 3 s
+    GLCDCLS
+
+    ' Prepare the static components of the screen
+    GLCDPrint ( 0,   0, "PrintStr") ; Print some text
+    GLCDPrint ( 64,  0, "@")
+    ; Print some more text
+    GLCDPrint ( 72,  0, ChipMhz) ; Print chip speed
+    GLCDPrint ( 86, 0, "Mhz") ; Print some text
+    GLCDDrawString( 0,8,"DrawStr") ; Draw some text
+    box 0,0,GLCD_WIDTH-1, GLCD_HEIGHT-1 ; Draw a box
+    box GLCD_WIDTH-5, GLCD_HEIGHT-5,GLCD_WIDTH-1, GLCD_HEIGHT-1 ; Draw a box
+    Circle( 44,41,15) ; Draw a circle
+    line 64,31,0,31 ; Draw a line
+
+    DO forever
+       for CCount = 31 to 127
+            GLCDPrint ( 64 ,  36,  hex(longNumber_E ) ) ; Print a HEX string
+            GLCDPrint ( 76 ,  36,  hex(longNumber_U ) ) ; Print a HEX string
+            GLCDPrint ( 88 ,  36,  hex(longNumber_H ) ) ; Print a HEX string
+            GLCDPrint ( 100 ,  36, hex(longNumber   ) ) ; Print a HEX string
+            GLCDPrint ( 112 ,  36, "h" ) ; Print a HEX string
+
+            GLCDPrint ( 64 ,  44, pad(str(wordNumber), 5 ) ) ; Print a padded string
+            GLCDPrint ( 64 ,  52, pad(str(byteNumber), 3 ) ) ; Print a padded string
+
+            box (46,9,56,19) ; Draw a Box
+            GLCDDrawChar(48, 9, CCount ) ; Draw a character
+            outString = str( CCount ) ; Prepare a string
+            GLCDDrawString(64, 9, pad(outString,3) ) ; Draw a string
+
+            filledbox 3,43,11,51, wordNumber ; Draw a filled box
+
+            FilledCircle( 44,41,9, longNumber xor 1) ; Draw a filled box
+            line 0,63,64,31 ; Draw a line
+
+            ; Do some simple maths
+            longNumber = longNumber + 7 : wordNumber = wordNumber + 3 : byteNumber++
+        NEXT
+    LOOP
+    end</pre><p>This example shows how to drive a SH1106 based Graphic I2C LCD module with the built in commands of GCBASIC using Low Memory Mode GLCD.</p><p>Note the use of <code class="literal">GLCD_Open_PageTransaction</code> and <code class="literal">GLCD_Close_PageTransaction</code> to support the Low Memory Mode of operation and the contraining of all GLCD commands with the transaction commands.  The use Low Memory Mode GLCD the two defines <code class="literal">GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE</code> and <code class="literal">GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY</code> are included in the user program.</p><pre class="screen">    #chip mega328p,16
+    #include &lt;glcd.h&gt;
+
+    ; ----- Define Hardware settings
+    ' Define I2C settings
+    #define HI2C_BAUD_RATE 400
+    #define HI2C_DATA
+    HI2CMode Master
+
+    ; ----- Define GLCD Hardware settings
+    #define GLCD_TYPE GLCD_TYPE_SH1106  'for 128 * 64 pixels support
+    #define GLCD_I2C_Address 0x78
+    #define GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE
+    #define GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY
+
+    dim outString as string * 21
+
+    GLCDCLS
+    GLCD_Open_PageTransaction 0,7
+       GLCDPrint 0, 0, "GCBASIC"
+       GLCDPrint (0, 16, "Anobium 2021")
+    GLCD_Close_PageTransaction
+    wait 3 s
+    GLCDCLS
+
+    DO forever
+
+      for CCount = 31 to 127
+
+        outString = str( CCount ) ; Prepare a string
+
+        GLCD_Open_PageTransaction 0,7
+
+           ' Prepare the static components of the screen
+           GLCDPrint ( 0,   0, "PrintStr") ; Print some text
+           GLCDPrint ( 64,  0, "@")
+           ; Print some more text
+           GLCDPrint ( 72,  0, ChipMhz) ; Print chip speed
+           GLCDPrint ( 86, 0, "Mhz") ; Print some text
+           GLCDDrawString( 0,8,"DrawStr") ; Draw some text
+           box 0,0,GLCD_WIDTH-1, GLCD_HEIGHT-1 ; Draw a box
+           box GLCD_WIDTH-5, GLCD_HEIGHT-5,GLCD_WIDTH-1, GLCD_HEIGHT-1 ; Draw a box
+           Circle( 44,41,15) ; Draw a circle
+           line 64,31,0,31 ; Draw a line
+
+           GLCDPrint ( 64 ,  36,  hex(longNumber_E ) ) ; Print a HEX string
+           GLCDPrint ( 76 ,  36,  hex(longNumber_U ) ) ; Print a HEX string
+           GLCDPrint ( 88 ,  36,  hex(longNumber_H ) ) ; Print a HEX string
+           GLCDPrint ( 100 ,  36, hex(longNumber   ) ) ; Print a HEX string
+           GLCDPrint ( 112 ,  36, "h" ) ; Print a HEX string
+
+           GLCDPrint ( 64 ,  44, pad(str(wordNumber), 5 ) ) ; Print a padded string
+           GLCDPrint ( 64 ,  52, pad(str(byteNumber), 3 ) ) ; Print a padded string
+
+           box (46,8,56,19) ; Draw a Box
+           GLCDDrawChar(48, 9, CCount ) ; Draw a character
+
+           GLCDDrawString(64, 9, pad(outString,3) ) ; Draw a string
+
+           filledbox 3,43,11,51, wordNumber ; Draw a filled box
+
+           FilledCircle( 44,41,9, longNumber xor 1) ; Draw a filled box
+           line 0,63,64,31 ; Draw a line
+
+        GLCD_Close_PageTransaction
+
+        ; Do some simple maths
+        longNumber = longNumber + 7 : wordNumber = wordNumber + 3 : byteNumber++
+       NEXT
+    LOOP
+    end</pre><p><span class="strong"><strong>For more help, see</strong></span>
+<a class="link" href="_glcdcls.html" title="GLCDCLS">GLCDCLS</a>, <a class="link" href="_glcddrawchar.html" title="GLCDDrawChar">GLCDDrawChar</a>, <a class="link" href="_glcdprint.html" title="GLCDPrint">GLCDPrint</a>, <a class="link" href="_glcdreadbyte.html" title="GLCDReadByte">GLCDReadByte</a>, <a class="link" href="_glcdwritebyte.html" title="GLCDWriteByte">GLCDWriteByte</a> or <a class="link" href="_pset.html" title="Pset">Pset</a></p><p>Supported in &lt;GLCD.H&gt;</p></div></body></html>

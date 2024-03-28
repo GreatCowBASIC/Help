@@ -1,0 +1,15 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>#Option Volatile</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_compiler_options.html" title="Compiler Options"><link rel="prev" href="__option_required.html" title="#Option Required"><link rel="next" href="__option_reservehighprog.html" title="#Option ReserveHighProg"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="__option_volatile"></a>#Option Volatile</h3></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    #option volatile `bit`</pre><p>This option ensure port setting are glitch-free.</p><p><span class="strong"><strong>Introduction:</strong></span></p><p>#option volatile bit where bit is an IO bit, like PORTB.0 appended.</p><p>This will cause the compiler to set the bit without any glitches when copying a value from another variable, but will increase code size slightly.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Set chip model
+    #chip 16f877a
+
+    'Example command
+    #option volatile portb.0
+
+    dir portb.0 out
+
+    do forever
+
+      portb.0 = !portb.0
+
+    loop</pre></div></body></html>

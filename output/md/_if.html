@@ -1,0 +1,58 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>If</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_flow_control.html" title="Flow control"><link rel="prev" href="_goto.html" title="Goto"><link rel="next" href="_indcall.html" title="IndCall"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_if"></a>If</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen"><span class="strong"><strong><span class="emphasis"><em>Short form:</em></span></strong></span>
+
+    If <span class="emphasis"><em>condition</em></span> Then <span class="emphasis"><em>command</em></span>
+
+<span class="strong"><strong><span class="emphasis"><em>Long form:</em></span></strong></span>
+
+    If <span class="emphasis"><em>condition</em></span> Then
+    ...
+    <span class="emphasis"><em>program code</em></span>
+    ...
+    End If
+
+<span class="strong"><strong><span class="emphasis"><em>Using Else:</em></span></strong></span>
+
+    If <span class="emphasis"><em>condition</em></span> Then
+      <span class="emphasis"><em>code to run if true</em></span>
+    Else
+      <span class="emphasis"><em>code to run if false</em></span>
+    End If
+
+<span class="strong"><strong><span class="emphasis"><em>Using If Else:</em></span></strong></span>
+
+    If <span class="emphasis"><em>condition</em></span> Then
+      <span class="emphasis"><em>code to run if true</em></span>
+    Else if <span class="emphasis"><em>nextcondition</em></span> then
+      <span class="emphasis"><em>code to run if nextcondition true</em></span>
+    Else
+      <span class="emphasis"><em>code to run if false</em></span>
+    End If</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The <code class="literal">If</code> command is the most common command used to make decisions. If
+<code class="literal"><span class="emphasis"><em>condition</em></span></code> is <code class="literal">true</code>, then <code class="literal"><span class="emphasis"><em>command</em></span></code> (short) or <code class="literal"><span class="emphasis"><em>program code</em></span></code> (long)
+will be run. If it is <code class="literal">false</code>, then the microcontroller will skip to the code
+located on the next line (short) or after the <code class="literal">End If</code> (long form).</p><p>If <code class="literal">Else</code> is used, then the condition between <code class="literal">If</code> and <code class="literal">Else</code> will run if the
+condition is <code class="literal">true</code>, and the code between <code class="literal">Else</code> and <code class="literal">End If</code> will run if the
+condition is <code class="literal">false</code>.</p><p>If <code class="literal">Else if</code> is used, then the condition after the  <code class="literal">Else if</code> will run if the
+condition is <code class="literal">true</code>.</p><p><span class="strong"><strong>Note:</strong></span>
+<code class="literal">Else</code> must be on a separate line in the source code.</p><p>Supported:</p><pre class="screen">    &lt;instruction&gt; 'is supported
+    Else
+    &lt;instruction&gt;</pre><pre class="screen">    &lt;instruction&gt; Else 'Not Supported, but will compile
+    &lt;instruction&gt;</pre><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Turn a light on or off depending on a light sensor
+
+    #chip 12F683, 8
+
+    #define LIGHT GPIO.1
+    #define SENSOR AN3
+    #define SENSOR_PORT GPIO.4
+
+    Dir LIGHT Out
+    Dir SENSOR_PORT In
+
+    Do
+      If ReadAD(SENSOR) &gt; 128 Then
+        Set LIGHT Off
+      Else
+        Set LIGHT On
+      End If
+    Loop</pre><p><span class="strong"><strong>For more help, see <a class="link" href="_conditions.html" title="Conditions">Conditions</a></strong></span></p></div></body></html>

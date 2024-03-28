@@ -1,0 +1,17 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>GLCDLocateString</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_graphical_lcd.html" title="Graphical LCD"><link rel="prev" href="_glcdprintwithsize.html" title="GLCDPrintWithSize"><link rel="next" href="_glcdprintstring.html" title="GLCDPrintString"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_glcdlocatestring"></a>GLCDLocateString</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    GLCDLocateString(PrintLocX, PrintLocY )</pre><p><span class="strong"><strong>Explanation:</strong></span></p><p>Moves the GLCD string pointer to the specified location on the GLCD screen.</p><p><code class="literal">PrintLocX</code> is the X corrdinate location for the data<br>
+<code class="literal">PrintLocY</code> is the Y coordinate location for the data<br></p><p>For the purpose of this command. The screen addressing is the first line equates to the parameter 1, the second line equates to the paramter 2 etc.</p><p>An example:</p><pre class="screen">    GLCDLocateString( 0, 1 )    'The first line of the display
+    GLCDLocateString( 0, 6 )    'The sixth line of the display</pre><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    GLCDPrintStringLn ( "1.First Ln" )
+    GLCDPrintStringLn ( "2.Second Ln" )
+    GLCDPrintStringLn ( "" )
+    GLCDPrintStringLn ( "4.Forth Ln" )
+    GLCDLocateString( 0, 5 )
+    GLCDPrintString ( "5." )
+    GLCDPrintStringLn ( "Fifth Ln" )
+
+    GLCDPrintStringLn ( "6.Sixth Ln" )
+    GLCDLocateString( 0, 3 )
+    dim val3 as Byte
+    val3 = 3
+    GLCDPrintStringLn ( str( val3 ) + ".Third Ln" )</pre></div></body></html>

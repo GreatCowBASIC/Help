@@ -1,0 +1,35 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>LCDCreateGraph</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_liquid_crystal_display.html" title="Liquid Crystal Display"><link rel="prev" href="_lcdcreatechar.html" title="LCDCreateChar"><link rel="next" href="_lcdcmd.html" title="LCDCmd"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_lcdcreategraph"></a>LCDCreateGraph</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    LCDCreateGraph <span class="emphasis"><em>value</em></span></pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The LCDCreateGraph command will create a graph like character which can
+then be displayed on the LCD</p><p><span class="strong"><strong>Example :</strong></span></p><pre class="screen">    ;Chip Settings
+    #chip 16F88,8
+
+    ;Defines (Constants)
+    #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
+    #define LCD_RS PORTA.6
+    #define LCD_NO_RW
+    #define LCD_Enable PORTA.7
+    #define LCD_DB4 PORTB.4
+    #define LCD_DB5 PORTB.5
+    #define LCD_DB6 PORTB.6
+    #define LCD_DB7 PORTB.7
+
+    Locate 0,0
+    Print "Reset"
+    wait 1 s
+    cls
+
+    Graph_Tests:
+
+    cls
+    'Draw the custom character - fill the LCD
+    repeat 64
+          LCDWriteChar 0
+    end Repeat
+
+    ' Update the characters at high speed without re-printing on LCD
+    for graphvalue = 0 to 8
+        LCDCreateGraph ( 0 ,  graphvalue )
+        wait 100 ms
+    next</pre><p><span class="strong"><strong>Supported in &lt;LCD.H&gt;</strong></span></p></div></body></html>

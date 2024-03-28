@@ -1,0 +1,58 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>SAFReadBlock</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_safm.html" title="SAFM"><link rel="prev" href="_safwriteword.html" title="SAFWriteWord"><link rel="next" href="_safwriteblock.html" title="SAFWriteBlock"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_safreadblock"></a>SAFReadBlock</h5></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    SAFReadBlock ( block_number,  buffer(), [,  num_bytes] )</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all PIC micro-controllers with SAFM memory.</p><p><span class="strong"><strong>Explanation:</strong></span>
+<br>
+<br>
+HEFReadBlock is used to read information from the HEFM data storage into the buffer.&nbsp;&nbsp;&nbsp;
+Once the buffer is populated it can be accessed for use within a user program.
+<br>
+<br>
+The parameters are as follows:
+<br>
+<br>
+<code class="literal">block_number</code> represents the block to be written to.&nbsp;&nbsp;&nbsp;
+The block_number parameter is used to calculate the physical memory location(s) that are updated.
+<br>
+<br>
+<code class="literal">buffer()</code> represents an array or string.&nbsp;&nbsp;&nbsp;
+The buffer will be used as the data target for the block read operation.&nbsp;&nbsp;&nbsp;
+The  buffer is handled as a buffer of bytes values.&nbsp;&nbsp;&nbsp;
+In most cases the buffer should be the same size as a row/block of SAFM.&nbsp;&nbsp;&nbsp;
+For most PIC Microcontrollers with SAFM this will be 32 bytes.&nbsp;&nbsp;&nbsp;
+<br>
+<br>
+<code class="literal">num_bytes</code> is an optional parameter, and can be used to specify number of bytes to read from SAFM, starting at the first location in the selected SAFM block.&nbsp;&nbsp;&nbsp;
+This parameter is not normally required as the default is set to the GCBASIC constant <code class="literal">SAF_ROWSIZE_BYTES</code>.
+<br>
+<br>
+<span class="strong"><strong>Example 1:</strong></span></p><pre class="screen">    #chip 18F24K42, 16
+    '... code preamble to setup PPS
+    '... code to setup serial
+
+      Dim My_Buffer(HEF_ROWSIZE_BYTES)
+      Dim index as byte
+
+      ;Write some data to Block 2
+      My_Buffer = 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32
+      SAFWriteBlock(2, My_Buffer())
+
+      ;Read the data back from SAFM using SAFReadBock
+      SAFReadBlock( 2 , My_buffer() )
+
+     ;Send the data to a terminal in decimal format
+      index = 1
+      Repeat SAF_ROWSIZE_BYTES
+          Hserprint(My_Buffer(index))
+          HserPrint " "
+          index++
+     End Repeat</pre><p><br>
+<br>
+See also
+<a class="link" href="_safm_overview.html" title="SAFM Overview">SAFM Overview</a>,
+<a class="link" href="_safread.html" title="SAFRead">SAFRead</a>,
+<a class="link" href="_safreadword.html" title="SAFReadWord">SAFReadWord</a>,
+<a class="link" href="_safwrite.html" title="SAFWrite">SAFWrite</a>,
+<a class="link" href="_safwriteword.html" title="SAFWriteWord">SAFWriteWord</a>,
+<a class="link" href="_safreadblock.html" title="SAFReadBlock">SAFReadBlock</a>,
+<a class="link" href="_safwriteblock.html" title="SAFWriteBlock">SAFWriteBlock</a>,
+<a class="link" href="_saferaseblock.html" title="SAFEraseBlock">SAFEraseBlock</a></p></div></body></html>

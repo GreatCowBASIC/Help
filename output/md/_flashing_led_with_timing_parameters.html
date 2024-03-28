@@ -1,0 +1,38 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Flashing LED with timing parameters</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_example_programs.html" title="Example Programs"><link rel="prev" href="_flashing_leds_and_an_interrupt.html" title="Flashing LEDs and an Interrupt"><link rel="next" href="_generate_accurate_pulses.html" title="Generate Accurate Pulses"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_flashing_led_with_timing_parameters"></a>Flashing LED with timing parameters</h3></div></div></div><p><span class="strong"><strong>Explanation:</strong></span></p><p>This is an example of how to define a subroutine.</p><p>When called, this subroutine will blink an LED for the number of times and duration as determined by the input parameters.</p><p>The syntax of the subroutine is:</p><pre class="screen">    ' Flash_LED (numtimes, OnTime, (optional) OffTime)
+    ' Where numtimes is from 1 - 255 and OnTime/OffTime is
+    ' from 0 - 65535 ms. If OffTime is not entered, then
+    ' OffTime = OnTime.
+
+    Sub Flash_LED (in numtimes, in OnTime as WORD, Optional OffTime as WORD = OnTime)
+        repeat numtimes
+            set LED on
+            wait OnTime ms
+            set LED OFF
+            wait OffTime ms
+        end repeat
+    End Sub</pre><p>Shown below is a working example program using a Microchip PIC 18F25K22.</p><p>Change Settings/PORTS as needed for other Chips.</p><p>Connect an LED to the LED pin via a 1K series resistor.</p><p><span class="strong"><strong>Demonstration program:</strong></span></p><pre class="screen">    #chip 18F25K22, 16
+    #define LED PORTC.1       'Led on PIN 14 via 1K resistor
+    DIR LED OUT
+    wait 1 sec
+
+    ;======== MAIN PROGRAM LOOP ================
+    Do
+       Flash_LED ( 3,250 )        '3 Flashes 250 ms equal on/off time
+       Wait 2 Sec
+       Flash_LED ( 5,250,500 )    '5 flashes On 250 ms / off 500 ms
+       Wait 2 Sec
+       Flash_LED ( 10,100 )       '10 rapid flashes
+       Wait 2 Sec
+    Loop
+    ;==========================================
+
+    Sub Flash_LED (in numtimes, in OnTime as WORD, optional OffTime as word = OnTime)
+        repeat numtimes
+            set LED on
+            wait OnTime ms
+            set LED OFF
+            wait OffTime ms
+        end repeat
+    End Sub</pre></div></body></html>

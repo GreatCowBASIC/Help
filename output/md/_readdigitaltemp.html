@@ -1,0 +1,37 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>ReadDigitalTemp</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_one_wire_devices.html" title="One Wire Devices"><link rel="prev" href="_ds18b20.html" title="DS18B20"><link rel="next" href="_readtemp.html" title="ReadTemp"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_readdigitaltemp"></a>ReadDigitalTemp</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    ReadDigitalTemp</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>Return the value of the sensor in two global variables. The following two lines must be included in the GCBASIC source file.</p><pre class="screen">    #include &lt;DS18B20.h&gt;
+    #define DQ PortC.3 ; change port configuration as required</pre><p>This method returns whole part of the sensor value in the byte variable <code class="literal">DSint</code>, the method also returns decimal part of the sensor value in the byte variable <code class="literal">DSdec</code>.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Chip Settings. Assumes the development board with with a 16F877A
+    #chip 16F877A,1
+
+    *#include &lt;DS18B20.h&gt;*
+
+    'Use LCD in 4 pin mode and define LCD pins
+    #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
+    #define LCD_RW PORTE.1
+    #define LCD_RS PORTE.0
+    #define LCD_Enable PORTE.2
+    #define LCD_DB4 PORTD.4
+    #define LCD_DB5 PORTD.5
+    #define LCD_DB6 PORTD.6
+    #define LCD_DB7 PORTD.7
+
+    ' DS18B20 port settings
+    #define DQ PortC.3
+
+    do forever
+
+        ReadDigitalTemp
+
+        ' Display the integer value of the sensor on the LCD
+        cls
+        print "Temp"
+        locate 0,8
+        print DSInt
+        print "."
+        print DSdec
+        print chr(223)+"C"
+        wait 2 s
+
+    loop</pre></div></body></html>

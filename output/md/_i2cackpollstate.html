@@ -1,0 +1,13 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>I2CAckPollState</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_i2c_software.html" title="I2C Software"><link rel="prev" href="_i2c_overview.html" title="I2C Overview"><link rel="next" href="_i2cackpoll.html" title="I2CAckpoll"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_i2cackpollstate"></a>I2CAckPollState</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">	&lt;test condition&gt; I2CAckPollState</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers except 12 bit instruction Microchip PIC microcontrollers (10F,
+12F5xx, 16F5xx chips)</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>Should only be used when I2C routines are operating in Master mode, this
+command will return the last state of the acknowledge response from a
+specific I2C device on the I2C bus.</p><p><code class="literal">I2CACKPOLL</code> sets the state of variable <code class="literal">I2CAckPollState</code>. <code class="literal">I2CAckPollState</code>
+can only read - it cannot be set.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">	 ...
+	' ACK polling removes the need to for the 24xxxxx device to have a 5ms
+	write time
+	I2CACKPOLL( eeprom_device )
+	' You check the exit state,
+	' Use I2CAckPollState to check the state of a target device
+	 ...</pre><p>Supported in &lt;I2C.H&gt;</p></div></body></html>
