@@ -1276,6 +1276,13 @@ include::DeveloperGuide.adoc[]
 
 include::DeveloperGuideForCompiler.adoc[]
 
+== GCBASIC with the AVRISP or MKII Programmer
+
+This is the GCBASIC section of the Help file that explains how to use an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10 
+
+include::attinyprogrammer.adoc[]
+
+ifdef::backend-pdf[<<<]
 
 
 
