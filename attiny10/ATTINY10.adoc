@@ -8,8 +8,9 @@
 •	After the installation is completed, open Windows Device Manager and verify the driver installation.
 •	Close Zadig
 
-![](https://sourceforge.net/p/gcbasic/discussion/579126/thread/f3411bd0fe/37b6/attachment/1%20%20-%20AVRISP%20MKII%20Zadig%20Setup.jpg
-)
+image::https://sourceforge.net/p/gcbasic/discussion/579126/thread/f3411bd0fe/37b6/attachment/1%20%20-%20AVRISP%20MKII%20Zadig%20Setup.jpg[Setup]
+{empty} +
+
 
 •	Now we need to upgrade the firmware of the AVRISP MKII.
 •	Download and Install Atmel Studio 7 from the software Informer
