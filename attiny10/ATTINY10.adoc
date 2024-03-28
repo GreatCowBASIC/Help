@@ -1,84 +1,77 @@
-*Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10*
+# **Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10**
+**AVRISP MKII Setup:**
+•	Download and install Zadig Driver Utility software https://zadig.akeo.ie/
+•	Connect the USB cable from the AVRISP MKII to your PC.
+•	Open Zadig and from the menu select Options / List All Devices.
+•	From the device list select AVRISP MKII.
+•	Select the target driver libusbK and click (Install / Replace Driver) button.
+•	After the installation is completed, open Windows Device Manager and verify the driver installation.
+•	Close Zadig
 
-*+++AVRISP MKII Setup:+++*
+![](https://sourceforge.net/p/gcbasic/discussion/579126/thread/f3411bd0fe/37b6/attachment/1%20%20-%20AVRISP%20MKII%20Zadig%20Setup.jpg
+)
 
-* Download and install Zadig Driver Utility software
-https://zadig.akeo.ie/
-* Connect the USB cable from the AVRISP MKII to your PC.
-* Open Zadig and from the menu select Options / List All Devices.
-* From the device list select AVRISP MKII.
-* Select the target driver libusbK and click (Install / Replace Driver)
-button.
-* After the installation is completed, open Windows Device Manager and
-verify the driver installation.
-* Close Zadig
+•	Now we need to upgrade the firmware of the AVRISP MKII.
+•	Download and Install Atmel Studio 7 from the software Informer
+•	https://atmel-studio.software.informer.com/7.0/#:~:text=Atmel%20Studio%207.0%20Download%20(Free)%20%2D%20atmelstudio.exe
+•	After the installation open ATMEL STUDIO 7
+•	Select Tools / Device Programming
+•	Make sure the AVRISP MKII is selected
+•	At this point ATMEL STUDIO will notify you to upgrade the firmware to version 1.8
+•	Click the Upgrade  button
+•	Once the firmware is upgraded, close ATMEL STUDIO 7
 
-image:media/image1.png[image,width=371,height=200]
+![](https://sourceforge.net/p/gcbasic/discussion/579126/thread/f3411bd0fe/37b6/attachment/2%20%20-%20ATMEL%20STUDIO.jpg)
 
-* Now we need to upgrade the firmware of the AVRISP MKII.
+**AVRISP MKII to ATTINY10 Connections:**
+•	Connect the AVRISP MKII to the ATTINY10 as show in the Diagram.
 
-* Download and Install Atmel Studio 7 from the software Informer
-* https://atmel-studio.software.informer.com/7.0/#:~:text=Atmel%20Studio%207.0%20Download%20(Free)%20%2D%20atmelstudio.exe
-* After the installation open ATMEL STUDIO 7
-* Select Tools / Device Programming
-* Make sure the AVRISP MKII is selected
-* At this point ATMEL STUDIO will notify you to upgrade the firmware to
-version 1.8
-* Click the Upgrade button
-* Once the firmware is upgraded, close ATMEL STUDIO 7
+![](https://sourceforge.net/p/gcbasic/discussion/579126/thread/f3411bd0fe/37b6/attachment/3%20%20-%20AVRISP%20MKII%20Connections.jpg
+)
 
-image:media/image2.png[image,width=613,height=195]
+**GCStudio Programmer Setup:**
+•	Open GCStudio and set the Programmers to use as show below 
+•	For AVRISP MKII use the AVR ISP XPII [KANDA] and drag it to the top of the list and click OK.
 
-*AVRISP MKII to ATTINY10 Connections:*
+![](https://sourceforge.net/p/gcbasic/discussion/579126/thread/f3411bd0fe/37b6/attachment/4%20%20-%20GCStudio%20AVRISP%20MKII%20use%20the%20AVR%20ISP%20XPII%20%5BKANDA%5D.jpg)
 
-* Connect the AVRISP MKII to the ATTINY10 as show in the Diagram.
-
-image:media/image3.png[image,width=604,height=448]
-
-AVRISP MKII Diagram
-
-*GCStudio Programmer Setup:*
-
-* Open GCStudio and set the Programmers to use as show below
-* For AVRISP MKII use the AVR ISP XPII [KANDA] and drag it to the top of
-the list and click OK.
-
-image:media/image4.png[image,width=305,height=194]
-
-____
 Now you’re ready to upload your first program to an ATTINY10.
-____
 
-*+++USBtinyISP Setup:+++*
 
-* Download and install ZADIG Driver Utility software
-https://zadig.akeo.ie/
-* Connect the USB cable from the USBtinyISP to your PC.
-* Open Zadig and from the menu select Options / List All Devices.
-* From the device list select USBtinyISP.
-* Select the target driver libusb-win32 and click (Install / Replace
-Driver) button.
-* After the installation, open Windows Device Manager and verify the
-driver installation.
-* Close ZADIG
+**USBtinyISP Setup:**
+•	Download and install ZADIG Driver Utility  software https://zadig.akeo.ie/
+•	Connect the USB cable from the USBtinyISP to your PC.
+•	Open Zadig and from the menu select Options / List All Devices.
+•	From the device list select USBtinyISP.
+•	Select the target driver libusb-win32 and click (Install / Replace Driver) button.
+•	After the installation, open Windows Device Manager and verify the driver installation.
+•	Close ZADIG
 
-image:media/image5.png[image,width=518,height=310]
+![](https://sourceforge.net/p/gcbasic/discussion/579126/thread/f3411bd0fe/37b6/attachment/5%20%20-%20USBtinyISP%20Zadig%20setup.jpg)
 
-*USBtinyISP to ATTINY10 Connections:*
+**USBtinyISP to ATTINY10 Connections:**
+•	Connect the USBtinyISP to the ATTINY10 as show in the Diagram.
 
-* Connect the USBtinyISP to the ATTINY10 as show in the Diagram.
+![](https://sourceforge.net/p/gcbasic/discussion/579126/thread/f3411bd0fe/37b6/attachment/6%20%20-%20USBtinyISP%20Copnections.jpg)
 
-image:media/image6.png[image,width=417,height=323]
+**GCStudio Programmer Setup:**
+•	Open GCStudio and set the Programmers to use as show below 
+•	Select and Drag  the Avrdude (USBtinyISP) programmer to the top of the list.
 
-*GCStudio Programmer Setup:*
-
-* Open GCStudio and set the Programmers to use as show below
-* Select and Drag the Avrdude (USBtinyISP) programmer to the top of the
-list.
-
-image:media/image7.png[image,width=462,height=291]
+![](https://sourceforge.net/p/gcbasic/discussion/579126/thread/f3411bd0fe/37b6/attachment/7%20%20-%20GCStudio%20Avrdude%20%28USBtinyISP%29.jpg)
 
 Now you’re ready to upload your first program to an ATTINY10
+•	More informations about ATTiny10 https://minisystem.blogspot.com/2012/01/programming-attiny10-with-avrisp-mkii.html
 
-* More informations about ATTiny10
-https://minisystem.blogspot.com/2012/01/programming-attiny10-with-avrisp-mkii.html
+
+
+
+
+
+
+
+
+
+
+
+
