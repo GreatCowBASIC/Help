@@ -164,7 +164,7 @@ Select the drop down menu to see the menu
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
 <entry align="center" valign="top"><simpara>2024-03-28<?asciidoc-br?>
-12:20:31 GMT Standard Time</simpara></entry>
+17:31:50 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
@@ -40852,16 +40852,7 @@ The list shows the installation of the Sharp Develop IDE.</simpara>
 <simpara><emphasis role="strong">USBtinyISP Setup:</emphasis></simpara>
 <itemizedlist>
 <listitem>
-<simpara>Download and install ZADIG Driver Utility  software <link xlink:href="https://zadig.akeo.ie/">https://zadig.akeo.ie/</link></simpara>
-</listitem>
-<listitem>
-<simpara>Connect the USB cable from the USBtinyISP to your PC.</simpara>
-</listitem>
-<listitem>
-<simpara>Open Zadig and from the menu select Options / List All Devices.</simpara>
-</listitem>
-<listitem>
-<simpara>From the device list select USBtinyISP.</simpara>
+<simpara>From Zadig select USBtinyISP in the device list.</simpara>
 </listitem>
 <listitem>
 <simpara>Select the target driver libusb-win32 and click (Install / Replace Driver) button.</simpara>

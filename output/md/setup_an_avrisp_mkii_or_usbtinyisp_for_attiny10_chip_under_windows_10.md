@@ -124,11 +124,7 @@ Now you’re ready to upload your first program to an ATTINY10.
 
 <div class="itemizedlist">
 
--   Download and install ZADIG Driver Utility software
-    <https://zadig.akeo.ie/>
--   Connect the USB cable from the USBtinyISP to your PC.
--   Open Zadig and from the menu select Options / List All Devices.
--   From the device list select USBtinyISP.
+-   From Zadig select USBtinyISP in the device list.
 -   Select the target driver libusb-win32 and click (Install / Replace
     Driver) button.
 -   After the installation, open Windows Device Manager and verify the
