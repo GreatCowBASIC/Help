@@ -790,13 +790,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-28<br>
-17:31:53 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-04-28<br>
+11:33:48 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-28<br>
-11:43:02 GMT Standard Time</p></td>
+12:43:02 GMT Standard Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -2497,6 +2497,9 @@ GCBASIC supports the following core libraries.   These libraries are automatical
 </div>
 <div class="paragraph">
 <p>Chris Roper for the bitwise methods including the library including FnEquBit, FnNotBit, FnlslBit, FnlsrBit, SetWith and 47xxx.</p>
+</div>
+<div class="paragraph">
+<p>Jberg2024 for the adaption of the Software Serial routines to improve usage.</p>
 </div>
 <div class="paragraph">
 <p>Angel Mier for the USB driver installation</p>
@@ -35580,6 +35583,15 @@ Sample:  #define SER1_RXNOWAIT On</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Optional
 Default = Off</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SER1_TXDELAY,
+SER2_TXDELAY,
+SER3_TXDELAY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">These are used to define, if SerNSend waits for the defined milleseconds after sending a byte of serial data. This is useful when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1..255</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional
+Default =0</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -56841,7 +56853,7 @@ The list shows the installation of the Sharp Develop IDE.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-28 11:43:02 GMT Standard Time
+Last updated 2024-03-28 12:43:02 GMT Standard Time
 </div>
 </div>
 </body>

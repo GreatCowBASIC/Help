@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-03-28<?asciidoc-br?>
-17:31:50 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-04-28<?asciidoc-br?>
+11:33:45 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
 <entry align="center" valign="top"><simpara>2024-03-28<?asciidoc-br?>
-11:43:02 GMT Standard Time</simpara></entry>
+12:43:02 GMT Standard Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -1300,6 +1300,7 @@ GCBASIC supports the following core libraries.   These libraries are automatical
 <simpara>William Roth for the LCD code and supporting diagrams.</simpara>
 <simpara>Theo Loermans for the revised LCD sections and the serial library.</simpara>
 <simpara>Chris Roper for the bitwise methods including the library including FnEquBit, FnNotBit, FnlslBit, FnlsrBit, SetWith and 47xxx.</simpara>
+<simpara>Jberg2024 for the adaption of the Software Serial routines to improve usage.</simpara>
 <simpara>Angel Mier for the USB driver installation</simpara>
 <simpara><emphasis role="strong">Conversion of asciidoctor documentation files</emphasis>:</simpara>
 <simpara>See the <link xlink:href="http://asciidoctor.org/">asciidoctor Web site</link> and the <link xlink:href="http://discuss.asciidoctor.org/">support forum</link>.</simpara>
@@ -26185,6 +26186,15 @@ Sample:  #define SER1_RXNOWAIT On</simpara></entry>
 <entry align="left" valign="top"><simpara>On, Off</simpara></entry>
 <entry align="left" valign="top"><simpara>Optional
 Default = Off</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>SER1_TXDELAY,
+SER2_TXDELAY,
+SER3_TXDELAY</simpara></entry>
+<entry align="left" valign="top"><simpara>These are used to define, if SerNSend waits for the defined milleseconds after sending a byte of serial data. This is useful when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.</simpara></entry>
+<entry align="left" valign="top"><simpara>1..255</simpara></entry>
+<entry align="left" valign="top"><simpara>Optional
+Default =0</simpara></entry>
 </row>
 </tbody>
 </tgroup>

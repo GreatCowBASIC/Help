@@ -59,6 +59,9 @@ Theo Loermans for the revised LCD sections and the serial library.
 Chris Roper for the bitwise methods including the library including
 FnEquBit, FnNotBit, FnlslBit, FnlsrBit, SetWith and 47xxx.
 
+Jberg2024 for the adaption of the Software Serial routines to improve
+usage.
+
 Angel Mier for the USB driver installation
 
 <span class="strong">**Conversion of asciidoctor documentation
