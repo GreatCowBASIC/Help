@@ -51,7 +51,7 @@ They all had one thing in common - improvements to the GCBASIC compiler.
 
 In 2021 we are still having new developers join the project like ToniG adding a new capability for handling Tables.
 
-In 2023 we renamed to GCBASIC.&#160;&#160;The Cow is no more.
+In 2023 we renamed to GCBASIC.&#160;&#160;The Cow is now deadbeef ... a hex number .. :-).
 
 {empty} +
 {empty} +
@@ -456,8 +456,36 @@ The resulting ASM from the about code is as expected.&#160;&#160;The assignment 
 ----
 
 {empty} +
+
+=== ABOUT GLCD Library Support
+
+The GLCD capability supports over 40 GLCDs.&#160;&#160;GCBASIC loads automatically the specific library required.&#160;&#160;The loading of the specific library(ies) by the compiler improves performance and significantly reduces the compilation time.
+
+The GLCD libraries, that are automatically loaded, are controlled by the use of an incude statement in the use program `#include <glcd.h>` with a constant to define the specific GLCD driver to be loaded `#define GLCD_TYPE GLCD_TYPE_SSD1289`.
+
+The process the compiler uses the file `include\glcd.dat`.&#160;&#160;The `glcd.dat` has a strict format where the row index has parameters as shown below.
+
+
+----
+    
+    Format. This is strict. 
+    
+    Usea comma delimiter; single quote to a comment line; amperand to group libraries. No other format controls permitted.
+    
+    For each row.
+
+        Index, glcd type, library[[&library]&library] 
+        
+        Index =   the reference number from GLCD.H. There is a unique reference number per type of glcd.
+        Type  =   the type. per type of glcd. must match those definition in GLCD.H
+                    this is use as the search/match in the constant `GLCD_TYPE` in user source program 
+                    this is not case sensitive
+        Library = library to be loaded, or, group of dependent libraries
+                    delimiter must be '&'
+----
+
 {empty} +
-{empty} +
+
 
 === Development Guide for GCBASIC Preferences Editor
 

@@ -37,6 +37,10 @@ GLCDMakeTable (XSTARTPOS, YSTARTPOS, CELLW, CELLH, NUMOFCOLS, NUMOFROWS, 1, 3, 3
     GLCDSetBackgroundColor ( TFT_WHITE )
     LT7686_PWM_DUTY ( 100 )
 
+    wait 2 s
+
+    Randomize READAD( AN0 )
+    
     Do
 
         //  Generate some random numbers to select color, and which table cell
@@ -64,5 +68,6 @@ GLCDMakeTable (XSTARTPOS, YSTARTPOS, CELLW, CELLH, NUMOFCOLS, NUMOFROWS, 1, 3, 3
         end if
 
         FilledBox ( posx + XSTARTPOS + 2, posy + YSTARTPOS + 2, posx + XSTARTPOS + CELLW - 2 , posy + YSTARTPOS + CELLH - 2 , randomcolor )
+        // FramedFilledbox ( posx + XSTARTPOS + 2, posy + YSTARTPOS + 2, posx + XSTARTPOS + CELLW - 2 , posy + YSTARTPOS + CELLH - 2 , 2, TFT_BLACK, randomcolor )
 
     Loop

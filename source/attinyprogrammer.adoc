@@ -1,6 +1,11 @@
 === Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10
 
-*AVRISP MKII Setup:*
+*AVRISP MKII Windows Driver Validation/Changing*
+
+When using the AVRDUDE, which is used as part of the GCBASIC toolchain, you need to ensure these programmers are operating with the correct Windows device driver.&#160;&#160;
+The Windows driver must be `libusbK` not `libusb or libusb-win32` Windows driver.
+
+You must ensure the Windows driver is `libusbK`.&#160;&#160;Using the utility Zadig enables changing the Windows device driver to `libusbK`.
 
 
 * Download and install Zadig Driver Utility software https://zadig.akeo.ie/
@@ -14,17 +19,20 @@ After the installation is completed, open Windows Device Manager and verify the 
 Close Zadig
 
 image::1%20%20-%20AVRISP%20MKII%20Zadig%20Setup.png[Setup]
-{empty} +
+
+NOTE: If you use ATMEL Studio you must ensure the Windows device driver is `libusb or libusb-win32`.
+
+NOTE: If you use AVRDUDE then uou must ensure the Windows device driver is `libusbK`.
 
 
 
 Next in the process is to upgrade the firmware of the AVRISP MKII.
 
+*Option 1:*
+
 This process shows the installation of Atmel Studio 7, however, you may have to use Atmel Studio 6 because of operation system constraint.
 
-Download and Install Atmel Studio 7 from the GCBASIC file store
-
-https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/
+Download and Install Atmel Studio 7 from the GCBASIC file store https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/[here]
 
 After the installation open ATMEL STUDIO 7
 
@@ -37,6 +45,21 @@ After the installation open ATMEL STUDIO 7
 image::2%20%20-%20ATMEL%20STUDIO.png[Studio]
 {empty} +
 {empty} +
+
+*Option 2:*
+
+To update the firmware please, follow the steps listed below
+
+* Connect the programmer to the USB and with a sharp object (needle or pin) press the upgrade pin - it is in a small hole at the back of the board (this will start the bootloader and will turn off the LED, it will also probably show a new unrecognized device in the device manager for which we will install drivers in step 3)
+* Download and install the latest version of "Atmel Flip" software (it can be downloaded from the Atmel's web-site, or from the GCBASIC file store https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/[here] )
+* Open its install folder and update the software of the unrecognized device (usually under the "Other devices" tab) with the drivers from folder named "usb"; the device should now be recognized as AT90USB162 under "libusb-win32" tab
+* Start "Atmel FLIP" and click "Select a target device" -> choose AT90USB162
+* Click "Select a Communication Medium" and then USB medium
+* Download the firware and unpack https://www.olimex.com/Products/AVR/Programmers/AVR-ISP-MK2/resources/AVR456-studio-AVRISP-MKII.zip[Olimex website] or the GCBASIC files store https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/[here]
+* From "File -> load HEX file" choose the latest HEX and click "RUN" in the "Operations Flow" section
+* Disconnect the AVR-ISP-MK2 from the USB and connect it again
+
+
 
 *AVRISP MKII to ATTINY10 Connections:*
 

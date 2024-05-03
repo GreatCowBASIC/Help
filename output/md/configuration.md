@@ -14,13 +14,12 @@
 
 </div>
 
-<span class="strong">**About Configuration**</span>
+<span class="strong">**About Microcontroller Configuration**</span>
 
-<span class="emphasis">*(Note: This section does not apply to Atmel AVR
-microcontrollers. Atmel AVR microcontrollers do have a similar
-configuration settings, but they are controlled through "Configuration
-Fuses". GCBASIC cannot set these - you MUST use the programmer
-software.)*</span>
+<span class="strong">**For PICs**</span>
+
+This section applies to Microchip PIC microcontrollers.  For AVR and LGT
+microcontrollers see the sections below.
 
 Every Microchip PIC has a CONFIG word. This is an area of memory on the
 chip that stores settings which govern the operation of the chip.
@@ -90,7 +89,67 @@ needed. For example, if the Watchdog Timer is needed, adding the line
 This will enable the watchdog timer, without affecting any other
 configuration settings.
 
+<span class="strong">**For AVR**</span>
+
+This section applies to Atmel AVR microcontrollers.   Generally, Atmel
+AVR microcontrollers do have a similar configuration settings, but they
+are controlled through "Configuration Fuses". GCBASIC cannot set these -
+you MUST use the programmer software.
+
+The exception to the general case are the ATTiny4-5-9-10 and
+ATTiny102-104.   These microcontrollers have software selectable
+frequencies for the following frequencies:
+
+``` literallayout
+ChipMHz 8
+ChipMHz 4
+ChipMHz 2
+ChipMHz 1
+ChipMHz 0.5
+ChipMHz 0.25
+ChipMHz 0.125
+ChipMHz 0.0625
+ChipMHz 0.03125
+```
+
+Therefore, you can use ( an example )
+
+``` screen
+    #chip tiny10, 0.25
+```
+
+  
+
+<span class="strong">**For LGT**</span>
+
+This section applies to LGT microcontrollers.
+
+All LGT microcontroller have software selectable frequencies for the
+following frequencies:
+
+``` literallayout
+ChipMHz 8
+ChipMHz 4
+ChipMHz 2
+ChipMHz 1
+ChipMHz 0.5
+ChipMHz 0.25
+ChipMHz 0.125
+ChipMHz 0.0625
+ChipMHz 0.03125
+```
+
+Therefore, you can use ( an example )
+
+``` screen
+    #chip #chip LGT8F328P, 0.25
+```
+
+  
+
 <span class="strong">**Using Configuration**</span>
+
+For PICs only.
 
 Once the necessary CONFIG options have been determined, adding them to
 the program is easy. On a new line type "\#config" and then list the

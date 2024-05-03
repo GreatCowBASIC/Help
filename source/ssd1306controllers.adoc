@@ -21,6 +21,7 @@ The SSD1306 can operate in three modes. Full GLCD mode, Low Memory GLCD mode or 
 
 To use the SSD1306 drivers simply include one of the following configuration.  You can select Full Mode GLCD, Low Memory Mode GLCD or Text mode these require 1024, 128 or 0 byte GLCD buffer respectively - you microcontroller requires sufficient RAM to support the selected mode of GLCD operation.
 
+Performance of the SSD1306 has been validated at 16Mhz and 400Hz I2C baud.&#160;&#160;Using other frequencies should be fully tested. 
 
 ----
     'An I2C configuration

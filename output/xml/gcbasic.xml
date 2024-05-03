@@ -163,8 +163,8 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-04-28<?asciidoc-br?>
-11:33:45 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-04-30<?asciidoc-br?>
+07:11:21 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
@@ -1724,11 +1724,9 @@ Where <literal>PORTx.n = uservar</literal> can be used and therefore to write to
 </section>
 <section xml:id="_configuration">
 <title>Configuration</title>
-<simpara><emphasis role="strong">About Configuration</emphasis></simpara>
-<simpara><emphasis>(Note: This section does not apply to Atmel AVR microcontrollers. Atmel AVR microcontrollers
-do have a similar configuration settings, but they are controlled
-through "Configuration Fuses". GCBASIC cannot set these -
-you MUST use the programmer software.)</emphasis></simpara>
+<simpara><emphasis role="strong">About Microcontroller Configuration</emphasis></simpara>
+<simpara><emphasis role="strong">For PICs</emphasis></simpara>
+<simpara>This section applies to Microchip PIC microcontrollers.&#160;&#160;For AVR and LGT microcontrollers see the sections below.</simpara>
 <simpara>Every Microchip PIC has a CONFIG word. This is an area of memory on the chip
 that stores settings which govern the operation of the chip.</simpara>
 <simpara>The following asects of the chip are governed by the CONFIG word:</simpara>
@@ -1794,7 +1792,41 @@ needed. For example, if the Watchdog Timer is needed, adding the line</simpara>
 <screen>    #config WDT = ON</screen>
 <simpara>This will enable the watchdog timer, without affecting any other
 configuration settings.</simpara>
+<simpara><emphasis role="strong">For AVR</emphasis></simpara>
+<simpara>This section applies to Atmel AVR microcontrollers.&#160;&#160; Generally, Atmel AVR microcontrollers
+do have a similar configuration settings, but they are controlled
+through "Configuration Fuses". GCBASIC cannot set these -
+you MUST use the programmer software.</simpara>
+<simpara>The exception to the general case are the ATTiny4-5-9-10 and ATTiny102-104.  &#160;&#160;These microcontrollers have software selectable frequencies for the following frequencies:</simpara>
+<literallayout class="monospaced">ChipMHz 8
+ChipMHz 4
+ChipMHz 2
+ChipMHz 1
+ChipMHz 0.5
+ChipMHz 0.25
+ChipMHz 0.125
+ChipMHz 0.0625
+ChipMHz 0.03125</literallayout>
+<simpara>Therefore, you can use ( an example )</simpara>
+<screen>    #chip tiny10, 0.25</screen>
+<simpara><?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">For LGT</emphasis></simpara>
+<simpara>This section applies to LGT microcontrollers.</simpara>
+<simpara>All LGT microcontroller have software selectable frequencies for the following frequencies:</simpara>
+<literallayout class="monospaced">ChipMHz 8
+ChipMHz 4
+ChipMHz 2
+ChipMHz 1
+ChipMHz 0.5
+ChipMHz 0.25
+ChipMHz 0.125
+ChipMHz 0.0625
+ChipMHz 0.03125</literallayout>
+<simpara>Therefore, you can use ( an example )</simpara>
+<screen>    #chip #chip LGT8F328P, 0.25</screen>
+<simpara><?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">Using Configuration</emphasis></simpara>
+<simpara>For PICs only.</simpara>
 <simpara>Once the necessary CONFIG options have been determined, adding them to
 the program is easy. On a new line type "#config" and then list the
 desired options separated by commas, such as in this line:</simpara>
@@ -40319,7 +40351,7 @@ No-one else had that name, it had no meanings that could offend, and it was some
 Some those that joined in drove changes to the compiler, some changed the source code, some built tools and some built libraries.&#160;&#160;
 They all had one thing in common - improvements to the GCBASIC compiler.</simpara>
 <simpara>In 2021 we are still having new developers join the project like ToniG adding a new capability for handling Tables.</simpara>
-<simpara>In 2023 we renamed to GCBASIC.&#160;&#160;The Cow is no more.</simpara>
+<simpara>In 2023 we renamed to GCBASIC.&#160;&#160;The Cow is now deadbeef &#8230;&#8203; a hex number .. :-).</simpara>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">THE COMPILER</emphasis></simpara>
@@ -40641,9 +40673,28 @@ This compiler is completing the following actions:&#160;&#160;</simpara>
         ;Loop
             bra	SysDoLoop_S1
         SysDoLoop_E1</screen>
-<simpara><?asciidoc-br?>
-<?asciidoc-br?>
-<?asciidoc-br?></simpara>
+<simpara><?asciidoc-br?></simpara>
+</section>
+<section xml:id="_about_glcd_library_support">
+<title>ABOUT GLCD Library Support</title>
+<simpara>The GLCD capability supports over 40 GLCDs.&#160;&#160;GCBASIC loads automatically the specific library required.&#160;&#160;The loading of the specific library(ies) by the compiler improves performance and significantly reduces the compilation time.</simpara>
+<simpara>The GLCD libraries, that are automatically loaded, are controlled by the use of an incude statement in the use program <literal>#include &lt;glcd.h&gt;</literal> with a constant to define the specific GLCD driver to be loaded <literal>#define GLCD_TYPE GLCD_TYPE_SSD1289</literal>.</simpara>
+<simpara>The process the compiler uses the file <literal>include\glcd.dat</literal>.&#160;&#160;The <literal>glcd.dat</literal> has a strict format where the row index has parameters as shown below.</simpara>
+<screen>    Format. This is strict.
+
+    Usea comma delimiter; single quote to a comment line; amperand to group libraries. No other format controls permitted.
+
+    For each row.
+
+        Index, glcd type, library[[&amp;library]&amp;library]
+
+        Index =   the reference number from GLCD.H. There is a unique reference number per type of glcd.
+        Type  =   the type. per type of glcd. must match those definition in GLCD.H
+                    this is use as the search/match in the constant `GLCD_TYPE` in user source program
+                    this is not case sensitive
+        Library = library to be loaded, or, group of dependent libraries
+                    delimiter must be '&amp;'</screen>
+<simpara><?asciidoc-br?></simpara>
 </section>
 <section xml:id="_development_guide_for_gcbasic_preferences_editor">
 <title>Development Guide for GCBASIC Preferences Editor</title>

@@ -1,11 +1,10 @@
 === Configuration
 
-*About Configuration*
+*About Microcontroller Configuration*
 
-_(Note: This section does not apply to Atmel AVR microcontrollers. Atmel AVR microcontrollers
-do have a similar configuration settings, but they are controlled
-through "Configuration Fuses". GCBASIC cannot set these -
-you MUST use the programmer software.)_
+**For PICs**
+
+This section applies to Microchip PIC microcontrollers.&#160;&#160;For AVR and LGT microcontrollers see the sections below.
 
 Every Microchip PIC has a CONFIG word. This is an area of memory on the chip
 that stores settings which govern the operation of the chip.
@@ -53,7 +52,60 @@ needed. For example, if the Watchdog Timer is needed, adding the line
 This will enable the watchdog timer, without affecting any other
 configuration settings.
 
+**For AVR**
+
+This section applies to Atmel AVR microcontrollers.&#160;&#160; Generally, Atmel AVR microcontrollers
+do have a similar configuration settings, but they are controlled
+through "Configuration Fuses". GCBASIC cannot set these -
+you MUST use the programmer software.
+
+The exception to the general case are the ATTiny4-5-9-10 and ATTiny102-104.  &#160;&#160;These microcontrollers have software selectable frequencies for the following frequencies:
+
+    ChipMHz 8
+    ChipMHz 4
+    ChipMHz 2
+    ChipMHz 1
+    ChipMHz 0.5
+    ChipMHz 0.25
+    ChipMHz 0.125
+    ChipMHz 0.0625
+    ChipMHz 0.03125
+
+Therefore, you can use ( an example )
+
+----
+    #chip tiny10, 0.25
+----
+{empty} +
+
+
+**For LGT**
+
+This section applies to LGT microcontrollers. 
+
+All LGT microcontroller have software selectable frequencies for the following frequencies:
+
+    ChipMHz 8
+    ChipMHz 4
+    ChipMHz 2
+    ChipMHz 1
+    ChipMHz 0.5
+    ChipMHz 0.25
+    ChipMHz 0.125
+    ChipMHz 0.0625
+    ChipMHz 0.03125
+
+Therefore, you can use ( an example )
+
+----
+    #chip #chip LGT8F328P, 0.25
+----
+{empty} +
+
+
 *Using Configuration*
+
+For PICs only.
 
 Once the necessary CONFIG options have been determined, adding them to
 the program is easy. On a new line type "#config" and then list the

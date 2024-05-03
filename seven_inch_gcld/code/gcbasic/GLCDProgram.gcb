@@ -118,15 +118,15 @@
     // end of hardware setup
 
 // Inserts
-    #insert "009_GLCDProgram.gcb"    // Tests lots of primitiv
+    // #insert "009_GLCDProgram.gcb"    // Tests lots of primitives
     // #insert "010_GLCDProgram.gcb"    // Show GCBASIC logo
     // #insert "011_GLCDProgram.gcb"    // Show GCBASIC test screen
     // #insert "012_GLCDProgram.gcb"    // Show Framed primitives
     // #insert "014_GLCDProgram.gcb"    // Shows all the colors and PWM control on ADC0
     // #insert "015_GLCDProgram.gcb"    // Shows ADC values on a table
     // #insert "016_GLCDProgram.gcb"    // Rotate.. or, lack of ROTATE!!!
-    // #insert "017_GLCDProgram.gcb"    // Shows super computer
+    #insert "017_GLCDProgram.gcb"    // Shows super computer
     // #insert "018_GLCDProgram.gcb"    // Shows color strips.
     // #insert "019_GLCDProgram.gcb"    // Shows Elite Galaxy
-    #insert "020_GLCDProgram.gcb"      //Meter for Steve
-        #include <trig2places.h>
+    // #insert "020_GLCDProgram.gcb"      //Meter for Steve
+        // #include <trig2places.h>

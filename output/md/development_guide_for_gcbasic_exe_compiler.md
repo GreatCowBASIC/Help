@@ -90,7 +90,8 @@ improvements to the GCBASIC compiler.
 In 2021 we are still having new developers join the project like ToniG
 adding a new capability for handling Tables.
 
-In 2023 we renamed to GCBASIC.  The Cow is no more.
+In 2023 we renamed to GCBASIC.  The Cow is now deadbeef …​ a hex number
+.. :-).
 
   
   
@@ -535,8 +536,6 @@ The resulting ASM from the about code is as expected.  The assignment of
         SysDoLoop_E1
 ```
 
-  
-  
   
 
 </div>
