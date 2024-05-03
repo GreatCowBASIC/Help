@@ -1,6 +1,9 @@
-=== Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10
+=== Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 
 
 *AVRISP MKII Windows Driver Validation/Changing*
+
+
+Windows 10 and 11 tested.
 
 When using the AVRDUDE, which is used as part of the GCBASIC toolchain, you need to ensure these programmers are operating with the correct Windows device driver.&#160;&#160;
 The Windows driver must be `libusbK` not `libusb or libusb-win32` Windows driver.
@@ -48,7 +51,7 @@ image::2%20%20-%20ATMEL%20STUDIO.png[Studio]
 
 *Option 2:*
 
-To update the firmware please, follow the steps listed below
+To update the firmware please, follow the steps listed below.  
 
 * Connect the programmer to the USB and with a sharp object (needle or pin) press the upgrade pin - it is in a small hole at the back of the board (this will start the bootloader and will turn off the LED, it will also probably show a new unrecognized device in the device manager for which we will install drivers in step 3)
 * Download and install the latest version of "Atmel Flip" software (it can be downloaded from the Atmel's web-site, or from the GCBASIC file store https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/[here] )
@@ -59,6 +62,7 @@ To update the firmware please, follow the steps listed below
 * From "File -> load HEX file" choose the latest HEX and click "RUN" in the "Operations Flow" section
 * Disconnect the AVR-ISP-MK2 from the USB and connect it again
 
+For more information about AVR-ISP-MK2 see this guide http://gcbasic.sourceforge.net/library/AVR-ISP-MK2-OpenSourceHardwareBoard.pdf[here]
 
 
 *AVRISP MKII to ATTINY10 Connections:*
@@ -119,8 +123,7 @@ image::7%20%20-%20GCStudio%20Avrdude%20%28USBtinyISP%29.png[]
 Now you are ready to upload your first program to an ATTINY10
 
 
-More informations about ATTiny10 see http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[]
-
+For more informations about ATTiny10 see this guide http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[here]
 
 {empty} +
 {empty} +
