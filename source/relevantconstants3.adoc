@@ -131,7 +131,25 @@ Default = Off
 |SER1_TXDELAY,
 SER2_TXDELAY,
 SER3_TXDELAY
-|These are used to define, if SerNSend waits for the defined milleseconds after sending a byte of serial data. This is useful when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.
+|These are used to define, if SerNSend waits for the defined milliseconds after sending a byte of serial data. This is useful when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.
+
+|1..255
+|Optional
+Default =0
+
+|SER1_TXDELAYms,
+SER2_TXDELAYms,
+SER3_TXDELAYms
+|These are used to define, if SerNSend waits for the defined milliseconds after sending a byte of serial data. This is useful when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.  Same functionality as SERn_TXDELAY
+
+|1..255
+|Optional
+Default =0
+
+|SER1_TXDELAYus,
+SER2_TXDELAYus,
+SER3_TXDELAYus
+|These are used to define, if SerNSend waits for the defined nanoseconds after sending a byte of serial data. This is useful when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.
 
 |1..255
 |Optional
