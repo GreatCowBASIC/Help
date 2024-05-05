@@ -55,6 +55,9 @@ Text mode these require 1024, 128 or 0 byte GLCD buffer respectively -
 you microcontroller requires sufficient RAM to support the selected mode
 of GLCD operation.
 
+Performance of the SSD1306 has been validated at 16Mhz and 400Hz I2C
+baud.  Using other frequencies should be fully tested.
+
 ``` screen
     'An I2C configuration
     #include <glcd.h>

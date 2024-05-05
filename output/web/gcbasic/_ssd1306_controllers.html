@@ -16,7 +16,7 @@
       <link rel="next" href="_ssd1331_controllers.html" title="SSD1331 Controllers" />
       <meta name="Section-title" content="SSD1306 Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-55136";
+            var treeCookieId = "treeview-55236";
             var language = "en";
             var w = new Object();
             //Localization
@@ -206,7 +206,8 @@ border: none; background: none; font-weight: none; color: none; }
             <p>To use the SSD1306 drivers simply include one of the following configuration.  You can select Full Mode GLCD, Low Memory Mode
                GLCD or Text mode these require 1024, 128 or 0 byte GLCD buffer respectively - you microcontroller requires sufficient RAM
                to support the selected mode of GLCD operation.
-            </p><pre class="screen">    'An I2C configuration
+            </p>
+            <p>Performance of the SSD1306 has been validated at 16Mhz and 400Hz I2C baud.  Using other frequencies should be fully tested.</p><pre class="screen">    'An I2C configuration
     #include &lt;glcd.h&gt;
 
     ; ----- Define GLCD Hardware settings
@@ -1798,7 +1799,7 @@ border: none; background: none; font-weight: none; color: none; }
                            </ul>
                         </li>
                         <li><span class="file"><a href="_gcbasic_with_the_avrisp_or_mkii_programmer.html" tabindex="1">GCBASIC with the AVRISP or MKII Programmer</a></span><ul>
-                              <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows_10.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10</a></span></li>
+                              <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</a></span></li>
                            </ul>
                         </li>
                      </ul>

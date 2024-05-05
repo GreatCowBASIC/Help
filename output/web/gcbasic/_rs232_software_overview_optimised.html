@@ -16,7 +16,7 @@
       <link rel="next" href="_sernsend.html" title="SerNSend" />
       <meta name="Section-title" content="RS232 Software Overview - Optimised" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-55136";
+            var treeCookieId = "treeview-55236";
             var language = "en";
             var w = new Object();
             //Localization
@@ -446,7 +446,49 @@ border: none; background: none; font-weight: none; color: none; }
                            </p>
                         </td>
                         <td align="left" valign="top">
-                           <p>These are used to define, if SerNSend waits for the defined milleseconds after sending a byte of serial data. This is useful
+                           <p>These are used to define, if SerNSend waits for the defined milliseconds after sending a byte of serial data. This is useful
+                              when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>1..255</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Optional
+                              Default =0
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>SER1_TXDELAYms,
+                              SER2_TXDELAYms,
+                              SER3_TXDELAYms
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>These are used to define, if SerNSend waits for the defined milliseconds after sending a byte of serial data. This is useful
+                              when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.  Same functionality as SERn_TXDELAY
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>1..255</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Optional
+                              Default =0
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>SER1_TXDELAYus,
+                              SER2_TXDELAYus,
+                              SER3_TXDELAYus
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>These are used to define, if SerNSend waits for the defined nanoseconds after sending a byte of serial data. This is useful
                               when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.
                            </p>
                         </td>
@@ -1153,7 +1195,7 @@ border: none; background: none; font-weight: none; color: none; }
                            </ul>
                         </li>
                         <li><span class="file"><a href="_gcbasic_with_the_avrisp_or_mkii_programmer.html" tabindex="1">GCBASIC with the AVRISP or MKII Programmer</a></span><ul>
-                              <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows_10.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10</a></span></li>
+                              <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</a></span></li>
                            </ul>
                         </li>
                      </ul>

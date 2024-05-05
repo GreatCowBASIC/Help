@@ -593,7 +593,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_gcbasic_with_the_avrisp_or_mkii_programmer">GCBASIC with the AVRISP or MKII Programmer</a>
 <ul class="sectlevel2">
-<li><a href="#_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows_10">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10</a></li>
+<li><a href="#_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</a></li>
 </ul>
 </li>
 </ul>
@@ -791,8 +791,8 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-04-30<br>
-07:11:24 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-05-05<br>
+09:07:13 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
@@ -20617,6 +20617,9 @@ Parameter is dim value</p></td>
 <div class="paragraph">
 <p>To use the SSD1306 drivers simply include one of the following configuration.  You can select Full Mode GLCD, Low Memory Mode GLCD or Text mode these require 1024, 128 or 0 byte GLCD buffer respectively - you microcontroller requires sufficient RAM to support the selected mode of GLCD operation.</p>
 </div>
+<div class="paragraph">
+<p>Performance of the SSD1306 has been validated at 16Mhz and 400Hz I2C baud.&#160;&#160;Using other frequencies should be fully tested.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre>    'An I2C configuration
@@ -35660,7 +35663,25 @@ Default = Off</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SER1_TXDELAY,
 SER2_TXDELAY,
 SER3_TXDELAY</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">These are used to define, if SerNSend waits for the defined milleseconds after sending a byte of serial data. This is useful when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">These are used to define, if SerNSend waits for the defined milliseconds after sending a byte of serial data. This is useful when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1..255</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional
+Default =0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SER1_TXDELAYms,
+SER2_TXDELAYms,
+SER3_TXDELAYms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">These are used to define, if SerNSend waits for the defined milliseconds after sending a byte of serial data. This is useful when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.  Same functionality as SERn_TXDELAY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1..255</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional
+Default =0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SER1_TXDELAYus,
+SER2_TXDELAYus,
+SER3_TXDELAYus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">These are used to define, if SerNSend waits for the defined nanoseconds after sending a byte of serial data. This is useful when using SerNPrint or SerNSend to a serial device that needs processing time between bytes.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1..255</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Optional
 Default =0</p></td>
@@ -56764,9 +56785,19 @@ The list shows the installation of the Sharp Develop IDE.</p>
 <p>This is the GCBASIC section of the Help file that explains how to use an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10</p>
 </div>
 <div class="sect2">
-<h3 id="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows_10">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10</h3>
+<h3 id="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</h3>
 <div class="paragraph">
-<p><strong>AVRISP MKII Setup:</strong></p>
+<p><strong>AVRISP MKII Windows Driver Validation/Changing</strong></p>
+</div>
+<div class="paragraph">
+<p>Windows 10 and 11 tested.</p>
+</div>
+<div class="paragraph">
+<p>When using the AVRDUDE, which is used as part of the GCBASIC toolchain, you need to ensure these programmers are operating with the correct Windows device driver.&#160;&#160;
+The Windows driver must be <code>libusbK</code> not <code>libusb or libusb-win32</code> Windows driver.</p>
+</div>
+<div class="paragraph">
+<p>You must ensure the Windows driver is <code>libusbK</code>.&#160;&#160;Using the utility Zadig enables changing the Windows device driver to <code>libusbK</code>.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -56798,20 +56829,41 @@ The list shows the installation of the Sharp Develop IDE.</p>
 <img src="./images/1%20%20-%20AVRISP%20MKII%20Zadig%20Setup.png" alt="Setup">
 </div>
 </div>
-<div class="paragraph">
-<p><br></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If you use ATMEL Studio you must ensure the Windows device driver is <code>libusb or libusb-win32</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If you use AVRDUDE then uou must ensure the Windows device driver is <code>libusbK</code>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Next in the process is to upgrade the firmware of the AVRISP MKII.</p>
 </div>
 <div class="paragraph">
+<p><strong>Option 1:</strong></p>
+</div>
+<div class="paragraph">
 <p>This process shows the installation of Atmel Studio 7, however, you may have to use Atmel Studio 6 because of operation system constraint.</p>
 </div>
 <div class="paragraph">
-<p>Download and Install Atmel Studio 7 from the GCBASIC file store</p>
-</div>
-<div class="paragraph">
-<p><a href="https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/" class="bare">https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/</a></p>
+<p>Download and Install Atmel Studio 7 from the GCBASIC file store <a href="https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/">here</a></p>
 </div>
 <div class="paragraph">
 <p>After the installation open ATMEL STUDIO 7</p>
@@ -56843,6 +56895,43 @@ The list shows the installation of the Sharp Develop IDE.</p>
 <div class="paragraph">
 <p><br>
 <br></p>
+</div>
+<div class="paragraph">
+<p><strong>Option 2:</strong></p>
+</div>
+<div class="paragraph">
+<p>To update the firmware please, follow the steps listed below.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Connect the programmer to the USB and with a sharp object (needle or pin) press the upgrade pin - it is in a small hole at the back of the board (this will start the bootloader and will turn off the LED, it will also probably show a new unrecognized device in the device manager for which we will install drivers in step 3)</p>
+</li>
+<li>
+<p>Download and install the latest version of "Atmel Flip" software (it can be downloaded from the Atmel&#8217;s web-site, or from the GCBASIC file store <a href="https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/">here</a> )</p>
+</li>
+<li>
+<p>Open its install folder and update the software of the unrecognized device (usually under the "Other devices" tab) with the drivers from folder named "usb"; the device should now be recognized as AT90USB162 under "libusb-win32" tab</p>
+</li>
+<li>
+<p>Start "Atmel FLIP" and click "Select a target device" &#8594; choose AT90USB162</p>
+</li>
+<li>
+<p>Click "Select a Communication Medium" and then USB medium</p>
+</li>
+<li>
+<p>Download the firware and unpack <a href="https://www.olimex.com/Products/AVR/Programmers/AVR-ISP-MK2/resources/AVR456-studio-AVRISP-MKII.zip">Olimex website</a> or the GCBASIC files store <a href="https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/">here</a></p>
+</li>
+<li>
+<p>From "File &#8594; load HEX file" choose the latest HEX and click "RUN" in the "Operations Flow" section</p>
+</li>
+<li>
+<p>Disconnect the AVR-ISP-MK2 from the USB and connect it again</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For more information about AVR-ISP-MK2 see this guide <a href="http://gcbasic.sourceforge.net/library/AVR-ISP-MK2-OpenSourceHardwareBoard.pdf">here</a></p>
 </div>
 <div class="paragraph">
 <p><strong>AVRISP MKII to ATTINY10 Connections:</strong></p>
@@ -56945,7 +57034,7 @@ The list shows the installation of the Sharp Develop IDE.</p>
 <p>Now you are ready to upload your first program to an ATTINY10</p>
 </div>
 <div class="paragraph">
-<p>More informations about ATTiny10 see <a href="http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf" class="bare">http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf</a></p>
+<p>For more informations about ATTiny10 see this guide <a href="http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf">here</a></p>
 </div>
 <div class="paragraph">
 <p><br>
