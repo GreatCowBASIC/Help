@@ -163,8 +163,8 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-05-05<?asciidoc-br?>
-09:07:10 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-05-31<?asciidoc-br?>
+07:00:31 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
@@ -41018,7 +41018,9 @@ The Windows driver must be <literal>libusbK</literal> not <literal>libusb or lib
 <simpara><?asciidoc-br?>
 <?asciidoc-br?></simpara>
 <simpara>Now you are ready to upload your first program to an ATTINY10</simpara>
-<simpara>For more informations about ATTiny10 see this guide <link xlink:href="http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf">here</link></simpara>
+<simpara>For more information programming review these resources:</simpara>
+<literallayout class="monospaced">A guide http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[here]</literallayout>
+<literallayout class="monospaced">A blog http://gcbasic.sourceforge.net/library/Technoblogy_Programming_the_ATtiny10.pdf[here]</literallayout>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?></simpara>
 </section>

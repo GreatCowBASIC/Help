@@ -123,7 +123,11 @@ image::7%20%20-%20GCStudio%20Avrdude%20%28USBtinyISP%29.png[]
 Now you are ready to upload your first program to an ATTINY10
 
 
-For more informations about ATTiny10 see this guide http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[here]
+For more information programming review these resources:
+
+    A guide http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[here]
+
+    A blog http://gcbasic.sourceforge.net/library/Technoblogy_Programming_the_ATtiny10.pdf[here]
 
 {empty} +
 {empty} +

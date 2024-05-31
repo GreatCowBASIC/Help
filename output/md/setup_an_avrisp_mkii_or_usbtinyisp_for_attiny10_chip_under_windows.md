@@ -252,8 +252,15 @@ list.
 
 Now you are ready to upload your first program to an ATTINY10
 
-For more informations about ATTiny10 see this guide
-<a href="http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf" class="link">here</a>
+For more information programming review these resources:
+
+``` literallayout
+A guide http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[here]
+```
+
+``` literallayout
+A blog http://gcbasic.sourceforge.net/library/Technoblogy_Programming_the_ATtiny10.pdf[here]
+```
 
   
   
