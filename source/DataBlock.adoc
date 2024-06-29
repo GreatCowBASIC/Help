@@ -1,0 +1,155 @@
+==== DATA 
+
+*Syntax:*
+[subs="quotes"]
+----
+
+        DATA DataSetName [as Byte | Word]
+            // multiples values, strings etc.
+            0,1,2,3 
+        END DATA
+
+----
+*Command Availability:*
+
+Available on all PIC microcontrollers with DATA memory.
+
+*Explanation:*
+
+The DATA construct creates an DATA dataset for use with the specific microcontroller.&#160;&#160;An DATA dataset is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.
+
+The advantage of an DATA dataset is that they are memory efficient being loaded directly into the DATA during programming operations. 
+
+
+DATA datasets are defined as follows:
+
+. Byte or Word values,
+. Multiple numeric elements on a single line separated by commas,
+. Constants and calculations within the single line dataset entries are permitted,
+. Decimal values are NOT supported,
+. Access is via ProgRead().
+{empty} +
+{empty} +
+
+*Defining DATA datasets*
+
+
+_Single data values_
+
+A single value on each line with in the dataset.&#160;&#160;The example dataset, shown below, has the data on different line in within the set.
+
+Simple example: This creates an DATA dataset at the first DATA location, then, the values of 12, 24, ... 72 are the consecutive values.
+
+----
+        DATA EEDataSet as Byte
+            12
+            24
+            36
+            48
+            60
+            72
+        End DATA
+----
+
+_Multiple data values of the same line_
+
+The following example creates the DATA dataset at DATA offset address of 0x10.&#160;&#160;
+
+Multiple elements on a single line separated by commas.&#160;&#160;The example dataset, shown below, has the data separated by `,` and on different line in within the dataset.
+
+----
+        DATA EEDataSource  as Byte
+            12,  24, 36
+            48,  60, 72
+        End DATA
+----
+
+_Data values as constants, and, with data transformation_
+
+Constants and calculations within the single line.  &#160;&#160;The example dataset, shown below, uses a defined constant to multiple the data with the dataset.
+----
+        #define calculation_constant 2
+
+        DATA EEDataSource as Word
+        1 * calculation_constant
+        2 * calculation_constant
+        3 * calculation_constant
+        8 * calculation_constant
+        4 * calculation_constant
+        5 * calculation_constant
+        End DATA
+----
+&#160;&#160;
+&#160;&#160;
+
+_Data values as Strings_
+
+Strings can be defined.&#160;&#160;Strings are delimited by double quotes. &#160;&#160; The following examples show the methods.
+
+Any ASCII characters between any two "    " (double quotes) will be converted to dataset data.&#160;&#160; Also see ASCII escape codes.
+
+A source string can be one string per line or comma separated strings, therefore, on the same line.
+
+Example:
+
+----
+    DATA Test_1 as Byte
+     "ABCDEFGHIJ"
+    End DATA
+----
+
+_ASCII Escape code_
+
+
+Accepted escape strings are shown in the dataset below.
+
+[cols=2, options="header,autowidth"]
+|===
+|Escape sequence | Meaning
+|\a |beep
+|\b |backspace
+|\f |formfeed
+|\l or \n |newline
+|\r |carriage return
+|\t |tab
+|\0 |Null value, equates to ASCII 0. Same as \&000
+|\&nnn  |ascii char in decimal
+|\\ |backslash
+|\" |double quote
+|\' |single quote
+|===
+
+
+
+*Complete working example program*
+
+This example creates several DATA datasets.&#160;&#160;The example also create a lookup table.&#160;&#160;The DATA dataset are addressed with the additional parameter to ensure there is no DATA dataset overlap.&#160;&#160; 
+
+----
+        #chip 16F886
+        #option explicit
+
+        #DEFINE USART_BAUD_RATE 9600
+        #DEFINE USART_TX_BLOCKING
+        #DEFINE USART_DELAY OFF
+
+        Dim dataaddress, datavalue as Byte
+
+        DATA DataSet1 as Byte
+            3,2,1
+        End DATA
+
+        DATA VersionData as Byte 
+        "    PWM2Laser   "
+        "  Fabrice ENGEL "
+        "   Version 1.4  "
+        "  November 2023 "
+        End DATA
+
+        For dataaddress = 0 to 2
+            ProgRead ( @DataSet1 + dataaddress , datavalue )
+            HserPrint datavalue
+        Next
+----
+
+*For more help, see <<_progread,ProgRead>>, <<_lookup_tables, Creating DATA data from a Lookup Table>>*

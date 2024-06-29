@@ -59,7 +59,7 @@ All four of the above are number types are true Integers. &#160;&#160;In that th
 ----
     8  Bit - an 8 Bit number can be in the range of 0 to 255
     16 Bit - a 16 Bit number can be in the range of 0 to 65535
-    32 Bit - a 32 Bit number can be in the range of 0 to 43294967295
+    32 Bit - a 32 Bit number can be in the range of 0 to 4294967295 (2^32-1)
 ----
 
 But, they can only represent positive numbers. &#160;&#160;In Mathematics there is a need for an Integer that can be Positive, Negative, or Zero. &#160;&#160;Note that Zero is always a Positive Whole Number.

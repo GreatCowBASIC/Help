@@ -40,7 +40,7 @@ can currently use:
 | Byte                                          | A whole number between 0 and 255                                             | General purpose storage of data, such as counters                      |
 | Word                                          | A whole number between 0 and 65535                                           | Storage of extra large numbers                                         |
 | Integer                                       | A whole number between -32768 and 32767                                      | Anything where a negative number will occur                            |
-| Long                                          | A whole number between 0 and 2<sup>32</sup> (4.29 billion)                   | Storing very, very big numbers                                         |
+| Long                                          | A whole number between 0 and 2^32-1 (4.29 billion)                           | Storing very, very big numbers                                         |
 | Array                                         | A list of whole numbers, each of which may be a byte, word, integer, or long | Logs of sensor readings                                                |
 | String                                        | A series of letters, numbers and symbols.                                    | Messages that are to be shown on a screen                              |
 

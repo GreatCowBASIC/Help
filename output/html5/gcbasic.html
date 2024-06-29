@@ -791,13 +791,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-05-31<br>
-07:00:34 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-06-15<br>
+07:16:59 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-03-28<br>
-12:43:02 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-06-10<br>
+20:33:39 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -3550,7 +3550,7 @@ In the case where your computer has Secure Boot enabled, the installer will advi
 <div class="content">
 <pre>    8  Bit - an 8 Bit number can be in the range of 0 to 255
     16 Bit - a 16 Bit number can be in the range of 0 to 65535
-    32 Bit - a 32 Bit number can be in the range of 0 to 43294967295</pre>
+    32 Bit - a 32 Bit number can be in the range of 0 to 4294967295 (2^32-1)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3706,7 +3706,7 @@ different sort of information. These are the variable types that GCBASIC can cur
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Long</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A whole number between 0 and 2<sup>32</sup> (4.29 billion)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A whole number between 0 and 2^32-1 (4.29 billion)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Storing very, very big numbers</p></td>
 </tr>
 <tr>
@@ -9848,6 +9848,247 @@ developers.</p>
 </div>
 <div class="paragraph">
 <p><strong>For more help, see *<a href="#_pfmread">PFMRead</a></strong></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_data">DATA</h5>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        DATA DataSetName [as Byte | Word]
+            // multiples values, strings etc.
+            0,1,2,3
+        END DATA</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available on all PIC microcontrollers with DATA memory.</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The DATA construct creates an DATA dataset for use with the specific microcontroller.&#160;&#160;An DATA dataset is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.</p>
+</div>
+<div class="paragraph">
+<p>The advantage of an DATA dataset is that they are memory efficient being loaded directly into the DATA during programming operations.</p>
+</div>
+<div class="paragraph">
+<p>DATA datasets are defined as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Byte or Word values,</p>
+</li>
+<li>
+<p>Multiple numeric elements on a single line separated by commas,</p>
+</li>
+<li>
+<p>Constants and calculations within the single line dataset entries are permitted,</p>
+</li>
+<li>
+<p>Decimal values are NOT supported,</p>
+</li>
+<li>
+<p>Access is via ProgRead().
+<br>
+<br></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Defining DATA datasets</strong></p>
+</div>
+<div class="paragraph">
+<p><em>Single data values</em></p>
+</div>
+<div class="paragraph">
+<p>A single value on each line with in the dataset.&#160;&#160;The example dataset, shown below, has the data on different line in within the set.</p>
+</div>
+<div class="paragraph">
+<p>Simple example: This creates an DATA dataset at the first DATA location, then, the values of 12, 24, &#8230;&#8203; 72 are the consecutive values.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        DATA EEDataSet as Byte
+            12
+            24
+            36
+            48
+            60
+            72
+        End DATA</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>Multiple data values of the same line</em></p>
+</div>
+<div class="paragraph">
+<p>The following example creates the DATA dataset at DATA offset address of 0x10.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>Multiple elements on a single line separated by commas.&#160;&#160;The example dataset, shown below, has the data separated by <code>,</code> and on different line in within the dataset.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        DATA EEDataSource  as Byte
+            12,  24, 36
+            48,  60, 72
+        End DATA</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>Data values as constants, and, with data transformation</em></p>
+</div>
+<div class="paragraph">
+<p>Constants and calculations within the single line.  &#160;&#160;The example dataset, shown below, uses a defined constant to multiple the data with the dataset.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        #define calculation_constant 2
+
+        DATA EEDataSource as Word
+        1 * calculation_constant
+        2 * calculation_constant
+        3 * calculation_constant
+        8 * calculation_constant
+        4 * calculation_constant
+        5 * calculation_constant
+        End DATA</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#160;&#160;
+&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p><em>Data values as Strings</em></p>
+</div>
+<div class="paragraph">
+<p>Strings can be defined.&#160;&#160;Strings are delimited by double quotes. &#160;&#160; The following examples show the methods.</p>
+</div>
+<div class="paragraph">
+<p>Any ASCII characters between any two "    " (double quotes) will be converted to dataset data.&#160;&#160; Also see ASCII escape codes.</p>
+</div>
+<div class="paragraph">
+<p>A source string can be one string per line or comma separated strings, therefore, on the same line.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    DATA Test_1 as Byte
+     "ABCDEFGHIJ"
+    End DATA</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>ASCII Escape code</em></p>
+</div>
+<div class="paragraph">
+<p>Accepted escape strings are shown in the dataset below.</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Escape sequence</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\a</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">beep</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">backspace</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\f</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">formfeed</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\l or \n</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">newline</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\r</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">carriage return</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tab</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Null value, equates to ASCII 0. Same as \&amp;000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\&amp;nnn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ascii char in decimal</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\\</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">backslash</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">double quote</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">single quote</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Complete working example program</strong></p>
+</div>
+<div class="paragraph">
+<p>This example creates several DATA datasets.&#160;&#160;The example also create a lookup table.&#160;&#160;The DATA dataset are addressed with the additional parameter to ensure there is no DATA dataset overlap.&#160;&#160;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        #chip 16F886
+        #option explicit
+
+        #DEFINE USART_BAUD_RATE 9600
+        #DEFINE USART_TX_BLOCKING
+        #DEFINE USART_DELAY OFF
+
+        Dim dataaddress, datavalue as Byte
+
+        DATA DataSet1 as Byte
+            3,2,1
+        End DATA
+
+        DATA VersionData as Byte
+        "    PWM2Laser   "
+        "  Fabrice ENGEL "
+        "   Version 1.4  "
+        "  November 2023 "
+        End DATA
+
+        For dataaddress = 0 to 2
+            ProgRead ( @DataSet1 + dataaddress , datavalue )
+            HserPrint datavalue
+        Next</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>For more help, see <a href="#_progread">ProgRead</a>, <a href="#_lookup_tables">Creating DATA data from a Lookup Table</a></strong></p>
 </div>
 </div>
 <div class="sect4">
@@ -57056,7 +57297,7 @@ If you use AVRDUDE then uou must ensure the Windows device driver is <code>libus
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-28 12:43:02 GMT Standard Time
+Last updated 2024-06-10 20:33:39 GMT Summer Time
 </div>
 </div>
 </body>

@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2024-03-28</date>
+<date>2024-06-10</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team @ 2024</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-05-31<?asciidoc-br?>
-07:00:31 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-06-15<?asciidoc-br?>
+07:16:56 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-03-28<?asciidoc-br?>
-12:43:02 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-06-10<?asciidoc-br?>
+20:33:39 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -1929,7 +1929,7 @@ one file do not conflict with those in another.</simpara>
 <simpara>All four of the above are number types are true Integers. &#160;&#160;In that they are representations of a integer non fractional number as follows:</simpara>
 <screen>    8  Bit - an 8 Bit number can be in the range of 0 to 255
     16 Bit - a 16 Bit number can be in the range of 0 to 65535
-    32 Bit - a 32 Bit number can be in the range of 0 to 43294967295</screen>
+    32 Bit - a 32 Bit number can be in the range of 0 to 4294967295 (2^32-1)</screen>
 <simpara>But, they can only represent positive numbers. &#160;&#160;In Mathematics there is a need for an Integer that can be Positive, Negative, or Zero. &#160;&#160;Note that Zero is always a Positive Whole Number.</simpara>
 <simpara><emphasis role="strong">Two&#8217;s Complement</emphasis></simpara>
 <simpara>To take the Two&#8217;s Complement of a number it is inverted then incremented:</simpara>
@@ -2013,7 +2013,7 @@ different sort of information. These are the variable types that GCBASIC can cur
 </row>
 <row>
 <entry align="left" valign="top"><simpara>Long</simpara></entry>
-<entry align="left" valign="top"><simpara>A whole number between 0 and 2<superscript>32</superscript> (4.29 billion)</simpara></entry>
+<entry align="left" valign="top"><simpara>A whole number between 0 and 2^32-1 (4.29 billion)</simpara></entry>
 <entry align="left" valign="top"><simpara>Storing very, very big numbers</simpara></entry>
 </row>
 <row>
@@ -6125,6 +6125,167 @@ program memory on the microcontroller.</simpara>
 developers.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <simpara><emphasis role="strong">For more help, see *<link linkend="_pfmread">PFMRead</link></emphasis></simpara>
+</section>
+<section xml:id="_data">
+<title>DATA</title>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>        DATA DataSetName [as Byte | Word]
+            // multiples values, strings etc.
+            0,1,2,3
+        END DATA</screen>
+<simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
+<simpara>Available on all PIC microcontrollers with DATA memory.</simpara>
+<simpara><emphasis role="strong">Explanation:</emphasis></simpara>
+<simpara>The DATA construct creates an DATA dataset for use with the specific microcontroller.&#160;&#160;An DATA dataset is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.</simpara>
+<simpara>The advantage of an DATA dataset is that they are memory efficient being loaded directly into the DATA during programming operations.</simpara>
+<simpara>DATA datasets are defined as follows:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Byte or Word values,</simpara>
+</listitem>
+<listitem>
+<simpara>Multiple numeric elements on a single line separated by commas,</simpara>
+</listitem>
+<listitem>
+<simpara>Constants and calculations within the single line dataset entries are permitted,</simpara>
+</listitem>
+<listitem>
+<simpara>Decimal values are NOT supported,</simpara>
+</listitem>
+<listitem>
+<simpara>Access is via ProgRead().
+<?asciidoc-br?>
+<?asciidoc-br?></simpara>
+</listitem>
+</orderedlist>
+<simpara><emphasis role="strong">Defining DATA datasets</emphasis></simpara>
+<simpara><emphasis>Single data values</emphasis></simpara>
+<simpara>A single value on each line with in the dataset.&#160;&#160;The example dataset, shown below, has the data on different line in within the set.</simpara>
+<simpara>Simple example: This creates an DATA dataset at the first DATA location, then, the values of 12, 24, &#8230;&#8203; 72 are the consecutive values.</simpara>
+<screen>        DATA EEDataSet as Byte
+            12
+            24
+            36
+            48
+            60
+            72
+        End DATA</screen>
+<simpara><emphasis>Multiple data values of the same line</emphasis></simpara>
+<simpara>The following example creates the DATA dataset at DATA offset address of 0x10.&#160;&#160;</simpara>
+<simpara>Multiple elements on a single line separated by commas.&#160;&#160;The example dataset, shown below, has the data separated by <literal>,</literal> and on different line in within the dataset.</simpara>
+<screen>        DATA EEDataSource  as Byte
+            12,  24, 36
+            48,  60, 72
+        End DATA</screen>
+<simpara><emphasis>Data values as constants, and, with data transformation</emphasis></simpara>
+<simpara>Constants and calculations within the single line.  &#160;&#160;The example dataset, shown below, uses a defined constant to multiple the data with the dataset.</simpara>
+<screen>        #define calculation_constant 2
+
+        DATA EEDataSource as Word
+        1 * calculation_constant
+        2 * calculation_constant
+        3 * calculation_constant
+        8 * calculation_constant
+        4 * calculation_constant
+        5 * calculation_constant
+        End DATA</screen>
+<simpara>&#160;&#160;
+&#160;&#160;</simpara>
+<simpara><emphasis>Data values as Strings</emphasis></simpara>
+<simpara>Strings can be defined.&#160;&#160;Strings are delimited by double quotes. &#160;&#160; The following examples show the methods.</simpara>
+<simpara>Any ASCII characters between any two "    " (double quotes) will be converted to dataset data.&#160;&#160; Also see ASCII escape codes.</simpara>
+<simpara>A source string can be one string per line or comma separated strings, therefore, on the same line.</simpara>
+<simpara>Example:</simpara>
+<screen>    DATA Test_1 as Byte
+     "ABCDEFGHIJ"
+    End DATA</screen>
+<simpara><emphasis>ASCII Escape code</emphasis></simpara>
+<simpara>Accepted escape strings are shown in the dataset below.</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="50*"/>
+<colspec colname="col_2" colwidth="50*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Escape sequence</entry>
+<entry align="left" valign="top">Meaning</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>\a</simpara></entry>
+<entry align="left" valign="top"><simpara>beep</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>\b</simpara></entry>
+<entry align="left" valign="top"><simpara>backspace</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>\f</simpara></entry>
+<entry align="left" valign="top"><simpara>formfeed</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>\l or \n</simpara></entry>
+<entry align="left" valign="top"><simpara>newline</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>\r</simpara></entry>
+<entry align="left" valign="top"><simpara>carriage return</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>\t</simpara></entry>
+<entry align="left" valign="top"><simpara>tab</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>\0</simpara></entry>
+<entry align="left" valign="top"><simpara>Null value, equates to ASCII 0. Same as \&amp;000</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>\&amp;nnn</simpara></entry>
+<entry align="left" valign="top"><simpara>ascii char in decimal</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>\\</simpara></entry>
+<entry align="left" valign="top"><simpara>backslash</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>\"</simpara></entry>
+<entry align="left" valign="top"><simpara>double quote</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>\'</simpara></entry>
+<entry align="left" valign="top"><simpara>single quote</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><emphasis role="strong">Complete working example program</emphasis></simpara>
+<simpara>This example creates several DATA datasets.&#160;&#160;The example also create a lookup table.&#160;&#160;The DATA dataset are addressed with the additional parameter to ensure there is no DATA dataset overlap.&#160;&#160;</simpara>
+<screen>        #chip 16F886
+        #option explicit
+
+        #DEFINE USART_BAUD_RATE 9600
+        #DEFINE USART_TX_BLOCKING
+        #DEFINE USART_DELAY OFF
+
+        Dim dataaddress, datavalue as Byte
+
+        DATA DataSet1 as Byte
+            3,2,1
+        End DATA
+
+        DATA VersionData as Byte
+        "    PWM2Laser   "
+        "  Fabrice ENGEL "
+        "   Version 1.4  "
+        "  November 2023 "
+        End DATA
+
+        For dataaddress = 0 to 2
+            ProgRead ( @DataSet1 + dataaddress , datavalue )
+            HserPrint datavalue
+        Next</screen>
+<simpara><emphasis role="strong">For more help, see <link linkend="_progread">ProgRead</link>, <link linkend="_lookup_tables">Creating DATA data from a Lookup Table</link></emphasis></simpara>
 </section>
 <section xml:id="_programerase">
 <title>ProgramErase</title>

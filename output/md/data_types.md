@@ -117,7 +117,7 @@ are representations of a integer non fractional number as follows:
 ``` screen
     8  Bit - an 8 Bit number can be in the range of 0 to 255
     16 Bit - a 16 Bit number can be in the range of 0 to 65535
-    32 Bit - a 32 Bit number can be in the range of 0 to 43294967295
+    32 Bit - a 32 Bit number can be in the range of 0 to 4294967295 (2^32-1)
 ```
 
 But, they can only represent positive numbers.   In Mathematics there is

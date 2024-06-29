@@ -42,7 +42,7 @@ different sort of information. These are the variable types that GCBASIC can cur
 |Anything where a negative number will occur
 
 |Long
-|A whole number between 0 and 2^32^ (4.29 billion)
+|A whole number between 0 and 2^32-1 (4.29 billion)
 |Storing very, very big numbers
 
 |Array

@@ -178,6 +178,7 @@ include::pfmread.adoc[]
 
 include::pfmwrite.adoc[]
 
+include::DataBlock.adoc[]
 
 include::programerase.adoc[]
 
