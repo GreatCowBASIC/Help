@@ -67,47 +67,6 @@ Table myTable
 End Table
 ```
 
-==== Using an Array with Mixed Data Types
-This example demonstrates how to use an array to store and retrieve mixed data types.
-
-```
-#CHIP 18F2550
-#option Explicit
-
-Dim myResult as Variant
-Dim myIndex as Byte
-
-// Using an array to store mixed data types
-Dim myArray(3) as Variant
-    myArray(1) = 123
-    myArray(2) = 45.67
-    myArray(3) = "Test"
-For myIndex = 1 to 3
-    myResult = myArray(myIndex)
-    // Process myResult
-Next
-```
-
-==== Using a Table with Mixed Data Types
-This example shows how to use a table to store and retrieve mixed data types.
-
-```
-#CHIP 18F2550
-#option Explicit
-
-Dim myResult as Variant
-Dim myIndex as Byte
-
-// Using a table to store mixed data types
-For myIndex = 1 to 3
-    ReadTable myTable, myIndex, myResult
-    // Process myResult
-Next
-
-Table myTable
-    123, 45.67, "Test"
-End Table
-```
 
 === Usage
 The `ReadTable` method provides data set capabilities to chips with limited RAM, using fewer resources and offering faster performance. Advanced techniques and proper understanding of memory usage can significantly optimize embedded system performance.
