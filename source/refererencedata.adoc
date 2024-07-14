@@ -8,7 +8,7 @@ Lookup reference tables are essential in embedded systems for storing fixed data
 
 *Conventional Misconceptions*
 
-A common misconception is that the data required by a fixed lookup table is defined by its content and declared in a Dim statement, with its data filled at runtime. This implies that the array is empty initially and populated during initialization, leading to data duplication and wasted memory resources.
+A common misconception is that the data required by a fixed lookup table is defined by its content and declared in a Dim statement, with its data filled at runtime. This implies that an array ( in RAM memory ) is empty initially and populated during initialization, leading to data duplication and wasted memory resources.
 
 *Correct Implementation*
 
