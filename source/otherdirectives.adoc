@@ -211,9 +211,9 @@ This table shows the ChipFamily constants mapped to the microcontroller architec
 [cols=2, options="header,autowidth"]
 |===
 |*ChipFamily Value*
-|*Microcontroller Characteristics*
-|*PIC*
 |
+|*AVR*
+|*Microcontroller Characteristics*
 |100
 |AVR core version V0E class microcontrollers
 |110
@@ -230,10 +230,12 @@ This table shows the ChipFamily constants mapped to the microcontroller architec
 |Tiny4-5-9-10 and tiny102-104. Only 16 GPR's from r16-r31 and only 54 instructions.
 |130
 |AVR core version V3E class microcontrollers but essentially the mega32u6 only
+|140
+|AVRDX microcontrollers. Series 0, series1, series2, DA series and DB series.
 |
 |
-|*AVR*
-|
+|*PIC*
+|*Microcontroller Characteristics*
 |12
 |Baseline devices. 12 Bit instruction set
 |15
@@ -262,6 +264,12 @@ Chip family 16 also have a sub chip family Constant.&#160;&#160; These constants
     &#160;&#160;&#160;&#160;ChipFamily18FxxK83 = 16107
 
     &#160;&#160;&#160;&#160;ChipFamily18FxxQ83 = 16108
+
+    &#160;&#160;&#160;&#160;ChipFamily18FxxQ71 = 16109
+
+    &#160;&#160;&#160;&#160;ChipFamily18FxxQ20 = 16110
+
+    &#160;&#160;&#160;&#160;ChipFamily18FxxQ24 = 16111
 
 |===
 {empty} +
