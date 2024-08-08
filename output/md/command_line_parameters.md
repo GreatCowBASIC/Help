@@ -99,11 +99,11 @@ command:
 You can also create/edit the gcbasic.ini file :
 
 ``` screen
-    'Assembler settings
+Assembler settings
     Assembler = C:\Program Files\Microchip\MPASM Suite\mpasmwin
     AssemblerParams = /c- /o- /q+ /l+ /x- /w1 "%FileName%"
 
-    'Programmer settings
+Programmer settings
     Programmer = C:\Program Files\WinPic\Winpic.exe
     ProgrammerParams = /device=PIC%ChipModel% /p "%FileName%"
 ```
@@ -134,5 +134,54 @@ the IDE would be unalbe to present the error message to the user.
 
 The file error.txt is always produced in the same folder as the
 compiler. Typically: C:\\GCStudio\\GCBASIC\\Errors.txt
+
+<span class="strong">**USE.INI**</span>
+
+USE.INI is the provided setup file for the compiler.  The name of
+`use.ini` is historic and of no relevance.
+
+USE.INI is generally updated by using the `PREFERENCES EDITOR`.  
+
+USE.INI is self documenting and open `use.ini` in an editor will shown
+the full capabilities of setting file.
+
+The details below show the self documentation in a typical `use.ini`
+
+``` screen
+Preferences file for GC BASIC
+Location: GCB install (or custom) dir
+
+Documentation for the [gcbasic] section of the use.ini file
+    programmer = arduinouno   - the currently selected available programmers
+    showprogresscounters = n  - show percent values as compiler runs. requires Verbose = y
+    verbose = y               - show verbose compiler information
+    preserve = n              - preservice source program in ASM
+    warningsaserrors = n      - treat Warnings from scripts as errors.
+    pauseaftercompile = n     - pause after compiler. Do not do this with IDEs
+    flashonly = n             - Flash the chip is source older that hex file
+    assembler = GCASM         - currently selected Assembler
+    hexappendgcbmessage = n   - appends a message in the HEX file
+    laxsyntax = n             - use lax syntax when Y, the compiler will not check that reserved words
+    mutebanners = n           - mutes the post compilation messages
+    evbs = n                  - show extra verbose compiler information, requires Verbose = y
+    nosummary = n             - mutes almost all messages psot compilation
+    extendedverbosemessages = n  - show even more verbose compiler information, requires Verbose = y
+    conditionaldebugfile =    - creates CDF file
+    columnwidth = 180         - ASM width before wrapping
+    picasdebug = n            - adds PIC-AS preprocessor message to .S file
+    datfileinspection = y     - inspects DAT for memory validation
+    methodstructuredebug  = n - show method structure start & end for validation
+    floatcapability =  1      - 1 = singles
+                             - 2 = doubles
+                             - 4 = longint
+                             - 8 = uLongINT
+    compilerdebug =  0       - 1 = COMPILECALCADD
+                             - 2 = VAR SET
+                             - 4 = CALCOPS
+                             - 8 = COMPILECALCMULT
+                             - 16 = AUTOPINDIR
+                             - 32 = ADRDX
+                             - 64 = GCASM
+```
 
 </div>

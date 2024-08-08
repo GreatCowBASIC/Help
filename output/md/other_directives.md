@@ -252,13 +252,13 @@ architecture.
 <thead>
 <tr class="header">
 <th style="text-align: left;"><span class="strong"><strong>ChipFamily Value</strong></span></th>
-<th style="text-align: left;"><span class="strong"><strong>Microcontroller Characteristics</strong></span></th>
+<th style="text-align: left;"> </th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><p><span class="strong"><strong>PIC</strong></span></p></td>
-<td style="text-align: left;"> </td>
+<td style="text-align: left;"><p><span class="strong"><strong>AVR</strong></span></p></td>
+<td style="text-align: left;"><p><span class="strong"><strong>Microcontroller Characteristics</strong></span></p></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p>100</p></td>
@@ -293,26 +293,30 @@ architecture.
 <td style="text-align: left;"><p>AVR core version V3E class microcontrollers but essentially the mega32u6 only</p></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"> </td>
-<td style="text-align: left;"> </td>
+<td style="text-align: left;"><p>140</p></td>
+<td style="text-align: left;"><p>AVRDX microcontrollers. Series 0, series1, series2, DA series and DB series.</p></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><p><span class="strong"><strong>AVR</strong></span></p></td>
+<td style="text-align: left;"> </td>
 <td style="text-align: left;"> </td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"><p><span class="strong"><strong>PIC</strong></span></p></td>
+<td style="text-align: left;"><p><span class="strong"><strong>Microcontroller Characteristics</strong></span></p></td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;"><p>12</p></td>
 <td style="text-align: left;"><p>Baseline devices. 12 Bit instruction set</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p>15</p></td>
 <td style="text-align: left;"><p>Mid-range core devices. 14 Bit instruction set with enhanced instruction set class</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p>15 plus familyVariant=1</p></td>
 <td style="text-align: left;"><p>Mid-range core devices. 14 Bit instruction set with enhanced instruction set and with large memory capability class</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p>16</p></td>
 <td style="text-align: left;"><p>High end core devices. 16 Bit instruction set, memory addressing architecture and an extended instruction set.</p>
 <p>Chip family 16 also have a sub chip family Constant.   These constants are shown below:</p>
@@ -324,7 +328,10 @@ architecture.
 <p>    ChipFamily18FxxQ40 = 16105</p>
 <p>    ChipFamily18FxxQ84 = 16106</p>
 <p>    ChipFamily18FxxK83 = 16107</p>
-<p>    ChipFamily18FxxQ83 = 16108</p></td>
+<p>    ChipFamily18FxxQ83 = 16108</p>
+<p>    ChipFamily18FxxQ71 = 16109</p>
+<p>    ChipFamily18FxxQ20 = 16110</p>
+<p>    ChipFamily18FxxQ24 = 16111</p></td>
 </tr>
 </tbody>
 </table>

@@ -451,6 +451,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_variable_memory_allocation">Variable Memory Allocation</a></li>
 </ul>
 </li>
+<li><a href="#_reference_data">Reference Data</a>
+<ul class="sectlevel2">
+<li><a href="#_efficient_implementation_of_lookup_reference_tables_in_gcbasic">Efficient Implementation of Lookup Reference Tables in GCBASIC</a></li>
+</ul>
+</li>
 <li><a href="#_syntax">Syntax</a>
 <ul class="sectlevel2">
 <li><a href="#_arrays">Arrays</a></li>
@@ -791,13 +796,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-06-15<br>
-07:16:59 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-07-25<br>
+08:08:02 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-06-10<br>
-20:33:39 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-07-12<br>
+16:17:36 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -979,11 +984,11 @@ The name of the chip will be the same as that on the chip data file.</span></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    'Assembler settings
+<pre>Assembler settings
     Assembler = C:\Program Files\Microchip\MPASM Suite\mpasmwin
     AssemblerParams = /c- /o- /q+ /l+ /x- /w1 "%FileName%"
 
-    'Programmer settings
+Programmer settings
     Programmer = C:\Program Files\WinPic\Winpic.exe
     ProgrammerParams = /device=PIC%ChipModel% /p "%FileName%"</pre>
 </div>
@@ -1015,6 +1020,59 @@ The name of the chip will be the same as that on the chip data file.</span></p>
 </div>
 <div class="paragraph">
 <p>The file error.txt is always produced in the same folder as the compiler.  Typically: C:\GCStudio\GCBASIC\Errors.txt</p>
+</div>
+<div class="paragraph">
+<p><strong>USE.INI</strong></p>
+</div>
+<div class="paragraph">
+<p>USE.INI is the provided setup file for the compiler.&#160;&#160;The name of <code>use.ini</code> is historic and of no relevance.</p>
+</div>
+<div class="paragraph">
+<p>USE.INI is generally updated by using the <code>PREFERENCES EDITOR</code>.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>USE.INI is self documenting and open <code>use.ini</code> in an editor will shown the full capabilities of setting file.</p>
+</div>
+<div class="paragraph">
+<p>The details below show the self documentation in a typical <code>use.ini</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Preferences file for GC BASIC
+Location: GCB install (or custom) dir
+
+Documentation for the [gcbasic] section of the use.ini file
+    programmer = arduinouno   - the currently selected available programmers
+    showprogresscounters = n  - show percent values as compiler runs. requires Verbose = y
+    verbose = y               - show verbose compiler information
+    preserve = n              - preservice source program in ASM
+    warningsaserrors = n      - treat Warnings from scripts as errors.
+    pauseaftercompile = n     - pause after compiler. Do not do this with IDEs
+    flashonly = n             - Flash the chip is source older that hex file
+    assembler = GCASM         - currently selected Assembler
+    hexappendgcbmessage = n   - appends a message in the HEX file
+    laxsyntax = n             - use lax syntax when Y, the compiler will not check that reserved words
+    mutebanners = n           - mutes the post compilation messages
+    evbs = n                  - show extra verbose compiler information, requires Verbose = y
+    nosummary = n             - mutes almost all messages psot compilation
+    extendedverbosemessages = n  - show even more verbose compiler information, requires Verbose = y
+    conditionaldebugfile =    - creates CDF file
+    columnwidth = 180         - ASM width before wrapping
+    picasdebug = n            - adds PIC-AS preprocessor message to .S file
+    datfileinspection = y     - inspects DAT for memory validation
+    methodstructuredebug  = n - show method structure start &amp; end for validation
+    floatcapability =  1      - 1 = singles
+                             - 2 = doubles
+                             - 4 = longint
+                             - 8 = uLongINT
+    compilerdebug =  0       - 1 = COMPILECALCADD
+                             - 2 = VAR SET
+                             - 4 = CALCOPS
+                             - 8 = COMPILECALCMULT
+                             - 16 = AUTOPINDIR
+                             - 32 = ADRDX
+                             - 64 = GCASM</pre>
+</div>
 </div>
 </div>
 </div>
@@ -4692,6 +4750,141 @@ On 18Fs, it will guess based on where the lowest SFR is, and from what the total
 <div class="paragraph">
 <p><br>
 <br></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reference_data">Reference Data</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_efficient_implementation_of_lookup_reference_tables_in_gcbasic">Efficient Implementation of Lookup Reference Tables in GCBASIC</h3>
+<div class="paragraph">
+<p><strong>Introduction</strong></p>
+</div>
+<div class="paragraph">
+<p>This section explores the efficient implementation of lookup reference tables in embedded systems, specificially GCBASIC, focusing on the use of PROGMEM memory to store fixed data sets. It addresses common misconceptions about data storage and initialization, compares different methods of data handling, and provides advanced techniques for optimizing memory usage.</p>
+</div>
+<div class="paragraph">
+<p>Lookup reference tables are essential in embedded systems for storing fixed data sets that can be accessed during runtime. This section aims to clarify the correct implementation of these tables, debunking common myths and providing practical solutions for efficient data management.</p>
+</div>
+<div class="paragraph">
+<p><strong>Conventional Misconceptions</strong></p>
+</div>
+<div class="paragraph">
+<p>A common misconception is that the data required by a fixed lookup table is defined by its content and declared in a Dim statement, with its data filled at runtime. This implies that an array ( in RAM memory ) is empty initially and populated during initialization, leading to data duplication and wasted memory resources.</p>
+</div>
+<div class="paragraph">
+<p><strong>Correct Implementation</strong></p>
+</div>
+<div class="paragraph">
+<p>A fixed lookup table is a set of data (bytes, words, etc.) stored in the PROGMEM memory. The correct implementation involves using the TABLE and READTABLE commands:
+* Definition: <code>TABLE tablename&#8230;&#8203; data&#8230;&#8203; END TABLE</code>
+* Reading: <code>READTABLE</code>
+There is no DIM in the definition process, and the data is part of the hex file, not filled at runtime.</p>
+</div>
+<div class="paragraph">
+<p><strong>Memory Efficiency</strong></p>
+</div>
+<div class="paragraph">
+<p>Storing data in PROGMEM ensures that there is only one copy of the data, avoiding duplication. Copying data to an array is redundant as reading the table can replace the array.</p>
+</div>
+<div class="paragraph">
+<p><strong>Practical Solutions</strong></p>
+</div>
+<div class="paragraph">
+<p>Using <code>TABLE - END TABLE</code> is the simplest way to handle data. For data sets smaller than the EEPROM in the chip, load the table directly to EEPROM and use <code>READTABLE</code> to read the data.</p>
+</div>
+<div class="paragraph">
+<p><strong>Advanced Techniques</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>PROGMEM Page Size Constraint: On the 16F, <code>TABLE-END TABLE</code> is constrained by PROGMEM page size (2048 items).</p>
+</li>
+<li>
+<p>EEPROM Storage: Use <code>EEPROM .. END EEPROM</code> and a direct method like <code>PROGREAD</code>. Data is stored in EEPROM, constrained by its size and typically byte values.</p>
+</li>
+<li>
+<p>Direct PROGMEM Storage: Use <code>DATA .. END DATA</code> and <code>PROGREAD</code>. Data is stored in PROGMEM, constrained by unused PROGMEM size and typically word values (max 0x3FFF for 16F chips).</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Arrays in Embedded Systems</strong></p>
+</div>
+<div class="paragraph">
+<p>An array is a special type of variable that can store multiple values, addressed individually using an index. Arrays can be bytes, longs, integers, or words, and are held in RAM. Loading an array can be done element by element or all at once.</p>
+</div>
+<div class="paragraph">
+<p><strong>Comparison of Methods</strong></p>
+</div>
+<div class="paragraph">
+<p>Using arrays can be costly in terms of RAM and PROGMEM. The following examples illustrate the difference:</p>
+</div>
+<div class="paragraph">
+<p><strong>Using an Array</strong></p>
+</div>
+<div class="paragraph">
+<p>64 words Progmem / 13 bytes RAM</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>        #CHIP 18F2550
+        #option Explicit
+
+        Dim myResult, myIndex as Byte
+
+        // Using an array 64 words Progmem / 13 bytes RAM
+        Dim myArray(10)
+            myArray = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        For myIndex = 1 to 10
+            myResult =  myArray(myIndex)
+        Next</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Using a Table</strong></p>
+</div>
+<div class="paragraph">
+<p>56 words Progmem / 2 bytes RAM</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>        #CHIP 18F2550
+        #option Explicit
+
+        Dim myResult, myIndex as Byte
+
+        // Using a table 56 words Progmem / 2 bytes RAM
+        For myIndex = 1 to 10
+            ReadTable myTable, myIndex, myResult
+        Next
+
+        Table myTable
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        End Table</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Usage</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>ReadTable</code> method provides data set capabilities to chips with limited RAM, using fewer resources and offering faster performance. Advanced techniques and proper understanding of memory usage can significantly optimize embedded system performance.</p>
+</div>
+<div class="paragraph">
+<p><strong>Notes</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A byte array is handled similarly to a string, which can be resource-intensive.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By following these guidelines, developers can efficiently implement lookup reference tables in embedded systems, optimizing memory usage and performance.</p>
 </div>
 </div>
 </div>
@@ -51340,7 +51533,9 @@ This example will generate the following in the ASM source file.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    #chip <em>model</em>, <em>frequency</em></pre>
+<pre>    #chip <em>model</em>, <em>frequency</em>
+
+    #chip <em>model</em>, <em>frequency</em> / <em>numeric constant</em></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -51360,6 +51555,9 @@ The following constants simplify setting specific frequencies.
 <div class="paragraph">
 <p>If <code>frequency</code> is not present the compiler will select a frequency default frequency that should work for the microcontroller.</p>
 </div>
+<div class="paragraph">
+<p>If <code>numeric constant</code> is specified then the compiler will complete a simple math calculation to determine the frequency.&#160;&#160;The only supported math instruction is divide.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -51374,7 +51572,30 @@ The following constants simplify setting specific frequencies.
 </ol>
 </div>
 <div class="paragraph">
-<p>When using an AVR, there is no need to specify "AT" before the name.</p>
+<p>When using an AVR:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>There is no need to specify "AT" before the name.</p>
+</li>
+<li>
+<p>Only AVRDX chips support setting the internal frequency using the <code>frequency</code> statement.</p>
+</li>
+<li>
+<p>megaAVR assumes an external oscillator, and, therefore the <code>frequency</code> must match the external oscillator frequency.&#160;&#160;For Arduino products this is typically 16Mhz</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When using a LGT:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Only LGT support setting the internal frequency using the <code>frequency</code> statement.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><strong>Examples:</strong></p>
@@ -51391,7 +51612,10 @@ The following constants simplify setting specific frequencies.
     #chip 12f1840, 250k
     #chip 12f1840, 125k
 
-    'Select the internal low frequency oscillator. The microcontroller must have a low frequency oscillator option.  The internal oscillator is automatically selected.
+    #chip lgt8x328p, 4
+    #chip tiny3127, 16 / 48
+
+    'Select the internal low frequency oscillator. The microcontroller must have a low frequency oscillator option.  The internal oscillator is automatically selected on PIC.
     #chip 16f18326, 31k
 
     'Select the external SOSC clock source.
@@ -52387,13 +52611,13 @@ If any of the variables do not exist, the compiler will create a constant mappin
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top"><strong>ChipFamily Value</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Microcontroller Characteristics</strong></th>
+<th class="tableblock halign-left valign-top"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>AVR</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Microcontroller Characteristics</strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
@@ -52428,12 +52652,16 @@ If any of the variables do not exist, the compiler will create a constant mappin
 <td class="tableblock halign-left valign-top"><p class="tableblock">AVR core version V3E class microcontrollers but essentially the mega32u6 only</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">140</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVRDX microcontrollers. Series 0, series1, series2, DA series and DB series.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>AVR</strong></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Microcontroller Characteristics</strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
@@ -52459,7 +52687,10 @@ If any of the variables do not exist, the compiler will create a constant mappin
 </p><p class="tableblock">    &#160;&#160;&#160;&#160;ChipFamily18FxxQ40 = 16105
 </p><p class="tableblock">    &#160;&#160;&#160;&#160;ChipFamily18FxxQ84 = 16106
 </p><p class="tableblock">    &#160;&#160;&#160;&#160;ChipFamily18FxxK83 = 16107
-</p><p class="tableblock">    &#160;&#160;&#160;&#160;ChipFamily18FxxQ83 = 16108</p></td>
+</p><p class="tableblock">    &#160;&#160;&#160;&#160;ChipFamily18FxxQ83 = 16108
+</p><p class="tableblock">    &#160;&#160;&#160;&#160;ChipFamily18FxxQ71 = 16109
+</p><p class="tableblock">    &#160;&#160;&#160;&#160;ChipFamily18FxxQ20 = 16110
+</p><p class="tableblock">    &#160;&#160;&#160;&#160;ChipFamily18FxxQ24 = 16111</p></td>
 </tr>
 </tbody>
 </table>
@@ -57297,7 +57528,7 @@ If you use AVRDUDE then uou must ensure the Windows device driver is <code>libus
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-10 20:33:39 GMT Summer Time
+Last updated 2024-07-12 16:17:36 GMT Summer Time
 </div>
 </div>
 </body>
