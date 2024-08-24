@@ -16,7 +16,7 @@
       <link rel="next" href="_frequent_errors.html" title="Frequent errors" />
       <meta name="Section-title" content="Command Line Parameters" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-55430";
+            var treeCookieId = "treeview-55624";
             var language = "en";
             var w = new Object();
             //Localization
@@ -403,11 +403,11 @@ border: none; background: none; font-weight: none; color: none; }
             </p><pre class="screen">    REM Create the ASM
     gcbasic.exe /NP /K:A %1
     REM Use GPASM piping to the GCB error log
-    gpasm.exe "%~d1%~p1%~n1.asm" -k -i -w1 &gt;&gt; errors.txt</pre><p>To summarise, you can use any of the following:</p><pre class="screen">    gcbasic.exe filetocompile.gcb /A:GCASM /P:"icprog -L%FILENAME%" /V /O:compiled.asm</pre><p>GCBASIC will compile the file, then assemble the program, and run this command:</p><pre class="screen">    `icprog -Lcompiled.hex`</pre><p>You can also create/edit the gcbasic.ini file :</p><pre class="screen">    'Assembler settings
+    gpasm.exe "%~d1%~p1%~n1.asm" -k -i -w1 &gt;&gt; errors.txt</pre><p>To summarise, you can use any of the following:</p><pre class="screen">    gcbasic.exe filetocompile.gcb /A:GCASM /P:"icprog -L%FILENAME%" /V /O:compiled.asm</pre><p>GCBASIC will compile the file, then assemble the program, and run this command:</p><pre class="screen">    `icprog -Lcompiled.hex`</pre><p>You can also create/edit the gcbasic.ini file :</p><pre class="screen">Assembler settings
     Assembler = C:\Program Files\Microchip\MPASM Suite\mpasmwin
     AssemblerParams = /c- /o- /q+ /l+ /x- /w1 "%FileName%"
 
-    'Programmer settings
+Programmer settings
     Programmer = C:\Program Files\WinPic\Winpic.exe
     ProgrammerParams = /device=PIC%ChipModel% /p "%FileName%"</pre><p>This example will use MPASM to assemble the program. It will run the program specified in the assembler = line, and give it
                these parameters:
@@ -419,7 +419,47 @@ border: none; background: none; font-weight: none; color: none; }
                the error message to the user.
             </p>
             <p>The file error.txt is always produced in the same folder as the compiler.  Typically: C:\GCStudio\GCBASIC\Errors.txt</p>
-         </div><script type="text/javascript" src="common/main.js">
+            <p><span class="strong"><strong>USE.INI</strong></span></p>
+            <p>USE.INI is the provided setup file for the compiler.  The name of <code class="literal">use.ini</code> is historic and of no relevance.
+            </p>
+            <p>USE.INI is generally updated by using the <code class="literal">PREFERENCES EDITOR</code>.  
+            </p>
+            <p>USE.INI is self documenting and open <code class="literal">use.ini</code> in an editor will shown the full capabilities of setting file.
+            </p>
+            <p>The details below show the self documentation in a typical <code class="literal">use.ini</code></p><pre class="screen">Preferences file for GC BASIC
+Location: GCB install (or custom) dir
+
+Documentation for the [gcbasic] section of the use.ini file
+    programmer = arduinouno   - the currently selected available programmers
+    showprogresscounters = n  - show percent values as compiler runs. requires Verbose = y
+    verbose = y               - show verbose compiler information
+    preserve = n              - preservice source program in ASM
+    warningsaserrors = n      - treat Warnings from scripts as errors.
+    pauseaftercompile = n     - pause after compiler. Do not do this with IDEs
+    flashonly = n             - Flash the chip is source older that hex file
+    assembler = GCASM         - currently selected Assembler
+    hexappendgcbmessage = n   - appends a message in the HEX file
+    laxsyntax = n             - use lax syntax when Y, the compiler will not check that reserved words
+    mutebanners = n           - mutes the post compilation messages
+    evbs = n                  - show extra verbose compiler information, requires Verbose = y
+    nosummary = n             - mutes almost all messages psot compilation
+    extendedverbosemessages = n  - show even more verbose compiler information, requires Verbose = y
+    conditionaldebugfile =    - creates CDF file
+    columnwidth = 180         - ASM width before wrapping
+    picasdebug = n            - adds PIC-AS preprocessor message to .S file
+    datfileinspection = y     - inspects DAT for memory validation
+    methodstructuredebug  = n - show method structure start &amp; end for validation
+    floatcapability =  1      - 1 = singles
+                             - 2 = doubles
+                             - 4 = longint
+                             - 8 = uLongINT
+    compilerdebug =  0       - 1 = COMPILECALCADD
+                             - 2 = VAR SET
+                             - 4 = CALCOPS
+                             - 8 = COMPILECALCMULT
+                             - 16 = AUTOPINDIR
+                             - 32 = ADRDX
+                             - 64 = GCASM</pre></div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
@@ -474,6 +514,10 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
                               <li><span class="file"><a href="_advanced_variabletypes.html" tabindex="1">Advanced VariableTypes</a></span></li>
                               <li><span class="file"><a href="_variable_memory_allocation.html" tabindex="1">Variable Memory Allocation</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_reference_data.html" tabindex="1">Reference Data</a></span><ul>
+                              <li><span class="file"><a href="_efficient_implementation_of_lookup_reference_tables_in_gcbasic.html" tabindex="1">Efficient Implementation of Lookup Reference Tables in GCBASIC</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_syntax.html" tabindex="1">Syntax</a></span><ul>

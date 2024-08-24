@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2024-06-10</date>
+<date>2024-07-12</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team @ 2024</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-06-15<?asciidoc-br?>
-07:16:56 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-07-25<?asciidoc-br?>
+08:07:59 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-06-10<?asciidoc-br?>
-20:33:39 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-07-12<?asciidoc-br?>
+16:17:36 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -306,11 +306,11 @@ The name of the chip will be the same as that on the chip data file.</phrase></s
 <simpara>GCBASIC will compile the file, then assemble the program, and run this command:</simpara>
 <screen>    `icprog -Lcompiled.hex`</screen>
 <simpara>You can also create/edit the gcbasic.ini file :</simpara>
-<screen>    'Assembler settings
+<screen>Assembler settings
     Assembler = C:\Program Files\Microchip\MPASM Suite\mpasmwin
     AssemblerParams = /c- /o- /q+ /l+ /x- /w1 "%FileName%"
 
-    'Programmer settings
+Programmer settings
     Programmer = C:\Program Files\WinPic\Winpic.exe
     ProgrammerParams = /device=PIC%ChipModel% /p "%FileName%"</screen>
 <simpara>This example will use MPASM to assemble the program. It will run the program specified in the assembler = line, and give it these parameters:</simpara>
@@ -321,6 +321,45 @@ The name of the chip will be the same as that on the chip data file.</phrase></s
 <simpara><emphasis role="strong">Errors.txt</emphasis></simpara>
 <simpara>The compiler only produces the file errors.txt if there is an error. The creation of the errors.txt file makes it easier for IDEs to detect if the program compiled successfully - if the file was not produced then the IDE would be unalbe to present the error message to the user.</simpara>
 <simpara>The file error.txt is always produced in the same folder as the compiler.  Typically: C:\GCStudio\GCBASIC\Errors.txt</simpara>
+<simpara><emphasis role="strong">USE.INI</emphasis></simpara>
+<simpara>USE.INI is the provided setup file for the compiler.&#160;&#160;The name of <literal>use.ini</literal> is historic and of no relevance.</simpara>
+<simpara>USE.INI is generally updated by using the <literal>PREFERENCES EDITOR</literal>.&#160;&#160;</simpara>
+<simpara>USE.INI is self documenting and open <literal>use.ini</literal> in an editor will shown the full capabilities of setting file.</simpara>
+<simpara>The details below show the self documentation in a typical <literal>use.ini</literal></simpara>
+<screen>Preferences file for GC BASIC
+Location: GCB install (or custom) dir
+
+Documentation for the [gcbasic] section of the use.ini file
+    programmer = arduinouno   - the currently selected available programmers
+    showprogresscounters = n  - show percent values as compiler runs. requires Verbose = y
+    verbose = y               - show verbose compiler information
+    preserve = n              - preservice source program in ASM
+    warningsaserrors = n      - treat Warnings from scripts as errors.
+    pauseaftercompile = n     - pause after compiler. Do not do this with IDEs
+    flashonly = n             - Flash the chip is source older that hex file
+    assembler = GCASM         - currently selected Assembler
+    hexappendgcbmessage = n   - appends a message in the HEX file
+    laxsyntax = n             - use lax syntax when Y, the compiler will not check that reserved words
+    mutebanners = n           - mutes the post compilation messages
+    evbs = n                  - show extra verbose compiler information, requires Verbose = y
+    nosummary = n             - mutes almost all messages psot compilation
+    extendedverbosemessages = n  - show even more verbose compiler information, requires Verbose = y
+    conditionaldebugfile =    - creates CDF file
+    columnwidth = 180         - ASM width before wrapping
+    picasdebug = n            - adds PIC-AS preprocessor message to .S file
+    datfileinspection = y     - inspects DAT for memory validation
+    methodstructuredebug  = n - show method structure start &amp; end for validation
+    floatcapability =  1      - 1 = singles
+                             - 2 = doubles
+                             - 4 = longint
+                             - 8 = uLongINT
+    compilerdebug =  0       - 1 = COMPILECALCADD
+                             - 2 = VAR SET
+                             - 4 = CALCOPS
+                             - 8 = COMPILECALCMULT
+                             - 16 = AUTOPINDIR
+                             - 32 = ADRDX
+                             - 64 = GCASM</screen>
 </section>
 <section xml:id="_frequent_errors">
 <title>Frequent errors</title>
@@ -2626,6 +2665,79 @@ On 18Fs, it will guess based on where the lowest SFR is, and from what the total
 </orderedlist>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?></simpara>
+</section>
+</section>
+<section xml:id="_reference_data">
+<title>Reference Data</title>
+<section xml:id="_efficient_implementation_of_lookup_reference_tables_in_gcbasic">
+<title>Efficient Implementation of Lookup Reference Tables in GCBASIC</title>
+<simpara><emphasis role="strong">Introduction</emphasis></simpara>
+<simpara>This section explores the efficient implementation of lookup reference tables in embedded systems, specificially GCBASIC, focusing on the use of PROGMEM memory to store fixed data sets. It addresses common misconceptions about data storage and initialization, compares different methods of data handling, and provides advanced techniques for optimizing memory usage.</simpara>
+<simpara>Lookup reference tables are essential in embedded systems for storing fixed data sets that can be accessed during runtime. This section aims to clarify the correct implementation of these tables, debunking common myths and providing practical solutions for efficient data management.</simpara>
+<simpara><emphasis role="strong">Conventional Misconceptions</emphasis></simpara>
+<simpara>A common misconception is that the data required by a fixed lookup table is defined by its content and declared in a Dim statement, with its data filled at runtime. This implies that an array ( in RAM memory ) is empty initially and populated during initialization, leading to data duplication and wasted memory resources.</simpara>
+<simpara><emphasis role="strong">Correct Implementation</emphasis></simpara>
+<simpara>A fixed lookup table is a set of data (bytes, words, etc.) stored in the PROGMEM memory. The correct implementation involves using the TABLE and READTABLE commands:
+* Definition: <literal>TABLE tablename&#8230;&#8203; data&#8230;&#8203; END TABLE</literal>
+* Reading: <literal>READTABLE</literal>
+There is no DIM in the definition process, and the data is part of the hex file, not filled at runtime.</simpara>
+<simpara><emphasis role="strong">Memory Efficiency</emphasis></simpara>
+<simpara>Storing data in PROGMEM ensures that there is only one copy of the data, avoiding duplication. Copying data to an array is redundant as reading the table can replace the array.</simpara>
+<simpara><emphasis role="strong">Practical Solutions</emphasis></simpara>
+<simpara>Using <literal>TABLE - END TABLE</literal> is the simplest way to handle data. For data sets smaller than the EEPROM in the chip, load the table directly to EEPROM and use <literal>READTABLE</literal> to read the data.</simpara>
+<simpara><emphasis role="strong">Advanced Techniques</emphasis></simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>PROGMEM Page Size Constraint: On the 16F, <literal>TABLE-END TABLE</literal> is constrained by PROGMEM page size (2048 items).</simpara>
+</listitem>
+<listitem>
+<simpara>EEPROM Storage: Use <literal>EEPROM .. END EEPROM</literal> and a direct method like <literal>PROGREAD</literal>. Data is stored in EEPROM, constrained by its size and typically byte values.</simpara>
+</listitem>
+<listitem>
+<simpara>Direct PROGMEM Storage: Use <literal>DATA .. END DATA</literal> and <literal>PROGREAD</literal>. Data is stored in PROGMEM, constrained by unused PROGMEM size and typically word values (max 0x3FFF for 16F chips).</simpara>
+</listitem>
+</orderedlist>
+<simpara><emphasis role="strong">Arrays in Embedded Systems</emphasis></simpara>
+<simpara>An array is a special type of variable that can store multiple values, addressed individually using an index. Arrays can be bytes, longs, integers, or words, and are held in RAM. Loading an array can be done element by element or all at once.</simpara>
+<simpara><emphasis role="strong">Comparison of Methods</emphasis></simpara>
+<simpara>Using arrays can be costly in terms of RAM and PROGMEM. The following examples illustrate the difference:</simpara>
+<simpara><emphasis role="strong">Using an Array</emphasis></simpara>
+<simpara>64 words Progmem / 13 bytes RAM</simpara>
+<screen>        #CHIP 18F2550
+        #option Explicit
+
+        Dim myResult, myIndex as Byte
+
+        // Using an array 64 words Progmem / 13 bytes RAM
+        Dim myArray(10)
+            myArray = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        For myIndex = 1 to 10
+            myResult =  myArray(myIndex)
+        Next</screen>
+<simpara><emphasis role="strong">Using a Table</emphasis></simpara>
+<simpara>56 words Progmem / 2 bytes RAM</simpara>
+<screen>        #CHIP 18F2550
+        #option Explicit
+
+        Dim myResult, myIndex as Byte
+
+        // Using a table 56 words Progmem / 2 bytes RAM
+        For myIndex = 1 to 10
+            ReadTable myTable, myIndex, myResult
+        Next
+
+        Table myTable
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        End Table</screen>
+<simpara><emphasis role="strong">Usage</emphasis></simpara>
+<simpara>The <literal>ReadTable</literal> method provides data set capabilities to chips with limited RAM, using fewer resources and offering faster performance. Advanced techniques and proper understanding of memory usage can significantly optimize embedded system performance.</simpara>
+<simpara><emphasis role="strong">Notes</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara>A byte array is handled similarly to a string, which can be resource-intensive.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>By following these guidelines, developers can efficiently implement lookup reference tables in embedded systems, optimizing memory usage and performance.</simpara>
 </section>
 </section>
 <section xml:id="_syntax">
@@ -37106,7 +37218,9 @@ This example will generate the following in the ASM source file.</simpara>
 <section xml:id="__chip">
 <title>#chip</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
-<screen>    #chip <emphasis>model</emphasis>, <emphasis>frequency</emphasis></screen>
+<screen>    #chip <emphasis>model</emphasis>, <emphasis>frequency</emphasis>
+
+    #chip <emphasis>model</emphasis>, <emphasis>frequency</emphasis> / <emphasis>numeric constant</emphasis></screen>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara>The <literal>#chip</literal> directive is used to specify the chip model and frequency that GCBASIC will use.</simpara>
 <simpara>The <literal><emphasis>model</emphasis></literal> is the specific microcontroller  - examples are "16F819".</simpara>
@@ -37114,6 +37228,7 @@ This example will generate the following in the ASM source file.</simpara>
 The following constants simplify setting specific frequencies.
 <literal>31k</literal>,  <literal>32.768K</literal>, <literal>125k</literal>, <literal>250k</literal> or <literal>500k</literal>.  Any of these constant can be used. As shown in the example below.</simpara>
 <simpara>If <literal>frequency</literal> is not present the compiler will select a frequency default frequency that should work for the microcontroller.</simpara>
+<simpara>If <literal>numeric constant</literal> is specified then the compiler will complete a simple math calculation to determine the frequency.&#160;&#160;The only supported math instruction is divide.</simpara>
 <orderedlist numeration="arabic">
 <listitem>
 <simpara>If the chip has an internal oscillator, the compiler will use that and pick the highest frequency it supports.</simpara>
@@ -37125,7 +37240,24 @@ The following constants simplify setting specific frequencies.
 <simpara>If you are using an external crystal then you must specify a chip frequency.</simpara>
 </listitem>
 </orderedlist>
-<simpara>When using an AVR, there is no need to specify "AT" before the name.</simpara>
+<simpara>When using an AVR:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>There is no need to specify "AT" before the name.</simpara>
+</listitem>
+<listitem>
+<simpara>Only AVRDX chips support setting the internal frequency using the <literal>frequency</literal> statement.</simpara>
+</listitem>
+<listitem>
+<simpara>megaAVR assumes an external oscillator, and, therefore the <literal>frequency</literal> must match the external oscillator frequency.&#160;&#160;For Arduino products this is typically 16Mhz</simpara>
+</listitem>
+</orderedlist>
+<simpara>When using a LGT:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Only LGT support setting the internal frequency using the <literal>frequency</literal> statement.</simpara>
+</listitem>
+</orderedlist>
 <simpara><emphasis role="strong">Examples:</emphasis></simpara>
 <screen>    #chip 12F509, 4
     #chip 18F4550, 48
@@ -37137,7 +37269,10 @@ The following constants simplify setting specific frequencies.
     #chip 12f1840, 250k
     #chip 12f1840, 125k
 
-    'Select the internal low frequency oscillator. The microcontroller must have a low frequency oscillator option.  The internal oscillator is automatically selected.
+    #chip lgt8x328p, 4
+    #chip tiny3127, 16 / 48
+
+    'Select the internal low frequency oscillator. The microcontroller must have a low frequency oscillator option.  The internal oscillator is automatically selected on PIC.
     #chip 16f18326, 31k
 
     'Select the external SOSC clock source.
@@ -37751,13 +37886,13 @@ If any of the variables do not exist, the compiler will create a constant mappin
 <thead>
 <row>
 <entry align="left" valign="top"><emphasis role="strong">ChipFamily Value</emphasis></entry>
-<entry align="left" valign="top"><emphasis role="strong">Microcontroller Characteristics</emphasis></entry>
+<entry align="left" valign="top"></entry>
 </row>
 </thead>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara><emphasis role="strong">PIC</emphasis></simpara></entry>
-<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">AVR</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Microcontroller Characteristics</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>100</simpara></entry>
@@ -37792,12 +37927,16 @@ If any of the variables do not exist, the compiler will create a constant mappin
 <entry align="left" valign="top"><simpara>AVR core version V3E class microcontrollers but essentially the mega32u6 only</simpara></entry>
 </row>
 <row>
+<entry align="left" valign="top"><simpara>140</simpara></entry>
+<entry align="left" valign="top"><simpara>AVRDX microcontrollers. Series 0, series1, series2, DA series and DB series.</simpara></entry>
+</row>
+<row>
 <entry align="left" valign="top"></entry>
 <entry align="left" valign="top"></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><emphasis role="strong">AVR</emphasis></simpara></entry>
-<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">PIC</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Microcontroller Characteristics</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>12</simpara></entry>
@@ -37823,7 +37962,10 @@ If any of the variables do not exist, the compiler will create a constant mappin
 </simpara><simpara>    &#160;&#160;&#160;&#160;ChipFamily18FxxQ40 = 16105
 </simpara><simpara>    &#160;&#160;&#160;&#160;ChipFamily18FxxQ84 = 16106
 </simpara><simpara>    &#160;&#160;&#160;&#160;ChipFamily18FxxK83 = 16107
-</simpara><simpara>    &#160;&#160;&#160;&#160;ChipFamily18FxxQ83 = 16108</simpara></entry>
+</simpara><simpara>    &#160;&#160;&#160;&#160;ChipFamily18FxxQ83 = 16108
+</simpara><simpara>    &#160;&#160;&#160;&#160;ChipFamily18FxxQ71 = 16109
+</simpara><simpara>    &#160;&#160;&#160;&#160;ChipFamily18FxxQ20 = 16110
+</simpara><simpara>    &#160;&#160;&#160;&#160;ChipFamily18FxxQ24 = 16111</simpara></entry>
 </row>
 </tbody>
 </tgroup>

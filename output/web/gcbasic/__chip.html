@@ -16,7 +16,7 @@
       <link rel="next" href="__config.html" title="#config" />
       <meta name="Section-title" content="#chip" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-55430";
+            var treeCookieId = "treeview-55624";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,7 +184,9 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    #chip <span class="emphasis"><em>model</em></span>, <span class="emphasis"><em>frequency</em></span></pre><p><span class="strong"><strong>Explanation:</strong></span></p>
+            <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    #chip <span class="emphasis"><em>model</em></span>, <span class="emphasis"><em>frequency</em></span>
+
+    #chip <span class="emphasis"><em>model</em></span>, <span class="emphasis"><em>frequency</em></span> / <span class="emphasis"><em>numeric constant</em></span></pre><p><span class="strong"><strong>Explanation:</strong></span></p>
             <p>The <code class="literal">#chip</code> directive is used to specify the chip model and frequency that GCBASIC will use.
             </p>
             <p>The <code class="literal"><span class="emphasis"><em>model</em></span></code> is the specific microcontroller  - examples are "16F819".
@@ -195,6 +197,9 @@ border: none; background: none; font-weight: none; color: none; }
             </p>
             <p>If <code class="literal">frequency</code> is not present the compiler will select a frequency default frequency that should work for the microcontroller.
             </p>
+            <p>If <code class="literal">numeric constant</code> is specified then the compiler will complete a simple math calculation to determine the frequency.  The only supported math
+               instruction is divide.
+            </p>
             <div class="orderedlist">
                <ol class="orderedlist" type="1">
                   <li class="listitem">If the chip has an internal oscillator, the compiler will use that and pick the highest frequency it supports.</li>
@@ -204,7 +209,23 @@ border: none; background: none; font-weight: none; color: none; }
                   <li class="listitem">If you are using an external crystal then you must specify a chip frequency.</li>
                </ol>
             </div>
-            <p>When using an AVR, there is no need to specify "AT" before the name.</p>
+            <p>When using an AVR:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">There is no need to specify "AT" before the name.</li>
+                  <li class="listitem">Only AVRDX chips support setting the internal frequency using the <code class="literal">frequency</code> statement.
+                  </li>
+                  <li class="listitem">megaAVR assumes an external oscillator, and, therefore the <code class="literal">frequency</code> must match the external oscillator frequency.  For Arduino products this is typically 16Mhz
+                  </li>
+               </ol>
+            </div>
+            <p>When using a LGT:</p>
+            <div class="orderedlist">
+               <ol class="orderedlist" type="1">
+                  <li class="listitem">Only LGT support setting the internal frequency using the <code class="literal">frequency</code> statement.
+                  </li>
+               </ol>
+            </div>
             <p><span class="strong"><strong>Examples:</strong></span></p><pre class="screen">    #chip 12F509, 4
     #chip 18F4550, 48
     #chip 16F88, 0.125
@@ -215,7 +236,10 @@ border: none; background: none; font-weight: none; color: none; }
     #chip 12f1840, 250k
     #chip 12f1840, 125k
 
-    'Select the internal low frequency oscillator. The microcontroller must have a low frequency oscillator option.  The internal oscillator is automatically selected.
+    #chip lgt8x328p, 4
+    #chip tiny3127, 16 / 48
+
+    'Select the internal low frequency oscillator. The microcontroller must have a low frequency oscillator option.  The internal oscillator is automatically selected on PIC.
     #chip 16f18326, 31k
 
     'Select the external SOSC clock source.
@@ -379,6 +403,10 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
                               <li><span class="file"><a href="_advanced_variabletypes.html" tabindex="1">Advanced VariableTypes</a></span></li>
                               <li><span class="file"><a href="_variable_memory_allocation.html" tabindex="1">Variable Memory Allocation</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_reference_data.html" tabindex="1">Reference Data</a></span><ul>
+                              <li><span class="file"><a href="_efficient_implementation_of_lookup_reference_tables_in_gcbasic.html" tabindex="1">Efficient Implementation of Lookup Reference Tables in GCBASIC</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_syntax.html" tabindex="1">Syntax</a></span><ul>

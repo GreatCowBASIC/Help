@@ -18,6 +18,8 @@
 
 ``` screen
     #chip model, frequency
+
+    #chip model, frequency / numeric constant
 ```
 
 <span class="strong">**Explanation:**</span>
@@ -35,6 +37,10 @@ these constant can be used. As shown in the example below.
 If `frequency` is not present the compiler will select a frequency
 default frequency that should work for the microcontroller.
 
+If `numeric constant` is specified then the compiler will complete a
+simple math calculation to determine the frequency.  The only supported
+math instruction is divide.
+
 <div class="orderedlist">
 
 1.  If the chip has an internal oscillator, the compiler will use that
@@ -47,7 +53,27 @@ default frequency that should work for the microcontroller.
 
 </div>
 
-When using an AVR, there is no need to specify "AT" before the name.
+When using an AVR:
+
+<div class="orderedlist">
+
+1.  There is no need to specify "AT" before the name.
+2.  Only AVRDX chips support setting the internal frequency using the
+    `frequency` statement.
+3.  megaAVR assumes an external oscillator, and, therefore the
+    `frequency` must match the external oscillator frequency.  For
+    Arduino products this is typically 16Mhz
+
+</div>
+
+When using a LGT:
+
+<div class="orderedlist">
+
+1.  Only LGT support setting the internal frequency using the
+    `frequency` statement.
+
+</div>
 
 <span class="strong">**Examples:**</span>
 
@@ -62,7 +88,10 @@ When using an AVR, there is no need to specify "AT" before the name.
     #chip 12f1840, 250k
     #chip 12f1840, 125k
 
-    'Select the internal low frequency oscillator. The microcontroller must have a low frequency oscillator option.  The internal oscillator is automatically selected.
+    #chip lgt8x328p, 4
+    #chip tiny3127, 16 / 48
+
+    'Select the internal low frequency oscillator. The microcontroller must have a low frequency oscillator option.  The internal oscillator is automatically selected on PIC.
     #chip 16f18326, 31k
 
     'Select the external SOSC clock source.
