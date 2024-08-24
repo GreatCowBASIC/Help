@@ -147,9 +147,9 @@ This example creates several DATA datasets.&#160;&#160;The example also create a
         End DATA
 
         For dataaddress = 0 to 2
-            ProgRead ( @DataSet1 + dataaddress , datavalue )
+            ProgramRead  ( @DataSet1 + dataaddress , datavalue )
             HserPrint datavalue
         Next
 ----
 
-*For more help, see <<_progread,ProgRead>>, <<_lookup_tables, Creating DATA data from a Lookup Table>>*
+*For more help, see <<_ProgramRead,ProgramRead>>, <<_lookup_tables, Creating DATA data from a Lookup Table>>*
