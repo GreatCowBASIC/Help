@@ -163,8 +163,8 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-07-25<?asciidoc-br?>
-08:07:59 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2024-08-24<?asciidoc-br?>
+09:08:07 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
@@ -6394,10 +6394,10 @@ developers.</simpara>
         End DATA
 
         For dataaddress = 0 to 2
-            ProgRead ( @DataSet1 + dataaddress , datavalue )
+            ProgramRead  ( @DataSet1 + dataaddress , datavalue )
             HserPrint datavalue
         Next</screen>
-<simpara><emphasis role="strong">For more help, see <link linkend="_progread">ProgRead</link>, <link linkend="_lookup_tables">Creating DATA data from a Lookup Table</link></emphasis></simpara>
+<simpara><emphasis role="strong">For more help, see <link linkend="_ProgramRead">ProgramRead</link>, <link linkend="_lookup_tables">Creating DATA data from a Lookup Table</link></emphasis></simpara>
 </section>
 <section xml:id="_programerase">
 <title>ProgramErase</title>

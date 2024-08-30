@@ -179,13 +179,13 @@ parameter to ensure there is no DATA dataset overlap.  
         End DATA
 
         For dataaddress = 0 to 2
-            ProgRead ( @DataSet1 + dataaddress , datavalue )
+            ProgramRead  ( @DataSet1 + dataaddress , datavalue )
             HserPrint datavalue
         Next
 ```
 
 <span class="strong">**For more help, see
-<a href="" class="link">ProgRead</a>,
+<a href="" class="link">ProgramRead</a>,
 <a href="lookup_tables" class="link" title="Lookup Tables">Creating DATA data from a Lookup Table</a>**</span>
 
 </div>
