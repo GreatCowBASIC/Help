@@ -323,6 +323,17 @@ operation of the hardware RS232 routines:
 <p>To disable this delay between characters …​ Use #define <code class="literal">USART_DELAY  0 MS</code>, or, To disable this delay between characters …​ Use #define <code class="literal">USART_DELAY  OFF</code></p></td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"><p><code class="literal">USART_BLOCKING_TIMEOUT</code></p></td>
+<td style="text-align: left;"><p>If defined, this constant will cause the RX USART routines ( all USARTs) cease waiting after a specific timeout.</p>
+<p>PIC only.</p></td>
+<td style="text-align: left;"><p><code class="literal">#DEFINE USART_BLOCKING_TIMEOUT 125</code> (where 125 is the time in ms) when using USART_BLOCKING; the timeout is only operation when the constant <code class="literal">USART_BLOCKING_TIMEOUT</code> is defined. The objective is to have a very responsive USART received loop by just timing the loop instructions without using timed waits; this sacrifices timing precision but provides excellent communication performance.</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><p><code class="literal">CHECK_USART_BAUD_RATE</code></p></td>
 <td style="text-align: left;"><p>Instruct the compiler to show the real BPS to be used</p></td>
 <td style="text-align: left;"><p>Not the default operation</p></td>

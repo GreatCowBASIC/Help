@@ -238,6 +238,16 @@ can be sent or received.
 To disable this delay between characters ...  Use #define  `USART_DELAY  0 MS`, or,
 To disable this delay between characters ...  Use #define  `USART_DELAY  OFF`
 
+|`USART_BLOCKING_TIMEOUT`
+|If defined, this constant will cause the RX USART routines ( all USARTs) cease waiting after a specific timeout. 
+
+PIC only.
+| `#DEFINE USART_BLOCKING_TIMEOUT 125` (where 125 is the time in ms) when using USART_BLOCKING; the timeout is only operation when the constant `USART_BLOCKING_TIMEOUT` is defined.  The objective is to have a very responsive USART received loop by just timing the loop instructions without using timed waits; this sacrifices timing precision but provides excellent communication performance.
+
+|
+|
+|
+
 
 |`CHECK_USART_BAUD_RATE`
 |Instruct the compiler to show the real BPS to be used
