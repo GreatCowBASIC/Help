@@ -7,7 +7,7 @@
 
     or
 
-    #DEFINE NAME = [String]
+    #DEFINE NAME [ = String]
 
 ----
 *Explanation:*
