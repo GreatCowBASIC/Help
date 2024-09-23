@@ -14,7 +14,9 @@ This directive defines a text substitution string. Wherever `name` is encountere
 
 The expansion is done recursively, until there is nothing more to expand and the compiler can continue analyzing the resulting code.
 
-The use of an existing constant is supported.{nbsp}{nbsp}The order of constants when using an existing constant is strict.{nbsp}{nbsp}The constant must exist prior to use.  
+The use of an existing constant is supported.{nbsp}{nbsp}The order of constants when using an existing constant is strict.{nbsp}{nbsp}The constant must exist prior to use. 
+
+To ensure evaluation of a calculation. {nbsp}{nbsp}A \`=` must be used. {nbsp}{nbsp}This is strict.
 
 #UNDEFINE can be used to make the compiler delete an existing constant. 
 
@@ -35,12 +37,18 @@ This progress shows the creation of constants, the processing and showing of con
 
 
     // Numeric constants
+   // Numeric constants
         #define LENGTH 20
         #define CONTROL 0x19,7
-        #define SINGLEPI = 22/7
-        #define INTPI = INT(22/7)
-        #define FACTOREDPI = INT((22/7 - INT(22/7))*1000)
-        #define LENGTHSQUARED = LENGTH * LENGTH     
+        #define SINGLEPI = 22/7                                         // evaluated numberic string
+        #define INTPI = INT(22/7)                                       // evaluated numberic string
+        #define FACTOREDPI = INT((22/7 - INT(22/7))*1000)               // evaluated numberic string
+        #define LENGTHSQUARED = LENGTH * LENGTH                         // evaluated numberic string
+		#define PI 3.142
+		#define RADIUS 10
+		#define CIRCUMFERENCECALC = PI * RADIUS                         // evaluated numberic string, with constant substitution
+		#define FACTORISEDCIRCUMFERENCE = INT(CIRCUMFERENCECALC*100)    // evaluated numberic string, with constant substitution
+
 
     //String(s) required double quotes and NO `=` assignment
         #define MYSTRING "This is a string"   
