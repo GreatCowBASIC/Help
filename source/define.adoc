@@ -59,15 +59,11 @@ This progress shows the creation of constants, the processing and showing of con
     //  A string assignment is not required
         #define ACONSTANTTHATEXISTS
 
-
-    // This type of calculation will result in 0, with a silent failure. Use full expansion
-        // #define BADFACTOREDPI = SINGLEPI - INTPI
-
     // Macros are not supported.. just define the sub!
         // #define BADPOSITION(XX,YY,ZZ) (YY-(2 * ZZ +XX))
 
-    // Unused Constants that are invalid may not report an error - as in this example
-    // String assignment with an equal sign will fail. Do not use `=`
+    // Unused Constants that are invalid may not report an error until try to use within your program- as in this example
+        // String assignment with an equal sign will fail. Do not use `=`
         #define BADMYSTRING = "This is a string"
 
 
