@@ -41,7 +41,6 @@ This progress shows the creation of constants, the processing and showing of con
     #option Explicit
 
 
-    // Numeric constants
    // Numeric constants
         #define LENGTH 20
         #define CONTROL 0x19,7
@@ -49,10 +48,10 @@ This progress shows the creation of constants, the processing and showing of con
         #define INTPI = INT(22/7)                                       // evaluated numberic string
         #define FACTOREDPI = INT((22/7 - INT(22/7))*1000)               // evaluated numberic string
         #define LENGTHSQUARED = LENGTH * LENGTH                         // evaluated numberic string
-		#define PI 3.142
-		#define RADIUS 10
-		#define CIRCUMFERENCECALC = PI * RADIUS                         // evaluated numberic string, with constant substitution
-		#define FACTORISEDCIRCUMFERENCE = INT(CIRCUMFERENCECALC*100)    // evaluated numberic string, with constant substitution
+        #define PI 3.142
+        #define RADIUS 10
+        #define CIRCUMFERENCECALC = PI * RADIUS                         // evaluated numberic string, with constant substitution
+        #define FACTORISEDCIRCUMFERENCE = INT(CIRCUMFERENCECALC*100)    // evaluated numberic string, with constant substitution
 
 
     //String(s) required double quotes and NO `=` assignment
