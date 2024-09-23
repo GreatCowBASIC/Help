@@ -14,6 +14,8 @@ This directive defines a text substitution string. Wherever `name` is encountere
 
 The expansion is done recursively, until there is nothing more to expand and the compiler can continue analyzing the resulting code.
 
+The use of an existing constant is supported.{nbsp}{nbsp}The order of constants when using an existing constant is strict.{nbsp}{nbsp}The constant must exist prior to use.  
+
 #UNDEFINE can be used to make the compiler delete an existing constant. 
 
 
@@ -38,6 +40,7 @@ This progress shows the creation of constants, the processing and showing of con
         #define SINGLEPI = 22/7
         #define INTPI = INT(22/7)
         #define FACTOREDPI = INT((22/7 - INT(22/7))*1000)
+        #define LENGTHSQUARED = LENGTH * LENGTH     
 
     //String(s) required double quotes and NO `=` assignment
         #define MYSTRING "This is a string"   
