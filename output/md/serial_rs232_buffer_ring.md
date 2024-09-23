@@ -35,37 +35,39 @@ buffer change the variables to words.
 
 ``` screen
     #chip 16F1937
+    // #chip mega4809
+    // #chip mega328p, 16
 
 
-    ' Add PPS if appropiate for your chip
-    ' [change to your config] This is the config for a serial terminal
+    // Add PPS if appropiate for your chip
+    // [change to your config] This is the config for a serial terminal
 
-    ' assumes USART1
-    ' turn on the RS232 and terminal port.
-    ' Define the USART settings
+    // assumes USART1 ( or USART0 on AVRDx ), if you select USART1/2/3/4 then you MUST add the comport parameter to all HSerxxxxx functions.
+    // turn on the RS232 and terminal port.
+    // Define the USART settings
     #DEFINE USART_BAUD_RATE 9600
 
-    'This assumes you are using an ANSI compatible terminal.  Use PUTTY.EXE it is very easy to use.
+    // This assumes you are using an ANSI compatible terminal.  Use PUTTY.EXE it is very easy to use.
 
-    '   Main program
+    //   Main program
 
-    'Wait for terminal to settle
+    // Wait for terminal to settle
     wait 3 s
 
-    'Create the supporting variables
+    // Create the supporting variables
     Dim next_in As Byte
     Dim next_out As Byte
     Dim syncbyte As Byte
     Dim temppnt As Byte
 
-    ' Constants etc required for Buffer Ring
+    // Constants etc required for Buffer Ring
     #DEFINE BUFFER_SIZE 8
     #DEFINE bkbhit (next_in <> next_out)
 
-    'Define the Buffer
-    Dim buffer( BUFFER_SIZE - 1 ) 'we will use element 0 in the array as part of out buffer
+    // Define the Buffer
+    Dim buffer( BUFFER_SIZE - 1 ) // we will use element 0 in the array as part of out buffer
 
-    'Call init the buffer
+    // Call init the buffer
     InitBufferRing
 
     HSerSend 10
@@ -77,34 +79,35 @@ buffer change the variables to words.
     HSerSend 13
 
 
-    'Get character(s) and send back
+    // Get character(s) and send back
+    // Get character(s) and send back
     Do
 
-        ' Do we have data in the buffer?
+        //  Do we have data in the buffer?
         if bkbhit then
 
-            'Send the next character in the buffer, exposed via the function `bgetc` back the terminal
+            // Send the next character in the buffer to the terminal, exposed via the function `bgetc` back the terminal
             HSerSend bgetc
 
         end if
-
     Loop
 
-    'Supporting subroutines
+
+    // Supporting subroutines
 
     Sub readUSART
 
         buffer(next_in) = HSerReceive
         temppnt = next_in
         next_in = ( next_in + 1 ) % BUFFER_SIZE
-        If ( next_in = next_out ) Then  ' buffer is full!!
+        If ( next_in = next_out ) Then  // buffer is full!!
             next_in = temppnt
         End If
 
     End Sub
 
     Function bgetc
-        Dim local_next_out as Byte    'maintain a local copy of the next_out variable to ensure it does not change when an Interrupt happens
+        Dim local_next_out as Byte    // maintain a local copy of the next_out variable to ensure it does not change when an Interrupt happens
         local_next_out = next_out
         bgetc = buffer(local_next_out)
         local_next_out=(local_next_out+1) % BUFFER_SIZE
@@ -118,18 +121,28 @@ buffer change the variables to words.
 
     Sub InitBufferRing
 
-        'Set the buffer to the first address
+        // Set the buffer to the first address
         next_in = 0
         next_out = 0
-        'Interrupt Handler - some have RCIE and some have U1RXIE, so handle
+        // Interrupt Handler - some have RCIE and some have U1RXIE, so handle
+        //
+        // You would need to change the Interrupt if you use USART1,2,3, or 4
+        //
         #IFDEF BIT( RCIE )
             On Interrupt UsartRX1Ready Call readUSART
         #ENDIF
         #IFDEF BIT( U1RXIE )
             On Interrupt UART1ReceiveInterrupt Call readUSART
         #ENDIF
+
         #IFDEF AVR
-            On Interrupt UsartRX1Ready Call readUSART
+            #IFNDEF CHIPAVRDX
+                //~ Support for legacy AVR
+                On Interrupt UsartRX1Ready Call readUSART
+            #ELSE
+                //~ Support for AVRDx - AVRDx chips are USART0,USART1,USART2,USART3 and USART4 not USART.
+                On Interrupt Usart0RXReady Call readUSART
+            #ENDIF
         #ENDIF
 
     End Sub
