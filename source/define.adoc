@@ -41,7 +41,7 @@ This progress shows the creation of constants, the processing and showing of con
 
     //String(s) required double quotes and NO `=` assignment
         #define MYSTRING "This is a string"   
-    //  Values are not required
+    //  A string assignment is not required
         #define ACONSTANTTHATEXISTS
 
 
