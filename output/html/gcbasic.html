@@ -609,8 +609,8 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-08-24<br>
-09:08:09 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-09-24<br>
+07:21:31 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
@@ -5252,15 +5252,14 @@ NOT, AND, OR and XOR will not work.</p>
 </div>
 <div class="paragraph">
 <p>A constant tells the compiler to find a given
-word, and replace it with another word or number. Define directives create constants.</p>
+string, and replace it with another string. The <code>#Define</code> directive create constants.</p>
 </div>
 <div class="paragraph">
-<p>Constants are useful for situations where a routine needs to be easily altered. For example, a
-define could be used to specify the amount of time to run an alarm for
+<p>Constants are useful for situations where a routine needs to be easily altered. For example, a define could be used to specify the amount of time to run an alarm for
 once triggered.</p>
 </div>
 <div class="paragraph">
-<p>It is also possible to use defines to specify ports - thus defines can
+<p>It is also possible to use defines to specify port.pin(s) - thus defines can
 be used to aid in the creation of code that can easily be adapted to run
 on a different microcontroller with different ports.</p>
 </div>
@@ -5273,35 +5272,38 @@ with the LCD.</p>
 <p><strong>About Defines</strong></p>
 </div>
 <div class="paragraph">
-<p>To create a define is a matter of using the #define directive. Here are
+<p>To create a constant is a matter of using the #define directive. Here are
 some examples of defines:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    #define Line 34
-    #define Light PORTB.0
-    #define LightOn Set PORTB.0 on</pre>
+<pre>    #define LINE 34
+    #define LIGHT PORTB.0
+    #define LIGHTON Set PORTB.0 ON</pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>Line</code> is a simple constant - GCBASIC will find <code>Line</code> in the program, and
+<p><code>LINE</code> is a simple constant - GCBASIC will find <code>LINE</code> in the program, and
 replace it with the number 34. This could be used in a line following
 program, to make it easier to calibrate the program for different
 lighting conditions.</p>
 </div>
 <div class="paragraph">
-<p><code>Light</code> is a port - it represents a particular pin on the microcontroller. This
+<p><code>LIGHT</code> is a port.pin - it represents a particular pin on the microcontroller. This
 would be of use if the program had many lines of code that controlled
 the light, and there was a possibility that the port the light was
 attached to would need to change in the future.</p>
 </div>
 <div class="paragraph">
-<p><code>LightOn</code> is a define used to make the program more readable. Rather than
-typing <code>Set PORTB.0 on</code> over and over, it would then be made possible to
-type <code>LightOn</code>, and have the compiler do the hard work.</p>
+<p><code>LIGHTON</code> is a define used to make the program more readable. Rather than
+typing <code>Set PORTB.0 ON</code> over and over, it would then be made possible to
+type <code>LIGHTON</code>, and have the compiler do the hard work.</p>
 </div>
 <div class="paragraph">
 <p><strong>GCBASIC Defined constants</strong></p>
+</div>
+<div class="paragraph">
+<p>The are many GCBASIC standard constants, some are show below.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5319,31 +5321,35 @@ type <code>LightOn</code>, and have the compiler do the hard work.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>GCBASIC special constant</strong></p>
+<p><strong>A GCBASIC special constant</strong></p>
 </div>
 <div class="paragraph">
-<p><code>Forever</code> is a special constant.  For Graphical GCBASIC users think of this as 'false'. For those not using Graphical GCBASIC think of this as a non numeric value that has no value.  You can use <code>Forever</code> in a DO-LOOP but not in a REPEAT-END REPEAT loop, as the in the later case the REPEAT will have no value and you will create an error condition.</p>
+<p><code>FOREVER</code> is a special constant.  For Graphical GCBASIC users think of this as 'false'. For those not using Graphical GCBASIC think of this as a non numeric value that has no value.  You can use <code>FOREVER</code> in a DO-LOOP but not in a REPEAT-END REPEAT loop, as the in the later case the REPEAT will have no value and you will create an error condition.</p>
 </div>
 <div class="paragraph">
 <p><strong>Precedence of Constants within GCBASIC.</strong>
 <br>
 <br>
-The <code>#define</code> command creates constants, and, a script can creates constants.
+The <code>#define</code> command creates constants, and, scripts also creates constants.  See the <code>#script</code> section of ths Help.
 <br>
 <br>
-The precedence is as follows:
-<br>
-<br>
-<code>#define</code> in the main program are read first,
-<br>
-<br>
-then, the <code>#define</code> in the include files. Constants defined in the include files will be ignored if they conflict or are different to another constant in the main program,
-<br>
-<br>
-then, the scripts are processed. Scripts that create constants always override any constant value previously defined.
-<br>
-<br>
-Scripts are highest priority, then constants in the main program, then constants in include files from the main program, then constants in the standard libraries.
+The precedence is as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Constants defined in the main user program is read first,</p>
+</li>
+<li>
+<p>then, the constants defined in the include files. Constants defined in the include files are ignored if they conflict or are different to a constant, with the same title, in the main program.</p>
+</li>
+<li>
+<p>then, the scripts are processed. Scripts that create constants can therefore override any constant value previously defined.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>All constants are listed in the Constant Debug File ( CDF ).  The CDF shows all constants and the end state of the constants.
 <br>
 <br></p>
 </div>
@@ -36457,6 +36463,17 @@ can be sent or received.</p></td>
 To disable this delay between characters &#8230;&#8203;  Use #define  <code>USART_DELAY  OFF</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>USART_BLOCKING_TIMEOUT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If defined, this constant will cause the RX USART routines ( all USARTs) cease waiting after a specific timeout.
+</p><p class="tableblock">PIC only.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>#DEFINE USART_BLOCKING_TIMEOUT 125</code> (where 125 is the time in ms) when using USART_BLOCKING; the timeout is only operation when the constant <code>USART_BLOCKING_TIMEOUT</code> is defined.  The objective is to have a very responsive USART received loop by just timing the loop instructions without using timed waits; this sacrifices timing precision but provides excellent communication performance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHECK_USART_BAUD_RATE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Instruct the compiler to show the real BPS to be used</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Not the default operation</p></td>
@@ -54637,37 +54654,39 @@ The algorithm is a variant of <a href="https://en.wikipedia.org/wiki/Bresenham%2
 <div class="listingblock">
 <div class="content">
 <pre>    #chip 16F1937
+    // #chip mega4809
+    // #chip mega328p, 16
 
 
-    ' Add PPS if appropiate for your chip
-    ' [change to your config] This is the config for a serial terminal
+    // Add PPS if appropiate for your chip
+    // [change to your config] This is the config for a serial terminal
 
-    ' assumes USART1
-    ' turn on the RS232 and terminal port.
-    ' Define the USART settings
+    // assumes USART1 ( or USART0 on AVRDx ), if you select USART1/2/3/4 then you MUST add the comport parameter to all HSerxxxxx functions.
+    // turn on the RS232 and terminal port.
+    // Define the USART settings
     #DEFINE USART_BAUD_RATE 9600
 
-    'This assumes you are using an ANSI compatible terminal.  Use PUTTY.EXE it is very easy to use.
+    // This assumes you are using an ANSI compatible terminal.  Use PUTTY.EXE it is very easy to use.
 
-    '   Main program
+    //   Main program
 
-    'Wait for terminal to settle
+    // Wait for terminal to settle
     wait 3 s
 
-    'Create the supporting variables
+    // Create the supporting variables
     Dim next_in As Byte
     Dim next_out As Byte
     Dim syncbyte As Byte
     Dim temppnt As Byte
 
-    ' Constants etc required for Buffer Ring
+    // Constants etc required for Buffer Ring
     #DEFINE BUFFER_SIZE 8
     #DEFINE bkbhit (next_in &lt;&gt; next_out)
 
-    'Define the Buffer
-    Dim buffer( BUFFER_SIZE - 1 ) 'we will use element 0 in the array as part of out buffer
+    // Define the Buffer
+    Dim buffer( BUFFER_SIZE - 1 ) // we will use element 0 in the array as part of out buffer
 
-    'Call init the buffer
+    // Call init the buffer
     InitBufferRing
 
     HSerSend 10
@@ -54679,34 +54698,35 @@ The algorithm is a variant of <a href="https://en.wikipedia.org/wiki/Bresenham%2
     HSerSend 13
 
 
-    'Get character(s) and send back
+    // Get character(s) and send back
+    // Get character(s) and send back
     Do
 
-        ' Do we have data in the buffer?
+        //  Do we have data in the buffer?
         if bkbhit then
 
-            'Send the next character in the buffer, exposed via the function `bgetc` back the terminal
+            // Send the next character in the buffer to the terminal, exposed via the function `bgetc` back the terminal
             HSerSend bgetc
 
         end if
-
     Loop
 
-    'Supporting subroutines
+
+    // Supporting subroutines
 
     Sub readUSART
 
         buffer(next_in) = HSerReceive
         temppnt = next_in
         next_in = ( next_in + 1 ) % BUFFER_SIZE
-        If ( next_in = next_out ) Then  ' buffer is full!!
+        If ( next_in = next_out ) Then  // buffer is full!!
             next_in = temppnt
         End If
 
     End Sub
 
     Function bgetc
-        Dim local_next_out as Byte    'maintain a local copy of the next_out variable to ensure it does not change when an Interrupt happens
+        Dim local_next_out as Byte    // maintain a local copy of the next_out variable to ensure it does not change when an Interrupt happens
         local_next_out = next_out
         bgetc = buffer(local_next_out)
         local_next_out=(local_next_out+1) % BUFFER_SIZE
@@ -54720,18 +54740,28 @@ The algorithm is a variant of <a href="https://en.wikipedia.org/wiki/Bresenham%2
 
     Sub InitBufferRing
 
-        'Set the buffer to the first address
+        // Set the buffer to the first address
         next_in = 0
         next_out = 0
-        'Interrupt Handler - some have RCIE and some have U1RXIE, so handle
+        // Interrupt Handler - some have RCIE and some have U1RXIE, so handle
+        //
+        // You would need to change the Interrupt if you use USART1,2,3, or 4
+        //
         #IFDEF BIT( RCIE )
             On Interrupt UsartRX1Ready Call readUSART
         #ENDIF
         #IFDEF BIT( U1RXIE )
             On Interrupt UART1ReceiveInterrupt Call readUSART
         #ENDIF
+
         #IFDEF AVR
-            On Interrupt UsartRX1Ready Call readUSART
+            #IFNDEF CHIPAVRDX
+                //~ Support for legacy AVR
+                On Interrupt UsartRX1Ready Call readUSART
+            #ELSE
+                //~ Support for AVRDx - AVRDx chips are USART0,USART1,USART2,USART3 and USART4 not USART.
+                On Interrupt Usart0RXReady Call readUSART
+            #ENDIF
         #ENDIF
 
     End Sub</pre>

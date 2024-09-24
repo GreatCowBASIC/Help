@@ -16,7 +16,7 @@
       <link rel="next" href="_hsergetnum.html" title="HSerGetNum" />
       <meta name="Section-title" content="RS232 Hardware Overview" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-55624";
+            var treeCookieId = "treeview-55644";
             var language = "en";
             var w = new Object();
             //Localization
@@ -782,6 +782,27 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>To disable this delay between characters …​  Use #define  <code class="literal">USART_DELAY  0 MS</code>, or,
                               To disable this delay between characters …​  Use #define  <code class="literal">USART_DELAY  OFF</code></p>
                         </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">USART_BLOCKING_TIMEOUT</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>If defined, this constant will cause the RX USART routines ( all USARTs) cease waiting after a specific timeout.
+                              
+                           </p>
+                           <p>PIC only.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><code class="literal">#DEFINE USART_BLOCKING_TIMEOUT 125</code> (where 125 is the time in ms) when using USART_BLOCKING; the timeout is only operation when the constant <code class="literal">USART_BLOCKING_TIMEOUT</code> is defined.  The objective is to have a very responsive USART received loop by just timing the loop instructions without
+                              using timed waits; this sacrifices timing precision but provides excellent communication performance.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top"> </td>
+                        <td align="left" valign="top"> </td>
+                        <td align="left" valign="top"> </td>
                      </tr>
                      <tr>
                         <td align="left" valign="top">
