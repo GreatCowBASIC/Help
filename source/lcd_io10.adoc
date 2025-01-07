@@ -24,35 +24,35 @@ These constants are used to control settings for the Liquid Crystal Display rout
 
 |`LCD_I2C_Address_1`
 |Address of I2C adapter
-|`0x4C`
+|`Default = 0x4E`
 
 |`LCD_I2C_Address_2`
 |Address of I2C adapter
-|`0x4A`
+|`Recommended = 0x4C`
 
 |`LCD_I2C_Address_3`
 |Address of I2C adapter
-|`0x4*`
+|`Recommended = 0x4A`
 
 |`LCD_I2C_Address_4`
 |Address of I2C adapter
-|`0x48`
+|`Recommended = 0x48`
 
 |`LCD_I2C_Address_5`
 |Address of I2C adapter
-|`0x46`
-r
+|`Recommended = 0x46`
+
 |`LCD_I2C_Address_6`
 |Address of I2C adapter
-|`0x44`
+|`Recommended = 0x44`
 
 |`LCD_I2C_Address_7`
 |Address of I2C adapter
-|`0x42`
+|`Recommended = 0x42`
 
 |`LCD_I2C_Address_8`
 |Address of I2C adapter
-|`0x40`
+|`Recommended = 0x40`
 
 
 |===
