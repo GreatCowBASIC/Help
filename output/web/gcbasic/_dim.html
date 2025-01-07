@@ -16,7 +16,7 @@
       <link rel="next" href="_alloc.html" title="Alloc" />
       <meta name="Section-title" content="Dim" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-55644";
+            var treeCookieId = "treeview-55691";
             var language = "en";
             var w = new Object();
             //Localization
@@ -217,6 +217,8 @@ border: none; background: none; font-weight: none; color: none; }
                to treat system variables as a word.   For example, this command is used to create a word variable, made up from the two memory
                locations used to store the result of an A/D conversion.  `Alias` is mutually exclusive to <code class="literal">At</code> and therefore <code class="literal">Alias</code> and <code class="literal">At</code> on the same declaration line will cause an compiler error.
             </p>
+            <p><code class="literal">Alias</code> does not support <code class="literal">BIT</code> variable.    For the correct method to address `BIT`s in a psuedo alias method see the example program #2 below.
+            </p>
             <p><code class="literal">AT</code> a variable can be placed at a specific location in the data memory of the chip using the At option.   `<span class="emphasis"><em>location</em></span>` will be used whether it is a valid location or not, but a warning will be generated if GCBASIC has already allocated the
                memory, or if the memory does not appear to be valid.   This can be used for peripherals that have multi byte buffers in RAM.  `At`
                is mutually exclusive to <code class="literal">Alias</code> and therefore <code class="literal">At</code> and <code class="literal">Alias</code> on the same declaration line will cause an compiler error.
@@ -225,7 +227,7 @@ border: none; background: none; font-weight: none; color: none; }
                has no descriptor and it is not resized to fit its contents. If data overflows the size of the string, the memory may be overwrtten.
                Fixed length strings are not NULL terminated, and they use size + 1 bytes of space.
                String variable names need not end in a dollar sign $ as in other dialects of BASIC.
-            </p><pre class="screen">    Dim ADResult As Word Alias ADRESH, ADRESL</pre><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'This program will set up a array of ten bytes and a word variable
+            </p><pre class="screen">    Dim ADResult As Word Alias ADRESH, ADRESL</pre><p><span class="strong"><strong>Example 1:</strong></span></p><pre class="screen">    'This program will set up a array of ten bytes and a word variable
 
     dim DataList(10)
     dim Reading as word
@@ -233,7 +235,49 @@ border: none; background: none; font-weight: none; color: none; }
     Reading = 21978
     DataList(1) = 15
 
-    dim stringvariable as string</pre><p><span class="strong"><strong>For more help, see:  </strong></span><a class="link" href="_serprint.html" title="SerPrint">SerPrint</a> articles as these articales show how to use Dim to create string variables and <a class="link" href="_variables.html" title="Variables">Variables</a> for more details in creating and managing strings lengths.
+    dim stringvariable as string</pre><p><span class="strong"><strong>Example 2:</strong></span></p>
+            <p>Use a constant, or a number of constants, to refer to specific <code class="literal">BIT`s of an exist `BYTE</code> variable.  A psuedo <code class="literal">ALIAS</code> for <code class="literal">BIT</code> variables.
+            </p><pre class="screen">    // Thank you Ccin E Crout from the GCBASIC forum!!
+
+    #Option Explicit
+    #Chip 16F1825, 32
+
+    Dim SerialByte As Byte
+    #Define StatusReady  SerialByte.0
+    #Define StatusError  SerialByte.1
+    #Define StatusMotor  SerialByte.2
+    #Define StatusOkBut  SerialByte.3
+    #Define StatusUpBut  SerialByte.4
+    #Define StatusDnBut  SerialByte.5
+    #Define StatusLeBut  SerialByte.6
+    #Define StatusRiBut  SerialByte.7
+
+    SerialByte = 0                 // This will address the specific byte
+
+    Do
+        SerialByte = SerialByte + 1
+        If StatusReady = 1 Then     // This will address the specific bit
+            StatusError = 0         // This will address the specific bit
+        End If
+        If StatusError = 1 Then     // This will address the specific bit
+            StatusMotor = 0         // This will address the specific bit
+        End If
+        If StatusMotor = 1 Then     // This will address the specific bit
+            StatusOkBut = 0         // This will address the specific bit
+        End If
+        If StatusOkBut = 1 Then     // This will address the specific bit
+            StatusUpBut = 0         // This will address the specific bit
+        End If
+        If StatusUpBut = 1 Then     // This will address the specific bit
+            StatusDnBut = 0         // This will address the specific bit
+        End If
+        If StatusDnBut = 1 Then     // This will address the specific bit
+            StatusLeBut = 0         // This will address the specific bit
+        End If
+        If StatusLeBut = 1 Then     // This will address the specific bit
+            StatusReady = 0         // This will address the specific bit
+        End If
+    Loop</pre><p><span class="strong"><strong>For more help, see:  </strong></span><a class="link" href="_serprint.html" title="SerPrint">SerPrint</a> articles as these articales show how to use Dim to create string variables and <a class="link" href="_variables.html" title="Variables">Variables</a> for more details in creating and managing strings lengths.
             </p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">

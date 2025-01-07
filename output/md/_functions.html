@@ -1,0 +1,38 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Functions</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_syntax.html" title="Syntax"><link rel="prev" href="_constants.html" title="Constants"><link rel="next" href="_labels.html" title="Labels"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_functions"></a>Functions</h3></div></div></div><pre class="screen">    Function identifier  [( arg1 [ as Type ], arg2... argx) ] [As return_type]
+        statements
+        ...
+        identifier = return_value
+        ...
+    End Function</pre><p><span class="strong"><strong>About Functions</strong></span></p><p>Functions are a special type of subroutine that can return a value.&nbsp;&nbsp;
+This means that when the name of the function is used in the place of a
+variable, GCBASIC will call the function, get a value from it, and then
+put the value into the line of code in the place of the variable.</p><p>Functions are strict.&nbsp;&nbsp;The function MUST be assigned to an appropiate variable or passed to another subroutine.&nbsp;&nbsp;Calling a function with no assignment or returned value usage will raise an error condition.</p><p>Functions may have parameters - these are treated in exactly the
+same way as parameters for subroutines.&nbsp;&nbsp;
+The only exception is that brackets are required around any parameters when calling a function. &nbsp;&nbsp;The argument&#8217;s type is given by "As type" following the parameter. If a parameter in the declaration is given a default value, the parameter is optional. Array parameters are specified by following an identifier with an empty parenthesis.</p><p>Returning values : <code class="literal">return_type</code> specifies the data type returned by a function upon exit.&nbsp;&nbsp;If no data type is specified, then the function will return the default data type which is a byte.&nbsp;&nbsp;
+Functions return values by assigning the Function keyword or the function&#8217;s <code class="literal">identifier</code> to the desired return value, this method do not cause the function to exit, however.&nbsp;&nbsp;</p><p>Exit Function keyword in a same function is unsupported when returning objects with constructors.&nbsp;&nbsp;Since functions return values, function calls evaluate to expressions. Thus, function calls can be made wherever an expression is expected, like in Assignments or If statements.&nbsp;&nbsp;Parentheses surrounding the argument list are required on function calls in expressions and even highly recommended if there are no arguments.</p><p><span class="strong"><strong>Using Functions</strong></span></p><p>This program uses a function called <code class="literal">AverageAD</code> to take two analog
+readings, and then make a decision based on the average:</p><pre class="screen">    'Select chip
+    #chip 16F88, 20
+
+    'Define ports
+    #define LED PORTB.0
+    #define Sensor AN0
+
+    'Set port directions
+    dir LED out
+    dir PORTA.0 in
+
+    'Main code
+    Do
+        Set PORTB.0 Off
+        If AverageAD &gt; 128 Then Set PORTB.0 On
+        wait 10 ms
+    Loop
+
+    Function AverageAD
+        'Get 2 readings, divide by 2, store in AverageAD
+        'Note the cast, the result of ReadAD needs to be converted to
+        'a word before adding, or the result may overflow.
+        AverageAD = ([word]ReadAD(Sensor) + ReadAD(Sensor)) / 2
+    end function</pre><p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_subroutines.html" title="Subroutines">Subroutines</a>, <a class="link" href="_exit.html" title="Exit">Exit</a></p></div></body></html>

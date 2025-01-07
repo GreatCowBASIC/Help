@@ -1,0 +1,47 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Pad</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_string_manipulation.html" title="String Manipulation"><link rel="prev" href="_mid.html" title="Mid"><link rel="next" href="_right.html" title="Right"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_pad"></a>Pad</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    out_string = Pad( <span class="emphasis"><em>string_variable</em></span>, <span class="emphasis"><em>byte_value_of_the_new_length</em></span>, <span class="emphasis"><em>pad_character</em></span>)</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The <code class="literal">Pad</code> function is used to create string to a specific length that is extended with a specific character.</p><p>The length of the string is specified by the second parameter.  The character used to pad the string is specified by the third parameter.</p><p>A typical use is to pad a string to be displayed on a LCD display.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen"> 'Set chip model
+    #chip 16f877a
+
+
+    DIR PORTA 0x03
+
+
+    ' make port C as output
+    Dir PortC 0x0
+
+
+    'Defines (Constants)
+    #define LCD_SPEED slow
+    #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
+    #define LCD_NO_RW
+    #define LCD_Enable PORTc.0
+    #define LCD_RS PORTc.1
+    #define LCD_DB4 PORTa.5
+    #define LCD_DB5 PORTa.4
+    #define LCD_DB6 PORTa.3
+    #define LCD_DB7 PORTa.2
+    '''--------------------------------------------
+    '''-------End of board-specific settings-------
+    '''--------------------------------------------
+
+
+    '''DEMO for pad strings to a length
+    '''1st character of a given string.
+    '''if no string is given, blanks are used
+
+
+    ; ---- variables
+    'Define the string
+    Dim TestData As String * 16
+    TestData = "Location"
+
+    'show results on LCD-Display
+    cls
+    Print Pad ( TestData, 16, "*" )
+    Locate 1,0
+    Print Pad ( TestData, 16, )
+
+
+    end</pre></div></body></html>

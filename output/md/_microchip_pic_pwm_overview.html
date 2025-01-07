@@ -1,0 +1,32 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Microchip PIC PWM Overview</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_pulse_width_modulation.html" title="Pulse width modulation"><link rel="prev" href="_pulse_width_modulation.html" title="Pulse width modulation"><link rel="next" href="_pwm_software_mode.html" title="PWM Software Mode"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_microchip_pic_pwm_overview"></a>Microchip PIC PWM Overview</h4></div></div></div><p><span class="strong"><strong>Introduction:</strong></span></p><p>The methods described in this section allow the generation of Pulse
+Width Modulation (PWM) signals. PWM signals enables the microcontroller to control
+items like the speed of a motor, or the brightness of a LED or lamp.<br></p><p>The methods can also be used to generate the appropriate frequency signal to drive an
+infrared LED for remote control applications.<br></p><p>GCBASIC support the four different method shown below:<br>
+&nbsp;&nbsp;&nbsp; - Two methods use the microcontroller CCP module<br>
+&nbsp;&nbsp;&nbsp; - One method uses the microcontroller PWM module, and<br>
+&nbsp;&nbsp;&nbsp; - One method is a software emulation of PWM.<br></p><p><span class="strong"><strong><span class="emphasis"><em>Hardware PWM using a CCP module</em></span></strong></span></p><p>Using PWM with the CCP module:  This option requires a CCP module within the microcontroller.<br></p><p>Hardware PWM is only available through the "CCP" or "CCPx" pin. This is a hardware limitation of Microchip PIC microcontrollers.<br></p><p>Microcontrollers with PPS can change the pin - use the PPS tool to set the desired output pin.<br></p><p>This method uses three parameters to setup the PWM.</p><pre class="screen">    'HPWM channel, frequency, duty cycle
+    HPWM 1, 76, 80</pre><p><span class="strong"><strong><span class="emphasis"><em>Hardware PWM using a PWM module</em></span></strong></span></p><p>Using microcontroller PWM module.  This option requires a PWM module within the microcontroller
+Microcontrollers with PPS can change the pin - use the PPS tool to set the desired output pin.<br></p><p>This method uses four parameters to setup the PWM.</p><pre class="screen">    'HPWM channel, frequency, duty cycle, timer
+    HPWM 5, 76, 80, 2</pre><p><span class="strong"><strong><span class="emphasis"><em>Hardware PWM using the CCP1 in fixed mode</em></span></strong></span></p><p>Using Hardware PWM on fixed mode PWM requires a CCP1 module.</p><p>The fixed mode can use CCP1 only, and, the parameters of the PWM cannot be dynamically changed in the user program.&nbsp;&nbsp;&nbsp;The parameters are fixed by the definition of two constants.</p><pre class="screen">    #define PWM_Freq 76    'Set frequency in KHz
+    #define PWM_Duty 80    'Set duty cycle to 80 %
+
+    HPWMOn
+
+    wait 5 s
+
+    HPWMOff</pre><p><span class="strong"><strong><span class="emphasis"><em>Software PWM</em></span></strong></span></p><p>Using Software PWM on requires no specific modules with the microcontroller.<br></p><p>The PWM parameters for duty and the number of pulses can be changed dynamically in the user program.<br></p><p>The PWM is <span class="strong"><strong>only</strong></span> operational for the number of cycles stated in the calling method.<br></p><pre class="screen">    'A call to use the software PWM on the specific port, with a duty of 127 for 100 cycles
+
+    ; ----- Constants
+    'PWM constant. This is a required constant.
+    #define PWM_Out1 portb.0
+
+  ; ----- Define Hardware settings
+    'PWM port out.  This is not required but a good practice.
+    dir PWM_Out1 out
+
+    'Pulse the PWM
+    PWMOut 1, 127, 100</pre><p><span class="strong"><strong>Relevant Constants:</strong></span></p><p>A number of constants are used to control settings for the PWM hardware module of the microcontroller.
+To set them, place a line in the main program file that uses #define to assign a value to the particular
+constant.<br></p></div></body></html>

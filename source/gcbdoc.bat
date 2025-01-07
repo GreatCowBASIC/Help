@@ -70,7 +70,7 @@ call java com.icl.saxon.StyleSheet ..\..\source\%1.xml %GCBxsl% ^
  html.stylesheet="gcbdoc.css" generate.book.toc=0 htmlhelp.title="GCBASIC Help"
 if %1 == gcbasic call ..\..\source\cleanhhc.bat
 copy %GCBase%\source\gcbdoc.css .
-rem copy %GCBase%\source\images\logo.png .\images
+copy %GCBase%\source\images\logo.png .\images
 call %GCBase%\prog\utils\hhc %1.hhp
 
 cd

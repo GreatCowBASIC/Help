@@ -1,0 +1,41 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Concatenation</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_string_manipulation.html" title="String Manipulation"><link rel="prev" href="_wordtostring.html" title="WordToString"><link rel="next" href="_deprecated_string_functions.html" title="Deprecated string functions."></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_concatenation"></a>Concatenation</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>stringvar</em></span> = variable1 + variable2</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The method joins two variables into another variable.</p><p>This method does not change the existing strings, but returns a <span class="strong"><strong>new</strong></span> string containing the text of the joined variables, see Concatenated String Constraint below.</p><p>Concatenation joins the elements of a specified values using the specified separator between each variable.</p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Warning</h3><p>Using concatenation as a parameter with commands like HSerPrint or Print the compiler will create a system string variable.&nbsp;&nbsp;  An examples of concatenating two strings constants like HSerPrint ("123"+"456") may yield incorrect results.&nbsp;&nbsp;Use the constant SYSDEFAULTCONCATSTRING to resolve.&nbsp;&nbsp;Without using SYSDEFAULTCONCATSTRING there is a risk that the compiler does not allocate sufficient RAM to hold the concatenated string.&nbsp;&nbsp;
+The resulting string may be corrupted as the size of the system string variable is not sufficient.&nbsp;&nbsp;Use SYSDEFAULTCONCATSTRING within the source program to resolve.</p></div><p><span class="strong"><strong>Set a specific size of compiler created system string variable</strong></span></p><p>Use the following to set the size of the system string variable used during concatenation.&nbsp;&nbsp;</p><p>The compiler will create system string variables when you concatenate on a commands line like <code class="literal">HSerPrint</code>, <code class="literal">Print</code> and many others commands.&nbsp;&nbsp;
+Using concatenate with a command is bad practice, using a lot of RAM and may create a number of system string variables.&nbsp;&nbsp;
+It is recommended to define a string (of a known length), concatenate using an assignment then use the string.&nbsp;&nbsp;</p><p>To control the size of system string variable use the following.&nbsp;&nbsp;
+Also, use this constant to set the size when the compiler does not create a system string variable.&nbsp;&nbsp;</p><pre class="screen">    'Define the constant to control the size of system created string variables called SYSSTRINGPARAM1, SYSSTRINGPARAM2 etc.
+    Use #DEFINE  SYSDEFAULTCONCATSTRING  4
+
+    'Then, use
+    HSerPrint "A"+"123"   'will print A123. Without the SYSDEFAULTCONCATSTRING constant some microcontrollers may corrupt the result of the concatenation.</pre><p>This concatenation constraint does not apply using concatenation as an assignment.&nbsp;&nbsp;
+<br>
+<br>
+<span class="strong"><strong>Example 1:</strong></span></p><pre class="screen">    timevariable = 999
+    <span class="emphasis"><em>stringvar</em></span> = "Time = " + str(timevariable) ' Convert the <span class="emphasis"><em>timevariable</em></span> to a String.  This operation returns <span class="strong"><strong>Time = 999</strong></span></pre><p><span class="strong"><strong>Example 2:</strong></span></p><p>An example showing how to set a string to an escape sequence for an ANSI terminal.&nbsp;&nbsp;You can `Dim`ension a string and then assign the elements like an array.
+{empty} +
+{empty} +</p><pre class="screen">    dim line2 as string
+    line2 =  27, "[", "2", "H", 27, "[","K"
+    HSerPrint line2</pre><p>Will send the following to the terminal.
+&lt;esc&gt;[2H&lt;esc&gt;[K
+<br>
+<br>
+<span class="strong"><strong>Example 3: Assigning concatenated string to same string</strong></span></p><p>For reliable coding you must not assign a string concatenation to same source variable.&nbsp;&nbsp;You must assign the result of string concatenation to another string. &nbsp;&nbsp;To resolve see below:</p><pre class="screen">    Dim outstring, tmpstring as string * 16
+    Dim outnumber as byte
+
+    outnumber = 24
+    outstring = "Result = "
+    'This concatenation may yield an incorrect string on 10f, 12f or 16f chips
+    outstring = outstring + str(outnumber)
+    HserPrintCRLF 2
+    HSerPrint outstring
+    HserPrintCRLF 2
+
+    outstring = "Result = "
+    'This concatenation will yield an the correct string. With tmpstring1 containing the correct concatenated string
+    tmpstring = outstring +str(outnumber)
+    HSerPrint tmpstring
+    HserPrintCRLF 2
+    end</pre><p><br>
+To resolve the constraint simply assign the source string to another string.</p><p><br>
+<br></p></div></body></html>

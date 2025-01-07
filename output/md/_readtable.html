@@ -1,0 +1,37 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>ReadTable</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_syntax.html" title="Syntax"><link rel="prev" href="_miscellaneous.html" title="Miscellaneous"><link rel="next" href="_scripts.html" title="Scripts"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_readtable"></a>ReadTable</h3></div></div></div><p><span class="strong"><strong>About ReadTable</strong></span></p><p>The <code class="literal">ReadTable</code> command is used to read information from lookup tables.
+<code class="literal"><span class="emphasis"><em>TableName</em></span></code> is the name of the table that is to be read, <code class="literal"><span class="emphasis"><em>Item</em></span></code> is the
+line of the table to read, and <code class="literal"><span class="emphasis"><em>Output</em></span></code> is the variable to write the
+retrieved value in to.</p><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    ReadTable <span class="emphasis"><em>TableName, Item, Output</em></span></pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p><code class="literal"><span class="emphasis"><em>Item</em></span></code> is 1 for the first line of the table, 2 for the second, and so on.
+If the Table is more than 256 elements then <code class="literal"><span class="emphasis"><em>Item</em></span></code> must be WORD variable.
+Care must be taken to ensure that the program is not instructed to read beyond the end of the table as Zero will be returned.</p><p>The type of <code class="literal"><span class="emphasis"><em>Output</em></span></code> should match the type of data stored in the table.
+For example, if the table contains Word values then <code class="literal"><span class="emphasis"><em>Output</em></span></code> should be a
+Word variable. If the type does not match, GCBASIC will attempt to
+convert the value.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Chip Settings
+    #chip 16F88, 20
+
+    'Hardware Settings
+    #define LED PORTB.0
+    Dir LED Out
+
+    'Main Routine
+    ReadTable TimesTwelve, 4, Temp
+    Set LED Off
+    If Temp = 48 Then Set LED On
+
+    'Lookup table named "TimesTwelve"
+    Table TimesTwelve
+    12
+    24
+    36
+    48
+    60
+    72
+    84
+    96
+    108
+    120
+    132
+    144
+    End Table</pre><p><span class="strong"><strong>For more help, see</strong></span> <a class="link" href="_lookup_tables.html" title="Lookup Tables">Lookup Tables</a></p></div></body></html>

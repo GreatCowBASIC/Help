@@ -1,0 +1,52 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Compiler Insights</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_gcbasic_compiler_insights.html" title="GCBASIC Compiler Insights"><link rel="prev" href="_gcbasic_compiler_insights.html" title="GCBASIC Compiler Insights"><link rel="next" href="_compiler_control.html" title="Compiler Control"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_compiler_insights"></a>Compiler Insights</h3></div></div></div><p>This section will provide some insights into what the compiler does</p><p><span class="strong"><strong>How does the compiler cope with read only registers in the Chip Family 12 range?</strong></span></p><p>Within this chip range the Option register is a write only register. Reading the register is not permitted.</p><p>GCBASIC needs to update this when the user wants to change the configuration - the Sleep process is an example of a user change.</p><p>The compiler handles this by the creation of the Option_reg byte variable. This byte is created by the compiler to manage the required write process.</p><p>The Option_reg variable is a cache that compiler will create if any bits of option_reg have been set manually.</p><p>If the user changes any of the bits in a program, then the compiler will find any uses of the option instruction and insert a "movwf OPTION_REG" immediately before the option instruction to cache the value in the buffer.</p><p>If Option_reg bits aren&#8217;t set individually anywhere, then option_reg doesn&#8217;t get created, and nothing special is done with the option instruction.</p><p>Essentially the compiler maintains a special variable and manages the whole process without the user being aware.</p><p><span class="strong"><strong>How does the compiler cope with the TRIS register in the 10f products?</strong></span></p><p>The compiler ensures that a TRIS cache matches the actual TRIS register.  The TRIS cache is a byte variable called TRISIO.  The TRISIO cache is required as TRIS is a write-only register.</p><p>All ports default to input ( where all TRIS bits to 1) on reset.  Therefore, this is assumed to be the value 255.</p><p>TRISIO is updated when required by the user code and then used in the writing to the correct register.</p><p>The example user code and the associated assembly shows TRISIO cache in use.  This method complies with datasheet.</p><p>User Code</p><pre class="literallayout">'set as input
+dir gpio.0 in
+gpio0State = gpio.0
+'set as output this will require TRIS GPIO to be set using the TRISIO cache.
+dir gpio.0 out
+gpio.0 = 1</pre><p>ASM</p><pre class="literallayout">;dir gpio.0 in
+  bsf TRISIO,0
+  movf  TRISIO,W
+  tris  GPIO
+;gpio0State = gpio.0
+  clrf  GPIO0STATE
+  btfsc GPIO,0
+  incf  GPIO0STATE,F
+;dir gpio.0 out
+  bcf TRISIO,0
+  movf  TRISIO,W
+  tris  GPIO
+;gpio.0 = 1
+  bsf GPIO,0</pre><p>Anywhere that an individual TRIS bit is set/cleared by change the port direction, the bit in the cache is changed and then that gets written to the TRIS register.</p><p><span class="strong"><strong>Forcing the ASM to contain comments</strong></span></p><p>It may be useful to force comments into the ASM file.  The verbose mode of creating the ASM will include ALL the source program as comments but it may be useful to have specific comments in the ASM to aid the understanding of code or to support debugging.</p><p>To force an assembly comment use the following:</p><pre class="screen">    asm showdebug  `comment`</pre><p>Where the <code class="literal">comment</code> will be placed into the ASM file.</p><p>Example.</p><p>The source file contains the following, where the comment text is <code class="literal">OSCCON type is 100</code></p><pre class="screen">    asm showdebug OSCCON type is 100
+    OSCCON1 = 0x60</pre><p>The generated assembly will be as following - this assumes verbose mode is not selected.</p><pre class="screen">    INITSYS
+    ;osccon type is 100
+      movlw 96
+      banksel OSCCON1</pre><p><span class="strong"><strong>Constants, variables, subs and function and labels</strong></span></p><p>GCBASIC uses a single namespace.  A namespace is the set of names used to identify and refer to objects of various kinds.&nbsp;&nbsp;
+In GCBASIC these can be constants, variables, methods, and labels.&nbsp;&nbsp;Wwhere a label is a true label like the start of sub, function or macro.&nbsp;&nbsp;
+A namespace ensures that all of a given set of objects have unique names so that they can be identified.&nbsp;&nbsp;
+This organises constants, variables, methods, labels etc into a single list - the single namespace.</p><p>The namespace includes all libraries and source GCBASIC source files. &nbsp;&nbsp;
+If using MPASM this expands to chip specific INF file.&nbsp;&nbsp;
+If using PICAS then all of the PICAS toolchain including non-chip specific files. &nbsp;&nbsp;There are changes already in place to resolve this issue for PICAS as HEX and LINE are reserved with PICAS toolchain and these conflict with GCBASIC methods.&nbsp;&nbsp;
+These are automatically resolved by the GCBASIC compiler.</p><p>So, given that a constants, variables, methods, labels etc are number, the compiler does not know if that is a constant, a variable, a method, or a call to a label. Some are use cases using a constant called <code class="literal">NORMAL</code> follow.&nbsp;&nbsp;
+<code class="literal">NORMAL</code> is defined as a constant with <code class="literal">0</code>.&nbsp;&nbsp;</p><p>#1. Code segment</p><pre class="screen">  #DEFINE NORMAL 0
+  CALL Normal</pre><p>The compiler will issue no error.&nbsp;&nbsp;
+The compiler will assume the following and will do as instructed.&nbsp;&nbsp;
+Call normal - this calls normal which has a value of 0</p><p>Resulting ASM</p><pre class="screen">  ;CALL Normal
+  call 0</pre><p>#2. Code segment</p><pre class="screen">  #DEFINE NORMAL 0
+  CALL Normal()</pre><p>The compiler will issue no error.&nbsp;&nbsp;
+The compiler will assume the following and will do as instructed.&nbsp;&nbsp;
+Call normal() - this calls normal which has a value of 0</p><p>Resulting ASM</p><pre class="screen">    ;CALL Normal()
+    call 0</pre><p>#3. Code segment</p><pre class="screen">  #DEFINE NORMAL 0
+  Normal</pre><p>The compiler will issue an error message.&nbsp;&nbsp;
+The compiler will try to resolve the constant normal to a sub but it cannot as it is a value of 0.</p><p>Resulting ASM</p><pre class="screen">    ;Normal
+    0 ;?F1L8S0I8?</pre><p>#4. Code segment</p><pre class="screen">  #DEFINE NORMAL 0
+  Normal()</pre><p>The compiler will issue an error message.&nbsp;&nbsp;
+The compiler will try to resolve the constant normal to a sub but it cannot as it is a value of 0.</p><p>Resulting ASM</p><pre class="screen">    ;Normal()
+    0() ;?F1L8S0I8?</pre><p>#5. Code segment</p><pre class="screen">  #DEFINE NORMAL 0
+  Normal = 1</pre><p>The compiler will issue an error message.&nbsp;&nbsp;
+This tries to assign a value to the object.</p><p>Resulting ASM</p><pre class="screen">  ;Normal = 1
+  0 = 1</pre><p>#6. Code segment</p><pre class="screen">  #DEFINE NORMAL 0
+  Goto normal</pre><p>The compiler will not issue an error message.&nbsp;&nbsp;
+The compiler will <code class="literal">goto</code> (same for <code class="literal">jmp</code>) to the value of the object.</p><p>Resulting ASM</p><pre class="screen">    ;goto Normal
+    goto 0</pre></div></body></html>

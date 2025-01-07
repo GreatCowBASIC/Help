@@ -1,0 +1,71 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Development Guide for GCBASIC Preferences Editor</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_gcbasic_maintenance_and_development.html" title="GCBASIC Maintenance and Development"><link rel="prev" href="_about_glcd_library_support.html" title="ABOUT GLCD Library Support"><link rel="next" href="_about_the_preferences_editor.html" title="ABOUT THE PREFERENCES EDITOR"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_development_guide_for_gcbasic_preferences_editor"></a>Development Guide for GCBASIC Preferences Editor</h3></div></div></div><p>This section deals with the GCBASIC Preferences Editor (Pref Editor).&nbsp;&nbsp;
+The Prefs Editor is the software enables the user to select programmers, select the options when compiling, select the assembler and other settings.&nbsp;&nbsp;
+The Prefs Editor uses an ini to read and store the compiler settings.&nbsp;&nbsp;
+The INI structure is explained the first section, then, the Prefs Editor in detail.</p><p><br></p><p><span class="strong"><strong>ABOUT THE INI FILES</strong></span></p><p>You can provide the compiler an INI file with a number of settings and programmers.&nbsp;&nbsp;</p><p>The following section provide details of the specifics within an example INI file.&nbsp;&nbsp;
+The comments are NOT part of an INI file.&nbsp;&nbsp;</p><p>The settings are in the INI section called [gcbasic].&nbsp;&nbsp;</p><pre class="screen">    [gcbasic]
+    programmer = arduinouno, pickitpluscmd1, lgt8f328p-1, xpress, pickit2cmdline, nsprog            - the currently selected available programmers
+    showprogresscounters = n                                                                        - show percent values as compiler runs. requires Verbose = y
+    verbose = y                                                                                     - show verbose compiler information
+    preserve = n                                                                                    - preservice source program in ASM
+    warningsaserrors = n                                                                            - treat Warnings from scripts as errors. Errors will cause the compiler to cease on an Error(s)
+    pauseaftercompile = n                                                                           - pause after compiler. Do not do this with IDEs
+    flashonly = n                                                                                   - Flash the chip is source older that hex file
+    assembler = GCASM                                                                               - currently selected Assembler
+    hexappendgcbmessage = n                                                                         - appends a message in the HEX file
+    laxsyntax = n                                                                                   - use lax syntax when Y, the compiler will not check that reserved words are being used
+    mutebanners = n                                                                                 - mutes the post compilation messages
+    evbs = n                                                                                        - show extra verbose compiler information, requires Verbose = y
+    nosummary = n                                                                                   - mutes almost all messages psot compilation
+    extendedverbosemessages = n                                                                     - show even more verbose compiler information, requires Verbose = y
+    conditionaldebugfile =                                                                          - creates CDF file
+    columnwidth = 180                                                                               - ASM width before wrapping
+    picasdebug = n                                                                                  - adds PIC-AS preprocessor message to .S file
+    datfileinspection = y                                                                           - inspects DAT for memory validation
+    methodstructuredebug  = n                                                                       - show method structure start &amp; end for validation
+    floatcapability =  1                                                                            - 1 = singles
+                                                                                                    - 2 = doubles
+                                                                                                    - 4 = longint
+                                                                                                    - 8 = uLongINT
+compilerdebug = 0                                                                              - 1 = COMPILECALCADD
+                                                                                                   - 2 = VAR SET
+                                                                                                   - 4 = CALCOPS
+                                                                                                   - 8 = COMPILECALCMULT
+                                                                                                   - 16 = AUTOPINDIR
+                                                                                                   - 32 = ADRDX
+                                                                                                   - 64 = GCASM
+                                                                                                   - 128 = COMPILESUBCALLS
+                                                                                                   - 256 = COMPILEUPDATESUBMAP</pre><p>The section shows an example [tool] assembler section.&nbsp;&nbsp;</p><pre class="screen">    [tool=pic-as]
+    'An assember
+    type = assembler
+    'Location of the assember using a parameter substitution.
+    command = %picaslocation%\pic-as.exe
+    'Parameters
+    params = -mcpu=%ChipModel%  "%Fn_NoExt%.S" -msummary=-mem,+psect,-class,-hex,-file,-sha1,-sha256,-xml,-xmlfull  -Wl -mcallgraph=std -mno-download-hex -o"%Fn_NoExt%.hex"  -Wl,-Map="%Fn_NoExt%.map" -Wa,-a
+
+    [tool=mpasm]
+    'An assember
+    type = assembler
+    'Location of the assember using a parameter substitution.
+    command = %mpasmlocation%\mpasmx.exe
+    'Paramters
+    params = /c- /o- /q+ /l+ /x- /w1 "%FileName%"</pre><p>The section shows an example [patch] section.</p><p>This section shows and explicit set of patches applied to PIC-AS assembler.</p><pre class="screen">    [patch=asm2picas]
+    desc = PICAS correction entries.  Format is STRICT as follows:  Must have quotes and the equal sign as the delimeter. PartName +COLON+"BadConfig"="GoodConfig"    Where BadConfig is from .s file and GoodConfig is from .cfgmap file
+    16f88x:"intoscio = "="FOSC=INTRC_NOCLKOUT"
+    16f8x:"intrc = IO"="FOSC=INTOSCIO"
+    12f67x:"intrc = OSC_NOCLKOUT"="FOSC=INTRCIO"</pre><p>The section shows an example [programmer] section.&nbsp;&nbsp;</p><pre class="screen">    [tool = pk4_pic_ipecmd_program_release_from_reset]
+    'Description
+    desc = MPLAB-IPE PK4 CLI for PIC 5v0
+    'A programmer
+    type = programmer
+    'Command line using a parameter substitution.
+    command = %mplabxipedirectory%\ipecmd.exe
+    'Parameters using a parameter substitution.
+    params = -TPPK4 -P%chipmodel%  -F"%filename%" -M  -E -OL -W5
+    'Worting direcroty using a parameter substitution.
+    workingdir = %mplabxipedirectory%
+    'Useif constraints - this shows none
+    useif =
+    'Mandated programming config constraints - this shows none
+    progconfig =</pre></div></body></html>

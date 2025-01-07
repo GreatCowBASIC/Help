@@ -1,0 +1,47 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Wait</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_flow_control.html" title="Flow control"><link rel="prev" href="_select.html" title="Select"><link rel="next" href="_fixed_voltage_reference.html" title="Fixed Voltage Reference"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_wait"></a>Wait</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><p><span class="strong"><strong><span class="emphasis"><em>Fixed Length Delay:</em></span></strong></span></p><pre class="screen">    Wait time units</pre><p><span class="strong"><strong><span class="emphasis"><em>Conditional Delay:</em></span></strong></span></p><pre class="screen">    Wait {While | Until} condition</pre><p><span class="strong"><strong><span class="emphasis"><em>Using a variable to specific US Delay with Warning supression:</em></span></strong></span></p><pre class="screen">    Wait timevalue US #OVERRIDEWARNING</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The <code class="literal">Wait</code> command will cause the program to wait for either a specified
+amount of time (such as 1 second), or while/until a condition is true.</p><p>When using the fixed-length delay, there is a variety of units that are
+available:</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Unit</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Length of unit</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Delay range</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p>us</p></td><td align="left" valign="top"><p>1 microsecond</p></td><td align="left" valign="top"><p>1 us - 65535 us</p></td></tr><tr><td align="left" valign="top"><p>10us</p></td><td align="left" valign="top"><p>10 microseconds</p></td><td align="left" valign="top"><p>10 us - 2.55 ms</p></td></tr><tr><td align="left" valign="top"><p>ms</p></td><td align="left" valign="top"><p>1 millisecond</p></td><td align="left" valign="top"><p>1 ms - 65535 ms</p></td></tr><tr><td align="left" valign="top"><p>10ms</p></td><td align="left" valign="top"><p>10 milliseconds</p></td><td align="left" valign="top"><p>10 ms - 2.55 s</p></td></tr><tr><td align="left" valign="top"><p>s</p></td><td align="left" valign="top"><p>1 second</p></td><td align="left" valign="top"><p>1 s - 255 s</p></td></tr><tr><td align="left" valign="top"><p>m</p></td><td align="left" valign="top"><p>1 minute</p></td><td align="left" valign="top"><p>1 min - 255 min</p></td></tr><tr><td align="left" valign="top"><p>h</p></td><td align="left" valign="top"><p>1 hour</p></td><td align="left" valign="top"><p>1 hour - 255 hours</p></td></tr></tbody></table></div><p>At one stage, GCBASIC variables could not hold more than 255. The <code class="literal">10us</code>
+and <code class="literal">10ms</code> units were added as a way to work around this limit. There is
+now no such limit (<code class="literal">Wait 1000 ms</code> will work for example), so these are not
+really needed. However, you may see them in some older examples or
+programs, and the <code class="literal">10us</code> units are sometimes the shortest delay that will
+work accurately.</p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Warning</h3><p><span class="strong"><strong>PIC Devices Only</strong></span><br>
+MS Delays at Clock frequency&#8217;s below 28kHz are not supported and will silently fail.<br>
+US Delays at Clock frequency&#8217;s below 250kHz are not supported and will silently fail.<br>
+US Delays at lower Clock frequency&#8217;s is accurate ONLY when nn is divisible by 4. This is caused by the minimum ASM delay loop being a specific number of instructions.<br>
+US Delays at lower Clock frequency&#8217; when not divisible by 4 will silently accept the nn value and incorrect delays will be produced. + Use <code class="literal">#OVERRIDEWARNING</code> to supress warnings.
+Delays at Clock frequency&#8217;s below 500kHz may be impacted by previous instructions; testing of actual delays is advised.<br></p></div><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'This code will wait until a button is pressed, then it will flash
+    'a light every half a second and produce a 440 Hz tone.
+
+    #chip 16F819, 8
+
+    #define BUTTON PORTB.0
+    #define SPEAKER PORTB.1
+    #define LIGHT PORTB.2
+    Dir BUTTON In
+    Dir SPEAKER Out
+    Dir LIGHT Out
+
+    'Assumes Button switches on when pressed
+    Wait Until BUTTON = 1
+    Wait Until BUTTON = 0
+
+    Do
+      'Flash the light
+      Set LIGHT On
+      Wait 500 ms
+      Set LIGHT Off
+
+      'Produce the tone
+      '440 Hz = 880 changes = tone on for 1.14 ms
+      Repeat 440
+        PulseOut SPEAKER, 1140 us
+        Wait 114 10us 'Wait for 114 x 10 us (1.14 ms)
+      End Repeat
+    Loop</pre><p>To suppress warnings when using US.</p><pre class="screen">    dim timevariable as Word
+    timevariable = 100 // 100 is an example value that assigns the variable.
+
+    // Use #OVERRIDEWARNING to prevent warning messages
+    wait timevariable US #OVERRIDEWARNING</pre><p><span class="strong"><strong>For more help, see <a class="link" href="_conditions.html" title="Conditions">Conditions</a></strong></span></p></div></body></html>

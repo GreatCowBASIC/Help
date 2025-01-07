@@ -1,7 +1,7 @@
 
 // This is a support program for the LT7686
 #IGNORECOMPILATION
-#define DRAWCOUNTMAX 250
+#define DRAWCOUNTMAX 80
 #option Explicit
         // #include "gcbversionnumber.cnt"  // has to be included in the main program.
             'Include the GCBVersionNumber.cnt to increment versionString and create the build time string called GCBBuildTimeStr.
@@ -15,82 +15,14 @@
             versionString = "Build "+GCBBuildStr
             versionString = versionString + " @ "+GCBBuildTimeStr
 
-                #ifdef SERIALDEBUG
-                    HSerPrintCRLF
-                    HSerPrintStringCRLF "LT7686 Library Development " + versionString
-                    HSerPrint "Proceeding with GLCD operations": HSerPrintCRLF
-            
-                
-                    HserPrint "LT7686_REG_STSR status register 0b" + bytetobin(LT7686_StatusReadResult): HSerPrintCRLF
-                    HserPrint "    see datasheet 19.1": HSerPrintCRLF 2
-
-                    HSerPrintStringCRLF "LT7686_initverifycounter ( should not be a big number!) " + str(LT7686_initverifycounter): HSerPrintCRLF
-
-                    HSerPrint "SLRCONA = 0x"+hex(SLRCONA): HSerPrint ". SLRCONB = 0x"+hex(SLRCONB): HSerPrint ". SLRCONC = 0x"+hex(SLRCONC) : HSerPrintCRLF 2
-
-                    // Dump registers to show end state of registers
-                    HserPrintCRLF
-                    dim xxloop,verify, regval, validreg as Byte
-                    dim tablepointer, tablelength, yy1oop as Word
-                    for xxloop = 1 to 0xff
-
-                        ' get data from table
-                        tablepointer = 0
-                        validreg = 0
-                        readtable LT7686_InitTFT_Dataset_800_480, 0, tablelength
-
-                        for yy1oop = 3 to tablelength step 4
-                            readtable LT7686_InitTFT_Dataset_800_480, yy1oop, verify
-                            // hserprint hex(verify) 
-                            // hserprint ", "
-                            if verify = xxloop then 
-                                readtable LT7686_InitTFT_Dataset_800_480, yy1oop+2, verify
-                                validreg = 1
-                                exit for
-                            End if
-                        next
-
-                        HserPrint "Reg [0x"
-                        LT7686_WriteCMD( xxloop )
-                        hserprint hex(xxloop)
-                        hserprint "] :0x"
-                        regval = LT7686_DataRead()
-                        HserPrint hex(regval)
-                        if regval <> verify  and validreg = 1 then 
-                            Select Case xxloop
-                                Case 0x12
-                                    HserPrint "      Initial setting was "
-                                    HserPrint "0x" + hex(verify)
-                                Case 0x6C to 0x6F
-                                    HserPrint "      GLCD graphic commands overwrite  "
-                                    HserPrint "0x" + hex(verify)
-                                Case 0x8A
-                                    HserPrint "      Timer 0 running value  "
-                                    HserPrint "0x" + hex(verify)
-                                Case 0x8E
-                                    HserPrint "      Timer 1 running value  "
-                                    HserPrint "0x" + hex(verify)
-                                Case 0xAA
-                                    HserPrint "      Reg not initialised OK"
-                                Case Else
-                                    HserPrint " ERROR! should read "
-                                    HserPrint "0x" + hex(verify)
-
-                            End Select
-                        else if validreg = 1 Then
-                            HserPrint "      Verified 0x"
-                            HserPrint hex(verify)
-                        end if
-                        if validreg = 0 then  HserPrint "      Reg not initialised OK"
-                        
-                        HserPrintCRLF
-                    next
+                #ifDEF SHOWSETUPDEBUG
+                    ShowDebug
                 #endif
 
         Dim GLCD_info as String * 7
         
 
-        style = 25
+        style = 1
 
         GLCD_info = Str(GLCDDeviceWidth) +"x"
         GLCD_info += Str(GLCDDeviceHeight)
@@ -115,8 +47,8 @@
 
         If style = 0 Then
             // Now legacy GLCD command
-            GLCDPrint 632, 0, "GCBASIC 2023", TFT_YELLOW
-            WAIT 5 s
+            GLCDPrint 632, 0, "GCBASIC 2024", TFT_YELLOW
+            WAIT 1 s
         Else
             WAIT 1 s
         End If
@@ -348,3 +280,77 @@
     End
 
 
+Sub ShowDebug
+
+                    HSerPrintCRLF
+                    HSerPrintStringCRLF "LT7686 Library Development " + versionString
+                    HSerPrint "Proceeding with GLCD operations": HSerPrintCRLF
+            
+                
+                    HserPrint "LT7686_REG_STSR status register 0b" + bytetobin(LT7686_StatusReadResult): HSerPrintCRLF
+                    HserPrint "    see datasheet 19.1": HSerPrintCRLF 2
+
+                    HSerPrintStringCRLF "LT7686_initverifycounter ( should not be a big number!) " + str(LT7686_initverifycounter): HSerPrintCRLF
+
+                    HSerPrint "SLRCONA = 0x"+hex(SLRCONA): HSerPrint ". SLRCONB = 0x"+hex(SLRCONB): HSerPrint ". SLRCONC = 0x"+hex(SLRCONC) : HSerPrintCRLF 2
+
+                    // Dump registers to show end state of registers
+                    HserPrintCRLF
+                    dim xxloop,verify, regval, validreg as Byte
+                    dim tablepointer, tablelength, yy1oop as Word
+                    for xxloop = 1 to 0xff
+
+                        ' get data from table
+                        tablepointer = 0
+                        validreg = 0
+                        readtable LT7686_INITTFT_DATASET, 0, tablelength
+
+                        for yy1oop = 3 to tablelength step 4
+                            readtable LT7686_INITTFT_DATASET, yy1oop, verify
+                            // hserprint hex(verify) 
+                            // hserprint ", "
+                            if verify = xxloop then 
+                                readtable LT7686_INITTFT_DATASET, yy1oop+2, verify
+                                validreg = 1
+                                exit for
+                            End if
+                        next
+                        if validreg = 1 then
+                            HserPrint "Reg [0x"
+                            LT7686_WriteCMD( xxloop )
+                            hserprint hex(xxloop)
+                            hserprint "] :0x"
+                            regval = LT7686_DataRead()
+                            HserPrint hex(regval)
+                            if regval <> verify  and validreg = 1 then 
+                                Select Case xxloop
+                                    Case 0x12
+                                        HserPrint "      Initial setting was "
+                                        HserPrint "0x" + hex(verify)
+                                    Case 0x6C to 0x6F
+                                        HserPrint "      GLCD graphic commands overwrite  "
+                                        HserPrint "0x" + hex(verify)
+                                    Case 0x8A
+                                        HserPrint "      Timer 0 running value  "
+                                        HserPrint "0x" + hex(verify)
+                                    Case 0x8E
+                                        HserPrint "      Timer 1 running value  "
+                                        HserPrint "0x" + hex(verify)
+                                    Case 0xAA
+                                        // HserPrint "      Reg not initialised OK"
+                                    Case Else
+                                        HserPrint " ERROR! should read "
+                                        HserPrint "0x" + hex(verify)
+
+                                End Select
+                            else if validreg = 1 Then
+                                HserPrint "      Verified 0x"
+                                HserPrint hex(verify)
+                            end if
+                            // if validreg = 0 then  HserPrint "      Reg not initialised OK"
+                            HserPrintCRLF
+                        end if
+                    next
+
+
+End Sub

@@ -1,0 +1,19 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Poke</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_miscellaneous_commands.html" title="Miscellaneous Commands"><link rel="prev" href="_peek.html" title="Peek"><link rel="next" href="_weak_pullups.html" title="Weak Pullups"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_poke"></a>Poke</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    Poke(<span class="emphasis"><em>location</em></span>, <span class="emphasis"><em>value</em></span>)</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The <code class="literal">Poke</code> command is used to write information to the on-chip RAM of the microcontroller.</p><p><code class="literal"><span class="emphasis"><em>location</em></span></code> is a word variable that gives the address to write. The exact range of valid values varies from chip to chip.
+<code class="literal"><span class="emphasis"><em>value</em></span></code> is the data to write to the location.</p><p>This command should not normally be used, as it will make the porting of code to another chip very difficult.</p><p><span class="strong"><strong>Example 1:</strong></span></p><pre class="screen">    'This program will set all of the PORTB pins high
+    POKE (6, 255)</pre><p><span class="strong"><strong>Example 2:</strong></span></p><pre class="screen">    ;Chip Settings
+    #chip 16F88
+
+    Dir PORTB out
+
+    Do Forever
+        FlashPin @PORTB, 8
+        Wait 1 s
+    Loop
+
+    Sub FlashPin (In DestVar As word, In DestBit)
+        Poke DestVar, Peek(DestVar) Or DestBit
+        Wait 1 s
+        Poke DestVar, Peek(DestVar) And Not DestBit
+    End Sub</pre><p>Using @ before the name of a variable (including a special function register) will give you the address of that variable, which can then be stored in a word variable and used by <code class="literal">Peek</code> and <code class="literal">Poke</code> to indirectly access the location.</p><p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_peek.html" title="Peek">Peek</a></p></div></body></html>

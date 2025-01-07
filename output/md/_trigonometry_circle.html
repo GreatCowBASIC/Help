@@ -1,0 +1,91 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Trigonometry Circle</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_example_programs.html" title="Example Programs"><link rel="prev" href="_serial_rs232_buffer_ring.html" title="Serial/RS232 Buffer Ring"><link rel="next" href="_graphical_gcbasic.html" title="Graphical GCBASIC"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_trigonometry_circle"></a>Trigonometry Circle</h3></div></div></div><p><span class="strong"><strong>Explanation:</strong></span></p><p>GCBASIC can draw circles on a Graphical LCD device using GCBASIC library functions.</p><div class="informalfigure"><div class="mediaobject" align="center"><img src="./images/trigonometrycirclesb1.PNG" align="middle" alt="graphic"></div></div><p><span class="strong"><strong>Demonstration program:</strong></span></p><pre class="screen">    ;Circle and filled circle commands on a graphic LCD.
+    ;This uses the 2-place trigonometric routines found in the include file.
+
+    ;----- Configuration
+    #CHIP 16F88, 8              ;PIC16F88 RUNNING AT 8 MHZ
+    #CONFIG MCLR=OFF            ;RESET HANDLED INTERNALLY
+    #OPTION EXPLICIT
+    #DEFINE USELEGACYFORNEXT    ;WILL ENSURE THE OLD FOR-NEXT Loop is used just to save some memory as this is a very simple FOR-NEXT loop
+
+    #INCLUDE &lt;GLCD.H&gt;
+    #INCLUDE &lt;TRIG2PLACES.H&gt;
+
+    ;----- Constants
+
+    ;Pinout is shown for the LCM12864H-FSB-FBW
+    ;graphical LCD available from Amazon.
+
+    ;       +5V                 ;LCD pin 1
+    ;       ground              ;LCD pin 2
+    ;       Vo = wiper of pot   ;LCD pin 3
+    #define GLCD_DB0 PORTB.0    ;LCD pin 4
+    #define GLCD_DB1 PORTB.1    ;LCD pin 5
+    #define GLCD_DB2 PORTB.2    ;LCD pin 6
+    #define GLCD_DB3 PORTB.3    ;LCD pin 7
+    #define GLCD_DB4 PORTB.4    ;LCD pin 8
+    #define GLCD_DB5 PORTB.5    ;LCD pin 9
+    #define GLCD_DB6 PORTB.6    ;LCD pin 10
+    #define GLCD_DB7 PORTB.7    ;LCD pin 11
+    #define GLCD_CS2 PORTA.0    ;LCD pin 12
+    #define GLCD_CS1 PORTA.1    ;LCD pin 13
+    #define GLCD_RESET PORTA.2  ;LCD pin 14
+    #define GLCD_RW PORTA.3     ;LCD pin 15
+    #define GLCD_RS PORTA.4     ;LCD pin 16
+    #define GLCD_ENABLE PORTA.6 ;LCD pin 17
+    ;       Vee = pot low side  ;LCD pin 18
+    ;       backlight anode     ;LCD pin 19
+    ;       backlight cathode   ;LCD pin 20
+
+    #define GLCD_TYPE GLCD_TYPE_KS0108
+    #define GLCD_WIDTH 128
+    #define GLCD_HEIGHT 64
+
+
+    ;----- Variables
+
+    dim cx, cy, edge, jj as byte
+    dim ii as word
+
+    ;----- Program
+
+    myCircle(10,10,10)
+    ;upper left
+    myCircle(117,10,10)                 ;upper right
+    myCircleFilled(63,31,10)            ;center
+    myCircle(63,31,20)                  ;center
+    myCircleFilled(10,53,10)            ;lower left
+    myCircleFilled(117,53,10)           ;lower right
+
+    ;----- Subroutines
+
+    sub myCircle(cenX, cenY, rad)
+        ;Center of circle = (cenX,cenY), radius = rad
+
+        for ii = 0 to 358 step 2                 ;every two degrees
+            cx = cenX -((10*rad*cos(ii))/100+5)/10  ;properly rounded x value
+            cy = cenY -((10*rad*sin(ii))/100+5)/10  ;properly rounded y value
+
+            ;the following ignores the pixel if off the screen
+            if (cx&gt;=0 and cx&lt;=GLCD_WIDTH and cy&gt;=0 and cy&lt;=GLCD_HEIGHT) then
+            Pset(cx, cy, on)
+            end if
+        next ii
+    end sub
+
+    sub myCircleFilled(cenX, cenY, rad)
+        ;Center of circle = (cenX,cenY), radius = rad
+
+        for ii = 0 to 358 step 2
+            cx = cenX -((10*rad*cos(ii))/100+5)/10
+            cy = cenY -((10*rad*sin(ii))/100+5)/10
+            edge = 2 * cenX - cx                  ;compute right edge
+
+            for jj = cx to edge                    ;fill entire line, uses legacy for next permitting CX to be less than edge
+                if (jj&gt;=0 and jj&lt;=GLCD_WIDTH and cy&gt;=0 and cy&lt;=GLCD_HEIGHT) then
+                    Pset(jj,cy,on)
+                end if
+            next jj
+        next ii
+    end sub</pre><p><span class="strong"><strong>See also</strong></span> <a class="link" href="_trigonometry_sine_cosine_and_tangent.html" title="Trigonometry Sine, Cosine and Tangent">Trigonometry</a>, <a class="link" href="_circle.html" title="Circle">Circle</a>, <a class="link" href="_filledcircle.html" title="FilledCircle">FilledCircle</a>,</p></div></body></html>

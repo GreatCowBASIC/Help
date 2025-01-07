@@ -1,0 +1,94 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Subroutines</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_syntax.html" title="Syntax"><link rel="prev" href="_scripts.html" title="Scripts"><link rel="next" href="_converters.html" title="Converters"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_subroutines"></a>Subroutines</h3></div></div></div><p><span class="strong"><strong>About Subroutines</strong></span></p><p>A subroutine is a small program inside of the main program. Subroutines
+are typically used when a task needs to be repeated several times in
+different parts of the main program.</p><p>There are two main uses for subroutines:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">Keeping programs neat and easy to read</li><li class="listitem">Reducing the size of programs by allowing common sections of code to
+be reused.</li></ul></div><p>When the microcontroller comes to a subroutine it saves its location in the current
+program before jumping to the start of, or calling, the subroutine. Once
+it reaches the end of the subroutine it returns to the main program, and
+continues to run the code where it left off previously.</p><p>Normally, it is possible for subroutines to call other subroutines.
+There are limits to the number of times that a subroutine can call
+another sub, which vary from chip to chip:</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Microcontroller Family</strong></span></th><th align="center" valign="top"><span class="strong"><strong>Instruction Width</strong></span></th><th align="center" valign="top"><span class="strong"><strong>Number of subs called</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p>10F*, 12C5*, 12F5*, 16C5*, 16F5*</p></td><td align="center" valign="top"><p>12</p></td><td align="center" valign="top"><p>1</p></td></tr><tr><td align="left" valign="top"><p>12C*, 12F*, 16C*, 16F*, except those above</p></td><td align="center" valign="top"><p>14</p></td><td align="center" valign="top"><p>7</p></td></tr><tr><td align="left" valign="top"><p>18F*, 18C*</p></td><td align="center" valign="top"><p>16</p></td><td align="center" valign="top"><p>31</p></td></tr></tbody></table></div><p>These limits are due to the amount of memory on the microcontroller which saves its
+location before it jumps to a new subroutine. Some GCBASIC commands are
+subroutines, so you should always allow for 2 or 3 subroutine calls more
+than your program has.</p><p>On 16F chips, the program memory is divided into pages. Each page holds 2048 instructions.&nbsp;&nbsp;&nbsp;
+If the program jumps from code on one page to code on another, the compiler has to select the new page.&nbsp;&nbsp;&nbsp;Having to do this makes the program bigger, so try to avoid this.
+To keep jumps between pages down, GCBASIC imposes a rule that each subroutine must be entirely within one page, so that only jumps to other subroutines require the page selection.&nbsp;&nbsp;&nbsp;
+As an example, say you have two pages of memory, each 2048 instructions (words) long.<br>
+If you have a main sub that is 1500 words, and four other subroutines each 600 words long, your total program size would be 3900 words and you might expect it to fit into the 4096 words available. &nbsp;&nbsp;&nbsp;
+The problem though is that once the main routine takes 1500 words from page 1, nothing else will fit after it. Three of the 600 word subroutines would fit onto page 2, but that leaves one 600 word subroutine that will not fit into the 500 left on page 1 or the 200 left on page 2.&nbsp;&nbsp;&nbsp;
+If you want to reduce the chance of this happening, the best option is to keep your subroutines smaller - move anything out of the main routine and into another one - this will resolve memory page constraints.&nbsp;&nbsp;&nbsp;</p><p>Atmel AVR microcontrollers have no fixed limit on how many subroutines can be
+called at a time, but if too many are called then some variables on the
+chip may be corrupted. To check if there are too many subroutines, work
+out the most that will be called at once, then multiply that number by 2
+and create an array of that size. If an out of memory error message
+comes up, there are too many calls.</p><p>Another feature of subroutines is that they are able to accept
+parameters. These are values that are passed from the main program to
+the subroutine when it is called, and then passed back when the
+subroutine ends.</p><p><span class="strong"><strong>Using Subroutines</strong></span></p><p>To call a subroutine is very simple - all that is needed is the name of
+the sub, and then a list of parameters. This code will call a subroutine
+named "Buzz" that has no parameters:</p><pre class="screen">    Buzz</pre><p>If the sub has parameters, then they should be listed after the name of
+the subroutine. This would be the command to call a subroutine named
+"MoveArm" that has three parameters:</p><pre class="screen">    MoveArm NewX, NewY, 10</pre><p>Or, you may choose to put brackets around the parameters, like so:</p><pre class="screen">    MoveArm (NewX, NewY, 10)</pre><p>All that this does is change the appearance of the code - it doesn&#8217;t
+make any difference to what the code does. Decide which one meets your
+own personal preference, and then stick with it.</p><p><span class="strong"><strong>Creating subroutines</strong></span></p><p>To create a subroutine is almost as simple as using one. There must be a
+line at the start which has <code class="literal">sub</code>, and then the name of the subroutine.
+Also, there needs to be a line at the end of the subroutine which reads
+<code class="literal">end sub</code>. To create a subroutine called <code class="literal">Buzz</code>, this is the required
+code:</p><pre class="screen">    sub Buzz
+
+    'code for the subroutine goes here
+
+    end sub</pre><p>If the subroutine has parameters, then they need to be listed after the
+name. For example, to define the <code class="literal">MoveArm</code> sub used above, use this
+code:</p><pre class="screen">    sub MoveArm(ArmX, ArmY, ArmZ)
+
+    'code for the subroutine goes here
+
+    end sub</pre><p>In the above sub, <code class="literal">ArmX</code>, <code class="literal">ArmY</code> and <code class="literal">ArmZ</code> are all variables. If the call
+from above is used, the variables will have these values at the start of
+the subroutine:</p><pre class="screen">    ArmX = NewX
+    ArmY = NewY
+    ArmZ = 10</pre><p>When the subroutine has finished running, GCBASIC will copy the values
+back where possible. <code class="literal">NewX</code> will be assigned to <code class="literal">ArmX</code>, and <code class="literal">NewY</code> will be
+assigned to <code class="literal">ArmY</code>. GCBASIC will not attempt to set the number 10 to <code class="literal">ArmZ</code>.</p><p><span class="strong"><strong>Controlling the direction data moves in</strong></span></p><p>It is possible to instruct GCBASIC not to copy the value back after the
+subroutine is called. If a subroutine is defined like this:</p><pre class="screen">    sub MoveArm(In ArmX, In ArmY, In ArmZ)
+    'code for the subroutine goes here
+
+    end sub</pre><p>Then GCBASIC will copy the values to the subroutine, but will not copy
+them back.</p><p>GCBASIC can also be prevented from copying the values back, by adding
+<code class="literal">Out</code> before the parameter name. This is used in the EEPROM reading
+routines - there is no point copying a data value into the read
+subroutine, so <code class="literal">Out</code> has been used to avoid wasting time and memory. The
+EPRead routine is defined as <code class="literal">Sub EPRead(In Address, Out Data)</code>.</p><p>Many older sections of code use <code class="literal">#NR</code> at the end of the line where the
+parameters are specified. The <code class="literal">#NR</code> means "No Return", and when used has
+the same effect as adding <code class="literal">In</code> before every parameter. Use of <code class="literal">#NR</code> is
+not recommended, as it does not give the same level of control.</p><p><span class="strong"><strong>Using different data types for parameters</strong></span></p><p>It is possible to use any type of variable a as parameter for a
+subroutine. Just add <code class="literal">As</code> and then the data type to the end of the
+parameter name. For example, to make all of the parameters for the
+<code class="literal">MoveArm</code> subroutine word variables, use this code:</p><pre class="screen">    sub MoveArm(ArmX As Word, ArmY As Word, ArmZ As Word)
+    ...
+    end sub</pre><p><span class="strong"><strong>Optional parameters</strong></span></p><p>Sometimes, the same value may be used over and over again for a
+parameter, except in a particular case. If this occurs, a default value
+may be specified for the parameter, and then a value for that parameter
+only needs to be given in a call if it is different to the default.</p><p>For example, suppose a subroutine to create an error beep is required.
+Normally it emits ! 440 Hz tone, but sometimes a different tone is
+required. To create the sub, this code would be use:</p><pre class="screen">    Sub ErrorBeep(Optional OutTone As Word = 440)
+      Tone OutTone, 100
+    End Sub</pre><p>Note the <code class="literal">Optional</code> before the parameter, and the <code class="literal">= 440</code> after it.
+This tells GCBASIC that if no parameter is supplied, then set the
+<code class="literal">OutTone</code> parameter to 440.</p><p>If called using this line:</p><pre class="screen">    ErrorBeep</pre><p>then a 440 Hz beep will be emitted. If called using this line:</p><pre class="screen">    ErrorBeep 1000</pre><p>then the sub will produce a 1000 Hz tone.</p><p>When using several parameters, it is possible to make any number of them
+optional. If the optional parameter/s are at the end of the call, then
+no value needs to be specified. If they are at the start or in the
+middle, then you must insert commas to allow GCBASIC to tell where the
+optional parameters are.</p><p><span class="strong"><strong>Overloading</strong></span></p><p>It is possible to have 2 subroutines with the same name, but different
+parameters. This is known as overloading, and GCBASIC will automatically
+select the most appropriate subroutine for each call.</p><p>An example of this is the Print routine in the LCD routines. There are
+actually several Print subroutines; for example, one has a byte
+parameter, one a word parameter, and one a string parameter. If this
+command is used:</p><pre class="screen">    Print 100</pre><p>Then the Print (byte) subroutine will be called. However, if this
+command is used:</p><pre class="screen">    Print 30112</pre><p>Then the Print (word) subroutine will be called. If there is no exact
+match for a particular call, GCBASIC will use the option that requires
+the least conversion of variable types. For example, if this command is
+used:</p><pre class="screen">    Print PORTB.0</pre><p>The byte print will be used. This is because byte is the closest type to
+the single bit parameter.</p><p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_functions.html" title="Functions">Functions</a>, <a class="link" href="_exit.html" title="Exit">Exit</a></p></div></body></html>

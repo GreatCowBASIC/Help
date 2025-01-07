@@ -1,0 +1,12 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>SWAP4</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_variables_operations.html" title="Variables Operations"><link rel="prev" href="_set.html" title="Set"><link rel="next" href="_swap.html" title="SWAP"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_swap4"></a>SWAP4</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    SWAP4( VariableA)</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p>Support Bytes only.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>A function that swaps (or exchanges) nibbles (or the 8 bits of a byte in nibbles).</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    dim ByteVariable as Byte
+
+    ' Set variable to  0x12
+    ByteVariable = 0x12
+
+    ByteVariable = Swap4( ByteVariable )
+
+    HSerPrint hex(ByteVariable)
+
+    ' Would return 0x21</pre></div></body></html>

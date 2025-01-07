@@ -1,0 +1,39 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Scripts</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_syntax.html" title="Syntax"><link rel="prev" href="_readtable.html" title="ReadTable"><link rel="next" href="_subroutines.html" title="Subroutines"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_scripts"></a>Scripts</h3></div></div></div><p><span class="strong"><strong>About Scripts</strong></span></p><p>A script is a small section of code that GCBASIC runs when it
+starts to compile a program.  Uses include performing calculations
+that are required to adjust the program for different chip frequencies.</p><p>Scripts are not compiled or downloaded to the microcontroller - GCBASIC
+reads them, executes them, then removes them from the program and then the
+results calculated can be used as <span class="emphasis"><em>constants</em></span> in the user program.</p><p>Inside a script, <span class="emphasis"><em>constants</em></span> are treated like variables.  Scripts can read
+the values of <span class="emphasis"><em>constants</em></span>, and set them to contain new values.</p><p><span class="strong"><strong>Using Scripts</strong></span></p><p>Scripts start with <code class="literal">#script</code> and end with <code class="literal">#endscript</code>. Inside, they can
+consist of the following commands:</p><pre class="screen">    If
+    Assignment (=)
+    Error
+    Warning
+    Int()</pre><p><code class="literal">If</code> is similar to the If command in normal GCBASIC code, except that it does not have an <code class="literal">Else</code> clause.
+It is used to compare the values of the script constants.</p><p>The <code class="literal">=</code> sign is identical to that in GCBASIC programs.
+The <span class="emphasis"><em>constant</em></span> that is to be set goes on the left side of the <code class="literal">=</code> and the new value goes to the right of the <code class="literal">=</code>.</p><p><code class="literal">Error</code> is used to display an error message.
+Anything after the <code class="literal">Error</code> command is displayed at the end of compilation, and is saved in the error log for the program.</p><p><code class="literal">Warning</code> is used to display a warning message. Anything after the <code class="literal">Warning</code> command is displayed at the end of compilation but warning does not halt compilation.</p><p><code class="literal">Int()</code> will calculate the integer value of a calculation. Using <code class="literal">Int()</code> is critical to set the <span class="emphasis"><em>constant</em></span> to the integer component of the calculation.</p><p><span class="strong"><strong>Notes:</strong></span></p><p>Use <code class="literal">Warning</code> to display constant values when creating and debugging scripts.</p><p>Scripts have a limited syntax and limited error checking when compiling.  The compiler may halt if you get something wrong.</p><p>Scripts that are incorrectly formatted may also halt the compiler or return unrelated error.</p><p>Scripts used for calculations should use the <code class="literal">Int( expression )</code> where you may have a floating point numbers returned.<br>
+Scripts do use floating point for all calculations and a failure to use <code class="literal">Int()</code> may set the script constant and the resulting <span class="emphasis"><em>constant</em></span> to 0.</p><p>Scripts may require that complex math expressions may require definition in multiple steps/line to simplify the calculation.<br>
+The returned value could be incorrect if simplification is not implemented.</p><p>Scripts can only access existing <code class="literal">constants</code> both user and system defined.</p><p>User defines variables are not accessible within the scope of a script.</p><p>Scripts has precendence over #define.  A #define constant statements are read first, then scripts run.
+So, a script will always overwrite a constant that was set with #define.</p><p>Use <code class="literal">Warning</code> to display constants values when creating and debugging scripts.</p><p><span class="strong"><strong>Example Script</strong></span></p><p>This script is used in the pwm.h file.
+It takes the values of the user defined <span class="emphasis"><em>constants</em></span> PWM_Freq, PWM_Duty and system <span class="emphasis"><em>constant</em></span> ChipMHz and calculates the results using the equations.
+These calculation are based on information from a Microchip PIC datasheet to calculate the correct values to setup Pulse Width Modulation (PWM).</p><pre class="screen">    #script
+        PR2Temp = INT((1/PWM_Freq)/(4*(1/(ChipMHz*1000))))
+        T2PR = 1
+        If PR2Temp &gt; 255 Then
+            PR2Temp = INT((1 / PWM_Freq) / (16 * (1 / (ChipMHz * 1000))))
+            T2PR = 4
+            If PR2Temp &gt; 255 Then
+                PR2Temp = INT(( 1 / PWM_Freq) / (64 * (1 / (ChipMHz * 1000))))
+                T2PR = 16
+                If PR2Temp &gt; 255 Then
+                    Error Invalid PWM Frequency value
+                End If
+            End If
+        End If
+
+        DutyCycle = (PWM_Duty * 10.24) * PR2Temp / 1024
+        DutyCycleH = (DutyCycle AND 1020) / 4
+        DutyCycleL = DutyCycle AND 3
+    #endscript</pre><p>During the execution of the script the calculations and assignment uses the constants in the script.</p><p>After this script has completed the <span class="emphasis"><em>constants</em></span> <code class="literal">PR2Temp</code>, <code class="literal">DutyCycleH</code> and <code class="literal">DutyCycleL</code> are set using the constants and/or the calculations.</p><p>The <span class="emphasis"><em>constants</em></span> assigned in this script, <code class="literal">PR2Temp</code>, <code class="literal">DutyCycleH</code> and <code class="literal">DutyCycleL</code>, are made available as <span class="emphasis"><em>constants</em></span> in the user program.</p></div></body></html>

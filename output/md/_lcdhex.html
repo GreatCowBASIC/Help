@@ -1,0 +1,56 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>LCDHex</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_liquid_crystal_display.html" title="Liquid Crystal Display"><link rel="prev" href="_lcdcursor.html" title="LCDCursor"><link rel="next" href="_lcdhome.html" title="LCDHome"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_lcdhex"></a>LCDHex</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    LCDHex value
+
+    LCDHex value, <span class="strong"><strong>LeadingZeroActive</strong></span></pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The LCDHex will display the byte value as a 1 or 2 character HEX string.</p><p><code class="literal">value</code> is a byte value from 0 to 255.</p><p><code class="literal">LeadingZeroActive</code> is a constant or byte value of 2.</p><p><span class="strong"><strong>Example :</strong></span></p><pre class="screen">    ;Set chip model required:
+    #chip mega328p, 16
+    ;Setup LCD Parameters
+    #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
+    #define LCD_NO_RW
+    #define LCD_Speed MEDIUM 'FAST IS OK ON ARDUINO UNO R3
+
+    'Change as necessary
+    #define LCD_RS PortC.0
+    #define LCD_Enable PortC.1
+    #define LCD_DB4 PortC.2
+    #define LCD_DB5 PortC.3
+    #define LCD_DB6 PortC.4
+    #define LCD_DB7 PortC.5
+
+    '  #chip 16f877a, 8
+    '  ;Setup LCD Parameters
+    '  #define LCD_IO 4
+    '  #define LCD_NO_RW
+    '  #define LCD_Speed fast 'FAST IS OK ON 16f877a
+    '
+    '  ;Change as necessary
+    '  #define LCD_RS PortB.2
+    '  #define LCD_Enable PortB.3
+    '  #define LCD_DB4 PortB.4
+    '  #define LCD_DB5 PortB.5
+    '  #define LCD_DB6 PortB.6
+    '  #define LCD_DB7 PortB.7
+
+    'Program Start
+    DO Forever
+       CLS
+       WAIT 2 s
+       PRINT "Test LCDHex "
+       wait 3 s
+       CLS
+       wait 1 s
+
+       for bv = 0 to 255
+          locate 0,0
+          Print "DEC " : Print BV
+          locate 1,0
+          Print "HEX "
+          LCDHex BV, LeadingZeroActive ; dislay leading Zero
+        ' LCDHex BV         ; do not display leading zero
+          wait 1 s
+       next
+       CLS
+       wait 1 s
+       Print "END TEST"
+    LOOP</pre><p><span class="strong"><strong>Supported in &lt;LCD.H&gt;</strong></span></p></div></body></html>

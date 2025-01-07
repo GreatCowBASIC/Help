@@ -609,13 +609,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-09-24<br>
-07:21:31 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2024-11-12<br>
+14:25:50 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">2024-07-12<br>
-16:17:36 GMT Summer Time</p></td>
+15:17:36 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -46156,6 +46156,9 @@ A subroutine uses a temporary variable of type byte, and relies on it overflowin
 <p><code>Alias</code> creates a variable using the same memory location as one or more other variables. &#160;&#160;It is mainly used internally in GCBASIC to treat system variables as a word.&#160;&#160; For example, this command is used to create a word variable, made up from the two memory locations used to store the result of an A/D conversion.&#160;&#160;`Alias` is mutually exclusive to <code>At</code> and therefore <code>Alias</code> and <code>At</code> on the same declaration line will cause an compiler error.</p>
 </div>
 <div class="paragraph">
+<p><code>Alias</code> does not support <code>BIT</code> variable.&#160;&#160;  For the correct method to address `BIT`s in a psuedo alias method see the example program #2 below.</p>
+</div>
+<div class="paragraph">
 <p><code>AT</code> a variable can be placed at a specific location in the data memory of the chip using the At option. &#160;&#160;`<em>location</em>` will be used whether it is a valid location or not, but a warning will be generated if GCBASIC has already allocated the memory, or if the memory does not appear to be valid. &#160;&#160;This can be used for peripherals that have multi byte buffers in RAM.&#160;&#160;`At` is mutually exclusive to <code>Alias</code> and therefore <code>At</code> and <code>Alias</code> on the same declaration line will cause an compiler error.</p>
 </div>
 <div class="paragraph">
@@ -46169,7 +46172,7 @@ String variable names need not end in a dollar sign $ as in other dialects of BA
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Example:</strong></p>
+<p><strong>Example 1:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -46182,6 +46185,57 @@ String variable names need not end in a dollar sign $ as in other dialects of BA
     DataList(1) = 15
 
     dim stringvariable as string</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example 2:</strong></p>
+</div>
+<div class="paragraph">
+<p>Use a constant, or a number of constants, to refer to specific <code>BIT`s of an exist `BYTE</code> variable.&#160;&#160;A psuedo <code>ALIAS</code> for <code>BIT</code> variables.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    // Thank you Ccin E Crout from the GCBASIC forum!!
+
+    #Option Explicit
+    #Chip 16F1825, 32
+
+    Dim SerialByte As Byte
+    #Define StatusReady  SerialByte.0
+    #Define StatusError  SerialByte.1
+    #Define StatusMotor  SerialByte.2
+    #Define StatusOkBut  SerialByte.3
+    #Define StatusUpBut  SerialByte.4
+    #Define StatusDnBut  SerialByte.5
+    #Define StatusLeBut  SerialByte.6
+    #Define StatusRiBut  SerialByte.7
+
+    SerialByte = 0                 // This will address the specific byte
+
+    Do
+        SerialByte = SerialByte + 1
+        If StatusReady = 1 Then     // This will address the specific bit
+            StatusError = 0         // This will address the specific bit
+        End If
+        If StatusError = 1 Then     // This will address the specific bit
+            StatusMotor = 0         // This will address the specific bit
+        End If
+        If StatusMotor = 1 Then     // This will address the specific bit
+            StatusOkBut = 0         // This will address the specific bit
+        End If
+        If StatusOkBut = 1 Then     // This will address the specific bit
+            StatusUpBut = 0         // This will address the specific bit
+        End If
+        If StatusUpBut = 1 Then     // This will address the specific bit
+            StatusDnBut = 0         // This will address the specific bit
+        End If
+        If StatusDnBut = 1 Then     // This will address the specific bit
+            StatusLeBut = 0         // This will address the specific bit
+        End If
+        If StatusLeBut = 1 Then     // This will address the specific bit
+            StatusReady = 0         // This will address the specific bit
+        End If
+    Loop</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -48892,7 +48946,7 @@ Available on all microcontrollers</p>
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p>The <code>WordToBin</code> function creates a string of a ANSI (8-byte) characters.
+<p>The <code>WordToBin</code> function creates a string of a ANSI (16-byte) characters.
 The function converts a number to a string consisting of ones and zeros that represents the binary value.</p>
 </div>
 <div class="paragraph">
@@ -51658,28 +51712,165 @@ If you set the internal oscillator to 4 MHz a "wait 1 ms" will still be 1 ms.</p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    #DEFINE SYMBOL <em>body</em></pre>
+<pre>    #DEFINE NAME [String]
+
+    or
+
+    #DEFINE NAME [ = String]</pre>
 </div>
 </div>
 <div class="paragraph">
 <p><strong>Explanation:</strong>
 <br>
 <br>
-<code>#DEFINE</code> allows to declare text-based preprocessor symbols.&#160;&#160;</p>
+<code>#DEFINE</code> allows to declare string-based preprocessor constants.&#160;&#160;</p>
 </div>
 <div class="paragraph">
-<p>Once the compiler has seen a #DEFINE, it will start replacing further occurrences of symbol with body. &#160;&#160;
-Body may be empty.&#160;&#160;
-The expansion is done recursively, until there is nothing more to expand and the compiler can continue analyzing the resulting code.</p>
+<p>This directive defines a text substitution string. Wherever <code>name</code> is encountered in the program or assembly code, <code>string</code> will be substituted.</p>
 </div>
 <div class="paragraph">
-<p>#UNDEFINE can be used to make the compiler forget about a #DEFINE.</p>
+<p>The expansion is done recursively, until there is nothing more to expand and the compiler can continue analyzing the resulting code.</p>
 </div>
 <div class="paragraph">
-<p><br>
-<br>
-The compiler replaces a SYMBOL with the value, it then searches the line for constants again and will make any more replacements needed.&#160;&#160;
-It will do this up to 100 times on a line, then it will stop replacing and show an error. &#160;&#160;The limitation of 100 iteractions is to prevent something like "#DEFINE Const_A Const_B" and then "#DEFINE Const_B Const_A" from causing an infinite loop in the compiler.</p>
+<p>The use of an existing constant is supported.&#160;&#160;The order of constants when using an existing constant is strict.&#160;&#160;The constant must exist prior to use.</p>
+</div>
+<div class="paragraph">
+<p>To ensure evaluation of a calculation. &#160;&#160;A `=` must be used. &#160;&#160;This is strict.</p>
+</div>
+<div class="paragraph">
+<p>#UNDEFINE can be used to make the compiler delete an existing constant.</p>
+</div>
+<div class="paragraph">
+<p>Using the directive with no <code>string</code> causes a definition of <code>name</code> to be noted internally and may be tested for using the ifdef directive/conditional processing.&#160;&#160;See the examples below.</p>
+</div>
+<div class="paragraph">
+<p>Constants defined with this method are available for viewing in the CDF file.  Creation of the CDF file is controlled with the Programmer Preferences Utility.</p>
+</div>
+<div class="paragraph">
+<p>GCBASIC does not support creation of SUBroutine or FUNCTION with this directive.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="paragraph">
+<p>This progress shows the creation of constants, the processing and showing of constants within a script, creation of specific constants within a script and use of constants within a program.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #chip MEGA4809
+    #option Explicit
+
+
+   // Numeric constants
+        #define LENGTH 20
+        #define CONTROL 0x19,7
+        #define SINGLEPI = 22/7                                         // evaluated numberic string
+        #define INTPI = INT(22/7)                                       // evaluated numberic string
+        #define FACTOREDPI = INT((22/7 - INT(22/7))*1000)               // evaluated numberic string
+        #define LENGTHSQUARED = LENGTH * LENGTH                         // evaluated numberic string
+        #define PI 3.142
+        #define RADIUS 10
+        #define CIRCUMFERENCECALC = PI * RADIUS                         // evaluated numberic string, with constant substitution
+        #define FACTORISEDCIRCUMFERENCE = INT(CIRCUMFERENCECALC*100)    // evaluated numberic string, with constant substitution
+
+
+    //String(s) required double quotes and NO `=` assignment
+        #define MYSTRING "This is a string"
+    //  A string assignment is not required
+        #define ACONSTANTTHATEXISTS
+
+    // Macros are not supported.. just define the sub!
+        // #define BADPOSITION(XX,YY,ZZ) (YY-(2 * ZZ +XX))
+
+    // Unused Constants that are invalid may not report an error until try to use within your program- as in this example
+        // String assignment with an equal sign will fail. Do not use `=`
+        #define BADMYSTRING = "This is a string"
+
+
+    #script
+        //Scripts can modify and manage CONSTANTS
+
+        // Warning can be used to show values during compilation
+        WARNING LENGTH
+        WARNING CONTROL
+        WARNING SINGLEPI
+        WARNING INTPI
+        WARNING FACTOREDPI
+        WARNING MYSTRING
+
+        If DEF(ACONSTANTTHATEXISTS) Then
+            WARNING "The constant ACONSTANTTHATEXISTS exists"
+        End If
+
+        // Test for a value in the [ChipData] section of the DAT file. Always has the prefix CHIP
+        If DEF(CHIPAVRDX) Then
+            WARNING "This is an AVRDX chip"
+        End If
+
+        // Good practice constant testing, see the code below for BAD and GOOD practice
+
+            // Set the constant to 0 we can use this to test for validity
+            // Use prefix of SCRIPT as this is clear in the program
+            SCRIPTAN1CONSTANT = 0
+            If DEF(AVRDX) Then
+                // Is this an AVRDx chip
+                If DEF(AIN1) Then
+                    SCRIPTAN1CONSTANT =  AIN1
+                End If
+            End If
+            If NODEF(AVRDX) Then
+                // This is NOT an Avrdx chip
+                If DEF(AVR) Then
+                    // This is an AVR
+                    SCRIPTAN1CONSTANT =  AN1
+                End If
+                If DEF(PIC) Then
+                    // This is an AVR
+                    SCRIPTAN1CONSTANT =  ANA1
+                End If
+            End If
+            // Now test for validate result
+            If SCRIPTAN1CONSTANT = 0 Then
+                WARNING Script has determined that no valid ADC port exists, or, some other message
+            End If
+
+    #endscript
+
+    // Some conditional examples
+
+    #IF DEF( CONSTANTTHATEXISTS )
+        //! Cause a compiler error - as the constant exits. Remove comment to test
+    #ELSE
+        //! Cause a compiler error - as the constant does not exits. Remove comment to test
+    #ENDIF
+
+    #IFDEF Oneof(CHIP_18F24K40,CHIP_18F25K40,CHIP_18F26K40,CHIP_18F27K40,CHIP_18F45K40,CHIP_18F46K40,CHIP_18F47K40,CHIP_18F65K40,CHIP_18F66K40,CHIP_18LF24K40, CHIP_18LF25K40, CHIP_18LF26K40, CHIP_18LF27K40, CHIP_18LF45K40, CHIP_18LF46K40, CHIP_18LF47K40, CHIP_18F65K40, CHIP_18LF65K40, CHIP_18F66K40, CHIP_18LF66K40, CHIP_18F67K40, CHIP_18LF67K40 )
+        //~ Do something
+    #ENDIF
+
+    dim myStringVar as String
+    myStringVar = MYSTRING
+
+    // BAD PRACTICE = code is hard to understand
+        // Use constant test to determine correct ADC to read.  Bad practice, see the #SCRIPT section
+        dim mybyteVar as Byte
+        #IF DEF(AIN1)
+            mybyteVar = readAD( AIN1 )
+        #ELSE
+            #IF DEF(ANA1)
+                mybyteVar = readAD( ANA1 )
+            #ELSE
+                mybyteVar = readAD( AN1 )
+            #ENDIF
+        #ENDIF
+
+    // GOOD PRACTICE
+        dim mybyteVar as Byte
+        mybyteVar = readAD( SCRIPTAN1CONSTANT )
+
+    dim myArray(2)
+    myArray = CONTROL</pre>
+</div>
 </div>
 <div class="paragraph">
 <p><br>
@@ -56371,7 +56562,7 @@ Those who already have programming experience can go straight to GCBASIC, while 
 The two approaches targets two different sets of users who ultimately want to do the same thing.
 <br>
 <br>
-As for the <strong>name</strong>, it was about the fourth name Hugh tried. &#160;&#160;First name was BASPIC, but it did not seem memorable enough.&#160;&#160;
+As for the <strong>name</strong>, it was the fourth name Hugh tried. &#160;&#160;First name was BASPIC, but it did not seem memorable enough.&#160;&#160;
 Then, he considered some animal names - first thought was Chipmunk BASIC, but someone already used that!&#160;&#160;
 Then, Bear BASIC, but decided against it on finding out the slang meaning of bear.&#160;&#160;
 Final  name was GCBASIC, which is named after something his sister and he came up with (when aged 12 and 15!!).&#160;&#160;
@@ -57371,7 +57562,7 @@ If you use AVRDUDE then uou must ensure the Windows device driver is <code>libus
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-12 16:17:36 GMT Summer Time
+Last updated 2024-07-12 15:17:36 GMT Summer Time
 </div>
 </div>
 </body>

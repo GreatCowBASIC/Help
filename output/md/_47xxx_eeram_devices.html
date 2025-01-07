@@ -1,0 +1,114 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>47xxx EERam Devices</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_eeram_device.html" title="EERAM ( Device )"><link rel="prev" href="_eeram_device.html" title="EERAM ( Device )"><link rel="next" href="_sram_device.html" title="SRAM ( Device )"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_47xxx_eeram_devices"></a>47xxx EERam Devices</h5></div></div></div><p>This section covers the 47xxx EERam devices.</p><p>The 47xxx EERam device is a memory device is organized as 512 x 8 bits or 2,048 x 8 bits of memory and utilizes the I2C serial interface.</p><p>The 47xxx provides infinite read and write cycles to the SRAM while EEPROM cells provide
+high-endurance nonvolatile storage of data with more than one million store cycles to EEPROM &amp; a Data retention of &gt; 200 years.</p><p>With an external capacitor (~10uF), SRAM data is automatically transferred to the EEPROM upon loss of power, giving the advantages of NVRAM whilst eliminating the need for backup batteries.</p><p>Data can also be backed up manually by using either the Hardware Store pin (HS) or software control.</p><p>On power-up, the EEPROM data is automatically recalled to the SRAM.   EEPROM data Recall can also be initiated through software control.</p><p>Connectivity is shown below:</p><pre class="screen">            __ __
+    Vcap--&gt;|  U  |&lt;-- Vcc
+     A1 --&gt;|     |&lt;-- HS
+     A2 --&gt;|     |&lt;-&gt; SCL
+    Vss --&gt;|_____|&lt;-&gt; SDA</pre><p><span class="strong"><strong>Modes of Operation</strong></span></p><p>The SRAM allows for fast reads and writes and unlimited
+endurance. As long as power is present, the data
+stored in the SRAM can be updated as often as
+desired.</p><p>To preserve the SRAM image, the AutoStore function
+copies the entire SRAM image to an EEPROM array
+whenever it detects that the voltage drops below a predetermined
+level. The power for the AutoStore process
+is provided by the externally connected VCAP capacitor.
+Upon power-up, the entire memory contents are
+restored by copying the EEPROM image to the SRAM.
+This automatic restore operation is completed in milliseconds
+after power-up, at the same time as when
+other devices would be initializing.</p><p>There is no latency in writing to the SRAM. The SRAM
+can be written to starting at any random address, and
+can be written continuously throughout the array, wrapping
+back to the beginning after the end is reached.
+There is a small delay, specified as TWC in the data
+sheet, when writing to the nonvolatile configuration bits
+of the STATUS Register (SR).</p><p>Besides the AutoStore function, there are two other
+methods to store the SRAM data to EEPROM:</p><p>&#8226; One method is the Hardware Store, initiated by a
+rising edge on the HS pin.</p><p>&#8226; The other method is the Software Store, initiated
+by writing the correct instruction to the
+command register via I2C.</p><p><sub>The_paragraph_above_is_copyright_Microchip:_AN2047</sub><br></p><p><span class="strong"><strong>Explanation</strong></span></p><p>The GCBASIC constants and commands shown below control the configuration of the 47xxx EE-RAM device. &nbsp;&nbsp;&nbsp;GCBASIC supports I2C hardware and software connectivity  - this is shown in the tables below.</p><p>To use the 47xxx driver simply include the following in your user code.  This will initialise the driver.</p><pre class="screen">    #include &lt;47xxx_EERAM.H&gt;
+
+    ; ----- Define Hardware settings for EERAM Module
+    #define I2C_Adr_EERAM 0x30 		; EERAM base Address
+    #define EERAM_HS PortB.1   		; Optional hardware Store Pin
+
+    Dir EERAM_HS Out           		; Rising edge initiates Backup
+
+    EERAM_AutoStore(ON) 			; Enable Automatic Storage on power loss
+
+
+    'EERAM_AutoStore(OFF) 			; Disable Automatic Storage on power loss</pre><p>The device parameters for the device are shown in the table below.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"><col class="col_4"><col class="col_5"><col class="col_6"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Part Number</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Density (bits)</strong></span></th><th align="left" valign="top"><span class="strong"><strong>VCC Range</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Max. I2C Frequency</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Tstore Delay</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Trecall Delay</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p>47L04</p></td><td align="left" valign="top"><p>4K</p></td><td align="left" valign="top"><p>2.7-3.6V</p></td><td align="left" valign="top"><p>1 MHz</p></td><td align="left" valign="top"><p>8ms</p></td><td align="left" valign="top"><p>25ms</p></td></tr><tr><td align="left" valign="top"><p>47C04</p></td><td align="left" valign="top"><p>4K</p></td><td align="left" valign="top"><p>4.5-5.5V</p></td><td align="left" valign="top"><p>1 MHz</p></td><td align="left" valign="top"><p>8ms</p></td><td align="left" valign="top"><p>2ms</p></td></tr><tr><td align="left" valign="top"><p>47L16</p></td><td align="left" valign="top"><p>16K</p></td><td align="left" valign="top"><p>2.7-3.6V</p></td><td align="left" valign="top"><p>1 MHz</p></td><td align="left" valign="top"><p>25ms</p></td><td align="left" valign="top"><p>5ms</p></td></tr><tr><td align="left" valign="top"><p>47C16</p></td><td align="left" valign="top"><p>16K</p></td><td align="left" valign="top"><p>4.5-5.5V</p></td><td align="left" valign="top"><p>1 MHz</p></td><td align="left" valign="top"><p>25ms</p></td><td align="left" valign="top"><p>5ms</p></td></tr></tbody></table></div><p>The GCBASIC constants for control of the device are:</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"><col class="col_4"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Constant</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Context</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Example</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Default</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p>EERAM_I2C_Adr</p></td><td align="left" valign="top"><p>8-bit I2C Address of device</p></td><td align="left" valign="top"><p>#define I2C_Adr_EERAM 0x30</p></td><td align="left" valign="top"><p>Default is 0x30. This is mandated</p></td></tr><tr><td align="left" valign="top"><p>EERAM_HS</p></td><td align="left" valign="top"><p>Optional hardware Store Pin</p></td><td align="left" valign="top"><p>#define EERAM_HS portb.1</p></td><td align="left" valign="top"><p>No default - this is not mandated</p></td></tr><tr><td align="left" valign="top"><p>EERAM_Tstore</p></td><td align="left" valign="top"><p>Delay period for write to device</p></td><td align="left" valign="top"><p>#define EERAM_Tstore 25</p></td><td align="left" valign="top"><p>25 (ms)</p></td></tr><tr><td align="left" valign="top"><p>EERAM_Trecall</p></td><td align="left" valign="top"><p>Delay period to read from device</p></td><td align="left" valign="top"><p>#define EERAM_Trecall  5</p></td><td align="left" valign="top"><p>5 (ms)</p></td></tr></tbody></table></div><p>The GCBASIC commands for control of the device are:</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="left" valign="top"><span class="strong"><strong>Command</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Context</strong></span></th><th align="left" valign="top"><span class="strong"><strong>Example</strong></span></th></tr></thead><tbody><tr><td align="left" valign="top"><p>EERAM_AutoStore</p></td><td align="left" valign="top"><p>Enable Automatic Storage on power loss or Disable Automatic Storage on power loss</p></td><td align="left" valign="top"><p>EERAM_AutoStore(ON), or EERAM_AutoStore(OFF)</p></td></tr><tr><td align="left" valign="top"><p>EERAM_Status</p></td><td align="left" valign="top"><p>Read the Status Register</p></td><td align="left" valign="top"><p>User_byte_variable = EERAM_Status()</p></td></tr><tr><td align="left" valign="top"><p>EERAM_Backup</p></td><td align="left" valign="top"><p>Backup / Store Now</p></td><td align="left" valign="top"><p>EERAM_Backup()</p></td></tr><tr><td align="left" valign="top"><p>EERAM_Recall</p></td><td align="left" valign="top"><p>Restore Now</p></td><td align="left" valign="top"><p>EERAM_Recall()</p></td></tr><tr><td align="left" valign="top"><p>EERAM_HWStore</p></td><td align="left" valign="top"><p>Force Backup with HS Pin</p></td><td align="left" valign="top"><p>EERAM_HWStore()</p></td></tr><tr><td align="left" valign="top"><p>EERAM_Write</p></td><td align="left" valign="top"><p>Write a Byte of Data to address at the specified address.  The address must be a word value and the data is byte value.</p></td><td align="left" valign="top"><p>ERAM_Write( EERAM_Address_word, EERAM_Data_byte)</p></td></tr><tr><td align="left" valign="top"><p>EERAM_Read</p></td><td align="left" valign="top"><p>Read a Byte of Data from address.  The address must be a word value and returned data is byte value.</p></td><td align="left" valign="top"><p>User_byte_variable = EERAM_Read(EERAM_Address_word)</p></td></tr></tbody></table></div><p>This example shows how to use the device.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    #CHIP 16F18855,32
+    #OPTION EXPLICIT
+
+    #INCLUDE &lt;47XXX_EERAM.H&gt;
+
+    #startup InitPPS, 85
+
+    Sub InitPPS
+          'PPS is explicit to a specific chip.  Use PPSTool to ensure the PPS settings are correct.
+
+          'Module: EUSART
+              RC0PPS = 0x0010 'TX &gt; RC0
+              TXPPS  = 0x0008 'RC0 &gt; TX (bi-directional)
+          'Module: MSSP1
+              SSP1DATPPS = 0x0013 'RC3 &gt; SDA1
+              RC3PPS = 0x0015 'SDA1 &gt; RC3 (bi-directional)
+              RC4PPS = 0x0014 'SCL1 &gt; RC4
+              SSP1CLKPPS = 0x0014 'RC4 &gt; SCL1 (bi-directional)
+
+        End Sub
+
+    ; ----- Define Hardware Serial Print
+
+    #DEFINE USART_BAUD_RATE 115200
+    #DEFINE USART_TX_BLOCKING
+
+    ; ----- Define Hardware settings for hwi2c
+
+    #DEFINE HI2C_BAUD_RATE 400
+    #DEFINE HI2C_DATA  PORTC.3
+    #DEFINE HI2C_CLOCK PORTC.4
+
+    'I2C pins need to be input for legacy I2C modules
+    DIR HI2C_DATA  IN
+    DIR HI2C_CLOCK IN
+
+    'Initialise I2C Master
+    hi2cMode Master
+
+    ; ----- Define Hardware settings for EERAM Module
+
+    #define EERAM_I2C_Adr 0x30      ; EERAM base Address
+    #define EERAM_HS PortB.1        ; Optional hardware Store Pin
+
+    Dir EERAM_HS Out                ; Rising edge initiates Backup
+
+    'Library function
+    EERAM_AutoStore(ON)             ; Enable Automatic Storage on power loss
+
+    ; ----- Main body of program commences here.
+
+    dim Idx as Byte
+
+    HserPrintCRLF 2
+
+    HserPrint "Hardware I2C EERAM Read Test at I2C Adr 0x"
+    HserPrint  Hex(EERAM_I2C_Adr)
+    HserPrint  " Reading RAM addresses 0x0 to 0xF" : HserPrintCRLF 2
+
+    for Idx = 0x0 to 0xF
+
+      HserPrint hex(Idx) + " = " : HserPrint Hex(EERAM_Read(Idx))
+      If Idx = 7 or Idx = 0xf then
+        HserPrintCRLF
+      Else
+        HserPrint " : "
+      End if
+
+    next
+
+    HserPrintCRLF : HserPrint "Control Byte = " Hex(EERAM_Status()) : HserPrintCRLF 2
+
+    wait 100 ms                     ; time for serial operations to complete
+    end</pre><p><span class="strong"><strong>For more help, see</strong></span> <a class="link" href="_i2c_overview.html" title="I2C Overview">Software I2C</a> or <a class="link" href="_hi2c_overview.html" title="HI2C Overview">Hardware I2C</a></p></div></body></html>

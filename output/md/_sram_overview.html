@@ -1,0 +1,237 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>SRAM Overview</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_sram_device.html" title="SRAM ( Device )"><link rel="prev" href="_sram_device.html" title="SRAM ( Device )"><link rel="next" href="_sramread.html" title="SRAMRead"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_sram_overview"></a>SRAM Overview</h5></div></div></div><p><span class="strong"><strong>Introduction:</strong></span></p><p>Serial SRAM is a standalone volatile memory that provides an easy and inexpensive way to add more RAM to application.&nbsp;&nbsp;These are 8-pin low-power devices.&nbsp;&nbsp;
+They are high-performance devices have unlimited endurance and zero write times, making them ideal for applications involving continuous data transfer, buffering, data logging, audio, video, internet, graphics and other math and data-intensive functions.&nbsp;&nbsp;</p><p>These devices are available from 64 Kbit up to 1 Mbit in density and support SPI, SDI and SQI&#8482; bus modes.&nbsp;&nbsp;</p><p>The GCBASIC library only supports SPI bus mode.&nbsp;&nbsp;  The GCBASIC library supports hardware and software SPI - this is controlled via a constant, see below.</p><p>To use the SRAM libray simply include the following in your user code.&nbsp;&nbsp;</p><p>This will initialise the driver.&nbsp;&nbsp;</p><pre class="screen">    #define SPISRAM_CS      Porta.2      'Also known as SS, or Slave Select
+    #define SPISRAM_SCK     Portc.3      'Also known as CLK
+    #define SPISRAM_DO      Portc.5      'Also known as MOSI
+    #define SPISRAM_DI      Portc.4      'Also known as MISO
+
+    #define SPISRAM_HARDWARESPI
+    #define SPISRAM_TYPE     SRAM_23LC1024</pre><p>SRAM memory operations.&nbsp;&nbsp;&nbsp;</p><p><br>
+<br>
+The library exposes a set of method to support use of SRAM memory.
+<br>
+<br></p><div class="informaltable"><table border="1" width="80%"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><tbody><tr><td align="left" valign="top"><p>Method</p></td><td align="left" valign="top"><p>Parameters</p></td><td align="left" valign="top"><p>Usage</p></td></tr><tr><td align="left" valign="top"><p>SRAMWrite</p></td><td align="left" valign="top"><p>eepAddr as long, eepromVal as byte</p></td><td align="left" valign="top"><p>A subroutine that required the address and the value to be written to SRAM.</p></td></tr><tr><td align="left" valign="top"><p>SRAMRead</p></td><td align="left" valign="top"><p>eepAddr as long, eepromVal as byte</p></td><td align="left" valign="top"><p>A subroutine that required the address and variable to updated with the byte value from the specified SRAM address.</p></td></tr><tr><td align="left" valign="top"><p>SRAMRead</p></td><td align="left" valign="top"><p>eepAddr as long</p></td><td align="left" valign="top"><p>A function that required the address. The function returns a byte value from the specified SRAM address.</p></td></tr></tbody></table></div><p><br>
+<br>
+The library requires a set of constants to support use of SRAM memory.
+<br>
+<br></p><div class="informaltable"><table border="1" width="80%"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><tbody><tr><td align="left" valign="top"><p>Constant</p></td><td align="left" valign="top"><p>Parameters</p></td><td align="left" valign="top"><p>Usage</p></td></tr><tr><td align="left" valign="top"><p>SPISRAM_TYPE</p></td><td align="left" valign="top"><p>Specifies the type of SRAM.</p></td><td align="left" valign="top"><p>Requires one of the following constants
+</p><p>SRAM_23LC1024,<br>
+SRAM_23LCV1024,<br>
+SRAM_23LC1024,<br>
+SRAM_23A1024,<br>
+SRAM_23LCV512,<br>
+SRAM_23LC512, <br>
+SRAM_23A512, <br>
+SRAM_23K256, <br>
+SRAM_23A256, <br>
+SRAM_23A640, or <br>
+SRAM_23K640</p></td></tr><tr><td align="left" valign="top"><p>SPISRAM_CS</p></td><td align="left" valign="top"><p>Specifies the port for the chip select port.</p></td><td align="left" valign="top"><p>Required</p></td></tr><tr><td align="left" valign="top"><p>SPISRAM_SCK</p></td><td align="left" valign="top"><p>Specifies the port for the SPI clock port.</p></td><td align="left" valign="top"><p>Required</p></td></tr><tr><td align="left" valign="top"><p>SPISRAM_DO</p></td><td align="left" valign="top"><p>Specifies the port for the SPI data out, or MOSI, port.</p></td><td align="left" valign="top"><p>Required</p></td></tr><tr><td align="left" valign="top"><p>SPISRAM_DI</p></td><td align="left" valign="top"><p>Specifies the port for the data in, or MISO, port.</p></td><td align="left" valign="top"><p>Required</p></td></tr><tr><td align="left" valign="top"><p>HWSPIMode</p></td><td align="left" valign="top"><p>Specifies the speed of the SPI communications for Hardware SPI only.</p></td><td align="left" valign="top"><p>Optional defaults to MASTERFAST.
+</p><p>Options are MASTERSLOW,<br>
+MASTER,<br>
+MASTERFAST, or<br>
+MASTERULTRAFAST for specific AVRs only.</p></td></tr><tr><td align="left" valign="top"><p>SPISRAM_HARDWARESPI</p></td><td align="left" valign="top"><p>Instructs the library to use hardware SPI, remove or comment out if you want to use software SPI.</p></td><td align="left" valign="top"><p>Optional</p></td></tr></tbody></table></div><p><br>
+<br>
+The library also exposes a constant that is specific to the device.&nbsp;&nbsp;&nbsp;</p><p>These may be useful in the user program.&nbsp;&nbsp;&nbsp;</p><p>This constant is used by the library.&nbsp;&nbsp;&nbsp;</p><p>A user may use this public constant.
+<br>
+<br></p><div class="informaltable"><table border="1" width="80%"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><tbody><tr><td align="left" valign="top"><p>Constant</p></td><td align="left" valign="top"><p>Type</p></td><td align="left" valign="top"><p>Usage</p></td></tr><tr><td align="left" valign="top"><p>SPISRAM_CAPACITY</p></td><td align="left" valign="top"><p>Long value</p></td><td align="left" valign="top"><p>Use to determine the size of the SRAM device</p></td></tr></tbody></table></div><p><span class="strong"><strong>Examples</strong></span></p><pre class="screen">    #include &lt;uno_mega328p.h&gt;
+    #option explicit
+
+   ' USART settings
+    #define USART_BAUD_RATE 57600
+    #define USART_DELAY 0 ms
+    #define USART_BLOCKING
+    #define USART_TX_BLOCKING
+
+
+    'SD card attached to SPI bus as follows:
+    '
+    'UNO:    MOSI - pin 11, MISO - pin 12, CLK - pin 13, CS - pin 4 (CS pin can be changed) and pin #10 (SS) must be an output
+    'Mega:   MOSI - pin 51, MISO - pin 50, CLK - pin 52, CS - pin 4 (CS pin can be changed) and pin #52 (SS) must be an output
+    'Leonardo: Connect to hardware SPI via the ICSP header
+
+    #define SPISRAM_CS      DIGITAL_5     'Also known as SS, or Slave Select
+    #define SPISRAM_SCK      DIGITAL_13    'Also known as CLK
+    #define SPISRAM_DO      DIGITAL_11    'Also known as MOSI
+    #define SPISRAM_DI      DIGITAL_12    'Also known as MISO
+
+    #define SPISRAM_HARDWARESPI
+    #define SPISRAM_TYPE     SRAM_23LC1024
+
+    #define HWSPIMode MASTERULTRAFAST       'MASTERSLOW | MASTER | MASTERFAST | MASTERULTRAFAST for specific AVRs only. Defaults to MASTERFAST
+
+
+  '********************************************************************************
+
+  'Main program
+
+    'Wait 2 seconds to open the serial terminal
+    wait 2 s
+
+    HSerPrintCRLF 2
+    HSerPrint "Writing..."
+    HSerPrintCRLF
+    For SRAM_location=0 to SPISRAM_CAPACITY - 1
+     SRAMWrite ( [long]SRAM_location, SRAM_location and 255 )
+    Next
+
+
+    dim spirambyteread as Byte
+    spirambyteread = 11
+    HSerPrintCRLF 2
+    dim SRAM_location as long
+    HSerPrint "Reading..."
+    HSerPrintCRLF
+    For SRAM_location=0 to SPISRAM_CAPACITY - 1
+     'choose one....
+     'SRAMread ( SRAM_location, spirambyteread )
+    'or, as a function
+     spirambyteread = SRAMread ( SRAM_location )
+
+     if spirambyteread = ( SRAM_location and 255 ) then
+       HSerPrint hex(spirambyteread)
+     else
+       HSerPrint "**"
+     end if
+     HSerPrint ":"
+    Next
+    HSerPrintCRLF
+    HSerPrint "Wait..."
+    HSerPrintCRLF
+    Wait 2 s
+
+    HSerPrint "Rewriting to 0x00 ..."
+    HSerPrintCRLF
+    For SRAM_location=0 to SPISRAM_CAPACITY - 1
+     SRAMWrite ( [long]SRAM_location, 0 )
+    Next
+
+    Dim errorcount as long
+    errorcount = 0
+    For SRAM_location=0 to SPISRAM_CAPACITY - 1
+     SRAMRead ( SRAM_location, spirambyteread )
+     if spirambyteread &lt;&gt; 0 then
+       errorcount++
+     end if
+    Next
+    HSerPrint "Error Count (should be 0) = "
+    HSerPrint errorcount
+    HSerPrintCRLF
+    HSerPrint "End..."
+    HSerPrintCRLF
+    end</pre><p>or, for a PIC with PPS</p><pre class="screen">    'Chip Settings.
+   #chip 18F47k42, 64
+   #config MCLRE = ON
+   #option explicit
+
+
+   'PPS Tool version: 0.0.5.27
+   'PinManager data: v1.78
+   'Generated for 18F47K42
+   '
+   'Template comment at the start of the config file
+   '
+   #startup InitPPS, 85
+   #define PPSToolPart 18F47K42
+
+   Sub InitPPS
+      'This has been added to turn off PPS SPI when in SPI software mode
+       #ifdef SPISRAM_HARDWARESPI
+         'Module: SPI1
+         RC3PPS = 0x001E  'SCK1 &gt; RC3
+         SPI1SCKPPS = 0x0013  'RC3 &gt; SCK1 (bi-directional)
+         RC5PPS = 0x001F  'SDO1 &gt; RC5
+         SPI1SDIPPS = 0x0014  'RC4 &gt; SDI1
+         'Module: UART pin directions
+       #endif
+       'Module: UART pin directions
+       Dir PORTC.6 Out  ' Make TX1 pin an output
+       'Module: UART1
+       RC6PPS = 0x0013  'TX1 &gt; RC6
+   End Sub
+   'Template comment at the end of the config file
+
+
+   ' USART settings
+   #define USART_BAUD_RATE 57600
+   #define USART_DELAY 0 ms
+   #define USART_BLOCKING
+   #define USART_TX_BLOCKING
+
+   #define SPISRAM_CS      Porta.2      'Also known as SS, or Slave Select
+   #define SPISRAM_SCK      Portc.3      'Also known as CLK
+   #define SPISRAM_DO      Portc.5      'Also known as MOSI
+   #define SPISRAM_DI      Portc.4      'Also known as MISO
+
+   #define SPISRAM_HARDWARESPI
+   #define SPISRAM_TYPE     SRAM_23LC1024
+
+   '********************************************************************************
+
+   'Main program
+
+   'Wait 2 seconds to open the serial terminal
+   wait 2 s
+   dim sizeofSPIRAM as long
+   sizeofSPIRAM = SPISRAM_CAPACITY
+   HSerPrintCRLF 2
+   HSerPrint "Writing...SPISRAM_CAPACITY = 0x"
+   HSerPrint hex(sizeofSPIRAM_U)
+   HSerPrint hex(sizeofSPIRAM_H)
+   HSerPrint hex(sizeofSPIRAM)
+   HSerPrintCRLF
+   wait 100 ms
+
+   dim SRAM_location as long
+   For SRAM_location=0 to SPISRAM_CAPACITY - 1
+    SRAMWrite ( [long]SRAM_location, SRAM_location and 255 )
+   Next
+
+
+   dim spirambyteread as Byte
+   spirambyteread = 11 'could be any number....
+   HSerPrintCRLF 2
+
+   HSerPrint "Reading..."
+   HSerPrintCRLF
+   For SRAM_location=0 to SPISRAM_CAPACITY - 1
+    'choose one....
+    'SRAMRead ( SRAM_location, spirambyteread )
+   'or, as a function
+    spirambyteread = SRAMRead ( SRAM_location )
+
+    if spirambyteread = ( SRAM_location and 255 ) then
+      HSerPrint hex(spirambyteread)
+    else
+      HSerPrint "**"
+    end if
+    HSerPrint ":"
+   Next
+   HSerPrintCRLF
+   HSerPrint "Wait..."
+   HSerPrintCRLF
+   Wait 2 s
+
+   HSerPrint "Rewriting to 0x00 ..."
+   HSerPrintCRLF
+   For SRAM_location=0 to SPISRAM_CAPACITY - 1
+    SRAMWrite ( [long]SRAM_location, 0 )
+   Next
+
+   Dim errorcount as long
+   errorcount = 0
+   For SRAM_location=0 to SPISRAM_CAPACITY - 1
+    SRAMRead ( SRAM_location, spirambyteread )
+    if spirambyteread &lt;&gt; 0 then
+      errorcount++
+    end if
+   Next
+   HSerPrint "Error Count (should be 0) = "
+   HSerPrint errorcount
+   HSerPrintCRLF
+   HSerPrint "End..."
+   HSerPrintCRLF
+
+   do
+
+   loop</pre><p><span class="strong"><strong>For more help, see <a class="link" href="_sramread.html" title="SRAMRead">SRAMRead</a> or <a class="link" href="_sramwrite.html" title="SRAMWrite">SRAMWrite</a></strong></span></p></div></body></html>

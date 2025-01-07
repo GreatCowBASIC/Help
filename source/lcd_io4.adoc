@@ -68,8 +68,12 @@ Usage must include number value and unit of time.
 Only applicable when using LCD_IO 4
 |None.
 
+|`LCD_OCULAR_OM1614`
+|Specifies OCULAR OM1614 suppport.  This changes the intialisation routine to a specific routine for the OCULAR devices.
+|To specify explicit OCULAR_OM1614 support
+`#DEFINE LCD_OCULAR_OM1614`
 
-
+The OCULAR devices requires LCD_RW
 |===
 
 The `R/W` pin can be disabled by setting the `LCD_NO_RW` constant. If this

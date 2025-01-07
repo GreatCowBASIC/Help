@@ -1,0 +1,25 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>ABOUT THE PREFERENCES EDITOR</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="index.html" title="GCBASIC documentation"><link rel="prev" href="_development_guide_for_gcbasic_preferences_editor.html" title="Development Guide for GCBASIC Preferences Editor"><link rel="next" href="_gcbasic_with_the_avrisp_or_mkii_programmer.html" title="GCBASIC with the AVRISP or MKII Programmer"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_about_the_preferences_editor"></a>ABOUT THE PREFERENCES EDITOR</h2></div></div></div><p>This is a utility for editing GCBASIC ini files.&nbsp;&nbsp;
+It is derived from the Graphical GCBASIC utilities, and requires some files from Graphical GCBASIC to compile.&nbsp;&nbsp;</p><p>The software is developed using Sharp Develop v.3.2.1 ( not Visual Studio ).&nbsp;&nbsp;</p><p>The latest source is in Sourceforge.</p><p><br></p><p><span class="strong"><strong>COMPILING</strong></span></p><p>Ensure that the "Programmer Editor" folder is in the same folder as a "Graphical GCBASIC" folder.&nbsp;&nbsp;
+The "Graphical GCBASIC" folder must contain the following files from GCGB:
+ - Preferences.vb
+ - PreferencesWindow.vb
+ - ProgrammerEditor.vb
+ - Translator.vb
+ - ProgrammerEditor.resources</p><p>Once these files are in place, it should be possible to compile the Programmer Editor using SharpDevelop 3.2 (or similar).</p><p><br></p><p><span class="strong"><strong>USING PREFS EDITOR</strong></span></p><p>If run without any parameters, this program will create an ini file in whatever directory it is located in.&nbsp;&nbsp;
+If it is given the name of an ini file as a command line parameter, it will use that file.&nbsp;&nbsp;</p><p>As well as the ini file it is told to load, this program will also read any files that are included from that file..&nbsp;&nbsp;
+This makes it possible to keep the settings file in the Application Data folder if GCBASIC is installed in the Program Files directory..&nbsp;&nbsp;
+To put the settings file into the Application Data folder, create a small ini file containing the following 3 lines and place it in the same directory as this program:</p><pre class="screen">    include %appdata%\gcgb.ini
+    [gcgb]
+    useappdata = true</pre><p>The include line tells the program (and GCBASIC) to read from the Application Data folder.&nbsp;&nbsp;
+The useappdata=true line in the [gcgb] section will cause this program to write any output to a file in Application Data called gcgb.ini.&nbsp;&nbsp;
+The hard coding of GCGB is required this program is based on GCGB.&nbsp;&nbsp;
+It will result in programmer definitions being shared between GCGB and any other environment using this editor, which may be a positive side effect.</p><p><br></p><p><span class="strong"><strong>BUILDING THE PROGRAMMER EDITOR EXECUTABLE USING SHARP DEVELOP</strong></span></p><p>To build Prefs Editor from the source files.&nbsp;&nbsp;
+The list shows the installation of the Sharp Develop IDE.</p><p>Complete the following:</p><pre class="screen">        1. Download and install Sharp Develop from  https://sourceforge.net/projects/sharpdevelop/files/SharpDevelop%203.x/3.2/[SourceForge]
+        2. Download the Prefs Editor source using SVN into a source folder.  This is the folder ..\utils\Programmer Editor
+        4. Run Sharp Develop (installed at step #1).  Load project  "Programmer Editor.sln"  from source source folder.
+        5. Hit &lt;f8&gt; to compile.</pre><p><br>
+<br>
+<br>
+<br></p></div></body></html>

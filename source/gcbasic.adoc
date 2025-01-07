@@ -27,13 +27,17 @@ ifdef::backend-pdf[<<<]
 include::troubleshooting.adoc[]
 
 
-ifdef::backend-pdf[<<<]
+== GCBASIC Compiler Insights
+
+This is the GCBASIC compiler insights section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+
 include::Compilerinsights.adoc[]
+
+include::compiler_control.adoc[]
+
 
 ifdef::backend-pdf[<<<]
 include::libraries.adoc[]
-
-
 
 ifdef::backend-pdf[<<<]
 include::acknowledgements.adoc[]

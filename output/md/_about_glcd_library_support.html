@@ -1,0 +1,16 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>ABOUT GLCD Library Support</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_gcbasic_maintenance_and_development.html" title="GCBASIC Maintenance and Development"><link rel="prev" href="_compiler_source_insights.html" title="COMPILER SOURCE INSIGHTS"><link rel="next" href="_development_guide_for_gcbasic_preferences_editor.html" title="Development Guide for GCBASIC Preferences Editor"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_about_glcd_library_support"></a>ABOUT GLCD Library Support</h3></div></div></div><p>The GLCD capability supports over 40 GLCDs.&nbsp;&nbsp;GCBASIC loads automatically the specific library required.&nbsp;&nbsp;The loading of the specific library(ies) by the compiler improves performance and significantly reduces the compilation time.</p><p>The GLCD libraries, that are automatically loaded, are controlled by the use of an incude statement in the use program <code class="literal">#include &lt;glcd.h&gt;</code> with a constant to define the specific GLCD driver to be loaded <code class="literal">#define GLCD_TYPE GLCD_TYPE_SSD1289</code>.</p><p>The process the compiler uses the file <code class="literal">include\glcd.dat</code>.&nbsp;&nbsp;The <code class="literal">glcd.dat</code> has a strict format where the row index has parameters as shown below.</p><pre class="screen">    Format. This is strict.
+
+    Usea comma delimiter; single quote to a comment line; amperand to group libraries. No other format controls permitted.
+
+    For each row.
+
+        Index, glcd type, library[[&amp;library]&amp;library]
+
+        Index =   the reference number from GLCD.H. There is a unique reference number per type of glcd.
+        Type  =   the type. per type of glcd. must match those definition in GLCD.H
+                    this is use as the search/match in the constant `GLCD_TYPE` in user source program
+                    this is not case sensitive
+        Library = library to be loaded, or, group of dependent libraries
+                    delimiter must be '&amp;'</pre><p><br></p></div></body></html>

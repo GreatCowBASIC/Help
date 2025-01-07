@@ -1,0 +1,19 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>HserPrintCRLF</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_rs232_hardware.html" title="RS232 (hardware)"><link rel="prev" href="_hserprintbytecrlf.html" title="HserPrintByteCRLF"><link rel="next" href="_ps_2.html" title="PS/2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_hserprintcrlf"></a>HserPrintCRLF</h5></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    HserPrintCRLF [optional BYTE] [, 1 | 2  | 3 | 4 ]</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers with a USART or UART module.<br></p><p>Microchip PIC supports USART1 and 2.+
+Atmel AVR supports USART 1,2,3 and 4.</p><p><span class="strong"><strong>Enabling Constants:</strong></span></p><p>To enable the use of the USART these are the enabling constants. &nbsp;&nbsp;These constants are required.&nbsp;&nbsp;You can change the <code class="literal">USART_BAUD_RATE</code> and to meet your needs.&nbsp;&nbsp;For addition USART ports use <code class="literal">#define USART<span class="strong"><strong>n</strong></span>_BAUD_RATE 9600</code> where <code class="literal"><span class="strong"><strong>n</strong></span>`</code> is the required port number.</p><pre class="screen">    'USART settings for USART1
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF</pre><p><span class="strong"><strong>Explanation:</strong></span></p><p>This command will send ASCII codes 13 and 10 only using the hardware
+RS232 module. ASCII codes 13 and 10 equate to a carriage return and line
+feed.</p><p>Optionally, you can add a parameter. The number will determine the
+number of ASCII codes 13 and 10 set to the hardware RS232 module.</p><p>Also you can choose the comport with second optional parameter if it is not the default comport 1. If there is no first optional parameter then you must have atleast acomma before it  to indicate this is the second parameter.</p><p><span class="strong"><strong>Examples:</strong></span></p><pre class="screen">  'This Line will send 1  CR and LF
+  HserPrintCRLF    ' Will send a CR &amp; LF to the terminal
+
+  'This Line will send 2  times (CR and LF)
+  HserPrintCRLF 2    ' Will send 2 times (CR &amp; LF) to the terminal
+            'out of comport 1
+
+  'This Line will send 1  CR and LF
+  HserPrintCRLF 1,2    ' Will send a CR &amp; LF out of
+            'comport 2 to the terminal</pre><p><span class="strong"><strong>See also</strong></span> <a class="link" href="_hserprintbytecrlf.html" title="HserPrintByteCRLF">HserPrintByteCRLF</a></p></div></body></html>

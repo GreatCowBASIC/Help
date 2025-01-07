@@ -1,0 +1,23 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Repeat</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_flow_control.html" title="Flow control"><link rel="prev" href="_pause.html" title="Pause"><link rel="next" href="_select.html" title="Select"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_repeat"></a>Repeat</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    Repeat <span class="emphasis"><em>times</em></span>
+    ...
+    <span class="emphasis"><em>program code</em></span>
+    ...
+    &lt;<span class="emphasis"><em>condition</em></span>&gt; Exit Repeat
+    ...
+    End Repeat</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The <code class="literal">Repeat</code> command is ideal for situations where a piece of code needs
+to be run a set number of times. It uses less memory and runs faster
+than the <code class="literal">For</code> command, and should be used wherever it is not necessary to
+count how many times the code has run.</p><p>Optionally, you can specify a condition to <code class="literal">Exit</code> the Repeat-Loop
+immediately.</p><p>Repeat has a maximum repeat value of 65535.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'This code will flash a green light 6 times.
+
+    #chip 16F88, 20
+
+    #define LED PORTB.0
+    dir LED out
+
+    Repeat 6
+    PulseOut LED, 1 s
+    Wait 1 s
+    End Repeat</pre><p><span class="strong"><strong>See Also <a class="link" href="_for.html" title="For">For</a></strong></span></p></div></body></html>

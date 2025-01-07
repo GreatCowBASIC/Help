@@ -1,0 +1,41 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Line Continuation</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_syntax.html" title="Syntax"><link rel="prev" href="_comments.html" title="Comments"><link rel="next" href="_conditions.html" title="Conditions"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="_line_continuation"></a>Line Continuation</h3></div></div></div><p><span class="strong"><strong>About Line Continuation</strong></span></p><p>A single _ (underscore) character at the end of a line of code tells the compiler that the line continues in the next line.  This allows a single statement (line of code) to be spread across multiple lines in the input file, which can provide nice formatting.</p><p>Be careful when adding the _ line continuation character right behind an identifier or keyword. It MUST be separated with at least <span class="strong"><strong>one space</strong></span> character, otherwise it would be treated as part of the identifier or keyword.</p><p><span class="strong"><strong>Example 1:</strong></span></p><pre class="screen">    #CHIP 18f27k42
+
+    Dim sMyString As String
+        sMyString ="one _
+                   two _
+                   three _
+                   four _
+                   five _
+                   six _
+                   seven _
+                   eight _
+                   nine _
+                   ten _
+                   eleven _
+                   twelve _
+                   thirteen _
+                   fourteen _
+                   fifteen _
+                   sixteen _
+                   seventeen _
+                   eighteen _
+                   nineteen _
+                   twenty _
+                   twentyOne _
+                   twentyTwo _
+                   twentyThree _
+                   twentyFour _
+                   twentyFive"
+
+    HSerPrint sMyString</pre><p>This example will print on the serial terminal the string "one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twentyOne twentyTwo twentyThree twentyFour twentyFive"</p><p><span class="strong"><strong>Example 2:</strong></span></p><pre class="screen">    Sub Aiguillages (In voie_principale As Byte, _
+                     In voie_marchandises As Byte, _
+                     In voie_gravier As Byte)
+
+        ' code segment
+        ' code segment
+        ' code segment
+
+    End Sub</pre><p>This example improves the layout of definition of the sub-routine.</p><p><span class="strong"><strong>Example 3:</strong></span></p><pre class="screen"> #DEFINE Ouvrir_voie_marchandises Aiguillages _
+              (0, Marche_avant, Marche_arriere)</pre><p>This example creates a constants over two lines.  This improves readability.</p></div></body></html>

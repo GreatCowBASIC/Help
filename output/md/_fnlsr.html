@@ -1,0 +1,20 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>FnLSR</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_bitwise.html" title="Bitwise"><link rel="prev" href="_fnlsl.html" title="FnLSL"><link rel="next" href="_setwith.html" title="SetWith"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_fnlsr"></a>FnLSR</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    BitsOut = FnLSR(BitsIn, NumBits)</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p><code class="literal">FnLSR</code> (Logical Shift Right) will perform a Bitwise right shift. <code class="literal">FnLSR</code> will return BitsIn shifted NumBits to the right, it is equivalent to the 'C' operation:</p><pre class="screen">    BitsOut = BitsIn &gt;&gt; NumBits</pre><p>Each right shift is the equivalent of dividing BitsIn by 2.</p><p>BitsIn and NumBits may be may be a variable and of  type: Bit, Byte, Word, Long, Constant or another Function.</p><p>Zeros are shifted in from the left, Bits that are shifted out are lost.</p><p>It is useful for mathematical and logical operations, as well as creating serial data streams or manipulating I/O ports.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    ' This program will shift the LEDs on the Microchip PIC Low Pin Count Demo Board
+    ' from Right to Left, that is DS4(RC3) to DS1(RC0) and repeat.
+
+    #chip    16f690        ' declare the target Device
+
+    #define  LEDPORT PORTC ' LEDs on pins 16, 15, 14 and 7
+
+    Dim LEDMask as Byte    ' Pattern to be displayed
+    LEDMask = 0b1000       ' Initialise the Patten
+    Dir LEDPORT Out        ' Enable the LED Port.
+
+    Do
+      LEDPORT = LEDMask    ' Display the Pattern
+      wait 500 ms
+      LEDMask = FnLSR(LEDMask, 1) &amp; 0x0F ' Mask the lower 4 bits
+      if LEDPORT.0 then LEDMask.3 = 1    ' Restart the sequence
+    Loop
+    End</pre><p><span class="strong"><strong>See Also <a class="link" href="_bitwise_operations_overview.html" title="Bitwise Operations Overview">Bitwise Operations Overview</a></strong></span> and <span class="strong"><strong><a class="link" href="_conditions.html" title="Conditions">Conditions</a></strong></span></p></div></body></html>

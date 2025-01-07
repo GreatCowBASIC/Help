@@ -24,20 +24,66 @@ These constants are used to control settings for the Liquid Crystal Display rout
 
 |`LCD_I2C_Address_1`
 |Address of I2C adapter
-|Default `0x4E`
+|`0x4C`
 
 |`LCD_I2C_Address_2`
 |Address of I2C adapter
-|Not set
+|`0x4A`
 
 |`LCD_I2C_Address_3`
 |Address of I2C adapter
-|Not set
+|`0x4*`
 
 |`LCD_I2C_Address_4`
 |Address of I2C adapter
-|Not set
+|`0x48`
+
+|`LCD_I2C_Address_5`
+|Address of I2C adapter
+|`0x46`
+r
+|`LCD_I2C_Address_6`
+|Address of I2C adapter
+|`0x44`
+
+|`LCD_I2C_Address_7`
+|Address of I2C adapter
+|`0x42`
+
+|`LCD_I2C_Address_8`
+|Address of I2C adapter
+|`0x40`
+
+
 |===
+
+
+
+*Example Usage*
+
+An example for using two I2C-LCD.  This example can be extented to cover more that two or more ( up to eight ) I2C-LCD.
+
+This example shows you can have up to eight LCD on the I2C-Bus (8 Addresses 0x40 to 0x4E of the PCF8574-Adaptor).
+
+---
+    // Set up I2C-LCD
+    #DEFINE LCD_IO 10
+
+    /*  Set LCD_IO to 10 for the YwRobot LCD1602 IIC V1 or the Sainsmart LCD_PIC I2C adapter
+    Set LCD_IO to 12 for the Ywmjkdz I2C adapter with pot bent over top of chip */
+
+    #DEFINE LCD_I2C_Address_1 0x4E ' prepare the first LCD on Address 0x4E
+    #DEFINE LCD_I2C_Address_6 0x44 ' prepare the second LCD on Address 0x44
+
+    // To switch between the two LCD can be done with
+    
+    LCD_I2C_Address_Current = LCD_I2C_Address_6 // now the second I2C-LCD is active
+
+    // or
+    
+    LCD_I2C_Address_Current = LCD_I2C_Address_1 //  now the first I2C-LCD is active
+---
+
 
 For code examples see http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions[I2C LCD Solutions].
 

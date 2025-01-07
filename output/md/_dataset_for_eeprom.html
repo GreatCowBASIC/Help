@@ -1,0 +1,81 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Dataset for EEPROM</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_mcu_eeprom_dfm.html" title="MCU EEPROM ( DFM )"><link rel="prev" href="_epwrite.html" title="EPWrite"><link rel="next" href="_hefm_pfm.html" title="HEFM ( PFM )"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_dataset_for_eeprom"></a>Dataset for EEPROM</h5></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">        EEPROM DataSetName [[,]address]
+            // multiples values, strings etc.
+            0,1,2,3
+        END EEPROM</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all PIC microcontrollers with EEPROM memory.
+AVR support required use of AVR-ASM assembler.&nbsp;&nbsp;GCASM does not support AVR EEPROM operations.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The EEPROM construct creates an EEPROM dataset for use with the specific microcontroller.&nbsp;&nbsp;An EEPROM dataset is a list of values that are stored in the EEPROM memory of the microcontroller, which then can be accessed using the EPREAD() command or other EEPROM read operations.</p><p>The advantage of an EEPROM dataset is that they are memory efficient being loaded directly into the EEPROM during programming operations.</p><p>EEPROM datasets are defined as follows:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">Byte values,</li><li class="listitem">EEPROM addresses and EEPROM datasets CANNOT overlap,</li><li class="listitem">EEPROM addresses must not overlap TABLE data,</li><li class="listitem">TABLE data has precedence from address 0x00 until the the end of TABLE all data,</li><li class="listitem">Strings must be expressed as ASCII byte value(s),</li><li class="listitem">Multiple elements on a single line separated by commas,</li><li class="listitem">Constants and calculations within the single line dataset entries are permitted,</li><li class="listitem">Decimal values are NOT supported,</li><li class="listitem">Access is via EPRread(), not supported by READTABLE().</li><li class="listitem">18F devices must use even address for EEPROM location, and, 18F will pad (with 0x00) datasets to even number length.&nbsp;&nbsp;This is MPASM constraint and therefore the compiler and assembler will isssue specific error messages for odd EEPROM locations.
+<br>
+<br></li></ol></div><p><span class="strong"><strong>Defining EEPROM datasets</strong></span></p><p><span class="emphasis"><em>Single data values</em></span></p><p>A single value on each line with in the dataset.&nbsp;&nbsp;The example dataset, shown below, has the data on different line in within the set.</p><p>Simple example: This creates an EEPROM dataset at the first EEPROM location, then, the values of 12, 24, &#8230;&#8203; 72 are the consecutive values.</p><pre class="screen">        EEPROM EEDataSet
+            12
+            24
+            36
+            48
+            60
+            72
+        End EEPROM</pre><p><span class="emphasis"><em>Multiple data values of the same line</em></span></p><p>The following example creates the EEPROM dataset at EEPROM offset address of 0x10.&nbsp;&nbsp;</p><p>Multiple elements on a single line separated by commas.&nbsp;&nbsp;The example dataset, shown below, has the data separated by <code class="literal">,</code> and on different line in within the dataset.</p><pre class="screen">        EEPROM EEDataSource  0x10
+            12,  24, 36
+            48,  60, 72
+        End EEPROM</pre><p><span class="emphasis"><em>Data values as constants, and, with data transformation</em></span></p><p>Constants and calculations within the single line.  &nbsp;&nbsp;The example dataset, shown below, uses a defined constant to multiple the data with the dataset.</p><pre class="screen">        #define calculation_constant 2
+
+        EEPROM EEDataSource  0x20
+        1 * calculation_constant
+        2 * calculation_constant
+        3 * calculation_constant
+        8 * calculation_constant
+        4 * calculation_constant
+        5 * calculation_constant
+        End EEPROM</pre><p>&nbsp;&nbsp;
+&nbsp;&nbsp;</p><p><span class="emphasis"><em>Data values as Strings</em></span></p><p>Strings can be defined.&nbsp;&nbsp;Strings are delimited by double quotes. &nbsp;&nbsp; The following examples show the methods.</p><p>Any ASCII characters between any two "    " (double quotes) will be converted to dataset data.&nbsp;&nbsp; Also see ASCII escape codes.</p><p>A source string can be one string per line or comma separated strings, therefore, on the same line.</p><p>Example:</p><pre class="screen">    EEPROM Test_1
+     "ABCDEFGHIJ"
+    End EEPROM</pre><p><span class="emphasis"><em>ASCII Escape code</em></span></p><p>Accepted escape strings are shown in the dataset below.</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"></colgroup><thead><tr><th align="left" valign="top">Escape sequence</th><th align="left" valign="top">Meaning</th></tr></thead><tbody><tr><td align="left" valign="top"><p>\a</p></td><td align="left" valign="top"><p>beep</p></td></tr><tr><td align="left" valign="top"><p>\b</p></td><td align="left" valign="top"><p>backspace</p></td></tr><tr><td align="left" valign="top"><p>\f</p></td><td align="left" valign="top"><p>formfeed</p></td></tr><tr><td align="left" valign="top"><p>\l or \n</p></td><td align="left" valign="top"><p>newline</p></td></tr><tr><td align="left" valign="top"><p>\r</p></td><td align="left" valign="top"><p>carriage return</p></td></tr><tr><td align="left" valign="top"><p>\t</p></td><td align="left" valign="top"><p>tab</p></td></tr><tr><td align="left" valign="top"><p>\0</p></td><td align="left" valign="top"><p>Null value, equates to ASCII 0. Same as \&amp;000</p></td></tr><tr><td align="left" valign="top"><p>\&amp;nnn</p></td><td align="left" valign="top"><p>ascii char in decimal</p></td></tr><tr><td align="left" valign="top"><p>\\</p></td><td align="left" valign="top"><p>backslash</p></td></tr><tr><td align="left" valign="top"><p>\"</p></td><td align="left" valign="top"><p>double quote</p></td></tr><tr><td align="left" valign="top"><p>\'</p></td><td align="left" valign="top"><p>single quote</p></td></tr></tbody></table></div><p><span class="strong"><strong>Complete working example program</strong></span></p><p>This example creates several EEPROM datasets.&nbsp;&nbsp;The example also create a lookup table.&nbsp;&nbsp;The EEPROM dataset are addressed with the additional parameter to ensure there is no EEPROM dataset overlap.&nbsp;&nbsp;</p><pre class="screen">        #chip 16F886
+        #option explicit
+
+        #DEFINE USART_BAUD_RATE 9600
+        #DEFINE USART_TX_BLOCKING
+        #DEFINE USART_DELAY OFF
+
+        Dim EEdataaddress, myvar as Byte
+        EEdataaddress = 2
+
+        Readtable TwoBytes,EEdataaddress,myVar
+        HSerPrint myVar
+
+
+        // *********************** EXAMPLE EE DATA ************************
+        // * THIS IS ONLY ACCESSIBLE VIA EPREAD or other EE read functions.
+        /*
+        Usage:      EEProm EEPromBlockName [[,] OffSet Address ]
+                    OffSet address defaults to 0x00 if not stated.
+
+                    Addresses and datasets CANNOT overlap.
+                    Addresses must not overlap TABLE data.
+                    TABLE data has precendence from address 0x00 until the the end of TABLE data
+        */
+
+
+        EEProm EEDataSet1 0x10    // Locate EE Data at address
+        3,2,1
+        End EEProm
+
+        EEProm VersionData 0x20   // Locate EE Data at address
+        "    PWM2Laser   "
+        "  Fabrice ENGEL "
+        "   Version 1.4  "
+        "  November 2023 "
+        End EEProm
+
+        EEProm EEDataSet2 0x0D    // Locate EE Data at address
+        1,2,3
+        End EEProm
+
+        EEProm EEDataSet 0X04     // Locate EE Data at address
+        1,2,3
+        End EEProm
+
+        // **********************  EXAMPLE TABLE DATA BEING LOADED INTO EE BY THE COMIPILER
+        // *                       THIS IS ONLY ACCESSIBLE VIA READTABLE
+
+        Table TwoBytes STORE data // EE Data Address Allocated by compiler
+            0X55,0XAA,0X55
+        End Table</pre><p><span class="strong"><strong>For more help, see <a class="link" href="_epread.html" title="EPRead">EPRead</a>, <a class="link" href="_lookup_tables.html" title="Lookup Tables">Creating EEProm data from a Lookup Table</a></strong></span></p></div></body></html>

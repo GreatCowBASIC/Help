@@ -1,0 +1,34 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>KeypadData</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_keypad.html" title="Keypad"><link rel="prev" href="_keypad_overview.html" title="Keypad Overview"><link rel="next" href="_keypadraw.html" title="KeypadRaw"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_keypaddata"></a>KeypadData</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>var</em></span> = KeypadData</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>This function will return a value corresponding to the key that is
+pressed on the keypad. Note that if two or more keys are pressed, then
+only one value will be returned.
+<code class="literal"><span class="emphasis"><em>var</em></span></code> can have one of the following values:</p><div class="informaltable"><table border="1"><colgroup><col class="col_1"><col class="col_2"><col class="col_3"></colgroup><thead><tr><th align="center" valign="top"><span class="strong"><strong>Value</strong></span></th><th align="center" valign="top"><span class="strong"><strong>Constant Name</strong></span></th><th align="center" valign="top"><span class="strong"><strong>Key Pressed</strong></span></th></tr></thead><tbody><tr><td align="center" valign="top"><p>0</p></td><td align="center" valign="top">&nbsp;</td><td align="center" valign="top"><p>0</p></td></tr><tr><td align="center" valign="top"><p>1</p></td><td align="center" valign="top">&nbsp;</td><td align="center" valign="top"><p>1</p></td></tr><tr><td align="center" valign="top"><p>2</p></td><td align="center" valign="top">&nbsp;</td><td align="center" valign="top"><p>2</p></td></tr><tr><td align="center" valign="top"><p>3</p></td><td align="center" valign="top">&nbsp;</td><td align="center" valign="top"><p>3</p></td></tr><tr><td align="center" valign="top"><p>4</p></td><td align="center" valign="top">&nbsp;</td><td align="center" valign="top"><p>4</p></td></tr><tr><td align="center" valign="top"><p>5</p></td><td align="center" valign="top">&nbsp;</td><td align="center" valign="top"><p>5</p></td></tr><tr><td align="center" valign="top"><p>6</p></td><td align="center" valign="top">&nbsp;</td><td align="center" valign="top"><p>6</p></td></tr><tr><td align="center" valign="top"><p>7</p></td><td align="center" valign="top">&nbsp;</td><td align="center" valign="top"><p>7</p></td></tr><tr><td align="center" valign="top"><p>8</p></td><td align="center" valign="top">&nbsp;</td><td align="center" valign="top"><p>8</p></td></tr><tr><td align="center" valign="top"><p>9</p></td><td align="center" valign="top">&nbsp;</td><td align="center" valign="top"><p>9</p></td></tr><tr><td align="center" valign="top"><p>10</p></td><td align="center" valign="top"><p>KEY_A</p></td><td align="center" valign="top"><p>A</p></td></tr><tr><td align="center" valign="top"><p>11</p></td><td align="center" valign="top"><p>KEY_B</p></td><td align="center" valign="top"><p>B</p></td></tr><tr><td align="center" valign="top"><p>12</p></td><td align="center" valign="top"><p>KEY_C</p></td><td align="center" valign="top"><p>C</p></td></tr><tr><td align="center" valign="top"><p>13</p></td><td align="center" valign="top"><p>KEY_D</p></td><td align="center" valign="top"><p>D</p></td></tr><tr><td align="center" valign="top"><p>14</p></td><td align="center" valign="top"><p>KEY_STAR</p></td><td align="center" valign="top"><p>Asterisk/Star (*)</p></td></tr><tr><td align="center" valign="top"><p>15</p></td><td align="center" valign="top"><p>KEY_HASH</p></td><td align="center" valign="top"><p>Hash (#)</p></td></tr><tr><td align="center" valign="top"><p>255</p></td><td align="center" valign="top"><p>KEY_NONE</p></td><td align="center" valign="top"><p>None</p></td></tr></tbody></table></div><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'Program to show the value of the last pressed key on the LCD
+    #chip 18F4550, 20
+
+    'LCD connection settings
+    #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
+    #define LCD_DB4 PORTD.4
+    #define LCD_DB5 PORTD.5
+    #define LCD_DB6 PORTD.6
+    #define LCD_DB7 PORTD.7
+    #define LCD_RS PORTD.0
+    #define LCD_RW PORTD.1
+    #define LCD_Enable PORTD.2
+
+    'Keypad connection settings
+    #define KeypadPort PORTB
+
+    'Main loop
+    Do
+        'Get key
+        Temp = KeypadData
+
+        'If a key is pressed, then display it
+        If Temp &lt;&gt; KEY_NONE Then
+            CLS
+            Print Temp
+            Wait 100 ms
+        End If
+    Loop</pre><p><span class="strong"><strong>For more help, see</strong></span> <a class="link" href="_keypad_overview.html" title="Keypad Overview">Keypad Overview</a></p></div></body></html>

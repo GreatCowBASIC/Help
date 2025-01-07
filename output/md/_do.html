@@ -1,0 +1,38 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Do</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_flow_control.html" title="Flow control"><link rel="prev" href="_flow_control.html" title="Flow control"><link rel="next" href="_end.html" title="End"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_do"></a>Do</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    Do [{While | Until} <span class="emphasis"><em>condition</em></span>]
+    ...
+    <span class="emphasis"><em>program code</em></span>
+    ...
+    <span class="emphasis"><em>&lt;condition&gt;</em></span> Exit Do
+    ...
+    Loop [{While | Until} <span class="emphasis"><em>condition</em></span>]</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The <code class="literal">Do</code> command will cause the code between the <code class="literal">Do</code> and the <code class="literal">Loop</code> to run
+repeatedly while <code class="literal"><span class="emphasis"><em>condition</em></span></code> is true or until <code class="literal"><span class="emphasis"><em>condition</em></span></code> is true,
+depending on whether <code class="literal">While</code> or <code class="literal">Until</code> has been specified.</p><p>Note that the <code class="literal">While</code> or <code class="literal">Until</code> and the condition can only be specified
+once, or not at all. If they are not specified, then the code will
+repeat endlessly.</p><p>Optionally, you can specify a condition to <code class="literal">EXIT</code> the <code class="literal">Do-Loop</code> immediately.</p><p><span class="strong"><strong>Example 1:</strong></span></p><pre class="screen">    'This code will flash a light until the button is pressed
+    #chip 12F629, 4
+
+    #define BUTTON GPIO.3
+    #define LIGHT GPIO.5
+
+    Dir BUTTON In
+    Dir LIGHT Out
+
+    Do Until BUTTON = 1
+      PulseOut LIGHT, 1 s
+      Wait 1 s
+    Loop</pre><p><span class="strong"><strong>Example 2:</strong></span></p><p>This code will also flash a light until the button is pressed. This
+example uses <code class="literal">EXIT DO</code> within a continuous loop.</p><pre class="screen">    #chip 12F629, 4
+
+    #define BUTTON GPIO.3
+    #define LIGHT GPIO.5
+
+    Dir BUTTON In
+    Dir LIGHT Out
+
+    Do
+      PulseOut LIGHT, 1 s
+      Wait 1 s
+      if BUTTON = 1 then EXIT DO
+    Loop</pre><p><span class="strong"><strong>For more help, see <a class="link" href="_conditions.html" title="Conditions">Conditions</a></strong></span></p></div></body></html>

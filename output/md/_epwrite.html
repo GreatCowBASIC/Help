@@ -1,0 +1,21 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>EPWrite</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_mcu_eeprom_dfm.html" title="MCU EEPROM ( DFM )"><link rel="prev" href="_epread.html" title="EPRead"><link rel="next" href="_dataset_for_eeprom.html" title="Dataset for EEPROM"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_epwrite"></a>EPWrite</h5></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    EPWrite <span class="emphasis"><em>location</em></span>, <span class="emphasis"><em>data</em></span></pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all Microchip PIC and Atmel AVR microcontrollers with EEPROM data memory.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p><code class="literal">EPWrite</code> is used to write information to the EEPROM data storage, so that
+it can be accessed later by a programmer on the PC, or by the <code class="literal">EPRead</code>
+command. <code class="literal"><span class="emphasis"><em>location</em></span></code> represents the location to write data to, and the location varies
+from one chip to another. <code class="literal"><span class="emphasis"><em>data</em></span></code> is the data that is to be written to the
+EEPROM, and can be a value or a variable.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3><p>Do not exceed the location ( also known as the EEProm address ) of the physical EEProm.&nbsp;&nbsp;If the EEProm size is 256 ensure location is in the range of 0 to 255;&nbsp;&nbsp;If the EEProm size is 512 ensure location is in the range of 0 to 511 and use a Word variable as the location parameter.</p></div><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    #chip 16F819, 8
+
+    'Set the input pin direction
+    Dir PORTA.0 In
+
+    'Loop to take readings until the EEPROM is full
+    For CurrentAddress = 0 to 255
+
+    'Take a reading and log it
+    EPWrite CurrentAddress, ReadAD(AN0)
+
+    'Wait 10 minutes before getting another reading
+    Wait 10 min
+
+    Next</pre><p><span class="strong"><strong>For more help, see <a class="link" href="_epread.html" title="EPRead">EPRead</a>,<a class="link" href="_lookup_tables.html" title="Lookup Tables">Creating EEProm data from a Lookup Table</a></strong></span></p></div></body></html>

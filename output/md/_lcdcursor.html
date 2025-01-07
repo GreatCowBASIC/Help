@@ -1,0 +1,99 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>LCDCursor</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_liquid_crystal_display.html" title="Liquid Crystal Display"><link rel="prev" href="_lcdcmd.html" title="LCDCmd"><link rel="next" href="_lcdhex.html" title="LCDHex"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_lcdcursor"></a>LCDCursor</h4></div></div></div><p><span class="strong"><strong>Syntax</strong></span>:</p><pre class="screen">    LCDCursor value</pre><p><span class="strong"><strong>Command Availability</strong></span>:</p><p>Available on all microcontrollers.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>The LCDCursor command will accept the following parameters:</p><p><code class="literal">LCDON</code>, <code class="literal">LCDOFF</code>, <code class="literal">CURSORON</code>, <code class="literal">CURSOROFF</code>, <code class="literal">FLASHON</code>, <code class="literal">FLASHOFF</code></p><p><code class="literal">FLASH</code>, and <code class="literal">ON/OFF</code> have been retained for backward compatibility with
+older releases of GCB.</p><p><code class="literal">LCDON</code>  will turn on (restore) the LCD display.<br>
+<code class="literal">LCDOFF</code>  will turn off (hide) the LCD display.<br>
+<code class="literal">CURSORON</code>  will turn on the cursor.<br>
+<code class="literal">CURSOROFF</code>  will turn off the cursor.<br>
+<code class="literal">FLASHON</code>  will flash the cursor.<br>
+<code class="literal">FLASHOFF</code>  will stop flashing the cursor.</p><p><span class="strong"><strong>Example :</strong></span>																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												#config osc = intrc</p><pre class="screen">    #chip 16f877a, 8
+
+    ;Defines (Constants)
+    #define LCD_IO 4
+    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
+    #define LCD_RS PORTA.6
+    #define LCD_NO_RW
+    #define LCD_Enable PORTA.7
+    #define LCD_DB4 PORTB.4
+    #define LCD_DB5 PORTB.5
+    #define LCD_DB6 PORTB.6
+    #define LCD_DB7 PORTB.7
+
+    Start:
+    CLS
+    WAIT 3 s
+    PRINT "START DEMO"
+    locate 1,0
+    PRINT "DISPLAY ON"
+
+    wait 3 s
+
+    CLS
+    Locate 0,0
+    Print "Cursor ON"
+    Locate 1,0
+    LCDcursor CursorOn
+    wait 3 S
+
+    CLS
+    LCDcursor CursorOFF
+    locate 0,0
+    Print "Cursor OFF"
+    wait 3 s
+
+    CLS
+    Locate 0,0
+    Print "FLASH ON"
+    Locate 1,0
+    LCDcursor FLASHON
+    wait 3 s
+
+    CLS
+    locate 0,0
+    Print "FLASH OFF"
+    LCDCURSOR FLASHOFF
+    wait 3 sec
+
+    Locate 0,0
+    Print "CURSOR&amp;FLASH ON" 'Both are on at the same time
+    locate 1,0
+    LCDCURSOR CURSORON
+    LCDCURSOR FLASHON
+    Wait 3 sec
+
+    Locate 0,0
+    Print "CURSOR FLASH OFF"
+    locate 1,0
+    LCDCURSOR CursorOFF
+    LCDCURSOR FLASHOFF
+    Wait 3 sec
+
+    CLS
+    Locate 0,4
+    PRINT "Flashing"
+    Locate 1,4
+    Print "Display"
+    wait 500 ms
+
+    repeat 5
+        LCDCURSOR LCDOFF
+        wait 500 ms
+        LCDCURSOR LCDON
+        wait 500 ms
+    end repeat
+
+    CLS
+    Locate 0,0
+    Print "DISPLAY OFF"
+    Locate 1,0
+    Print "FOR 5 SEC"
+    Wait 2 SEC
+    LCDCURSOR LCDOFF
+    WAIT 5 s
+
+    CLS
+    Locate 0,0
+    LCDCURSOR LCDON
+    Print "END DEMO"
+    wait 3 s
+    goto start</pre><p><span class="strong"><strong>Supported in &lt;LCD.H&gt;</strong></span></p></div></body></html>

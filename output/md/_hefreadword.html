@@ -1,0 +1,61 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>HEFReadWord</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_hefm_pfm.html" title="HEFM ( PFM )"><link rel="prev" href="_hefread.html" title="HEFRead"><link rel="next" href="_hefwrite.html" title="HEFWrite"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_hefreadword"></a>HEFReadWord</h5></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    'as a subroutine
+    HEFReadWord ( location, data_word_variable )
+
+    'as a function
+    data_word_variable = HEFReadWord ( location )</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all PIC micro-controllers with HEFM memory</p><p><span class="strong"><strong>Explanation:</strong></span>
+<br>
+<br>
+HEFReadWord is used to read information, word values, from HEFM so that it can be accessed for use in a user program.
+<br>
+<br>
+<code class="literal">location</code> represents the location or relative address to read.  The location will range from location 0 to HEF_BYTES - 1, or for all practical purposes 0-127 since all PIC Microcontrollers with HEF support 128 bytes of HEF Memory. HEF_BYTES is a GCBASIC constant that represents the number of bytes of HEF Memory.&nbsp;&nbsp;&nbsp;
+<br>
+<br>
+<code class="literal">data</code> is the data that is to be read from the HEFM data storage.&nbsp;&nbsp;&nbsp;
+This must be a word variable.&nbsp;&nbsp;&nbsp;
+<br>
+<br>
+This method reads data from HEFM given the specific relative location.&nbsp;&nbsp;&nbsp;
+<br>
+<br>
+<span class="strong"><strong>Example 1:</strong></span></p><pre class="screen">    '... code preamble to select part
+    '... code to setup serial
+
+    'The following example reads the HEFM value into the word variable &#8220;data_word_variable&#8221; by initially writing some word values.
+
+    dim data_word_variable as word
+    HEFWriteWord( 254, 4660 )
+
+    HEFReadWord( 254, data_word_variable )
+
+    HSerPrint "Value = "
+    HSerPrint data_word_variable
+    HSerPrintCRLF</pre><p><br>
+If example 1 were displayed on a serial terminal.&nbsp;&nbsp;&nbsp;The result would show:</p><pre class="screen">    Value = 4660</pre><p><br>
+<br>
+<span class="strong"><strong>Example 2:</strong></span></p><pre class="screen">    '... code preamble to select part
+    '... code to setup serial
+
+    'The following example uses a function to read the HEFM value into the word variable &#8220;data_word_variable&#8221;.
+
+    dim data_word_variable as word
+    HEFWriteWord( 254, 17185 )
+
+    data_word_variable = HEFReadWord( 254 )
+
+    HSerPrint "Value = "
+    HSerPrint data_word_variable
+    HSerPrintCRLF</pre><p><br>
+If example 2 were displayed on a serial terminal.&nbsp;&nbsp;&nbsp;The result would show:</p><pre class="screen">    Value = 17185</pre><p><br>
+<br>
+See also
+<a class="link" href="_hefm_overview.html" title="HEFM Overview">HEFM Overview</a>,
+<a class="link" href="_hefread.html" title="HEFRead">HEFRead</a>,
+<a class="link" href="_hefreadword.html" title="HEFReadWord">HEFReadWord</a>,
+<a class="link" href="_hefwrite.html" title="HEFWrite">HEFWrite</a>,
+<a class="link" href="_hefwriteword.html" title="HEFWriteWord">HEFWriteWord</a>,
+<a class="link" href="_hefreadblock.html" title="HEFReadBlock">HEFReadBlock</a>,
+<a class="link" href="_hefwriteblock.html" title="HEFWriteBlock">HEFWriteBlock</a>,
+<a class="link" href="_heferaseblock.html" title="HEFEraseBlock">HEFEraseBlock</a></p></div></body></html>

@@ -1,0 +1,29 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>SRAMRead</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_sram_device.html" title="SRAM ( Device )"><link rel="prev" href="_sram_overview.html" title="SRAM Overview"><link rel="next" href="_sramwrite.html" title="SRAMWrite"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h5 class="title"><a name="_sramread"></a>SRAMRead</h5></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    SRAMRead <span class="emphasis"><em>location, store</em></span>
+
+    or
+
+    <span class="emphasis"><em>store = SRAMRead location</em></span></pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Available on all Microchip PIC and Atmel AVR microcontrollers with SRAM data memory attached.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p><code class="literal">SRAMRead</code> is the method, a function or a subroutine, used to read information from the SRAM data storage.</p><p><code class="literal"><span class="emphasis"><em>location</em></span></code> represents the location to read data from.</p><p><code class="literal"><span class="emphasis"><em>store</em></span></code> is the variable in which to store the data after it has been read from SRAM.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    #include &lt;uno_mega328p.h&gt;
+    #option explicit
+
+    'Set up SRAM
+    #define SPISRAM_CS      DIGITAL_5     'Also known as SS, or Slave Select
+    #define SPISRAM_SCK     DIGITAL_13    'Also known as CLK
+    #define SPISRAM_DO      DIGITAL_11    'Also known as MOSI
+    #define SPISRAM_DI      DIGITAL_12    'Also known as MISO
+
+    #define SPISRAM_HARDWARESPI
+    #define SPISRAM_TYPE     SRAM_23LC1024
+
+  '********************************************************************************
+
+  'Main program
+
+  dim in_byte as byte
+
+  'Using a function:  Read from SRAM location 0x10 and place the results in the variable in_byte
+  in_byte = SRAMRead ( 0x10 )
+
+  'Using a subroutine:  Read from SRAM location 0x10 and place the results in the variable in_byte
+  SRAMRead ( 0x10, in_byte )</pre><p><span class="strong"><strong>For more help, see <a class="link" href="_sram_overview.html" title="SRAM Overview">SRAM Overview</a> or <a class="link" href="_sramwrite.html" title="SRAMWrite">SRAMWrite</a></strong></span></p></div></body></html>

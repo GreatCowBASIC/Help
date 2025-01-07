@@ -1,0 +1,21 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>#Option ReserveHighProg</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_compiler_options.html" title="Compiler Options"><link rel="prev" href="__option_volatile.html" title="#Option Volatile"><link rel="next" href="_using_assembler.html" title="Using Assembler"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="__option_reservehighprog"></a>#Option ReserveHighProg</h3></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    #option ReserveHighProg [words]</pre><p>This option reserves program memory to be kept free at the top end of memory.&nbsp;&nbsp;This useful for HEF/SAF or bootloaders.</p><p>The option provided a reservation for the memory region that is normally assumed to be available to
+the compiler for the application code storage. In order to avoid any possible conflict (overlapping code
+and data usage), it is important to reserve the devices pecific memory range by using the compiler option (shown above)
+in the project configuration.</p><p>Using the <code class="literal">#option ReserveHighProg [words] exposes the constant `ChipReserveHighProg</code> in the user program.</p><p><span class="strong"><strong>Defined constants</strong></span></p><p>The compiler has constants that can be used as an alternative to the parameter <code class="literal">[words]</code>.&nbsp;&nbsp;</p><p>The compiler constants are:  OPTIBOOT, OPTIBOOTUSB, ARDUINONANO, ARDUINOMEGA2560 or TINYBOOTLOADER.</p><p>Where these constants equate to:</p><pre class="screen">    OPTIBOOT        = 1024
+    OPTIBOOTUSB     = 2048
+    ARDUINONANO     = 1024
+    ARDUINOMEGA2560 = 1024
+    TINYBOOTLOADER  = 128
+    TINYBOOTLOADER128  = 128
+    TINYBOOTLOADER125  = 256</pre><p><span class="strong"><strong>Examples 1</strong></span></p><p>In the example below the region 0x1F80 to 0x1FFF (flash block for a
+PIC16F1509 microcontroller) has been removed from the default space available for code storage using the compiler option.</p><pre class="screen">    'Set chip model
+    #chip 16F1509
+
+    'Directive
+    #option ReserveHighProg 128</pre><p><span class="strong"><strong>Examples 2</strong></span></p><p>In the example below the bootloader area of Program Memory is protected.</p><p>This will ensure the program size does not overwrite the OptiBoot bootloader.</p><pre class="screen">    'Set chip model
+    #chip MEGA328P
+
+    'Directive
+    #option ReserveHighProg OPTIBOOT</pre></div></body></html>

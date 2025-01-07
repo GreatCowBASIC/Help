@@ -1,0 +1,74 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Using GCBASIC</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="index.html" title="GCBASIC documentation"><link rel="prev" href="_introducing_gcbasic.html" title="Introducing GCBASIC"><link rel="next" href="_pic_users_and_beginners_start_here.html" title="PIC users and Beginners: Start Here"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="_using_gcbasic"></a>Using GCBASIC</h2></div></div></div><p>Need to compile a program with GCBASIC, but don&#8217;t know where to begin? Try these simple instructions:
+<br>
+<br>
+ - Complete the installation using the default values - select all the programmers but not the portable mode.
+<br>
+<br>
+ - The installer will automatically start the IDE.
+<br>
+<br>
+ - When a GCBASIC source file is opened, check out the &#8220;GCB tools&#8221; menu ( IDE Tools / GCB tools ) - through this menu you can access the oneclick commands. Or try the right mouse button - this will access the same options.
+<br>
+<br>
+ - The IDE Tools&#8230;&#8203; commands (function keys F5 - F8) starts a GCBASIC utility which calls the batchfiles for compiling sourcecode and programming
+   ("flashing")<span class="small"><sup>(1)</sup></span> the target microcontroller.   You have to select the appropriate programmer in &#8220;Edit Programmer Preferences&#8221; ( IDE Tools / GCB tools / Edit Programmer Preferences or by pressing Ctrl+Alt+E ).  Find your programmer in the list and drag it to the top beneath the heading &#8220;Programmers to use (in order)&#8221;. GCBASIC will now attempt to flash the microcontroller with that programmer first when you click on "Make HEX and FLASH" ( F5 ) or "FLASH previous made hexfile" ( F8 ).
+<br>
+<br>
+ - In the unlikely event that your programmer is not listed you can add it by pressing &#8220;Add&#8230;&#8221; in &#8220;Edit Programmer Preferences&#8221;.  You would have to know the working directory and command line options etc. for the programmer.  See the help tips at the bottom by clicking on the fields.
+<br>
+<br>
+ - For project-specific flashing you can edit the current programmers in &#8220;Edit Programmer Preferences&#8221; to suit your needs by clicking on &#8220;Edit&#8230;&#8221;. Use the &#8220;Use If:&#8221; parameter to choose programmer preferences. See the help tips. The chip model is autodetected by the IDE for use in &#8220;Use IF:&#8221; or in command line options etc.
+<br>
+<br>
+ - Some programmers use a .hex file to "flash" the microcontroller.  By selecting "Make HEX" ( F5 ), GCBASIC will compile the program and make a .hex file in the same directory as the GCBASIC file.  This method can also be used to check for errors in the GCBASIC program before flashing.
+<br>
+<br>
+   - Included programmer software is:
+<br>
+   &#8201;&#8212;&#8201;Avrdude for AVR,
+<br>
+   &#8201;&#8212;&#8201;PICPgm for PIC,
+<br>
+   &#8201;&#8212;&#8201;PicKit2 and PicKit3
+<br>
+   &#8201;&#8212;&#8201;TinyBootLoader+
+<br>
+   &#8201;&#8212;&#8201;Arduino
+<br>
+   &#8201;&#8212;&#8201;Northern Software Programmer
+<br>
+   &#8201;&#8212;&#8201;Microchip Xpress Board and many, many more.</p><p><span class="small"><sup>(1)</sup> You need a suitable programmer to do this, and instructions should be
+included with the programmer on how to download and connect the hardware to the microcontroller.</span>
+<br>
+<br></p><p><span class="strong"><strong>Programmer Preferences</strong></span>
+<br>
+<br>
+The &#8220;Programmer Preferences&#8221; is a software tool to control and set-up the different programmers.  See below:
+<br>
+<br>
+<span class="strong"><strong>When using GC Code at the IDE</strong></span>
+<br>
+<br>
+Select Terminal/Run Task or press function &lt;F4&gt; to see the menu
+<br>
+<br>
+<span class="inlinemediaobject"><img src="./images/Prefs1.gif" width="640" height="480" alt="graphic"></span>
+<br>
+<br>
+<span class="strong"><strong>Or, when using GC Code at the IDE</strong></span>
+<br>
+<br>
+Select the drop down menu to see the menu
+<br>
+<br>
+<span class="inlinemediaobject"><img src="./images/Prefs2.gif" width="640" height="480" alt="graphic"></span>
+<br>
+<br>
+<span class="strong"><strong>When using SynWrite at the IDE</strong></span>
+<br>
+<br>
+<span class="inlinemediaobject"><img src="./images/PPtool.gif" width="640" height="480" alt="graphic"></span>
+<br>
+<br></p></div></body></html>

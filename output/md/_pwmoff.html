@@ -1,0 +1,12 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>PWMOff</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_hpwm_fixed_mode.html" title="HPWM Fixed Mode"><link rel="prev" href="_pwmon.html" title="PWMOn"><link rel="next" href="_hardware_pwm_code_optimisation.html" title="Hardware PWM Code Optimisation"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h6 class="title"><a name="_pwmoff"></a>PWMOff</h6></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    PWMOff</pre><p><span class="strong"><strong>Command Availability:</strong></span></p><p>Only available on Microchip PIC microcontrollers with Capture/Compare/PWM
+module CCP1.</p><p>This command does not operate on any other CCP channel.</p><p><span class="strong"><strong>Explanation:</strong></span></p><p>This command will disable the output of the CCP1/PWM module on the Microchip PIC chip.</p><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'This program will enable a 76 Khz PWM signal, with a duty cycle
+    'of 80%. It will emit the signal for 10 seconds, then stop.
+    #define PWM_Freq 76    'Set frequency in KHz
+    #define PWM_Duty 80    'Set duty cycle to 80 %
+    PWMOn                  'Turn on the PWM
+    WAIT 10 s              'Wait 10 seconds
+    PWMOff                 'Turn off the PWM</pre><p><br>
+<br>
+<span class="strong"><strong>For more help, also see</strong></span> <a class="link" href="_pwmon.html" title="PWMOn">PWMOn</a></p></div></body></html>
