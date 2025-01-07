@@ -61,7 +61,7 @@ These constants are used to control settings for the Liquid Crystal Display rout
 
 *Example Usage*
 
-An example for using two I2C-LCD.  This example can be extented to cover more that two or more ( up to eight ) I2C-LCD.
+An example for using two I2C-LCD.  This example can be extended to support more than two or more ( up to eight ) I2C-LCD(s).
 
 This example shows you can have up to eight LCD on the I2C-Bus (8 Addresses 0x40 to 0x4E of the PCF8574-Adaptor).
 
