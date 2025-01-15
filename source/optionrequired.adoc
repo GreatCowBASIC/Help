@@ -5,12 +5,14 @@
     #option REQUIRED PIC|AVR CONSTANT %message.dat entry%
     #option REQUIRED PIC|AVR CONSTANT "Message string"
 
+    or
+
+    #option REQUIRED DISABLE
+
 ----
 This option ensure that the specific CONSTANT exists within a library to ensure a specific capability is available with the microcontroller.
 
 *Introduction:*
-
-This is for developers only.
 
 This will cause the compiler check the CONSTANT is a non zero value.&#160;&#160;If the CONSTANT does not exist it will be treated as a zero value.
 
@@ -21,4 +23,12 @@ This example tests the CONSTANT `CHIPUSART` for both the PIC and AVR microcontro
 ----
     #option REQUIRED PIC CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."
     #option REQUIRED AVR CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."
+----
+
+*Disabling:*
+
+To disable checking capability, add the following directive.
+
+----
+    #option REQUIRED DISABLE
 ----
