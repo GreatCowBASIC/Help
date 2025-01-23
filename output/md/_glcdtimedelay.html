@@ -1,7 +1,0 @@
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-   <title>GLCDTimeDelay</title><link rel="stylesheet" type="text/css" href="gcbdoc.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="GCBASIC documentation"><link rel="up" href="_graphical_lcd.html" title="Graphical LCD"><link rel="prev" href="_glcdreadbyte.html" title="GLCDReadByte"><link rel="next" href="_glcdtransaction.html" title="GLCDTransaction"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="_glcdtimedelay"></a>GLCDTimeDelay</h4></div></div></div><p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    GLCDTime</pre><p><span class="strong"><strong>Explanation:</strong></span></p><p>This will call the delay routine that delays data transmissions. By
-default this is set to <code class="literal">20</code>, which equate to <code class="literal">20 us</code>. <code class="literal">GLCDTimeDelay</code> default
-of <code class="literal">20us</code> is for 32Mhz support. The can be reduced for slower chip speeds
-by change the constant <code class="literal">ST7920WriteDelay</code>.</p><p><span class="strong"><strong>Example usage:</strong></span></p><pre class="screen">    GLCDTime                       'call the delay routine
-    #define ST7920WriteDelay 1     'set the delay to 1 us</pre></div></body></html>

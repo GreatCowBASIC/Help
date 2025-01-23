@@ -505,6 +505,8 @@ include::lcd_io14.adoc[]
 
 include::lcd_io14portconfiguration.adoc[]
 
+include::lcd_io16.adoc[]
+
 include::lcd_io107.adoc[]
 
 include::lcd_variants.adoc[]
