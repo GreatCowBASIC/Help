@@ -13,10 +13,10 @@
       <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_gcbasic_maintenance_and_development.html" title="GCBASIC Maintenance and Development" />
       <link rel="prev" href="_development_guide.html" title="Development Guide" />
-      <link rel="next" href="_about_glcd_library_support.html" title="ABOUT GLCD Library Support" />
+      <link rel="next" href="_compiler_source_insights.html" title="COMPILER SOURCE INSIGHTS" />
       <meta name="Section-title" content="Development Guide for GCBASIC.EXE compiler" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-55691";
+            var treeCookieId = "treeview-56006";
             var language = "en";
             var w = new Object();
             //Localization
@@ -168,7 +168,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="_gcbasic_maintenance_and_development.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_about_glcd_library_support.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_compiler_source_insights.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -417,163 +417,6 @@ border: none; background: none; font-weight: none; color: none; }
     3. You can rename a variable to a meaningful name.  Hugh used a lot of single character variables many years ago.  This should be avoided in new code.
     4. Document as you progress.
     5. Ask for help.</pre><p><br /></p>
-            <p><span class="strong"><strong>COMPILER SOURCE INSIGHTS</strong></span></p>
-            <p><span class="emphasis"><em>There are many very useful methods</em></span>, a lot of methods, look at existing code before adding any new method.  
-               The compiler is mature from a functionality standpoint.  
-               Just immature in terms of documentation.  
-            </p>
-            <p><span class="strong"><strong>COMPILER DEBUGGING</strong></span></p>
-            <p><span class="emphasis"><em>To debug or isolate a specific issue</em></span> use lots of messages using PRINT or HSERPRINT  Both of these methods are easy to setup and use.
-            </p>
-            <p><span class="emphasis"><em>Specific to #SCRIPT</em></span> you can use WARNING messages to display results of calculations or assignments.
-            </p>
-            <p><span class="emphasis"><em>Specific to CONDITIONAL Compilation</em></span> use <code class="literal">conditionaldebugfile</code> (se above) to display conditional statement debug for the specified file.    Options are any valid source file or nothing.
-                 
-               Nested conditions are evaluated sequentially, therefor the first, second, third etc etc.    
-               The compiler does not at this point rationalised the hierarchy of nested conditions.    It simply finds a condition and then
-               matches to an #ENDIF.  
-               So, the compiler walks through the nested conditions as the outer nested, then the next nest, the next nest etc. etc.  
-               This compiler is completing the following actions:  
-            </p>
-            <div class="orderedlist">
-               <ol class="orderedlist" type="1">
-                  <li class="listitem">If the conditional is not valid.    Remove the code segment include the #IF and the #ENDIF</li>
-                  <li class="listitem">If the conditional is valid.    Remove the just the #IF and the #ENDIF</li>
-               </ol>
-            </div>
-            <p>So, is this context the compiler walks the code many time (as these are lists not arrrays this is blindly fast) removing code
-               segments.  
-            </p>
-            <p>The following program shows the impact of nested conditions..  Each nest is evaluated until all conditions have been assessed..  See
-               the comment section of the listing to see the output from the debugging.
-            </p><pre class="screen">        #CHIP 18F16Q41
-        #OPTION EXPLICIT
-
-        ; -----  Add the following line to USE.ini ------------------
-        ;
-        ;        conditionaldebugfile = IFDEF_TEST.gcb
-        ;
-        ; -----------------------------------------------------------
-
-        #IFDEF PIC
-            #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
-                #IF CHIPRAM = 2048  'TRUE
-                    #IF CHIPWORDS = 32768 ' TRUE
-                        #IFDEF VAR(NVMLOCK) 'TRUE
-                            #IFDEF VAR(OSCCON2)  'TRUE
-                                #IFDEF  VAR(NVMCON0)  'TRUE    set var1 to 1
-                                    DIM _VAR1
-                                    _VAR1 = 1
-                                #ENDIF
-                            #ENDIF
-                        #ENDIF
-                    #ENDIF
-                #ENDIF
-
-                #IF CHIPRAM = 4096  'TRUE
-                    #IF CHIPWORDS = 32768 ' TRUE
-                        #IFDEF VAR(NVMLOCK) 'TRUE
-                            #IFDEF VAR(OSCCON2)  'TRUE
-                                #IFDEF  VAR(NVMCON0)  'TRUE   = set var1 to 0
-                                    DIM _VAR1
-                                    _VAR1 = 0
-                                #ENDIF
-                            #ENDIF
-                        #ENDIF
-                    #ENDIF
-                #ENDIF
-            #ENDIF
-        #ENDIF
-
-        Do
-        Loop
-
-        // ===============================================
-        // ***  Below is debugger output for this file ***
-        // ===============================================
-
-        // GCBASIC (0.99.02 2022-07-21 (Windows 32 bit) : Build 1143)
-
-        // Compiling c:\Users\admin\Downloads\IFDEF_TEST.gcb
-
-        //               13: #IFDEF PIC
-        //               15: #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
-        //               17: #IF CHIPRAM = 2048
-        //               19: #IF CHIPWORDS = 32768
-        //               21: #IFDEF VAR(NVMLOCK)
-        //               23: #IFDEF VAR(OSCCON2)
-        //               25: #IFDEF VAR(NVMCON0)
-        //               ;DIM _VAR1
-        //               27: DIM _VAR1
-        //               ;_VAR1 = 1
-        //               28: _VAR1 = 1
-
-        //               15: #IFDEF ONEOF(CHIP_18F15Q41, CHIP_18F16Q41)
-        //               17: #IF CHIPRAM = 2048
-        //               19: #IF CHIPWORDS = 32768
-        //               21: #IFDEF VAR(NVMLOCK)
-        //               23: #IFDEF VAR(OSCCON2)
-        //               25: #IFDEF VAR(NVMCON0)
-        //               ;DIM _VAR1
-        //               27: DIM _VAR1
-        //               ;_VAR1 = 1
-        //               28: _VAR1 = 1
-
-        //               39: #IF CHIPRAM = 4096
-        //               41: #IF CHIPWORDS = 32768
-        //               43: #IFDEF VAR(NVMLOCK)
-        //               45: #IFDEF VAR(OSCCON2)
-        //               47: #IFDEF VAR(NVMCON0)
-        //               ;DIM _VAR1
-        //               49: DIM _VAR1
-        //               ;_VAR1 = 0
-        //               50: _VAR1 = 0
-
-        //               41: #IF CHIPWORDS = 32768
-        //               43: #IFDEF VAR(NVMLOCK)
-        //               45: #IFDEF VAR(OSCCON2)
-        //               47: #IFDEF VAR(NVMCON0)
-        //               ;DIM _VAR1
-        //               49: DIM _VAR1
-        //               ;_VAR1 = 0
-        //               50: _VAR1 = 0
-
-        //               43: #IFDEF VAR(NVMLOCK)
-        //               45: #IFDEF VAR(OSCCON2)
-        //               47: #IFDEF VAR(NVMCON0)
-        //               ;DIM _VAR1
-        //               49: DIM _VAR1
-        //               ;_VAR1 = 0
-        //               50: _VAR1 = 0
-
-        //               45: #IFDEF VAR(OSCCON2)
-        //               47: #IFDEF VAR(NVMCON0)
-        //               ;DIM _VAR1
-        //               49: DIM _VAR1
-        //               ;_VAR1 = 0
-        //               50: _VAR1 = 0
-
-        //               47: #IFDEF VAR(NVMCON0)
-        //               ;DIM _VAR1
-        //               49: DIM _VAR1
-        //               ;_VAR1 = 0
-        //               50: _VAR1 = 0
-
-        // Program compiled successfully (Compile time: 1 seconds)
-
-        // Assembling program using GCASM
-        // Program assembled successfully (Assembly time: 0.125 seconds)
-        // Done</pre><p><br />
-               <br /></p>
-            <p>The resulting ASM from the about code is as expected.  The assignment of <code class="literal">VAR1 = 0</code>.  
-            </p><pre class="screen">        ;DIM _VAR1
-        ;_VAR1 = 0
-            clrf	_VAR1,ACCESS
-        ;Do
-        SysDoLoop_S1
-        ;Loop
-            bra	SysDoLoop_S1
-        SysDoLoop_E1</pre><p><br /></p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -583,7 +426,7 @@ border: none; background: none; font-weight: none; color: none; }
                   <td width="40%" align="left"><a accesskey="p" href="_development_guide.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="_gcbasic_maintenance_and_development.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="_about_glcd_library_support.html">Next</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="_compiler_source_insights.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -611,7 +454,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
                         <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
                         <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
-                        <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_compiler_insights.html" tabindex="1">GCBASIC Compiler Insights</a></span><ul>
+                              <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
+                              <li><span class="file"><a href="_compiler_control.html" tabindex="1">Compiler Control</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
                         <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
                         <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span><ul>
@@ -628,7 +475,7 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_data_types.html" tabindex="1">Data Types</a></span></li>
                               <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
                               <li><span class="file"><a href="_advanced_variabletypes.html" tabindex="1">Advanced VariableTypes</a></span></li>
-                              <li><span class="file"><a href="_variable_memory_allocation.html" tabindex="1">Variable Memory Allocation</a></span></li>
+                              <li><span class="file"><a href="_variable_memory_allocation_addressing_control.html" tabindex="1">Variable Memory Allocation, Addressing &amp; Control</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_reference_data.html" tabindex="1">Reference Data</a></span><ul>
@@ -859,6 +706,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                 <li><span class="file"><a href="_lcd_io_14_port_configuration.html" tabindex="1">LCD_IO 14 Port Configuration</a></span></li>
                                              </ul>
                                           </li>
+                                          <li><span class="file"><a href="_lcd_io_16.html" tabindex="1">LCD_IO 16</a></span></li>
                                           <li><span class="file"><a href="_lcd_io_107.html" tabindex="1">LCD_IO 107</a></span></li>
                                           <li><span class="file"><a href="_lcd_variant.html" tabindex="1">LCD_VARIANT</a></span></li>
                                           <li><span class="file"><a href="_lcd_speed.html" tabindex="1">LCD_SPEED</a></span></li>
@@ -1265,10 +1113,12 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li id="webhelp-currentid"><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
+                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">COMPILER SOURCE INSIGHTS</a></span></li>
                               <li><span class="file"><a href="_about_glcd_library_support.html" tabindex="1">ABOUT GLCD Library Support</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">ABOUT THE PREFERENCES EDITOR</a></span></li>
                         <li><span class="file"><a href="_gcbasic_with_the_avrisp_or_mkii_programmer.html" tabindex="1">GCBASIC with the AVRISP or MKII Programmer</a></span><ul>
                               <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</a></span></li>
                            </ul>

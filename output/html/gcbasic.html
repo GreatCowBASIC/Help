@@ -609,13 +609,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-11-12<br>
-14:25:50 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2025-01-23<br>
+11:43:56 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2024-07-12<br>
-15:17:36 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2025-01-22<br>
+17:34:13 GMT Standard Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -1451,8 +1451,13 @@ particular line of code?</p></td>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_compiler_insights">Compiler Insights</h2>
+<h2 id="_gcbasic_compiler_insights">GCBASIC Compiler Insights</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This is the GCBASIC compiler insights section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
+</div>
+<div class="sect2">
+<h3 id="_compiler_insights">Compiler Insights</h3>
 <div class="paragraph">
 <p>This section will provide some insights into what the compiler does</p>
 </div>
@@ -1723,6 +1728,130 @@ The compiler will <code>goto</code> (same for <code>jmp</code>) to the value of 
 <div class="content">
 <pre>    ;goto Normal
     goto 0</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_compiler_control">Compiler Control</h3>
+<div class="paragraph">
+<p>The compiler can be controlled, in terms of the default startup library routines.&#160;&#160;This may be required to implement a specific control function, or, to disable a default startup behaviour.</p>
+</div>
+<div class="paragraph">
+<p><strong>Scenario #1</strong>:</p>
+</div>
+<div class="paragraph">
+<p>You have a new LCD.&#160;&#160;The GCBASIC LCD routines fail to initialise.&#160;&#160;You want to write your own LCD initialise routine, but you want to ensure the GCBASIC standard INITLCD() does not operate before your own LCD initialise routine.&#160;&#160;How to do this?</p>
+</div>
+<div class="paragraph">
+<p><strong>Scenerio #2</strong>:</p>
+</div>
+<div class="paragraph">
+<p>You want to write your own INITSYS routine.&#160;&#160;  You can add your own routine to initialise the microntroller but the default INITSYS would always be called in the ASM.</p>
+</div>
+<div class="paragraph">
+<p>In the first sceneria the approach would be to redirect the GCBASIC standard INITLCD() to myInitLCD using #define INITLCD myINITLCD.&#160;&#160;  However, prior to the latest build, this would fail to work.&#160;&#160;The reason for the failure to redirect to your new routine is the #startup INITLCD directive.&#160;&#160;The #startup directive was essentially hard coded and all the #startup(s) could not be changed.</p>
+</div>
+<div class="paragraph">
+<p>In the second scenerio the ASM call to INITSYS is also hard coded.&#160;&#160;And, you could trick the compiler to call your own initialisation routine but this was not easy and not intuitive.&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>The new build now supports the updating of the #startup(s) with your own routines, or even to cancel #startup(s).</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="paragraph">
+<p>The compiler will search for all #startup(s) and update across all sources (libraries and includes).&#160;&#160;LCD.H is just an example.</p>
+</div>
+<div class="paragraph">
+<p><code>#DEFINE INITLCD myINITLCD</code> // This will change any reference in the LCD.h #startup INITLCD to #startup myINITLCD.</p>
+</div>
+<div class="paragraph">
+<p><code>#DEFINE INITLCD</code> // With no second parameter would cancel any #startup in LCD.h.</p>
+</div>
+<div class="paragraph">
+<p><code>#DEFINE INITSYS myINITSYS</code> // This will change the default INITSYS to myINITSYS.</p>
+</div>
+<div class="paragraph">
+<p><code>#DEFINE INITSYS</code> // This will remove the INITSYS from the initialisation of the microcontroller.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example to change LCD initialisation</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #DEFINE INITLCD myINITLCD
+
+    Sub myInitLCD
+        // do stuff
+    End Sub</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example to replace INITSYS</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #DEFINE INITSYS                      // Cancel call
+    #STARTUP myInitSYS, 1               // New init routines, and set as highest priority
+
+    Sub myInitSYS
+        // do stuff
+    End Sub</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Scripts can now change the #startup.&#160;&#160;  You can add a script to change the behaviour dependent on a specific condition ( the existant of another constant).</p>
+</div>
+<div class="paragraph">
+<p>In user program</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #DEFINE LCD_OCULAR_OM1614</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Supported within LCD.H</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #SCRIPT
+        If Def( LCD_OCULAR_OM1614 ) Then
+            'Change INITLCD to specific Initialisation sub
+            INITLCD = INIT_OCULAR_OM1614_LCD
+        End if
+    #ENDSCRIPT
+
+    ......
+
+    Sub INIT_OCULAR_OM1614_LCD
+        .. lots of code
+    End Sub</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will generate ASM like this&#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    ;Program_memory_page: 0
+        ORG	5
+    BASPROGRAMSTART
+    ;Call initialisation routines
+        call	INITSYS
+        call	INIT_OCULAR_OM1614_LCD
+
+    ;Start_of_the_main_program</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This new capability to give you more control of the compiler.
+<br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>For more help, see:</strong> #define, #startup</p>
 </div>
 </div>
 </div>
@@ -4322,7 +4451,7 @@ The program shows setting up the advanced variables, assigned a value and comple
 </div>
 </div>
 <div class="sect2">
-<h3 id="_variable_memory_allocation">Variable Memory Allocation</h3>
+<h3 id="_variable_memory_allocation_addressing_control">Variable Memory Allocation, Addressing &amp; Control</h3>
 <div class="paragraph">
 <p>This section discusses the allocation of variables to RAM ( GPR, SRAM or other TLA).</p>
 </div>
@@ -4396,7 +4525,7 @@ The program shows setting up the advanced variables, assigned a value and comple
 <p><strong>Addressing Variables</strong></p>
 </div>
 <div class="paragraph">
-<p>Addressing variable can be achieved by using the @ prefix. &#160;&#160; This will return the address of the variable (the same @ applies to table data).</p>
+<p>Addressing a variable memory address can be achieved by using the @ prefix. &#160;&#160; This will return the address of the variable ( @ applies to table data and any data block).</p>
 </div>
 <div class="paragraph">
 <p>The following example shows registers DMAnSSAU, DMAnSSAH, DMAnSSAL being loaded with the address of the array WaveArray.</p>
@@ -27674,6 +27803,13 @@ R/W pin can be disabled*.</p></td>
 </p><p class="tableblock">Only applicable when using LCD_IO 4</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_OCULAR_OM1614</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies OCULAR OM1614 suppport.  This changes the intialisation routine to a specific routine for the OCULAR devices.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To specify explicit OCULAR_OM1614 support
+<code>#DEFINE LCD_OCULAR_OM1614</code>
+</p><p class="tableblock">The OCULAR devices requires LCD_RW</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -27842,27 +27978,76 @@ Finally, set the backlight control, if required.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_Address_1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_1</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Default <code>0x4E</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Default = 0x4E</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_Address_2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_2</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not set</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x4C</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_Address_3</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_3</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not set</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x4A</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_Address_4</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_4</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not set</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x48</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_5</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x46</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_6</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x44</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_7</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x42</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_8</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x40</code></p></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p><strong>Example Usage</strong></p>
+</div>
+<div class="paragraph">
+<p>An example for using two I2C-LCD.  This example can be extended to support more than two or more ( up to eight ) I2C-LCD(s).</p>
+</div>
+<div class="paragraph">
+<p>This example shows you can have up to eight LCD on the I2C-Bus (8 Addresses 0x40 to 0x4E of the PCF8574-Adaptor).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    // Set up I2C-LCD
+    #DEFINE LCD_IO 10
+
+    /*  Set LCD_IO to 10 for the YwRobot LCD1602 IIC V1 or the Sainsmart LCD_PIC I2C adapter
+    Set LCD_IO to 12 for the Ywmjkdz I2C adapter with pot bent over top of chip */
+
+    #DEFINE LCD_I2C_ADDRESS_1 0x4E ' prepare the first LCD on Address 0x4E
+    #DEFINE LCD_I2C_ADDRESS_6 0x44 ' prepare the second LCD on Address 0x44
+
+    // To switch between the two LCD can be done with
+
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_6 // now the second I2C-LCD is active
+
+    // or
+
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1 //  now the first I2C-LCD is active</pre>
+</div>
+</div>
 <div class="paragraph">
 <p>For code examples see <a href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">I2C LCD Solutions</a>.</p>
 </div>
@@ -28232,6 +28417,102 @@ Connection Mode.</p>
         Print "Hello World"</pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_lcd_io_16">LCD_IO 16</h5>
+<div class="paragraph">
+<p><strong>Using connection mode 16:</strong></p>
+</div>
+<div class="paragraph">
+<p>Using this LCD IO methof the LCD is controlled via the Microchip PIC16LF72 SPI expander.</p>
+</div>
+<div class="paragraph">
+<p>To use mode 16 you must define the SPI ports as shown below.</p>
+</div>
+<div class="paragraph">
+<p><strong>Relevant Constants:</strong></p>
+</div>
+<div class="paragraph">
+<p>These constants are used to control settings for the LCD routines included with GCBASIC.&#160;&#160; To set them, place a line in the main program file that uses <code>#define</code> to assign a value to the particular constant.</p>
+</div>
+<div class="paragraph">
+<p>When using this mode only three constants are mandated - all others can be ignored.</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Constant Name</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Controls</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_IO</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I/O mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>16</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_SPI_DO</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microcontroller SPI data out port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_SPI_SCK</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microcontroller SPI clock out port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Connectivity</strong></p>
+</div>
+<div class="paragraph">
+<p>The connectivity is shown below.&#160;&#160;The microcontroller connections are as shown below.&#160;&#160;This is an example using the Microchip PICDEM 4 2003 board.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    //Constants - LCD connectivity type;
+            #DEFINE LCD_IO 16
+
+            //PIN MAPPINGS FOR PIC16LF72 LCD IO SPI EXPANDER
+
+                // CONSTANT IS MANDATED - DATA LINE
+                #DEFINE LCD_SPI_DO          PORTB.2
+
+                // CONSTANT IS MANDATED - CLOCK LINE
+                #DEFINE LCD_SPI_SCK         PORTB.5
+
+    //! Main program
+
+    Print "GCBASIC Rocks"
+    End</pre>
+</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/lcd_io_16_1.png" alt="graphic">
+</div>
+</div>
+<div class="paragraph">
+<p>For code examples see <a href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">LCD Solutions</a>.</p>
+</div>
+<div class="paragraph">
+<p>See the separate sections of the Help file for the specifics of each
+Connection Mode.</p>
+</div>
+<div class="paragraph">
+<p><strong>For more help, see</strong>
+<a href="#_lcd_io_0">LCD_IO 0</a>, <a href="#_lcd_io_1">LCD_IO 1</a>, <a href="#_lcd_io_2">LCD_IO 2</a>
+<a href="#_lcd_io_2_74xx164">LCD_IO 2_74xx164</a>, <a href="#_lcd_io_2_74xx174">LCD_IO 2_74xx174</a>,
+<a href="#_lcd_io_4">LCD_IO 4</a>, <a href="#_lcd_io_8">LCD_IO 8</a>,
+<a href="#_lcd_io_10">LCD_IO 10</a>, <a href="#_lcd_io_10">LCD_IO 12</a></p>
 </div>
 </div>
 <div class="sect4">
@@ -30383,19 +30664,19 @@ Two types are supported the YwRobot LCD1602 IIC V1 / a Sainsmart LCD_PIC I2C ada
 
     ; ----- Define Hardware settings
     ' Define I2C settings - CHANGE PORTS
-     #define I2C_MODE Master
-     #define I2C_DATA PORTC.4
-     #define I2C_CLOCK PORTC.5
-     #define I2C_DISABLE_INTERRUPTS ON
+     #DEFINE I2C_MODE Master
+     #DEFINE I2C_DATA PORTC.4
+     #DEFINE I2C_CLOCK PORTC.5
+     #DEFINE I2C_DISABLE_INTERRUPTS ON
 
     '''Set up LCD
-     #define LCD_IO 10
-     #define LCD_I2C_Address_1 0x4E                ; LCD 1
-     #define LCD_I2C_Address_2 0x4C                ; LCD 2
+     #DEFINE LCD_IO 10
+     #DEFINE LCD_I2C_ADDRESS_1 0x4E                ; LCD 1
+     #DEFINE LCD_I2C_ADDRESS_2 0x4C                ; LCD 2
 
     ; ----- Constants
     ' DS18B20 port settings - this is required
-       #define DQ PortC.3
+       #DEFINE DQ PortC.3
 
     ; ----- Quick Command Reference:
 
@@ -30409,12 +30690,12 @@ Two types are supported the YwRobot LCD1602 IIC V1 / a Sainsmart LCD_PIC I2C ada
 
     ; ----- Main body of program commences here.
 
-    'Change to the correct LCD by setting     LCD_I2C_Address_Current to the correct address then write to LCD.
-    LCD_I2C_Address_Current = LCD_I2C_Address_1: DisplayInformation ( 1 )
-    LCD_I2C_Address_Current = LCD_I2C_Address_2: DisplayInformation ( 1 )
+    'Change to the correct LCD by setting     LCD_I2C_ADDRESS_Current to the correct address then write to LCD.
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 1 )
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 1 )
     wait 4 s
-    LCD_I2C_Address_Current = LCD_I2C_Address_1:  CLS
-    LCD_I2C_Address_Current = LCD_I2C_Address_2:  CLS
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1:  CLS
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2:  CLS
 
     ccount = 0
     Do forever
@@ -30425,12 +30706,12 @@ Two types are supported the YwRobot LCD1602 IIC V1 / a Sainsmart LCD_PIC I2C ada
         ' The function readtemp returns the integer value of the sensor
         DSdata = readtemp
 
-        LCD_I2C_Address_Current = LCD_I2C_Address_1: DisplayInformation ( 2 )  ; update LCD1
-        LCD_I2C_Address_Current = LCD_I2C_Address_2: DisplayInformation ( 2 )  ; update LCD2
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 2 )  ; update LCD1
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 2 )  ; update LCD2
         DSdata = DSdataRaw ; Set the data
-        LCD_I2C_Address_Current = LCD_I2C_Address_1: DisplayInformation ( 3 )  ; update LCD1
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 3 )  ; update LCD1
         DSdata= DSdataRaw ; Set the data
-        LCD_I2C_Address_Current = LCD_I2C_Address_2: DisplayInformation ( 3 )  ; update LCD2
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 3 )  ; update LCD2
 
         ccount++
 
@@ -39342,13 +39623,20 @@ is a slew rate control of the pin that is independent of device frequency.</p>
 <code>#define HI2C_BAUD_RATE 100.</code><br>
 Where  <code>#define HI2C_BAUD_RATE 100</code> is the default value and therefore does need to be specified.
 </p><p class="tableblock">For Microchip I2C module:
-</p><p class="tableblock">'define HI2C_BAUD_RATE 125' is the default KHz.  You can override this value if you set up an alternative clock source.</p></td>
+</p><p class="tableblock">'define HI2C_BAUD_RATE 125' is the default KHz.  You can override this value if you set up an alternative clock source. To change use:</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>HI2CITSCLWaitPeriod</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Sets the TSCL period to Zero as the Stop condition must be held for TSCL after Stop transition.
-Default to 70, some solutions can use this set to 0. The clock source and clock method must be reviewed before changing this setting.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">#define HI2CITSCLWaitPeriod 70</p></td>
+Default to 70, some solutions can use this set to 0. The clock source and clock method must be reviewed before changing this setting.  To change use:
+</p><p class="tableblock">#define HI2CITSCLWaitPeriod = 70</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HI2CITSCLWaitPeriod = 70</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HIC2Q2XBUFFERSIZE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The 18FxxQ20 and 18FxxQ24 I2C buffer size.  These specific microcontrollers require an I2C buffer to support I2C TX and RX operations. To change use:
+</p><p class="tableblock">#define HIC2Q2XBUFFERSIZE = 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HIC2Q2XBUFFERSIZE = 128</p></td>
 </tr>
 </tbody>
 </table>
@@ -52971,7 +53259,11 @@ the data value held in the port latch, regardless of the state of the actual pin
 <div class="listingblock">
 <div class="content">
 <pre>    #option REQUIRED PIC|AVR CONSTANT %message.dat entry%
-    #option REQUIRED PIC|AVR CONSTANT "Message string"</pre>
+    #option REQUIRED PIC|AVR CONSTANT "Message string"
+
+    or
+
+    #option REQUIRED DISABLE</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -52979,9 +53271,6 @@ the data value held in the port latch, regardless of the state of the actual pin
 </div>
 <div class="paragraph">
 <p><strong>Introduction:</strong></p>
-</div>
-<div class="paragraph">
-<p>This is for developers only.</p>
 </div>
 <div class="paragraph">
 <p>This will cause the compiler check the CONSTANT is a non zero value.&#160;&#160;If the CONSTANT does not exist it will be treated as a zero value.</p>
@@ -52996,6 +53285,17 @@ the data value held in the port latch, regardless of the state of the actual pin
 <div class="content">
 <pre>    #option REQUIRED PIC CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."
     #option REQUIRED AVR CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Disabling:</strong></p>
+</div>
+<div class="paragraph">
+<p>To disable checking capability, add the following directive.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #option REQUIRED DISABLE</pre>
 </div>
 </div>
 </div>
@@ -56865,9 +57165,9 @@ This can make the source frustrating initially but can find the code segments as
 <div class="paragraph">
 <p><br></p>
 </div>
-<div class="paragraph">
-<p><strong>COMPILER SOURCE INSIGHTS</strong></p>
 </div>
+<div class="sect2">
+<h3 id="_compiler_source_insights">COMPILER SOURCE INSIGHTS</h3>
 <div class="paragraph">
 <p><em>There are many very useful methods</em>, a lot of methods, look at existing code before adding any new method.&#160;&#160;
 The compiler is mature from a functionality standpoint.&#160;&#160;
@@ -57049,6 +57349,45 @@ This compiler is completing the following actions:&#160;&#160;</p>
 <div class="paragraph">
 <p><br></p>
 </div>
+<div class="paragraph">
+<p><strong>COMPILERDEBUG</strong></p>
+</div>
+<div class="paragraph">
+<p>The COMPILERDEBUG setting in the USE.INI file for GCBASIC is used to enable or disable debugging features for the compiler.&#160;&#160;When the bits of the setting COMPILERDEBUG are set to 1, it activates additional debug information during compilation, which can be helpful for developers to diagnose and fix issues.</p>
+</div>
+<div class="paragraph">
+<p>To see the permissible bits for COMPILERDEBUG first opening and closing the PREFERENCES editor ( this does imply that the PREFERENCES EDITOR is maintained to show the Header in the USE.INI), and then edit USE.INI.&#160;&#160;The help section will display the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Preferences file for GCBASIC Preferences 3.14
+
+    ... lots of help, then
+
+    '   compilerdebug =  0  - 1 = COMPILECALCADD
+    '                       - 2 = VAR SET
+    '                       - 4 = CALCOPS
+    '                       - 8 = COMPILECALCMULT
+    '                       - 16 = AUTOPINDIR
+    '                       - 32 = ADRDX
+    '                       - 64 = GCASM
+    '                       - 128 = COMPILESUBCALLS
+    '                       - 256 = COMPILEUPDATESUBMAP</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To see the debug add or edit the [gcbasic] section of USE.INI.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    [gcbasic]
+    'change to a bitwise value
+    compilerdebug = 0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As previously stated.  This setting can be helpful for developers to diagnose and fix issues within the compiler.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_about_glcd_library_support">ABOUT GLCD Library Support</h3>
@@ -57133,10 +57472,15 @@ The comments are NOT part of an INI file.&#160;&#160;</p>
                                                                                                     - 2 = doubles
                                                                                                     - 4 = longint
                                                                                                     - 8 = uLongINT
-    compilerdebug =  0                                                                              - 1 = COMPILECALCADD
-                                                                                                    - 2 = VAR SET
-                                                                                                    - 4 = CALCOPS
-                                                                                                    - 8 = COMPILECALCMULT</pre>
+compilerdebug = 0                                                                              - 1 = COMPILECALCADD
+                                                                                                   - 2 = VAR SET
+                                                                                                   - 4 = CALCOPS
+                                                                                                   - 8 = COMPILECALCMULT
+                                                                                                   - 16 = AUTOPINDIR
+                                                                                                   - 32 = ADRDX
+                                                                                                   - 64 = GCASM
+                                                                                                   - 128 = COMPILESUBCALLS
+                                                                                                   - 256 = COMPILEUPDATESUBMAP</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -57198,15 +57542,21 @@ The comments are NOT part of an INI file.&#160;&#160;</p>
     progconfig =</pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>ABOUT THE PREFS EDITOR</strong></p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_about_the_preferences_editor">ABOUT THE PREFERENCES EDITOR</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This is a utility for editing GCBASIC ini files.&#160;&#160;
 It is derived from the Graphical GCBASIC utilities, and requires some files from Graphical GCBASIC to compile.&#160;&#160;</p>
 </div>
 <div class="paragraph">
 <p>The software is developed using Sharp Develop v.3.2.1 ( not Visual Studio ).&#160;&#160;</p>
+</div>
+<div class="paragraph">
+<p>The latest source is in Sourceforge.</p>
 </div>
 <div class="paragraph">
 <p><br></p>
@@ -57280,7 +57630,6 @@ The list shows the installation of the Sharp Develop IDE.</p>
 <br>
 <br>
 <br></p>
-</div>
 </div>
 </div>
 </div>
@@ -57562,7 +57911,7 @@ If you use AVRDUDE then uou must ensure the Windows device driver is <code>libus
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-12 15:17:36 GMT Summer Time
+Last updated 2025-01-22 17:34:13 GMT Standard Time
 </div>
 </div>
 </body>

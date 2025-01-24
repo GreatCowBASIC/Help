@@ -16,7 +16,7 @@
       <link rel="next" href="_lcd_io_10_port_configuration.html" title="LCD_IO 10 Port Configuration" />
       <meta name="Section-title" content="LCD_IO 10" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-55691";
+            var treeCookieId = "treeview-56006";
             var language = "en";
             var w = new Object();
             //Localization
@@ -228,52 +228,113 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">LCD_I2C_Address_1</code></p>
+                           <p><code class="literal">LCD_I2C_ADDRESS_1</code></p>
                         </td>
                         <td align="left" valign="top">
                            <p>Address of I2C adapter</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Default <code class="literal">0x4E</code></p>
+                           <p><code class="literal">Default = 0x4E</code></p>
                         </td>
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">LCD_I2C_Address_2</code></p>
+                           <p><code class="literal">LCD_I2C_ADDRESS_2</code></p>
                         </td>
                         <td align="left" valign="top">
                            <p>Address of I2C adapter</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Not set</p>
+                           <p><code class="literal">Recommended = 0x4C</code></p>
                         </td>
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">LCD_I2C_Address_3</code></p>
+                           <p><code class="literal">LCD_I2C_ADDRESS_3</code></p>
                         </td>
                         <td align="left" valign="top">
                            <p>Address of I2C adapter</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Not set</p>
+                           <p><code class="literal">Recommended = 0x4A</code></p>
                         </td>
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">LCD_I2C_Address_4</code></p>
+                           <p><code class="literal">LCD_I2C_ADDRESS_4</code></p>
                         </td>
                         <td align="left" valign="top">
                            <p>Address of I2C adapter</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Not set</p>
+                           <p><code class="literal">Recommended = 0x48</code></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">LCD_I2C_ADDRESS_5</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Address of I2C adapter</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><code class="literal">Recommended = 0x46</code></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">LCD_I2C_ADDRESS_6</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Address of I2C adapter</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><code class="literal">Recommended = 0x44</code></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">LCD_I2C_ADDRESS_7</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Address of I2C adapter</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><code class="literal">Recommended = 0x42</code></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">LCD_I2C_ADDRESS_8</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Address of I2C adapter</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><code class="literal">Recommended = 0x40</code></p>
                         </td>
                      </tr>
                   </tbody>
                </table>
             </div>
-            <p>For code examples see <a class="link" href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions" target="_top">I2C LCD Solutions</a>.
+            <p><span class="strong"><strong>Example Usage</strong></span></p>
+            <p>An example for using two I2C-LCD.  This example can be extended to support more than two or more ( up to eight ) I2C-LCD(s).</p>
+            <p>This example shows you can have up to eight LCD on the I2C-Bus (8 Addresses 0x40 to 0x4E of the PCF8574-Adaptor).</p><pre class="screen">    // Set up I2C-LCD
+    #DEFINE LCD_IO 10
+
+    /*  Set LCD_IO to 10 for the YwRobot LCD1602 IIC V1 or the Sainsmart LCD_PIC I2C adapter
+    Set LCD_IO to 12 for the Ywmjkdz I2C adapter with pot bent over top of chip */
+
+    #DEFINE LCD_I2C_ADDRESS_1 0x4E ' prepare the first LCD on Address 0x4E
+    #DEFINE LCD_I2C_ADDRESS_6 0x44 ' prepare the second LCD on Address 0x44
+
+    // To switch between the two LCD can be done with
+
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_6 // now the second I2C-LCD is active
+
+    // or
+
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1 //  now the first I2C-LCD is active</pre><p>For code examples see <a class="link" href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions" target="_top">I2C LCD Solutions</a>.
             </p>
             <p>See the separate sections of the Help file for the specifics of each
                Connection Mode.
@@ -319,7 +380,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
                         <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
                         <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
-                        <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_compiler_insights.html" tabindex="1">GCBASIC Compiler Insights</a></span><ul>
+                              <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
+                              <li><span class="file"><a href="_compiler_control.html" tabindex="1">Compiler Control</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
                         <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
                         <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span><ul>
@@ -336,7 +401,7 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_data_types.html" tabindex="1">Data Types</a></span></li>
                               <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
                               <li><span class="file"><a href="_advanced_variabletypes.html" tabindex="1">Advanced VariableTypes</a></span></li>
-                              <li><span class="file"><a href="_variable_memory_allocation.html" tabindex="1">Variable Memory Allocation</a></span></li>
+                              <li><span class="file"><a href="_variable_memory_allocation_addressing_control.html" tabindex="1">Variable Memory Allocation, Addressing &amp; Control</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_reference_data.html" tabindex="1">Reference Data</a></span><ul>
@@ -567,6 +632,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                 <li><span class="file"><a href="_lcd_io_14_port_configuration.html" tabindex="1">LCD_IO 14 Port Configuration</a></span></li>
                                              </ul>
                                           </li>
+                                          <li><span class="file"><a href="_lcd_io_16.html" tabindex="1">LCD_IO 16</a></span></li>
                                           <li><span class="file"><a href="_lcd_io_107.html" tabindex="1">LCD_IO 107</a></span></li>
                                           <li><span class="file"><a href="_lcd_variant.html" tabindex="1">LCD_VARIANT</a></span></li>
                                           <li><span class="file"><a href="_lcd_speed.html" tabindex="1">LCD_SPEED</a></span></li>
@@ -973,10 +1039,12 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
+                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">COMPILER SOURCE INSIGHTS</a></span></li>
                               <li><span class="file"><a href="_about_glcd_library_support.html" tabindex="1">ABOUT GLCD Library Support</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">ABOUT THE PREFERENCES EDITOR</a></span></li>
                         <li><span class="file"><a href="_gcbasic_with_the_avrisp_or_mkii_programmer.html" tabindex="1">GCBASIC with the AVRISP or MKII Programmer</a></span><ul>
                               <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</a></span></li>
                            </ul>

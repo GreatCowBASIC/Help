@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2024-07-12</date>
+<date>2025-01-22</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team @ 2024</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-11-12<?asciidoc-br?>
-14:25:48 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2025-01-23<?asciidoc-br?>
+11:43:54 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-07-12<?asciidoc-br?>
-15:17:36 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2025-01-22<?asciidoc-br?>
+17:34:13 GMT Standard Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -646,6 +646,9 @@ particular line of code?</simpara></entry>
 </tgroup>
 </informaltable>
 </section>
+<section xml:id="_gcbasic_compiler_insights">
+<title>GCBASIC Compiler Insights</title>
+<simpara>This is the GCBASIC compiler insights section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</simpara>
 <section xml:id="_compiler_insights">
 <title>Compiler Insights</title>
 <simpara>This section will provide some insights into what the compiler does</simpara>
@@ -760,6 +763,66 @@ The compiler will <literal>goto</literal> (same for <literal>jmp</literal>) to t
 <simpara>Resulting ASM</simpara>
 <screen>    ;goto Normal
     goto 0</screen>
+</section>
+<section xml:id="_compiler_control">
+<title>Compiler Control</title>
+<simpara>The compiler can be controlled, in terms of the default startup library routines.&#160;&#160;This may be required to implement a specific control function, or, to disable a default startup behaviour.</simpara>
+<simpara><emphasis role="strong">Scenario #1</emphasis>:</simpara>
+<simpara>You have a new LCD.&#160;&#160;The GCBASIC LCD routines fail to initialise.&#160;&#160;You want to write your own LCD initialise routine, but you want to ensure the GCBASIC standard INITLCD() does not operate before your own LCD initialise routine.&#160;&#160;How to do this?</simpara>
+<simpara><emphasis role="strong">Scenerio #2</emphasis>:</simpara>
+<simpara>You want to write your own INITSYS routine.&#160;&#160;  You can add your own routine to initialise the microntroller but the default INITSYS would always be called in the ASM.</simpara>
+<simpara>In the first sceneria the approach would be to redirect the GCBASIC standard INITLCD() to myInitLCD using #define INITLCD myINITLCD.&#160;&#160;  However, prior to the latest build, this would fail to work.&#160;&#160;The reason for the failure to redirect to your new routine is the #startup INITLCD directive.&#160;&#160;The #startup directive was essentially hard coded and all the #startup(s) could not be changed.</simpara>
+<simpara>In the second scenerio the ASM call to INITSYS is also hard coded.&#160;&#160;And, you could trick the compiler to call your own initialisation routine but this was not easy and not intuitive.&#160;&#160;</simpara>
+<simpara>The new build now supports the updating of the #startup(s) with your own routines, or even to cancel #startup(s).</simpara>
+<simpara><emphasis role="strong">Examples:</emphasis></simpara>
+<simpara>The compiler will search for all #startup(s) and update across all sources (libraries and includes).&#160;&#160;LCD.H is just an example.</simpara>
+<simpara><literal>#DEFINE INITLCD myINITLCD</literal> // This will change any reference in the LCD.h #startup INITLCD to #startup myINITLCD.</simpara>
+<simpara><literal>#DEFINE INITLCD</literal> // With no second parameter would cancel any #startup in LCD.h.</simpara>
+<simpara><literal>#DEFINE INITSYS myINITSYS</literal> // This will change the default INITSYS to myINITSYS.</simpara>
+<simpara><literal>#DEFINE INITSYS</literal> // This will remove the INITSYS from the initialisation of the microcontroller.</simpara>
+<simpara><emphasis role="strong">Example to change LCD initialisation</emphasis></simpara>
+<screen>    #DEFINE INITLCD myINITLCD
+
+    Sub myInitLCD
+        // do stuff
+    End Sub</screen>
+<simpara><emphasis role="strong">Example to replace INITSYS</emphasis></simpara>
+<screen>    #DEFINE INITSYS                      // Cancel call
+    #STARTUP myInitSYS, 1               // New init routines, and set as highest priority
+
+    Sub myInitSYS
+        // do stuff
+    End Sub</screen>
+<simpara>Scripts can now change the #startup.&#160;&#160;  You can add a script to change the behaviour dependent on a specific condition ( the existant of another constant).</simpara>
+<simpara>In user program</simpara>
+<screen>    #DEFINE LCD_OCULAR_OM1614</screen>
+<simpara>Supported within LCD.H</simpara>
+<screen>    #SCRIPT
+        If Def( LCD_OCULAR_OM1614 ) Then
+            'Change INITLCD to specific Initialisation sub
+            INITLCD = INIT_OCULAR_OM1614_LCD
+        End if
+    #ENDSCRIPT
+
+    ......
+
+    Sub INIT_OCULAR_OM1614_LCD
+        .. lots of code
+    End Sub</screen>
+<simpara>will generate ASM like this&#8230;&#8203;</simpara>
+<screen>    ;Program_memory_page: 0
+        ORG	5
+    BASPROGRAMSTART
+    ;Call initialisation routines
+        call	INITSYS
+        call	INIT_OCULAR_OM1614_LCD
+
+    ;Start_of_the_main_program</screen>
+<simpara>This new capability to give you more control of the compiler.
+<?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">For more help, see:</emphasis> #define, #startup</simpara>
+</section>
 </section>
 <section xml:id="_libraries_overview">
 <title>Libraries Overview</title>
@@ -2510,8 +2573,8 @@ The program shows setting up the advanced variables, assigned a value and comple
 <?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">For more help, see:</emphasis> <link linkend="_dim">Declaring variables with DIM</link>, <link linkend="_setting_variables">Setting Variables</link></simpara>
 </section>
-<section xml:id="_variable_memory_allocation">
-<title>Variable Memory Allocation</title>
+<section xml:id="_variable_memory_allocation_addressing_control">
+<title>Variable Memory Allocation, Addressing &amp; Control</title>
 <simpara>This section discusses the allocation of variables to RAM ( GPR, SRAM or other TLA).</simpara>
 <simpara>Variables in GCBASIC can be bits, bytes, words, integers, longs, arrays or reals. &#160;&#160;This section will NOT address reals as these are developmental variables only.</simpara>
 <simpara>Variables can also be defined as Aliases - this is discussed later in this section.</simpara>
@@ -2562,7 +2625,7 @@ The program shows setting up the advanced variables, assigned a value and comple
 </listitem>
 </orderedlist>
 <simpara><emphasis role="strong">Addressing Variables</emphasis></simpara>
-<simpara>Addressing variable can be achieved by using the @ prefix. &#160;&#160; This will return the address of the variable (the same @ applies to table data).</simpara>
+<simpara>Addressing a variable memory address can be achieved by using the @ prefix. &#160;&#160; This will return the address of the variable ( @ applies to table data and any data block).</simpara>
 <simpara>The following example shows registers DMAnSSAU, DMAnSSAH, DMAnSSAL being loaded with the address of the array WaveArray.</simpara>
 <screen>    ' Source start address
     Dim addressdummy as byte
@@ -20548,6 +20611,13 @@ R/W pin can be disabled*.</simpara></entry>
 </simpara><simpara>Only applicable when using LCD_IO 4</simpara></entry>
 <entry align="left" valign="top"><simpara>None.</simpara></entry>
 </row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_OCULAR_OM1614</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies OCULAR OM1614 suppport.  This changes the intialisation routine to a specific routine for the OCULAR devices.</simpara></entry>
+<entry align="left" valign="top"><simpara>To specify explicit OCULAR_OM1614 support
+<literal>#DEFINE LCD_OCULAR_OM1614</literal>
+</simpara><simpara>The OCULAR devices requires LCD_RW</simpara></entry>
+</row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -20676,28 +20746,67 @@ Finally, set the backlight control, if required.</simpara>
 <entry align="left" valign="top"><simpara><literal>10</literal></simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>LCD_I2C_Address_1</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_1</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
-<entry align="left" valign="top"><simpara>Default <literal>0x4E</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Default = 0x4E</literal></simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>LCD_I2C_Address_2</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_2</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
-<entry align="left" valign="top"><simpara>Not set</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x4C</literal></simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>LCD_I2C_Address_3</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_3</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
-<entry align="left" valign="top"><simpara>Not set</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x4A</literal></simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>LCD_I2C_Address_4</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_4</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
-<entry align="left" valign="top"><simpara>Not set</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x48</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_5</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x46</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_6</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x44</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_7</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x42</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_8</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x40</literal></simpara></entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
+<simpara><emphasis role="strong">Example Usage</emphasis></simpara>
+<simpara>An example for using two I2C-LCD.  This example can be extended to support more than two or more ( up to eight ) I2C-LCD(s).</simpara>
+<simpara>This example shows you can have up to eight LCD on the I2C-Bus (8 Addresses 0x40 to 0x4E of the PCF8574-Adaptor).</simpara>
+<screen>    // Set up I2C-LCD
+    #DEFINE LCD_IO 10
+
+    /*  Set LCD_IO to 10 for the YwRobot LCD1602 IIC V1 or the Sainsmart LCD_PIC I2C adapter
+    Set LCD_IO to 12 for the Ywmjkdz I2C adapter with pot bent over top of chip */
+
+    #DEFINE LCD_I2C_ADDRESS_1 0x4E ' prepare the first LCD on Address 0x4E
+    #DEFINE LCD_I2C_ADDRESS_6 0x44 ' prepare the second LCD on Address 0x44
+
+    // To switch between the two LCD can be done with
+
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_6 // now the second I2C-LCD is active
+
+    // or
+
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1 //  now the first I2C-LCD is active</screen>
 <simpara>For code examples see <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">I2C LCD Solutions</link>.</simpara>
 <simpara>See the separate sections of the Help file for the specifics of each
 Connection Mode.</simpara>
@@ -20983,6 +21092,79 @@ Connection Mode.</simpara>
         ClS
         Print "Hello World"</screen>
 </section>
+</section>
+<section xml:id="_lcd_io_16">
+<title>LCD_IO 16</title>
+<simpara><emphasis role="strong">Using connection mode 16:</emphasis></simpara>
+<simpara>Using this LCD IO methof the LCD is controlled via the Microchip PIC16LF72 SPI expander.</simpara>
+<simpara>To use mode 16 you must define the SPI ports as shown below.</simpara>
+<simpara><emphasis role="strong">Relevant Constants:</emphasis></simpara>
+<simpara>These constants are used to control settings for the LCD routines included with GCBASIC.&#160;&#160; To set them, place a line in the main program file that uses <literal>#define</literal> to assign a value to the particular constant.</simpara>
+<simpara>When using this mode only three constants are mandated - all others can be ignored.</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="33*"/>
+<colspec colname="col_3" colwidth="33*"/>
+<thead>
+<row>
+<entry align="left" valign="top"><emphasis role="strong">Constant Name</emphasis></entry>
+<entry align="left" valign="top"><emphasis role="strong">Controls</emphasis></entry>
+<entry align="left" valign="top"><emphasis role="strong">Value</emphasis></entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_IO</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>I/O mode</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>16</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_SPI_DO</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Microcontroller SPI data out port</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_SPI_SCK</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Microcontroller SPI clock out port</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><emphasis role="strong">Connectivity</emphasis></simpara>
+<simpara>The connectivity is shown below.&#160;&#160;The microcontroller connections are as shown below.&#160;&#160;This is an example using the Microchip PICDEM 4 2003 board.</simpara>
+<screen>    //Constants - LCD connectivity type;
+            #DEFINE LCD_IO 16
+
+            //PIN MAPPINGS FOR PIC16LF72 LCD IO SPI EXPANDER
+
+                // CONSTANT IS MANDATED - DATA LINE
+                #DEFINE LCD_SPI_DO          PORTB.2
+
+                // CONSTANT IS MANDATED - CLOCK LINE
+                #DEFINE LCD_SPI_SCK         PORTB.5
+
+    //! Main program
+
+    Print "GCBASIC Rocks"
+    End</screen>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/lcd_io_16_1.png" align="center"/>
+</imageobject>
+<textobject><phrase>graphic</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara>For code examples see <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">LCD Solutions</link>.</simpara>
+<simpara>See the separate sections of the Help file for the specifics of each
+Connection Mode.</simpara>
+<simpara><emphasis role="strong">For more help, see</emphasis>
+<link linkend="_lcd_io_0">LCD_IO 0</link>, <link linkend="_lcd_io_1">LCD_IO 1</link>, <link linkend="_lcd_io_2">LCD_IO 2</link>
+<link linkend="_lcd_io_2_74xx164">LCD_IO 2_74xx164</link>, <link linkend="_lcd_io_2_74xx174">LCD_IO 2_74xx174</link>,
+<link linkend="_lcd_io_4">LCD_IO 4</link>, <link linkend="_lcd_io_8">LCD_IO 8</link>,
+<link linkend="_lcd_io_10">LCD_IO 10</link>, <link linkend="_lcd_io_10">LCD_IO 12</link></simpara>
 </section>
 <section xml:id="_lcd_io_107">
 <title>LCD_IO 107</title>
@@ -22610,19 +22792,19 @@ Two types are supported the YwRobot LCD1602 IIC V1 / a Sainsmart LCD_PIC I2C ada
 
     ; ----- Define Hardware settings
     ' Define I2C settings - CHANGE PORTS
-     #define I2C_MODE Master
-     #define I2C_DATA PORTC.4
-     #define I2C_CLOCK PORTC.5
-     #define I2C_DISABLE_INTERRUPTS ON
+     #DEFINE I2C_MODE Master
+     #DEFINE I2C_DATA PORTC.4
+     #DEFINE I2C_CLOCK PORTC.5
+     #DEFINE I2C_DISABLE_INTERRUPTS ON
 
     '''Set up LCD
-     #define LCD_IO 10
-     #define LCD_I2C_Address_1 0x4E                ; LCD 1
-     #define LCD_I2C_Address_2 0x4C                ; LCD 2
+     #DEFINE LCD_IO 10
+     #DEFINE LCD_I2C_ADDRESS_1 0x4E                ; LCD 1
+     #DEFINE LCD_I2C_ADDRESS_2 0x4C                ; LCD 2
 
     ; ----- Constants
     ' DS18B20 port settings - this is required
-       #define DQ PortC.3
+       #DEFINE DQ PortC.3
 
     ; ----- Quick Command Reference:
 
@@ -22636,12 +22818,12 @@ Two types are supported the YwRobot LCD1602 IIC V1 / a Sainsmart LCD_PIC I2C ada
 
     ; ----- Main body of program commences here.
 
-    'Change to the correct LCD by setting     LCD_I2C_Address_Current to the correct address then write to LCD.
-    LCD_I2C_Address_Current = LCD_I2C_Address_1: DisplayInformation ( 1 )
-    LCD_I2C_Address_Current = LCD_I2C_Address_2: DisplayInformation ( 1 )
+    'Change to the correct LCD by setting     LCD_I2C_ADDRESS_Current to the correct address then write to LCD.
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 1 )
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 1 )
     wait 4 s
-    LCD_I2C_Address_Current = LCD_I2C_Address_1:  CLS
-    LCD_I2C_Address_Current = LCD_I2C_Address_2:  CLS
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1:  CLS
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2:  CLS
 
     ccount = 0
     Do forever
@@ -22652,12 +22834,12 @@ Two types are supported the YwRobot LCD1602 IIC V1 / a Sainsmart LCD_PIC I2C ada
         ' The function readtemp returns the integer value of the sensor
         DSdata = readtemp
 
-        LCD_I2C_Address_Current = LCD_I2C_Address_1: DisplayInformation ( 2 )  ; update LCD1
-        LCD_I2C_Address_Current = LCD_I2C_Address_2: DisplayInformation ( 2 )  ; update LCD2
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 2 )  ; update LCD1
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 2 )  ; update LCD2
         DSdata = DSdataRaw ; Set the data
-        LCD_I2C_Address_Current = LCD_I2C_Address_1: DisplayInformation ( 3 )  ; update LCD1
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 3 )  ; update LCD1
         DSdata= DSdataRaw ; Set the data
-        LCD_I2C_Address_Current = LCD_I2C_Address_2: DisplayInformation ( 3 )  ; update LCD2
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 3 )  ; update LCD2
 
         ccount++
 
@@ -28897,13 +29079,20 @@ is a slew rate control of the pin that is independent of device frequency.</simp
 <literal>#define HI2C_BAUD_RATE 100.</literal><?asciidoc-br?>
 Where  <literal>#define HI2C_BAUD_RATE 100</literal> is the default value and therefore does need to be specified.
 </simpara><simpara>For Microchip I2C module:
-</simpara><simpara>'define HI2C_BAUD_RATE 125' is the default KHz.  You can override this value if you set up an alternative clock source.</simpara></entry>
+</simpara><simpara>'define HI2C_BAUD_RATE 125' is the default KHz.  You can override this value if you set up an alternative clock source. To change use:</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>HI2CITSCLWaitPeriod</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Sets the TSCL period to Zero as the Stop condition must be held for TSCL after Stop transition.
-Default to 70, some solutions can use this set to 0. The clock source and clock method must be reviewed before changing this setting.</simpara></entry>
-<entry align="left" valign="top"><simpara>#define HI2CITSCLWaitPeriod 70</simpara></entry>
+Default to 70, some solutions can use this set to 0. The clock source and clock method must be reviewed before changing this setting.  To change use:
+</simpara><simpara>#define HI2CITSCLWaitPeriod = 70</simpara></entry>
+<entry align="left" valign="top"><simpara>HI2CITSCLWaitPeriod = 70</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>HIC2Q2XBUFFERSIZE</simpara></entry>
+<entry align="left" valign="top"><simpara>The 18FxxQ20 and 18FxxQ24 I2C buffer size.  These specific microcontrollers require an I2C buffer to support I2C TX and RX operations. To change use:
+</simpara><simpara>#define HIC2Q2XBUFFERSIZE = 16</simpara></entry>
+<entry align="left" valign="top"><simpara>HIC2Q2XBUFFERSIZE = 128</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -38275,15 +38464,21 @@ the data value held in the port latch, regardless of the state of the actual pin
 <title>#Option Required</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
 <screen>    #option REQUIRED PIC|AVR CONSTANT %message.dat entry%
-    #option REQUIRED PIC|AVR CONSTANT "Message string"</screen>
+    #option REQUIRED PIC|AVR CONSTANT "Message string"
+
+    or
+
+    #option REQUIRED DISABLE</screen>
 <simpara>This option ensure that the specific CONSTANT exists within a library to ensure a specific capability is available with the microcontroller.</simpara>
 <simpara><emphasis role="strong">Introduction:</emphasis></simpara>
-<simpara>This is for developers only.</simpara>
 <simpara>This will cause the compiler check the CONSTANT is a non zero value.&#160;&#160;If the CONSTANT does not exist it will be treated as a zero value.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <simpara>This example tests the CONSTANT <literal>CHIPUSART</literal> for both the PIC and AVR microcontrollers.&#160;&#160;If the CONSTANT is zero or does not exist then the string will be displayed as an error message.</simpara>
 <screen>    #option REQUIRED PIC CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."
     #option REQUIRED AVR CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."</screen>
+<simpara><emphasis role="strong">Disabling:</emphasis></simpara>
+<simpara>To disable checking capability, add the following directive.</simpara>
+<screen>    #option REQUIRED DISABLE</screen>
 </section>
 <section xml:id="__option_volatile">
 <title>#Option Volatile</title>
@@ -41031,7 +41226,9 @@ This can make the source frustrating initially but can find the code segments as
     4. Document as you progress.
     5. Ask for help.</screen>
 <simpara><?asciidoc-br?></simpara>
-<simpara><emphasis role="strong">COMPILER SOURCE INSIGHTS</emphasis></simpara>
+</section>
+<section xml:id="_compiler_source_insights">
+<title>COMPILER SOURCE INSIGHTS</title>
 <simpara><emphasis>There are many very useful methods</emphasis>, a lot of methods, look at existing code before adding any new method.&#160;&#160;
 The compiler is mature from a functionality standpoint.&#160;&#160;
 Just immature in terms of documentation.&#160;&#160;</simpara>
@@ -41183,6 +41380,27 @@ This compiler is completing the following actions:&#160;&#160;</simpara>
             bra	SysDoLoop_S1
         SysDoLoop_E1</screen>
 <simpara><?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">COMPILERDEBUG</emphasis></simpara>
+<simpara>The COMPILERDEBUG setting in the USE.INI file for GCBASIC is used to enable or disable debugging features for the compiler.&#160;&#160;When the bits of the setting COMPILERDEBUG are set to 1, it activates additional debug information during compilation, which can be helpful for developers to diagnose and fix issues.</simpara>
+<simpara>To see the permissible bits for COMPILERDEBUG first opening and closing the PREFERENCES editor ( this does imply that the PREFERENCES EDITOR is maintained to show the Header in the USE.INI), and then edit USE.INI.&#160;&#160;The help section will display the following:</simpara>
+<screen>    'Preferences file for GCBASIC Preferences 3.14
+
+    ... lots of help, then
+
+    '   compilerdebug =  0  - 1 = COMPILECALCADD
+    '                       - 2 = VAR SET
+    '                       - 4 = CALCOPS
+    '                       - 8 = COMPILECALCMULT
+    '                       - 16 = AUTOPINDIR
+    '                       - 32 = ADRDX
+    '                       - 64 = GCASM
+    '                       - 128 = COMPILESUBCALLS
+    '                       - 256 = COMPILEUPDATESUBMAP</screen>
+<simpara>To see the debug add or edit the [gcbasic] section of USE.INI.</simpara>
+<screen>    [gcbasic]
+    'change to a bitwise value
+    compilerdebug = 0</screen>
+<simpara>As previously stated.  This setting can be helpful for developers to diagnose and fix issues within the compiler.</simpara>
 </section>
 <section xml:id="_about_glcd_library_support">
 <title>ABOUT GLCD Library Support</title>
@@ -41241,10 +41459,15 @@ The comments are NOT part of an INI file.&#160;&#160;</simpara>
                                                                                                     - 2 = doubles
                                                                                                     - 4 = longint
                                                                                                     - 8 = uLongINT
-    compilerdebug =  0                                                                              - 1 = COMPILECALCADD
-                                                                                                    - 2 = VAR SET
-                                                                                                    - 4 = CALCOPS
-                                                                                                    - 8 = COMPILECALCMULT</screen>
+compilerdebug = 0                                                                              - 1 = COMPILECALCADD
+                                                                                                   - 2 = VAR SET
+                                                                                                   - 4 = CALCOPS
+                                                                                                   - 8 = COMPILECALCMULT
+                                                                                                   - 16 = AUTOPINDIR
+                                                                                                   - 32 = ADRDX
+                                                                                                   - 64 = GCASM
+                                                                                                   - 128 = COMPILESUBCALLS
+                                                                                                   - 256 = COMPILEUPDATESUBMAP</screen>
 <simpara>The section shows an example [tool] assembler section.&#160;&#160;</simpara>
 <screen>    [tool=pic-as]
     'An assember
@@ -41284,10 +41507,14 @@ The comments are NOT part of an INI file.&#160;&#160;</simpara>
     useif =
     'Mandated programming config constraints - this shows none
     progconfig =</screen>
-<simpara><emphasis role="strong">ABOUT THE PREFS EDITOR</emphasis></simpara>
+</section>
+</section>
+<section xml:id="_about_the_preferences_editor">
+<title>ABOUT THE PREFERENCES EDITOR</title>
 <simpara>This is a utility for editing GCBASIC ini files.&#160;&#160;
 It is derived from the Graphical GCBASIC utilities, and requires some files from Graphical GCBASIC to compile.&#160;&#160;</simpara>
 <simpara>The software is developed using Sharp Develop v.3.2.1 ( not Visual Studio ).&#160;&#160;</simpara>
+<simpara>The latest source is in Sourceforge.</simpara>
 <simpara><?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">COMPILING</emphasis></simpara>
 <simpara>Ensure that the "Programmer Editor" folder is in the same folder as a "Graphical GCBASIC" folder.&#160;&#160;
@@ -41325,7 +41552,6 @@ The list shows the installation of the Sharp Develop IDE.</simpara>
 <?asciidoc-br?>
 <?asciidoc-br?>
 <?asciidoc-br?></simpara>
-</section>
 </section>
 <section xml:id="_gcbasic_with_the_avrisp_or_mkii_programmer">
 <title>GCBASIC with the AVRISP or MKII Programmer</title>

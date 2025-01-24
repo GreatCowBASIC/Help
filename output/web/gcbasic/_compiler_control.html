@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Variable Memory Allocation -  - GCBASIC documentation</title>
+      <title>Compiler Control -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
       <link rel="home" href="index.html" title="GCBASIC documentation" />
-      <link rel="up" href="_variables.html" title="Variables" />
-      <link rel="prev" href="_advanced_variabletypes.html" title="Advanced VariableTypes" />
-      <link rel="next" href="_reference_data.html" title="Reference Data" />
-      <meta name="Section-title" content="Variable Memory Allocation" /><script type="text/javascript">
+      <link rel="up" href="_gcbasic_compiler_insights.html" title="GCBASIC Compiler Insights" />
+      <link rel="prev" href="_compiler_insights.html" title="Compiler Insights" />
+      <link rel="next" href="_libraries_overview.html" title="Libraries Overview" />
+      <meta name="Section-title" content="Compiler Control" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-55691";
+            var treeCookieId = "treeview-56006";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />Variables
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />GCBASIC Compiler Insights
          </h1>
          <div id="navheader">
             <!---->
@@ -164,11 +164,11 @@ border: none; background: none; font-weight: none; color: none; }
                <tr>
                   <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
                                                     </a></td>
-                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_advanced_variabletypes.html">Prev</a>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_compiler_insights.html">Prev</a>
                                                              |
-                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="_variables.html">Up</a>
+                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="_gcbasic_compiler_insights.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_reference_data.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_libraries_overview.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -179,173 +179,88 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="_variable_memory_allocation"></a>Variable Memory Allocation
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="_compiler_control"></a>Compiler Control
                      </h3>
                   </div>
                </div>
             </div>
-            <p>This section discusses the allocation of variables to RAM ( GPR, SRAM or other TLA).</p>
-            <p>Variables in GCBASIC can be bits, bytes, words, integers, longs, arrays or reals.   This section will NOT address reals as
-               these are developmental variables only.
+            <p>The compiler can be controlled, in terms of the default startup library routines.  This may be required to implement a specific
+               control function, or, to disable a default startup behaviour.
             </p>
-            <p>Variables can also be defined as Aliases - this is discussed later in this section.</p>
-            <p><span class="strong"><strong>Basic variable allocation</strong></span></p>
-            <p>Variables of  type <span class="emphasis"><em>byte</em></span>, <span class="emphasis"><em>word</em></span>, <span class="emphasis"><em>integer</em></span>, <span class="emphasis"><em>longs</em></span> are placed in RAM using the following simple rules.
+            <p><span class="strong"><strong>Scenario #1</strong></span>:
             </p>
-            <div class="orderedlist">
-               <ol class="orderedlist" type="1">
-                  <li class="listitem">A RAM memory location  is automatically assigned starting at the first available memory location.</li>
-                  <li class="listitem">The first memory location is first RAM location as defined in the chip datasheet.</li>
-                  <li class="listitem">Once a variable is allocated the RAM location is marked as used and this specific location can be reviewed in the ASM source.</li>
-                  <li class="listitem">Bytes use a single  RAM location, words two  RAM locations, integer and longs four  RAM locations.</li>
-                  <li class="listitem">Subsequent variables of type byte, word, integer, longs are placed in RAM at the next available RAM location.</li>
-               </ol>
-            </div>
-            <p>Variables of  <span class="emphasis"><em>array</em></span> and <span class="emphasis"><em>strings</em></span> type are placed in RAM using the following simple rules.
+            <p>You have a new LCD.  The GCBASIC LCD routines fail to initialise.  You want to write your own LCD initialise routine, but
+               you want to ensure the GCBASIC standard INITLCD() does not operate before your own LCD initialise routine.  How to do this?
             </p>
-            <div class="orderedlist">
-               <ol class="orderedlist" type="1">
-                  <li class="listitem">A RAM memory location is automatically assigned from the end of RAM less the ( size of the array + 1 byte ).</li>
-                  <li class="listitem">The last memory location is last RAM location as defined in the chip datasheet.</li>
-                  <li class="listitem">Once an array is allocated the RAM location is marked as used and the start of the array RAM location can be reviewed in the
-                     ASM source.
-                  </li>
-                  <li class="listitem">Subsequent variables of type array in RAM at the next available RAM location subtracted from the start the of previous RAM
-                     location minus the size of this next array.
-                  </li>
-               </ol>
-            </div>
-            <p>Variables of <span class="emphasis"><em>bit</em></span> type are placed in RAM using the following simple rules.
+            <p><span class="strong"><strong>Scenerio #2</strong></span>:
             </p>
-            <div class="orderedlist">
-               <ol class="orderedlist" type="1">
-                  <li class="listitem">Bit memory location is automatically assigned to the first bit with the creation of a BYTE variable at a RAM memory location
-                     that is automatically assigned starting at the first available memory location.    This byte can handle 8 bits.
-                  </li>
-                  <li class="listitem">Once a bit is allocated the byte is marked as used and this specific location can be reviewed in the ASM source.</li>
-                  <li class="listitem">Subsequent bits are allocation either to an existing byte variable, or when 8 bits are allocated to an existing byte variable
-                     another byte variable will be created.
-                  </li>
-               </ol>
-            </div>
-            <p><span class="strong"><strong>Addressing Variables</strong></span></p>
-            <p>Addressing variable can be achieved by using the @ prefix.    This will return the address of the variable (the same @ applies
-               to table data).
+            <p>You want to write your own INITSYS routine.    You can add your own routine to initialise the microntroller but the default
+               INITSYS would always be called in the ASM.
             </p>
-            <p>The following example shows registers DMAnSSAU, DMAnSSAH, DMAnSSAL being loaded with the address of the array WaveArray.</p><pre class="screen">    ' Source start address
-    Dim addressdummy as byte
-    Dim DMAnSS as long ALIAS addressdummy, DMAnSSAU, DMAnSSAH, DMAnSSAL
-    DMAnSS = @WaveArray</pre><p><br /></p>
-            <p><span class="strong"><strong>AT allocation</strong></span></p>
-            <p>The Dim variable command can be used to instruct GCBASIC to allocate variables  at a specific memory location using the parameter
-               AT.
+            <p>In the first sceneria the approach would be to redirect the GCBASIC standard INITLCD() to myInitLCD using #define INITLCD
+               myINITLCD.    However, prior to the latest build, this would fail to work.  The reason for the failure to redirect to your
+               new routine is the #startup INITLCD directive.  The #startup directive was essentially hard coded and all the #startup(s)
+               could not be changed.
             </p>
-            <p>The compiler will inspect the provided AT memory location and if the memory location is already used ( by an existing variable),
-               lower than the minimum memory location or greater than the maximum memory location an error will be issued.
+            <p>In the second scenerio the ASM call to INITSYS is also hard coded.  And, you could trick the compiler to call your own initialisation
+               routine but this was not easy and not intuitive.  
             </p>
-            <p><br />
-               <span class="strong"><strong>Variable Aliases</strong></span></p>
-            <p>Variable can be defined as  aliases.    Aliases  are used to refer to existing memory locations SFR or RAM and aliases can
-               be used to construct other variables.    Constructed variables can be a mix  ( or not ) of SFR or RAM.     These are useful
-               for joining predefined byte variables together to form a word/long variable.
+            <p>The new build now supports the updating of the #startup(s) with your own routines, or even to cancel #startup(s).</p>
+            <p><span class="strong"><strong>Examples:</strong></span></p>
+            <p>The compiler will search for all #startup(s) and update across all sources (libraries and includes).  LCD.H is just an example.</p>
+            <p><code class="literal">#DEFINE INITLCD myINITLCD</code> // This will change any reference in the LCD.h #startup INITLCD to #startup myINITLCD.
             </p>
-            <p>Aliases are not like pointers in many languages - they must always refer to an existing variable or variables and cannot be
-               changed.
+            <p><code class="literal">#DEFINE INITLCD</code> // With no second parameter would cancel any #startup in LCD.h.
             </p>
-            <p>When setting a register/variable bit ( i.e  my_variable.my_bit_address_variable ) and using a alias for the variable then
-               you must ensure the bytes that construct the variable are consecutive.
+            <p><code class="literal">#DEFINE INITSYS myINITSYS</code> // This will change the default INITSYS to myINITSYS.
             </p>
-            <p>Aliases are shown in the ASM source in the ;ALIAS VARIABLES section.</p>
-            <p>The coding approach should be to DIMension the variable (word, integer, or long) first, then create the byte aliases:</p><pre class="screen">    Dim my_variable as LONG
-    Dim ByteOne   as Byte alias my_variable_E
-    Dim ByteTwo   as Byte alias my_variable_U
-    Dim ByteThree as Byte alias my_variable_H
-    Dim ByteFour  as Byte alias my_variable
-
-    Dim my_bit_address_variable as Byte
-    my_bit_address_variable = 23
-
-    'set the bit in the variable
-    my_variable.my_bit_address_variable = 1
-
-    'then, use the four byte variables as you need to.</pre><p>To set a series of registers that are not consecutive, it is recommended to use a mask variable then apply it to the registers:</p><pre class="screen">    Dim my_variable as LONG
-    Dim my_bit_address_variable as Byte
-    my_bit_address_variable = 23
-
-    'set the bit in the variable
-    my_variable.my_bit_address_variable = 1
-
-    porta =  my_variable_E
-    portb =  my_variable_E
-    portc =  my_variable_E
-    portd =  my_variable_E</pre><p><span class="strong"><strong>Memory Specification</strong></span></p>
-            <p>All memory specifics like RAM size, lower and upper RAM addresses are specified in the chip specific dat file.</p>
-            <p>The dat file details should be reviewed in PICINFO application.   See the PICINFO/CHIPDATA tab for RAM and MaxAddress etc.</p>
-            <p>A simple calculation is MaxAddress - RAM +1 = the 'first memory address'.  And, 'first memory address' + RAM -1 = 'the last
-               memory address.
+            <p><code class="literal">#DEFINE INITSYS</code> // This will remove the INITSYS from the initialisation of the microcontroller.
             </p>
-            <p>This can be confirmed by review the DAT file. See the section [FreeRAM] for the start and end of RAM.</p>
-            <p>The dat file also has a [NoBankRAM].  NoBankRAM is somewhat misnamed - it is used for the defintion of (any) access bank locations.  
-               If a memory location is defined in both NoBankRAM and FreeRAM, then the compiler knows that it is access bank RAM.  If an
-               SFR location is in one of the NoBankRAM ranges, then the compiler knows not to do any bank selection when accessing that register.
+            <p><span class="strong"><strong>Example to change LCD initialisation</strong></span></p><pre class="screen">    #DEFINE INITLCD myINITLCD
+
+    Sub myInitLCD
+        // do stuff
+    End Sub</pre><p><span class="strong"><strong>Example to replace INITSYS</strong></span></p><pre class="screen">    #DEFINE INITSYS                      // Cancel call
+    #STARTUP myInitSYS, 1               // New init routines, and set as highest priority
+
+    Sub myInitSYS
+        // do stuff
+    End Sub</pre><p>Scripts can now change the #startup.    You can add a script to change the behaviour dependent on a specific condition ( the
+               existant of another constant).
             </p>
-            <p>The [NoBankRAM] section includes two ranges, one for access bank RAM, one for access bank SFRs.
-               The first range MUST be the ACCESS RAM range
-               The first range is the FAST SFR range
-            </p>
-            <p>If there are no ranges defined in NoBankRAM, the compiler will try to guess them.  
-               On 18Fs, it will guess based on where the lowest SFR is, and from what the total RAM on the chip is.   If there’s only one
-               range defined.    in the NoBankRAM locations, the compiler will assume that is the range for the RAM, and then will guess
-               where the range for the access bank SFRs is.
-            </p><pre class="screen">    'GCBASIC/GCGB Chip Data File
-    'Chip: 18F27Q43
+            <p>In user program</p><pre class="screen">    #DEFINE LCD_OCULAR_OM1614</pre><p>Supported within LCD.H</p><pre class="screen">    #SCRIPT
+        If Def( LCD_OCULAR_OM1614 ) Then
+            'Change INITLCD to specific Initialisation sub
+            INITLCD = INIT_OCULAR_OM1614_LCD
+        End if
+    #ENDSCRIPT
 
-    [ChipData]
+    ......
 
-    .... many other data rows
+    Sub INIT_OCULAR_OM1614_LCD
+        .. lots of code
+    End Sub</pre><p>will generate ASM like this…​</p><pre class="screen">    ;Program_memory_page: 0
+        ORG	5
+    BASPROGRAMSTART
+    ;Call initialisation routines
+        call	INITSYS
+        call	INIT_OCULAR_OM1614_LCD
 
-    'This constant is exposed as ChipRAM
-    RAM=8192             'Dec values
-
-    .... many other data rows
-
-    'This constant is exposed as ChipMaxAddress
-    MaxAddress=9471      'Dec values
-
-    .... many other data rows
-
-    [FreeRAM]
-    500:24FF             'Hex value
-
-    [NoBankRAM]
-    500:55F              'Hex value
-    460:4FF              'Hex value
-
-    .... many other data rows</pre><p><br /></p>
-            <p>In the example shown above the following can be extracted.
+    ;Start_of_the_main_program</pre><p>This new capability to give you more control of the compiler.
+               <br />
                <br /></p>
-            <div class="orderedlist">
-               <ol class="orderedlist" type="1">
-                  <li class="listitem">RAM size:              RAM = 8192d</li>
-                  <li class="listitem">Minimum RAM address:   FREERAM = 0x500</li>
-                  <li class="listitem">Maximum RAM address:   FREERAM = 0x24FF</li>
-                  <li class="listitem">Maximum RAM address:   MAXADDRESS=9471d or 0x24FF</li>
-                  <li class="listitem">ACCESS RAM:            NOBANKRAM = 0x500-0x55F</li>
-                  <li class="listitem">BANKED SFR:            NOBANKRAM = 0x460-0x4FF</li>
-               </ol>
-            </div>
-            <p><br />
-               <br /></p>
+            <p><span class="strong"><strong>For more help, see:</strong></span> #define, #startup
+            </p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
             <table width="100%" summary="Navigation footer">
                <tr>
-                  <td width="40%" align="left"><a accesskey="p" href="_advanced_variabletypes.html">Prev</a> 
+                  <td width="40%" align="left"><a accesskey="p" href="_compiler_insights.html">Prev</a> 
                   </td>
-                  <td width="20%" align="center"><a accesskey="u" href="_variables.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="_reference_data.html">Next</a></td>
+                  <td width="20%" align="center"><a accesskey="u" href="_gcbasic_compiler_insights.html">Up</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="_libraries_overview.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -373,7 +288,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
                         <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
                         <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
-                        <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_compiler_insights.html" tabindex="1">GCBASIC Compiler Insights</a></span><ul>
+                              <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
+                              <li id="webhelp-currentid"><span class="file"><a href="_compiler_control.html" tabindex="1">Compiler Control</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
                         <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
                         <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span><ul>
@@ -390,7 +309,7 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_data_types.html" tabindex="1">Data Types</a></span></li>
                               <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
                               <li><span class="file"><a href="_advanced_variabletypes.html" tabindex="1">Advanced VariableTypes</a></span></li>
-                              <li id="webhelp-currentid"><span class="file"><a href="_variable_memory_allocation.html" tabindex="1">Variable Memory Allocation</a></span></li>
+                              <li><span class="file"><a href="_variable_memory_allocation_addressing_control.html" tabindex="1">Variable Memory Allocation, Addressing &amp; Control</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_reference_data.html" tabindex="1">Reference Data</a></span><ul>
@@ -621,6 +540,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                 <li><span class="file"><a href="_lcd_io_14_port_configuration.html" tabindex="1">LCD_IO 14 Port Configuration</a></span></li>
                                              </ul>
                                           </li>
+                                          <li><span class="file"><a href="_lcd_io_16.html" tabindex="1">LCD_IO 16</a></span></li>
                                           <li><span class="file"><a href="_lcd_io_107.html" tabindex="1">LCD_IO 107</a></span></li>
                                           <li><span class="file"><a href="_lcd_variant.html" tabindex="1">LCD_VARIANT</a></span></li>
                                           <li><span class="file"><a href="_lcd_speed.html" tabindex="1">LCD_SPEED</a></span></li>
@@ -1027,10 +947,12 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
+                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">COMPILER SOURCE INSIGHTS</a></span></li>
                               <li><span class="file"><a href="_about_glcd_library_support.html" tabindex="1">ABOUT GLCD Library Support</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">ABOUT THE PREFERENCES EDITOR</a></span></li>
                         <li><span class="file"><a href="_gcbasic_with_the_avrisp_or_mkii_programmer.html" tabindex="1">GCBASIC with the AVRISP or MKII Programmer</a></span><ul>
                               <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</a></span></li>
                            </ul>
