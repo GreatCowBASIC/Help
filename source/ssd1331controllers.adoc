@@ -158,14 +158,26 @@ specific attribute.
 
 
 ----
-   SSD1331_BLACK   'hexidecimal value 0x0000
-   SSD1331_BLUE    'hexidecimal value 0xF800
-   SSD1331_RED     'hexidecimal value 0x001F
-   SSD1331_GREEN   'hexidecimal value 0x07E0
-   SSD1331_CYAN    'hexidecimal value 0xFFE0
-   SSD1331_MAGENTA 'hexidecimal value 0xF81F
-   SSD1331_YELLOW  'hexidecimal value 0x07FF
-   SSD1331_WHITE   'hexidecimal value 0xFFFF
+    Colour           RGB 
+    TFT_BLACK       0x0000
+    TFT_NAVY        0x000F
+    TFT_DARKGREEN   0x03E0
+    TFT_DARKCYAN    0x03EF
+    TFT_MAROON      0x7800
+    TFT_PURPLE      0x780F
+    TFT_OLIVE       0x7BE0
+    TFT_LIGHTGREY   0xC618
+    TFT_DARKGREY    0x7BEF
+    TFT_BLUE        0x001F
+    TFT_GREEN       0x07E0
+    TFT_CYAN        0x77FF
+    TFT_RED         0xF800
+    TFT_MAGENTA     0xF81F
+    TFT_YELLOW      0xFFE0
+    TFT_WHITE       0xFFFF
+    TFT_ORANGE      0xFD20
+    TFT_GREENYELLOW 0xAFE5
+    TFT_PINK        0xF81F
 ----
 
 
