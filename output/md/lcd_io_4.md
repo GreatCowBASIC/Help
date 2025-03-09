@@ -98,6 +98,12 @@ Constants are required for 4-bit mode as follows.
 <p>Only applicable when using LCD_IO 4</p></td>
 <td style="text-align: left;"><p>None.</p></td>
 </tr>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">LCD_OCULAR_OM1614</code></p></td>
+<td style="text-align: left;"><p>Specifies OCULAR OM1614 suppport. This changes the intialisation routine to a specific routine for the OCULAR devices.</p></td>
+<td style="text-align: left;"><p>To specify explicit OCULAR_OM1614 support <code class="literal">#DEFINE LCD_OCULAR_OM1614</code></p>
+<p>The OCULAR devices requires LCD_RW</p></td>
+</tr>
 </tbody>
 </table>
 

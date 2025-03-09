@@ -330,7 +330,7 @@ Support up to four devices via the I2C bus.
 
 |SRF04
 |Distance Sensor
-|A library that supports the SRF04 ultrasonic sensor.
+|A library that supports the SRF04 ultrasonic sensor.  See link:https://github.com/GreatCowBASIC/Demonstration_Sources/tree/main/UltraSonic_Sensor_Solutions[GitHub demos here]
 
 |TEA5767
 |I2C Radio

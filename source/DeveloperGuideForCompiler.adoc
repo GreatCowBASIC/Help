@@ -39,7 +39,7 @@ Those who already have programming experience can go straight to GCBASIC, while 
 The two approaches targets two different sets of users who ultimately want to do the same thing.
 {empty} +
 {empty} +
-As for the *name*, it was about the fourth name Hugh tried. &#160;&#160;First name was BASPIC, but it did not seem memorable enough.&#160;&#160;
+As for the *name*, it was the fourth name Hugh tried. &#160;&#160;First name was BASPIC, but it did not seem memorable enough.&#160;&#160;
 Then, he considered some animal names - first thought was Chipmunk BASIC, but someone already used that!&#160;&#160;
 Then, Bear BASIC, but decided against it on finding out the slang meaning of bear.&#160;&#160;
 Final  name was GCBASIC, which is named after something his sister and he came up with (when aged 12 and 15!!).&#160;&#160;
@@ -290,14 +290,13 @@ The following rules are recommended.
 {empty} +
 
 
-*COMPILER SOURCE INSIGHTS*
+=== COMPILER SOURCE INSIGHTS
 
 _There are many very useful methods_, a lot of methods, look at existing code before adding any new method.&#160;&#160;
 The compiler is mature from a functionality standpoint.&#160;&#160;
 Just immature in terms of documentation.&#160;&#160;
 
 *COMPILER DEBUGGING*
-
 
 _To debug or isolate a specific issue_ use lots of messages using PRINT or HSERPRINT&#160;&#160;Both of these methods are easy to setup and use.
 
@@ -457,6 +456,38 @@ The resulting ASM from the about code is as expected.&#160;&#160;The assignment 
 
 {empty} +
 
+*COMPILERDEBUG*
+
+The COMPILERDEBUG setting in the USE.INI file for GCBASIC is used to enable or disable debugging features for the compiler.&#160;&#160;When the bits of the setting COMPILERDEBUG are set to 1, it activates additional debug information during compilation, which can be helpful for developers to diagnose and fix issues.
+
+To see the permissible bits for COMPILERDEBUG first opening and closing the PREFERENCES editor ( this does imply that the PREFERENCES EDITOR is maintained to show the Header in the USE.INI), and then edit USE.INI.&#160;&#160;The help section will display the following:
+
+----
+    'Preferences file for GCBASIC Preferences 3.14
+
+    ... lots of help, then
+
+    '   compilerdebug =  0  - 1 = COMPILECALCADD 
+    '                       - 2 = VAR SET
+    '                       - 4 = CALCOPS 
+    '                       - 8 = COMPILECALCMULT
+    '                       - 16 = AUTOPINDIR 
+    '                       - 32 = ADRDX
+    '                       - 64 = GCASM
+    '                       - 128 = COMPILESUBCALLS
+    '                       - 256 = COMPILEUPDATESUBMAP
+----
+
+To see the debug add or edit the [gcbasic] section of USE.INI.
+
+----
+    [gcbasic]
+    'change to a bitwise value
+    compilerdebug = 0   
+----
+
+As previously stated.  This setting can be helpful for developers to diagnose and fix issues within the compiler.
+
 === ABOUT GLCD Library Support
 
 The GLCD capability supports over 40 GLCDs.&#160;&#160;GCBASIC loads automatically the specific library required.&#160;&#160;The loading of the specific library(ies) by the compiler improves performance and significantly reduces the compilation time.
@@ -531,11 +562,15 @@ The settings are in the INI section called [gcbasic].&#160;&#160;
                                                                                                     - 2 = doubles
                                                                                                     - 4 = longint
                                                                                                     - 8 = uLongINT
-    compilerdebug =  0                                                                              - 1 = COMPILECALCADD 
-                                                                                                    - 2 = VAR SET
-                                                                                                    - 4 = CALCOPS 
-                                                                                                    - 8 = COMPILECALCMULT
-
+compilerdebug = 0                                                                              - 1 = COMPILECALCADD 
+                                                                                                   - 2 = VAR SET
+                                                                                                   - 4 = CALCOPS 
+                                                                                                   - 8 = COMPILECALCMULT
+                                                                                                   - 16 = AUTOPINDIR 
+                                                                                                   - 32 = ADRDX
+                                                                                                   - 64 = GCASM
+                                                                                                   - 128 = COMPILESUBCALLS
+                                                                                                   - 256 = COMPILEUPDATESUBMAP
 ----
 
 The section shows an example [tool] assembler section.&#160;&#160;
@@ -594,13 +629,14 @@ The section shows an example [programmer] section.&#160;&#160;
 ----
 
 
-*ABOUT THE PREFS EDITOR*
-
+== ABOUT THE PREFERENCES EDITOR
 
 This is a utility for editing GCBASIC ini files.&#160;&#160;
 It is derived from the Graphical GCBASIC utilities, and requires some files from Graphical GCBASIC to compile.&#160;&#160;
 
 The software is developed using Sharp Develop v.3.2.1 ( not Visual Studio ).&#160;&#160;
+
+The latest source is in Sourceforge.
 
 
 {empty} +

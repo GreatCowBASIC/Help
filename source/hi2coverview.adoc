@@ -87,13 +87,21 @@ Where  `#define HI2C_BAUD_RATE 100` is the default value and therefore does need
 
 For Microchip I2C module:
 
-'define HI2C_BAUD_RATE 125' is the default KHz.  You can override this value if you set up an alternative clock source.
+'define HI2C_BAUD_RATE 125' is the default KHz.  You can override this value if you set up an alternative clock source. To change use: 
 
 |`HI2CITSCLWaitPeriod`
 
 |Sets the TSCL period to Zero as the Stop condition must be held for TSCL after Stop transition.
-Default to 70, some solutions can use this set to 0. The clock source and clock method must be reviewed before changing this setting.
-|#define HI2CITSCLWaitPeriod 70
+Default to 70, some solutions can use this set to 0. The clock source and clock method must be reviewed before changing this setting.  To change use: 
+
+#define HI2CITSCLWaitPeriod = 70
+|HI2CITSCLWaitPeriod = 70
+
+|HIC2Q2XBUFFERSIZE
+|The 18FxxQ20 and 18FxxQ24 I2C buffer size.  These specific microcontrollers require an I2C buffer to support I2C TX and RX operations. To change use:
+
+#define HIC2Q2XBUFFERSIZE = 16 
+|HIC2Q2XBUFFERSIZE = 128
 
 |===
 *Port Settings:*

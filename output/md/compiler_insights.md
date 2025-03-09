@@ -6,8 +6,7 @@
 
 <div>
 
-<span id="compiler_insights"></span>Compiler Insights
-------------------------------------------------------
+### <span id="compiler_insights"></span>Compiler Insights
 
 </div>
 

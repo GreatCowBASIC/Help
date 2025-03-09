@@ -5,16 +5,16 @@
 </head>
 <body>
 <h1>Compilation Report</h1>
-<p>Compiler Version (YYYY-MM-DD): 2024.4.26 (Windows 64 bit) : Build 1386)</p>
+<p>Compiler Version (YYYY-MM-DD): 2024.11.30 (Windows 64 bit) : Build 1445)</p>
 <h2>Compilation time</h2>
-<p> (Compile time: 3.625 seconds)</p>
-<p> (Assembly time: 0.375 seconds)</p>
-<p> (Download time: 8.375 seconds)</p>
-<p> (Total time: 12.375 seconds)</p>
+<p> (Compile time: 6 seconds)</p>
+<p> (Assembly time: 1.3125 seconds)</p>
+<p> (Download time: 15.3125 seconds)</p>
+<p> (Total time: 22.625 seconds)</p>
 <h2>Chip resource usage:</h2>
 <p>Chip Model: 18F27Q43</p>
-<p>Program Memory: 3702/65536 words (5.65%)</p>
-<p>RAM: 230/8192 bytes (2.23%)</p>
+<p>Program Memory: 14163/65536 words (21.61%)</p>
+<p>RAM: 619/8192 bytes (7.56%)</p>
 <p> OSC: HFINTOSC_1MHZ, 64Mhz (Internal oscillator)</p>
 <h2>RAM Allocation</h2>
 <table border="1">
@@ -22,12 +22,18 @@
 <h2>Subroutines</h2>
 <table border="1">
 <tr><th>Name</th><th>Code Size (lines)</th><th>Compiled Size (words)</th><th>Outgoing calls</th></tr>
-<tr><td>Main</td><td>57</td><td>359</td><td>SYSCOMPLESSTHAN16(2), INITRANDOM(1), INITGLCD_LT7686(22), SYSMULTSUB16(2), SYSDIVSUB16(4), SYSCOMPEQUAL16(1), Delay_S(1), FILLEDBOX_LT7686(1), SCALE(2), RANDOM(3), READAD(1), RANDOMIZE(1), LT7686_SETBACKGROUNDCOLOR(1), MAKETABLE_LT7686(1), LT7686_PWM_DUTY(2), INITPPS(27), INITSYS(35)</td></tr>
-<tr><td>INITPPS</td><td>49</td><td>16</td><td></td></tr>
-<tr><td>READAD</td><td>74</td><td>281</td><td>Delay_10US(1)</td></tr>
-<tr><td>SCALE</td><td>5</td><td>81</td><td>SYSDIVSUB32(1), SYSMULTSUB32(1)</td></tr>
+<tr><td>Main</td><td>263</td><td>3674</td><td>INITRANDOM(1), INITGLCD_LT7686(38), SYSDIVSUB16(5), SYSCOPYSTRING(7), SYSREADSTRING(19), SYSCOMPLESSTHAN16(8), SYSCOMPEQUAL16(30), Delay_MS(6), Delay_S(7), RANDOMIZE(1), FILLEDCUBE_LT7686(1), FRAMEDFILLEDTRIANGLE_LT7686(1), FRAMEDFILLEDROUNDRECT_LT7686(1), FRAMEDFILLEDBOX_LT7686(1), FRAMEDFILLEDCIRCLE_LT7686(1), LINE_WIDTH_LT7686(16), LT7686_PRINT_INTERNAL_FONT(2), FILLEDPENTAGON_LT7686(1), FILLEDQUADRILATERAL_LT7686(1), QUADRILATERAL_LT7686(1), FILLEDRIGHTDOWNCURVE_LT7686(1), FILLEDRIGHTUPCURVE_LT7686(1), FILLEDLEFTDOWNCURVE_LT7686(1), FILLEDLEFTUPCURVE_LT7686(1), RIGHTDOWNCURVE_LT7686(1), RIGHTUPCURVE_LT7686(1), LEFTDOWNCURVE_LT7686(1), LEFTUPCURVE_LT7686(1), CYLINDER_LT7686(4), LT7686_PWM_DUTY(1), FILLEDTRIANGLE_LT7686(6), TRIANGLE_LT7686(1), FILLEDROUNDRECT_LT7686(1), ROUNDRECT_LT7686(1), FILLEDELLIPSE_LT7686(1), ELLIPSE_LT7686(1), FILLEDBOX_LT7686(2), BOX_LT7686(1), LINE_LT7686(1), FILLEDCIRCLE_LT7686(1), CIRCLE_LT7686(1), LT7686_DISPLAY_COLORBAR(2), RANDOM(21), SCALE(18), GLCDCLS_LT7686(3), GLCDPRINT(1), LT7686_PRINT_INTERNAL_FONT(15), LT7686_SELECT_INTERNAL_FONT_INIT(5), STR(3), SHOWDEBUG(1), GCBBUILDTIMESTR(1), GCBBUILDSTR(1), HSERPRINTSTRINGCRLF(1), HSERPRINTCRLF(1), INITPPS(47), INITSYS(72)</td></tr>
+<tr><td>INITPPS</td><td>65</td><td>8</td><td></td></tr>
+<tr><td>SHOWDEBUG</td><td>62</td><td>862</td><td>SYSCOPYSTRING(11), SYSREADSTRING(21), SYSCOMPEQUAL(2), SYSCOMPLESSTHAN16(2), LT7686_DATAREAD(1), LT7686_WRITECMD(1), _HEXPICAS(11), STR(1), BYTETOBIN(1), HSERPRINT(22), HSERPRINTSTRINGCRLF(2), HSERPRINTCRLF(8)</td></tr>
+<tr><td>GCBBUILDSTR</td><td>1</td><td>10</td><td>SYSREADSTRING(1)</td></tr>
+<tr><td>GCBBUILDTIMESTR</td><td>1</td><td>10</td><td>SYSREADSTRING(1)</td></tr>
+<tr><td>GLCDPRINT</td><td>18</td><td>68</td><td>GLCDDRAWCHAR_ILI9341(1)</td></tr>
+<tr><td>_HEXPICAS</td><td>15</td><td>41</td><td></td></tr>
+<tr><td>SCALE</td><td>5</td><td>83</td><td>SYSDIVSUB32(1), SYSMULTSUB32(1)</td></tr>
 <tr><td>ABS</td><td>5</td><td>17</td><td></td></tr>
-<tr><td>INITSYS</td><td>950</td><td>28</td><td></td></tr>
+<tr><td>INITSYS</td><td>1146</td><td>28</td><td></td></tr>
+<tr><td>SYSCOPYSTRING</td><td>118</td><td>18</td><td></td></tr>
+<tr><td>SYSREADSTRING</td><td>114</td><td>21</td><td></td></tr>
 <tr><td>SYSMULTSUB16</td><td>73</td><td>17</td><td></td></tr>
 <tr><td>SYSMULTSUBINT</td><td>13</td><td>30</td><td>SYSMULTSUB16(1)</td></tr>
 <tr><td>SYSMULTSUB32</td><td>43</td><td>70</td><td>SYSCOMPLESSTHAN32(1)</td></tr>
@@ -41,36 +47,75 @@
 <tr><td>SYSCOMPLESSTHAN16</td><td>38</td><td>14</td><td></td></tr>
 <tr><td>SYSCOMPLESSTHAN32</td><td>63</td><td>22</td><td></td></tr>
 <tr><td>SYSCOMPLESSTHANINT</td><td>48</td><td>44</td><td></td></tr>
-<tr><td>SPIMODE</td><td>145</td><td>80</td><td>SYSCOMPEQUAL(1)</td></tr>
-<tr><td>HWSPITRANSFER</td><td>49</td><td>10</td><td></td></tr>
-<tr><td>FASTHWSPITRANSFER</td><td>37</td><td>10</td><td></td></tr>
 <tr><td>INITRANDOM</td><td>2</td><td>7</td><td></td></tr>
 <tr><td>RANDOM</td><td>8</td><td>42</td><td></td></tr>
 <tr><td>RANDOMIZE</td><td>5</td><td>23</td><td>SYSCOMPEQUAL16(1)</td></tr>
-<tr><td>INITGLCD_LT7686</td><td>56</td><td>88</td><td>Delay_MS(4), GLCDCLS_LT7686(1), GLCDROTATE_LT7686(1), LT7686_CHECK_INIT(1), LT7686_LOADDEFAULTREGISTERS(1), LT7686_SOFTWARE_RESET(1), SPIMODE(1)</td></tr>
-<tr><td>LT7686_LOADDEFAULTREGISTERS</td><td>49</td><td>192</td><td>Delay_MS(4), SYSCOMPLESSTHAN16(2), SYSCOMPEQUAL(1), LT7686_WAIT10MS(1), LT7686_WRITEDATA(1), LT7686_DATAREAD(1), LT7686_WRITECMD(1)</td></tr>
+<tr><td>STR</td><td>36</td><td>192</td><td>SYSDIVSUB16(4), SYSCOMPLESSTHAN16(4)</td></tr>
+<tr><td>BYTETOBIN</td><td>9</td><td>65</td><td>SYSCOPYSTRING(2), SYSREADSTRING(3)</td></tr>
+<tr><td>INITUSART</td><td>399</td><td>13</td><td></td></tr>
+<tr><td>HSERSEND</td><td>347</td><td>6</td><td></td></tr>
+<tr><td>HSERPRINTSTRINGCRLF</td><td>8</td><td>46</td><td>HSERSEND(3)</td></tr>
+<tr><td>HSERPRINT</td><td>42</td><td>37</td><td>HSERSEND(1)</td></tr>
+<tr><td>HSERPRINTCRLF</td><td>4</td><td>24</td><td>HSERSEND(2)</td></tr>
+<tr><td>INITGLCD_LT7686</td><td>84</td><td>306</td><td>SYSCOPYSTRING(3), SYSREADSTRING(9), Delay_MS(4), GLCDCLS_LT7686(1), GLCDROTATE_LT7686(1), LT7686_CHECK_INIT(1), LT7686_SOFTWARE_RESET(1), HSERPRINT(2), STR(3), HSERPRINTSTRINGCRLF(6), HSERPRINTCRLF(1)</td></tr>
+<tr><td>LT7686_LOADDEFAULTREGISTERS</td><td>59</td><td>389</td><td>SYSCOPYSTRING(4), SYSREADSTRING(6), Delay_MS(3), SYSCOMPLESSTHAN16(2), SYSCOMPEQUAL(1), LT7686_WAIT10MS(1), LT7686_WRITEDATA(2), HSERPRINTSTRINGCRLF(1), LT7686_DATAREAD(1), _HEXPICAS(4), HSERPRINT(5), LT7686_WRITECMD(3)</td></tr>
+<tr><td>LT7686_DISPLAY_COLORBAR</td><td>11</td><td>36</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(1), LT7686_DATAREAD(2), LT7686_WRITECMD(2)</td></tr>
 <tr><td>LT7686_PWM_DUTY</td><td>34</td><td>128</td><td>LT7686_CHECK_BUSY_DRAW(6), LT7686_WRITEDATA(8), LT7686_DATAREAD(3), LT7686_WRITECMD(8)</td></tr>
 <tr><td>GLCDCLS_LT7686</td><td>25</td><td>172</td><td>LT7686_WRITEDATA(12), LT7686_WRITECMD(12), LT7686_CHECK_BUSY_DRAW(3)</td></tr>
+<tr><td>PSET_LT7686</td><td>3</td><td>12</td><td>LT7686_CHECK_BUSY_DRAW(1), BOX_LT7686(1)</td></tr>
+<tr><td>BOX_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
 <tr><td>FILLEDBOX_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
-<tr><td>FRAMEDFILLEDBOX_LT7686</td><td>7</td><td>95</td><td>FILLEDBOX_LT7686(2)</td></tr>
+<tr><td>FRAMEDFILLEDBOX_LT7686</td><td>7</td><td>110</td><td>FILLEDBOX_LT7686(2)</td></tr>
 <tr><td>LINE_LT7686</td><td>20</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
-<tr><td>LINE_WIDTH_LT7686</td><td>23</td><td>177</td><td>SYSDIVSUBINT(1), SYSMULTSUBINT(1), SYSCOMPLESSTHANINT(1), SYSCOMPEQUAL16(1), SYSCOMPLESSTHAN16(2), LINE_LT7686(2), ABS(1)</td></tr>
-<tr><td>MAKETABLE_LT7686</td><td>21</td><td>392</td><td>SYSMULTSUB16(6), SYSCOMPLESSTHAN16(4), LINE_WIDTH_LT7686(2), FILLEDBOX_LT7686(2), FRAMEDFILLEDBOX_LT7686(1)</td></tr>
-<tr><td>LT7686_SETBACKGROUNDCOLOR</td><td>19</td><td>84</td><td>LT7686_WRITEDATA(3), LT7686_WRITECMD(3)</td></tr>
+<tr><td>LINE_WIDTH_LT7686</td><td>23</td><td>202</td><td>SYSDIVSUBINT(1), SYSMULTSUBINT(1), SYSCOMPLESSTHANINT(1), SYSCOMPEQUAL16(1), SYSCOMPLESSTHAN16(2), LINE_LT7686(2), ABS(1)</td></tr>
+<tr><td>CIRCLE_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
+<tr><td>FILLEDCIRCLE_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
+<tr><td>FRAMEDFILLEDCIRCLE_LT7686</td><td>7</td><td>68</td><td>FILLEDCIRCLE_LT7686(2)</td></tr>
+<tr><td>ELLIPSE_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
+<tr><td>FILLEDELLIPSE_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
+<tr><td>ROUNDRECT_LT7686</td><td>5</td><td>194</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(16), LT7686_WRITECMD(16)</td></tr>
+<tr><td>FILLEDROUNDRECT_LT7686</td><td>5</td><td>194</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(16), LT7686_WRITECMD(16)</td></tr>
+<tr><td>FRAMEDFILLEDROUNDRECT_LT7686</td><td>7</td><td>110</td><td>FILLEDROUNDRECT_LT7686(2)</td></tr>
+<tr><td>TRIANGLE_LT7686</td><td>5</td><td>194</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(16), LT7686_WRITECMD(16)</td></tr>
+<tr><td>FILLEDTRIANGLE_LT7686</td><td>5</td><td>194</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(16), LT7686_WRITECMD(16)</td></tr>
+<tr><td>FRAMEDFILLEDTRIANGLE_LT7686</td><td>7</td><td>101</td><td>TRIANGLE_LT7686(1), FILLEDTRIANGLE_LT7686(1)</td></tr>
+<tr><td>CYLINDER_LT7686</td><td>15</td><td>300</td><td>SYSCOMPLESSTHAN16(1), LINE_LT7686(2), FILLEDBOX_LT7686(1), ELLIPSE_LT7686(2), FILLEDELLIPSE_LT7686(2)</td></tr>
+<tr><td>LEFTUPCURVE_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
+<tr><td>LEFTDOWNCURVE_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
+<tr><td>RIGHTUPCURVE_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
+<tr><td>RIGHTDOWNCURVE_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
+<tr><td>FILLEDLEFTUPCURVE_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
+<tr><td>FILLEDLEFTDOWNCURVE_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
+<tr><td>FILLEDRIGHTUPCURVE_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
+<tr><td>FILLEDRIGHTDOWNCURVE_LT7686</td><td>5</td><td>154</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(12), LT7686_WRITECMD(12)</td></tr>
+<tr><td>QUADRILATERAL_LT7686</td><td>5</td><td>234</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(20), LT7686_WRITECMD(20)</td></tr>
+<tr><td>FILLEDQUADRILATERAL_LT7686</td><td>5</td><td>234</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(20), LT7686_WRITECMD(20)</td></tr>
+<tr><td>FILLEDPENTAGON_LT7686</td><td>5</td><td>274</td><td>LT7686_CHECK_BUSY_DRAW(1), LT7686_WRITEDATA(24), LT7686_WRITECMD(24)</td></tr>
+<tr><td>FILLEDCUBE_LT7686</td><td>11</td><td>253</td><td>QUADRILATERAL_LT7686(2), FILLEDQUADRILATERAL_LT7686(2), BOX_LT7686(1), FILLEDBOX_LT7686(1)</td></tr>
+<tr><td>LT7686_SELECT_INTERNAL_FONT_INIT</td><td>41</td><td>109</td><td>LT7686_CHECK_BUSY_DRAW(2), LT7686_WRITEDATA(2), LT7686_WRITECMD(2)</td></tr>
+<tr><td>LT7686_PRINT_INTERNAL_FONT</td><td>41</td><td>258</td><td>SYSCOMPLESSTHAN16(2), SYSCOMPEQUAL16(1), LT7686_DATAREAD(3), LT7686_CHECK_BUSY_DRAW(5), LT7686_WRITEDATA(11), LT7686_WRITECMD(11)</td></tr>
+<tr><td>LT7686_PRINT_INTERNAL_FONT</td><td>1</td><td>14</td><td>STR(1), LT7686_PRINT_INTERNAL_FONT(1)</td></tr>
 <tr><td>GLCDROTATE_LT7686</td><td>37</td><td>118</td><td>LT7686_CHECK_BUSY_DRAW(2), LT7686_WRITEDATA(2), LT7686_DATAREAD(2), LT7686_WRITECMD(4)</td></tr>
 <tr><td>LT7686_HARDWARE_RESET</td><td>6</td><td>18</td><td>Delay_MS(3)</td></tr>
-<tr><td>LT7686_SOFTWARE_RESET</td><td>3</td><td>16</td><td>Delay_MS(1), LT7686_WRITEDATA(1), LT7686_WRITECMD(1)</td></tr>
-<tr><td>LT7686_CHECK_INIT</td><td>33</td><td>179</td><td>SYSCOMPLESSTHAN(1), Delay_MS(3), SYSCOMPEQUAL(6), LT7686_LOADDEFAULTREGISTERS(1), LT7686_SOFTWARE_RESET(1), LT7686_HARDWARE_RESET(1), LT7686_WRITEDATA(2), LT7686_DATAREAD(1), LT7686_WRITECMD(3), LT7686_STATUSREAD(1)</td></tr>
+<tr><td>LT7686_SOFTWARE_RESET</td><td>9</td><td>36</td><td>Delay_MS(2), LT7686_DATAREAD(1), LT7686_WRITEDATA(1), LT7686_WRITECMD(2)</td></tr>
+<tr><td>LT7686_CHECK_INIT</td><td>36</td><td>180</td><td>SYSCOMPLESSTHAN(1), Delay_MS(3), SYSCOMPEQUAL(6), LT7686_LOADDEFAULTREGISTERS(1), LT7686_SOFTWARE_RESET(1), LT7686_HARDWARE_RESET(1), LT7686_DATAREAD(1), LT7686_STATUSREAD(1), LT7686_WRITEDATA(3), LT7686_WRITECMD(4)</td></tr>
 <tr><td>LT7686_WAIT10MS</td><td>5</td><td>5</td><td>Delay_MS(1)</td></tr>
-<tr><td>LT7686_WRITECMD</td><td>8</td><td>16</td><td>FASTHWSPITRANSFER(2)</td></tr>
-<tr><td>LT7686_WRITEDATA</td><td>9</td><td>17</td><td>FASTHWSPITRANSFER(2)</td></tr>
-<tr><td>LT7686_DATAREAD</td><td>47</td><td>16</td><td>HWSPITRANSFER(1), FASTHWSPITRANSFER(1)</td></tr>
-<tr><td>LT7686_STATUSREAD</td><td>46</td><td>19</td><td>HWSPITRANSFER(1), FASTHWSPITRANSFER(1)</td></tr>
+<tr><td>LT7686_WRITECMD</td><td>8</td><td>82</td><td></td></tr>
+<tr><td>LT7686_WRITEDATA</td><td>9</td><td>83</td><td></td></tr>
+<tr><td>LT7686_DATAREAD</td><td>47</td><td>87</td><td></td></tr>
+<tr><td>LT7686_STATUSREAD</td><td>46</td><td>80</td><td></td></tr>
 <tr><td>LT7686_CHECK_BUSY_DRAW</td><td>3</td><td>24</td><td>SYSCOMPEQUAL(1), LT7686_STATUSREAD(1)</td></tr>
-<tr><td>Delay_10US</td><td>0</td><td>9</td><td></td></tr>
+<tr><td>INITGLCD_ILI9341</td><td>151</td><td>1</td><td></td></tr>
+<tr><td>GLCDDRAWCHAR_ILI9341</td><td>99</td><td>221</td><td>SYSCOMPLESSTHAN(2), PSET_LT7686(2)</td></tr>
 <tr><td>Delay_MS</td><td>0</td><td>18</td><td></td></tr>
 <tr><td>Delay_S</td><td>0</td><td>10</td><td>Delay_MS(1)</td></tr>
-<tr><td>LT7686_INITTFT_DATASET_1024_600</td><td>0</td><td>202</td><td></td></tr>
+<tr><td>SysStringTables</td><td>0</td><td>488</td><td></td></tr>
+<tr><td>GLCDCHARCOL3</td><td>0</td><td>74</td><td></td></tr>
+<tr><td>GLCDCHARCOL4</td><td>0</td><td>74</td><td></td></tr>
+<tr><td>GLCDCHARCOL5</td><td>0</td><td>74</td><td></td></tr>
+<tr><td>GLCDCHARCOL6</td><td>0</td><td>74</td><td></td></tr>
+<tr><td>GLCDCHARCOL7</td><td>0</td><td>74</td><td></td></tr>
+<tr><td>LT7686_INITTFT_DATASET_1024_600</td><td>0</td><td>206</td><td></td></tr>
 <tr><td>LT7686_INITTFT_DATASET_1024_600_H</td><td>0</td><td>25</td><td></td></tr>
 </table>
 </body>

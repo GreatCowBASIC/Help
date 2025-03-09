@@ -15,19 +15,19 @@ The demonstrates reading a DS18B20 and showing the results on the LCD.
 
     ; ----- Define Hardware settings
     ' Define I2C settings - CHANGE PORTS
-     #define I2C_MODE Master
-     #define I2C_DATA PORTC.4
-     #define I2C_CLOCK PORTC.5
-     #define I2C_DISABLE_INTERRUPTS ON
+     #DEFINE I2C_MODE Master
+     #DEFINE I2C_DATA PORTC.4
+     #DEFINE I2C_CLOCK PORTC.5
+     #DEFINE I2C_DISABLE_INTERRUPTS ON
 
     '''Set up LCD
-     #define LCD_IO 10
-     #define LCD_I2C_Address_1 0x4E                ; LCD 1
-     #define LCD_I2C_Address_2 0x4C                ; LCD 2
+     #DEFINE LCD_IO 10
+     #DEFINE LCD_I2C_ADDRESS_1 0x4E                ; LCD 1
+     #DEFINE LCD_I2C_ADDRESS_2 0x4C                ; LCD 2
 
     ; ----- Constants
     ' DS18B20 port settings - this is required
-       #define DQ PortC.3
+       #DEFINE DQ PortC.3
 
     ; ----- Quick Command Reference:
 
@@ -41,12 +41,12 @@ The demonstrates reading a DS18B20 and showing the results on the LCD.
 
     ; ----- Main body of program commences here.
 
-    'Change to the correct LCD by setting     LCD_I2C_Address_Current to the correct address then write to LCD.
-    LCD_I2C_Address_Current = LCD_I2C_Address_1: DisplayInformation ( 1 )
-    LCD_I2C_Address_Current = LCD_I2C_Address_2: DisplayInformation ( 1 )
+    'Change to the correct LCD by setting     LCD_I2C_ADDRESS_Current to the correct address then write to LCD.
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 1 )
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 1 )
     wait 4 s
-    LCD_I2C_Address_Current = LCD_I2C_Address_1:  CLS
-    LCD_I2C_Address_Current = LCD_I2C_Address_2:  CLS
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1:  CLS
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2:  CLS
 
     ccount = 0
     Do forever
@@ -57,12 +57,12 @@ The demonstrates reading a DS18B20 and showing the results on the LCD.
         ' The function readtemp returns the integer value of the sensor
         DSdata = readtemp
 
-        LCD_I2C_Address_Current = LCD_I2C_Address_1: DisplayInformation ( 2 )  ; update LCD1
-        LCD_I2C_Address_Current = LCD_I2C_Address_2: DisplayInformation ( 2 )  ; update LCD2
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 2 )  ; update LCD1
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 2 )  ; update LCD2
         DSdata = DSdataRaw ; Set the data
-        LCD_I2C_Address_Current = LCD_I2C_Address_1: DisplayInformation ( 3 )  ; update LCD1
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 3 )  ; update LCD1
         DSdata= DSdataRaw ; Set the data
-        LCD_I2C_Address_Current = LCD_I2C_Address_2: DisplayInformation ( 3 )  ; update LCD2
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 3 )  ; update LCD2
 
         ccount++
 

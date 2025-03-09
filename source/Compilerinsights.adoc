@@ -1,5 +1,5 @@
 //290117 - Erv added new info on TRISIO
-== Compiler Insights
+=== Compiler Insights
 
 This section will provide some insights into what the compiler does
 

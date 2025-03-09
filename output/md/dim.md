@@ -72,6 +72,10 @@ store the result of an A/D conversion.  \`Alias\` is mutually exclusive
 to `At` and therefore `Alias` and `At` on the same declaration line will
 cause an compiler error.
 
+`Alias` does not support `BIT` variable.   For the correct method to
+address \`BIT\`s in a psuedo alias method see the example program \#2
+below.
+
 `AT` a variable can be placed at a specific location in the data memory
 of the chip using the At option.   \`<span
 class="emphasis">*location*</span>\` will be used whether it is a valid
@@ -93,7 +97,7 @@ dialects of BASIC.
     Dim ADResult As Word Alias ADRESH, ADRESL
 ```
 
-<span class="strong">**Example:**</span>
+<span class="strong">**Example 1:**</span>
 
 ``` screen
     'This program will set up a array of ten bytes and a word variable
@@ -105,6 +109,56 @@ dialects of BASIC.
     DataList(1) = 15
 
     dim stringvariable as string
+```
+
+<span class="strong">**Example 2:**</span>
+
+Use a constant, or a number of constants, to refer to specific
+`` BIT`s of an exist `BYTE `` variable.  A psuedo `ALIAS` for `BIT`
+variables.
+
+``` screen
+    // Thank you Ccin E Crout from the GCBASIC forum!!
+
+    #Option Explicit
+    #Chip 16F1825, 32
+
+    Dim SerialByte As Byte
+    #Define StatusReady  SerialByte.0
+    #Define StatusError  SerialByte.1
+    #Define StatusMotor  SerialByte.2
+    #Define StatusOkBut  SerialByte.3
+    #Define StatusUpBut  SerialByte.4
+    #Define StatusDnBut  SerialByte.5
+    #Define StatusLeBut  SerialByte.6
+    #Define StatusRiBut  SerialByte.7
+
+    SerialByte = 0                 // This will address the specific byte
+
+    Do
+        SerialByte = SerialByte + 1
+        If StatusReady = 1 Then     // This will address the specific bit
+            StatusError = 0         // This will address the specific bit
+        End If
+        If StatusError = 1 Then     // This will address the specific bit
+            StatusMotor = 0         // This will address the specific bit
+        End If
+        If StatusMotor = 1 Then     // This will address the specific bit
+            StatusOkBut = 0         // This will address the specific bit
+        End If
+        If StatusOkBut = 1 Then     // This will address the specific bit
+            StatusUpBut = 0         // This will address the specific bit
+        End If
+        If StatusUpBut = 1 Then     // This will address the specific bit
+            StatusDnBut = 0         // This will address the specific bit
+        End If
+        If StatusDnBut = 1 Then     // This will address the specific bit
+            StatusLeBut = 0         // This will address the specific bit
+        End If
+        If StatusLeBut = 1 Then     // This will address the specific bit
+            StatusReady = 0         // This will address the specific bit
+        End If
+    Loop
 ```
 
 <span class="strong">**For more help,

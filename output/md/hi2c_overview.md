@@ -137,12 +137,19 @@ These constants control the setup of the hardware I2C methods:
 <code class="literal">#define HI2C_BAUD_RATE 100.</code><br />
 Where <code class="literal">#define HI2C_BAUD_RATE 100</code> is the default value and therefore does need to be specified.</p>
 <p>For Microchip I2C module:</p>
-<p>'define HI2C_BAUD_RATE 125' is the default KHz. You can override this value if you set up an alternative clock source.</p></td>
+<p>'define HI2C_BAUD_RATE 125' is the default KHz. You can override this value if you set up an alternative clock source. To change use:</p></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p><code class="literal">HI2CITSCLWaitPeriod</code></p></td>
-<td style="text-align: left;"><p>Sets the TSCL period to Zero as the Stop condition must be held for TSCL after Stop transition. Default to 70, some solutions can use this set to 0. The clock source and clock method must be reviewed before changing this setting.</p></td>
-<td style="text-align: left;"><p>#define HI2CITSCLWaitPeriod 70</p></td>
+<td style="text-align: left;"><p>Sets the TSCL period to Zero as the Stop condition must be held for TSCL after Stop transition. Default to 70, some solutions can use this set to 0. The clock source and clock method must be reviewed before changing this setting. To change use:</p>
+<p>#define HI2CITSCLWaitPeriod = 70</p></td>
+<td style="text-align: left;"><p>HI2CITSCLWaitPeriod = 70</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p>HIC2Q2XBUFFERSIZE</p></td>
+<td style="text-align: left;"><p>The 18FxxQ20 and 18FxxQ24 I2C buffer size. These specific microcontrollers require an I2C buffer to support I2C TX and RX operations. To change use:</p>
+<p>#define HIC2Q2XBUFFERSIZE = 16</p></td>
+<td style="text-align: left;"><p>HIC2Q2XBUFFERSIZE = 128</p></td>
 </tr>
 </tbody>
 </table>

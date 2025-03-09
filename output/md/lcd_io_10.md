@@ -35,12 +35,43 @@ constant.
 | <span class="strong">**Constant Name**</span> | <span class="strong">**Controls**</span> | <span class="strong">**Value**</span> |
 |:----------------------------------------------|:-----------------------------------------|:--------------------------------------|
 | `LCD_IO`                                      | The I/O mode. Must be 10                 | `10`                                  |
-| `LCD_I2C_Address_1`                           | Address of I2C adapter                   | Default `0x4E`                        |
-| `LCD_I2C_Address_2`                           | Address of I2C adapter                   | Not set                               |
-| `LCD_I2C_Address_3`                           | Address of I2C adapter                   | Not set                               |
-| `LCD_I2C_Address_4`                           | Address of I2C adapter                   | Not set                               |
+| `LCD_I2C_ADDRESS_1`                           | Address of I2C adapter                   | `Default = 0x4E`                      |
+| `LCD_I2C_ADDRESS_2`                           | Address of I2C adapter                   | `Recommended = 0x4C`                  |
+| `LCD_I2C_ADDRESS_3`                           | Address of I2C adapter                   | `Recommended = 0x4A`                  |
+| `LCD_I2C_ADDRESS_4`                           | Address of I2C adapter                   | `Recommended = 0x48`                  |
+| `LCD_I2C_ADDRESS_5`                           | Address of I2C adapter                   | `Recommended = 0x46`                  |
+| `LCD_I2C_ADDRESS_6`                           | Address of I2C adapter                   | `Recommended = 0x44`                  |
+| `LCD_I2C_ADDRESS_7`                           | Address of I2C adapter                   | `Recommended = 0x42`                  |
+| `LCD_I2C_ADDRESS_8`                           | Address of I2C adapter                   | `Recommended = 0x40`                  |
 
 </div>
+
+<span class="strong">**Example Usage**</span>
+
+An example for using two I2C-LCD. This example can be extended to
+support more than two or more ( up to eight ) I2C-LCD(s).
+
+This example shows you can have up to eight LCD on the I2C-Bus (8
+Addresses 0x40 to 0x4E of the PCF8574-Adaptor).
+
+``` screen
+    // Set up I2C-LCD
+    #DEFINE LCD_IO 10
+
+    /*  Set LCD_IO to 10 for the YwRobot LCD1602 IIC V1 or the Sainsmart LCD_PIC I2C adapter
+    Set LCD_IO to 12 for the Ywmjkdz I2C adapter with pot bent over top of chip */
+
+    #DEFINE LCD_I2C_ADDRESS_1 0x4E ' prepare the first LCD on Address 0x4E
+    #DEFINE LCD_I2C_ADDRESS_6 0x44 ' prepare the second LCD on Address 0x44
+
+    // To switch between the two LCD can be done with
+
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_6 // now the second I2C-LCD is active
+
+    // or
+
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1 //  now the first I2C-LCD is active
+```
 
 For code examples see
 <a href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions" class="link">I2C LCD Solutions</a>.

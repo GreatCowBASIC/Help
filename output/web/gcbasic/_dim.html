@@ -16,7 +16,7 @@
       <link rel="next" href="_alloc.html" title="Alloc" />
       <meta name="Section-title" content="Dim" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-55624";
+            var treeCookieId = "treeview-56006";
             var language = "en";
             var w = new Object();
             //Localization
@@ -217,6 +217,8 @@ border: none; background: none; font-weight: none; color: none; }
                to treat system variables as a word.   For example, this command is used to create a word variable, made up from the two memory
                locations used to store the result of an A/D conversion.  `Alias` is mutually exclusive to <code class="literal">At</code> and therefore <code class="literal">Alias</code> and <code class="literal">At</code> on the same declaration line will cause an compiler error.
             </p>
+            <p><code class="literal">Alias</code> does not support <code class="literal">BIT</code> variable.    For the correct method to address `BIT`s in a psuedo alias method see the example program #2 below.
+            </p>
             <p><code class="literal">AT</code> a variable can be placed at a specific location in the data memory of the chip using the At option.   `<span class="emphasis"><em>location</em></span>` will be used whether it is a valid location or not, but a warning will be generated if GCBASIC has already allocated the
                memory, or if the memory does not appear to be valid.   This can be used for peripherals that have multi byte buffers in RAM.  `At`
                is mutually exclusive to <code class="literal">Alias</code> and therefore <code class="literal">At</code> and <code class="literal">Alias</code> on the same declaration line will cause an compiler error.
@@ -225,7 +227,7 @@ border: none; background: none; font-weight: none; color: none; }
                has no descriptor and it is not resized to fit its contents. If data overflows the size of the string, the memory may be overwrtten.
                Fixed length strings are not NULL terminated, and they use size + 1 bytes of space.
                String variable names need not end in a dollar sign $ as in other dialects of BASIC.
-            </p><pre class="screen">    Dim ADResult As Word Alias ADRESH, ADRESL</pre><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'This program will set up a array of ten bytes and a word variable
+            </p><pre class="screen">    Dim ADResult As Word Alias ADRESH, ADRESL</pre><p><span class="strong"><strong>Example 1:</strong></span></p><pre class="screen">    'This program will set up a array of ten bytes and a word variable
 
     dim DataList(10)
     dim Reading as word
@@ -233,7 +235,49 @@ border: none; background: none; font-weight: none; color: none; }
     Reading = 21978
     DataList(1) = 15
 
-    dim stringvariable as string</pre><p><span class="strong"><strong>For more help, see:  </strong></span><a class="link" href="_serprint.html" title="SerPrint">SerPrint</a> articles as these articales show how to use Dim to create string variables and <a class="link" href="_variables.html" title="Variables">Variables</a> for more details in creating and managing strings lengths.
+    dim stringvariable as string</pre><p><span class="strong"><strong>Example 2:</strong></span></p>
+            <p>Use a constant, or a number of constants, to refer to specific <code class="literal">BIT`s of an exist `BYTE</code> variable.  A psuedo <code class="literal">ALIAS</code> for <code class="literal">BIT</code> variables.
+            </p><pre class="screen">    // Thank you Ccin E Crout from the GCBASIC forum!!
+
+    #Option Explicit
+    #Chip 16F1825, 32
+
+    Dim SerialByte As Byte
+    #Define StatusReady  SerialByte.0
+    #Define StatusError  SerialByte.1
+    #Define StatusMotor  SerialByte.2
+    #Define StatusOkBut  SerialByte.3
+    #Define StatusUpBut  SerialByte.4
+    #Define StatusDnBut  SerialByte.5
+    #Define StatusLeBut  SerialByte.6
+    #Define StatusRiBut  SerialByte.7
+
+    SerialByte = 0                 // This will address the specific byte
+
+    Do
+        SerialByte = SerialByte + 1
+        If StatusReady = 1 Then     // This will address the specific bit
+            StatusError = 0         // This will address the specific bit
+        End If
+        If StatusError = 1 Then     // This will address the specific bit
+            StatusMotor = 0         // This will address the specific bit
+        End If
+        If StatusMotor = 1 Then     // This will address the specific bit
+            StatusOkBut = 0         // This will address the specific bit
+        End If
+        If StatusOkBut = 1 Then     // This will address the specific bit
+            StatusUpBut = 0         // This will address the specific bit
+        End If
+        If StatusUpBut = 1 Then     // This will address the specific bit
+            StatusDnBut = 0         // This will address the specific bit
+        End If
+        If StatusDnBut = 1 Then     // This will address the specific bit
+            StatusLeBut = 0         // This will address the specific bit
+        End If
+        If StatusLeBut = 1 Then     // This will address the specific bit
+            StatusReady = 0         // This will address the specific bit
+        End If
+    Loop</pre><p><span class="strong"><strong>For more help, see:  </strong></span><a class="link" href="_serprint.html" title="SerPrint">SerPrint</a> articles as these articales show how to use Dim to create string variables and <a class="link" href="_variables.html" title="Variables">Variables</a> for more details in creating and managing strings lengths.
             </p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
@@ -272,7 +316,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
                         <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
                         <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
-                        <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
+                        <li><span class="file"><a href="_gcbasic_compiler_insights.html" tabindex="1">GCBASIC Compiler Insights</a></span><ul>
+                              <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
+                              <li><span class="file"><a href="_compiler_control.html" tabindex="1">Compiler Control</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
                         <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
                         <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span><ul>
@@ -289,7 +337,7 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_data_types.html" tabindex="1">Data Types</a></span></li>
                               <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
                               <li><span class="file"><a href="_advanced_variabletypes.html" tabindex="1">Advanced VariableTypes</a></span></li>
-                              <li><span class="file"><a href="_variable_memory_allocation.html" tabindex="1">Variable Memory Allocation</a></span></li>
+                              <li><span class="file"><a href="_variable_memory_allocation_addressing_control.html" tabindex="1">Variable Memory Allocation, Addressing &amp; Control</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_reference_data.html" tabindex="1">Reference Data</a></span><ul>
@@ -520,6 +568,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                 <li><span class="file"><a href="_lcd_io_14_port_configuration.html" tabindex="1">LCD_IO 14 Port Configuration</a></span></li>
                                              </ul>
                                           </li>
+                                          <li><span class="file"><a href="_lcd_io_16.html" tabindex="1">LCD_IO 16</a></span></li>
                                           <li><span class="file"><a href="_lcd_io_107.html" tabindex="1">LCD_IO 107</a></span></li>
                                           <li><span class="file"><a href="_lcd_variant.html" tabindex="1">LCD_VARIANT</a></span></li>
                                           <li><span class="file"><a href="_lcd_speed.html" tabindex="1">LCD_SPEED</a></span></li>
@@ -926,10 +975,12 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
+                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">COMPILER SOURCE INSIGHTS</a></span></li>
                               <li><span class="file"><a href="_about_glcd_library_support.html" tabindex="1">ABOUT GLCD Library Support</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">ABOUT THE PREFERENCES EDITOR</a></span></li>
                         <li><span class="file"><a href="_gcbasic_with_the_avrisp_or_mkii_programmer.html" tabindex="1">GCBASIC with the AVRISP or MKII Programmer</a></span><ul>
                               <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</a></span></li>
                            </ul>

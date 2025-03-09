@@ -25,9 +25,9 @@ microcontrollers
 
 <span class="strong">**Explanation:**</span>
 
-The `WordToBin` function creates a string of a ANSI (8-byte) characters.
-The function converts a number to a string consisting of ones and zeros
-that represents the binary value.
+The `WordToBin` function creates a string of a ANSI (16-byte)
+characters. The function converts a number to a string consisting of
+ones and zeros that represents the binary value.
 
 <span class="strong">**Example:**</span>
 

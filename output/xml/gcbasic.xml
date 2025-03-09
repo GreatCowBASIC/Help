@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2024-07-12</date>
+<date>2025-01-22</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team @ 2024</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-08-24<?asciidoc-br?>
-09:08:07 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2025-01-23<?asciidoc-br?>
+11:43:54 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2024-07-12<?asciidoc-br?>
-16:17:36 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2025-01-22<?asciidoc-br?>
+17:34:13 GMT Standard Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -646,6 +646,9 @@ particular line of code?</simpara></entry>
 </tgroup>
 </informaltable>
 </section>
+<section xml:id="_gcbasic_compiler_insights">
+<title>GCBASIC Compiler Insights</title>
+<simpara>This is the GCBASIC compiler insights section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</simpara>
 <section xml:id="_compiler_insights">
 <title>Compiler Insights</title>
 <simpara>This section will provide some insights into what the compiler does</simpara>
@@ -760,6 +763,66 @@ The compiler will <literal>goto</literal> (same for <literal>jmp</literal>) to t
 <simpara>Resulting ASM</simpara>
 <screen>    ;goto Normal
     goto 0</screen>
+</section>
+<section xml:id="_compiler_control">
+<title>Compiler Control</title>
+<simpara>The compiler can be controlled, in terms of the default startup library routines.&#160;&#160;This may be required to implement a specific control function, or, to disable a default startup behaviour.</simpara>
+<simpara><emphasis role="strong">Scenario #1</emphasis>:</simpara>
+<simpara>You have a new LCD.&#160;&#160;The GCBASIC LCD routines fail to initialise.&#160;&#160;You want to write your own LCD initialise routine, but you want to ensure the GCBASIC standard INITLCD() does not operate before your own LCD initialise routine.&#160;&#160;How to do this?</simpara>
+<simpara><emphasis role="strong">Scenerio #2</emphasis>:</simpara>
+<simpara>You want to write your own INITSYS routine.&#160;&#160;  You can add your own routine to initialise the microntroller but the default INITSYS would always be called in the ASM.</simpara>
+<simpara>In the first sceneria the approach would be to redirect the GCBASIC standard INITLCD() to myInitLCD using #define INITLCD myINITLCD.&#160;&#160;  However, prior to the latest build, this would fail to work.&#160;&#160;The reason for the failure to redirect to your new routine is the #startup INITLCD directive.&#160;&#160;The #startup directive was essentially hard coded and all the #startup(s) could not be changed.</simpara>
+<simpara>In the second scenerio the ASM call to INITSYS is also hard coded.&#160;&#160;And, you could trick the compiler to call your own initialisation routine but this was not easy and not intuitive.&#160;&#160;</simpara>
+<simpara>The new build now supports the updating of the #startup(s) with your own routines, or even to cancel #startup(s).</simpara>
+<simpara><emphasis role="strong">Examples:</emphasis></simpara>
+<simpara>The compiler will search for all #startup(s) and update across all sources (libraries and includes).&#160;&#160;LCD.H is just an example.</simpara>
+<simpara><literal>#DEFINE INITLCD myINITLCD</literal> // This will change any reference in the LCD.h #startup INITLCD to #startup myINITLCD.</simpara>
+<simpara><literal>#DEFINE INITLCD</literal> // With no second parameter would cancel any #startup in LCD.h.</simpara>
+<simpara><literal>#DEFINE INITSYS myINITSYS</literal> // This will change the default INITSYS to myINITSYS.</simpara>
+<simpara><literal>#DEFINE INITSYS</literal> // This will remove the INITSYS from the initialisation of the microcontroller.</simpara>
+<simpara><emphasis role="strong">Example to change LCD initialisation</emphasis></simpara>
+<screen>    #DEFINE INITLCD myINITLCD
+
+    Sub myInitLCD
+        // do stuff
+    End Sub</screen>
+<simpara><emphasis role="strong">Example to replace INITSYS</emphasis></simpara>
+<screen>    #DEFINE INITSYS                      // Cancel call
+    #STARTUP myInitSYS, 1               // New init routines, and set as highest priority
+
+    Sub myInitSYS
+        // do stuff
+    End Sub</screen>
+<simpara>Scripts can now change the #startup.&#160;&#160;  You can add a script to change the behaviour dependent on a specific condition ( the existant of another constant).</simpara>
+<simpara>In user program</simpara>
+<screen>    #DEFINE LCD_OCULAR_OM1614</screen>
+<simpara>Supported within LCD.H</simpara>
+<screen>    #SCRIPT
+        If Def( LCD_OCULAR_OM1614 ) Then
+            'Change INITLCD to specific Initialisation sub
+            INITLCD = INIT_OCULAR_OM1614_LCD
+        End if
+    #ENDSCRIPT
+
+    ......
+
+    Sub INIT_OCULAR_OM1614_LCD
+        .. lots of code
+    End Sub</screen>
+<simpara>will generate ASM like this&#8230;&#8203;</simpara>
+<screen>    ;Program_memory_page: 0
+        ORG	5
+    BASPROGRAMSTART
+    ;Call initialisation routines
+        call	INITSYS
+        call	INIT_OCULAR_OM1614_LCD
+
+    ;Start_of_the_main_program</screen>
+<simpara>This new capability to give you more control of the compiler.
+<?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">For more help, see:</emphasis> #define, #startup</simpara>
+</section>
 </section>
 <section xml:id="_libraries_overview">
 <title>Libraries Overview</title>
@@ -2510,8 +2573,8 @@ The program shows setting up the advanced variables, assigned a value and comple
 <?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">For more help, see:</emphasis> <link linkend="_dim">Declaring variables with DIM</link>, <link linkend="_setting_variables">Setting Variables</link></simpara>
 </section>
-<section xml:id="_variable_memory_allocation">
-<title>Variable Memory Allocation</title>
+<section xml:id="_variable_memory_allocation_addressing_control">
+<title>Variable Memory Allocation, Addressing &amp; Control</title>
 <simpara>This section discusses the allocation of variables to RAM ( GPR, SRAM or other TLA).</simpara>
 <simpara>Variables in GCBASIC can be bits, bytes, words, integers, longs, arrays or reals. &#160;&#160;This section will NOT address reals as these are developmental variables only.</simpara>
 <simpara>Variables can also be defined as Aliases - this is discussed later in this section.</simpara>
@@ -2562,7 +2625,7 @@ The program shows setting up the advanced variables, assigned a value and comple
 </listitem>
 </orderedlist>
 <simpara><emphasis role="strong">Addressing Variables</emphasis></simpara>
-<simpara>Addressing variable can be achieved by using the @ prefix. &#160;&#160; This will return the address of the variable (the same @ applies to table data).</simpara>
+<simpara>Addressing a variable memory address can be achieved by using the @ prefix. &#160;&#160; This will return the address of the variable ( @ applies to table data and any data block).</simpara>
 <simpara>The following example shows registers DMAnSSAU, DMAnSSAH, DMAnSSAL being loaded with the address of the array WaveArray.</simpara>
 <screen>    ' Source start address
     Dim addressdummy as byte
@@ -3118,34 +3181,34 @@ NOT, AND, OR and XOR will not work.</simpara>
 <title>Constants</title>
 <simpara><emphasis role="strong">About Constants</emphasis></simpara>
 <simpara>A constant tells the compiler to find a given
-word, and replace it with another word or number. Define directives create constants.</simpara>
-<simpara>Constants are useful for situations where a routine needs to be easily altered. For example, a
-define could be used to specify the amount of time to run an alarm for
+string, and replace it with another string. The <literal>#Define</literal> directive create constants.</simpara>
+<simpara>Constants are useful for situations where a routine needs to be easily altered. For example, a define could be used to specify the amount of time to run an alarm for
 once triggered.</simpara>
-<simpara>It is also possible to use defines to specify ports - thus defines can
+<simpara>It is also possible to use defines to specify port.pin(s) - thus defines can
 be used to aid in the creation of code that can easily be adapted to run
 on a different microcontroller with different ports.</simpara>
 <simpara>GCBASIC makes considerable use of defines internally. For instance, the
 LCD code uses defines to set the ports that it must use to communicate
 with the LCD.</simpara>
 <simpara><emphasis role="strong">About Defines</emphasis></simpara>
-<simpara>To create a define is a matter of using the #define directive. Here are
+<simpara>To create a constant is a matter of using the #define directive. Here are
 some examples of defines:</simpara>
-<screen>    #define Line 34
-    #define Light PORTB.0
-    #define LightOn Set PORTB.0 on</screen>
-<simpara><literal>Line</literal> is a simple constant - GCBASIC will find <literal>Line</literal> in the program, and
+<screen>    #define LINE 34
+    #define LIGHT PORTB.0
+    #define LIGHTON Set PORTB.0 ON</screen>
+<simpara><literal>LINE</literal> is a simple constant - GCBASIC will find <literal>LINE</literal> in the program, and
 replace it with the number 34. This could be used in a line following
 program, to make it easier to calibrate the program for different
 lighting conditions.</simpara>
-<simpara><literal>Light</literal> is a port - it represents a particular pin on the microcontroller. This
+<simpara><literal>LIGHT</literal> is a port.pin - it represents a particular pin on the microcontroller. This
 would be of use if the program had many lines of code that controlled
 the light, and there was a possibility that the port the light was
 attached to would need to change in the future.</simpara>
-<simpara><literal>LightOn</literal> is a define used to make the program more readable. Rather than
-typing <literal>Set PORTB.0 on</literal> over and over, it would then be made possible to
-type <literal>LightOn</literal>, and have the compiler do the hard work.</simpara>
+<simpara><literal>LIGHTON</literal> is a define used to make the program more readable. Rather than
+typing <literal>Set PORTB.0 ON</literal> over and over, it would then be made possible to
+type <literal>LIGHTON</literal>, and have the compiler do the hard work.</simpara>
 <simpara><emphasis role="strong">GCBASIC Defined constants</emphasis></simpara>
+<simpara>The are many GCBASIC standard constants, some are show below.</simpara>
 <screen>    #define ON 1
     #define OFF 0
     #define TRUE 255
@@ -3157,27 +3220,27 @@ type <literal>LightOn</literal>, and have the compiler do the hard work.</simpar
     #define XOR #
     #define NOT !
     #define MOD %</screen>
-<simpara><emphasis role="strong">GCBASIC special constant</emphasis></simpara>
-<simpara><literal>Forever</literal> is a special constant.  For Graphical GCBASIC users think of this as 'false'. For those not using Graphical GCBASIC think of this as a non numeric value that has no value.  You can use <literal>Forever</literal> in a DO-LOOP but not in a REPEAT-END REPEAT loop, as the in the later case the REPEAT will have no value and you will create an error condition.</simpara>
+<simpara><emphasis role="strong">A GCBASIC special constant</emphasis></simpara>
+<simpara><literal>FOREVER</literal> is a special constant.  For Graphical GCBASIC users think of this as 'false'. For those not using Graphical GCBASIC think of this as a non numeric value that has no value.  You can use <literal>FOREVER</literal> in a DO-LOOP but not in a REPEAT-END REPEAT loop, as the in the later case the REPEAT will have no value and you will create an error condition.</simpara>
 <simpara><emphasis role="strong">Precedence of Constants within GCBASIC.</emphasis>
 <?asciidoc-br?>
 <?asciidoc-br?>
-The <literal>#define</literal> command creates constants, and, a script can creates constants.
+The <literal>#define</literal> command creates constants, and, scripts also creates constants.  See the <literal>#script</literal> section of ths Help.
 <?asciidoc-br?>
 <?asciidoc-br?>
-The precedence is as follows:
-<?asciidoc-br?>
-<?asciidoc-br?>
-<literal>#define</literal> in the main program are read first,
-<?asciidoc-br?>
-<?asciidoc-br?>
-then, the <literal>#define</literal> in the include files. Constants defined in the include files will be ignored if they conflict or are different to another constant in the main program,
-<?asciidoc-br?>
-<?asciidoc-br?>
-then, the scripts are processed. Scripts that create constants always override any constant value previously defined.
-<?asciidoc-br?>
-<?asciidoc-br?>
-Scripts are highest priority, then constants in the main program, then constants in include files from the main program, then constants in the standard libraries.
+The precedence is as follows:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Constants defined in the main user program is read first,</simpara>
+</listitem>
+<listitem>
+<simpara>then, the constants defined in the include files. Constants defined in the include files are ignored if they conflict or are different to a constant, with the same title, in the main program.</simpara>
+</listitem>
+<listitem>
+<simpara>then, the scripts are processed. Scripts that create constants can therefore override any constant value previously defined.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>All constants are listed in the Constant Debug File ( CDF ).  The CDF shows all constants and the end state of the constants.
 <?asciidoc-br?>
 <?asciidoc-br?></simpara>
 <simpara>See <emphasis role="strong"><link linkend="__define">#define</link></emphasis></simpara>
@@ -20548,6 +20611,13 @@ R/W pin can be disabled*.</simpara></entry>
 </simpara><simpara>Only applicable when using LCD_IO 4</simpara></entry>
 <entry align="left" valign="top"><simpara>None.</simpara></entry>
 </row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_OCULAR_OM1614</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies OCULAR OM1614 suppport.  This changes the intialisation routine to a specific routine for the OCULAR devices.</simpara></entry>
+<entry align="left" valign="top"><simpara>To specify explicit OCULAR_OM1614 support
+<literal>#DEFINE LCD_OCULAR_OM1614</literal>
+</simpara><simpara>The OCULAR devices requires LCD_RW</simpara></entry>
+</row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -20676,28 +20746,67 @@ Finally, set the backlight control, if required.</simpara>
 <entry align="left" valign="top"><simpara><literal>10</literal></simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>LCD_I2C_Address_1</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_1</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
-<entry align="left" valign="top"><simpara>Default <literal>0x4E</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Default = 0x4E</literal></simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>LCD_I2C_Address_2</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_2</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
-<entry align="left" valign="top"><simpara>Not set</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x4C</literal></simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>LCD_I2C_Address_3</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_3</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
-<entry align="left" valign="top"><simpara>Not set</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x4A</literal></simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>LCD_I2C_Address_4</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_4</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
-<entry align="left" valign="top"><simpara>Not set</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x48</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_5</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x46</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_6</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x44</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_7</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x42</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_I2C_ADDRESS_8</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Address of I2C adapter</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Recommended = 0x40</literal></simpara></entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
+<simpara><emphasis role="strong">Example Usage</emphasis></simpara>
+<simpara>An example for using two I2C-LCD.  This example can be extended to support more than two or more ( up to eight ) I2C-LCD(s).</simpara>
+<simpara>This example shows you can have up to eight LCD on the I2C-Bus (8 Addresses 0x40 to 0x4E of the PCF8574-Adaptor).</simpara>
+<screen>    // Set up I2C-LCD
+    #DEFINE LCD_IO 10
+
+    /*  Set LCD_IO to 10 for the YwRobot LCD1602 IIC V1 or the Sainsmart LCD_PIC I2C adapter
+    Set LCD_IO to 12 for the Ywmjkdz I2C adapter with pot bent over top of chip */
+
+    #DEFINE LCD_I2C_ADDRESS_1 0x4E ' prepare the first LCD on Address 0x4E
+    #DEFINE LCD_I2C_ADDRESS_6 0x44 ' prepare the second LCD on Address 0x44
+
+    // To switch between the two LCD can be done with
+
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_6 // now the second I2C-LCD is active
+
+    // or
+
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1 //  now the first I2C-LCD is active</screen>
 <simpara>For code examples see <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">I2C LCD Solutions</link>.</simpara>
 <simpara>See the separate sections of the Help file for the specifics of each
 Connection Mode.</simpara>
@@ -20983,6 +21092,79 @@ Connection Mode.</simpara>
         ClS
         Print "Hello World"</screen>
 </section>
+</section>
+<section xml:id="_lcd_io_16">
+<title>LCD_IO 16</title>
+<simpara><emphasis role="strong">Using connection mode 16:</emphasis></simpara>
+<simpara>Using this LCD IO methof the LCD is controlled via the Microchip PIC16LF72 SPI expander.</simpara>
+<simpara>To use mode 16 you must define the SPI ports as shown below.</simpara>
+<simpara><emphasis role="strong">Relevant Constants:</emphasis></simpara>
+<simpara>These constants are used to control settings for the LCD routines included with GCBASIC.&#160;&#160; To set them, place a line in the main program file that uses <literal>#define</literal> to assign a value to the particular constant.</simpara>
+<simpara>When using this mode only three constants are mandated - all others can be ignored.</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="33*"/>
+<colspec colname="col_3" colwidth="33*"/>
+<thead>
+<row>
+<entry align="left" valign="top"><emphasis role="strong">Constant Name</emphasis></entry>
+<entry align="left" valign="top"><emphasis role="strong">Controls</emphasis></entry>
+<entry align="left" valign="top"><emphasis role="strong">Value</emphasis></entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_IO</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>I/O mode</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>16</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_SPI_DO</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Microcontroller SPI data out port</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_SPI_SCK</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Microcontroller SPI clock out port</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><emphasis role="strong">Connectivity</emphasis></simpara>
+<simpara>The connectivity is shown below.&#160;&#160;The microcontroller connections are as shown below.&#160;&#160;This is an example using the Microchip PICDEM 4 2003 board.</simpara>
+<screen>    //Constants - LCD connectivity type;
+            #DEFINE LCD_IO 16
+
+            //PIN MAPPINGS FOR PIC16LF72 LCD IO SPI EXPANDER
+
+                // CONSTANT IS MANDATED - DATA LINE
+                #DEFINE LCD_SPI_DO          PORTB.2
+
+                // CONSTANT IS MANDATED - CLOCK LINE
+                #DEFINE LCD_SPI_SCK         PORTB.5
+
+    //! Main program
+
+    Print "GCBASIC Rocks"
+    End</screen>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="./images/lcd_io_16_1.png" align="center"/>
+</imageobject>
+<textobject><phrase>graphic</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara>For code examples see <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">LCD Solutions</link>.</simpara>
+<simpara>See the separate sections of the Help file for the specifics of each
+Connection Mode.</simpara>
+<simpara><emphasis role="strong">For more help, see</emphasis>
+<link linkend="_lcd_io_0">LCD_IO 0</link>, <link linkend="_lcd_io_1">LCD_IO 1</link>, <link linkend="_lcd_io_2">LCD_IO 2</link>
+<link linkend="_lcd_io_2_74xx164">LCD_IO 2_74xx164</link>, <link linkend="_lcd_io_2_74xx174">LCD_IO 2_74xx174</link>,
+<link linkend="_lcd_io_4">LCD_IO 4</link>, <link linkend="_lcd_io_8">LCD_IO 8</link>,
+<link linkend="_lcd_io_10">LCD_IO 10</link>, <link linkend="_lcd_io_10">LCD_IO 12</link></simpara>
 </section>
 <section xml:id="_lcd_io_107">
 <title>LCD_IO 107</title>
@@ -22610,19 +22792,19 @@ Two types are supported the YwRobot LCD1602 IIC V1 / a Sainsmart LCD_PIC I2C ada
 
     ; ----- Define Hardware settings
     ' Define I2C settings - CHANGE PORTS
-     #define I2C_MODE Master
-     #define I2C_DATA PORTC.4
-     #define I2C_CLOCK PORTC.5
-     #define I2C_DISABLE_INTERRUPTS ON
+     #DEFINE I2C_MODE Master
+     #DEFINE I2C_DATA PORTC.4
+     #DEFINE I2C_CLOCK PORTC.5
+     #DEFINE I2C_DISABLE_INTERRUPTS ON
 
     '''Set up LCD
-     #define LCD_IO 10
-     #define LCD_I2C_Address_1 0x4E                ; LCD 1
-     #define LCD_I2C_Address_2 0x4C                ; LCD 2
+     #DEFINE LCD_IO 10
+     #DEFINE LCD_I2C_ADDRESS_1 0x4E                ; LCD 1
+     #DEFINE LCD_I2C_ADDRESS_2 0x4C                ; LCD 2
 
     ; ----- Constants
     ' DS18B20 port settings - this is required
-       #define DQ PortC.3
+       #DEFINE DQ PortC.3
 
     ; ----- Quick Command Reference:
 
@@ -22636,12 +22818,12 @@ Two types are supported the YwRobot LCD1602 IIC V1 / a Sainsmart LCD_PIC I2C ada
 
     ; ----- Main body of program commences here.
 
-    'Change to the correct LCD by setting     LCD_I2C_Address_Current to the correct address then write to LCD.
-    LCD_I2C_Address_Current = LCD_I2C_Address_1: DisplayInformation ( 1 )
-    LCD_I2C_Address_Current = LCD_I2C_Address_2: DisplayInformation ( 1 )
+    'Change to the correct LCD by setting     LCD_I2C_ADDRESS_Current to the correct address then write to LCD.
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 1 )
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 1 )
     wait 4 s
-    LCD_I2C_Address_Current = LCD_I2C_Address_1:  CLS
-    LCD_I2C_Address_Current = LCD_I2C_Address_2:  CLS
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1:  CLS
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2:  CLS
 
     ccount = 0
     Do forever
@@ -22652,12 +22834,12 @@ Two types are supported the YwRobot LCD1602 IIC V1 / a Sainsmart LCD_PIC I2C ada
         ' The function readtemp returns the integer value of the sensor
         DSdata = readtemp
 
-        LCD_I2C_Address_Current = LCD_I2C_Address_1: DisplayInformation ( 2 )  ; update LCD1
-        LCD_I2C_Address_Current = LCD_I2C_Address_2: DisplayInformation ( 2 )  ; update LCD2
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 2 )  ; update LCD1
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 2 )  ; update LCD2
         DSdata = DSdataRaw ; Set the data
-        LCD_I2C_Address_Current = LCD_I2C_Address_1: DisplayInformation ( 3 )  ; update LCD1
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 3 )  ; update LCD1
         DSdata= DSdataRaw ; Set the data
-        LCD_I2C_Address_Current = LCD_I2C_Address_2: DisplayInformation ( 3 )  ; update LCD2
+        LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 3 )  ; update LCD2
 
         ccount++
 
@@ -26946,6 +27128,17 @@ can be sent or received.</simpara></entry>
 To disable this delay between characters &#8230;&#8203;  Use #define  <literal>USART_DELAY  OFF</literal></simpara></entry>
 </row>
 <row>
+<entry align="left" valign="top"><simpara><literal>USART_BLOCKING_TIMEOUT</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>If defined, this constant will cause the RX USART routines ( all USARTs) cease waiting after a specific timeout.
+</simpara><simpara>PIC only.</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>#DEFINE USART_BLOCKING_TIMEOUT 125</literal> (where 125 is the time in ms) when using USART_BLOCKING; the timeout is only operation when the constant <literal>USART_BLOCKING_TIMEOUT</literal> is defined.  The objective is to have a very responsive USART received loop by just timing the loop instructions without using timed waits; this sacrifices timing precision but provides excellent communication performance.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
 <entry align="left" valign="top"><simpara><literal>CHECK_USART_BAUD_RATE</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Instruct the compiler to show the real BPS to be used</simpara></entry>
 <entry align="left" valign="top"><simpara>Not the default operation</simpara></entry>
@@ -28886,13 +29079,20 @@ is a slew rate control of the pin that is independent of device frequency.</simp
 <literal>#define HI2C_BAUD_RATE 100.</literal><?asciidoc-br?>
 Where  <literal>#define HI2C_BAUD_RATE 100</literal> is the default value and therefore does need to be specified.
 </simpara><simpara>For Microchip I2C module:
-</simpara><simpara>'define HI2C_BAUD_RATE 125' is the default KHz.  You can override this value if you set up an alternative clock source.</simpara></entry>
+</simpara><simpara>'define HI2C_BAUD_RATE 125' is the default KHz.  You can override this value if you set up an alternative clock source. To change use:</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>HI2CITSCLWaitPeriod</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Sets the TSCL period to Zero as the Stop condition must be held for TSCL after Stop transition.
-Default to 70, some solutions can use this set to 0. The clock source and clock method must be reviewed before changing this setting.</simpara></entry>
-<entry align="left" valign="top"><simpara>#define HI2CITSCLWaitPeriod 70</simpara></entry>
+Default to 70, some solutions can use this set to 0. The clock source and clock method must be reviewed before changing this setting.  To change use:
+</simpara><simpara>#define HI2CITSCLWaitPeriod = 70</simpara></entry>
+<entry align="left" valign="top"><simpara>HI2CITSCLWaitPeriod = 70</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>HIC2Q2XBUFFERSIZE</simpara></entry>
+<entry align="left" valign="top"><simpara>The 18FxxQ20 and 18FxxQ24 I2C buffer size.  These specific microcontrollers require an I2C buffer to support I2C TX and RX operations. To change use:
+</simpara><simpara>#define HIC2Q2XBUFFERSIZE = 16</simpara></entry>
+<entry align="left" valign="top"><simpara>HIC2Q2XBUFFERSIZE = 128</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -34026,12 +34226,13 @@ A subroutine uses a temporary variable of type byte, and relies on it overflowin
 <simpara><literal><emphasis>type</emphasis></literal> specifies the type of variable that is to be created. Different variable types can hold values over different ranges, and use different amounts of RAM. See the <link linkend="_variable_types">Variables Types</link> article for more information.</simpara>
 <simpara>When multiple variables are included on the one line, GCBASIC will set them all to the type that is specified at the end of the line. If there is no type specified, then GCBASIC will make the variable a byte.</simpara>
 <simpara><literal>Alias</literal> creates a variable using the same memory location as one or more other variables. &#160;&#160;It is mainly used internally in GCBASIC to treat system variables as a word.&#160;&#160; For example, this command is used to create a word variable, made up from the two memory locations used to store the result of an A/D conversion.&#160;&#160;`Alias` is mutually exclusive to <literal>At</literal> and therefore <literal>Alias</literal> and <literal>At</literal> on the same declaration line will cause an compiler error.</simpara>
+<simpara><literal>Alias</literal> does not support <literal>BIT</literal> variable.&#160;&#160;  For the correct method to address `BIT`s in a psuedo alias method see the example program #2 below.</simpara>
 <simpara><literal>AT</literal> a variable can be placed at a specific location in the data memory of the chip using the At option. &#160;&#160;`<emphasis>location</emphasis>` will be used whether it is a valid location or not, but a warning will be generated if GCBASIC has already allocated the memory, or if the memory does not appear to be valid. &#160;&#160;This can be used for peripherals that have multi byte buffers in RAM.&#160;&#160;`At` is mutually exclusive to <literal>Alias</literal> and therefore <literal>At</literal> and <literal>Alias</literal> on the same declaration line will cause an compiler error.</simpara>
 <simpara>A String declared with a fixed size (numeric constant that can be evaluated at compile time) is a fixed length string. It has no descriptor and it is not resized to fit its contents. If data overflows the size of the string, the memory may be overwrtten.
 Fixed length strings are not NULL terminated, and they use size + 1 bytes of space.
 String variable names need not end in a dollar sign $ as in other dialects of BASIC.</simpara>
 <screen>    Dim ADResult As Word Alias ADRESH, ADRESL</screen>
-<simpara><emphasis role="strong">Example:</emphasis></simpara>
+<simpara><emphasis role="strong">Example 1:</emphasis></simpara>
 <screen>    'This program will set up a array of ten bytes and a word variable
 
     dim DataList(10)
@@ -34041,6 +34242,49 @@ String variable names need not end in a dollar sign $ as in other dialects of BA
     DataList(1) = 15
 
     dim stringvariable as string</screen>
+<simpara><emphasis role="strong">Example 2:</emphasis></simpara>
+<simpara>Use a constant, or a number of constants, to refer to specific <literal>BIT`s of an exist `BYTE</literal> variable.&#160;&#160;A psuedo <literal>ALIAS</literal> for <literal>BIT</literal> variables.</simpara>
+<screen>    // Thank you Ccin E Crout from the GCBASIC forum!!
+
+    #Option Explicit
+    #Chip 16F1825, 32
+
+    Dim SerialByte As Byte
+    #Define StatusReady  SerialByte.0
+    #Define StatusError  SerialByte.1
+    #Define StatusMotor  SerialByte.2
+    #Define StatusOkBut  SerialByte.3
+    #Define StatusUpBut  SerialByte.4
+    #Define StatusDnBut  SerialByte.5
+    #Define StatusLeBut  SerialByte.6
+    #Define StatusRiBut  SerialByte.7
+
+    SerialByte = 0                 // This will address the specific byte
+
+    Do
+        SerialByte = SerialByte + 1
+        If StatusReady = 1 Then     // This will address the specific bit
+            StatusError = 0         // This will address the specific bit
+        End If
+        If StatusError = 1 Then     // This will address the specific bit
+            StatusMotor = 0         // This will address the specific bit
+        End If
+        If StatusMotor = 1 Then     // This will address the specific bit
+            StatusOkBut = 0         // This will address the specific bit
+        End If
+        If StatusOkBut = 1 Then     // This will address the specific bit
+            StatusUpBut = 0         // This will address the specific bit
+        End If
+        If StatusUpBut = 1 Then     // This will address the specific bit
+            StatusDnBut = 0         // This will address the specific bit
+        End If
+        If StatusDnBut = 1 Then     // This will address the specific bit
+            StatusLeBut = 0         // This will address the specific bit
+        End If
+        If StatusLeBut = 1 Then     // This will address the specific bit
+            StatusReady = 0         // This will address the specific bit
+        End If
+    Loop</screen>
 <simpara><emphasis role="strong">For more help, see:&#160;&#160;</emphasis><link linkend="_serprint">SerPrint</link> articles as these articales show how to use Dim to create string variables and <link linkend="_variables">Variables</link> for more details in creating and managing strings lengths.</simpara>
 </section>
 <section xml:id="_alloc">
@@ -35748,7 +35992,7 @@ Supports ULongInt variables only.  For BYTE variables use <literal>VarToBin</lit
 <simpara><emphasis role="strong">Command Availability:</emphasis>
 Available on all microcontrollers</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
-<simpara>The <literal>WordToBin</literal> function creates a string of a ANSI (8-byte) characters.
+<simpara>The <literal>WordToBin</literal> function creates a string of a ANSI (16-byte) characters.
 The function converts a number to a string consisting of ones and zeros that represents the binary value.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <screen>    <emphasis>string</emphasis> = WordToBin(1)       ' Returns "0000000000000001"
@@ -37373,19 +37617,138 @@ If you set the internal oscillator to 4 MHz a "wait 1 ms" will still be 1 ms.</s
 <section xml:id="__define">
 <title>#DEFINE</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
-<screen>    #DEFINE SYMBOL <emphasis>body</emphasis></screen>
+<screen>    #DEFINE NAME [String]
+
+    or
+
+    #DEFINE NAME [ = String]</screen>
 <simpara><emphasis role="strong">Explanation:</emphasis>
 <?asciidoc-br?>
 <?asciidoc-br?>
-<literal>#DEFINE</literal> allows to declare text-based preprocessor symbols.&#160;&#160;</simpara>
-<simpara>Once the compiler has seen a #DEFINE, it will start replacing further occurrences of symbol with body. &#160;&#160;
-Body may be empty.&#160;&#160;
-The expansion is done recursively, until there is nothing more to expand and the compiler can continue analyzing the resulting code.</simpara>
-<simpara>#UNDEFINE can be used to make the compiler forget about a #DEFINE.</simpara>
-<simpara><?asciidoc-br?>
-<?asciidoc-br?>
-The compiler replaces a SYMBOL with the value, it then searches the line for constants again and will make any more replacements needed.&#160;&#160;
-It will do this up to 100 times on a line, then it will stop replacing and show an error. &#160;&#160;The limitation of 100 iteractions is to prevent something like "#DEFINE Const_A Const_B" and then "#DEFINE Const_B Const_A" from causing an infinite loop in the compiler.</simpara>
+<literal>#DEFINE</literal> allows to declare string-based preprocessor constants.&#160;&#160;</simpara>
+<simpara>This directive defines a text substitution string. Wherever <literal>name</literal> is encountered in the program or assembly code, <literal>string</literal> will be substituted.</simpara>
+<simpara>The expansion is done recursively, until there is nothing more to expand and the compiler can continue analyzing the resulting code.</simpara>
+<simpara>The use of an existing constant is supported.&#160;&#160;The order of constants when using an existing constant is strict.&#160;&#160;The constant must exist prior to use.</simpara>
+<simpara>To ensure evaluation of a calculation. &#160;&#160;A `=` must be used. &#160;&#160;This is strict.</simpara>
+<simpara>#UNDEFINE can be used to make the compiler delete an existing constant.</simpara>
+<simpara>Using the directive with no <literal>string</literal> causes a definition of <literal>name</literal> to be noted internally and may be tested for using the ifdef directive/conditional processing.&#160;&#160;See the examples below.</simpara>
+<simpara>Constants defined with this method are available for viewing in the CDF file.  Creation of the CDF file is controlled with the Programmer Preferences Utility.</simpara>
+<simpara>GCBASIC does not support creation of SUBroutine or FUNCTION with this directive.</simpara>
+<simpara><emphasis role="strong">Examples:</emphasis></simpara>
+<simpara>This progress shows the creation of constants, the processing and showing of constants within a script, creation of specific constants within a script and use of constants within a program.</simpara>
+<screen>    #chip MEGA4809
+    #option Explicit
+
+
+   // Numeric constants
+        #define LENGTH 20
+        #define CONTROL 0x19,7
+        #define SINGLEPI = 22/7                                         // evaluated numberic string
+        #define INTPI = INT(22/7)                                       // evaluated numberic string
+        #define FACTOREDPI = INT((22/7 - INT(22/7))*1000)               // evaluated numberic string
+        #define LENGTHSQUARED = LENGTH * LENGTH                         // evaluated numberic string
+        #define PI 3.142
+        #define RADIUS 10
+        #define CIRCUMFERENCECALC = PI * RADIUS                         // evaluated numberic string, with constant substitution
+        #define FACTORISEDCIRCUMFERENCE = INT(CIRCUMFERENCECALC*100)    // evaluated numberic string, with constant substitution
+
+
+    //String(s) required double quotes and NO `=` assignment
+        #define MYSTRING "This is a string"
+    //  A string assignment is not required
+        #define ACONSTANTTHATEXISTS
+
+    // Macros are not supported.. just define the sub!
+        // #define BADPOSITION(XX,YY,ZZ) (YY-(2 * ZZ +XX))
+
+    // Unused Constants that are invalid may not report an error until try to use within your program- as in this example
+        // String assignment with an equal sign will fail. Do not use `=`
+        #define BADMYSTRING = "This is a string"
+
+
+    #script
+        //Scripts can modify and manage CONSTANTS
+
+        // Warning can be used to show values during compilation
+        WARNING LENGTH
+        WARNING CONTROL
+        WARNING SINGLEPI
+        WARNING INTPI
+        WARNING FACTOREDPI
+        WARNING MYSTRING
+
+        If DEF(ACONSTANTTHATEXISTS) Then
+            WARNING "The constant ACONSTANTTHATEXISTS exists"
+        End If
+
+        // Test for a value in the [ChipData] section of the DAT file. Always has the prefix CHIP
+        If DEF(CHIPAVRDX) Then
+            WARNING "This is an AVRDX chip"
+        End If
+
+        // Good practice constant testing, see the code below for BAD and GOOD practice
+
+            // Set the constant to 0 we can use this to test for validity
+            // Use prefix of SCRIPT as this is clear in the program
+            SCRIPTAN1CONSTANT = 0
+            If DEF(AVRDX) Then
+                // Is this an AVRDx chip
+                If DEF(AIN1) Then
+                    SCRIPTAN1CONSTANT =  AIN1
+                End If
+            End If
+            If NODEF(AVRDX) Then
+                // This is NOT an Avrdx chip
+                If DEF(AVR) Then
+                    // This is an AVR
+                    SCRIPTAN1CONSTANT =  AN1
+                End If
+                If DEF(PIC) Then
+                    // This is an AVR
+                    SCRIPTAN1CONSTANT =  ANA1
+                End If
+            End If
+            // Now test for validate result
+            If SCRIPTAN1CONSTANT = 0 Then
+                WARNING Script has determined that no valid ADC port exists, or, some other message
+            End If
+
+    #endscript
+
+    // Some conditional examples
+
+    #IF DEF( CONSTANTTHATEXISTS )
+        //! Cause a compiler error - as the constant exits. Remove comment to test
+    #ELSE
+        //! Cause a compiler error - as the constant does not exits. Remove comment to test
+    #ENDIF
+
+    #IFDEF Oneof(CHIP_18F24K40,CHIP_18F25K40,CHIP_18F26K40,CHIP_18F27K40,CHIP_18F45K40,CHIP_18F46K40,CHIP_18F47K40,CHIP_18F65K40,CHIP_18F66K40,CHIP_18LF24K40, CHIP_18LF25K40, CHIP_18LF26K40, CHIP_18LF27K40, CHIP_18LF45K40, CHIP_18LF46K40, CHIP_18LF47K40, CHIP_18F65K40, CHIP_18LF65K40, CHIP_18F66K40, CHIP_18LF66K40, CHIP_18F67K40, CHIP_18LF67K40 )
+        //~ Do something
+    #ENDIF
+
+    dim myStringVar as String
+    myStringVar = MYSTRING
+
+    // BAD PRACTICE = code is hard to understand
+        // Use constant test to determine correct ADC to read.  Bad practice, see the #SCRIPT section
+        dim mybyteVar as Byte
+        #IF DEF(AIN1)
+            mybyteVar = readAD( AIN1 )
+        #ELSE
+            #IF DEF(ANA1)
+                mybyteVar = readAD( ANA1 )
+            #ELSE
+                mybyteVar = readAD( AN1 )
+            #ENDIF
+        #ENDIF
+
+    // GOOD PRACTICE
+        dim mybyteVar as Byte
+        mybyteVar = readAD( SCRIPTAN1CONSTANT )
+
+    dim myArray(2)
+    myArray = CONTROL</screen>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">See Also</emphasis> <link linkend="_constants">DEFINEs</link></simpara>
@@ -38101,15 +38464,21 @@ the data value held in the port latch, regardless of the state of the actual pin
 <title>#Option Required</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
 <screen>    #option REQUIRED PIC|AVR CONSTANT %message.dat entry%
-    #option REQUIRED PIC|AVR CONSTANT "Message string"</screen>
+    #option REQUIRED PIC|AVR CONSTANT "Message string"
+
+    or
+
+    #option REQUIRED DISABLE</screen>
 <simpara>This option ensure that the specific CONSTANT exists within a library to ensure a specific capability is available with the microcontroller.</simpara>
 <simpara><emphasis role="strong">Introduction:</emphasis></simpara>
-<simpara>This is for developers only.</simpara>
 <simpara>This will cause the compiler check the CONSTANT is a non zero value.&#160;&#160;If the CONSTANT does not exist it will be treated as a zero value.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <simpara>This example tests the CONSTANT <literal>CHIPUSART</literal> for both the PIC and AVR microcontrollers.&#160;&#160;If the CONSTANT is zero or does not exist then the string will be displayed as an error message.</simpara>
 <screen>    #option REQUIRED PIC CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."
     #option REQUIRED AVR CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."</screen>
+<simpara><emphasis role="strong">Disabling:</emphasis></simpara>
+<simpara>To disable checking capability, add the following directive.</simpara>
+<screen>    #option REQUIRED DISABLE</screen>
 </section>
 <section xml:id="__option_volatile">
 <title>#Option Volatile</title>
@@ -39574,37 +39943,39 @@ The algorithm is a variant of <link xlink:href="https://en.wikipedia.org/wiki/Br
 <simpara><emphasis role="strong">Demonstration program:</emphasis></simpara>
 <simpara>This demonstration program will support up to 256 bytes. For a larger buffer change the variables to words.</simpara>
 <screen>    #chip 16F1937
+    // #chip mega4809
+    // #chip mega328p, 16
 
 
-    ' Add PPS if appropiate for your chip
-    ' [change to your config] This is the config for a serial terminal
+    // Add PPS if appropiate for your chip
+    // [change to your config] This is the config for a serial terminal
 
-    ' assumes USART1
-    ' turn on the RS232 and terminal port.
-    ' Define the USART settings
+    // assumes USART1 ( or USART0 on AVRDx ), if you select USART1/2/3/4 then you MUST add the comport parameter to all HSerxxxxx functions.
+    // turn on the RS232 and terminal port.
+    // Define the USART settings
     #DEFINE USART_BAUD_RATE 9600
 
-    'This assumes you are using an ANSI compatible terminal.  Use PUTTY.EXE it is very easy to use.
+    // This assumes you are using an ANSI compatible terminal.  Use PUTTY.EXE it is very easy to use.
 
-    '   Main program
+    //   Main program
 
-    'Wait for terminal to settle
+    // Wait for terminal to settle
     wait 3 s
 
-    'Create the supporting variables
+    // Create the supporting variables
     Dim next_in As Byte
     Dim next_out As Byte
     Dim syncbyte As Byte
     Dim temppnt As Byte
 
-    ' Constants etc required for Buffer Ring
+    // Constants etc required for Buffer Ring
     #DEFINE BUFFER_SIZE 8
     #DEFINE bkbhit (next_in &lt;&gt; next_out)
 
-    'Define the Buffer
-    Dim buffer( BUFFER_SIZE - 1 ) 'we will use element 0 in the array as part of out buffer
+    // Define the Buffer
+    Dim buffer( BUFFER_SIZE - 1 ) // we will use element 0 in the array as part of out buffer
 
-    'Call init the buffer
+    // Call init the buffer
     InitBufferRing
 
     HSerSend 10
@@ -39616,34 +39987,35 @@ The algorithm is a variant of <link xlink:href="https://en.wikipedia.org/wiki/Br
     HSerSend 13
 
 
-    'Get character(s) and send back
+    // Get character(s) and send back
+    // Get character(s) and send back
     Do
 
-        ' Do we have data in the buffer?
+        //  Do we have data in the buffer?
         if bkbhit then
 
-            'Send the next character in the buffer, exposed via the function `bgetc` back the terminal
+            // Send the next character in the buffer to the terminal, exposed via the function `bgetc` back the terminal
             HSerSend bgetc
 
         end if
-
     Loop
 
-    'Supporting subroutines
+
+    // Supporting subroutines
 
     Sub readUSART
 
         buffer(next_in) = HSerReceive
         temppnt = next_in
         next_in = ( next_in + 1 ) % BUFFER_SIZE
-        If ( next_in = next_out ) Then  ' buffer is full!!
+        If ( next_in = next_out ) Then  // buffer is full!!
             next_in = temppnt
         End If
 
     End Sub
 
     Function bgetc
-        Dim local_next_out as Byte    'maintain a local copy of the next_out variable to ensure it does not change when an Interrupt happens
+        Dim local_next_out as Byte    // maintain a local copy of the next_out variable to ensure it does not change when an Interrupt happens
         local_next_out = next_out
         bgetc = buffer(local_next_out)
         local_next_out=(local_next_out+1) % BUFFER_SIZE
@@ -39657,18 +40029,28 @@ The algorithm is a variant of <link xlink:href="https://en.wikipedia.org/wiki/Br
 
     Sub InitBufferRing
 
-        'Set the buffer to the first address
+        // Set the buffer to the first address
         next_in = 0
         next_out = 0
-        'Interrupt Handler - some have RCIE and some have U1RXIE, so handle
+        // Interrupt Handler - some have RCIE and some have U1RXIE, so handle
+        //
+        // You would need to change the Interrupt if you use USART1,2,3, or 4
+        //
         #IFDEF BIT( RCIE )
             On Interrupt UsartRX1Ready Call readUSART
         #ENDIF
         #IFDEF BIT( U1RXIE )
             On Interrupt UART1ReceiveInterrupt Call readUSART
         #ENDIF
+
         #IFDEF AVR
-            On Interrupt UsartRX1Ready Call readUSART
+            #IFNDEF CHIPAVRDX
+                //~ Support for legacy AVR
+                On Interrupt UsartRX1Ready Call readUSART
+            #ELSE
+                //~ Support for AVRDx - AVRDx chips are USART0,USART1,USART2,USART3 and USART4 not USART.
+                On Interrupt Usart0RXReady Call readUSART
+            #ENDIF
         #ENDIF
 
     End Sub</screen>
@@ -40664,7 +41046,7 @@ Those who already have programming experience can go straight to GCBASIC, while 
 The two approaches targets two different sets of users who ultimately want to do the same thing.
 <?asciidoc-br?>
 <?asciidoc-br?>
-As for the <emphasis role="strong">name</emphasis>, it was about the fourth name Hugh tried. &#160;&#160;First name was BASPIC, but it did not seem memorable enough.&#160;&#160;
+As for the <emphasis role="strong">name</emphasis>, it was the fourth name Hugh tried. &#160;&#160;First name was BASPIC, but it did not seem memorable enough.&#160;&#160;
 Then, he considered some animal names - first thought was Chipmunk BASIC, but someone already used that!&#160;&#160;
 Then, Bear BASIC, but decided against it on finding out the slang meaning of bear.&#160;&#160;
 Final  name was GCBASIC, which is named after something his sister and he came up with (when aged 12 and 15!!).&#160;&#160;
@@ -40844,7 +41226,9 @@ This can make the source frustrating initially but can find the code segments as
     4. Document as you progress.
     5. Ask for help.</screen>
 <simpara><?asciidoc-br?></simpara>
-<simpara><emphasis role="strong">COMPILER SOURCE INSIGHTS</emphasis></simpara>
+</section>
+<section xml:id="_compiler_source_insights">
+<title>COMPILER SOURCE INSIGHTS</title>
 <simpara><emphasis>There are many very useful methods</emphasis>, a lot of methods, look at existing code before adding any new method.&#160;&#160;
 The compiler is mature from a functionality standpoint.&#160;&#160;
 Just immature in terms of documentation.&#160;&#160;</simpara>
@@ -40996,6 +41380,27 @@ This compiler is completing the following actions:&#160;&#160;</simpara>
             bra	SysDoLoop_S1
         SysDoLoop_E1</screen>
 <simpara><?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">COMPILERDEBUG</emphasis></simpara>
+<simpara>The COMPILERDEBUG setting in the USE.INI file for GCBASIC is used to enable or disable debugging features for the compiler.&#160;&#160;When the bits of the setting COMPILERDEBUG are set to 1, it activates additional debug information during compilation, which can be helpful for developers to diagnose and fix issues.</simpara>
+<simpara>To see the permissible bits for COMPILERDEBUG first opening and closing the PREFERENCES editor ( this does imply that the PREFERENCES EDITOR is maintained to show the Header in the USE.INI), and then edit USE.INI.&#160;&#160;The help section will display the following:</simpara>
+<screen>    'Preferences file for GCBASIC Preferences 3.14
+
+    ... lots of help, then
+
+    '   compilerdebug =  0  - 1 = COMPILECALCADD
+    '                       - 2 = VAR SET
+    '                       - 4 = CALCOPS
+    '                       - 8 = COMPILECALCMULT
+    '                       - 16 = AUTOPINDIR
+    '                       - 32 = ADRDX
+    '                       - 64 = GCASM
+    '                       - 128 = COMPILESUBCALLS
+    '                       - 256 = COMPILEUPDATESUBMAP</screen>
+<simpara>To see the debug add or edit the [gcbasic] section of USE.INI.</simpara>
+<screen>    [gcbasic]
+    'change to a bitwise value
+    compilerdebug = 0</screen>
+<simpara>As previously stated.  This setting can be helpful for developers to diagnose and fix issues within the compiler.</simpara>
 </section>
 <section xml:id="_about_glcd_library_support">
 <title>ABOUT GLCD Library Support</title>
@@ -41054,10 +41459,15 @@ The comments are NOT part of an INI file.&#160;&#160;</simpara>
                                                                                                     - 2 = doubles
                                                                                                     - 4 = longint
                                                                                                     - 8 = uLongINT
-    compilerdebug =  0                                                                              - 1 = COMPILECALCADD
-                                                                                                    - 2 = VAR SET
-                                                                                                    - 4 = CALCOPS
-                                                                                                    - 8 = COMPILECALCMULT</screen>
+compilerdebug = 0                                                                              - 1 = COMPILECALCADD
+                                                                                                   - 2 = VAR SET
+                                                                                                   - 4 = CALCOPS
+                                                                                                   - 8 = COMPILECALCMULT
+                                                                                                   - 16 = AUTOPINDIR
+                                                                                                   - 32 = ADRDX
+                                                                                                   - 64 = GCASM
+                                                                                                   - 128 = COMPILESUBCALLS
+                                                                                                   - 256 = COMPILEUPDATESUBMAP</screen>
 <simpara>The section shows an example [tool] assembler section.&#160;&#160;</simpara>
 <screen>    [tool=pic-as]
     'An assember
@@ -41097,10 +41507,14 @@ The comments are NOT part of an INI file.&#160;&#160;</simpara>
     useif =
     'Mandated programming config constraints - this shows none
     progconfig =</screen>
-<simpara><emphasis role="strong">ABOUT THE PREFS EDITOR</emphasis></simpara>
+</section>
+</section>
+<section xml:id="_about_the_preferences_editor">
+<title>ABOUT THE PREFERENCES EDITOR</title>
 <simpara>This is a utility for editing GCBASIC ini files.&#160;&#160;
 It is derived from the Graphical GCBASIC utilities, and requires some files from Graphical GCBASIC to compile.&#160;&#160;</simpara>
 <simpara>The software is developed using Sharp Develop v.3.2.1 ( not Visual Studio ).&#160;&#160;</simpara>
+<simpara>The latest source is in Sourceforge.</simpara>
 <simpara><?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">COMPILING</emphasis></simpara>
 <simpara>Ensure that the "Programmer Editor" folder is in the same folder as a "Graphical GCBASIC" folder.&#160;&#160;
@@ -41138,7 +41552,6 @@ The list shows the installation of the Sharp Develop IDE.</simpara>
 <?asciidoc-br?>
 <?asciidoc-br?>
 <?asciidoc-br?></simpara>
-</section>
 </section>
 <section xml:id="_gcbasic_with_the_avrisp_or_mkii_programmer">
 <title>GCBASIC with the AVRISP or MKII Programmer</title>

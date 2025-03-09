@@ -1,4 +1,4 @@
-=== Variable Memory Allocation
+=== Variable Memory Allocation, Addressing & Control
 
 This section discusses the allocation of variables to RAM ( GPR, SRAM or other TLA).
 
@@ -36,7 +36,7 @@ Variables of _bit_ type are placed in RAM using the following simple rules.
 
 **Addressing Variables**
 
-Addressing variable can be achieved by using the @ prefix. &#160;&#160; This will return the address of the variable (the same @ applies to table data).
+Addressing a variable memory address can be achieved by using the @ prefix. &#160;&#160; This will return the address of the variable ( @ applies to table data and any data block).
 
 
 The following example shows registers DMAnSSAU, DMAnSSAH, DMAnSSAL being loaded with the address of the array WaveArray.

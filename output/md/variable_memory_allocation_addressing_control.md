@@ -6,7 +6,7 @@
 
 <div>
 
-### <span id="variable_memory_allocation"></span>Variable Memory Allocation
+### <span id="variable_memory_allocation_addressing_control"></span>Variable Memory Allocation, Addressing & Control
 
 </div>
 
@@ -84,8 +84,9 @@ using the following simple rules.
 
 <span class="strong">**Addressing Variables**</span>
 
-Addressing variable can be achieved by using the @ prefix.    This will
-return the address of the variable (the same @ applies to table data).
+Addressing a variable memory address can be achieved by using the @
+prefix.    This will return the address of the variable ( @ applies to
+table data and any data block).
 
 The following example shows registers DMAnSSAU, DMAnSSAH, DMAnSSAL being
 loaded with the address of the array WaveArray.
