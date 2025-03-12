@@ -59,11 +59,16 @@ the possible SPI Modes:
 |`MasterSlow`
 |SPI clock baud rate is calculated INT( ChipMHz / INT( SPI_BAUD_RATE  ) / 16 * 1000) + 1.  Where SPI_BAUD_RATE defaults to 4000.  
 
-See `SPI_BAUD_RATE` and `SPI_BAUD_RATE_REGISTER` for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value
+Also, see `SPI_BAUD_RATE` and `SPI_BAUD_RATE_REGISTER` for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value
 |`Master`
 |SPI clock baud rate is calculated as INT( ChipMHz / INT( SPI_BAUD_RATE  ) / 4 * 1000) + 1.  Where SPI_BAUD_RATE defaults to 4000.
+
+Also, see `SPI_BAUD_RATE` and `SPI_BAUD_RATE_REGISTER` for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value
+
 |`MasterFast`
 |SPI clock baud rate is calculated as INT( ChipMHz / INT( SPI_BAUD_RATE  ) / 2 * 1000) + 1.  Where SPI_BAUD_RATE defaults to 4000.
+
+Also, see `SPI_BAUD_RATE` and `SPI_BAUD_RATE_REGISTER` for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value
 |`MasterUltraFast`
 |SPI clock baud rate is set to 0
 2+|*Slave Operations*
