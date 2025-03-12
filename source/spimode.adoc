@@ -47,7 +47,7 @@ the possible SPI Modes:
 |===
 |*Mode Name*
 |*Description*
-2+|c
+2+|*Legacy SPI Operations*
 |`MasterSlow`
 |Master mode, SPI clock is 1/64 of the frequency of the microcontroller.
 |`Master`
