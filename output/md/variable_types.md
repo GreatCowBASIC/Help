@@ -50,7 +50,10 @@ can currently use:
 
 Byte variables do not need any special commands to set them up - just
 put the name of the variable in to the command where the variable is
-needed.
+needed. However, it is good practice to "dimension" all byte variables
+and to use `#OPTION EXPLICIT`.   `#OPTION EXPLICIT` mandates the
+"dimensioning" of all variables in the user program.  Using
+`#OPTION EXPLICIT` will improve the quality of the program.
 
 Other types of variable can be used in a very similar way, except that
 they must be "dimensioned" first. This involves using the DIM command,
@@ -69,6 +72,9 @@ A simple, but typical example follows.  This is the typical for numeric
 variable assignment.
 
 ``` screen
+    #OPTION EXPLICIT
+
+    dim myByteVarible as Byte
     myByteVarible = 127       'assign the value of 127
 ```
 
