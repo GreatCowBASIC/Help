@@ -231,6 +231,18 @@ specific attribute.
 |`Line ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In
 LineColour 0 or 1] )`
 
+|`GLCDOn`
+|Turn the KS0108 On.  The GLCD is On by default
+|`GLCDOn`
+
+|`GLCDOff`
+|Turn the KS0108 Off.  The GLCD is On by default
+|`GLCDOff`
+
+|*Private methods*
+|
+|
+
 |`PSet`
 |Set a pixel on the GLCD at a specific position that is set with the
 specific attribute.
