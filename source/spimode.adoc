@@ -82,7 +82,7 @@ Also, see `SPI_BAUD_RATE` and `SPI_BAUD_RATE_REGISTER` for changing SPI Baud Rat
 For *Legacy microcontrollers SPI operations* _SPIClockMode_ is an optional parameter to set the mode of the SPI clock mode. This optional parameter sets both the clock polarity and clock edge.
 
 For *Specific PICs microcontrollers SPI operations* _SPIClockMode_ is a mandated parameter to set the mode of the SPI clock mode and the clock polarity bit. This parameter sets both the clock polarity and clock edge.&#160;&#160;  
-There is no verification by the compiler if you do use the __SPIClockMode_ for the 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers - the compiler use the default value of `SPI_SS = 0 & SPI_CPOL = 0 & SPI_CPHA = 0`&#160;&#160;The use of SPI_SS_n requires the PPS to be set.&#160;&#160;If PPS is not set then the SPI_SS will use the default value specified in the specfic GCBASIC library.
+There is no verification by the compiler if you do use the __SPIClockMode_ for the 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers - the compiler uses the default value of `SPI_SS = 0 & SPI_CPOL = 0 & SPI_CPHA = 0`&#160;&#160;The use of SPI_SS_n requires the PPS to be set.&#160;&#160;If PPS is not set then the SPI_SS will use the default value specified in the specfic GCBASIC library.
 
 For the _SPIClockMode_range, see the tables below:
 
