@@ -259,11 +259,11 @@ If you have set the PPS for SPI1SSPPS then control of the SPI SS ( also know as 
 
 
     // Optionally change the SPI BAUD RATE from 4000
-        #DEFINE SPI_BAUD_RATE 8000
+        // #DEFINE SPI_BAUD_RATE 8000
 
     // Optionally update the SPI baud rate register with an explicit value
     //  typical use is to entry a specific calculated value
-        #DEFINE SPI_BAUD_RATE_REGISTER  55
+        // #DEFINE SPI_BAUD_RATE_REGISTER  1
 
     // Specfic the hardware SPI operating model
     // Can be MasterUltraFast, MasterFast, Master, MasterSlow 
