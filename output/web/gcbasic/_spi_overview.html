@@ -16,7 +16,7 @@
       <link rel="next" href="_spimode.html" title="SPIMode" />
       <meta name="Section-title" content="SPI Overview" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-56006";
+            var treeCookieId = "treeview-56711";
             var language = "en";
             var w = new Object();
             //Localization
@@ -223,44 +223,37 @@ border: none; background: none; font-weight: none; color: none; }
                must be stable while the clock is high and can be changed when the clock is low. The data is captured on the clock’s low-to-high
                transition and propagated on high-to-low clock transition.
             </p>
-            <p><span class="strong"><strong>Key Commands</strong></span></p><pre class="screen">    SPIMode  ( _Mode_ [, SPIClockMode])
+            <p><span class="strong"><strong>Key Commands</strong></span></p><pre class="screen">    // Set the mode
+    SPIMode  ( _Mode_ [, SPIClockMode]) //Legacy SPI
+    SPIMode  ( _Mode_ , SPIClockMode)   //18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers
 
+    // Send bytge and receive data byte
     SPITransfer (  _OutByte_, _InByte_ )
 
+    // Send data byte
     FastHWSPITransfer( _OutByte_ )
 
-    #define HWSPIMode MASTERULTRAFAST       'MASTERSLOW | MASTER | MASTERFAST | MASTERULTRAFAST for specific AVRs only | MasterSSPADDMode for specific PICs SSPADD support
-                                            'Defaults to MASTERFAST when microcontroller frequency less or equal to 32 mhz
-                                            'Defaults to MASTER when microcontroller frequency more than 32 mhz.</pre><p>The GCBASIC used the microcontrollers hardware module for SPI.  The example below shows an implementation of Hardware and
+    // USe MASTERSLOW | MASTER | MASTERFAST | MASTERULTRAFAST for specific AVRs only | MasterSSPADDMode for specific PICs SSPADD support
+
+    // The system constant `HWSPIMode` defaults to MASTERFAST when microcontroller frequency less or equal to 32 mhz
+    // Defaults to MASTER when microcontroller frequency more than 32 mhz.
+    // To change use the following method
+    #define HWSPIMode MASTERULTRAFAST</pre><p>The GCBASIC used the microcontrollers hardware module for SPI.  The example below shows an implementation of Hardware and
                Software SPI.  Software SPI allows for a greater choice of ports to be used to control the SPI operations.
             </p>
-            <p><span class="strong"><strong>Example</strong></span></p>
+            <p>To use a second SPI hardware module use the suffix 2, as follows:</p><pre class="screen">    // Set the mode
+    SPIMode2  ( _Mode_ [, SPIClockMode]) //Legacy SPI
+    SPIMode2  ( _Mode_ , SPIClockMode)   //18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers
+
+    // Send bytge and receive data byte
+    SPITransfer2 (  _OutByte_, _InByte_ )
+
+    // Send data byte
+    FastHWSPITransfer2( _OutByte_ )</pre><p><span class="strong"><strong>Example</strong></span></p>
             <p>This example demonstrates the SPI capabilities for the mega328p.  The process is similar of any microcontroller..</p>
             <p>This example show using the hardware SPI option and a sofware SPI option.</p>
             <p>Using hardware SPI mode - make sure the <code class="literal">#define SPI_HardwareSPI</code> is not commented out.
                Using software SPI mode - comment out <code class="literal">#define SPI_HardwareSPI</code>. The example code will then use software SPI.
-            </p>
-            <p><span class="strong"><strong>Setting the SPI Mode</strong></span></p>
-            <p>Hardware SPI mode the Data Out, Data In and Clock (DO/DI and SCK) cannot be moved but the optional Data Command, Chip Select
-               and Reset are all moveable.
-            </p>
-            <p>Software SPI mode the Data Out, Data In and Clock (DO/DI and SCK), Data Command, Chip Select and Reset are all moveable.</p>
-            <p>Use the constant <code class="literal">HWSPIMode</code> to set the SPI frequency when using GCBASIC libraries.
-            </p><pre class="screen">    #define HWSPIMode MASTERULTRAFAST</pre><p>GCBASIC libraries will default to to MASTERFAST when microcontroller frequency less or equal to 32 mhz and default to MASTER
-               when microcontroller frequency more than 32 mhz.
-            </p>
-            <p>The options for <code class="literal">HWSPIMode</code> are:
-            </p>
-            <p><code class="literal">MASTERSLOW</code>, or, <code class="literal">MASTER</code> or <code class="literal">MASTERFAST</code> or <code class="literal">MASTERULTRAFAST</code> for specific AVRs only or <code class="literal">MasterSSPADDMode</code> for specific PICs SSPADD support
-            </p>
-            <p>This constant sets the library to the desire SPI fequency, therefore enable adaption of the SPI frequency without have to
-               change the library.
-            </p>
-            <p>The SPI frequnecy must be the same for all the used devices.   In particular, it must be set equal to the one dictated by
-               the slowest SPI device to be used.
-            </p>
-            <p>More freedom is available when more than an hardware SPI is available as well as when the user want to use hardware SPI for
-               a device and software SPI for a second one.
             </p>
             <p><span class="strong"><strong>Using multiple SPI devices</strong></span></p>
             <p>There will be use cases were you need to use more than one SPI target device at a time.  In such cases the device defined
@@ -272,8 +265,7 @@ border: none; background: none; font-weight: none; color: none; }
                to <code class="literal">OFF</code> for the specific target SPI device, and you must set <code class="literal">ON</code> the SPI Chip Select line for any other SPI device  -  this is a normal convention of SPI usage.    This is not specific to
                GCBASIC..
             </p>
-            <p><span class="strong"><strong>Code overview</strong></span></p><pre class="literallayout">InitSPIMode calls SPIMode. if needed, when hardware mode, and set the port firections.
-The sub SendByteviaSPI is called to handle whether to call the Hardware or use Software (bit-banging) SPI.</pre><pre class="screen">        #chip mega328p, 16
+            <p><span class="strong"><strong>Code overview</strong></span></p><pre class="literallayout">For more code examples see the demonstrations and the SPIMODE Help page.</pre><pre class="literallayout">In this example InitSPIMode calls SPIMode. If needed, when hardware mode, and set the port directions.</pre><pre class="literallayout">The sub SendByteviaSPI is called to handle whether to call the Hardware or use Software (bit-banging) SPI.</pre><pre class="screen">        #chip mega328p, 16
         #option explicit
         #include &lt;UNO_mega328p.h &gt;
 
@@ -829,6 +821,9 @@ The sub SendByteviaSPI is called to handle whether to call the Hardware or use S
                                     <li><span class="file"><a href="_spimode.html" tabindex="1">SPIMode</a></span></li>
                                     <li><span class="file"><a href="_spitransfer.html" tabindex="1">SPITransfer</a></span></li>
                                     <li><span class="file"><a href="_fasthwspitransfer.html" tabindex="1">FastHWSPITransfer</a></span></li>
+                                    <li><span class="file"><a href="_spi2mode.html" tabindex="1">SPI2Mode</a></span></li>
+                                    <li><span class="file"><a href="_spi2transfer.html" tabindex="1">SPI2Transfer</a></span></li>
+                                    <li><span class="file"><a href="_fasthwspi2transfer.html" tabindex="1">FastHWSPI2Transfer</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_i2c_software.html" tabindex="1">I2C Software</a></span><ul>

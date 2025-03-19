@@ -811,6 +811,12 @@ include::spitransfer.adoc[]
 
 include::FastHWSPITransfer.adoc[]
 
+include::spi2mode.adoc[]
+
+include::spi2transfer.adoc[]
+
+include::FastHWSPI2Transfer.adoc[]
+
 ifdef::backend-pdf[<<<]
 === I2C Software
 

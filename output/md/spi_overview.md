@@ -125,6 +125,20 @@ example below shows an implementation of Hardware and Software SPI.
 Software SPI allows for a greater choice of ports to be used to control
 the SPI operations.
 
+To use a second SPI hardware module use the suffix 2, as follows:
+
+``` screen
+    // Set the mode
+    SPIMode2  ( _Mode_ [, SPIClockMode]) //Legacy SPI
+    SPIMode2  ( _Mode_ , SPIClockMode)   //18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers
+
+    // Send bytge and receive data byte
+    SPITransfer2 (  _OutByte_, _InByte_ )
+
+    // Send data byte
+    FastHWSPITransfer2( _OutByte_ )
+```
+
 <span class="strong">**Example**</span>
 
 This example demonstrates the SPI capabilities for the mega328p. The

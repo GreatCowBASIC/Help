@@ -1,0 +1,22 @@
+==== FastHWSPI2Transfer
+
+*Syntax:*
+[subs="quotes"]
+----
+  `FastHWSPI2Transfer` _tx_
+----
+*Command Availability:*
+
+Available on Microchip PIC microcontrollers with Hardware SPI modules.
+
+*Explanation:*
+
+This command only sends a byte of data using the
+SPI protocol. This command only supports master mode.
+
+As a master, `FastHWSPI2Transfer` will initiate a transfer. The
+data in `_tx_` will be sent to the slave.
+
+
+
+*See also* <<_spitransfer,SPITransfer>>,<<_spimode,SPIMode>>

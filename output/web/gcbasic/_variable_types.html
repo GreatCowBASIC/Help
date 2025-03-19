@@ -16,7 +16,7 @@
       <link rel="next" href="_advanced_variabletypes.html" title="Advanced VariableTypes" />
       <meta name="Section-title" content="Variable Types" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-56006";
+            var treeCookieId = "treeview-56711";
             var language = "en";
             var w = new Object();
             //Localization
@@ -297,7 +297,7 @@ border: none; background: none; font-weight: none; color: none; }
             <p><span class="strong"><strong>Using Variables</strong></span></p>
             <p>Byte variables do not need any special commands to set them up - just
                put the name of the variable in to the command where the variable is
-               needed.
+               needed. However, it is good practice to "dimension" all byte variables and to use <code class="literal">#OPTION EXPLICIT</code>.   <code class="literal">#OPTION EXPLICIT</code> mandates the "dimensioning" of all variables in the user program.  Using <code class="literal">#OPTION EXPLICIT</code> will improve the quality of the program.
             </p>
             <p>Other types of variable can be used in a very similar way, except that
                they must be "dimensioned" first. This involves using the DIM command,
@@ -310,7 +310,10 @@ border: none; background: none; font-weight: none; color: none; }
             </p>
             <p><span class="strong"><strong>Number Variables</strong></span></p>
             <p>You can assign values to number variables using &amp;#160`=`.  </p>
-            <p>A simple, but typical example follows.  This is the typical for numeric variable assignment.</p><pre class="screen">    myByteVarible = 127       'assign the value of 127</pre><p>GCBASIC support bitwise assignments s follows:</p><pre class="screen">    portc.0 = !porta.1  'set a single bit to the value of another bit</pre><p>The function <code class="literal">FnLSL</code> performs the shift operation found in other languages.  Here is an example:
+            <p>A simple, but typical example follows.  This is the typical for numeric variable assignment.</p><pre class="screen">    #OPTION EXPLICIT
+
+    dim myByteVarible as Byte
+    myByteVarible = 127       'assign the value of 127</pre><p>GCBASIC support bitwise assignments s follows:</p><pre class="screen">    portc.0 = !porta.1  'set a single bit to the value of another bit</pre><p>The function <code class="literal">FnLSL</code> performs the shift operation found in other languages.  Here is an example:
             </p><pre class="screen">    MyVar = FnLSL( 1, BitNum)`  is Equivalent to `MyVar = 1&lt;&lt;BitNum`</pre><p>To set a bit of a port and to prevent glitches during operations, use <code class="literal">#option volatile</code> as folllows:
             </p><pre class="screen">    'add this option for a specific port.
     #option volatile portc.0
@@ -854,6 +857,9 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_spimode.html" tabindex="1">SPIMode</a></span></li>
                                     <li><span class="file"><a href="_spitransfer.html" tabindex="1">SPITransfer</a></span></li>
                                     <li><span class="file"><a href="_fasthwspitransfer.html" tabindex="1">FastHWSPITransfer</a></span></li>
+                                    <li><span class="file"><a href="_spi2mode.html" tabindex="1">SPI2Mode</a></span></li>
+                                    <li><span class="file"><a href="_spi2transfer.html" tabindex="1">SPI2Transfer</a></span></li>
+                                    <li><span class="file"><a href="_fasthwspi2transfer.html" tabindex="1">FastHWSPI2Transfer</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_i2c_software.html" tabindex="1">I2C Software</a></span><ul>

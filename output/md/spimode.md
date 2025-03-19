@@ -21,8 +21,8 @@
 ``` screen
     SPIMode ( _Mode_ [, _SPIClockMode_])
 
-    // Specfic the hardware SPI operating mode, can be MasterUltraFast, MasterFast, Master, MasterSlow
-    #DEFINE HWSPIMode   MasterUltraFast
+    // Specfic the hardware SPI operating mode, can be MasterFast, Master, MasterSlow
+    #DEFINE HWSPIMode   MasterFast
 
     // You can use a shared constant to set a consant with the desired SPIClockMode
     #DEFINE HWSPIClockMode  SPI_CPOL_0 + SPI_CPHA_0
@@ -31,6 +31,8 @@
 <span class="strong">**AVRDX, 18FxxQxx, 18FxxK42 and 18xxFK83
 microcontrollers**</span>
 
+For HWSPI channel 0
+
 ``` screen
     SPIMode ( _Mode_ , _SPIClockMode_ )
 
@@ -38,7 +40,7 @@ microcontrollers**</span>
     #DEFINE HWSPIMode   MasterUltraFast
 
     // You can use a shared constant to set a consant with the desired SPIClockMode
-    #DEFINE HWSPIClockMode  SPI_SS_1 + SPI_CPOL_0 + SPI_CPHA_0
+    #DEFINE HWSPIClockMode  SPI_SS_0 + SPI_CPOL_0 + SPI_CPHA_0
 
     // Optionally change the SPI BAUD RATE from 4000
         #DEFINE SPI_BAUD_RATE 8000
@@ -111,7 +113,7 @@ Baud Rate and settting the SPI Baud Rate register with an explicit value
 
 `MasterUltraFast`
 
-SPI clock baud rate is set to 0
+SPI1BAUD is set to 0 and therefore the SPI clock baud rate to maximum
 
 <span class="strong">**Slave Operations**</span>
 
@@ -421,7 +423,7 @@ transmission.
     #DEFINE HWSPIMode   MasterUltraFast
 
     // You can use a shared constant to set a consant with the desired SPIClockMode
-    #DEFINE HWSPIClockMode  SPI_SS_1 + SPI_CPOL_0 + SPI_CPHA_0
+    #DEFINE HWSPIClockMode  SPI_SS_0 + SPI_CPOL_0 + SPI_CPHA_0
 
     // Call SPIMode
     SPIMode (HWSPIMode,  HWSPIClockMode )

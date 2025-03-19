@@ -17,6 +17,8 @@
 
 *AVRDX, 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers*
 
+
+For HWSPI channel 0
 ----
     SPIMode ( _Mode_ , _SPIClockMode_ )
 

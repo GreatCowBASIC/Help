@@ -16,7 +16,7 @@
       <link rel="next" href="_ssd1351_controllers.html" title="SSD1351 Controllers" />
       <meta name="Section-title" content="SSD1331 Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-56006";
+            var treeCookieId = "treeview-56711";
             var language = "en";
             var w = new Object();
             //Localization
@@ -503,14 +503,26 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                   </tbody>
                </table>
-            </div><pre class="screen">   SSD1331_BLACK   'hexidecimal value 0x0000
-   SSD1331_BLUE    'hexidecimal value 0xF800
-   SSD1331_RED     'hexidecimal value 0x001F
-   SSD1331_GREEN   'hexidecimal value 0x07E0
-   SSD1331_CYAN    'hexidecimal value 0xFFE0
-   SSD1331_MAGENTA 'hexidecimal value 0xF81F
-   SSD1331_YELLOW  'hexidecimal value 0x07FF
-   SSD1331_WHITE   'hexidecimal value 0xFFFF</pre><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    #chip mega328p, 16
+            </div><pre class="screen">    Colour           RGB
+    TFT_BLACK       0x0000
+    TFT_NAVY        0x000F
+    TFT_DARKGREEN   0x03E0
+    TFT_DARKCYAN    0x03EF
+    TFT_MAROON      0x7800
+    TFT_PURPLE      0x780F
+    TFT_OLIVE       0x7BE0
+    TFT_LIGHTGREY   0xC618
+    TFT_DARKGREY    0x7BEF
+    TFT_BLUE        0x001F
+    TFT_GREEN       0x07E0
+    TFT_CYAN        0x77FF
+    TFT_RED         0xF800
+    TFT_MAGENTA     0xF81F
+    TFT_YELLOW      0xFFE0
+    TFT_WHITE       0xFFFF
+    TFT_ORANGE      0xFD20
+    TFT_GREENYELLOW 0xAFE5
+    TFT_PINK        0xF81F</pre><p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    #chip mega328p, 16
     #option explicit
 
     #include &lt;glcd.h&gt;
@@ -990,6 +1002,9 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_spimode.html" tabindex="1">SPIMode</a></span></li>
                                     <li><span class="file"><a href="_spitransfer.html" tabindex="1">SPITransfer</a></span></li>
                                     <li><span class="file"><a href="_fasthwspitransfer.html" tabindex="1">FastHWSPITransfer</a></span></li>
+                                    <li><span class="file"><a href="_spi2mode.html" tabindex="1">SPI2Mode</a></span></li>
+                                    <li><span class="file"><a href="_spi2transfer.html" tabindex="1">SPI2Transfer</a></span></li>
+                                    <li><span class="file"><a href="_fasthwspi2transfer.html" tabindex="1">FastHWSPI2Transfer</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_i2c_software.html" tabindex="1">I2C Software</a></span><ul>

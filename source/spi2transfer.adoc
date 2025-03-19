@@ -1,0 +1,25 @@
+==== SPI2Transfer
+
+*Syntax:*
+[subs="quotes"]
+----
+  `SPI2Transfer` _tx_, _rx_
+----
+*Command Availability:*
+
+Available on Microchip PIC microcontrollers with Hardware SPI modules.
+
+*Explanation:*
+
+This command simultaneously sends and receives a byte of data using the
+SPI protocol. It behaves differently depending on whether the microcontroller has
+been set to act as a master or a slave.
+When operating as a master, `SPI2Transfer` will initiate a transfer. The
+data in `_tx_` will be sent to the slave, whilst the byte that is buffered
+in the slave will be read into `_rx_`.
+In slave mode, the `SPI2Transfer` command will pause the program until a
+transfer is initiated by the master. At this point, it will send the
+data in `_tx_` whilst reading the transmission from the master into the
+`_rx_` variable.
+
+*See also* <<_spimode,SPIMode>>,<<_fasthwSPI2Transfer,FastHWSPI2Transfer>>
