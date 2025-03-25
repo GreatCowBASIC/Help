@@ -1,8 +1,8 @@
-###WARNING
+## WARNING
 
 Be aware that the chips used in your kit are sensitive to static electricity discharge and could be damaged by mishandling of the PCB. Be careful with the board and avoid touching any of the tracks or pads while assembling it. Try to handle it only by the edges.
 
-###VERY IMPORTANT
+## VERY IMPORTANT
 
 Please do not insert any chip into the programming socket unless the board is connected to the PC either via the serial port or the USB port and the MicroBrn software is running
 
