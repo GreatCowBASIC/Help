@@ -4,10 +4,10 @@ This section covers GLCD devices that use the ILI9341 graphics controller.  The 
 
 GCBASIC supports 65K-color mode operations.
 
-The GCBASIC constants shown below control the configuration of the ILI9341 controller. &#160;&#160;&#160;GCBASIC supports SPI hardware and software connectivity  - this is shown in the tables below.
+The GCBASIC supports different methods to controller the GLCD.&#160;&#160;&#160;These methods are shown below control the configuration of the ILI9341 controller. &#160;&#160;&#160;GCBASIC supports SPI hardware and software connectivity  - this is shown in the tables below.
 
 
-To use the ILI9341 driver simply include the following in your user code.  This will initialise the driver.
+To use the ILI9341 driver simply include the following in your user code.  This will initialise the driver of a SPI method of connection.
 
 ----
     #include <glcd.h>
@@ -27,6 +27,7 @@ To use the ILI9341 driver simply include the following in your user code.  This 
 The GCBASIC constants for the interface to the controller are shown in the table below.
 
 
+
 [cols="2,4,4", options="header,autowidth"]
 |===
 |Constants
@@ -35,7 +36,9 @@ The GCBASIC constants for the interface to the controller are shown in the table
 
 |`GLCD_TYPE`
 |`GLCD_TYPE_ILI9341`
-|
+|Define the constant only
+
+3+|*SPI Method* &#160;&#160;&#160;The method can use hardware or software SPI
 
 |`GLCD_DC`
 |Specifies the output pin that is connected to Data/Command IO pin on the GLCD.
@@ -50,21 +53,79 @@ The GCBASIC constants for the interface to the controller are shown in the table
 |Required
 
 |`GLCD_DI`
-|Specifies the output pin that is connected to Data In (GLCD out) pin on the GLCD.
+|Specifies the output pin that is connected to Data In (GLCD out) pin on the GLCD.&#160;&#160;&#160;If using hardware SPI this must be the hardware SPI port.
 |Required
 
 |`GLCD_DO`
-|Specifies the output pin that is connected to Data Out (GLCD in) pin on the GLCD.
+|Specifies the output pin that is connected to Data Out (GLCD in) pin on the GLCD.&#160;&#160;&#160;If using hardware SPI this must be the hardware SPI port.
 |Required
 
 |`GLCD_SCK`
-|Specifies the output pin that is connected to Clock (CLK) pin on the GLCD.
+|Specifies the output pin that is connected to Clock (CLK) pin on the GLCD.&#160;&#160;&#160;If using hardware SPI this must be the hardware SPI port.
 |Required
 
-|
-|
-|
+3+|
+3+|*UNO Shield Method*&#160;&#160;&#160;The method uses the ILI9341 attached via the UNO shield
 
+|`GLCD_CS`
+|Specifies the output pin that is connected to Chip Select (CS)  on the GLCD.
+|Required
+
+|`GLCD_Reset`
+|Specifies the output pin that is connected to Reset pin on the GLCD.
+|Required
+
+
+|`GLCD_RD`
+|Specifies the output pin that is connected to Read (RD) pin on the GLCD.
+|Required
+
+|`GLCD_WR`
+|Specifies the output pin that is connected to Write (WR) pin on the GLCD.
+|Required
+
+|`GLCD_RS`
+|Specifies the output pin that is connected to Data/Command (RS) pin on the GLCD.
+|Required
+
+|`GLCD_DB0`|       DIGITAL_8 | Mandated to this port
+|`GLCD_DB1`|       DIGITAL_9 | Mandated to this port
+|`GLCD_DB2`|       DIGITAL_2 | Mandated to this port
+|`GLCD_DB3`|       DIGITAL_3 | Mandated to this port
+|`GLCD_DB4`|       DIGITAL_4 | Mandated to this port
+|`GLCD_DB5`|       DIGITAL_5 | Mandated to this port
+|`GLCD_DB6`|       DIGITAL_6 | Mandated to this port
+|`GLCD_DB7`|       DIGITAL_7 | Mandated to this port
+
+
+
+3+|
+3+|*8Bit Port Method*&#160;&#160;&#160;The method uses a contigous 8bit port for the data port.
+|`GLCD_CS`
+|Specifies the output pin that is connected to Chip Select (CS)  on the GLCD.
+|Required
+
+|`GLCD_Reset`
+|Specifies the output pin that is connected to Reset pin on the GLCD.
+|Required
+
+
+|`GLCD_RD`
+|Specifies the output pin that is connected to Read (RD) pin on the GLCD.
+|Required
+
+|`GLCD_WR`
+|Specifies the output pin that is connected to Write (WR) pin on the GLCD.
+|Required
+
+|`GLCD_RS`
+|Specifies the output pin that is connected to Data/Command (RS) pin on the GLCD.
+|Required
+
+|`GLCD_PORT`|Any valid 8 bit port, like PORTC | Required
+
+3+|
+3+|*SPI Controls*&#160;&#160;&#160;
 |`HWSPIMode`
 |Specifies the speed of the SPI communications for Hardware SPI only.
 |Optional defaults to MASTERFAST.
