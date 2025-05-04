@@ -20,12 +20,13 @@ Resolution and 262K colors.
 
 GCBASIC supports 65K-color mode operations.
 
-The GCBASIC constants shown below control the configuration of the
-ILI9341 controller.    GCBASIC supports SPI hardware and software
-connectivity - this is shown in the tables below.
+The GCBASIC supports different methods to controller the GLCD.   These
+methods are shown below control the configuration of the ILI9341
+controller.    GCBASIC supports SPI hardware and software connectivity -
+this is shown in the tables below.
 
 To use the ILI9341 driver simply include the following in your user
-code. This will initialise the driver.
+code. This will initialise the driver of a SPI method of connection.
 
 ``` screen
     #include <glcd.h>
@@ -45,68 +46,210 @@ the table below.
 
 <div class="informaltable">
 
-<table data-border="1">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Constants</th>
-<th style="text-align: left;">Controls</th>
-<th style="text-align: left;">Options</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><p><code class="literal">GLCD_TYPE</code></p></td>
-<td style="text-align: left;"><p><code class="literal">GLCD_TYPE_ILI9341</code></p></td>
-<td style="text-align: left;"> </td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><p><code class="literal">GLCD_DC</code></p></td>
-<td style="text-align: left;"><p>Specifies the output pin that is connected to Data/Command IO pin on the GLCD.</p></td>
-<td style="text-align: left;"><p>Required</p></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><p><code class="literal">GLCD_CS</code></p></td>
-<td style="text-align: left;"><p>Specifies the output pin that is connected to Chip Select (CS) on the GLCD.</p></td>
-<td style="text-align: left;"><p>Required</p></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><p><code class="literal">GLCD_Reset</code></p></td>
-<td style="text-align: left;"><p>Specifies the output pin that is connected to Reset pin on the GLCD.</p></td>
-<td style="text-align: left;"><p>Required</p></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><p><code class="literal">GLCD_DI</code></p></td>
-<td style="text-align: left;"><p>Specifies the output pin that is connected to Data In (GLCD out) pin on the GLCD.</p></td>
-<td style="text-align: left;"><p>Required</p></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><p><code class="literal">GLCD_DO</code></p></td>
-<td style="text-align: left;"><p>Specifies the output pin that is connected to Data Out (GLCD in) pin on the GLCD.</p></td>
-<td style="text-align: left;"><p>Required</p></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><p><code class="literal">GLCD_SCK</code></p></td>
-<td style="text-align: left;"><p>Specifies the output pin that is connected to Clock (CLK) pin on the GLCD.</p></td>
-<td style="text-align: left;"><p>Required</p></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"> </td>
-<td style="text-align: left;"> </td>
-<td style="text-align: left;"> </td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><p><code class="literal">HWSPIMode</code></p></td>
-<td style="text-align: left;"><p>Specifies the speed of the SPI communications for Hardware SPI only.</p></td>
-<td style="text-align: left;"><p>Optional defaults to MASTERFAST.</p>
-<p>Options are MASTERSLOW,<br />
-MASTER,<br />
-MASTERFAST, or<br />
-MASTERULTRAFAST for specific AVRs only.</p></td>
-</tr>
-</tbody>
-</table>
+Constants
 
 </div>
+
+</div>
+
+Controls
+
+Options
+
+`GLCD_TYPE`
+
+`GLCD_TYPE_ILI9341`
+
+Define the constant only
+
+<span class="strong">**SPI Method**</span>    The method can use
+hardware or software SPI
+
+`GLCD_DC`
+
+Specifies the output pin that is connected to Data/Command IO pin on the
+GLCD.
+
+Required
+
+`GLCD_CS`
+
+Specifies the output pin that is connected to Chip Select (CS) on the
+GLCD.
+
+Required
+
+`GLCD_Reset`
+
+Specifies the output pin that is connected to Reset pin on the GLCD.
+
+Required
+
+`GLCD_DI`
+
+Specifies the output pin that is connected to Data In (GLCD out) pin on
+the GLCD.   If using hardware SPI this must be the hardware SPI port.
+
+Required
+
+`GLCD_DO`
+
+Specifies the output pin that is connected to Data Out (GLCD in) pin on
+the GLCD.   If using hardware SPI this must be the hardware SPI port.
+
+Required
+
+`GLCD_SCK`
+
+Specifies the output pin that is connected to Clock (CLK) pin on the
+GLCD.   If using hardware SPI this must be the hardware SPI port.
+
+Required
+
+ 
+
+<span class="strong">**UNO Shield Method**</span>   The method uses the
+ILI9341 attached via the UNO shield
+
+`GLCD_CS`
+
+Specifies the output pin that is connected to Chip Select (CS) on the
+GLCD.
+
+Required
+
+`GLCD_Reset`
+
+Specifies the output pin that is connected to Reset pin on the GLCD.
+
+Required
+
+`GLCD_RD`
+
+Specifies the output pin that is connected to Read (RD) pin on the GLCD.
+
+Required
+
+`GLCD_WR`
+
+Specifies the output pin that is connected to Write (WR) pin on the
+GLCD.
+
+Required
+
+`GLCD_RS`
+
+Specifies the output pin that is connected to Data/Command (RS) pin on
+the GLCD.
+
+Required
+
+`GLCD_DB0`
+
+DIGITAL\_8
+
+Mandated to this port
+
+`GLCD_DB1`
+
+DIGITAL\_9
+
+Mandated to this port
+
+`GLCD_DB2`
+
+DIGITAL\_2
+
+Mandated to this port
+
+`GLCD_DB3`
+
+DIGITAL\_3
+
+Mandated to this port
+
+`GLCD_DB4`
+
+DIGITAL\_4
+
+Mandated to this port
+
+`GLCD_DB5`
+
+DIGITAL\_5
+
+Mandated to this port
+
+`GLCD_DB6`
+
+DIGITAL\_6
+
+Mandated to this port
+
+`GLCD_DB7`
+
+DIGITAL\_7
+
+Mandated to this port
+
+ 
+
+<span class="strong">**8Bit Port Method**</span>   The method uses a
+contigous 8bit port for the data port.
+
+`GLCD_CS`
+
+Specifies the output pin that is connected to Chip Select (CS) on the
+GLCD.
+
+Required
+
+`GLCD_Reset`
+
+Specifies the output pin that is connected to Reset pin on the GLCD.
+
+Required
+
+`GLCD_RD`
+
+Specifies the output pin that is connected to Read (RD) pin on the GLCD.
+
+Required
+
+`GLCD_WR`
+
+Specifies the output pin that is connected to Write (WR) pin on the
+GLCD.
+
+Required
+
+`GLCD_RS`
+
+Specifies the output pin that is connected to Data/Command (RS) pin on
+the GLCD.
+
+Required
+
+`GLCD_PORT`
+
+Any valid 8 bit port, like PORTC
+
+Required
+
+ 
+
+<span class="strong">**SPI Controls**</span>   
+
+`HWSPIMode`
+
+Specifies the speed of the SPI communications for Hardware SPI only.
+
+Optional defaults to MASTERFAST.
+
+Options are MASTERSLOW,  
+MASTER,  
+MASTERFAST, or  
+MASTERULTRAFAST for specific AVRs only.
 
 The GCBASIC constants for control display characteristics are shown in
 the table below.
@@ -340,5 +483,3 @@ as a block character.
 or <a href="pset" class="link" title="Pset">Pset</a>
 
 Supported in &lt;GLCD.H&gt;
-
-</div>

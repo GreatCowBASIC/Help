@@ -34,7 +34,7 @@ supports strings only.
 Prints data values (byte, word, long or string) at a specified location
 on the GLCD screen.  
   
-To display an integer use:  
+As an exmaple, to display an string use:  
   
 
 ``` screen

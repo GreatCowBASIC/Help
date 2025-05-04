@@ -524,6 +524,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#__script">#script</a></li>
 <li><a href="#__startup">#startup</a></li>
 <li><a href="#__mem">#mem</a></li>
+<li><a href="#_enum">Enum</a></li>
 <li><a href="#_other_directives">Other directives</a></li>
 </ul>
 </li>
@@ -803,13 +804,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2025-03-15<br>
-10:05:45 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2025-05-04<br>
+19:29:35 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2025-03-15<br>
-10:02:43 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2025-05-04<br>
+09:02:59 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -17604,10 +17605,10 @@ Cannot be changed.</p></td>
 <p>GCBASIC supports 65K-color mode operations.</p>
 </div>
 <div class="paragraph">
-<p>The GCBASIC constants shown below control the configuration of the ILI9341 controller. &#160;&#160;&#160;GCBASIC supports SPI hardware and software connectivity  - this is shown in the tables below.</p>
+<p>The GCBASIC supports different methods to controller the GLCD.&#160;&#160;&#160;These methods are shown below control the configuration of the ILI9341 controller. &#160;&#160;&#160;GCBASIC supports SPI hardware and software connectivity  - this is shown in the tables below.</p>
 </div>
 <div class="paragraph">
-<p>To use the ILI9341 driver simply include the following in your user code.  This will initialise the driver.</p>
+<p>To use the ILI9341 driver simply include the following in your user code.  This will initialise the driver of a SPI method of connection.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -17643,7 +17644,10 @@ Cannot be changed.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_TYPE_ILI9341</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Define the constant only</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock"><strong>SPI Method</strong> &#160;&#160;&#160;The method can use hardware or software SPI</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_DC</code></p></td>
@@ -17662,23 +17666,131 @@ Cannot be changed.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_DI</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Data In (GLCD out) pin on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Data In (GLCD out) pin on the GLCD.&#160;&#160;&#160;If using hardware SPI this must be the hardware SPI port.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_DO</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Data Out (GLCD in) pin on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Data Out (GLCD in) pin on the GLCD.&#160;&#160;&#160;If using hardware SPI this must be the hardware SPI port.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_SCK</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Clock (CLK) pin on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Clock (CLK) pin on the GLCD.&#160;&#160;&#160;If using hardware SPI this must be the hardware SPI port.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top" colspan="3"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock"><strong>UNO Shield Method</strong>&#160;&#160;&#160;The method uses the ILI9341 attached via the UNO shield</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_CS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Chip Select (CS)  on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_Reset</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Reset pin on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_RD</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Read (RD) pin on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_WR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Write (WR) pin on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_RS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Data/Command (RS) pin on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_DB0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIGITAL_8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mandated to this port</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_DB1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIGITAL_9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mandated to this port</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_DB2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIGITAL_2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mandated to this port</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_DB3</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIGITAL_3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mandated to this port</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_DB4</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIGITAL_4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mandated to this port</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_DB5</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIGITAL_5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mandated to this port</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_DB6</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIGITAL_6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mandated to this port</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_DB7</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DIGITAL_7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mandated to this port</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock"><strong>8Bit Port Method</strong>&#160;&#160;&#160;The method uses a contigous 8bit port for the data port.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_CS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Chip Select (CS)  on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_Reset</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Reset pin on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_RD</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Read (RD) pin on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_WR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Write (WR) pin on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_RS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the output pin that is connected to Data/Command (RS) pin on the GLCD.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>GLCD_PORT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any valid 8 bit port, like PORTC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock"><strong>SPI Controls</strong>&#160;&#160;&#160;</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>HWSPIMode</code></p></td>
@@ -26260,7 +26372,7 @@ To display an integer use:
 Prints data values (byte, word, long or string) at a specified location on the GLCD screen.
 <br>
 <br>
-To display an integer use:
+As an exmaple, to display an string use:
 <br>
 <br></p>
 </div>
@@ -53595,6 +53707,158 @@ Limitations on this directive are:</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_enum">Enum</h3>
+<div class="paragraph">
+<p><strong>Overview</strong></p>
+</div>
+<div class="paragraph">
+<p>Enums in GCBASIC provide a convenient way to define named constants, improving code readability and maintainability. &#160;&#160; Instead of using raw numeric values, users can define meaningful names for states, modes, or categories.</p>
+</div>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>Enum</code> keyword allows users to declare an enumeration with automatic assignment of values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">Enum ModbusState [Reset]
+    MODBUS_IDLE           ' Waiting for a new message
+    MODBUS_SYNC           ' Sync with Modbus device address
+    MODBUS_FUNCTION_CODE  ' Identify function code
+    MODBUS_PROCESS_DATA   ' Read incoming data bytes
+    MODBUS_COMPLETE       ' Packet processing finished
+End Enum</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The optional <code>Reset</code> parameter will start this specific enum at zero.&#160;&#160;If <code>Reset</code> is not specified then every enum element will be sequentially/uniquely numbered.</p>
+</div>
+<div class="paragraph">
+<p><strong>Enhanced Compatibility with External Systems</strong></p>
+</div>
+<div class="paragraph">
+<p>Many protocols, such as Modbus, require specific numeric values for states or function codes. &#160;&#160; By letting users define their own values, they can align their enums with standardised protocols.&#160;&#160;  The <code>Enum</code> keyword also allows users to declare an enumeration with named constants:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">Enum ModbusState
+    MODBUS_IDLE = 1
+    MODBUS_SYNC = 0x02
+    MODBUS_FUNCTION_CODE = 0x03
+    MODBUS_PROCESS_DATA = MODBUS_FUNCTION_CODE + 1
+    MODBUS_COMPLETE = INT((30/2)+1)
+End Enum</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Users can manually assign enumeration values using constants and expressions. &#160;&#160; <strong>Calculations must use the equals sign (<code>=</code>), following <code>#DEFINE</code> rules.</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Usage</strong></p>
+</div>
+<div class="paragraph">
+<p>Users can declare variables of an enum type and assign values directly:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">Dim currentState As Byte
+currentState = MODBUS_IDLE</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enums can be used in conditions for more readable logic:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">If currentState = MODBUS_FUNCTION_CODE Then
+    ' Handle function code processing
+End If</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Users can also define additional Enum values using constants:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">#DEFINE CUSTOM_STATE = MODBUS_PROCESS_DATA + 2
+If currentState = CUSTOM_STATE Then
+    Print "Custom processing step reached."
+End If</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Conversion Support</strong></p>
+</div>
+<div class="paragraph">
+<p>Enums in GCBASIC can be used in mathematical operations and references to other constants. &#160;&#160; This allows developers to integrate enums seamlessly into calculations and logical expressions.</p>
+</div>
+<div class="paragraph">
+<p><strong>Math Operations</strong></p>
+</div>
+<div class="paragraph">
+<p>Users can use enums in arithmetic expressions since they resolve to numeric values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">Dim nextState As Byte
+nextState = MODBUS_SYNC + 1 ' Evaluates to MODBUS_FUNCTION_CODE</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enums can also be used in expressions involving comparisons:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">If currentState &lt; MODBUS_COMPLETE Then
+    ' Keep processing data
+End If</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Reference to Other Constants</strong></p>
+</div>
+<div class="paragraph">
+<p>Since enum values are numeric, users can reference them in calculations that involve predefined constants:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">#DEFINE MAX_STATE = MODBUS_COMPLETE
+If currentState = MAX_STATE Then
+    Print "Processing complete."
+End If</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Summary</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Users can use automatic enumeration values.</p>
+</li>
+<li>
+<p>Users can manually assign enumeration values using constants and calculations.</p>
+</li>
+<li>
+<p>Calculations must use the equals sign (<code>=</code>), following GCBASIC’s <code>#DEFINE</code> rules.</p>
+</li>
+<li>
+<p>Enums allow users to define named constants.</p>
+</li>
+<li>
+<p>Values start at <code>0</code> and increment automatically if not manually assigned.</p>
+</li>
+<li>
+<p>Enums improve readability and eliminate the need for magic numbers.</p>
+</li>
+<li>
+<p>Enums can be used in mathematical operations and references to constants.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_other_directives">Other directives</h3>
 <div class="paragraph">
 <p>The built-in <code>#defines</code> are used to support the <code>#IFDEF</code> command set are as follows. The table also shows which <code>#defines</code> are supported as string in HSerPrint, SerPrint and other string related commands.</p>
@@ -58832,7 +59096,7 @@ If you use AVRDUDE then uou must ensure the Windows device driver is <code>libus
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-03-15 10:02:43 GMT Standard Time
+Last updated 2025-05-04 09:02:59 GMT Summer Time
 </div>
 </div>
 </body>

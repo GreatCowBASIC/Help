@@ -16,7 +16,7 @@
       <link rel="next" href="_ili9481_controllers.html" title="ILI9481 Controllers" />
       <meta name="Section-title" content="ILI9341 Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-56711";
+            var treeCookieId = "treeview-57066";
             var language = "en";
             var w = new Object();
             //Localization
@@ -188,10 +188,12 @@ border: none; background: none; font-weight: none; color: none; }
                240RGBx320 Resolution and 262K colors.
             </p>
             <p>GCBASIC supports 65K-color mode operations.</p>
-            <p>The GCBASIC constants shown below control the configuration of the ILI9341 controller.    GCBASIC supports SPI hardware and
-               software connectivity  - this is shown in the tables below.
+            <p>The GCBASIC supports different methods to controller the GLCD.   These methods are shown below control the configuration of
+               the ILI9341 controller.    GCBASIC supports SPI hardware and software connectivity  - this is shown in the tables below.
             </p>
-            <p>To use the ILI9341 driver simply include the following in your user code.  This will initialise the driver.</p><pre class="screen">    #include &lt;glcd.h&gt;
+            <p>To use the ILI9341 driver simply include the following in your user code.  This will initialise the driver of a SPI method
+               of connection.
+            </p><pre class="screen">    #include &lt;glcd.h&gt;
     #DEFINE GLCD_TYPE GLCD_TYPE_ILI9341
 
     'Pin mappings for ILI9341 - these MUST be specified
@@ -223,7 +225,15 @@ border: none; background: none; font-weight: none; color: none; }
                         <td align="left" valign="top">
                            <p><code class="literal">GLCD_TYPE_ILI9341</code></p>
                         </td>
-                        <td align="left" valign="top"> </td>
+                        <td align="left" valign="top">
+                           <p>Define the constant only</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td colspan="3" align="left" valign="top">
+                           <p><span class="strong"><strong>SPI Method</strong></span>    The method can use hardware or software SPI
+                           </p>
+                        </td>
                      </tr>
                      <tr>
                         <td align="left" valign="top">
@@ -263,7 +273,9 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">GLCD_DI</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Specifies the output pin that is connected to Data In (GLCD out) pin on the GLCD.</p>
+                           <p>Specifies the output pin that is connected to Data In (GLCD out) pin on the GLCD.   If using hardware SPI this must be the
+                              hardware SPI port.
+                           </p>
                         </td>
                         <td align="left" valign="top">
                            <p>Required</p>
@@ -274,7 +286,9 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">GLCD_DO</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Specifies the output pin that is connected to Data Out (GLCD in) pin on the GLCD.</p>
+                           <p>Specifies the output pin that is connected to Data Out (GLCD in) pin on the GLCD.   If using hardware SPI this must be the
+                              hardware SPI port.
+                           </p>
                         </td>
                         <td align="left" valign="top">
                            <p>Required</p>
@@ -285,16 +299,249 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">GLCD_SCK</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Specifies the output pin that is connected to Clock (CLK) pin on the GLCD.</p>
+                           <p>Specifies the output pin that is connected to Clock (CLK) pin on the GLCD.   If using hardware SPI this must be the hardware
+                              SPI port.
+                           </p>
                         </td>
                         <td align="left" valign="top">
                            <p>Required</p>
                         </td>
                      </tr>
                      <tr>
-                        <td align="left" valign="top"> </td>
-                        <td align="left" valign="top"> </td>
-                        <td align="left" valign="top"> </td>
+                        <td colspan="3" align="left" valign="top"> </td>
+                     </tr>
+                     <tr>
+                        <td colspan="3" align="left" valign="top">
+                           <p><span class="strong"><strong>UNO Shield Method</strong></span>   The method uses the ILI9341 attached via the UNO shield
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_CS</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Specifies the output pin that is connected to Chip Select (CS)  on the GLCD.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Required</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_Reset</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Specifies the output pin that is connected to Reset pin on the GLCD.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Required</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_RD</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Specifies the output pin that is connected to Read (RD) pin on the GLCD.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Required</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_WR</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Specifies the output pin that is connected to Write (WR) pin on the GLCD.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Required</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_RS</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Specifies the output pin that is connected to Data/Command (RS) pin on the GLCD.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Required</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_DB0</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>DIGITAL_8</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Mandated to this port</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_DB1</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>DIGITAL_9</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Mandated to this port</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_DB2</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>DIGITAL_2</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Mandated to this port</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_DB3</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>DIGITAL_3</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Mandated to this port</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_DB4</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>DIGITAL_4</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Mandated to this port</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_DB5</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>DIGITAL_5</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Mandated to this port</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_DB6</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>DIGITAL_6</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Mandated to this port</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_DB7</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>DIGITAL_7</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Mandated to this port</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td colspan="3" align="left" valign="top"> </td>
+                     </tr>
+                     <tr>
+                        <td colspan="3" align="left" valign="top">
+                           <p><span class="strong"><strong>8Bit Port Method</strong></span>   The method uses a contigous 8bit port for the data port.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_CS</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Specifies the output pin that is connected to Chip Select (CS)  on the GLCD.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Required</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_Reset</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Specifies the output pin that is connected to Reset pin on the GLCD.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Required</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_RD</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Specifies the output pin that is connected to Read (RD) pin on the GLCD.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Required</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_WR</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Specifies the output pin that is connected to Write (WR) pin on the GLCD.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Required</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_RS</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Specifies the output pin that is connected to Data/Command (RS) pin on the GLCD.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Required</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_PORT</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Any valid 8 bit port, like PORTC</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Required</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td colspan="3" align="left" valign="top"> </td>
+                     </tr>
+                     <tr>
+                        <td colspan="3" align="left" valign="top">
+                           <p><span class="strong"><strong>SPI Controls</strong></span>   
+                           </p>
+                        </td>
                      </tr>
                      <tr>
                         <td align="left" valign="top">
@@ -1256,6 +1503,7 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="__script.html" tabindex="1">#script</a></span></li>
                               <li><span class="file"><a href="__startup.html" tabindex="1">#startup</a></span></li>
                               <li><span class="file"><a href="__mem.html" tabindex="1">#mem</a></span></li>
+                              <li><span class="file"><a href="_enum.html" tabindex="1">Enum</a></span></li>
                               <li><span class="file"><a href="_other_directives.html" tabindex="1">Other directives</a></span></li>
                            </ul>
                         </li>

@@ -19,7 +19,7 @@ GLCD supports for a larger fixed font of 13 pixels.{nbsp}{nbsp}  GLCDPrintLargeF
 Prints data values (byte, word, long or string) at a specified location on the GLCD screen.
 {empty} +
 {empty} +
-To display an integer use:
+As an exmaple, to display an string use:
 {empty} +
 {empty} +
 ----

@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2025-03-15</date>
+<date>2025-05-04</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team @ 2024</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2025-03-15<?asciidoc-br?>
-10:05:40 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2025-05-04<?asciidoc-br?>
+19:29:31 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2025-03-15<?asciidoc-br?>
-10:02:43 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2025-05-04<?asciidoc-br?>
+09:02:59 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -12222,8 +12222,8 @@ Cannot be changed.</simpara></entry>
 <title>ILI9341 Controllers</title>
 <simpara>This section covers GLCD devices that use the ILI9341 graphics controller.  The ILI9341 is a TFT LCD Single Chip Driver with 240RGBx320 Resolution and 262K colors.</simpara>
 <simpara>GCBASIC supports 65K-color mode operations.</simpara>
-<simpara>The GCBASIC constants shown below control the configuration of the ILI9341 controller. &#160;&#160;&#160;GCBASIC supports SPI hardware and software connectivity  - this is shown in the tables below.</simpara>
-<simpara>To use the ILI9341 driver simply include the following in your user code.  This will initialise the driver.</simpara>
+<simpara>The GCBASIC supports different methods to controller the GLCD.&#160;&#160;&#160;These methods are shown below control the configuration of the ILI9341 controller. &#160;&#160;&#160;GCBASIC supports SPI hardware and software connectivity  - this is shown in the tables below.</simpara>
+<simpara>To use the ILI9341 driver simply include the following in your user code.  This will initialise the driver of a SPI method of connection.</simpara>
 <screen>    #include &lt;glcd.h&gt;
     #DEFINE GLCD_TYPE GLCD_TYPE_ILI9341
 
@@ -12251,7 +12251,10 @@ Cannot be changed.</simpara></entry>
 <row>
 <entry align="left" valign="top"><simpara><literal>GLCD_TYPE</literal></simpara></entry>
 <entry align="left" valign="top"><simpara><literal>GLCD_TYPE_ILI9341</literal></simpara></entry>
-<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"><simpara>Define the constant only</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top" namest="col_1" nameend="col_3"><simpara><emphasis role="strong">SPI Method</emphasis> &#160;&#160;&#160;The method can use hardware or software SPI</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>GLCD_DC</literal></simpara></entry>
@@ -12270,23 +12273,131 @@ Cannot be changed.</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>GLCD_DI</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Data In (GLCD out) pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Data In (GLCD out) pin on the GLCD.&#160;&#160;&#160;If using hardware SPI this must be the hardware SPI port.</simpara></entry>
 <entry align="left" valign="top"><simpara>Required</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>GLCD_DO</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Data Out (GLCD in) pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Data Out (GLCD in) pin on the GLCD.&#160;&#160;&#160;If using hardware SPI this must be the hardware SPI port.</simpara></entry>
 <entry align="left" valign="top"><simpara>Required</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>GLCD_SCK</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Clock (CLK) pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Clock (CLK) pin on the GLCD.&#160;&#160;&#160;If using hardware SPI this must be the hardware SPI port.</simpara></entry>
 <entry align="left" valign="top"><simpara>Required</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"></entry>
-<entry align="left" valign="top"></entry>
-<entry align="left" valign="top"></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_3"></entry>
+</row>
+<row>
+<entry align="left" valign="top" namest="col_1" nameend="col_3"><simpara><emphasis role="strong">UNO Shield Method</emphasis>&#160;&#160;&#160;The method uses the ILI9341 attached via the UNO shield</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_CS</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Chip Select (CS)  on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_Reset</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Reset pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_RD</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Read (RD) pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_WR</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Write (WR) pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_RS</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Data/Command (RS) pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_DB0</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>DIGITAL_8</simpara></entry>
+<entry align="left" valign="top"><simpara>Mandated to this port</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_DB1</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>DIGITAL_9</simpara></entry>
+<entry align="left" valign="top"><simpara>Mandated to this port</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_DB2</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>DIGITAL_2</simpara></entry>
+<entry align="left" valign="top"><simpara>Mandated to this port</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_DB3</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>DIGITAL_3</simpara></entry>
+<entry align="left" valign="top"><simpara>Mandated to this port</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_DB4</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>DIGITAL_4</simpara></entry>
+<entry align="left" valign="top"><simpara>Mandated to this port</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_DB5</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>DIGITAL_5</simpara></entry>
+<entry align="left" valign="top"><simpara>Mandated to this port</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_DB6</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>DIGITAL_6</simpara></entry>
+<entry align="left" valign="top"><simpara>Mandated to this port</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_DB7</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>DIGITAL_7</simpara></entry>
+<entry align="left" valign="top"><simpara>Mandated to this port</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top" namest="col_1" nameend="col_3"></entry>
+</row>
+<row>
+<entry align="left" valign="top" namest="col_1" nameend="col_3"><simpara><emphasis role="strong">8Bit Port Method</emphasis>&#160;&#160;&#160;The method uses a contigous 8bit port for the data port.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_CS</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Chip Select (CS)  on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_Reset</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Reset pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_RD</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Read (RD) pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_WR</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Write (WR) pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_RS</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies the output pin that is connected to Data/Command (RS) pin on the GLCD.</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCD_PORT</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Any valid 8 bit port, like PORTC</simpara></entry>
+<entry align="left" valign="top"><simpara>Required</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top" namest="col_1" nameend="col_3"></entry>
+</row>
+<row>
+<entry align="left" valign="top" namest="col_1" nameend="col_3"><simpara><emphasis role="strong">SPI Controls</emphasis>&#160;&#160;&#160;</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>HWSPIMode</literal></simpara></entry>
@@ -19432,7 +19543,7 @@ To display an integer use:
 Prints data values (byte, word, long or string) at a specified location on the GLCD screen.
 <?asciidoc-br?>
 <?asciidoc-br?>
-To display an integer use:
+As an exmaple, to display an string use:
 <?asciidoc-br?>
 <?asciidoc-br?></simpara>
 <screen>    GLCDPrintLargeFont( 0, 0, "13 Pixels Fixed Font" )</screen>
@@ -38575,6 +38686,84 @@ Limitations on this directive are:</simpara>
 <simpara><emphasis role="strong">This directive is obsolete</emphasis>.</simpara>
 <simpara>GCBASIC determines the amount of memory on a chip automatically, and will ignore the <literal>#mem</literal> directive.</simpara>
 <simpara>It is recommended that this directive is removed from all programs.</simpara>
+</section>
+<section xml:id="_enum">
+<title>Enum</title>
+<simpara><emphasis role="strong">Overview</emphasis></simpara>
+<simpara>Enums in GCBASIC provide a convenient way to define named constants, improving code readability and maintainability. &#160;&#160; Instead of using raw numeric values, users can define meaningful names for states, modes, or categories.</simpara>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<simpara>The <literal>Enum</literal> keyword allows users to declare an enumeration with automatic assignment of values:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">Enum ModbusState [Reset]
+    MODBUS_IDLE           ' Waiting for a new message
+    MODBUS_SYNC           ' Sync with Modbus device address
+    MODBUS_FUNCTION_CODE  ' Identify function code
+    MODBUS_PROCESS_DATA   ' Read incoming data bytes
+    MODBUS_COMPLETE       ' Packet processing finished
+End Enum</programlisting>
+<simpara>The optional <literal>Reset</literal> parameter will start this specific enum at zero.&#160;&#160;If <literal>Reset</literal> is not specified then every enum element will be sequentially/uniquely numbered.</simpara>
+<simpara><emphasis role="strong">Enhanced Compatibility with External Systems</emphasis></simpara>
+<simpara>Many protocols, such as Modbus, require specific numeric values for states or function codes. &#160;&#160; By letting users define their own values, they can align their enums with standardised protocols.&#160;&#160;  The <literal>Enum</literal> keyword also allows users to declare an enumeration with named constants:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">Enum ModbusState
+    MODBUS_IDLE = 1
+    MODBUS_SYNC = 0x02
+    MODBUS_FUNCTION_CODE = 0x03
+    MODBUS_PROCESS_DATA = MODBUS_FUNCTION_CODE + 1
+    MODBUS_COMPLETE = INT((30/2)+1)
+End Enum</programlisting>
+<simpara>Users can manually assign enumeration values using constants and expressions. &#160;&#160; <emphasis role="strong">Calculations must use the equals sign (<literal>=</literal>), following <literal>#DEFINE</literal> rules.</emphasis></simpara>
+<simpara><emphasis role="strong">Usage</emphasis></simpara>
+<simpara>Users can declare variables of an enum type and assign values directly:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">Dim currentState As Byte
+currentState = MODBUS_IDLE</programlisting>
+<simpara>Enums can be used in conditions for more readable logic:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">If currentState = MODBUS_FUNCTION_CODE Then
+    ' Handle function code processing
+End If</programlisting>
+<simpara>Users can also define additional Enum values using constants:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">#DEFINE CUSTOM_STATE = MODBUS_PROCESS_DATA + 2
+If currentState = CUSTOM_STATE Then
+    Print "Custom processing step reached."
+End If</programlisting>
+<simpara><emphasis role="strong">Conversion Support</emphasis></simpara>
+<simpara>Enums in GCBASIC can be used in mathematical operations and references to other constants. &#160;&#160; This allows developers to integrate enums seamlessly into calculations and logical expressions.</simpara>
+<simpara><emphasis role="strong">Math Operations</emphasis></simpara>
+<simpara>Users can use enums in arithmetic expressions since they resolve to numeric values:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">Dim nextState As Byte
+nextState = MODBUS_SYNC + 1 ' Evaluates to MODBUS_FUNCTION_CODE</programlisting>
+<simpara>Enums can also be used in expressions involving comparisons:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">If currentState &lt; MODBUS_COMPLETE Then
+    ' Keep processing data
+End If</programlisting>
+<simpara><emphasis role="strong">Reference to Other Constants</emphasis></simpara>
+<simpara>Since enum values are numeric, users can reference them in calculations that involve predefined constants:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">#DEFINE MAX_STATE = MODBUS_COMPLETE
+If currentState = MAX_STATE Then
+    Print "Processing complete."
+End If</programlisting>
+<simpara><emphasis role="strong">Summary</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara>Users can use automatic enumeration values.</simpara>
+</listitem>
+<listitem>
+<simpara>Users can manually assign enumeration values using constants and calculations.</simpara>
+</listitem>
+<listitem>
+<simpara>Calculations must use the equals sign (<literal>=</literal>), following GCBASIC’s <literal>#DEFINE</literal> rules.</simpara>
+</listitem>
+<listitem>
+<simpara>Enums allow users to define named constants.</simpara>
+</listitem>
+<listitem>
+<simpara>Values start at <literal>0</literal> and increment automatically if not manually assigned.</simpara>
+</listitem>
+<listitem>
+<simpara>Enums improve readability and eliminate the need for magic numbers.</simpara>
+</listitem>
+<listitem>
+<simpara>Enums can be used in mathematical operations and references to constants.</simpara>
+</listitem>
+</itemizedlist>
 </section>
 <section xml:id="_other_directives">
 <title>Other directives</title>

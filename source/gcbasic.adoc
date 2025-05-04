@@ -1165,6 +1165,8 @@ include::startup.adoc[]
 
 include::mem.adoc[]
 
+include::enum.adoc[]
+
 include::otherdirectives.adoc[]
 
 ifdef::backend-pdf[<<<]
