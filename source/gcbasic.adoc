@@ -1189,6 +1189,8 @@ include::optionnolatch.adoc[]
 
 include::optionrequired.adoc[]
 
+include::optionshadowregister.adoc[]
+
 include::optionvolatile.adoc[]
 
 include::optionReserveHighProg.adoc[]
