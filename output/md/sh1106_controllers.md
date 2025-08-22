@@ -33,6 +33,9 @@ Memory Mode GLCD or Text mode these require 1024, 128 or 0 byte GLCD
 buffer respectively - you microcontroller requires sufficient RAM to
 support the selected mode of GLCD operation.
 
+Specific to the Rajguru Electronics 13002-Series display you can can
+specify a GLCD\_SubType 13002 to enable support.
+
 ``` screen
     #include <glcd.h>
 
@@ -41,6 +44,8 @@ support the selected mode of GLCD operation.
     #define GLCD_I2C_Address 0x78
     '#define GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE        'select Low Memory mode of operation
     '#define GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY        'select Text mode of operation
+
+    '#define GLCD_SubType 13002                          'add to support Rajguru Electronics 13002-Series display
 
     ; ----- Define Hardware settings
     ' Define I2C settings

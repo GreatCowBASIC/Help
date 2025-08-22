@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2025-05-04</date>
+<date>2025-08-19</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team @ 2024</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2025-05-04<?asciidoc-br?>
-19:29:31 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2025-08-19<?asciidoc-br?>
+14:25:49 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2025-05-04<?asciidoc-br?>
-09:02:59 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2025-08-19<?asciidoc-br?>
+07:27:02 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -3335,225 +3335,183 @@ at any time.</simpara>
 </section>
 <section xml:id="_lookup_tables">
 <title>Lookup Tables</title>
-<simpara><emphasis role="strong">About Lookup Tables</emphasis></simpara>
-<simpara>A lookup table is a list of values that are stored in the memory of the microcontroller, which then can be accessed using the <literal>ReadTable</literal> command.</simpara>
-<simpara>The advantage of lookup tables is that they are memory efficient,
-compared to an equivalent set of alternative command statements.</simpara>
-<simpara>Data tables are defined as follows:</simpara>
-<orderedlist numeration="arabic">
+<simpara xml:id="overview"><emphasis role="strong">Overview</emphasis></simpara>
+<simpara><emphasis>A lookup table is a list of values stored in the microcontroller’s memory and accessed using <literal>ReadTable</literal>.</emphasis></simpara>
+<simpara><emphasis>Key Features</emphasis></simpara>
+<itemizedlist>
 <listitem>
-<simpara>a single value on each line</simpara>
+<simpara>Efficient memory usage</simpara>
 </listitem>
 <listitem>
-<simpara>byte, word, longs and integer values are valid.&#160;&#160;</simpara>
+<simpara>Supports <literal>byte</literal>, <literal>word</literal>, <literal>long</literal>, and <literal>integer</literal> types</simpara>
 </listitem>
 <listitem>
-<simpara>Strings must be expressed as ASCII byte value(s)</simpara>
+<simpara>ASCII string definitions supported</simpara>
 </listitem>
 <listitem>
-<simpara>multiple elements on a single line separated by commas</simpara>
+<simpara>Constants and inline calculations permitted</simpara>
 </listitem>
 <listitem>
-<simpara>constants and calculations within the single line data table entries are permitted</simpara>
+<simpara>External data sources allowed</simpara>
+</listitem>
+</itemizedlist>
+<simpara><emphasis>Note: Decimal values are not supported</emphasis></simpara>
+<simpara><emphasis role="strong">Contents</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><link linkend="defining-tables">Defining Tables</link></simpara>
 </listitem>
 <listitem>
-<simpara>an external data source file</simpara>
+<simpara><link linkend="strings">String Tables</link></simpara>
 </listitem>
 <listitem>
-<simpara>decimal values are NOT supported
-<?asciidoc-br?>
-<?asciidoc-br?></simpara>
+<simpara><link linkend="escapes">ASCII Escape Sequences</link></simpara>
 </listitem>
-</orderedlist>
-<simpara><emphasis role="strong">Defining Tables</emphasis></simpara>
-<simpara><emphasis>Single data values</emphasis></simpara>
-<simpara>A single value on each line with in the table.&#160;&#160;The example table, shown below, has the data on different line in within the table.</simpara>
-<screen>    Table TestDataSource
-        12
-        24
-        36
-        48
-        60
-        72
-    End Table
-
-    Dim TableCounter, Invalue as byte
-
-    CLS
-    For TableCounter = 1 to 6
-      ReadTable  TestDataSource, TableCounter, Invalue
-      Print InValue
-      Print ","
-    Next</screen>
-<simpara><emphasis>Multiple data values of the same line</emphasis></simpara>
-<simpara>Multiple elements on a single line separated by commas.&#160;&#160;The example table, shown below, has the data separated by <literal>,</literal> and on different line in within the table.</simpara>
-<screen>    Table TestDataSource
-        12,  24, 36
-        48,  60, 72
-    End Table
-
-    Dim TableCounter, Invalue as byte
-
-    CLS
-    For TableCounter = 1 to 6
-      ReadTable  TestDataSource, TableCounter, Invalue
-      Print InValue
-      Print ","
-    Next</screen>
-<simpara><emphasis>Data values as constants, and, with data transformation</emphasis></simpara>
-<simpara>Constants and calculations within the single line.  &#160;&#160;The example table, shown below, uses a defined constant to multiple the data with the table.</simpara>
+<listitem>
+<simpara><link linkend="reading">Reading Lookup Tables</link></simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="external">Importing from External File</link></simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="eeprom">EEPROM Table Storage</link></simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="reference">Reference</link></simpara>
+</listitem>
+</itemizedlist>
+<simpara xml:id="defining-tables"><emphasis role="strong">Defining Tables</emphasis></simpara>
+<simpara xml:id="single-values"><emphasis>Single Values</emphasis></simpara>
+<screen>Table TestDataSource
+    12
+    24
+    36
+    48
+    60
+    72
+End Table</screen>
+<simpara xml:id="multiple-values"><emphasis>Multiple Values</emphasis></simpara>
+<screen>Table TestDataSource
+    12, 24, 36
+    48, 60, 72
+End Table</screen>
+<simpara xml:id="constants"><emphasis>Constants &amp; Calculations</emphasis></simpara>
 <screen>#define calculation_constant 2
 
-    Table TestDataSource
-      1 * calculation_constant
-      2 * calculation_constant
-      3 * calculation_constant
-      8 * calculation_constant
-      4 * calculation_constant
-      5 * calculation_constant
-    End Table
+Table TestDataSource
+    1 * calculation_constant
+    2 * calculation_constant
+    3 * calculation_constant
+    8 * calculation_constant
+    4 * calculation_constant
+    5 * calculation_constant
+End Table</screen>
+<simpara xml:id="strings"><emphasis role="strong">String Tables</emphasis></simpara>
+<simpara xml:id="simple-strings"><emphasis>Simple Examples</emphasis></simpara>
+<screen>Table Test_1
+    "ABCDEFGHIJ"
+End Table</screen>
+<screen>Table MnuTxt_1
+    "  Display_1    Display_2    Display_3  "
+End Table
 
-    Dim TableCounter, Invalue as byte
-
-    CLS
-    For TableCounter = 1 to 6
-      ReadTable  TestDataSource, TableCounter, Invalue
-      Print InValue
-      Print ","
-    Next</screen>
-<simpara>&#160;&#160;
-&#160;&#160;</simpara>
-<simpara><emphasis>Data values as Strings</emphasis></simpara>
-<simpara>Strings can be defined.&#160;&#160;Strings are delimited by double quotes. &#160;&#160; The following examples show the methods.</simpara>
-<simpara>Any ASCII characters between any two "    " (double quotes) will be converted to table data.&#160;&#160; Also see ASCII escape codes.</simpara>
-<simpara>A source string can be one string per line or comma separated strings, therefore, on the same line.</simpara>
-<simpara>Simple Example 1.</simpara>
-<screen>    Table Test_1
-     "ABCDEFGHIJ"
-    End Table</screen>
-<simpara>Simple Example 2.</simpara>
-<screen>    '
-    Table  MnuTxt_1  'Home disp
-       "  Display_1    Display_2    Display_3  "
-    End Table
-
-    Table MnuTxt_2   'Main Menu
-     "1: Display"       ' Main1
-     "2: System Setup"  ' Main2
-     "3: Config 1"      ' Main3
-     "4: Config 2"      ' Main4
-     "5: Data Log"      ' Main5
-     "6: Diagnostic"    ' Main6
-     "7: Help+"         ' Main7
-    End Table</screen>
-<simpara>The following 2 table lines produce the same table data.</simpara>
-<screen>    "String1","String2", "String3"
-    "String1String2String3"</screen>
-<simpara>And, the following 3 table lines produce the same table data.</simpara>
-<screen>    "String1"
-    "String2"
-    "String3"</screen>
-<simpara><emphasis>ASCII Escape code</emphasis></simpara>
-<simpara>Accepted escape strings are shown in the table below.</simpara>
+Table MnuTxt_2
+    "1: Display"
+    "2: System Setup"
+    "3: Config 1"
+    "4: Config 2"
+    "5: Data Log"
+    "6: Diagnostic"
+    "7: Help+"
+End Table</screen>
+<simpara xml:id="string-formatting"><emphasis>Equivalent Representations</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><literal>"String1", "String2", "String3"</literal></simpara>
+</listitem>
+<listitem>
+<simpara><literal>"String1String2String3"</literal></simpara>
+</listitem>
+<listitem>
+<simpara><literal>"String1"</literal>
+<literal>"String2"</literal>
+<literal>"String3"</literal></simpara>
+</listitem>
+</itemizedlist>
+<simpara xml:id="escapes"><emphasis role="strong">ASCII Escape Sequences</emphasis></simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <tgroup cols="2">
-<colspec colname="col_1" colwidth="50*"/>
-<colspec colname="col_2" colwidth="50*"/>
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="75*"/>
 <thead>
 <row>
-<entry align="left" valign="top">Escape sequence</entry>
+<entry align="left" valign="top">Escape</entry>
 <entry align="left" valign="top">Meaning</entry>
 </row>
 </thead>
 <tbody>
 <row>
 <entry align="left" valign="top"><simpara>\a</simpara></entry>
-<entry align="left" valign="top"><simpara>beep</simpara></entry>
+<entry align="left" valign="top"><simpara>Beep</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>\b</simpara></entry>
-<entry align="left" valign="top"><simpara>backspace</simpara></entry>
+<entry align="left" valign="top"><simpara>Backspace</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>\f</simpara></entry>
-<entry align="left" valign="top"><simpara>formfeed</simpara></entry>
+<entry align="left" valign="top"><simpara>Formfeed</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>\l or \n</simpara></entry>
-<entry align="left" valign="top"><simpara>newline</simpara></entry>
+<entry align="left" valign="top"><simpara>\n or \l</simpara></entry>
+<entry align="left" valign="top"><simpara>Newline</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>\r</simpara></entry>
-<entry align="left" valign="top"><simpara>carriage return</simpara></entry>
+<entry align="left" valign="top"><simpara>Carriage Return</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>\t</simpara></entry>
-<entry align="left" valign="top"><simpara>tab</simpara></entry>
+<entry align="left" valign="top"><simpara>Tab</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>\0</simpara></entry>
-<entry align="left" valign="top"><simpara>Nul value, equates to ASCII 0. Same as \&amp;000</simpara></entry>
+<entry align="left" valign="top"><simpara>Null value (ASCII 0)</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>\&amp;nnn</simpara></entry>
-<entry align="left" valign="top"><simpara>ascii char in decimal</simpara></entry>
+<entry align="left" valign="top"><simpara>ASCII character (decimal)</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>\\</simpara></entry>
-<entry align="left" valign="top"><simpara>backslash</simpara></entry>
+<entry align="left" valign="top"><simpara>Backslash</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>\"</simpara></entry>
-<entry align="left" valign="top"><simpara>double quote</simpara></entry>
+<entry align="left" valign="top"><simpara>Double quote</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>\'</simpara></entry>
-<entry align="left" valign="top"><simpara>single quote</simpara></entry>
+<entry align="left" valign="top"><simpara>Single quote</simpara></entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
-<simpara><emphasis role="strong">Using Lookup Tables</emphasis></simpara>
-<simpara>First, the table must be created. The code to create a lookup table is
-simple - a line that has <literal>Table</literal> and then the name of the table, a list
-of numbers (up to 10,000 elements), and then <literal>End Table</literal>.</simpara>
-<simpara>For tables with more than 255 elements it is mandated to used a WORD variable to read the size of the table. See below for an example.</simpara>
-<simpara>Once the table is created, the <literal>ReadTable</literal> command is used to read data
-from it. The <literal>ReadTable</literal> command requires the name of the table it is to
-read, the location of the item to retrieve, and a variable to store the
-retrieved number in.</simpara>
-<simpara>Lookup tables can store byte, word, longs and integer values.&#160;&#160;
-GCBASIC will try automatically detect the type of the table depending on the values in it.&#160;&#160;
-GCBASIC can be explicitly instructed to cast the table to a variable type, as follows:</simpara>
-<screen>    Table TestDataSource as [Byte | Word | Integer | Long ]
-        12
-        24
-        36
-        48
-        60
-        72
-    End Table</screen>
-<simpara><emphasis>Addresssing the Table Data</emphasis></simpara>
-<simpara>Item 0 of a lookup table stores the size of the table.
-If the <literal>ReadTable</literal> command attempts to read beyond the end (number of data items) of the table, the value 0 will be returned.
-For tables with more than 255 elements it is <emphasis role="strong">mandatory</emphasis> to use a WORD variable to read the size of the table. See example below.</simpara>
-<screen>    dim lengthoftable as word
+<simpara xml:id="reading"><emphasis role="strong">Reading Lookup Tables</emphasis></simpara>
+<simpara xml:id="basic-reading"><emphasis>Basic Reading</emphasis></simpara>
+<screen>Dim TableCounter, Invalue as byte
 
-    readtable TestDataSource , 0, lengthoftable
-    print lengthoftable  ; will print the size as a word
-
-    table TestDataSource
-    'a table with more than 255 elements
-    ... 'item 1
-    ...
-    ...
-    ...  'item 1027
-    end table</screen>
-<simpara><emphasis>Importing External Text File for table conversion</emphasis></simpara>
-<simpara>An external file can be used as the table data source.&#160;&#160;
-The file will be read into the specified table name from the external file.&#160;&#160;
-The source file will be treated as a byte value file.</simpara>
-<simpara>An example file is shown below:</simpara>
+CLS
+For TableCounter = 1 to 6
+  ReadTable TestDataSource, TableCounter, Invalue
+  Print InValue
+  Print ","
+Next</screen>
+<simpara xml:id="length-reading"><emphasis>Reading Table Length</emphasis></simpara>
+<screen>Dim lengthoftable as word
+ReadTable TestDataSource, 0, lengthoftable
+Print lengthoftable</screen>
+<simpara xml:id="external"><emphasis role="strong">Importing from External File</emphasis></simpara>
 <informalfigure>
 <mediaobject>
 <imageobject>
@@ -3562,16 +3520,13 @@ The source file will be treated as a byte value file.</simpara>
 <textobject><phrase>graphic</phrase></textobject>
 </mediaobject>
 </informalfigure>
-<simpara>The following program will import the external data file.</simpara>
-<screen>    #chip 16f877a
+<screen>#chip 16f877a
+Table TestDataSource from "sourcefile.raw"
 
-    Table TestDataSource from "sourcefile.raw"
-
-    for nn = 1 to 10
-      ReadTable TestDataSource, nn, inc
-      Print inc
-    next</screen>
-<simpara>And the program will out the following:</simpara>
+For nn = 1 to 10
+  ReadTable TestDataSource, nn, inc
+  Print inc
+Next</screen>
 <informalfigure>
 <mediaobject>
 <imageobject>
@@ -3580,42 +3535,33 @@ The source file will be treated as a byte value file.</simpara>
 <textobject><phrase>graphic</phrase></textobject>
 </mediaobject>
 </informalfigure>
-<simpara><?asciidoc-br?>
-<?asciidoc-br?></simpara>
-<simpara><emphasis>Advanced use of Lookup Tables - using EEPROM for Table data storage</emphasis></simpara>
-<simpara>You can use the <literal>Table</literal> statement to store the data table in EEPROM. If
-the compiler is told to store a data table in "Data" memory, it will
-store it in the EEPROM.</simpara>
-<simpara><emphasis role="strong">NOTE</emphasis>
-The limitation of of using EPPROM tables is that you can only
-store BYTEs. You cannot store WORD values in the EEPROM tables.</simpara>
-<simpara>Example code:</simpara>
-<screen>    #chip 16F628
+<simpara xml:id="eeprom"><emphasis role="strong">EEPROM Table Storage</emphasis></simpara>
+<screen>#chip 16F628
 
-    'Read table item
-    'Must use ReadTable and a variable for the index, or the table will not be downloaded to EEPROM
+TableLoc = 2
+ReadTable TestDataSource, TableLoc, SomeVar
 
-    TableLoc = 2
-    ReadTable TestDataSource, TableLoc, SomeVar
+EPWrite 1, 45  'Optional write
 
-    'Write to table , this is not required
-    EPWrite 1, 45
-
-    'Table of values to write to EEPROM
-    'EEPROM location 0 will store length of table
-    'Subsequent locations will each store a value
-
-    Table TestDataSource Store Data
-        12
-        24
-        36
-        48
-        60
-        72
-    End Table</screen>
-<simpara><?asciidoc-br?>
-<?asciidoc-br?></simpara>
-<simpara><emphasis role="strong">For more help, see</emphasis> <link linkend="_readtable">ReadTable</link></simpara>
+Table TestDataSource Store Data
+    12
+    24
+    36
+    48
+    60
+    72
+End Table</screen>
+<simpara xml:id="eeprom-limitations"><emphasis>EEPROM Limitations</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara>Only <literal>BYTE</literal> values are supported</simpara>
+</listitem>
+<listitem>
+<simpara><literal>WORD</literal>, <literal>INTEGER</literal>, or <literal>LONG</literal> are not compatible with EEPROM tables</simpara>
+</listitem>
+</itemizedlist>
+<simpara xml:id="reference"><emphasis role="strong">Reference</emphasis></simpara>
+<simpara>See: <literal>ReadTable</literal></simpara>
 </section>
 <section xml:id="_miscellaneous">
 <title>Miscellaneous</title>
@@ -15117,6 +15063,7 @@ specific attribute.</simpara></entry>
 <simpara>The GCBASIC constants shown below control the configuration of the SH1106 controller. &#160;&#160;&#160;GCBASIC supports i2C hardware and software connectivity  - this is shown in the tables below.</simpara>
 <simpara>The SH1106 is a monochrome device.</simpara>
 <simpara>To use the SH1106 driver simply include the following in your user code.  This will initialise the driver.  You can select Full Mode GLCD, Low Memory Mode GLCD or Text mode these require 1024, 128 or 0 byte GLCD buffer respectively - you microcontroller requires sufficient RAM to support the selected mode of GLCD operation.</simpara>
+<simpara>Specific to the Rajguru Electronics 13002-Series display you can can specify a GLCD_SubType 13002 to enable support.</simpara>
 <screen>    #include &lt;glcd.h&gt;
 
     ; ----- Define GLCD Hardware settings
@@ -15124,6 +15071,8 @@ specific attribute.</simpara></entry>
     #define GLCD_I2C_Address 0x78
     '#define GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE        'select Low Memory mode of operation
     '#define GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY        'select Text mode of operation
+
+    '#define GLCD_SubType 13002                          'add to support Rajguru Electronics 13002-Series display
 
     ; ----- Define Hardware settings
     ' Define I2C settings
@@ -39236,6 +39185,27 @@ the data value held in the port latch, regardless of the state of the actual pin
 <simpara><emphasis role="strong">Disabling:</emphasis></simpara>
 <simpara>To disable checking capability, add the following directive.</simpara>
 <screen>    #option REQUIRED DISABLE</screen>
+</section>
+<section xml:id="__option_shadowregister">
+<title>#Option Shadowregister</title>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    #option Shadowregister GPIO|PORTA|PORTB</screen>
+<simpara>This option enables RMW-safe output operations for the specified port by using a shadow latch to track intended output states, preventing unintended changes to input pin states.</simpara>
+<simpara><emphasis role="strong">Introduction:</emphasis></simpara>
+<simpara>Without this option, instructions like <literal>bsf GPIO,2</literal> on chips without <literal>LATx</literal> registers (e.g., PIC12F675) trigger a read-modify-write (RMW) operation on the port register. If any pins are configured as inputs, their bits reflect external voltage levels during the read, which can corrupt output latches when writing back. This can cause unexpected output levels, corrupted latch states during interrupts, or hard-to-trace bugs in mixed input/output setups.</simpara>
+<simpara>When <literal>#option Shadowregister port</literal> is enabled, the compiler uses a shadow latch variable to track output states.  All pin changes update the shadow latch, and writes to the port are done using full-byte transfers from the shadow latch, avoiding RMW issues.</simpara>
+<simpara><emphasis role="strong">Example:</emphasis></simpara>
+<simpara>This example enables the shadow register for <literal>GPIO</literal> on a PIC12F675, ensuring RMW-safe output for <literal>GP2 = 1</literal>.</simpara>
+<screen>    #chip 12F675, 4
+    #option Shadowregister GPIO
+
+    Dir GP0 In
+    GP2 = 1</screen>
+<simpara>This compiles to RMW-safe code:</simpara>
+<screen>    ; Set GP2 high without affecting GP0
+    bsf     LATA, 2        ; Update shadow latch
+    movf    LATA, W
+    movwf   GPIO           ; Safe write to port</screen>
 </section>
 <section xml:id="__option_volatile">
 <title>#Option Volatile</title>

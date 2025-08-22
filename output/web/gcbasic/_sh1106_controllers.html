@@ -16,7 +16,7 @@
       <link rel="next" href="_ssd1306_controllers.html" title="SSD1306 Controllers" />
       <meta name="Section-title" content="SH1106 Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-57066";
+            var treeCookieId = "treeview-57113";
             var language = "en";
             var w = new Object();
             //Localization
@@ -195,13 +195,16 @@ border: none; background: none; font-weight: none; color: none; }
             <p>To use the SH1106 driver simply include the following in your user code.  This will initialise the driver.  You can select
                Full Mode GLCD, Low Memory Mode GLCD or Text mode these require 1024, 128 or 0 byte GLCD buffer respectively - you microcontroller
                requires sufficient RAM to support the selected mode of GLCD operation.
-            </p><pre class="screen">    #include &lt;glcd.h&gt;
+            </p>
+            <p>Specific to the Rajguru Electronics 13002-Series display you can can specify a GLCD_SubType 13002 to enable support.</p><pre class="screen">    #include &lt;glcd.h&gt;
 
     ; ----- Define GLCD Hardware settings
     #define GLCD_TYPE GLCD_TYPE_SH1106
     #define GLCD_I2C_Address 0x78
     '#define GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE        'select Low Memory mode of operation
     '#define GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY        'select Text mode of operation
+
+    '#define GLCD_SubType 13002                          'add to support Rajguru Electronics 13002-Series display
 
     ; ----- Define Hardware settings
     ' Define I2C settings
@@ -1335,6 +1338,7 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
                               <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
                               <li><span class="file"><a href="__option_required.html" tabindex="1">#Option Required</a></span></li>
+                              <li><span class="file"><a href="__option_shadowregister.html" tabindex="1">#Option Shadowregister</a></span></li>
                               <li><span class="file"><a href="__option_volatile.html" tabindex="1">#Option Volatile</a></span></li>
                               <li><span class="file"><a href="__option_reservehighprog.html" tabindex="1">#Option ReserveHighProg</a></span></li>
                            </ul>

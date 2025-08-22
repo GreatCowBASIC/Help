@@ -1,6 +1,21 @@
 === Lookup Tables
 
-==== Contents
+[[overview]]
+**Overview**
+
+_A lookup table is a list of values stored in the microcontroller’s memory and accessed using `ReadTable`._
+
+__Key Features__
+
+- Efficient memory usage
+- Supports `byte`, `word`, `long`, and `integer` types
+- ASCII string definitions supported
+- Constants and inline calculations permitted
+- External data sources allowed  
+
+_Note: Decimal values are not supported_
+
+**Contents**
 
 * <<defining-tables,Defining Tables>>
 * <<strings,String Tables>>
@@ -8,25 +23,14 @@
 * <<reading,Reading Lookup Tables>>
 * <<external,Importing from External File>>
 * <<eeprom,EEPROM Table Storage>>
+* <<reference,Reference>>
 
-[[overview]]
-==== Overview
-
-A *lookup table* stores a list of values accessed via `ReadTable`.
-
-===== Key Features
-
-- Efficient memory usage
-- Supports `byte`, `word`, `long`, `integer`
-- ASCII strings and inline calculations supported
-- External data sources allowed  
-_Note: Decimal values are not supported_
 
 [[defining-tables]]
-==== Defining Tables
+**Defining Tables**
 
 [[single-values]]
-===== Single Values
+__Single Values__
 
 [source]
 ----
@@ -41,7 +45,7 @@ End Table
 ----
 
 [[multiple-values]]
-===== Multiple Values
+__Multiple Values__
 
 [source]
 ----
@@ -52,7 +56,7 @@ End Table
 ----
 
 [[constants]]
-===== Constants & Calculations
+__Constants & Calculations__
 
 [source]
 ----
@@ -69,10 +73,10 @@ End Table
 ----
 
 [[strings]]
-==== String Tables
+**String Tables**
 
 [[simple-strings]]
-===== Simple Examples
+__Simple Examples__
 
 [source]
 ----
@@ -99,7 +103,7 @@ End Table
 ----
 
 [[string-formatting]]
-===== Equivalent Representations
+__Equivalent Representations__
 
 - `"String1", "String2", "String3"`
 - `"String1String2String3"`
@@ -108,7 +112,7 @@ End Table
   `"String3"`
 
 [[escapes]]
-==== ASCII Escape Sequences
+**ASCII Escape Sequences**
 
 [cols="1,3", options="header"]
 |===
@@ -120,17 +124,17 @@ End Table
 | \r     | Carriage Return
 | \t     | Tab
 | \0     | Null value (ASCII 0)
-| \&nnn  | ASCII character in decimal
+| \&nnn  | ASCII character (decimal)
 | \\     | Backslash
 | \"     | Double quote
 | \'     | Single quote
 |===
 
 [[reading]]
-==== Reading Lookup Tables
+**Reading Lookup Tables**
 
 [[basic-reading]]
-===== Basic Reading
+__Basic Reading__
 
 [source]
 ----
@@ -145,7 +149,7 @@ Next
 ----
 
 [[length-reading]]
-===== Reading Table Length
+__Reading Table Length__
 
 [source]
 ----
@@ -155,9 +159,10 @@ Print lengthoftable
 ----
 
 [[external]]
-==== Importing from External File
+**Importing from External File**
 
-image::lookup-import.png[Import Example, width=400]
+image::lookuptablesb1.PNG[graphic,align="center"]
+
 
 [source]
 ----
@@ -170,10 +175,10 @@ For nn = 1 to 10
 Next
 ----
 
-image::lookup-output.png[Output Example, width=400]
+image::lookuptablesb2.PNG[graphic,align="center"]
 
 [[eeprom]]
-==== EEPROM Table Storage
+**EEPROM Table Storage**
 
 [source]
 ----
@@ -195,12 +200,12 @@ End Table
 ----
 
 [[eeprom-limitations]]
-===== EEPROM Limitations
+__EEPROM Limitations__
 
 - Only `BYTE` values are supported
-- `WORD`, `INTEGER`, or `LONG` cannot be stored in EEPROM
+- `WORD`, `INTEGER`, or `LONG` are not compatible with EEPROM tables
 
 [[reference]]
-==== Reference
+**Reference**
 
 See: `ReadTable`
