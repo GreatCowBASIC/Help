@@ -4,10 +4,10 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2025-08-19</date>
+<date>2025-08-22</date>
 <author>
 <personname>
-<firstname>The GCBASIC development team @ 2024</firstname>
+<firstname>The GCBASIC development team @ 2025</firstname>
 </personname>
 </author>
 <authorinitials>T</authorinitials>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2025-08-19<?asciidoc-br?>
-14:25:49 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2025-08-22<?asciidoc-br?>
+07:15:41 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2025-08-19<?asciidoc-br?>
-07:27:02 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2025-08-22<?asciidoc-br?>
+07:10:14 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
