@@ -1,5 +1,5 @@
 = GCBASIC documentation
-The GCBASIC development team @ 2024
+The GCBASIC development team @ 2025``
 
 
 
