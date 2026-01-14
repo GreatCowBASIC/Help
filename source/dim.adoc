@@ -3,118 +3,180 @@
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
-    *_For Variables > 1 byte:_*
-    Dim _variable_[, _variable2_ [, _variable3_]] [As _type_] [Alias _othervar_ [, _othervar2_]] 
-
-    'or
-    
-    Dim _variable_[, _variable2_ [, _variable3_]] [As _type_] [At _location_]
-
+    *_For Variables:_*
+    Dim _variable_    // will define a Byte variable
+    Dim _variable_ [As _type_]
+    Dim _variable_ [As _type_] [= _initialvalue_]
+    Dim _variable_[, _variable2_ [, _variable3_]] [As _type_] [Alias _othervar_ [, _othervar2_]]  [= _initialvalue_]
+    Dim _variable_[, _variable2_ [, _variable3_]] [As _type_] [At _location_] [= _initialvalue_]
 
     *_For Arrays:_*
     Dim _array_(_size_) [As _type_] [At _location_]
 
-    *_For String:_*
-    Dim _string [* _size_] [At _location_]
-
+    *_For Strings:_*
+    Dim _string_ [* _size_] [At _location_]
 ----
 
 *Explanation:*
 
-Dim has two uses:{nbsp}{nbsp}It can be used to define 1) variables of many types and 2) arrays.
+The `Dim` command is used to declare variables, arrays, and strings. It can also create aliases for existing variables or place variables at specific memory locations.
 
-*Command Availability:*
+GCBASIC supports **optional initialisation** at the point of declaration:
 
+----
+    Dim byte_var As Byte = 1
+----
+
+This sets the variable to the specified value at program start.  
+The traditional form remains fully valid:
+
+----
+    Dim byte_var As Byte
+----
+
+If no initial value is provided, the variable is initialised to zero unless the compiler determines otherwise.
+
+*Command Availability:*  
 Available on all microcontrollers.
 
+---
 
-The `Dim` variable command is used to instruct GCBASIC to allocate variables or to create alternate names for existing  variables (using Alias) or to create variables at a specific memory location (using At).
+=== Variable Declaration
 
-The `Dim array` command also sets up array variables. The maximum array size is determined by the parameter `_size_` is dynamically allocated by the compiler and depends on the specific chip used, as well as the complexity of the program.
+`Dim` can declare one or more variables on a single line. When multiple variables are declared together, the type at the end of the line applies to all variables:
 
-The limit on array size varies dependent on the chip type.  See the *Maximum Array Size* section in <<_array,Arrays>> for more information.
+----
+    Dim A, B, C As Word = 100
+----
 
-`_type_` specifies the type of variable that is to be created. Different variable types can hold values over different ranges, and use different amounts of RAM. See the <<_variable_types,Variables Types>> article for more information.
+If no type is specified, the variable defaults to `Byte`.
 
-When multiple variables are included on the one line, GCBASIC will set them all to the type that is specified at the end of the line. If there is no type specified, then GCBASIC will make the variable a byte.
+---
 
-`Alias` creates a variable using the same memory location as one or more other variables. {nbsp}{nbsp}It is mainly used internally in GCBASIC to treat system variables as a word.{nbsp}{nbsp} For example, this command is used to create a word variable, made up from the two memory locations used to store the result of an A/D conversion.{nbsp}{nbsp}`Alias` is mutually exclusive to `At` and therefore `Alias` and `At` on the same declaration line will cause an compiler error.
+=== Initial Values
 
-`Alias` does not support `BIT` variable.{nbsp}{nbsp}  For the correct method to address `BIT`s in a psuedo alias method see the example program #2 below.
+You may optionally assign an initial value using `= value`:
 
-`AT` a variable can be placed at a specific location in the data memory of the chip using the At option. {nbsp}{nbsp}`_location_` will be used whether it is a valid location or not, but a warning will be generated if GCBASIC has already allocated the memory, or if the memory does not appear to be valid. {nbsp}{nbsp}This can be used for peripherals that have multi byte buffers in RAM.{nbsp}{nbsp}`At` is mutually exclusive to `Alias` and therefore `At` and `Alias` on the same declaration line will cause an compiler error.
+----
+    Dim Counter As Byte = 10
+    Dim Temperature As Integer = -5
+    Dim Flag As Bit = 1
+----
 
-A String declared with a fixed size (numeric constant that can be evaluated at compile time) is a fixed length string. It has no descriptor and it is not resized to fit its contents. If data overflows the size of the string, the memory may be overwrtten.
-Fixed length strings are not NULL terminated, and they use size + 1 bytes of space.  
-String variable names need not end in a dollar sign $ as in other dialects of BASIC.
+This improves readability and reduces the need for separate initialisation code.
+
+Initialisation is supported for:
+
+- Byte, Integer, Word, Long, Float  
+- Bit variables  
+- Aliased variables (if the alias target is valid)  
+- Arrays (initial value applies to all elements if supported by the compiler)
+
+Example:
+
+----
+    Dim Buffer(8) As Byte = 0
+----
+
+---
+
+=== Alias
+
+`Alias` creates a variable that shares the same memory location as another variable:
 
 ----
     Dim ADResult As Word Alias ADRESH, ADRESL
 ----
 
-*Example 1:*
+`Alias` and `At` cannot be used together on the same declaration line.
+
+`Alias` does not support `Bit` variables. For bit‑level aliasing, use constants or `#Define` macros.
+
+---
+
+=== At (Fixed Memory Location)
+
+`At` places a variable at a specific RAM location:
 
 ----
-    'This program will set up a array of ten bytes and a word variable
+    Dim SerialBuffer As Byte At 0x20
+----
 
-    dim DataList(10)
-    dim Reading as word
+If the location is already used or invalid, a warning is generated.
 
-    Reading = 21978
+`At` and `Alias` are mutually exclusive.
+
+---
+
+=== Strings
+
+A fixed‑length string is declared as:
+
+----
+    Dim Name * 16
+----
+
+This allocates a 16‑byte string (plus one extra byte internally).  
+Fixed strings are not null‑terminated and do not resize automatically.
+
+---
+
+=== New Example 1: Basic Variables with Initial Values
+
+----
+    ' Demonstrates variable declarations with and without initial values
+
+    Dim Count As Byte = 5
+    Dim Threshold As Word = 300
+    Dim Mode As Byte
+    Dim Ready As Bit = 1
+
+    Mode = 2
+----
+
+---
+
+=== New Example 2: Arrays and Initialisation
+
+----
+    ' Create an array of 10 bytes, all initialised to zero
+    Dim DataList(10) As Byte = 0
+
+    ' Create a word array with no initial values
+    Dim WordList(4) As Word
+
     DataList(1) = 15
-
-    dim stringvariable as string
+    WordList(0) = 1024
 ----
 
+---
 
-*Example 2:*
-
-Use a constant, or a number of constants, to refer to specific `BIT`s of an exist `BYTE` variable.{nbsp}{nbsp}A psuedo `ALIAS` for `BIT` variables.
-
+=== New Example 3: Bit‑Level Access Using Constants
 
 ----
-    // Thank you Ccin E Crout from the GCBASIC forum!!    
-
     #Option Explicit
     #Chip 16F1825, 32
 
-    Dim SerialByte As Byte
+    Dim SerialByte As Byte = 0
+
     #Define StatusReady  SerialByte.0
     #Define StatusError  SerialByte.1
     #Define StatusMotor  SerialByte.2
-    #Define StatusOkBut  SerialByte.3
-    #Define StatusUpBut  SerialByte.4
-    #Define StatusDnBut  SerialByte.5
-    #Define StatusLeBut  SerialByte.6
-    #Define StatusRiBut  SerialByte.7
-
-    SerialByte = 0                 // This will address the specific byte
 
     Do
         SerialByte = SerialByte + 1
-        If StatusReady = 1 Then     // This will address the specific bit
-            StatusError = 0         // This will address the specific bit
+
+        If StatusReady = 1 Then
+            StatusError = 0
         End If
-        If StatusError = 1 Then     // This will address the specific bit
-            StatusMotor = 0         // This will address the specific bit
-        End If
-        If StatusMotor = 1 Then     // This will address the specific bit
-            StatusOkBut = 0         // This will address the specific bit
-        End If
-        If StatusOkBut = 1 Then     // This will address the specific bit
-            StatusUpBut = 0         // This will address the specific bit
-        End If
-        If StatusUpBut = 1 Then     // This will address the specific bit
-            StatusDnBut = 0         // This will address the specific bit
-        End If
-        If StatusDnBut = 1 Then     // This will address the specific bit
-            StatusLeBut = 0         // This will address the specific bit
-        End If
-        If StatusLeBut = 1 Then     // This will address the specific bit
-            StatusReady = 0         // This will address the specific bit
+
+        If StatusError = 1 Then
+            StatusMotor = 0
         End If
     Loop
 ----
 
+---
 
-*For more help, see:{nbsp}{nbsp}*<<_serprint,SerPrint>> articles as these articales show how to use Dim to create string variables and <<_variables,Variables>> for more details in creating and managing strings lengths.
+*For more help, see:*  
+<<_serprint,SerPrint>> for string handling examples and <<_variables,Variables Types>> for more information on variable types.

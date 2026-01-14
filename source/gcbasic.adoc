@@ -1,5 +1,5 @@
 = GCBASIC documentation
-The GCBASIC development team @ 2025
+The GCBASIC development team. Copyright 2005 - 2025
 
 
 :toc:
@@ -1155,6 +1155,8 @@ include::ifdef.adoc[]
 include::ifndef.adoc[]
 
 include::include.adoc[]
+
+include::ignorecompile.adoc[]
 
 include::insert.adoc[]
 

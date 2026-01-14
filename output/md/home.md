@@ -12,7 +12,7 @@
 
 <div class="author">
 
-### <span class="firstname">The GCBASIC development team @ 2025</span>
+### <span class="firstname">The GCBASIC development team. Copyright 2005 - 2025</span>
 
 </div>
 

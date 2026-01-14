@@ -1,16 +1,35 @@
 ===== LCD_IO 10
 
-*Using connection mode 10:*
+LCD_IO 10 provides support for character LCD modules that use an
+I2C/TWI interface based on the **PCF8574 or PCF8574A I/O expander**.&nbsp;&nbsp;
+These I/O expanders are commonly found on low‑cost LCD “I2C backpacks”
+sold under many brand names (YwRobot, Sainsmart, Joy-It, generic blue/black
+I2C adapters, etc.).
 
-The LCD is controlled via I2C of a type 10 LCD 12C adapter.
-Use LCD_IO 10 for the YwRobot LCD1602 IIC V1 or the Sainsmart LCD_PIC I2C adapter.
-To use mode 10 you must define the I2C ports as normal in your GCBASIC code.
-Then, define the LCD type, set the I2C_address of the LCD adapter and the LCD speed, if required.
-Finally, set the backlight control, if required.
+The PCF8574 device converts an I2C bus signal into 8 digital output lines,
+which are then wired to the LCD’s RS, EN, D4–D7, and backlight control
+pins.&nbsp;&nbsp; 
 
-*Relevant Constants:*
+`LCD_IO 10` implements the correct signalling for this type of **I/O expander**.
 
-These constants are used to control settings for the Liquid Crystal Display routines included with GCBASIC. To set them, place a line in the main program file that uses #define to assign a value to the particular constant.
+Use `LCD_IO 10` whenever your LCD module uses a **PCF8574‑based I2C
+adapter**, regardless of brand or PCB layout.&nbsp;&nbsp;You can configure the specific LCD port layout, if required.
+
+To use mode 10:
+
+1. Configure your I2C/TWI pins normally in your GCBASIC program.
+2. Define the LCD type by using `LCD_IO 10`
+3. Set the I2C address of the PCF8574 adapter, if required.&nbsp;&nbsp;Typical PCF8574 I2C addresses range from **0x40 to 0x4E**, depending on
+the A0–A2 jumper settings on the adapter board.
+4. Optionally set LCD speed and backlight behaviour.
+5. Optionally set the LCD port layout.
+
+
+
+*Relevant Constants*
+
+These constants configure the Liquid Crystal Display routines in
+GCBASIC. Add them to your main program using `#define`.
 
 [cols=3, options="header,autowidth"]
 |===
@@ -19,76 +38,116 @@ These constants are used to control settings for the Liquid Crystal Display rout
 |*Value*
 
 |`LCD_IO`
-|The I/O mode. Must be 10
+|Selects the I/O mode. Must be 10 for PCF8574 I2C LCDs.
 |`10`
 
+|*Constant Name*
+|*Controls*
+|*Default*
+|I2C_LCD_E  |LCD Enable - Expander Port Bit|`I2C_LCD_BYTE.2`
+|I2C_LCD_RW |LCD RW - Expander Port Bit|`I2C_LCD_BYTE.1`
+|I2C_LCD_RS |LCD RS - Expander Port Bit|`I2C_LCD_BYTE.0`
+|I2C_LCD_BL |LCD Back Light - Expander Port Bit|`I2C_LCD_BYTE.3`
+|I2C_LCD_D4 |LCD Data Bit4 - Expander Port Bit|`I2C_LCD_BYTE.4`
+|I2C_LCD_D5 |LCD Data Bit5 - Expander Port Bit|`I2C_LCD_BYTE.5`
+|I2C_LCD_D6 |LCD Data Bit6 - Expander Port Bit|`I2C_LCD_BYTE.6`
+|I2C_LCD_D7 |LCD Data Bit7 - Expander Port Bit|`I2C_LCD_BYTE.7`
+
+|
+|
+|
+
 |`LCD_I2C_ADDRESS_1`
-|Address of I2C adapter
-|`Default = 0x4E`
+|PCF8574 I2C address (A0–A2 = 111)
+|`0x4E`
 
 |`LCD_I2C_ADDRESS_2`
-|Address of I2C adapter
-|`Recommended = 0x4C`
+|PCF8574 I2C address (A0–A2 = 110)
+|`0x4C`
 
 |`LCD_I2C_ADDRESS_3`
-|Address of I2C adapter
-|`Recommended = 0x4A`
+|PCF8574 I2C address (A0–A2 = 101)
+|`0x4A`
 
 |`LCD_I2C_ADDRESS_4`
-|Address of I2C adapter
-|`Recommended = 0x48`
+|PCF8574 I2C address (A0–A2 = 100)
+|`0x48`
 
 |`LCD_I2C_ADDRESS_5`
-|Address of I2C adapter
-|`Recommended = 0x46`
+|PCF8574 I2C address (A0–A2 = 011)
+|`0x46`
 
 |`LCD_I2C_ADDRESS_6`
-|Address of I2C adapter
-|`Recommended = 0x44`
+|PCF8574 I2C address (A0–A2 = 010)
+|`0x44`
 
 |`LCD_I2C_ADDRESS_7`
-|Address of I2C adapter
-|`Recommended = 0x42`
+|PCF8574 I2C address (A0–A2 = 001)
+|`0x42`
 
 |`LCD_I2C_ADDRESS_8`
-|Address of I2C adapter
-|`Recommended = 0x40`
-
-
+|PCF8574 I2C address (A0–A2 = 000)
+|`0x40`
 |===
-
-
 
 *Example Usage*
 
-An example for using two I2C-LCD.  This example can be extended to support more than two or more ( up to eight ) I2C-LCD(s).
-
-This example shows you can have up to eight LCD on the I2C-Bus (8 Addresses 0x40 to 0x4E of the PCF8574-Adaptor).
+This example demonstrates using two PCF8574‑based I2C LCDs on the same
+I2C bus. Up to eight LCDs may be connected simultaneously, each with a
+unique PCF8574 address (0x40–0x4E).
 
 ----
-    // Set up I2C-LCD
+    Set up I2C-LCD
+    
     #DEFINE LCD_IO 10
 
-    /*  Set LCD_IO to 10 for the YwRobot LCD1602 IIC V1 or the Sainsmart LCD_PIC I2C adapter
-    Set LCD_IO to 12 for the Ywmjkdz I2C adapter with pot bent over top of chip */
+    /*  LCD_IO 10 is for PCF8574-based I2C LCD adapters.
+        Examples include YwRobot LCD1602 IIC V1, Sainsmart LCD_PIC,
+        and most generic blue/black I2C LCD backpacks.
+        
+        LCD_IO 12 is used for adapters based on the Ywmjkdz layout
+        with the potentiometer bent over the IC.
+    */
 
-    #DEFINE LCD_I2C_ADDRESS_1 0x4E ' prepare the first LCD on Address 0x4E
-    #DEFINE LCD_I2C_ADDRESS_6 0x44 ' prepare the second LCD on Address 0x44
+    #DEFINE LCD_I2C_ADDRESS_1 0x4E   ' First LCD at address 0x4E
 
-    // To switch between the two LCD can be done with
-    
-    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_6 // now the second I2C-LCD is active
-
-    // or
-    
-    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1 //  now the first I2C-LCD is active
+    PRINT "Hello World"
 ----
 
 
-For code examples see http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions[I2C LCD Solutions].
+This example demonstrates using two PCF8574‑based I2C LCDs on the same
+I2C bus. Up to eight LCDs may be connected simultaneously, each with a
+unique PCF8574 address (0x40–0x4E).
 
-See the separate sections of the Help file for the specifics of each
-Connection Mode.
+----
+    Set up I2C-LCD
+    
+    #DEFINE LCD_IO 10
+
+    /*  LCD_IO 10 is for PCF8574-based I2C LCD adapters.
+        Examples include YwRobot LCD1602 IIC V1, Sainsmart LCD_PIC,
+        and most generic blue/black I2C LCD backpacks.
+        
+        LCD_IO 12 is used for adapters based on the Ywmjkdz layout
+        with the potentiometer bent over the IC.
+    */
+
+    #DEFINE LCD_I2C_ADDRESS_1 0x4E   ' First LCD at address 0x4E
+    #DEFINE LCD_I2C_ADDRESS_6 0x44   ' Second LCD at address 0x44
+
+    ' Switch between LCDs:
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_6   ' Activate second LCD
+        PRINT "Hello World"
+
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1   ' Activate first LCD
+        PRINT "Hello World"
+
+----
+
+
+
+See other sections of the Help file for details on alternative
+connection modes.
 
 *For more help, see*
 <<_lcd_io_0,LCD_IO 0>>, <<_lcd_io_1,LCD_IO 1>>, <<_lcd_io_2,LCD_IO 2>>,

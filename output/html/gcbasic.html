@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.2">
-<meta name="author" content="The GCBASIC development team @ 2025">
+<meta name="author" content="The GCBASIC development team. Copyright 2005 - 2025">
 <title>GCBASIC documentation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400">
 <style>
@@ -414,7 +414,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>GCBASIC documentation</h1>
 <div class="details">
-<span id="author" class="author">The GCBASIC development team @ 2025</span><br>
+<span id="author" class="author">The GCBASIC development team. Copyright 2005 - 2025</span><br>
 </div>
 </div>
 <div id="content">
@@ -609,13 +609,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2025-08-22<br>
-07:15:44 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2025-12-07<br>
+08:59:26 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2025-08-22<br>
-07:10:14 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2025-10-03<br>
+07:29:41 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -11841,122 +11841,146 @@ The library also exposes a constant that is specific to the device.&#160;&#160;&
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    'Chip Settings.
-   #chip 18F47k42, 64
-   #config MCLRE = ON
-   #option explicit
+<pre>/*
+    An example program for GCGB and GCB.
+    ------------------------------------------------------------------------
+    This program blinks the onboard LED of a microcontroller - simple - the demonstration should work across many microcontrollers.
+
+    This sample file can be adapted to any of the supported microcontrollers by simply changing the #chip definition - do this by changing to your chip. Other common chips are shown.
+
+    To make your programmer or your bootloader work, simply do the following.
+
+    From within this IDE, press function_key F4, then select  'Edit Programmer Preferences'.   This will show you the 'Programmer Preferences', select the 'Programmer' tab.
+
+    For PIC:  Typically, if you are using a PICKIT2 then select 'Microchip PICKit 2 CLI - Default' will work for you - select and drag this to the top of the dialog area.
+
+    For AVR:  Typically, for an UNO the programmer 'Arduino UNO/328p@115200' will work, select the option from the list of programmers, then, select 'Edit',
+    please edit the communication 'Port', select 'OK', and, then select this option again and drag this to the top of the dialog area.
 
 
-   'PPS Tool version: 0.0.5.27
-   'PinManager data: v1.78
-   'Generated for 18F47K42
-   '
-   'Template comment at the start of the config file
-   '
-   #startup InitPPS, 85
-   #define PPSToolPart 18F47K42
-
-   Sub InitPPS
-      'This has been added to turn off PPS SPI when in SPI software mode
-       #ifdef SPISRAM_HARDWARESPI
-         'Module: SPI1
-         RC3PPS = 0x001E  'SCK1 &gt; RC3
-         SPI1SCKPPS = 0x0013  'RC3 &gt; SCK1 (bi-directional)
-         RC5PPS = 0x001F  'SDO1 &gt; RC5
-         SPI1SDIPPS = 0x0014  'RC4 &gt; SDI1
-         'Module: UART pin directions
-       #endif
-       'Module: UART pin directions
-       Dir PORTC.6 Out  ' Make TX1 pin an output
-       'Module: UART1
-       RC6PPS = 0x0013  'TX1 &gt; RC6
-   End Sub
-   'Template comment at the end of the config file
+    For further adventures with GCBASIC .... Select F4 and then "view Demos" for 1000's of sample programs.
 
 
-   ' USART settings
-   #define USART_BAUD_RATE 57600
-   #define USART_DELAY 0 ms
-   #define USART_BLOCKING
-   #define USART_TX_BLOCKING
+    Enjoy.
 
-   #define SPISRAM_CS      Porta.2      'Also known as SS, or Slave Select
-   #define SPISRAM_SCK      Portc.3      'Also known as CLK
-   #define SPISRAM_DO      Portc.5      'Also known as MOSI
-   #define SPISRAM_DI      Portc.4      'Also known as MISO
+*/
 
-   #define SPISRAM_HARDWARESPI
-   #define SPISRAM_TYPE     SRAM_23LC1024
+// ************************************************************************
 
-   '********************************************************************************
-
-   'Main program
-
-   'Wait 2 seconds to open the serial terminal
-   wait 2 s
-   dim sizeofSPIRAM as long
-   sizeofSPIRAM = SPISRAM_CAPACITY
-   HSerPrintCRLF 2
-   HSerPrint "Writing...SPISRAM_CAPACITY = 0x"
-   HSerPrint hex(sizeofSPIRAM_U)
-   HSerPrint hex(sizeofSPIRAM_H)
-   HSerPrint hex(sizeofSPIRAM)
-   HSerPrintCRLF
-   wait 100 ms
-
-   dim SRAM_location as long
-   For SRAM_location=0 to SPISRAM_CAPACITY - 1
-    SRAMWrite ( [long]SRAM_location, SRAM_location and 255 )
-   Next
+  'Chip Settings.
+  #chip 18F47k42, 64
+  #config MCLRE = ON
+  #option explicit
 
 
-   dim spirambyteread as Byte
-   spirambyteread = 11 'could be any number....
-   HSerPrintCRLF 2
+  'PPS Tool version: 0.0.5.27
+  'PinManager data: v1.78
+  'Generated for 18F47K42
+  '
+  'Template comment at the start of the config file
+  '
+  #startup InitPPS, 85
+  #define PPSToolPart 18F47K42
 
-   HSerPrint "Reading..."
-   HSerPrintCRLF
-   For SRAM_location=0 to SPISRAM_CAPACITY - 1
-    'choose one....
-    'SRAMRead ( SRAM_location, spirambyteread )
-   'or, as a function
-    spirambyteread = SRAMRead ( SRAM_location )
+  Sub InitPPS
+     'This has been added to turn off PPS SPI when in SPI software mode
+      #ifdef SPISRAM_HARDWARESPI
+        'Module: SPI1
+        RC3PPS = 0x001E  'SCK1 &gt; RC3
+        SPI1SCKPPS = 0x0013  'RC3 &gt; SCK1 (bi-directional)
+        RC5PPS = 0x001F  'SDO1 &gt; RC5
+        SPI1SDIPPS = 0x0014  'RC4 &gt; SDI1
+        'Module: UART pin directions
+      #endif
+      'Module: UART pin directions
+      Dir PORTC.6 Out  ' Make TX1 pin an output
+      'Module: UART1
+      RC6PPS = 0x0013  'TX1 &gt; RC6
+  End Sub
+  'Template comment at the end of the config file
 
-    if spirambyteread = ( SRAM_location and 255 ) then
-      HSerPrint hex(spirambyteread)
-    else
-      HSerPrint "**"
-    end if
-    HSerPrint ":"
-   Next
-   HSerPrintCRLF
-   HSerPrint "Wait..."
-   HSerPrintCRLF
-   Wait 2 s
 
-   HSerPrint "Rewriting to 0x00 ..."
-   HSerPrintCRLF
-   For SRAM_location=0 to SPISRAM_CAPACITY - 1
-    SRAMWrite ( [long]SRAM_location, 0 )
-   Next
+  ' USART settings
+  #define USART_BAUD_RATE 57600
+  #define USART_DELAY 0 ms
+  #define USART_BLOCKING
+  #define USART_TX_BLOCKING
 
-   Dim errorcount as long
-   errorcount = 0
-   For SRAM_location=0 to SPISRAM_CAPACITY - 1
-    SRAMRead ( SRAM_location, spirambyteread )
-    if spirambyteread &lt;&gt; 0 then
-      errorcount++
-    end if
-   Next
-   HSerPrint "Error Count (should be 0) = "
-   HSerPrint errorcount
-   HSerPrintCRLF
-   HSerPrint "End..."
-   HSerPrintCRLF
+  #define SPISRAM_CS      Porta.2      'Also known as SS, or Slave Select
+  #define SPISRAM_SCK      Portc.3      'Also known as CLK
+  #define SPISRAM_DO      Portc.5      'Also known as MOSI
+  #define SPISRAM_DI      Portc.4      'Also known as MISO
 
-   do
+  #define SPISRAM_HARDWARESPI
+  #define SPISRAM_TYPE     SRAM_23LC1024
 
-   loop</pre>
+  '********************************************************************************
+
+  'Main program
+
+  'Wait 2 seconds to open the serial terminal
+  wait 2 s
+  dim sizeofSPIRAM as long
+  sizeofSPIRAM = SPISRAM_CAPACITY
+  HSerPrintCRLF 2
+  HSerPrint "Writing...SPISRAM_CAPACITY = 0x"
+  HSerPrint LongTohex(sizeofSPIRAM)
+  HSerPrintCRLF
+  wait 100 ms
+
+  dim SRAM_location as long
+  For SRAM_location=0 to SPISRAM_CAPACITY - 1
+   SRAMWrite ( [long]SRAM_location, SRAM_location and 255 )
+  Next
+
+
+  dim spirambyteread as Byte
+  spirambyteread = 11 'could be any number....
+  HSerPrintCRLF 2
+
+  HSerPrint "Reading..."
+  HSerPrintCRLF
+  For SRAM_location=0 to SPISRAM_CAPACITY - 1
+   'choose one....
+   'SRAMRead ( SRAM_location, spirambyteread )
+  'or, as a function
+   spirambyteread = SRAMRead ( SRAM_location )
+
+   if spirambyteread = ( SRAM_location and 255 ) then
+     HSerPrint hex(spirambyteread)
+   else
+     HSerPrint "**"
+   end if
+   HSerPrint ":"
+  Next
+  HSerPrintCRLF
+  HSerPrint "Wait..."
+  HSerPrintCRLF
+  Wait 2 s
+
+  HSerPrint "Rewriting to 0x00 ..."
+  HSerPrintCRLF
+  For SRAM_location=0 to SPISRAM_CAPACITY - 1
+   SRAMWrite ( [long]SRAM_location, 0 )
+  Next
+
+  Dim errorcount as long
+  errorcount = 0
+  For SRAM_location=0 to SPISRAM_CAPACITY - 1
+   SRAMRead ( SRAM_location, spirambyteread )
+   if spirambyteread &lt;&gt; 0 then
+     errorcount++
+   end if
+  Next
+  HSerPrint "Error Count (should be 0) = "
+  HSerPrint errorcount
+  HSerPrintCRLF
+  HSerPrint "End..."
+  HSerPrintCRLF
+
+  do
+
+  loop</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -53233,6 +53257,29 @@ It is not essential that the include file name ends in .h - the important thing 
 </div>
 </div>
 <div class="sect2">
+<h3 id="__ignorecompile">#ignorecompile</h3>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #ignorecompile</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>#ignorecompile</code> directive is used to control whether a source file can be compiled.</p>
+</div>
+<div class="paragraph">
+<p>This is can be used to prevent libraries and other source file from being procecessed as a source file for compilation.</p>
+</div>
+<div class="paragraph">
+<p>This therefore will prevent creation all the GCBASIC outputs file in the folder.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="__insert">#insert</h3>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
@@ -58859,7 +58906,7 @@ If you use AVRDUDE then uou must ensure the Windows device driver is <code>libus
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-22 07:10:14 GMT Summer Time
+Last updated 2025-10-03 07:29:41 GMT Summer Time
 </div>
 </div>
 </body>

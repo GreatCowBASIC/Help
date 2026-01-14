@@ -1,13 +1,53 @@
 ===== LCD_IO 10 Example
 
-This is an connection mode 10 I2C Driver to demonstrate LCD features. This for the 16F877A, but, it can easily be adapted for other microcontrollers.
+
+LCD_IO 10 provides support for character LCD modules that use an
+I2C/TWI interface based on the **PCF8574 or PCF8574A I/O expander**.&nbsp;&nbsp;
+This for the 16F877A, but, it can easily be adapted for any other microcontrollers.
 
 A 2 by 16 LCD is assumed with the LCD being driven using an LCD I2C adapter.
 Two types are supported the YwRobot LCD1602 IIC V1 / a Sainsmart LCD_PIC I2C adapter or the Ywmjkdz I2C adapter with pot bent over top of chip.
 
-The demonstrates reading a DS18B20 and showing the results on the LCD.
 
-*Example:*
+*Example - Joy-IT/Raspberry Pi LCD PCB:*
+
+This demonstrates using Joy-IT/Raspberry Pi LCD PCB by changing the I2C_LCD_* constants that control this mode of LCD_IO operations.
+
+
+----
+
+      #chip AVR128DA28, 24
+      #option explicit
+
+      // Define Hardware I2C settings
+      HI2CMode Master
+      #DEFINE HI2C_DATA  PORTA.2
+      #DEFINE HI2C_CLOCK PORTA.3
+
+      #DEFINE LCD_IO 10
+      // LCD_I2C_Address_1 is not required because default address
+      //  #DEFINE LCD_I2C_ADDRESS_1 0X4E     
+
+      // This settings are suited for a joy-it adapter. Its made for the Raspberry Pi.
+      // This changes the default expander port mappings.
+      #DEFINE I2C_LCD_E  I2C_LCD_BYTE.7
+      #DEFINE I2C_LCD_RW I2C_LCD_BYTE.5
+      #DEFINE I2C_LCD_RS I2C_LCD_BYTE.4
+      #DEFINE I2C_LCD_BL I2C_LCD_BYTE.6
+      #DEFINE I2C_LCD_D4 I2C_LCD_BYTE.0
+      #DEFINE I2C_LCD_D5 I2C_LCD_BYTE.1
+      #DEFINE I2C_LCD_D6 I2C_LCD_BYTE.2
+      #DEFINE I2C_LCD_D7 I2C_LCD_BYTE.3
+
+
+      // ----- Main body of program commences here.
+
+      Print "Hello World"
+----
+
+*Example - Multiple LCDs:*
+
+This demonstrates reading a DS18B20 and showing the results on multiple LCDs.
 
 ----
     #chip mega328p, 16

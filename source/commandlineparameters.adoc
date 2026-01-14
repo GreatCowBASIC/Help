@@ -12,70 +12,39 @@
 
     GCBASIC [/O:output.asm] [/A:assembler] [/P:programmer] [/K:{C|A}] [/H:[Y/1 | N/0]] [/V] [/L] [/WX] [/M:[Y/1 | N/0]]  [/S:Use.ini] [/F[O]] [/NP] _filename_
 
+    GCBASIC [/O:output.asm] [/A:assembler] [/P:programmer] [/K:{C|A}] [/H:[Y/1 | N/0]] [/V] [/L] [/WX] [/M:[Y/1 | N/0]]  [/S:Use.ini] [/F[O]] [/NP] _filename_ /DO
+    
+    GCBASIC [/O:output.asm] [/A:assembler] [/P:programmer] [/K:{C|A}] [/H:[Y/1 | N/0]] [/V] [/L] [/WX] [/M:[Y/1 | N/0]]  [/S:Use.ini] [/F[O]] [/NP] _filename_ /AO
+    
+    
+
     GCBASIC /version
 
 ----
+
+
 [cols="20%,40%,20%", options="header"]
 |===
 |*Switch*
 |*Description*
 |*Default*
 
-|`/O:__filename__`
-|Sets the name of the assembly file generated to `_filename_`.
-|Same name as the input file, but with a `.asm` extension.
-
 |`/A:assembler`
 |Batch file used to call assembler^(1)^. If `/A:GCASM` is given, GCBASIC will use its internal assembler.
 |The program will not be assembled
 
+|`/AO``
+|Use .build folder for assembly operations.
+|This is the Assembly Only switch.
+
+
 |`/CP`
-|Exports the config bits automatically selected by the compiler to an output file called `source_filename.config`.  The output file is the source filename with the extension of config.
+|Exports the config bits automatically selected by the compiler to an output file called `source_filename.config`. The output file is the source filename with the extension of config.
 |None
 
-|`/H:[Y/1 \| N/0]`
-|Set the production, or not, of the hex output file.  /H:1 is the default.  To prevent production of the hex output file - use /H:0
-|The default is to produce the hex output file
-
-|`/M:[Y/1 \| N/0]`
-|Mute the banner messages, or not.  /M:1 is the default.  To prevent banner messages - use /M:0
-|The default is to output banner messages
-
-
-|`/P:programmer`
-|Batch file used to call programmer^(1)^. This parameter is ignored if the program is not assembled.
-|The program will not be downloaded.
-
-|`/K:[C\|A]`
-|Keep original code in assembly output. `/K:C` will save comments, `/K:A` will preserve all input code.
-|No original code left in output.
-
-|`/V[:[0\|F][1\|T]`
-|Verbose mode - compiler gives more detailed information about its activities.
-/Vx will overide any configuration in the user ini file.
-|-
-
-
-|`/L`
-|Show license and exit.
-|-
-
-|`/NP`
-|Do not pause on errors. Use with IDEs.
-|Pause when an error occurs, and wait for the user to press a key.
-
-|`/WX`
-|Force compiler to ensure all include files are valid.
-|
-
-|`/version`
-|Shown build date and version of the compiler.
-|
-
-|`/S:fsp`
-|Load the settings from a specified file, rather than use the defaults.
-| /S:use.ini
-
+|`/DO``
+|Use .build folder for debugger operations.
+|This is the DirectoryOutput switch.
 
 |`/F[:[0\|F][1\|T]`
 |Used to bypass compilation when not needed, compiler will verify that config settings in the already compiled file match those required for the programmer. If not, a recompilation will be forced.
@@ -84,14 +53,61 @@
 |
 
 |`/FO`
-|Used to bypass compilation and program only.  Compiler will verify that config settings in the already compiled file match those required for the programmer. If not, a recompilation will be forced.
+|Used to bypass compilation and program only. Compiler will verify that config settings in the already compiled file match those required for the programmer. If not, a recompilation will be forced.
 |
 
+|`/H:[Y/1 \| N/0]`
+|Set the production, or not, of the hex output file.  /H:1 is the default.  To prevent production of the hex output file - use /H:0
+|The default is to produce the hex output file
+
+|`/K:[C\|A]`
+|Keep original code in assembly output. `/K:C` will save comments, `/K:A` will preserve all input code.
+|No original code left in output.
+
+|`/L`
+|Show license and exit.
+|-
+
+|`/M:[Y/1\| N/0]`
+|Mute the banner messages, or not. `/M:1` is the default. To prevent banner messages use `/M:0`.
+|The default is to output banner messages
+
+|`/NP`
+|Do not pause on errors. Use with IDEs.
+|Pause when an error occurs, and wait for the user to press a key.
+
+|`/O:__filename__`
+|Sets the name of the assembly file generated to `_filename_`.
+|Same name as the input file, but with a `.asm` extension.
+
+|`/P:programmer`
+|Batch file used to call programmer^(1)^. This parameter is ignored if the program is not assembled.
+|The program will not be downloaded.
+
+|`/S:fsp`
+|Load the settings from a specified file, rather than use the defaults.
+|/S:use.ini
+
+|`/V:[0\|F][1\|T]`
+|Verbose mode — compiler gives more detailed information about its activities. `/Vx` will override any configuration in the user ini file.
+|-
+
+|`/WX`
+|Force compiler to ensure all include files are valid.
+|
+
+|`/version`
+|Show build date and version of the compiler.
+|
 
 |`filename`
 |The file to compile.
 |-
 |===
+
+
+
+
 [small]#^(1)^ For the `/A:` and `/P:` switches, there are special options available. If
 `%FILENAME%` is present, it will be replaced by the name of the `.asm` file.
 `%FN_NOEXT%` will be replaced by the name of the `.asm` file but without an
