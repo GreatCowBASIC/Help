@@ -1,31 +1,40 @@
 ====== LCD_IO 10 Port Configuration
 
+LCD_IO 10 provides support for character LCD modules that use an I2C/TWI interface based on the **PCF8574 or PCF8574A I/O expander**.&nbsp;&nbsp;These expanders are commonly found on low‑cost LCD “I2C backpacks” sold under many brand names (YwRobot, Sainsmart, Joy‑It, generic blue/black adapters, and others).&nbsp;&nbsp;
+
 *Using mode 10*
 
-When using I2C LCD mode 10 the target I2C device address is setup as
-shown below. Each bit of the the variable i2c_lcd_byte is defined to
-address the correct LCD display port.
-----
-    i2c_lcd_e = i2c_lcd_byte.2
-    i2c_lcd_rw = i2c_lcd_byte.1
-    i2c_lcd_rs = i2c_lcd_byte.0
-    i2c_lcd_bl = i2c_lcd_byte.3
-    i2c_lcd_d4 = i2c_lcd_byte.4
-    i2c_lcd_d5 = i2c_lcd_byte.5
-    i2c_lcd_d6 = i2c_lcd_byte.6
-    i2c_lcd_d7 = i2c_lcd_byte.7
-----
-If you have an I2C LCD display adapter with a different set of
-connection of the adapter then change this configuration to suit the
-specific of the adapter as follows. This should be done in the your main
-program code.
-----
-    #define i2c_lcd_e i2c_lcd_byte.1
-    #define i2c_lcd_rw i2c_lcd_byte.2
-    #define i2c_lcd_rs i2c_lcd_byte.0
-    #define i2c_lcd_bl i2c_lcd_byte.3
-    #define i2c_lcd_d4 i2c_lcd_byte.7
-    #define i2c_lcd_d5 i2c_lcd_byte.6
-    #define i2c_lcd_d6 i2c_lcd_byte.5
-    #define i2c_lcd_d7 i2c_lcd_byte.4
-----
+When using LCD_IO 10, the target **PCF8574 or PCF8574A I/O expander** port is configured by default as shown in the table below.&nbsp;&nbsp;Each bit of the byte variable `i2c_lcd_byte` is mapped to the appropriate LCD control or data line.&nbsp;&nbsp;
+
+[cols=3, options="header,autowidth"]
+|===
+
+|*Constant Name*
+|*Controls*
+|*Default*
+|I2C_LCD_E  |LCD Enable – Expander Port Bit|`I2C_LCD_BYTE.2`
+|I2C_LCD_RW |LCD RW – Expander Port Bit|`I2C_LCD_BYTE.1`
+|I2C_LCD_RS |LCD RS – Expander Port Bit|`I2C_LCD_BYTE.0`
+|I2C_LCD_BL |LCD Backlight – Expander Port Bit|`I2C_LCD_BYTE.3`
+|I2C_LCD_D4 |LCD Data Bit 4 – Expander Port Bit|`I2C_LCD_BYTE.4`
+|I2C_LCD_D5 |LCD Data Bit 5 – Expander Port Bit|`I2C_LCD_BYTE.5`
+|I2C_LCD_D6 |LCD Data Bit 6 – Expander Port Bit|`I2C_LCD_BYTE.6`
+|I2C_LCD_D7 |LCD Data Bit 7 – Expander Port Bit|`I2C_LCD_BYTE.7`
+|===
+
+If your I2C LCD adapter or PCB uses a different wiring arrangement, you can override the default configuration to match your hardware.&nbsp;&nbsp;
+
+These overrides should be placed in your main program.&nbsp;&nbsp;
+
+To apply an alternative configuration, define the following eight constants.&nbsp;&nbsp;Doing so replaces the default mappings shown in the table above.&nbsp;&nbsp;
+
+```
+    #DEFINE I2C_LCD_E   I2C_LCD_BYTE.1
+    #DEFINE I2C_LCD_RW  I2C_LCD_BYTE.2
+    #DEFINE I2C_LCD_RS  I2C_LCD_BYTE.0
+    #DEFINE I2C_LCD_BL  I2C_LCD_BYTE.3
+    #DEFINE I2C_LCD_D4  I2C_LCD_BYTE.7
+    #DEFINE I2C_LCD_D5  I2C_LCD_BYTE.6
+    #DEFINE I2C_LCD_D6  I2C_LCD_BYTE.5
+    #DEFINE I2C_LCD_D7  I2C_LCD_BYTE.4
+```
