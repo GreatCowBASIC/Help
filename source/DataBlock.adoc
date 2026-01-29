@@ -16,9 +16,9 @@ Available on all PIC microcontrollers with DATA memory.
 
 *Explanation:*
 
-The DATA construct creates an DATA dataset for use with the specific microcontroller.&#160;&#160;An DATA dataset is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.
+The DATA construct creates an DATA dataset, or DATA block, for use with the specific microcontroller.&#160;&#160;A DATA dataset, or DATA block, is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.
 
-The advantage of an DATA dataset is that they are memory efficient being loaded directly into the DATA during programming operations. 
+The advantage of an DATA dataset, or DATA block, is that they are memory efficient being loaded directly into the DATA during programming operations. 
 
 
 DATA datasets are defined as follows:
@@ -119,6 +119,38 @@ Accepted escape strings are shown in the dataset below.
 |\' |single quote
 |===
 
+_Maximum Stored Value_
+
+The **maximum value** that can be stored in a single program memory **word** location across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16, PIC18), formatted as clean markdown:
+
+|===
+| Family       | Instruction Word Size | Program Memory Word Width | Maximum Value per Word (unsigned decimal) | Hex Range          | Can store full 16-bit value (0–65535) in one word? 
+| **PIC10**   | 12-bit               | 12 bits                  | 4095                                       | 0x000 – 0xFFF     | No                                                  
+| **PIC12** (baseline) | 12-bit          | 12 bits                  | 4095                                       | 0x000 – 0xFFF     | No                                                  
+| **PIC12** (enhanced mid-range) | 14-bit | 14 bits                  | 16383                                      | 0x0000 – 0x3FFF   | No                                                  
+| **PIC14**   | 14-bit               | 14 bits                  | 16383                                      | 0x0000 – 0x3FFF   | No                                                  
+| **PIC16** (mid-range) | 14-bit         | 14 bits                  | 16383                                      | 0x0000 – 0x3FFF   | No                                                  
+| **PIC16** (enhanced mid-range) | 14-bit | 14 bits                  | 16383                                      | 0x0000 – 0x3FFF   | No                                                  
+| **PIC18**   | 16-bit               | 16 bits                  | 65535                                      | 0x0000 – 0xFFFF   | **Yes**                                             
+
+|===
+
+_Quick Summary Table (most common cases)_
+
+|===
+| Family group       | Typical word size | Max value you can store in one program memory word | Equivalent to storing a full 16-bit number? 
+| PIC10 / baseline PIC12 | 12 bits          | **4095** (0xFFF)                                   | No                                          
+| PIC14 / PIC16 / enhanced PIC12 | 14 bits     | **16383** (0x3FFF)                                 | No                                          
+| PIC18              | 16 bits          | **65535** (0xFFFF)                                 | Yes                                         
+|===
+
+_Important Notes_
+
+- **PIC18** is the only 8-bit PIC family where you can directly store any 16-bit value (0–0xFFFF) in a single program memory word location.
+
+- On all earlier families (PIC10, PIC12 baseline, PIC14, PIC16, enhanced mid-range), you must split any value > 0x3FFF (16383) across **two words** if you need the full 16-bit range.
+
+- The values above apply when storing constants, lookup table entries, `retlw` literals, `data`/`db` directives, etc. — i.e., the largest number that fits in one program memory **word**.
 
 
 *Complete working example program*
@@ -152,4 +184,4 @@ This example creates several DATA datasets.&#160;&#160;The example also create a
         Next
 ----
 
-*For more help, see <<_ProgramRead,ProgramRead>>, <<_lookup_tables, Creating DATA data from a Lookup Table>>*
+*For more help, see <<_programread,ProgramRead>>, <<_lookup_tables, Creating data from a Lookup Table>>*

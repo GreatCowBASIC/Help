@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <div class="section">
 
 <div class="titlepage">
@@ -48,3 +49,5 @@ v1.xx.xx**</span>
   
 
 </div>
+=======
+>>>>>>> Stashed changes

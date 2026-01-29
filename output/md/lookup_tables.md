@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <div class="section">
 
 <div class="titlepage">
@@ -244,3 +245,5 @@ Limitations*</span>
 See: `ReadTable`
 
 </div>
+=======
+>>>>>>> Stashed changes

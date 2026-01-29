@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <div class="article" lang="en">
 
 <div class="titlepage">
@@ -25,3 +26,5 @@
 </div>
 
 </div>
+=======
+>>>>>>> Stashed changes

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <div class="section">
 
 <div class="titlepage">
@@ -392,3 +393,5 @@ or, for a PIC with PPS
 <a href="sramwrite" class="link" title="SRAMWrite">SRAMWrite</a>**</span>
 
 </div>
+=======
+>>>>>>> Stashed changes

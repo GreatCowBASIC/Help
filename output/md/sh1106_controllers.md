@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <div class="section">
 
 <div class="titlepage">
@@ -357,3 +358,5 @@ or <a href="pset" class="link" title="Pset">Pset</a>
 Supported in &lt;GLCD.H&gt;
 
 </div>
+=======
+>>>>>>> Stashed changes
