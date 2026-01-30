@@ -174,7 +174,7 @@ This example will ..
      SETSMT1PERIOD ( 4045000 )        ' 1.000s periodwith the parameters of SMT_FOSC and SMTPres_1 within the clock variance of the interclock
                                       ' a perfect internal clock would be 4000000
 
-     SETSMT1PERIOD ( 9322401 )        ' 4.600s period with the parameters of SMT_FOSC4 and SMTPres_8
+     SETSMT2PERIOD ( 9322401 )        ' 4.600s period with the parameters of SMT_FOSC4 and SMTPres_8
 
      InitSMT1(SMT_FOSC,SMTPres_1)
      InitSMT2(SMT_FOSC4,SMTPres_8)
