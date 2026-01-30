@@ -1,0 +1,38 @@
+ 
+================================================= 
+GCBASIC Documentation Build Log 
+Started: 30/01/2026  9:57:57.86 
+Working directory: D:\GreatCowBASICGits\Help.git\source 
+GCBase       : D:\GreatCowBASICGits\Help.git 
+================================================= 
+ 
+[ 9:57:57.91] "Script started with arguments: gcbasic all" 
+[ 9:57:57.93] "Input file  : gcbasic.adoc" 
+[ 9:57:57.94] "Target type : all" 
+ 
+[ 9:58:40.43] --- Saxon HTML Help transformation ERRORS --- 
+Error: no ID for constraint linkend: _fasthwSPI2Transfer.
+Error: no ID for constraint linkend: _hi2csend.
+Error: no ID for constraint linkend: _hi2csend.
+Error: no ID for constraint linkend: _longtohex_.
+Error: no ID for constraint linkend: _wordtohex_.
+Error: no ID for constraint linkend: _vartobin.
+Error: no ID for constraint linkend: _varWtobin.
+Error: no ID for constraint linkend: _varintegertobin.
+Error: no ID for constraint linkend: _wordtohex_.
+Error: no ID for constraint linkend: _vartobin.
+Error: no ID for constraint linkend: _varWtobin.
+Error: no ID for constraint linkend: _varintegertobin.
+Error: no ID for constraint linkend: _wordtohex_.
+Error: no ID for constraint linkend: _vartobin.
+Error: no ID for constraint linkend: _varWtobin.
+Error: no ID for constraint linkend: _varintegertobin.
+Error: no ID for constraint linkend: _longtohex_.
+ERROR: xref linking to Programming has no generated link text.
+Error: no ID for constraint linkend: Programming.
+ 
+[10:06:46.10] "Build finished at 30/01/2026 10:06:46.09" 
+ 
+================================================= 
+End of log 
+================================================= 

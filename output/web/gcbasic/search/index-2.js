@@ -1,5 +1,4 @@
 //Auto generated index for searching by xsl-webhelpindexer for DocBook Webhelp.# Kasun Gajasinghe, University of Moratuwa
-w["ds18b20setresolut"]="72*42,311*1";
 w["ds18b20setresolution_contst"]="72*1";
 w["ds18s20"]="71*1,277*1,368*1,369*1";
 w["ds18sb0multiport"]="277*1";

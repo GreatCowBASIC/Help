@@ -40,7 +40,6 @@ call gem install -N coderay
 cd %GCBase%\source
 
 
-
 :GOAHEAD
 if /I %2 == pdf   goto  :pdf
 if /I %2 == chm   goto  :chm
@@ -104,7 +103,7 @@ FOR /F "tokens=*" %%G IN ('dir/b /s ^"*.html^"') DO (
 
 	..\..\prog\pandoc\pandoc -f HTML -t GFM %%G  -o "%%~dG%%~pG%%~nG.md"
 
-	gawk -f ../../prog/reprocess.awk "%%~dG%%~pG%%~nG.md" > "%%~dG%%~pG%%~nG.mod"
+	D:\Build\NextRelease\prog\gawk -f ../../prog/reprocess.awk "%%~dG%%~pG%%~nG.md" > "%%~dG%%~pG%%~nG.mod"
 
 )		
 

@@ -164,7 +164,7 @@ Select the drop down menu to see the menu
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
 <entry align="center" valign="top"><simpara>2026-01-30<?asciidoc-br?>
-08:15:57 GMT Standard Time</simpara></entry>
+10:00:05 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
@@ -213,7 +213,7 @@ Select the drop down menu to see the menu
 <entry align="left" valign="top"><simpara>The program will not be assembled</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>/AO`</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>/AO</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Use .build folder for assembly operations.</simpara></entry>
 <entry align="left" valign="top"><simpara>This is the Assembly Only switch.</simpara></entry>
 </row>
@@ -223,7 +223,7 @@ Select the drop down menu to see the menu
 <entry align="left" valign="top"><simpara>None</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara><literal>/DO`</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>/DO</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Use .build folder for debugger operations.</simpara></entry>
 <entry align="left" valign="top"><simpara>This is the DirectoryOutput switch.</simpara></entry>
 </row>
