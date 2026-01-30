@@ -33,7 +33,7 @@
 |Batch file used to call assembler^(1)^. If `/A:GCASM` is given, GCBASIC will use its internal assembler.
 |The program will not be assembled
 
-|`/AO``
+|`/AO`
 |Use .build folder for assembly operations.
 |This is the Assembly Only switch.
 
@@ -42,7 +42,7 @@
 |Exports the config bits automatically selected by the compiler to an output file called `source_filename.config`. The output file is the source filename with the extension of config.
 |None
 
-|`/DO``
+|`/DO`
 |Use .build folder for debugger operations.
 |This is the DirectoryOutput switch.
 
