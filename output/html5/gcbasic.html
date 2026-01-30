@@ -502,6 +502,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_sound">Sound</a></li>
 <li><a href="#_timers">Timers</a></li>
 <li><a href="#_variables_operations">Variables Operations</a></li>
+<li><a href="#_variable_declaration">Variable Declaration</a></li>
+<li><a href="#_initial_values">Initial Values</a></li>
+<li><a href="#_alias">Alias</a></li>
+<li><a href="#_at_fixed_memory_location">At (Fixed Memory Location)</a></li>
+<li><a href="#_strings">Strings</a></li>
+<li><a href="#_new_example_1_basic_variables_with_initial_values">New Example 1: Basic Variables with Initial Values</a></li>
+<li><a href="#_new_example_2_arrays_and_initialisation">New Example 2: Arrays and Initialisation</a></li>
+<li><a href="#_new_example_3_bit_level_access_using_constants">New Example 3: Bit‑Level Access Using Constants</a></li>
 <li><a href="#_string_manipulation">String Manipulation</a></li>
 <li><a href="#_miscellaneous_commands">Miscellaneous Commands</a></li>
 <li><a href="#_maths">Maths</a></li>
@@ -806,8 +814,8 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2025-12-07<br>
-08:59:28 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-01-30<br>
+06:53:34 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
@@ -837,6 +845,12 @@ Select the drop down menu to see the menu
 
     GCBASIC [/O:output.asm] [/A:assembler] [/P:programmer] [/K:{C|A}] [/H:[Y/1 | N/0]] [/V] [/L] [/WX] [/M:[Y/1 | N/0]]  [/S:Use.ini] [/F[O]] [/NP] <em>filename</em>
 
+    GCBASIC [/O:output.asm] [/A:assembler] [/P:programmer] [/K:{C|A}] [/H:[Y/1 | N/0]] [/V] [/L] [/WX] [/M:[Y/1 | N/0]]  [/S:Use.ini] [/F[O]] [/NP] <em>filename</em> /DO
+
+    GCBASIC [/O:output.asm] [/A:assembler] [/P:programmer] [/K:{C|A}] [/H:[Y/1 | N/0]] [/V] [/L] [/WX] [/M:[Y/1 | N/0]]  [/S:Use.ini] [/F[O]] [/NP] <em>filename</em> /AO
+
+
+
     GCBASIC /version</pre>
 </div>
 </div>
@@ -855,70 +869,24 @@ Select the drop down menu to see the menu
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/O:<em>filename</em></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the name of the assembly file generated to <code><em>filename</em></code>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Same name as the input file, but with a <code>.asm</code> extension.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>/A:assembler</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Batch file used to call assembler<sup>(1)</sup>. If <code>/A:GCASM</code> is given, GCBASIC will use its internal assembler.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The program will not be assembled</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/AO`</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use .build folder for assembly operations.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This is the Assembly Only switch.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>/CP</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exports the config bits automatically selected by the compiler to an output file called <code>source_filename.config</code>.  The output file is the source filename with the extension of config.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exports the config bits automatically selected by the compiler to an output file called <code>source_filename.config</code>. The output file is the source filename with the extension of config.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/H:[Y/1 | N/0]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set the production, or not, of the hex output file.  /H:1 is the default.  To prevent production of the hex output file - use /H:0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The default is to produce the hex output file</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/M:[Y/1 | N/0]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Mute the banner messages, or not.  /M:1 is the default.  To prevent banner messages - use /M:0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The default is to output banner messages</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/P:programmer</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Batch file used to call programmer<sup>(1)</sup>. This parameter is ignored if the program is not assembled.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The program will not be downloaded.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/K:[C|A]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Keep original code in assembly output. <code>/K:C</code> will save comments, <code>/K:A</code> will preserve all input code.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No original code left in output.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/V[:[0|F][1|T]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Verbose mode - compiler gives more detailed information about its activities.
-/Vx will overide any configuration in the user ini file.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/L</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Show license and exit.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/NP</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Do not pause on errors. Use with IDEs.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Pause when an error occurs, and wait for the user to press a key.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/WX</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Force compiler to ensure all include files are valid.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/version</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Shown build date and version of the compiler.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/S:fsp</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Load the settings from a specified file, rather than use the defaults.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">/S:use.ini</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/DO`</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use .build folder for debugger operations.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This is the DirectoryOutput switch.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>/F[:[0|F][1|T]</code></p></td>
@@ -929,7 +897,62 @@ Select the drop down menu to see the menu
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>/FO</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Used to bypass compilation and program only.  Compiler will verify that config settings in the already compiled file match those required for the programmer. If not, a recompilation will be forced.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to bypass compilation and program only. Compiler will verify that config settings in the already compiled file match those required for the programmer. If not, a recompilation will be forced.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/H:[Y/1 | N/0]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set the production, or not, of the hex output file.  /H:1 is the default.  To prevent production of the hex output file - use /H:0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The default is to produce the hex output file</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/K:[C|A]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keep original code in assembly output. <code>/K:C</code> will save comments, <code>/K:A</code> will preserve all input code.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No original code left in output.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/L</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Show license and exit.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/M:[Y/1| N/0]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mute the banner messages, or not. <code>/M:1</code> is the default. To prevent banner messages use <code>/M:0</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The default is to output banner messages</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/NP</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Do not pause on errors. Use with IDEs.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pause when an error occurs, and wait for the user to press a key.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/O:<em>filename</em></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the name of the assembly file generated to <code><em>filename</em></code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Same name as the input file, but with a <code>.asm</code> extension.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/P:programmer</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Batch file used to call programmer<sup>(1)</sup>. This parameter is ignored if the program is not assembled.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The program will not be downloaded.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/S:fsp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Load the settings from a specified file, rather than use the defaults.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/S:use.ini</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/V:[0|F][1|T]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verbose mode — compiler gives more detailed information about its activities. <code>/Vx</code> will override any configuration in the user ini file.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/WX</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Force compiler to ensure all include files are valid.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Show build date and version of the compiler.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -10118,10 +10141,10 @@ developers.</p>
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p>The DATA construct creates an DATA dataset for use with the specific microcontroller.&#160;&#160;An DATA dataset is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.</p>
+<p>The DATA construct creates an DATA dataset, or DATA block, for use with the specific microcontroller.&#160;&#160;A DATA dataset, or DATA block, is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.</p>
 </div>
 <div class="paragraph">
-<p>The advantage of an DATA dataset is that they are memory efficient being loaded directly into the DATA during programming operations.</p>
+<p>The advantage of an DATA dataset, or DATA block, is that they are memory efficient being loaded directly into the DATA during programming operations.</p>
 </div>
 <div class="paragraph">
 <p>DATA datasets are defined as follows:</p>
@@ -10299,6 +10322,141 @@ developers.</p>
 </tbody>
 </table>
 <div class="paragraph">
+<p><em>Maximum Stored Value</em></p>
+</div>
+<div class="paragraph">
+<p>The <strong>maximum value</strong> that can be stored in a single program memory <strong>word</strong> location across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16, PIC18), formatted as clean markdown:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Family</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instruction Word Size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Program Memory Word Width</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum Value per Word (unsigned decimal)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hex Range</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can store full 16-bit value (0–65535) in one word?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC10</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4095</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x000 – 0xFFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC12</strong> (baseline)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4095</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x000 – 0xFFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC12</strong> (enhanced mid-range)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16383</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x0000 – 0x3FFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC14</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16383</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x0000 – 0x3FFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC16</strong> (mid-range)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16383</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x0000 – 0x3FFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC16</strong> (enhanced mid-range)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16383</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x0000 – 0x3FFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC18</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">65535</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x0000 – 0xFFFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Yes</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><em>Quick Summary Table (most common cases)</em></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Family group</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typical word size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max value you can store in one program memory word</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Equivalent to storing a full 16-bit number?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC10 / baseline PIC12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>4095</strong> (0xFFF)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC14 / PIC16 / enhanced PIC12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>16383</strong> (0x3FFF)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>65535</strong> (0xFFFF)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><em>Important Notes</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>PIC18</strong> is the only 8-bit PIC family where you can directly store any 16-bit value (0–0xFFFF) in a single program memory word location.</p>
+</li>
+<li>
+<p>On all earlier families (PIC10, PIC12 baseline, PIC14, PIC16, enhanced mid-range), you must split any value &gt; 0x3FFF (16383) across <strong>two words</strong> if you need the full 16-bit range.</p>
+</li>
+<li>
+<p>The values above apply when storing constants, lookup table entries, <code>retlw</code> literals, <code>data</code>/<code>db</code> directives, etc. — i.e., the largest number that fits in one program memory <strong>word</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p><strong>Complete working example program</strong></p>
 </div>
 <div class="paragraph">
@@ -10333,7 +10491,7 @@ developers.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>For more help, see <a href="#_ProgramRead">ProgramRead</a>, <a href="#_lookup_tables">Creating DATA data from a Lookup Table</a></strong></p>
+<p><strong>For more help, see <a href="#_programread">ProgramRead</a>, <a href="#_lookup_tables">Creating data from a Lookup Table</a></strong></p>
 </div>
 </div>
 <div class="sect4">
@@ -10406,8 +10564,144 @@ meaning that they can store values over 255.</p>
 </div>
 <div class="paragraph">
 <p>The largest value possible for <code><em>location</em></code> depends on the amount of
-program memory on the Microchip PIC microcontroller, which is given on the datasheet. <code><em>store</em></code> is
-14 bits wide, and thus can store values up to <code>16383</code>.</p>
+program memory on the Microchip PIC microcontroller, which is given on the datasheet. <code><em>store</em></code> range is explained in the next section.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>_Maximum Stored Value_</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <strong>maximum value</strong> that can be stored in a single program memory <strong>word</strong> location across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16, PIC18), formatted as clean markdown:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+<col style="width: 16%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Family</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instruction Word Size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Program Memory Word Width</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum Value per Word (unsigned decimal)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hex Range</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can store full 16-bit value (0–65535) in one word?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC10</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4095</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x000 – 0xFFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC12</strong> (baseline)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4095</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x000 – 0xFFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC12</strong> (enhanced mid-range)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16383</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x0000 – 0x3FFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC14</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16383</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x0000 – 0x3FFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC16</strong> (mid-range)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16383</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x0000 – 0x3FFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC16</strong> (enhanced mid-range)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16383</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x0000 – 0x3FFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>PIC18</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16-bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">65535</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x0000 – 0xFFFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Yes</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><em>Quick Summary Table (most common cases)</em></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Family group</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typical word size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max value you can store in one program memory word</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Equivalent to storing a full 16-bit number?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC10 / baseline PIC12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>4095</strong> (0xFFF)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC14 / PIC16 / enhanced PIC12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>16383</strong> (0x3FFF)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 bits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>65535</strong> (0xFFFF)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><em>Important Notes</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>PIC18</strong> is the only 8-bit PIC family where you can directly store any 16-bit value (0–0xFFFF) in a single program memory word location.</p>
+</li>
+<li>
+<p>On all earlier families (PIC10, PIC12 baseline, PIC14, PIC16, enhanced mid-range), you must split any value &gt; 0x3FFF (16383) across <strong>two words</strong> if you need the full 16-bit range.</p>
+</li>
+<li>
+<p>The values above apply when storing constants, lookup table entries, <code>retlw</code> literals, <code>data</code>/<code>db</code> directives, etc. — i.e., the largest number that fits in one program memory <strong>word</strong>.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>This is an advanced command which should only be used by advanced
@@ -28214,20 +28508,53 @@ Connection Mode.</p>
 <div class="sect4">
 <h5 id="_lcd_io_10">LCD_IO 10</h5>
 <div class="paragraph">
-<p><strong>Using connection mode 10:</strong></p>
+<p>LCD_IO 10 provides support for character LCD modules that use an
+I2C/TWI interface based on the <strong>PCF8574 or PCF8574A I/O expander</strong>.&nbsp;&nbsp;
+These I/O expanders are commonly found on low‑cost LCD “I2C backpacks”
+sold under many brand names (YwRobot, Sainsmart, Joy-It, generic blue/black
+I2C adapters, etc.).</p>
 </div>
 <div class="paragraph">
-<p>The LCD is controlled via I2C of a type 10 LCD 12C adapter.
-Use LCD_IO 10 for the YwRobot LCD1602 IIC V1 or the Sainsmart LCD_PIC I2C adapter.
-To use mode 10 you must define the I2C ports as normal in your GCBASIC code.
-Then, define the LCD type, set the I2C_address of the LCD adapter and the LCD speed, if required.
-Finally, set the backlight control, if required.</p>
+<p>The PCF8574 device converts an I2C bus signal into 8 digital output lines,
+which are then wired to the LCD’s RS, EN, D4–D7, and backlight control
+pins.&nbsp;&nbsp;</p>
 </div>
 <div class="paragraph">
-<p><strong>Relevant Constants:</strong></p>
+<p><code>LCD_IO 10</code> implements the correct signalling for this type of <strong>I/O expander</strong>.</p>
 </div>
 <div class="paragraph">
-<p>These constants are used to control settings for the Liquid Crystal Display routines included with GCBASIC. To set them, place a line in the main program file that uses #define to assign a value to the particular constant.</p>
+<p>Use <code>LCD_IO 10</code> whenever your LCD module uses a <strong>PCF8574‑based I2C
+adapter</strong>, regardless of brand or PCB layout.&nbsp;&nbsp;You can configure the specific LCD port layout, if required.</p>
+</div>
+<div class="paragraph">
+<p>To use mode 10:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Configure your I2C/TWI pins normally in your GCBASIC program.</p>
+</li>
+<li>
+<p>Define the LCD type by using <code>LCD_IO 10</code></p>
+</li>
+<li>
+<p>Set the I2C address of the PCF8574 adapter, if required.&nbsp;&nbsp;Typical PCF8574 I2C addresses range from <strong>0x40 to 0x4E</strong>, depending on
+the A0–A2 jumper settings on the adapter board.</p>
+</li>
+<li>
+<p>Optionally set LCD speed and backlight behaviour.</p>
+</li>
+<li>
+<p>Optionally set the LCD port layout.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Relevant Constants</strong></p>
+</div>
+<div class="paragraph">
+<p>These constants configure the Liquid Crystal Display routines in
+GCBASIC. Add them to your main program using <code>#define</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all">
 <colgroup>
@@ -28245,48 +28572,98 @@ Finally, set the backlight control, if required.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_IO</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The I/O mode. Must be 10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selects the I/O mode. Must be 10 for PCF8574 I2C LCDs.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Constant Name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Controls</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Default</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_E</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD Enable - Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.2</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_RW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD RW - Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_RS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD RS - Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.0</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_BL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD Back Light - Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.3</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_D4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD Data Bit4 - Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.4</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_D5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD Data Bit5 - Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.5</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_D6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD Data Bit6 - Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.6</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_D7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD Data Bit7 - Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.7</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Default = 0x4E</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PCF8574 I2C address (A0–A2 = 111)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0x4E</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_2</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x4C</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PCF8574 I2C address (A0–A2 = 110)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0x4C</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_3</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x4A</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PCF8574 I2C address (A0–A2 = 101)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0x4A</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_4</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x48</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PCF8574 I2C address (A0–A2 = 100)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0x48</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_5</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x46</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PCF8574 I2C address (A0–A2 = 011)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0x46</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_6</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x44</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PCF8574 I2C address (A0–A2 = 010)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0x44</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_7</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x42</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PCF8574 I2C address (A0–A2 = 001)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0x42</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_I2C_ADDRESS_8</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Address of I2C adapter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Recommended = 0x40</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PCF8574 I2C address (A0–A2 = 000)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0x40</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -28294,37 +28671,62 @@ Finally, set the backlight control, if required.</p>
 <p><strong>Example Usage</strong></p>
 </div>
 <div class="paragraph">
-<p>An example for using two I2C-LCD.  This example can be extended to support more than two or more ( up to eight ) I2C-LCD(s).</p>
-</div>
-<div class="paragraph">
-<p>This example shows you can have up to eight LCD on the I2C-Bus (8 Addresses 0x40 to 0x4E of the PCF8574-Adaptor).</p>
+<p>This example demonstrates using two PCF8574‑based I2C LCDs on the same
+I2C bus. Up to eight LCDs may be connected simultaneously, each with a
+unique PCF8574 address (0x40–0x4E).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    // Set up I2C-LCD
+<pre>    Set up I2C-LCD
+
     #DEFINE LCD_IO 10
 
-    /*  Set LCD_IO to 10 for the YwRobot LCD1602 IIC V1 or the Sainsmart LCD_PIC I2C adapter
-    Set LCD_IO to 12 for the Ywmjkdz I2C adapter with pot bent over top of chip */
+    /*  LCD_IO 10 is for PCF8574-based I2C LCD adapters.
+        Examples include YwRobot LCD1602 IIC V1, Sainsmart LCD_PIC,
+        and most generic blue/black I2C LCD backpacks.
 
-    #DEFINE LCD_I2C_ADDRESS_1 0x4E ' prepare the first LCD on Address 0x4E
-    #DEFINE LCD_I2C_ADDRESS_6 0x44 ' prepare the second LCD on Address 0x44
+        LCD_IO 12 is used for adapters based on the Ywmjkdz layout
+        with the potentiometer bent over the IC.
+    */
 
-    // To switch between the two LCD can be done with
+    #DEFINE LCD_I2C_ADDRESS_1 0x4E   ' First LCD at address 0x4E
 
-    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_6 // now the second I2C-LCD is active
-
-    // or
-
-    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1 //  now the first I2C-LCD is active</pre>
+    PRINT "Hello World"</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For code examples see <a href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">I2C LCD Solutions</a>.</p>
+<p>This example demonstrates using two PCF8574‑based I2C LCDs on the same
+I2C bus. Up to eight LCDs may be connected simultaneously, each with a
+unique PCF8574 address (0x40–0x4E).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Set up I2C-LCD
+
+    #DEFINE LCD_IO 10
+
+    /*  LCD_IO 10 is for PCF8574-based I2C LCD adapters.
+        Examples include YwRobot LCD1602 IIC V1, Sainsmart LCD_PIC,
+        and most generic blue/black I2C LCD backpacks.
+
+        LCD_IO 12 is used for adapters based on the Ywmjkdz layout
+        with the potentiometer bent over the IC.
+    */
+
+    #DEFINE LCD_I2C_ADDRESS_1 0x4E   ' First LCD at address 0x4E
+    #DEFINE LCD_I2C_ADDRESS_6 0x44   ' Second LCD at address 0x44
+
+    ' Switch between LCDs:
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_6   ' Activate second LCD
+        PRINT "Hello World"
+
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1   ' Activate first LCD
+        PRINT "Hello World"</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>See the separate sections of the Help file for the specifics of each
-Connection Mode.</p>
+<p>See other sections of the Help file for details on alternative
+connection modes.</p>
 </div>
 <div class="paragraph">
 <p><strong>For more help, see</strong>
@@ -28335,41 +28737,89 @@ Connection Mode.</p>
 <div class="sect5">
 <h6 id="_lcd_io_10_port_configuration">LCD_IO 10 Port Configuration</h6>
 <div class="paragraph">
+<p>LCD_IO 10 provides support for character LCD modules that use an I2C/TWI interface based on the <strong>PCF8574 or PCF8574A I/O expander</strong>.&nbsp;&nbsp;These expanders are commonly found on low‑cost LCD “I2C backpacks” sold under many brand names (YwRobot, Sainsmart, Joy‑It, generic blue/black adapters, and others).&nbsp;&nbsp;</p>
+</div>
+<div class="paragraph">
 <p><strong>Using mode 10</strong></p>
 </div>
 <div class="paragraph">
-<p>When using I2C LCD mode 10 the target I2C device address is setup as
-shown below. Each bit of the the variable i2c_lcd_byte is defined to
-address the correct LCD display port.</p>
+<p>When using LCD_IO 10, the target <strong>PCF8574 or PCF8574A I/O expander</strong> port is configured by default as shown in the table below.&nbsp;&nbsp;Each bit of the byte variable <code>i2c_lcd_byte</code> is mapped to the appropriate LCD control or data line.&nbsp;&nbsp;</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>    i2c_lcd_e = i2c_lcd_byte.2
-    i2c_lcd_rw = i2c_lcd_byte.1
-    i2c_lcd_rs = i2c_lcd_byte.0
-    i2c_lcd_bl = i2c_lcd_byte.3
-    i2c_lcd_d4 = i2c_lcd_byte.4
-    i2c_lcd_d5 = i2c_lcd_byte.5
-    i2c_lcd_d6 = i2c_lcd_byte.6
-    i2c_lcd_d7 = i2c_lcd_byte.7</pre>
-</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Constant Name</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Controls</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Default</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_E</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD Enable – Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.2</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_RW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD RW – Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_RS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD RS – Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.0</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_BL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD Backlight – Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.3</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_D4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD Data Bit 4 – Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.4</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_D5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD Data Bit 5 – Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.5</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_D6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD Data Bit 6 – Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.6</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I2C_LCD_D7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD Data Bit 7 – Expander Port Bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>I2C_LCD_BYTE.7</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If your I2C LCD adapter or PCB uses a different wiring arrangement, you can override the default configuration to match your hardware.&nbsp;&nbsp;</p>
 </div>
 <div class="paragraph">
-<p>If you have an I2C LCD display adapter with a different set of
-connection of the adapter then change this configuration to suit the
-specific of the adapter as follows. This should be done in the your main
-program code.</p>
+<p>These overrides should be placed in your main program.&nbsp;&nbsp;</p>
+</div>
+<div class="paragraph">
+<p>To apply an alternative configuration, define the following eight constants.&nbsp;&nbsp;Doing so replaces the default mappings shown in the table above.&nbsp;&nbsp;</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    #define i2c_lcd_e i2c_lcd_byte.1
-    #define i2c_lcd_rw i2c_lcd_byte.2
-    #define i2c_lcd_rs i2c_lcd_byte.0
-    #define i2c_lcd_bl i2c_lcd_byte.3
-    #define i2c_lcd_d4 i2c_lcd_byte.7
-    #define i2c_lcd_d5 i2c_lcd_byte.6
-    #define i2c_lcd_d6 i2c_lcd_byte.5
-    #define i2c_lcd_d7 i2c_lcd_byte.4</pre>
+<pre class="highlight"><code>    #DEFINE I2C_LCD_E   I2C_LCD_BYTE.1
+    #DEFINE I2C_LCD_RW  I2C_LCD_BYTE.2
+    #DEFINE I2C_LCD_RS  I2C_LCD_BYTE.0
+    #DEFINE I2C_LCD_BL  I2C_LCD_BYTE.3
+    #DEFINE I2C_LCD_D4  I2C_LCD_BYTE.7
+    #DEFINE I2C_LCD_D5  I2C_LCD_BYTE.6
+    #DEFINE I2C_LCD_D6  I2C_LCD_BYTE.5
+    #DEFINE I2C_LCD_D7  I2C_LCD_BYTE.4</code></pre>
 </div>
 </div>
 </div>
@@ -30916,17 +31366,56 @@ the LCD.</p>
 <div class="sect4">
 <h5 id="_lcd_io_10_example">LCD_IO 10 Example</h5>
 <div class="paragraph">
-<p>This is an connection mode 10 I2C Driver to demonstrate LCD features. This for the 16F877A, but, it can easily be adapted for other microcontrollers.</p>
+<p>LCD_IO 10 provides support for character LCD modules that use an
+I2C/TWI interface based on the <strong>PCF8574 or PCF8574A I/O expander</strong>.&nbsp;&nbsp;
+This for the 16F877A, but, it can easily be adapted for any other microcontrollers.</p>
 </div>
 <div class="paragraph">
 <p>A 2 by 16 LCD is assumed with the LCD being driven using an LCD I2C adapter.
 Two types are supported the YwRobot LCD1602 IIC V1 / a Sainsmart LCD_PIC I2C adapter or the Ywmjkdz I2C adapter with pot bent over top of chip.</p>
 </div>
 <div class="paragraph">
-<p>The demonstrates reading a DS18B20 and showing the results on the LCD.</p>
+<p><strong>Example - Joy-IT/Raspberry Pi LCD PCB:</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>Example:</strong></p>
+<p>This demonstrates using Joy-IT/Raspberry Pi LCD PCB by changing the I2C_LCD_* constants that control this mode of LCD_IO operations.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>      #chip AVR128DA28, 24
+      #option explicit
+
+      // Define Hardware I2C settings
+      HI2CMode Master
+      #DEFINE HI2C_DATA  PORTA.2
+      #DEFINE HI2C_CLOCK PORTA.3
+
+      #DEFINE LCD_IO 10
+      // LCD_I2C_Address_1 is not required because default address
+      //  #DEFINE LCD_I2C_ADDRESS_1 0X4E
+
+      // This settings are suited for a joy-it adapter. Its made for the Raspberry Pi.
+      // This changes the default expander port mappings.
+      #DEFINE I2C_LCD_E  I2C_LCD_BYTE.7
+      #DEFINE I2C_LCD_RW I2C_LCD_BYTE.5
+      #DEFINE I2C_LCD_RS I2C_LCD_BYTE.4
+      #DEFINE I2C_LCD_BL I2C_LCD_BYTE.6
+      #DEFINE I2C_LCD_D4 I2C_LCD_BYTE.0
+      #DEFINE I2C_LCD_D5 I2C_LCD_BYTE.1
+      #DEFINE I2C_LCD_D6 I2C_LCD_BYTE.2
+      #DEFINE I2C_LCD_D7 I2C_LCD_BYTE.3
+
+
+      // ----- Main body of program commences here.
+
+      Print "Hello World"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example - Multiple LCDs:</strong></p>
+</div>
+<div class="paragraph">
+<p>This demonstrates reading a DS18B20 and showing the results on multiple LCDs.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -46696,7 +47185,7 @@ Prescaler can be one of the following:<br>
      SETSMT1PERIOD ( 4045000 )        ' 1.000s periodwith the parameters of SMT_FOSC and SMTPres_1 within the clock variance of the interclock
                                       ' a perfect internal clock would be 4000000
 
-     SETSMT1PERIOD ( 9322401 )        ' 4.600s period with the parameters of SMT_FOSC4 and SMTPres_8
+     SETSMT2PERIOD ( 9322401 )        ' 4.600s period with the parameters of SMT_FOSC4 and SMTPres_8
 
      InitSMT1(SMT_FOSC,SMTPres_1)
      InitSMT2(SMT_FOSC4,SMTPres_8)
@@ -47366,61 +47855,116 @@ A subroutine uses a temporary variable of type byte, and relies on it overflowin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    <strong><em>For Variables &gt; 1 byte:</em></strong>
-    Dim <em>variable</em>[, <em>variable2</em> [, <em>variable3</em>]] [As <em>type</em>] [Alias <em>othervar</em> [, <em>othervar2</em>]]
-
-    'or
-
-    Dim <em>variable</em>[, <em>variable2</em> [, <em>variable3</em>]] [As <em>type</em>] [At <em>location</em>]
-
+<pre>    <strong><em>For Variables:</em></strong>
+    Dim <em>variable</em>    // will define a Byte variable
+    Dim <em>variable</em> [As <em>type</em>]
+    Dim <em>variable</em> [As <em>type</em>] [= <em>initialvalue</em>]
+    Dim <em>variable</em>[, <em>variable2</em> [, <em>variable3</em>]] [As <em>type</em>] [Alias <em>othervar</em> [, <em>othervar2</em>]]  [= <em>initialvalue</em>]
+    Dim <em>variable</em>[, <em>variable2</em> [, <em>variable3</em>]] [As <em>type</em>] [At <em>location</em>] [= <em>initialvalue</em>]
 
     <strong><em>For Arrays:</em></strong>
     Dim <em>array</em>(<em>size</em>) [As <em>type</em>] [At <em>location</em>]
 
-    <strong><em>For String:</em></strong>
-    Dim <em>string [* _size</em>] [At <em>location</em>]</pre>
+    <strong><em>For Strings:</em></strong>
+    Dim <em>string</em> [* <em>size</em>] [At <em>location</em>]</pre>
 </div>
 </div>
 <div class="paragraph">
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p>Dim has two uses:&#160;&#160;It can be used to define 1) variables of many types and 2) arrays.</p>
+<p>The <code>Dim</code> command is used to declare variables, arrays, and strings. It can also create aliases for existing variables or place variables at specific memory locations.</p>
 </div>
 <div class="paragraph">
-<p><strong>Command Availability:</strong></p>
+<p>GCBASIC supports <strong>optional initialisation</strong> at the point of declaration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Dim byte_var As Byte = 1</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Available on all microcontrollers.</p>
+<p>This sets the variable to the specified value at program start.
+The traditional form remains fully valid:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Dim byte_var As Byte</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>The <code>Dim</code> variable command is used to instruct GCBASIC to allocate variables or to create alternate names for existing  variables (using Alias) or to create variables at a specific memory location (using At).</p>
+<p>If no initial value is provided, the variable is initialised to zero unless the compiler determines otherwise.</p>
 </div>
 <div class="paragraph">
-<p>The <code>Dim array</code> command also sets up array variables. The maximum array size is determined by the parameter <code><em>size</em></code> is dynamically allocated by the compiler and depends on the specific chip used, as well as the complexity of the program.</p>
+<p><strong>Command Availability:</strong>
+Available on all microcontrollers.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_variable_declaration">Variable Declaration</h3>
+<div class="paragraph">
+<p><code>Dim</code> can declare one or more variables on a single line. When multiple variables are declared together, the type at the end of the line applies to all variables:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Dim A, B, C As Word = 100</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>The limit on array size varies dependent on the chip type.  See the <strong>Maximum Array Size</strong> section in <a href="#_array">Arrays</a> for more information.</p>
+<p>If no type is specified, the variable defaults to <code>Byte</code>.</p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_initial_values">Initial Values</h3>
+<div class="paragraph">
+<p>You may optionally assign an initial value using <code>= value</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Dim Counter As Byte = 10
+    Dim Temperature As Integer = -5
+    Dim Flag As Bit = 1</pre>
+</div>
 </div>
 <div class="paragraph">
-<p><code><em>type</em></code> specifies the type of variable that is to be created. Different variable types can hold values over different ranges, and use different amounts of RAM. See the <a href="#_variable_types">Variables Types</a> article for more information.</p>
+<p>This improves readability and reduces the need for separate initialisation code.</p>
 </div>
 <div class="paragraph">
-<p>When multiple variables are included on the one line, GCBASIC will set them all to the type that is specified at the end of the line. If there is no type specified, then GCBASIC will make the variable a byte.</p>
+<p>Initialisation is supported for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Byte, Integer, Word, Long, Float</p>
+</li>
+<li>
+<p>Bit variables</p>
+</li>
+<li>
+<p>Aliased variables (if the alias target is valid)</p>
+</li>
+<li>
+<p>Arrays (initial value applies to all elements if supported by the compiler)</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p><code>Alias</code> creates a variable using the same memory location as one or more other variables. &#160;&#160;It is mainly used internally in GCBASIC to treat system variables as a word.&#160;&#160; For example, this command is used to create a word variable, made up from the two memory locations used to store the result of an A/D conversion.&#160;&#160;`Alias` is mutually exclusive to <code>At</code> and therefore <code>Alias</code> and <code>At</code> on the same declaration line will cause an compiler error.</p>
+<p>Example:</p>
 </div>
-<div class="paragraph">
-<p><code>Alias</code> does not support <code>BIT</code> variable.&#160;&#160;  For the correct method to address `BIT`s in a psuedo alias method see the example program #2 below.</p>
+<div class="listingblock">
+<div class="content">
+<pre>    Dim Buffer(8) As Byte = 0</pre>
 </div>
-<div class="paragraph">
-<p><code>AT</code> a variable can be placed at a specific location in the data memory of the chip using the At option. &#160;&#160;`<em>location</em>` will be used whether it is a valid location or not, but a warning will be generated if GCBASIC has already allocated the memory, or if the memory does not appear to be valid. &#160;&#160;This can be used for peripherals that have multi byte buffers in RAM.&#160;&#160;`At` is mutually exclusive to <code>Alias</code> and therefore <code>At</code> and <code>Alias</code> on the same declaration line will cause an compiler error.</p>
 </div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_alias">Alias</h3>
 <div class="paragraph">
-<p>A String declared with a fixed size (numeric constant that can be evaluated at compile time) is a fixed length string. It has no descriptor and it is not resized to fit its contents. If data overflows the size of the string, the memory may be overwrtten.
-Fixed length strings are not NULL terminated, and they use size + 1 bytes of space.
-String variable names need not end in a dollar sign $ as in other dialects of BASIC.</p>
+<p><code>Alias</code> creates a variable that shares the same memory location as another variable:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -47428,75 +47972,109 @@ String variable names need not end in a dollar sign $ as in other dialects of BA
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Example 1:</strong></p>
+<p><code>Alias</code> and <code>At</code> cannot be used together on the same declaration line.</p>
+</div>
+<div class="paragraph">
+<p><code>Alias</code> does not support <code>Bit</code> variables. For bit‑level aliasing, use constants or <code>#Define</code> macros.</p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_at_fixed_memory_location">At (Fixed Memory Location)</h3>
+<div class="paragraph">
+<p><code>At</code> places a variable at a specific RAM location:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    'This program will set up a array of ten bytes and a word variable
+<pre>    Dim SerialBuffer As Byte At 0x20</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the location is already used or invalid, a warning is generated.</p>
+</div>
+<div class="paragraph">
+<p><code>At</code> and <code>Alias</code> are mutually exclusive.</p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_strings">Strings</h3>
+<div class="paragraph">
+<p>A fixed‑length string is declared as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Dim Name * 16</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This allocates a 16‑byte string (plus one extra byte internally).
+Fixed strings are not null‑terminated and do not resize automatically.</p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_new_example_1_basic_variables_with_initial_values">New Example 1: Basic Variables with Initial Values</h3>
+<div class="listingblock">
+<div class="content">
+<pre>    ' Demonstrates variable declarations with and without initial values
 
-    dim DataList(10)
-    dim Reading as word
+    Dim Count As Byte = 5
+    Dim Threshold As Word = 300
+    Dim Mode As Byte
+    Dim Ready As Bit = 1
 
-    Reading = 21978
+    Mode = 2</pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_new_example_2_arrays_and_initialisation">New Example 2: Arrays and Initialisation</h3>
+<div class="listingblock">
+<div class="content">
+<pre>    ' Create an array of 10 bytes, all initialised to zero
+    Dim DataList(10) As Byte = 0
+
+    ' Create a word array with no initial values
+    Dim WordList(4) As Word
+
     DataList(1) = 15
-
-    dim stringvariable as string</pre>
+    WordList(0) = 1024</pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>Example 2:</strong></p>
+<hr>
 </div>
-<div class="paragraph">
-<p>Use a constant, or a number of constants, to refer to specific <code>BIT`s of an exist `BYTE</code> variable.&#160;&#160;A psuedo <code>ALIAS</code> for <code>BIT</code> variables.</p>
-</div>
+<div class="sect2">
+<h3 id="_new_example_3_bit_level_access_using_constants">New Example 3: Bit‑Level Access Using Constants</h3>
 <div class="listingblock">
 <div class="content">
-<pre>    // Thank you Ccin E Crout from the GCBASIC forum!!
-
-    #Option Explicit
+<pre>    #Option Explicit
     #Chip 16F1825, 32
 
-    Dim SerialByte As Byte
+    Dim SerialByte As Byte = 0
+
     #Define StatusReady  SerialByte.0
     #Define StatusError  SerialByte.1
     #Define StatusMotor  SerialByte.2
-    #Define StatusOkBut  SerialByte.3
-    #Define StatusUpBut  SerialByte.4
-    #Define StatusDnBut  SerialByte.5
-    #Define StatusLeBut  SerialByte.6
-    #Define StatusRiBut  SerialByte.7
-
-    SerialByte = 0                 // This will address the specific byte
 
     Do
         SerialByte = SerialByte + 1
-        If StatusReady = 1 Then     // This will address the specific bit
-            StatusError = 0         // This will address the specific bit
+
+        If StatusReady = 1 Then
+            StatusError = 0
         End If
-        If StatusError = 1 Then     // This will address the specific bit
-            StatusMotor = 0         // This will address the specific bit
-        End If
-        If StatusMotor = 1 Then     // This will address the specific bit
-            StatusOkBut = 0         // This will address the specific bit
-        End If
-        If StatusOkBut = 1 Then     // This will address the specific bit
-            StatusUpBut = 0         // This will address the specific bit
-        End If
-        If StatusUpBut = 1 Then     // This will address the specific bit
-            StatusDnBut = 0         // This will address the specific bit
-        End If
-        If StatusDnBut = 1 Then     // This will address the specific bit
-            StatusLeBut = 0         // This will address the specific bit
-        End If
-        If StatusLeBut = 1 Then     // This will address the specific bit
-            StatusReady = 0         // This will address the specific bit
+
+        If StatusError = 1 Then
+            StatusMotor = 0
         End If
     Loop</pre>
 </div>
 </div>
+<hr>
 <div class="paragraph">
-<p><strong>For more help, see:&#160;&#160;</strong><a href="#_serprint">SerPrint</a> articles as these articales show how to use Dim to create string variables and <a href="#_variables">Variables</a> for more details in creating and managing strings lengths.</p>
-</div>
+<p><strong>For more help, see:</strong>
+<a href="#_serprint">SerPrint</a> for string handling examples and <a href="#_variables">Variables Types</a> for more information on variable types.</p>
 </div>
 <div class="sect3">
 <h4 id="_alloc">Alloc</h4>
