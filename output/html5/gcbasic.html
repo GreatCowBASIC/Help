@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.2">
-<meta name="author" content="The GCBASIC development team. Copyright 2005 - 2025">
+<meta name="author" content="The GCBASIC development team. Copyright 2005 - 2026">
 <title>GCBASIC documentation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400">
 <style>
@@ -414,7 +414,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>GCBASIC documentation</h1>
 <div class="details">
-<span id="author" class="author">The GCBASIC development team. Copyright 2005 - 2025</span><br>
+<span id="author" class="author">The GCBASIC development team. Copyright 2005 - 2026</span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -815,12 +815,12 @@ Select the drop down menu to see the menu
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">2026-01-30<br>
-06:53:34 GMT Standard Time</p></td>
+08:16:01 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2025-10-03<br>
-07:29:41 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-01-30<br>
+08:04:45 GMT Standard Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -28509,7 +28509,7 @@ Connection Mode.</p>
 <h5 id="_lcd_io_10">LCD_IO 10</h5>
 <div class="paragraph">
 <p>LCD_IO 10 provides support for character LCD modules that use an
-I2C/TWI interface based on the <strong>PCF8574 or PCF8574A I/O expander</strong>.&nbsp;&nbsp;
+I2C/TWI interface based on the <strong>PCF8574 or PCF8574A I/O expander</strong>.&#160;&#160;
 These I/O expanders are commonly found on low‑cost LCD “I2C backpacks”
 sold under many brand names (YwRobot, Sainsmart, Joy-It, generic blue/black
 I2C adapters, etc.).</p>
@@ -28517,14 +28517,14 @@ I2C adapters, etc.).</p>
 <div class="paragraph">
 <p>The PCF8574 device converts an I2C bus signal into 8 digital output lines,
 which are then wired to the LCD’s RS, EN, D4–D7, and backlight control
-pins.&nbsp;&nbsp;</p>
+pins.&#160;&#160;</p>
 </div>
 <div class="paragraph">
 <p><code>LCD_IO 10</code> implements the correct signalling for this type of <strong>I/O expander</strong>.</p>
 </div>
 <div class="paragraph">
 <p>Use <code>LCD_IO 10</code> whenever your LCD module uses a <strong>PCF8574‑based I2C
-adapter</strong>, regardless of brand or PCB layout.&nbsp;&nbsp;You can configure the specific LCD port layout, if required.</p>
+adapter</strong>, regardless of brand or PCB layout.&#160;&#160;You can configure the specific LCD port layout, if required.</p>
 </div>
 <div class="paragraph">
 <p>To use mode 10:</p>
@@ -28538,7 +28538,7 @@ adapter</strong>, regardless of brand or PCB layout.&nbsp;&nbsp;You can configur
 <p>Define the LCD type by using <code>LCD_IO 10</code></p>
 </li>
 <li>
-<p>Set the I2C address of the PCF8574 adapter, if required.&nbsp;&nbsp;Typical PCF8574 I2C addresses range from <strong>0x40 to 0x4E</strong>, depending on
+<p>Set the I2C address of the PCF8574 adapter, if required.&#160;&#160;Typical PCF8574 I2C addresses range from <strong>0x40 to 0x4E</strong>, depending on
 the A0–A2 jumper settings on the adapter board.</p>
 </li>
 <li>
@@ -28737,13 +28737,13 @@ connection modes.</p>
 <div class="sect5">
 <h6 id="_lcd_io_10_port_configuration">LCD_IO 10 Port Configuration</h6>
 <div class="paragraph">
-<p>LCD_IO 10 provides support for character LCD modules that use an I2C/TWI interface based on the <strong>PCF8574 or PCF8574A I/O expander</strong>.&nbsp;&nbsp;These expanders are commonly found on low‑cost LCD “I2C backpacks” sold under many brand names (YwRobot, Sainsmart, Joy‑It, generic blue/black adapters, and others).&nbsp;&nbsp;</p>
+<p>LCD_IO 10 provides support for character LCD modules that use an I2C/TWI interface based on the <strong>PCF8574 or PCF8574A I/O expander</strong>.&#160;&#160;These expanders are commonly found on low‑cost LCD “I2C backpacks” sold under many brand names (YwRobot, Sainsmart, Joy‑It, generic blue/black adapters, and others).&#160;&#160;</p>
 </div>
 <div class="paragraph">
 <p><strong>Using mode 10</strong></p>
 </div>
 <div class="paragraph">
-<p>When using LCD_IO 10, the target <strong>PCF8574 or PCF8574A I/O expander</strong> port is configured by default as shown in the table below.&nbsp;&nbsp;Each bit of the byte variable <code>i2c_lcd_byte</code> is mapped to the appropriate LCD control or data line.&nbsp;&nbsp;</p>
+<p>When using LCD_IO 10, the target <strong>PCF8574 or PCF8574A I/O expander</strong> port is configured by default as shown in the table below.&#160;&#160;Each bit of the byte variable <code>i2c_lcd_byte</code> is mapped to the appropriate LCD control or data line.&#160;&#160;</p>
 </div>
 <table class="tableblock frame-all grid-all">
 <colgroup>
@@ -28802,13 +28802,13 @@ connection modes.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>If your I2C LCD adapter or PCB uses a different wiring arrangement, you can override the default configuration to match your hardware.&nbsp;&nbsp;</p>
+<p>If your I2C LCD adapter or PCB uses a different wiring arrangement, you can override the default configuration to match your hardware.&#160;&#160;</p>
 </div>
 <div class="paragraph">
-<p>These overrides should be placed in your main program.&nbsp;&nbsp;</p>
+<p>These overrides should be placed in your main program.&#160;&#160;</p>
 </div>
 <div class="paragraph">
-<p>To apply an alternative configuration, define the following eight constants.&nbsp;&nbsp;Doing so replaces the default mappings shown in the table above.&nbsp;&nbsp;</p>
+<p>To apply an alternative configuration, define the following eight constants.&#160;&#160;Doing so replaces the default mappings shown in the table above.&#160;&#160;</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -31367,7 +31367,7 @@ the LCD.</p>
 <h5 id="_lcd_io_10_example">LCD_IO 10 Example</h5>
 <div class="paragraph">
 <p>LCD_IO 10 provides support for character LCD modules that use an
-I2C/TWI interface based on the <strong>PCF8574 or PCF8574A I/O expander</strong>.&nbsp;&nbsp;
+I2C/TWI interface based on the <strong>PCF8574 or PCF8574A I/O expander</strong>.&#160;&#160;
 This for the 16F877A, but, it can easily be adapted for any other microcontrollers.</p>
 </div>
 <div class="paragraph">
@@ -59681,7 +59681,7 @@ If you use AVRDUDE then uou must ensure the Windows device driver is <code>libus
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-03 07:29:41 GMT Summer Time
+Last updated 2026-01-30 08:04:45 GMT Standard Time
 </div>
 </div>
 </body>

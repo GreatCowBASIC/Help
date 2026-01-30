@@ -1,10 +1,10 @@
 ====== LCD_IO 10 Port Configuration
 
-LCD_IO 10 provides support for character LCD modules that use an I2C/TWI interface based on the **PCF8574 or PCF8574A I/O expander**.&nbsp;&nbsp;These expanders are commonly found on low‑cost LCD “I2C backpacks” sold under many brand names (YwRobot, Sainsmart, Joy‑It, generic blue/black adapters, and others).&nbsp;&nbsp;
+LCD_IO 10 provides support for character LCD modules that use an I2C/TWI interface based on the **PCF8574 or PCF8574A I/O expander**.&#160;&#160;These expanders are commonly found on low‑cost LCD “I2C backpacks” sold under many brand names (YwRobot, Sainsmart, Joy‑It, generic blue/black adapters, and others).&#160;&#160;
 
 *Using mode 10*
 
-When using LCD_IO 10, the target **PCF8574 or PCF8574A I/O expander** port is configured by default as shown in the table below.&nbsp;&nbsp;Each bit of the byte variable `i2c_lcd_byte` is mapped to the appropriate LCD control or data line.&nbsp;&nbsp;
+When using LCD_IO 10, the target **PCF8574 or PCF8574A I/O expander** port is configured by default as shown in the table below.&#160;&#160;Each bit of the byte variable `i2c_lcd_byte` is mapped to the appropriate LCD control or data line.&#160;&#160;
 
 [cols=3, options="header,autowidth"]
 |===
@@ -22,11 +22,11 @@ When using LCD_IO 10, the target **PCF8574 or PCF8574A I/O expander** port is co
 |I2C_LCD_D7 |LCD Data Bit 7 – Expander Port Bit|`I2C_LCD_BYTE.7`
 |===
 
-If your I2C LCD adapter or PCB uses a different wiring arrangement, you can override the default configuration to match your hardware.&nbsp;&nbsp;
+If your I2C LCD adapter or PCB uses a different wiring arrangement, you can override the default configuration to match your hardware.&#160;&#160;
 
-These overrides should be placed in your main program.&nbsp;&nbsp;
+These overrides should be placed in your main program.&#160;&#160;
 
-To apply an alternative configuration, define the following eight constants.&nbsp;&nbsp;Doing so replaces the default mappings shown in the table above.&nbsp;&nbsp;
+To apply an alternative configuration, define the following eight constants.&#160;&#160;Doing so replaces the default mappings shown in the table above.&#160;&#160;
 
 ```
     #DEFINE I2C_LCD_E   I2C_LCD_BYTE.1

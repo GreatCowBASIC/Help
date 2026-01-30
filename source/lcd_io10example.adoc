@@ -2,7 +2,7 @@
 
 
 LCD_IO 10 provides support for character LCD modules that use an
-I2C/TWI interface based on the **PCF8574 or PCF8574A I/O expander**.&nbsp;&nbsp;
+I2C/TWI interface based on the **PCF8574 or PCF8574A I/O expander**.&#160;&#160;
 This for the 16F877A, but, it can easily be adapted for any other microcontrollers.
 
 A 2 by 16 LCD is assumed with the LCD being driven using an LCD I2C adapter.

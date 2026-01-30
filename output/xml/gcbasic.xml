@@ -4,10 +4,10 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2025-10-03</date>
+<date>2026-01-30</date>
 <author>
 <personname>
-<firstname>The GCBASIC development team. Copyright 2005 - 2025</firstname>
+<firstname>The GCBASIC development team. Copyright 2005 - 2026</firstname>
 </personname>
 </author>
 <authorinitials>T</authorinitials>
@@ -164,12 +164,12 @@ Select the drop down menu to see the menu
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
 <entry align="center" valign="top"><simpara>2026-01-30<?asciidoc-br?>
-06:53:30 GMT Standard Time</simpara></entry>
+08:15:57 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2025-10-03<?asciidoc-br?>
-07:29:41 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-01-30<?asciidoc-br?>
+08:04:45 GMT Standard Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -21098,16 +21098,16 @@ Connection Mode.</simpara>
 <section xml:id="_lcd_io_10">
 <title>LCD_IO 10</title>
 <simpara>LCD_IO 10 provides support for character LCD modules that use an
-I2C/TWI interface based on the <emphasis role="strong">PCF8574 or PCF8574A I/O expander</emphasis>.&nbsp;&nbsp;
+I2C/TWI interface based on the <emphasis role="strong">PCF8574 or PCF8574A I/O expander</emphasis>.&#160;&#160;
 These I/O expanders are commonly found on low‑cost LCD “I2C backpacks”
 sold under many brand names (YwRobot, Sainsmart, Joy-It, generic blue/black
 I2C adapters, etc.).</simpara>
 <simpara>The PCF8574 device converts an I2C bus signal into 8 digital output lines,
 which are then wired to the LCD’s RS, EN, D4–D7, and backlight control
-pins.&nbsp;&nbsp;</simpara>
+pins.&#160;&#160;</simpara>
 <simpara><literal>LCD_IO 10</literal> implements the correct signalling for this type of <emphasis role="strong">I/O expander</emphasis>.</simpara>
 <simpara>Use <literal>LCD_IO 10</literal> whenever your LCD module uses a <emphasis role="strong">PCF8574‑based I2C
-adapter</emphasis>, regardless of brand or PCB layout.&nbsp;&nbsp;You can configure the specific LCD port layout, if required.</simpara>
+adapter</emphasis>, regardless of brand or PCB layout.&#160;&#160;You can configure the specific LCD port layout, if required.</simpara>
 <simpara>To use mode 10:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
@@ -21117,7 +21117,7 @@ adapter</emphasis>, regardless of brand or PCB layout.&nbsp;&nbsp;You can config
 <simpara>Define the LCD type by using <literal>LCD_IO 10</literal></simpara>
 </listitem>
 <listitem>
-<simpara>Set the I2C address of the PCF8574 adapter, if required.&nbsp;&nbsp;Typical PCF8574 I2C addresses range from <emphasis role="strong">0x40 to 0x4E</emphasis>, depending on
+<simpara>Set the I2C address of the PCF8574 adapter, if required.&#160;&#160;Typical PCF8574 I2C addresses range from <emphasis role="strong">0x40 to 0x4E</emphasis>, depending on
 the A0–A2 jumper settings on the adapter board.</simpara>
 </listitem>
 <listitem>
@@ -21292,9 +21292,9 @@ connection modes.</simpara>
 <link linkend="_lcd_io_4">LCD_IO 4</link>, <link linkend="_lcd_io_8">LCD_IO 8</link>, <link linkend="_lcd_io_12">LCD_IO 12</link></simpara>
 <section xml:id="_lcd_io_10_port_configuration">
 <title>LCD_IO 10 Port Configuration</title>
-<simpara>LCD_IO 10 provides support for character LCD modules that use an I2C/TWI interface based on the <emphasis role="strong">PCF8574 or PCF8574A I/O expander</emphasis>.&nbsp;&nbsp;These expanders are commonly found on low‑cost LCD “I2C backpacks” sold under many brand names (YwRobot, Sainsmart, Joy‑It, generic blue/black adapters, and others).&nbsp;&nbsp;</simpara>
+<simpara>LCD_IO 10 provides support for character LCD modules that use an I2C/TWI interface based on the <emphasis role="strong">PCF8574 or PCF8574A I/O expander</emphasis>.&#160;&#160;These expanders are commonly found on low‑cost LCD “I2C backpacks” sold under many brand names (YwRobot, Sainsmart, Joy‑It, generic blue/black adapters, and others).&#160;&#160;</simpara>
 <simpara><emphasis role="strong">Using mode 10</emphasis></simpara>
-<simpara>When using LCD_IO 10, the target <emphasis role="strong">PCF8574 or PCF8574A I/O expander</emphasis> port is configured by default as shown in the table below.&nbsp;&nbsp;Each bit of the byte variable <literal>i2c_lcd_byte</literal> is mapped to the appropriate LCD control or data line.&nbsp;&nbsp;</simpara>
+<simpara>When using LCD_IO 10, the target <emphasis role="strong">PCF8574 or PCF8574A I/O expander</emphasis> port is configured by default as shown in the table below.&#160;&#160;Each bit of the byte variable <literal>i2c_lcd_byte</literal> is mapped to the appropriate LCD control or data line.&#160;&#160;</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <tgroup cols="3">
 <colspec colname="col_1" colwidth="33*"/>
@@ -21351,9 +21351,9 @@ connection modes.</simpara>
 </tbody>
 </tgroup>
 </informaltable>
-<simpara>If your I2C LCD adapter or PCB uses a different wiring arrangement, you can override the default configuration to match your hardware.&nbsp;&nbsp;</simpara>
-<simpara>These overrides should be placed in your main program.&nbsp;&nbsp;</simpara>
-<simpara>To apply an alternative configuration, define the following eight constants.&nbsp;&nbsp;Doing so replaces the default mappings shown in the table above.&nbsp;&nbsp;</simpara>
+<simpara>If your I2C LCD adapter or PCB uses a different wiring arrangement, you can override the default configuration to match your hardware.&#160;&#160;</simpara>
+<simpara>These overrides should be placed in your main program.&#160;&#160;</simpara>
+<simpara>To apply an alternative configuration, define the following eight constants.&#160;&#160;Doing so replaces the default mappings shown in the table above.&#160;&#160;</simpara>
 <screen>    #DEFINE I2C_LCD_E   I2C_LCD_BYTE.1
     #DEFINE I2C_LCD_RW  I2C_LCD_BYTE.2
     #DEFINE I2C_LCD_RS  I2C_LCD_BYTE.0
@@ -23305,7 +23305,7 @@ the LCD.</simpara>
 <section xml:id="_lcd_io_10_example">
 <title>LCD_IO 10 Example</title>
 <simpara>LCD_IO 10 provides support for character LCD modules that use an
-I2C/TWI interface based on the <emphasis role="strong">PCF8574 or PCF8574A I/O expander</emphasis>.&nbsp;&nbsp;
+I2C/TWI interface based on the <emphasis role="strong">PCF8574 or PCF8574A I/O expander</emphasis>.&#160;&#160;
 This for the 16F877A, but, it can easily be adapted for any other microcontrollers.</simpara>
 <simpara>A 2 by 16 LCD is assumed with the LCD being driven using an LCD I2C adapter.
 Two types are supported the YwRobot LCD1602 IIC V1 / a Sainsmart LCD_PIC I2C adapter or the Ywmjkdz I2C adapter with pot bent over top of chip.</simpara>

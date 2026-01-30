@@ -1,25 +1,25 @@
 ===== LCD_IO 10
 
 LCD_IO 10 provides support for character LCD modules that use an
-I2C/TWI interface based on the **PCF8574 or PCF8574A I/O expander**.&nbsp;&nbsp;
+I2C/TWI interface based on the **PCF8574 or PCF8574A I/O expander**.&#160;&#160;
 These I/O expanders are commonly found on low‑cost LCD “I2C backpacks”
 sold under many brand names (YwRobot, Sainsmart, Joy-It, generic blue/black
 I2C adapters, etc.).
 
 The PCF8574 device converts an I2C bus signal into 8 digital output lines,
 which are then wired to the LCD’s RS, EN, D4–D7, and backlight control
-pins.&nbsp;&nbsp; 
+pins.&#160;&#160; 
 
 `LCD_IO 10` implements the correct signalling for this type of **I/O expander**.
 
 Use `LCD_IO 10` whenever your LCD module uses a **PCF8574‑based I2C
-adapter**, regardless of brand or PCB layout.&nbsp;&nbsp;You can configure the specific LCD port layout, if required.
+adapter**, regardless of brand or PCB layout.&#160;&#160;You can configure the specific LCD port layout, if required.
 
 To use mode 10:
 
 1. Configure your I2C/TWI pins normally in your GCBASIC program.
 2. Define the LCD type by using `LCD_IO 10`
-3. Set the I2C address of the PCF8574 adapter, if required.&nbsp;&nbsp;Typical PCF8574 I2C addresses range from **0x40 to 0x4E**, depending on
+3. Set the I2C address of the PCF8574 adapter, if required.&#160;&#160;Typical PCF8574 I2C addresses range from **0x40 to 0x4E**, depending on
 the A0–A2 jumper settings on the adapter board.
 4. Optionally set LCD speed and backlight behaviour.
 5. Optionally set the LCD port layout.
