@@ -16,7 +16,7 @@
       <link rel="next" href="_uno_as_isp_programmer.html" title="UNO as ISP programmer" />
       <meta name="Section-title" content="Tricks and Tips" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-58084";
+            var treeCookieId = "treeview-60139";
             var language = "en";
             var w = new Object();
             //Localization
@@ -331,19 +331,25 @@ border: none; background: none; font-weight: none; color: none; }
             <p>Very easy.  
                Simple add two <code class="literal">#OPTION</code> statements.  
             </p>
-            <p><code class="literal">#OPTION UserCodeOnly ENTERBOOTLOADER:</code>   This will instruct the compiler to NOT call the INITSYS() method.  
+            <p><code class="literal">#OPTION USERCODEONLY ENTERBOOTLOADER:</code>   This will instruct the compiler to NOT call the INITSYS() method.  
                And, to jump to a label.  
                The label is mandated.  The label specified will be included in the ASM generated.
             </p>
-            <p><code class="literal">#OPTION NoConfig</code>  This will instruct the compiler to NOT add the microcontroller specific config statements.
+            <p><code class="literal">#OPTION NOCONFIG</code>  This will instruct the compiler to NOT add the microcontroller specific config statements.
+            </p>
+            <p><code class="literal">#OPTION STARTUPMETHODSDISABLED</code>  This will instruct the compiler to disable all library startup methods.  Examination of the generated ASM will show the
+               disabled methods as comments.  The calls to these methods can be added into the user program at a suitable place ( if required
+               ).
             </p>
             <p>Example:</p><pre class="screen">    #chip 16f877a, 4
     #OPTION Explicit
 
-    #OPTION UserCodeOnly ENTERBOOTLOADER:
-    #OPTION NoConfig
+    #OPTION USERCODEONLY ENTERBOOTLOADER:
+    #OPTION NOCONFIG
+    #OPTION STARTUPMETHODSDISABLED
 
-    ENTERBOOTLOADER:</pre><p>The example above yields the following asm.  
+    ENTERBOOTLOADER:
+    HI2CSTOP // Just to show the startup method</pre><p>The example above yields the following asm.  
                Comment lines have been removed for clarity.
             </p><pre class="screen">     LIST p=16F877A, r=DEC
     #include &lt;P16F877A.inc&gt;
@@ -356,7 +362,14 @@ border: none; background: none; font-weight: none; color: none; }
     ;ORG 5
 
 
+    ;! Prepocessor Disabled Calls
+    ;!  call HI2CINIT
+
     ENTERBOOTLOADER
+    ;HI2CSTOP // Just to show the startup method being disabled above
+    call	HI2CSTOP
+
+    ...code
 
     ;ORG 2048
     ;ORG 4096
@@ -438,6 +451,7 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
                               <li><span class="file"><a href="_advanced_variabletypes.html" tabindex="1">Advanced VariableTypes</a></span></li>
                               <li><span class="file"><a href="_variable_memory_allocation_addressing_control.html" tabindex="1">Variable Memory Allocation, Addressing &amp; Control</a></span></li>
+                              <li><span class="file"><a href="_avr_r_register_usage.html" tabindex="1">AVR R Register Usage</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_reference_data.html" tabindex="1">Reference Data</a></span><ul>

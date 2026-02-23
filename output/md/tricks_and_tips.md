@@ -131,13 +131,18 @@ create a minimal ASM source with no config and/or initsys?**</span>
 
 Very easy.   Simple add two `#OPTION` statements.  
 
-`#OPTION UserCodeOnly ENTERBOOTLOADER:`   This will instruct the
+`#OPTION USERCODEONLY ENTERBOOTLOADER:`   This will instruct the
 compiler to NOT call the INITSYS() method.   And, to jump to a label.  
 The label is mandated.  The label specified will be included in the ASM
 generated.
 
-`#OPTION NoConfig`  This will instruct the compiler to NOT add the
+`#OPTION NOCONFIG`  This will instruct the compiler to NOT add the
 microcontroller specific config statements.
+
+`#OPTION STARTUPMETHODSDISABLED`  This will instruct the compiler to
+disable all library startup methods.  Examination of the generated ASM
+will show the disabled methods as comments.  The calls to these methods
+can be added into the user program at a suitable place ( if required ).
 
 Example:
 
@@ -145,10 +150,12 @@ Example:
     #chip 16f877a, 4
     #OPTION Explicit
 
-    #OPTION UserCodeOnly ENTERBOOTLOADER:
-    #OPTION NoConfig
+    #OPTION USERCODEONLY ENTERBOOTLOADER:
+    #OPTION NOCONFIG
+    #OPTION STARTUPMETHODSDISABLED
 
     ENTERBOOTLOADER:
+    HI2CSTOP // Just to show the startup method
 ```
 
 The example above yields the following asm.   Comment lines have been
@@ -166,7 +173,14 @@ removed for clarity.
     ;ORG 5
 
 
+    ;! Prepocessor Disabled Calls
+    ;!  call HI2CINIT
+
     ENTERBOOTLOADER
+    ;HI2CSTOP // Just to show the startup method being disabled above
+    call    HI2CSTOP
+
+    ...code
 
     ;ORG 2048
     ;ORG 4096

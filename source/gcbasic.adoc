@@ -66,6 +66,8 @@ include::variablesadvanced.adoc[]
 
 include::variableassignment.adoc[]
 
+include::AVRGPRuage.adoc[]
+
 ifdef::backend-pdf[<<<]
 
 == Reference Data

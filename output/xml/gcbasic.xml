@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2026-01-30</date>
+<date>2026-02-12</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team. Copyright 2005 - 2026</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-01-30<?asciidoc-br?>
-10:00:05 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-02-23<?asciidoc-br?>
+16:31:02 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-01-30<?asciidoc-br?>
-08:04:45 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-02-12<?asciidoc-br?>
+08:19:22 GMT Standard Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -1538,18 +1538,21 @@ Adding the constant defined to your source program.&#160;&#160;</simpara>
 <simpara xml:id="MINIMALASM"><emphasis role="strong">TRICK: How do I create a minimal ASM source with no config and/or initsys?</emphasis></simpara>
 <simpara>Very easy.&#160;&#160;
 Simple add two <literal>#OPTION</literal> statements.&#160;&#160;</simpara>
-<simpara><literal>#OPTION UserCodeOnly ENTERBOOTLOADER:</literal> &#160;&#160;This will instruct the compiler to NOT call the INITSYS() method.&#160;&#160;
+<simpara><literal>#OPTION USERCODEONLY ENTERBOOTLOADER:</literal> &#160;&#160;This will instruct the compiler to NOT call the INITSYS() method.&#160;&#160;
 And, to jump to a label.&#160;&#160;
 The label is mandated.&#160;&#160;The label specified will be included in the ASM generated.</simpara>
-<simpara><literal>#OPTION NoConfig</literal>&#160;&#160;This will instruct the compiler to NOT add the microcontroller specific config statements.</simpara>
+<simpara><literal>#OPTION NOCONFIG</literal>&#160;&#160;This will instruct the compiler to NOT add the microcontroller specific config statements.</simpara>
+<simpara><literal>#OPTION STARTUPMETHODSDISABLED</literal>&#160;&#160;This will instruct the compiler to disable all library startup methods.&#160;&#160;Examination of the generated ASM will show the disabled methods as comments.&#160;&#160;The calls to these methods can be added into the user program at a suitable place ( if required ).</simpara>
 <simpara>Example:</simpara>
 <screen>    #chip 16f877a, 4
     #OPTION Explicit
 
-    #OPTION UserCodeOnly ENTERBOOTLOADER:
-    #OPTION NoConfig
+    #OPTION USERCODEONLY ENTERBOOTLOADER:
+    #OPTION NOCONFIG
+    #OPTION STARTUPMETHODSDISABLED
 
-    ENTERBOOTLOADER:</screen>
+    ENTERBOOTLOADER:
+    HI2CSTOP // Just to show the startup method</screen>
 <simpara>The example above yields the following asm.&#160;&#160;
 Comment lines have been removed for clarity.</simpara>
 <screen>     LIST p=16F877A, r=DEC
@@ -1563,7 +1566,14 @@ Comment lines have been removed for clarity.</simpara>
     ;ORG 5
 
 
+    ;! Prepocessor Disabled Calls
+    ;!  call HI2CINIT
+
     ENTERBOOTLOADER
+    ;HI2CSTOP // Just to show the startup method being disabled above
+    call	HI2CSTOP
+
+    ...code
 
     ;ORG 2048
     ;ORG 4096
@@ -2746,6 +2756,1023 @@ On 18Fs, it will guess based on where the lowest SFR is, and from what the total
 </orderedlist>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?></simpara>
+</section>
+<section xml:id="_avr_r_register_usage">
+<title>AVR R Register Usage</title>
+<simpara><emphasis role="strong">Overview</emphasis></simpara>
+<simpara>GCBASIC uses a set of <emphasis role="strong">system variables</emphasis> for internal calculations, temporary storage, division/multiplication results, delays, string handling, and more. These are mapped to <emphasis role="strong">General Purpose Registers (GPRs)</emphasis> on AVR targets to avoid RAM access overhead where possible.</simpara>
+<simpara>The mapping is determined by the GCBASIC source code function <literal>GetRegisterLoc(RegName As String)</literal>, which returns the register number (0–31) or -1 if not found (falling back to RAM).</simpara>
+<simpara>Key points:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>On chips with <emphasis role="strong">only 16 GPRs</emphasis> (<literal>ChipGPR = 16</literal>, e.g., ATtiny4/5/9/10 — physically mapped as R16–R31), system variables are placed in R16–R31.</simpara>
+</listitem>
+<listitem>
+<simpara>On chips with <emphasis role="strong">full 32 GPRs</emphasis> (<literal>ChipGPR != 16</literal>, most AVRs), system variables use a mix of low (R0–R5) and high (R21–R31) registers.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">R6–R20</emphasis> are typically unused for system variables in full mode (available for user code).</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">X, Y, Z</emphasis> pointers (R26:R27, R28:R29, R30:R31) are <emphasis role="strong">not</emphasis> allocated as system variables — reserved for addressing.</simpara>
+</listitem>
+<listitem>
+<simpara>If DestLoc = -1 (e.g., SysSignByte on 16-GPR chips), the variable uses SRAM (RAM) instead of GPR.</simpara>
+</listitem>
+</itemizedlist>
+<simpara><emphasis role="strong">GPR16 Allocation (ChipGPR = 16)</emphasis></simpara>
+<simpara>Allocation for low-GPR chips (only R16–R31 available).</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="4">
+<colspec colname="col_1" colwidth="15*"/>
+<colspec colname="col_2" colwidth="30*"/>
+<colspec colname="col_3" colwidth="23*"/>
+<colspec colname="col_4" colwidth="30*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Register</entry>
+<entry align="left" valign="top">Primary System Variable(s)</entry>
+<entry align="left" valign="top">Aliases / Shared With</entry>
+<entry align="left" valign="top">Notes</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>R16</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempX, SysByteTempX, SysWordTempX, SysIntegerTempX, SysLongTempX</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Multi-precision calculation temp (low byte)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R17</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempX_H, SysWordTempX_H, SysIntegerTempX_H, SysLongTempX_H</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte of above</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R18</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempX_U, SysLongTempX_U, SysDivMultX</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte (for 32-bit ops) or division/multiplication temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R19</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempX_E, SysLongTempX_E, SysDivMultX_H</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra/remainder byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R20</simpara></entry>
+<entry align="left" valign="top"><simpara>SysDivLoop, SysBitTest</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Division loop counter or bit test temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R21</simpara></entry>
+<entry align="left" valign="top"><simpara>SysValueCopy</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Temporary copy for value transfers (e.g. stack/out ops)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempA, SysByteTempA, SysWordTempA, SysIntegerTempA, SysLongTempA</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Primary calculation temp A (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R23</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempA_H, SysWordTempA_H, SysIntegerTempA_H, SysLongTempA_H</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R24</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempA_U, SysLongTempA_U, SysDivMultA</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>DelayTemp, SysCalcTempA_E, SysLongTempA_E, SysDivMultA_H, SysStringLength</simpara></entry>
+<entry align="left" valign="top"><simpara>DelayTemp2 (partial)</simpara></entry>
+<entry align="left" valign="top"><simpara>Delay counters + string length</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R26</simpara></entry>
+<entry align="left" valign="top"><simpara>DelayTemp2, SysStringA</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Secondary delay or string pointer low</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R27</simpara></entry>
+<entry align="left" valign="top"><simpara>SysWaitTempUS, SysWaitTemp10US, SysWaitTempM, SysStringA_H</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Microsecond delay temps + string high</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>SysWaitTempUS_H, SysWaitTempH, SysCalcTempB, SysByteTempB, SysWordTempB, SysIntegerTempB, SysLongTempB, SysStringB</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Byte/word/long temp B (low) + millisecond delay high</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>SysWaitTempMS, SysCalcTempB_H, SysWordTempB_H, SysIntegerTempB_H, SysLongTempB_H, SysStringB_H</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>High bytes</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>SysWaitTempMS_H, SysCalcTempB_U, SysLongTempB_U, SysDivMultB, SysReadA</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper bytes or read temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>SysWaitTemp10MS, SysWaitTemps, SysCalcTempB_E, SysLongTempB_E, SysDivMultB_H, SysReadA_H</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra temps / high bytes</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><emphasis role="strong">Full Register Set Allocation (ChipGPR != 16)</emphasis></simpara>
+<simpara>Allocation for full 32-GPR chips (R0–R31 available).</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="4">
+<colspec colname="col_1" colwidth="15*"/>
+<colspec colname="col_2" colwidth="38*"/>
+<colspec colname="col_3" colwidth="23*"/>
+<colspec colname="col_4" colwidth="23*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Register</entry>
+<entry align="left" valign="top">Primary / Common System Variable(s)</entry>
+<entry align="left" valign="top">When ChipGPR=16 (shifted to)</entry>
+<entry align="left" valign="top">Notes / Conflicts</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>R0</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempX, SysByteTempX, SysWordTempX, SysIntegerTempX, SysLongTempX</simpara></entry>
+<entry align="left" valign="top"><simpara>R16</simpara></entry>
+<entry align="left" valign="top"><simpara>Low byte of multi-byte calc temp X</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R1</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempX_H, SysWordTempX_H, SysIntegerTempX_H, SysLongTempX_H</simpara></entry>
+<entry align="left" valign="top"><simpara>R17</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R2</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempX_U, SysLongTempX_U, SysDivMultX</simpara></entry>
+<entry align="left" valign="top"><simpara>R18</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper / division temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R3</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempX_E, SysLongTempX_E, SysDivMultX_H</simpara></entry>
+<entry align="left" valign="top"><simpara>R19</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R4</simpara></entry>
+<entry align="left" valign="top"><simpara>SysSignByte</simpara></entry>
+<entry align="left" valign="top"><simpara>RAM</simpara></entry>
+<entry align="left" valign="top"><simpara>Sign byte for signed operations</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R5</simpara></entry>
+<entry align="left" valign="top"><simpara>SysDivLoop, SysBitTest</simpara></entry>
+<entry align="left" valign="top"><simpara>R20</simpara></entry>
+<entry align="left" valign="top"><simpara>Loop / bit temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R6–R20</simpara></entry>
+<entry align="left" valign="top"><simpara>(unused for system vars)</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Available for user variables or scratch</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R21</simpara></entry>
+<entry align="left" valign="top"><simpara>SysValueCopy</simpara></entry>
+<entry align="left" valign="top"><simpara>R21</simpara></entry>
+<entry align="left" valign="top"><simpara>Value copy register (used in stack init, etc.)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempA, SysByteTempA, SysWordTempA, SysIntegerTempA, SysLongTempA</simpara></entry>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>Primary calculation temp A (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R23</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempA_H, SysWordTempA_H, SysIntegerTempA_H, SysLongTempA_H</simpara></entry>
+<entry align="left" valign="top"><simpara>R23</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R24</simpara></entry>
+<entry align="left" valign="top"><simpara>SysCalcTempA_U, SysLongTempA_U, SysDivMultA</simpara></entry>
+<entry align="left" valign="top"><simpara>R24</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>DelayTemp, SysCalcTempA_E, SysLongTempA_E, SysDivMultA_H, SysStringLength</simpara></entry>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>Delay + string length</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R26</simpara></entry>
+<entry align="left" valign="top"><simpara>DelayTemp2, SysStringA</simpara></entry>
+<entry align="left" valign="top"><simpara>R26</simpara></entry>
+<entry align="left" valign="top"><simpara>Secondary delay / string low</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R27</simpara></entry>
+<entry align="left" valign="top"><simpara>SysWaitTempUS etc., SysStringA_H</simpara></entry>
+<entry align="left" valign="top"><simpara>R27</simpara></entry>
+<entry align="left" valign="top"><simpara>Microsecond delays + string high</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>SysWaitTempUS_H, SysWaitTempH, SysCalcTempB etc.</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Temp B low + delays</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>SysWaitTempMS, SysCalcTempB_H etc.</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>High bytes</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>SysWaitTempMS_H, SysCalcTempB_U etc.</simpara></entry>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper bytes</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>SysWaitTemp10MS, SysWaitTemps, SysCalcTempB_E etc.</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra temps</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R26:R27 (X)</simpara></entry>
+<entry align="left" valign="top"><simpara>Not used as system vars</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Reserved for pointer operations</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R28:R29 (Y)</simpara></entry>
+<entry align="left" valign="top"><simpara>Not used as system vars</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Reserved for pointer / stack frame</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>R30:R31 (Z)</simpara></entry>
+<entry align="left" valign="top"><simpara>Not used as system vars</simpara></entry>
+<entry align="left" valign="top"><simpara>-</simpara></entry>
+<entry align="left" valign="top"><simpara>Reserved for program memory / indirect jumps</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><emphasis role="strong">Alphabetical Variable Mapping for GPR16 Mode (ChipGPR = 16)</emphasis></simpara>
+<simpara>Variables sorted alphabetically, with their assigned register (or RAM if -1).</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="22*"/>
+<colspec colname="col_3" colwidth="44*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Variable Name</entry>
+<entry align="left" valign="top">Register</entry>
+<entry align="left" valign="top">Notes</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>delaytemp</simpara></entry>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>Delay counter</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>delaytemp2</simpara></entry>
+<entry align="left" valign="top"><simpara>R26</simpara></entry>
+<entry align="left" valign="top"><simpara>Secondary delay counter</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysbittest</simpara></entry>
+<entry align="left" valign="top"><simpara>R20</simpara></entry>
+<entry align="left" valign="top"><simpara>Bit test temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysbytetempa</simpara></entry>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>Byte temp A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysbytetempb</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Byte temp B</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysbytetempx</simpara></entry>
+<entry align="left" valign="top"><simpara>R16</simpara></entry>
+<entry align="left" valign="top"><simpara>Byte temp X</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempa</simpara></entry>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>Calc temp A (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempa_e</simpara></entry>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempa_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R23</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempa_u</simpara></entry>
+<entry align="left" valign="top"><simpara>R24</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempb</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Calc temp B (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempb_e</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte B</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempb_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte B</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempb_u</simpara></entry>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte B</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempx</simpara></entry>
+<entry align="left" valign="top"><simpara>R16</simpara></entry>
+<entry align="left" valign="top"><simpara>Calc temp X (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempx_e</simpara></entry>
+<entry align="left" valign="top"><simpara>R19</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte X</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempx_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R17</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte X</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempx_u</simpara></entry>
+<entry align="left" valign="top"><simpara>R18</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte X</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivloop</simpara></entry>
+<entry align="left" valign="top"><simpara>R20</simpara></entry>
+<entry align="left" valign="top"><simpara>Division loop counter</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivmulta</simpara></entry>
+<entry align="left" valign="top"><simpara>R24</simpara></entry>
+<entry align="left" valign="top"><simpara>Division/multiplication temp A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivmulta_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivmultb</simpara></entry>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>Division/multiplication temp B</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivmultb_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivmultx</simpara></entry>
+<entry align="left" valign="top"><simpara>R18</simpara></entry>
+<entry align="left" valign="top"><simpara>Division/multiplication temp X</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivmultx_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R19</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysintegertempa</simpara></entry>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>Integer temp A (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysintegertempa_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R23</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysintegertempb</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Integer temp B (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysintegertempb_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysintegertempx</simpara></entry>
+<entry align="left" valign="top"><simpara>R16</simpara></entry>
+<entry align="left" valign="top"><simpara>Integer temp X (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysintegertempx_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R17</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempa</simpara></entry>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>Long temp A (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempa_e</simpara></entry>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempa_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R23</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempa_u</simpara></entry>
+<entry align="left" valign="top"><simpara>R24</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempb</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Long temp B (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempb_e</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempb_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempb_u</simpara></entry>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempx</simpara></entry>
+<entry align="left" valign="top"><simpara>R16</simpara></entry>
+<entry align="left" valign="top"><simpara>Long temp X (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempx_e</simpara></entry>
+<entry align="left" valign="top"><simpara>R19</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempx_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R17</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempx_u</simpara></entry>
+<entry align="left" valign="top"><simpara>R18</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysreada</simpara></entry>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>Read temp A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysreada_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syssignbyte</simpara></entry>
+<entry align="left" valign="top"><simpara>RAM</simpara></entry>
+<entry align="left" valign="top"><simpara>Sign byte (uses RAM on 16-GPR chips)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysstringa</simpara></entry>
+<entry align="left" valign="top"><simpara>R26</simpara></entry>
+<entry align="left" valign="top"><simpara>String pointer A (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysstringa_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R27</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysstringb</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>String pointer B (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysstringb_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysstringlength</simpara></entry>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>String length</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysvaluecopy</simpara></entry>
+<entry align="left" valign="top"><simpara>R21</simpara></entry>
+<entry align="left" valign="top"><simpara>Value copy temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittemp10ms</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>10ms wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittemp10us</simpara></entry>
+<entry align="left" valign="top"><simpara>R27</simpara></entry>
+<entry align="left" valign="top"><simpara>10us wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittemph</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Hour wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittempm</simpara></entry>
+<entry align="left" valign="top"><simpara>R27</simpara></entry>
+<entry align="left" valign="top"><simpara>Minute wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittempms</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>ms wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittempms_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittemps</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>Second wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittempus</simpara></entry>
+<entry align="left" valign="top"><simpara>R27</simpara></entry>
+<entry align="left" valign="top"><simpara>us wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittempus_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswordtempa</simpara></entry>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>Word temp A (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswordtempa_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R23</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswordtempb</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Word temp B (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswordtempb_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswordtempx</simpara></entry>
+<entry align="left" valign="top"><simpara>R16</simpara></entry>
+<entry align="left" valign="top"><simpara>Word temp X (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswordtempx_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R17</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><emphasis role="strong">Alphabetical Variable Mapping for Full Mode (ChipGPR != 16)</emphasis></simpara>
+<simpara>Variables sorted alphabetically, with their assigned register.</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="22*"/>
+<colspec colname="col_3" colwidth="44*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Variable Name</entry>
+<entry align="left" valign="top">Register</entry>
+<entry align="left" valign="top">Notes</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>delaytemp</simpara></entry>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>Delay counter</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>delaytemp2</simpara></entry>
+<entry align="left" valign="top"><simpara>R26</simpara></entry>
+<entry align="left" valign="top"><simpara>Secondary delay counter</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysbittest</simpara></entry>
+<entry align="left" valign="top"><simpara>R5</simpara></entry>
+<entry align="left" valign="top"><simpara>Bit test temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysbytetempa</simpara></entry>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>Byte temp A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysbytetempb</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Byte temp B</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysbytetempx</simpara></entry>
+<entry align="left" valign="top"><simpara>R0</simpara></entry>
+<entry align="left" valign="top"><simpara>Byte temp X</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempa</simpara></entry>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>Calc temp A (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempa_e</simpara></entry>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempa_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R23</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempa_u</simpara></entry>
+<entry align="left" valign="top"><simpara>R24</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempb</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Calc temp B (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempb_e</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte B</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempb_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte B</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempb_u</simpara></entry>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte B</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempx</simpara></entry>
+<entry align="left" valign="top"><simpara>R0</simpara></entry>
+<entry align="left" valign="top"><simpara>Calc temp X (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempx_e</simpara></entry>
+<entry align="left" valign="top"><simpara>R3</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte X</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempx_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R1</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte X</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syscalctempx_u</simpara></entry>
+<entry align="left" valign="top"><simpara>R2</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte X</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivloop</simpara></entry>
+<entry align="left" valign="top"><simpara>R5</simpara></entry>
+<entry align="left" valign="top"><simpara>Division loop counter</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivmulta</simpara></entry>
+<entry align="left" valign="top"><simpara>R24</simpara></entry>
+<entry align="left" valign="top"><simpara>Division/multiplication temp A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivmulta_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivmultb</simpara></entry>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>Division/multiplication temp B</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivmultb_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivmultx</simpara></entry>
+<entry align="left" valign="top"><simpara>R2</simpara></entry>
+<entry align="left" valign="top"><simpara>Division/multiplication temp X</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysdivmultx_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R3</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysintegertempa</simpara></entry>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>Integer temp A (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysintegertempa_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R23</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysintegertempb</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Integer temp B (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysintegertempb_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysintegertempx</simpara></entry>
+<entry align="left" valign="top"><simpara>R0</simpara></entry>
+<entry align="left" valign="top"><simpara>Integer temp X (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysintegertempx_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R1</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempa</simpara></entry>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>Long temp A (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempa_e</simpara></entry>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempa_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R23</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempa_u</simpara></entry>
+<entry align="left" valign="top"><simpara>R24</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempb</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Long temp B (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempb_e</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempb_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempb_u</simpara></entry>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempx</simpara></entry>
+<entry align="left" valign="top"><simpara>R0</simpara></entry>
+<entry align="left" valign="top"><simpara>Long temp X (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempx_e</simpara></entry>
+<entry align="left" valign="top"><simpara>R3</simpara></entry>
+<entry align="left" valign="top"><simpara>Extra byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempx_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R1</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syslongtempx_u</simpara></entry>
+<entry align="left" valign="top"><simpara>R2</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysreada</simpara></entry>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>Read temp A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysreada_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syssignbyte</simpara></entry>
+<entry align="left" valign="top"><simpara>R4</simpara></entry>
+<entry align="left" valign="top"><simpara>Sign byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysstringa</simpara></entry>
+<entry align="left" valign="top"><simpara>R26</simpara></entry>
+<entry align="left" valign="top"><simpara>String pointer A (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysstringa_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R27</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysstringb</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>String pointer B (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysstringb_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysstringlength</simpara></entry>
+<entry align="left" valign="top"><simpara>R25</simpara></entry>
+<entry align="left" valign="top"><simpara>String length</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sysvaluecopy</simpara></entry>
+<entry align="left" valign="top"><simpara>R21</simpara></entry>
+<entry align="left" valign="top"><simpara>Value copy temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittemp10ms</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>10ms wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittemp10us</simpara></entry>
+<entry align="left" valign="top"><simpara>R27</simpara></entry>
+<entry align="left" valign="top"><simpara>10us wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittemph</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Hour wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittempm</simpara></entry>
+<entry align="left" valign="top"><simpara>R27</simpara></entry>
+<entry align="left" valign="top"><simpara>Minute wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittempms</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>ms wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittempms_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R30</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittemps</simpara></entry>
+<entry align="left" valign="top"><simpara>R31</simpara></entry>
+<entry align="left" valign="top"><simpara>Second wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittempus</simpara></entry>
+<entry align="left" valign="top"><simpara>R27</simpara></entry>
+<entry align="left" valign="top"><simpara>us wait temp</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswaittempus_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswordtempa</simpara></entry>
+<entry align="left" valign="top"><simpara>R22</simpara></entry>
+<entry align="left" valign="top"><simpara>Word temp A (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswordtempa_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R23</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswordtempb</simpara></entry>
+<entry align="left" valign="top"><simpara>R28</simpara></entry>
+<entry align="left" valign="top"><simpara>Word temp B (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswordtempb_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R29</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswordtempx</simpara></entry>
+<entry align="left" valign="top"><simpara>R0</simpara></entry>
+<entry align="left" valign="top"><simpara>Word temp X (low)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>syswordtempx_h</simpara></entry>
+<entry align="left" valign="top"><simpara>R1</simpara></entry>
+<entry align="left" valign="top"><simpara>High byte</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><emphasis role="strong">Additional Notes</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><emphasis role="strong">SysValueCopy (R21)</emphasis> — Frequently used for temporary value transfers, especially during stack pointer setup (<literal>out SPH/SPL</literal>) or register copies.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Delay registers</emphasis> — <literal>DelayTemp</literal>, <literal>DelayTemp2</literal>, and wait temps (<literal>SysWaitTempUS</literal>, <literal>SysWaitTempMS</literal>, etc.) are reused across delay routines.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Division/Multiplication</emphasis> — Remainder and intermediate results use <literal>SysDivMultX</literal>, <literal>SysDivMultA</literal>, etc.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">String handling</emphasis> — <literal>SysStringA</literal>, <literal>SysStringB</literal>, <literal>SysStringLength</literal> for string operations.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">No overlap with X/Y/Z</emphasis> — GCBASIC preserves these for <literal>ld</literal>, <literal>st</literal>, <literal>lpm</literal>, <literal>elpm</literal>, <literal>ijmp</literal>, etc.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">UserCodeOnlyEnabled mode</emphasis> — May reduce usage of some temps if init code is skipped, but mappings remain the same.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">ChipGPR detection</emphasis> — Determined from chip definition files; affects only low-GPR chips (e.g., ATtiny4/5/9/10 series).</simpara>
+</listitem>
+</itemizedlist>
+<simpara>This mapping is derived directly from the <literal>GetRegisterLoc</literal> function in GCBASIC source code.</simpara>
 </section>
 </section>
 <section xml:id="_reference_data">
@@ -6521,6 +7548,9 @@ developers.</simpara>
 </listitem>
 <listitem>
 <simpara>The values above apply when storing constants, lookup table entries, <literal>retlw</literal> literals, <literal>data</literal>/<literal>db</literal> directives, etc. — i.e., the largest number that fits in one program memory <emphasis role="strong">word</emphasis>.</simpara>
+</listitem>
+<listitem>
+<simpara>When reading word from 18F the addresses are even numbers addresses ( a word address is always an even number ), and non-18F are consectutive addresses.</simpara>
 </listitem>
 </itemizedlist>
 <simpara><emphasis role="strong">Complete working example program</emphasis></simpara>

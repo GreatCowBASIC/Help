@@ -203,6 +203,9 @@ PIC18), formatted as clean markdown:
     `retlw` literals, `data`/`db` directives, etc. — i.e., the largest
     number that fits in one program memory <span
     class="strong">**word**</span>.
+-   When reading word from 18F the addresses are even numbers addresses
+    ( a word address is always an even number ), and non-18F are
+    consectutive addresses.
 
 </div>
 

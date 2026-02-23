@@ -195,6 +195,10 @@ if /I %2 == web goto :END
 :PDF
 echo .
 echo Generating pdf file...
+echo Ruby Version
+call ruby -v
+echo Gem Version
+call gem -v
 call asciidoctor-pdf -D ..\output\pdf\ %1.adoc
 if ERRORLEVEL 1 goto :ERROR
 goto :END

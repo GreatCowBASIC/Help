@@ -609,13 +609,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-01-30<br>
-10:00:07 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-02-23<br>
+16:31:04 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-01-30<br>
-08:04:45 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-02-12<br>
+08:19:22 GMT Standard Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -2694,12 +2694,15 @@ USART hardware
 Simple add two <code>#OPTION</code> statements.&#160;&#160;</p>
 </div>
 <div class="paragraph">
-<p><code>#OPTION UserCodeOnly ENTERBOOTLOADER:</code> &#160;&#160;This will instruct the compiler to NOT call the INITSYS() method.&#160;&#160;
+<p><code>#OPTION USERCODEONLY ENTERBOOTLOADER:</code> &#160;&#160;This will instruct the compiler to NOT call the INITSYS() method.&#160;&#160;
 And, to jump to a label.&#160;&#160;
 The label is mandated.&#160;&#160;The label specified will be included in the ASM generated.</p>
 </div>
 <div class="paragraph">
-<p><code>#OPTION NoConfig</code>&#160;&#160;This will instruct the compiler to NOT add the microcontroller specific config statements.</p>
+<p><code>#OPTION NOCONFIG</code>&#160;&#160;This will instruct the compiler to NOT add the microcontroller specific config statements.</p>
+</div>
+<div class="paragraph">
+<p><code>#OPTION STARTUPMETHODSDISABLED</code>&#160;&#160;This will instruct the compiler to disable all library startup methods.&#160;&#160;Examination of the generated ASM will show the disabled methods as comments.&#160;&#160;The calls to these methods can be added into the user program at a suitable place ( if required ).</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -2709,10 +2712,12 @@ The label is mandated.&#160;&#160;The label specified will be included in the AS
 <pre>    #chip 16f877a, 4
     #OPTION Explicit
 
-    #OPTION UserCodeOnly ENTERBOOTLOADER:
-    #OPTION NoConfig
+    #OPTION USERCODEONLY ENTERBOOTLOADER:
+    #OPTION NOCONFIG
+    #OPTION STARTUPMETHODSDISABLED
 
-    ENTERBOOTLOADER:</pre>
+    ENTERBOOTLOADER:
+    HI2CSTOP // Just to show the startup method</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2732,7 +2737,14 @@ Comment lines have been removed for clarity.</p>
     ;ORG 5
 
 
+    ;! Prepocessor Disabled Calls
+    ;!  call HI2CINIT
+
     ENTERBOOTLOADER
+    ;HI2CSTOP // Just to show the startup method being disabled above
+    call	HI2CSTOP
+
+    ...code
 
     ;ORG 2048
     ;ORG 4096
@@ -4712,6 +4724,1055 @@ On 18Fs, it will guess based on where the lowest SFR is, and from what the total
 <br></p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_avr_r_register_usage">AVR R Register Usage</h3>
+<div class="paragraph">
+<p><strong>Overview</strong></p>
+</div>
+<div class="paragraph">
+<p>GCBASIC uses a set of <strong>system variables</strong> for internal calculations, temporary storage, division/multiplication results, delays, string handling, and more. These are mapped to <strong>General Purpose Registers (GPRs)</strong> on AVR targets to avoid RAM access overhead where possible.</p>
+</div>
+<div class="paragraph">
+<p>The mapping is determined by the GCBASIC source code function <code>GetRegisterLoc(RegName As String)</code>, which returns the register number (0–31) or -1 if not found (falling back to RAM).</p>
+</div>
+<div class="paragraph">
+<p>Key points:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On chips with <strong>only 16 GPRs</strong> (<code>ChipGPR = 16</code>, e.g., ATtiny4/5/9/10 — physically mapped as R16–R31), system variables are placed in R16–R31.</p>
+</li>
+<li>
+<p>On chips with <strong>full 32 GPRs</strong> (<code>ChipGPR != 16</code>, most AVRs), system variables use a mix of low (R0–R5) and high (R21–R31) registers.</p>
+</li>
+<li>
+<p><strong>R6–R20</strong> are typically unused for system variables in full mode (available for user code).</p>
+</li>
+<li>
+<p><strong>X, Y, Z</strong> pointers (R26:R27, R28:R29, R30:R31) are <strong>not</strong> allocated as system variables — reserved for addressing.</p>
+</li>
+<li>
+<p>If DestLoc = -1 (e.g., SysSignByte on 16-GPR chips), the variable uses SRAM (RAM) instead of GPR.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>GPR16 Allocation (ChipGPR = 16)</strong></p>
+</div>
+<div class="paragraph">
+<p>Allocation for low-GPR chips (only R16–R31 available).</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 15%;">
+<col style="width: 30%;">
+<col style="width: 23%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Register</th>
+<th class="tableblock halign-left valign-top">Primary System Variable(s)</th>
+<th class="tableblock halign-left valign-top">Aliases / Shared With</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempX, SysByteTempX, SysWordTempX, SysIntegerTempX, SysLongTempX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multi-precision calculation temp (low byte)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempX_H, SysWordTempX_H, SysIntegerTempX_H, SysLongTempX_H</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte of above</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempX_U, SysLongTempX_U, SysDivMultX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte (for 32-bit ops) or division/multiplication temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempX_E, SysLongTempX_E, SysDivMultX_H</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra/remainder byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysDivLoop, SysBitTest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Division loop counter or bit test temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R21</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysValueCopy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Temporary copy for value transfers (e.g. stack/out ops)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempA, SysByteTempA, SysWordTempA, SysIntegerTempA, SysLongTempA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primary calculation temp A (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempA_H, SysWordTempA_H, SysIntegerTempA_H, SysLongTempA_H</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempA_U, SysLongTempA_U, SysDivMultA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DelayTemp, SysCalcTempA_E, SysLongTempA_E, SysDivMultA_H, SysStringLength</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DelayTemp2 (partial)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Delay counters + string length</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DelayTemp2, SysStringA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secondary delay or string pointer low</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysWaitTempUS, SysWaitTemp10US, SysWaitTempM, SysStringA_H</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microsecond delay temps + string high</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysWaitTempUS_H, SysWaitTempH, SysCalcTempB, SysByteTempB, SysWordTempB, SysIntegerTempB, SysLongTempB, SysStringB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte/word/long temp B (low) + millisecond delay high</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysWaitTempMS, SysCalcTempB_H, SysWordTempB_H, SysIntegerTempB_H, SysLongTempB_H, SysStringB_H</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High bytes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysWaitTempMS_H, SysCalcTempB_U, SysLongTempB_U, SysDivMultB, SysReadA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper bytes or read temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysWaitTemp10MS, SysWaitTemps, SysCalcTempB_E, SysLongTempB_E, SysDivMultB_H, SysReadA_H</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra temps / high bytes</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Full Register Set Allocation (ChipGPR != 16)</strong></p>
+</div>
+<div class="paragraph">
+<p>Allocation for full 32-GPR chips (R0–R31 available).</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 15%;">
+<col style="width: 38%;">
+<col style="width: 23%;">
+<col style="width: 23%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Register</th>
+<th class="tableblock halign-left valign-top">Primary / Common System Variable(s)</th>
+<th class="tableblock halign-left valign-top">When ChipGPR=16 (shifted to)</th>
+<th class="tableblock halign-left valign-top">Notes / Conflicts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempX, SysByteTempX, SysWordTempX, SysIntegerTempX, SysLongTempX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low byte of multi-byte calc temp X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempX_H, SysWordTempX_H, SysIntegerTempX_H, SysLongTempX_H</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempX_U, SysLongTempX_U, SysDivMultX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper / division temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempX_E, SysLongTempX_E, SysDivMultX_H</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysSignByte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RAM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sign byte for signed operations</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysDivLoop, SysBitTest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Loop / bit temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R6–R20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(unused for system vars)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Available for user variables or scratch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R21</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysValueCopy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R21</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value copy register (used in stack init, etc.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempA, SysByteTempA, SysWordTempA, SysIntegerTempA, SysLongTempA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primary calculation temp A (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempA_H, SysWordTempA_H, SysIntegerTempA_H, SysLongTempA_H</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysCalcTempA_U, SysLongTempA_U, SysDivMultA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DelayTemp, SysCalcTempA_E, SysLongTempA_E, SysDivMultA_H, SysStringLength</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Delay + string length</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DelayTemp2, SysStringA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secondary delay / string low</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysWaitTempUS etc., SysStringA_H</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microsecond delays + string high</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysWaitTempUS_H, SysWaitTempH, SysCalcTempB etc.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Temp B low + delays</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysWaitTempMS, SysCalcTempB_H etc.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High bytes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysWaitTempMS_H, SysCalcTempB_U etc.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper bytes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SysWaitTemp10MS, SysWaitTemps, SysCalcTempB_E etc.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra temps</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R26:R27 (X)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not used as system vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reserved for pointer operations</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28:R29 (Y)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not used as system vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reserved for pointer / stack frame</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30:R31 (Z)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not used as system vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reserved for program memory / indirect jumps</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Alphabetical Variable Mapping for GPR16 Mode (ChipGPR = 16)</strong></p>
+</div>
+<div class="paragraph">
+<p>Variables sorted alphabetically, with their assigned register (or RAM if -1).</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 22%;">
+<col style="width: 44%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Variable Name</th>
+<th class="tableblock halign-left valign-top">Register</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delaytemp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Delay counter</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delaytemp2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secondary delay counter</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysbittest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bit test temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysbytetempa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte temp A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysbytetempb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte temp B</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysbytetempx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte temp X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calc temp A (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempa_e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempa_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempa_u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calc temp B (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempb_e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte B</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempb_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte B</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempb_u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte B</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calc temp X (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempx_e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempx_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempx_u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivloop</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Division loop counter</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivmulta</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Division/multiplication temp A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivmulta_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivmultb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Division/multiplication temp B</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivmultb_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivmultx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Division/multiplication temp X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivmultx_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysintegertempa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer temp A (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysintegertempa_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysintegertempb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer temp B (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysintegertempb_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysintegertempx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer temp X (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysintegertempx_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Long temp A (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempa_e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempa_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempa_u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Long temp B (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempb_e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempb_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempb_u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Long temp X (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempx_e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempx_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempx_u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysreada</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read temp A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysreada_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syssignbyte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RAM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sign byte (uses RAM on 16-GPR chips)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysstringa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String pointer A (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysstringa_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysstringb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String pointer B (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysstringb_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysstringlength</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String length</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysvaluecopy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R21</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value copy temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittemp10ms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10ms wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittemp10us</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10us wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittemph</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hour wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittempm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minute wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittempms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ms wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittempms_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittemps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Second wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittempus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">us wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittempus_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswordtempa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Word temp A (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswordtempa_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswordtempb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Word temp B (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswordtempb_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswordtempx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Word temp X (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswordtempx_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Alphabetical Variable Mapping for Full Mode (ChipGPR != 16)</strong></p>
+</div>
+<div class="paragraph">
+<p>Variables sorted alphabetically, with their assigned register.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 22%;">
+<col style="width: 44%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Variable Name</th>
+<th class="tableblock halign-left valign-top">Register</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delaytemp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Delay counter</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delaytemp2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secondary delay counter</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysbittest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bit test temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysbytetempa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte temp A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysbytetempb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte temp B</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysbytetempx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte temp X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calc temp A (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempa_e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempa_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempa_u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calc temp B (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempb_e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte B</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempb_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte B</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempb_u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte B</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calc temp X (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempx_e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempx_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syscalctempx_u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivloop</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Division loop counter</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivmulta</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Division/multiplication temp A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivmulta_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivmultb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Division/multiplication temp B</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivmultb_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivmultx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Division/multiplication temp X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysdivmultx_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysintegertempa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer temp A (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysintegertempa_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysintegertempb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer temp B (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysintegertempb_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysintegertempx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer temp X (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysintegertempx_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Long temp A (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempa_e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempa_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempa_u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Long temp B (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempb_e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempb_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempb_u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Long temp X (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempx_e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extra byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempx_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syslongtempx_u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysreada</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read temp A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysreada_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syssignbyte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sign byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysstringa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String pointer A (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysstringa_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysstringb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String pointer B (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysstringb_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysstringlength</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String length</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sysvaluecopy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R21</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value copy temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittemp10ms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10ms wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittemp10us</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10us wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittemph</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hour wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittempm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minute wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittempms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ms wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittempms_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittemps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Second wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittempus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">us wait temp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswaittempus_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswordtempa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Word temp A (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswordtempa_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswordtempb</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Word temp B (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswordtempb_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswordtempx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Word temp X (low)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">syswordtempx_h</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High byte</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Additional Notes</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>SysValueCopy (R21)</strong> — Frequently used for temporary value transfers, especially during stack pointer setup (<code>out SPH/SPL</code>) or register copies.</p>
+</li>
+<li>
+<p><strong>Delay registers</strong> — <code>DelayTemp</code>, <code>DelayTemp2</code>, and wait temps (<code>SysWaitTempUS</code>, <code>SysWaitTempMS</code>, etc.) are reused across delay routines.</p>
+</li>
+<li>
+<p><strong>Division/Multiplication</strong> — Remainder and intermediate results use <code>SysDivMultX</code>, <code>SysDivMultA</code>, etc.</p>
+</li>
+<li>
+<p><strong>String handling</strong> — <code>SysStringA</code>, <code>SysStringB</code>, <code>SysStringLength</code> for string operations.</p>
+</li>
+<li>
+<p><strong>No overlap with X/Y/Z</strong> — GCBASIC preserves these for <code>ld</code>, <code>st</code>, <code>lpm</code>, <code>elpm</code>, <code>ijmp</code>, etc.</p>
+</li>
+<li>
+<p><strong>UserCodeOnlyEnabled mode</strong> — May reduce usage of some temps if init code is skipped, but mappings remain the same.</p>
+</li>
+<li>
+<p><strong>ChipGPR detection</strong> — Determined from chip definition files; affects only low-GPR chips (e.g., ATtiny4/5/9/10 series).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This mapping is derived directly from the <code>GetRegisterLoc</code> function in GCBASIC source code.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -4791,7 +5852,7 @@ There is no DIM in the definition process, and the data is part of the hex file,
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>        #CHIP 18F2550
+<pre class="CodeRay highlight"><code>        #CHIP 18F2550
         #option Explicit
 
         Dim myResult, myIndex as Byte
@@ -4812,7 +5873,7 @@ There is no DIM in the definition process, and the data is part of the hex file,
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>        #CHIP 18F2550
+<pre class="CodeRay highlight"><code>        #CHIP 18F2550
         #option Explicit
 
         Dim myResult, myIndex as Byte
@@ -5700,7 +6761,7 @@ at any time.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>Table TestDataSource
+<pre class="CodeRay highlight"><code>Table TestDataSource
     12
     24
     36
@@ -5715,7 +6776,7 @@ End Table</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>Table TestDataSource
+<pre class="CodeRay highlight"><code>Table TestDataSource
     12, 24, 36
     48, 60, 72
 End Table</code></pre>
@@ -5726,7 +6787,7 @@ End Table</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>#define calculation_constant 2
+<pre class="CodeRay highlight"><code>#define calculation_constant 2
 
 Table TestDataSource
     1 * calculation_constant
@@ -5746,14 +6807,14 @@ End Table</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>Table Test_1
+<pre class="CodeRay highlight"><code>Table Test_1
     "ABCDEFGHIJ"
 End Table</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>Table MnuTxt_1
+<pre class="CodeRay highlight"><code>Table MnuTxt_1
     "  Display_1    Display_2    Display_3  "
 End Table
 
@@ -5855,7 +6916,7 @@ End Table</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>Dim TableCounter, Invalue as byte
+<pre class="CodeRay highlight"><code>Dim TableCounter, Invalue as byte
 
 CLS
 For TableCounter = 1 to 6
@@ -5870,7 +6931,7 @@ Next</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>Dim lengthoftable as word
+<pre class="CodeRay highlight"><code>Dim lengthoftable as word
 ReadTable TestDataSource, 0, lengthoftable
 Print lengthoftable</code></pre>
 </div>
@@ -5885,7 +6946,7 @@ Print lengthoftable</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>#chip 16f877a
+<pre class="CodeRay highlight"><code>#chip 16f877a
 Table TestDataSource from "sourcefile.raw"
 
 For nn = 1 to 10
@@ -5904,7 +6965,7 @@ Next</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>#chip 16F628
+<pre class="CodeRay highlight"><code>#chip 16F628
 
 TableLoc = 2
 ReadTable TestDataSource, TableLoc, SomeVar
@@ -10248,6 +11309,9 @@ developers.</p>
 </li>
 <li>
 <p>The values above apply when storing constants, lookup table entries, <code>retlw</code> literals, <code>data</code>/<code>db</code> directives, etc. — i.e., the largest number that fits in one program memory <strong>word</strong>.</p>
+</li>
+<li>
+<p>When reading word from 18F the addresses are even numbers addresses ( a word address is always an even number ), and non-18F are consectutive addresses.</p>
 </li>
 </ul>
 </div>
@@ -28607,7 +29671,7 @@ connection modes.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>    #DEFINE I2C_LCD_E   I2C_LCD_BYTE.1
+<pre class="CodeRay highlight"><code>    #DEFINE I2C_LCD_E   I2C_LCD_BYTE.1
     #DEFINE I2C_LCD_RW  I2C_LCD_BYTE.2
     #DEFINE I2C_LCD_RS  I2C_LCD_BYTE.0
     #DEFINE I2C_LCD_BL  I2C_LCD_BYTE.3
@@ -54053,7 +55117,7 @@ Limitations on this directive are:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">Enum ModbusState [Reset]
+<pre class="CodeRay highlight"><code data-lang="gcbasic">Enum ModbusState [Reset]
     MODBUS_IDLE           ' Waiting for a new message
     MODBUS_SYNC           ' Sync with Modbus device address
     MODBUS_FUNCTION_CODE  ' Identify function code
@@ -54073,7 +55137,7 @@ End Enum</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">Enum ModbusState
+<pre class="CodeRay highlight"><code data-lang="gcbasic">Enum ModbusState
     MODBUS_IDLE = 1
     MODBUS_SYNC = 0x02
     MODBUS_FUNCTION_CODE = 0x03
@@ -54093,7 +55157,7 @@ End Enum</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">Dim currentState As Byte
+<pre class="CodeRay highlight"><code data-lang="gcbasic">Dim currentState As Byte
 currentState = MODBUS_IDLE</code></pre>
 </div>
 </div>
@@ -54102,7 +55166,7 @@ currentState = MODBUS_IDLE</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">If currentState = MODBUS_FUNCTION_CODE Then
+<pre class="CodeRay highlight"><code data-lang="gcbasic">If currentState = MODBUS_FUNCTION_CODE Then
     ' Handle function code processing
 End If</code></pre>
 </div>
@@ -54112,9 +55176,9 @@ End If</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">#DEFINE CUSTOM_STATE = MODBUS_PROCESS_DATA + 2
+<pre class="CodeRay highlight"><code data-lang="gcbasic">#DEFINE CUSTOM_STATE = MODBUS_PROCESS_DATA + 2
 If currentState = CUSTOM_STATE Then
-    Print "Custom processing step reached."
+    Print &quot;Custom processing step reached.&quot;
 End If</code></pre>
 </div>
 </div>
@@ -54132,7 +55196,7 @@ End If</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">Dim nextState As Byte
+<pre class="CodeRay highlight"><code data-lang="gcbasic">Dim nextState As Byte
 nextState = MODBUS_SYNC + 1 ' Evaluates to MODBUS_FUNCTION_CODE</code></pre>
 </div>
 </div>
@@ -54141,7 +55205,7 @@ nextState = MODBUS_SYNC + 1 ' Evaluates to MODBUS_FUNCTION_CODE</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">If currentState &lt; MODBUS_COMPLETE Then
+<pre class="CodeRay highlight"><code data-lang="gcbasic">If currentState &lt; MODBUS_COMPLETE Then
     ' Keep processing data
 End If</code></pre>
 </div>
@@ -54154,9 +55218,9 @@ End If</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">#DEFINE MAX_STATE = MODBUS_COMPLETE
+<pre class="CodeRay highlight"><code data-lang="gcbasic">#DEFINE MAX_STATE = MODBUS_COMPLETE
 If currentState = MAX_STATE Then
-    Print "Processing complete."
+    Print &quot;Processing complete.&quot;
 End If</code></pre>
 </div>
 </div>
@@ -54857,7 +55921,7 @@ the data value held in the port latch, regardless of the state of the actual pin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>    ; Set GP2 high without affecting GP0
+<pre class="CodeRay highlight"><code>    ; Set GP2 high without affecting GP0
     bsf     LATA, 2        ; Update shadow latch
     movf    LATA, W
     movwf   GPIO           ; Safe write to port</code></pre>
@@ -59476,7 +60540,8 @@ If you use AVRDUDE then uou must ensure the Windows device driver is <code>libus
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-30 08:04:45 GMT Standard Time
+Version Based on GCBASIC source (circa 2026 build)<br>
+Last updated 2026-02-12 08:19:22 GMT Standard Time
 </div>
 </div>
 </body>

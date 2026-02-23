@@ -152,6 +152,8 @@ _Important Notes_
 
 - The values above apply when storing constants, lookup table entries, `retlw` literals, `data`/`db` directives, etc. — i.e., the largest number that fits in one program memory **word**.
 
+- When reading word from 18F the addresses are even numbers addresses ( a word address is always an even number ), and non-18F are consectutive addresses.
+
 
 *Complete working example program*
 
