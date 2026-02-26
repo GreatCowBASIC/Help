@@ -16,10 +16,9 @@ Available on all PIC microcontrollers with DATA memory.
 
 *Explanation:*
 
-The DATA construct creates an DATA dataset, or DATA block, for use with the specific microcontroller.&#160;&#160;A DATA dataset, or DATA block, is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.
+The DATA construct creates an DATA dataset, or DATA block, for use with the specific microcontroller. A DATA dataset, or DATA block, is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.
 
 The advantage of an DATA dataset, or DATA block, is that they are memory efficient being loaded directly into the DATA during programming operations. 
-
 
 DATA datasets are defined as follows:
 
@@ -33,10 +32,9 @@ DATA datasets are defined as follows:
 
 *Defining DATA datasets*
 
-
 _Single data values_
 
-A single value on each line with in the dataset.&#160;&#160;The example dataset, shown below, has the data on different line in within the set.
+A single value on each line with in the dataset. The example dataset, shown below, has the data on different line in within the set.
 
 Simple example: This creates an DATA dataset at the first DATA location, then, the values of 12, 24, ... 72 are the consecutive values.
 
@@ -53,9 +51,9 @@ Simple example: This creates an DATA dataset at the first DATA location, then, t
 
 _Multiple data values of the same line_
 
-The following example creates the DATA dataset at DATA offset address of 0x10.&#160;&#160;
+The following example creates the DATA dataset at DATA offset address of 0x10. 
 
-Multiple elements on a single line separated by commas.&#160;&#160;The example dataset, shown below, has the data separated by `,` and on different line in within the dataset.
+Multiple elements on a single line separated by commas. The example dataset, shown below, has the data separated by `,` and on different line in within the dataset.
 
 ----
         DATA EEDataSource  as Byte
@@ -66,7 +64,7 @@ Multiple elements on a single line separated by commas.&#160;&#160;The example d
 
 _Data values as constants, and, with data transformation_
 
-Constants and calculations within the single line.  &#160;&#160;The example dataset, shown below, uses a defined constant to multiple the data with the dataset.
+Constants and calculations within the single line. The example dataset, shown below, uses a defined constant to multiple the data with the dataset.
 ----
         #define calculation_constant 2
 
@@ -79,14 +77,12 @@ Constants and calculations within the single line.  &#160;&#160;The example data
         5 * calculation_constant
         End DATA
 ----
-&#160;&#160;
-&#160;&#160;
-
+ 
 _Data values as Strings_
 
-Strings can be defined.&#160;&#160;Strings are delimited by double quotes. &#160;&#160; The following examples show the methods.
+Strings can be defined. Strings are delimited by double quotes. The following examples show the methods.
 
-Any ASCII characters between any two "    " (double quotes) will be converted to dataset data.&#160;&#160; Also see ASCII escape codes.
+Any ASCII characters between any two "    " (double quotes) will be converted to dataset data. Also see ASCII escape codes.
 
 A source string can be one string per line or comma separated strings, therefore, on the same line.
 
@@ -99,7 +95,6 @@ Example:
 ----
 
 _ASCII Escape code_
-
 
 Accepted escape strings are shown in the dataset below.
 
@@ -121,7 +116,7 @@ Accepted escape strings are shown in the dataset below.
 
 _Maximum Stored Value_
 
-The **maximum value** that can be stored in a single program memory **word** location across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16, PIC18), formatted as clean markdown:
+The **maximum value** that can be stored in a single program memory **word** location across the PIC families:
 
 |===
 | Family       | Instruction Word Size | Program Memory Word Width | Maximum Value per Word (unsigned decimal) | Hex Range          | Can store full 16-bit value (0–65535) in one word? 
@@ -132,7 +127,6 @@ The **maximum value** that can be stored in a single program memory **word** loc
 | **PIC16** (mid-range) | 14-bit         | 14 bits                  | 16383                                      | 0x0000 – 0x3FFF   | No                                                  
 | **PIC16** (enhanced mid-range) | 14-bit | 14 bits                  | 16383                                      | 0x0000 – 0x3FFF   | No                                                  
 | **PIC18**   | 16-bit               | 16 bits                  | 65535                                      | 0x0000 – 0xFFFF   | **Yes**                                             
-
 |===
 
 _Quick Summary Table (most common cases)_
@@ -152,13 +146,16 @@ _Important Notes_
 
 - The values above apply when storing constants, lookup table entries, `retlw` literals, `data`/`db` directives, etc. — i.e., the largest number that fits in one program memory **word**.
 
-- When reading word from 18F the addresses are even numbers addresses ( a word address is always an even number ), and non-18F are consectutive addresses.
+- **Program memory addressing varies by family:**
+  - On **PIC18F** family chips, program memory is byte-addressable (addresses run consecutively: 0, 1, 2, 3, …). For **word** (16-bit) reads/writes, the address **must be even** (starting on the low byte of a word pair; odd addresses would misalign). Byte-level access uses fully consecutive addresses.
+  - On **non-18F** families (PIC10/PIC12/PIC14/PIC16 etc.), program memory is word-addressable with consecutive word indices (0, 1, 2, …); byte handling is limited or requires special care.
 
+  Always use even addresses for word operations on PIC18F when using `ProgramRead`, `DATA` lookups, or tables to avoid reading split or incorrect data. See the chip datasheet for TBLPTR (table pointer) details on PIC18F.
 
 *Complete working example program*
 
-This example creates several DATA datasets.&#160;&#160;The example also create a lookup table.&#160;&#160;The DATA dataset are addressed with the additional parameter to ensure there is no DATA dataset overlap.&#160;&#160; 
-
+This example creates several DATA datasets. The example also create a lookup table. The DATA dataset are addressed with the additional parameter to ensure there is no DATA dataset overlap. 
+ 
 ----
         #chip 16F886
         #option explicit

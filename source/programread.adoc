@@ -8,7 +8,6 @@
 
     or for the 18FxxQ41 family of chips use:
     PFMRead (_location, store_)
-
 ----
 
 *Command Availability:*
@@ -18,17 +17,14 @@ Atmel AVR at present.
 
 *Explanation:*
 
-`ProgramRead` reads information from the program memory on chips that
-support this feature. `_location_` and `_store_` are both word variables,
-meaning that they can store values over 255.
+`ProgramRead` reads information from the program memory on chips that support this feature. `_location_` and `_store_` are both word variables, meaning that they can store values over 255.
 
-The largest value possible for `_location_` depends on the amount of
-program memory on the Microchip PIC microcontroller, which is given on the datasheet. `_store_` range is explained in the next section.
+The largest value possible for `_location_` depends on the amount of program memory on the Microchip PIC microcontroller, which is given on the datasheet. `_store_` range is explained in the next section.
  
 
  _Maximum Stored Value_
 
-The **maximum value** that can be stored in a single program memory **word** location across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16, PIC18), formatted as clean markdown:
+The **maximum value** that can be stored in a single program memory **word** location across the PIC families:
 
 |===
 | Family       | Instruction Word Size | Program Memory Word Width | Maximum Value per Word (unsigned decimal) | Hex Range          | Can store full 16-bit value (0–65535) in one word? 
@@ -39,7 +35,6 @@ The **maximum value** that can be stored in a single program memory **word** loc
 | **PIC16** (mid-range) | 14-bit         | 14 bits                  | 16383                                      | 0x0000 – 0x3FFF   | No                                                  
 | **PIC16** (enhanced mid-range) | 14-bit | 14 bits                  | 16383                                      | 0x0000 – 0x3FFF   | No                                                  
 | **PIC18**   | 16-bit               | 16 bits                  | 65535                                      | 0x0000 – 0xFFFF   | **Yes**                                             
-
 |===
 
 _Quick Summary Table (most common cases)_
@@ -59,8 +54,12 @@ _Important Notes_
 
 - The values above apply when storing constants, lookup table entries, `retlw` literals, `data`/`db` directives, etc. — i.e., the largest number that fits in one program memory **word**.
 
+_Addressing Notes_
 
-This is an advanced command which should only be used by advanced
-developers.
+- **PIC18F family**: `location` is a **byte address** (TBLPTR is byte-oriented). For reading 16-bit **words**, `location` **must be even** (word starts on even byte boundary). Reading odd locations may return misaligned or garbage data.
+- **Non-18F families** (mid-range, baseline): `location` is a **word address** (consecutive integers indexing 12/14-bit words).
+- Special variant: On some newer chips (e.g., 18FxxQ41 family), use `PFMRead (_location, store_)` instead.
+
+See <<_data,DATA command>> for examples of storing and reading byte/word values in program memory.
 
 *For more help, see <<_programerase,ProgramErase>>* and *<<_programwrite,ProgramWrite>>*

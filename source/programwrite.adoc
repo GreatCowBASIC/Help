@@ -14,16 +14,15 @@ Atmel AVR at present.
 
 *Explanation:*
 
-`ProgramWrite` writes information to the program memory on chips that
-support this feature. `_location_` and `_value_` are both word variables.
+`ProgramWrite` writes information to the program memory on chips that support this feature. `_location_` and `_value_` are both word variables.
 
-The largest value possible for `_location_` depends on the amount of
-program memory on the microcontroller , which is given on the datasheet. `_value_` is
-14 bits wide, and thus can store values up to 16383.
+The largest value possible for `_location_` depends on the amount of program memory on the microcontroller (see datasheet).
 
-This is an advanced command which should only be used by advanced
-developers. ProgramErase must be used to clear a block of memory BEFORE
-`ProgramWrite` is called.
+**The `_value_` parameter is a word (16-bit), but the maximum usable value depends on the chip family:**
+- On **PIC18F** family devices: up to **65535** (0xFFFF, full 16 bits supported in one program memory word).
+- On **PIC10/PIC12** (baseline/enhanced)/**PIC14/PIC16** families: up to **16383** (0x3FFF, limited by 12/14-bit program memory word width).
+
+`ProgramErase` **must** be used to clear a block of memory BEFORE `ProgramWrite` is called.
 
 *Example:*
 
