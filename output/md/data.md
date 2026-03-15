@@ -30,7 +30,7 @@ Available on all PIC microcontrollers with DATA memory.
 <span class="strong">**Explanation:**</span>
 
 The DATA construct creates an DATA dataset, or DATA block, for use with
-the specific microcontroller.  A DATA dataset, or DATA block, is a list
+the specific microcontroller. A DATA dataset, or DATA block, is a list
 of values that are stored in the PROGMEM memory of the microcontroller,
 which then can be accessed using the ProgRead() command or other DATA
 read operations.
@@ -57,7 +57,7 @@ DATA datasets are defined as follows:
 
 <span class="emphasis">*Single data values*</span>
 
-A single value on each line with in the dataset.  The example dataset,
+A single value on each line with in the dataset. The example dataset,
 shown below, has the data on different line in within the set.
 
 Simple example: This creates an DATA dataset at the first DATA location,
@@ -77,9 +77,9 @@ then, the values of 12, 24, …​ 72 are the consecutive values.
 <span class="emphasis">*Multiple data values of the same line*</span>
 
 The following example creates the DATA dataset at DATA offset address of
-0x10.  
+0x10.
 
-Multiple elements on a single line separated by commas.  The example
+Multiple elements on a single line separated by commas. The example
 dataset, shown below, has the data separated by `,` and on different
 line in within the dataset.
 
@@ -93,9 +93,9 @@ line in within the dataset.
 <span class="emphasis">*Data values as constants, and, with data
 transformation*</span>
 
-Constants and calculations within the single line.   The example
-dataset, shown below, uses a defined constant to multiple the data with
-the dataset.
+Constants and calculations within the single line. The example dataset,
+shown below, uses a defined constant to multiple the data with the
+dataset.
 
 ``` screen
         #define calculation_constant 2
@@ -110,15 +110,13 @@ the dataset.
         End DATA
 ```
 
-     
-
 <span class="emphasis">*Data values as Strings*</span>
 
-Strings can be defined.  Strings are delimited by double quotes.    The
+Strings can be defined. Strings are delimited by double quotes. The
 following examples show the methods.
 
 Any ASCII characters between any two " " (double quotes) will be
-converted to dataset data.   Also see ASCII escape codes.
+converted to dataset data. Also see ASCII escape codes.
 
 A source string can be one string per line or comma separated strings,
 therefore, on the same line.
@@ -157,8 +155,7 @@ Accepted escape strings are shown in the dataset below.
 
 The <span class="strong">**maximum value**</span> that can be stored in
 a single program memory <span class="strong">**word**</span> location
-across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16,
-PIC18), formatted as clean markdown:
+across the PIC families:
 
 <div class="informaltable">
 
@@ -195,25 +192,43 @@ PIC18), formatted as clean markdown:
 -   <span class="strong">**PIC18**</span> is the only 8-bit PIC family
     where you can directly store any 16-bit value (0–0xFFFF) in a single
     program memory word location.
+
 -   On all earlier families (PIC10, PIC12 baseline, PIC14, PIC16,
     enhanced mid-range), you must split any value &gt; 0x3FFF (16383)
     across <span class="strong">**two words**</span> if you need the
     full 16-bit range.
+
 -   The values above apply when storing constants, lookup table entries,
     `retlw` literals, `data`/`db` directives, etc. — i.e., the largest
     number that fits in one program memory <span
     class="strong">**word**</span>.
--   When reading word from 18F the addresses are even numbers addresses
-    ( a word address is always an even number ), and non-18F are
-    consectutive addresses.
+
+-   <span class="strong">**Program memory addressing varies by
+    family:**</span>
+
+-   On <span class="strong">**PIC18F**</span> family chips, program
+    memory is byte-addressable (addresses run consecutively: 0, 1, 2, 3,
+    …). For <span class="strong">**word**</span> (16-bit) reads/writes,
+    the address <span class="strong">**must be even**</span> (starting
+    on the low byte of a word pair; odd addresses would misalign).
+    Byte-level access uses fully consecutive addresses.
+
+-   On <span class="strong">**non-18F**</span> families
+    (PIC10/PIC12/PIC14/PIC16 etc.), program memory is word-addressable
+    with consecutive word indices (0, 1, 2, …); byte handling is limited
+    or requires special care.
+
+    ``` literallayout
+    Always use even addresses for word operations on PIC18F when using `ProgramRead`, `DATA` lookups, or tables to avoid reading split or incorrect data. See the chip datasheet for TBLPTR (table pointer) details on PIC18F.
+    ```
 
 </div>
 
 <span class="strong">**Complete working example program**</span>
 
-This example creates several DATA datasets.  The example also create a
-lookup table.  The DATA dataset are addressed with the additional
-parameter to ensure there is no DATA dataset overlap.  
+This example creates several DATA datasets. The example also create a
+lookup table. The DATA dataset are addressed with the additional
+parameter to ensure there is no DATA dataset overlap.
 
 ``` screen
         #chip 16F886

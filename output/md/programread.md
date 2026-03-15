@@ -44,8 +44,7 @@ _Maximum Stored Value_
 
 The <span class="strong">**maximum value**</span> that can be stored in
 a single program memory <span class="strong">**word**</span> location
-across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16,
-PIC18), formatted as clean markdown:
+across the PIC families:
 
 <div class="informaltable">
 
@@ -93,8 +92,26 @@ PIC18), formatted as clean markdown:
 
 </div>
 
-This is an advanced command which should only be used by advanced
-developers.
+<span class="emphasis">*Addressing Notes*</span>
+
+<div class="itemizedlist">
+
+-   <span class="strong">**PIC18F family**</span>: `location` is a <span
+    class="strong">**byte address**</span> (TBLPTR is byte-oriented).
+    For reading 16-bit <span class="strong">**words**</span>, `location`
+    <span class="strong">**must be even**</span> (word starts on even
+    byte boundary). Reading odd locations may return misaligned or
+    garbage data.
+-   <span class="strong">**Non-18F families**</span> (mid-range,
+    baseline): `location` is a <span class="strong">**word
+    address**</span> (consecutive integers indexing 12/14-bit words).
+-   Special variant: On some newer chips (e.g., 18FxxQ41 family), use
+    `PFMRead (location, store)` instead.
+
+</div>
+
+See <a href="data" class="link" title="DATA">DATA command</a> for
+examples of storing and reading byte/word values in program memory.
 
 <span class="strong">**For more help, see
 <a href="programerase" class="link" title="ProgramErase">ProgramErase</a>**</span>

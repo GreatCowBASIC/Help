@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2026-02-12</date>
+<date>2026-02-26</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team. Copyright 2005 - 2026</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-02-23<?asciidoc-br?>
-16:31:02 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-03-07<?asciidoc-br?>
+18:30:18 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-02-12<?asciidoc-br?>
-08:19:22 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-02-26<?asciidoc-br?>
+07:49:59 GMT Standard Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -2665,11 +2665,15 @@ The program shows setting up the advanced variables, assigned a value and comple
 <simpara>The compiler will inspect the provided AT memory location and if the memory location is already used ( by an existing variable), lower than the minimum memory location or greater than the maximum memory location an error will be issued.</simpara>
 <simpara><?asciidoc-br?>
 <emphasis role="strong">Variable Aliases</emphasis></simpara>
-<simpara>Variable can be defined as  aliases. &#160;&#160; Aliases  are used to refer to existing memory locations SFR or RAM and aliases can be used to construct other variables.&#160;&#160;  Constructed variables can be a mix  ( or not ) of SFR or RAM.  &#160;&#160; These are useful for joining predefined byte variables together to form a word/long variable.</simpara>
-<simpara>Aliases are not like pointers in many languages - they must always refer to an existing variable or variables and cannot be changed.</simpara>
+<simpara>Alias creates a variable that shares the same memory location as another variable:
+These are useful for joining predefined byte variables together to form a word/long variable.
+When reading or writing to this variable, it is effectively the aliases that are being read or written to.&#160;&#160; Aliases  are used to refer to existing memory locations SFR or RAM and aliases can be used to construct other variables.&#160;&#160;  Constructed variables can be a mix  ( or not ) of SFR or RAM.  &#160;&#160; These are useful for joining predefined byte variables together to form a word/long variable.</simpara>
+<simpara>Aliases are not like pointers in many languages - they must always refer to an existing variable or register.</simpara>
 <simpara>When setting a register/variable bit ( i.e  my_variable.my_bit_address_variable ) and using a alias for the variable then you must ensure the bytes that construct the variable are consecutive.</simpara>
-<simpara>Aliases are shown in the ASM source in the ;ALIAS VARIABLES section.</simpara>
+<simpara>Alias and At cannot be used together on the same declaration line.&#160;&#160; Alias does not support Bit variables. &#160;&#160; For bit‑level aliasing, use constants or #Define macros.</simpara>
+<simpara>Aliases are alaways shown in the ASM source in the ;ALIAS VARIABLES section.</simpara>
 <simpara>The coding approach should be to DIMension the variable (word, integer, or long) first, then create the byte aliases:</simpara>
+<simpara>Example 1:</simpara>
 <screen>    Dim my_variable as LONG
     Dim ByteOne   as Byte alias my_variable_E
     Dim ByteTwo   as Byte alias my_variable_U
@@ -2684,6 +2688,7 @@ The program shows setting up the advanced variables, assigned a value and comple
 
     'then, use the four byte variables as you need to.</screen>
 <simpara>To set a series of registers that are not consecutive, it is recommended to use a mask variable then apply it to the registers:</simpara>
+<simpara>Example 2:</simpara>
 <screen>    Dim my_variable as LONG
     Dim my_bit_address_variable as Byte
     my_bit_address_variable = 23
@@ -2695,6 +2700,14 @@ The program shows setting up the advanced variables, assigned a value and comple
     portb =  my_variable_E
     portc =  my_variable_E
     portd =  my_variable_E</screen>
+<simpara>Example 3:</simpara>
+<screen>        Dim MyADResult As Word Alias ADRESH, ADRESL
+        //MyADResult reads the A/D values stored in registers ADRESH, ADRESL</screen>
+<simpara>Example4:</simpara>
+<screen>    dim Myhibyte, Mylobyte as Byte
+    dim Myvariable As Word Alias Myhibyte, Mylobyte
+    Myvariable=294
+    //294 is stored here: Myhibyte=1 Mylowbyte=38.</screen>
 <simpara><emphasis role="strong">Memory Specification</emphasis></simpara>
 <simpara>All memory specifics like RAM size, lower and upper RAM addresses are specified in the chip specific dat file.</simpara>
 <simpara>The dat file details should be reviewed in PICINFO application.   See the PICINFO/CHIPDATA tab for RAM and MaxAddress etc.</simpara>
@@ -7302,7 +7315,7 @@ developers.</simpara>
 <simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
 <simpara>Available on all PIC microcontrollers with DATA memory.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
-<simpara>The DATA construct creates an DATA dataset, or DATA block, for use with the specific microcontroller.&#160;&#160;A DATA dataset, or DATA block, is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.</simpara>
+<simpara>The DATA construct creates an DATA dataset, or DATA block, for use with the specific microcontroller. A DATA dataset, or DATA block, is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.</simpara>
 <simpara>The advantage of an DATA dataset, or DATA block, is that they are memory efficient being loaded directly into the DATA during programming operations.</simpara>
 <simpara>DATA datasets are defined as follows:</simpara>
 <orderedlist numeration="arabic">
@@ -7326,7 +7339,7 @@ developers.</simpara>
 </orderedlist>
 <simpara><emphasis role="strong">Defining DATA datasets</emphasis></simpara>
 <simpara><emphasis>Single data values</emphasis></simpara>
-<simpara>A single value on each line with in the dataset.&#160;&#160;The example dataset, shown below, has the data on different line in within the set.</simpara>
+<simpara>A single value on each line with in the dataset. The example dataset, shown below, has the data on different line in within the set.</simpara>
 <simpara>Simple example: This creates an DATA dataset at the first DATA location, then, the values of 12, 24, &#8230;&#8203; 72 are the consecutive values.</simpara>
 <screen>        DATA EEDataSet as Byte
             12
@@ -7337,14 +7350,14 @@ developers.</simpara>
             72
         End DATA</screen>
 <simpara><emphasis>Multiple data values of the same line</emphasis></simpara>
-<simpara>The following example creates the DATA dataset at DATA offset address of 0x10.&#160;&#160;</simpara>
-<simpara>Multiple elements on a single line separated by commas.&#160;&#160;The example dataset, shown below, has the data separated by <literal>,</literal> and on different line in within the dataset.</simpara>
+<simpara>The following example creates the DATA dataset at DATA offset address of 0x10.</simpara>
+<simpara>Multiple elements on a single line separated by commas. The example dataset, shown below, has the data separated by <literal>,</literal> and on different line in within the dataset.</simpara>
 <screen>        DATA EEDataSource  as Byte
             12,  24, 36
             48,  60, 72
         End DATA</screen>
 <simpara><emphasis>Data values as constants, and, with data transformation</emphasis></simpara>
-<simpara>Constants and calculations within the single line.  &#160;&#160;The example dataset, shown below, uses a defined constant to multiple the data with the dataset.</simpara>
+<simpara>Constants and calculations within the single line. The example dataset, shown below, uses a defined constant to multiple the data with the dataset.</simpara>
 <screen>        #define calculation_constant 2
 
         DATA EEDataSource as Word
@@ -7355,11 +7368,9 @@ developers.</simpara>
         4 * calculation_constant
         5 * calculation_constant
         End DATA</screen>
-<simpara>&#160;&#160;
-&#160;&#160;</simpara>
 <simpara><emphasis>Data values as Strings</emphasis></simpara>
-<simpara>Strings can be defined.&#160;&#160;Strings are delimited by double quotes. &#160;&#160; The following examples show the methods.</simpara>
-<simpara>Any ASCII characters between any two "    " (double quotes) will be converted to dataset data.&#160;&#160; Also see ASCII escape codes.</simpara>
+<simpara>Strings can be defined. Strings are delimited by double quotes. The following examples show the methods.</simpara>
+<simpara>Any ASCII characters between any two "    " (double quotes) will be converted to dataset data. Also see ASCII escape codes.</simpara>
 <simpara>A source string can be one string per line or comma separated strings, therefore, on the same line.</simpara>
 <simpara>Example:</simpara>
 <screen>    DATA Test_1 as Byte
@@ -7426,7 +7437,7 @@ developers.</simpara>
 </tgroup>
 </informaltable>
 <simpara><emphasis>Maximum Stored Value</emphasis></simpara>
-<simpara>The <emphasis role="strong">maximum value</emphasis> that can be stored in a single program memory <emphasis role="strong">word</emphasis> location across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16, PIC18), formatted as clean markdown:</simpara>
+<simpara>The <emphasis role="strong">maximum value</emphasis> that can be stored in a single program memory <emphasis role="strong">word</emphasis> location across the PIC families:</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <tgroup cols="6">
 <colspec colname="col_1" colwidth="16*"/>
@@ -7550,11 +7561,18 @@ developers.</simpara>
 <simpara>The values above apply when storing constants, lookup table entries, <literal>retlw</literal> literals, <literal>data</literal>/<literal>db</literal> directives, etc. — i.e., the largest number that fits in one program memory <emphasis role="strong">word</emphasis>.</simpara>
 </listitem>
 <listitem>
-<simpara>When reading word from 18F the addresses are even numbers addresses ( a word address is always an even number ), and non-18F are consectutive addresses.</simpara>
+<simpara><emphasis role="strong">Program memory addressing varies by family:</emphasis></simpara>
+</listitem>
+<listitem>
+<simpara>On <emphasis role="strong">PIC18F</emphasis> family chips, program memory is byte-addressable (addresses run consecutively: 0, 1, 2, 3, …). For <emphasis role="strong">word</emphasis> (16-bit) reads/writes, the address <emphasis role="strong">must be even</emphasis> (starting on the low byte of a word pair; odd addresses would misalign). Byte-level access uses fully consecutive addresses.</simpara>
+</listitem>
+<listitem>
+<simpara>On <emphasis role="strong">non-18F</emphasis> families (PIC10/PIC12/PIC14/PIC16 etc.), program memory is word-addressable with consecutive word indices (0, 1, 2, …); byte handling is limited or requires special care.</simpara>
+<literallayout class="monospaced">Always use even addresses for word operations on PIC18F when using `ProgramRead`, `DATA` lookups, or tables to avoid reading split or incorrect data. See the chip datasheet for TBLPTR (table pointer) details on PIC18F.</literallayout>
 </listitem>
 </itemizedlist>
 <simpara><emphasis role="strong">Complete working example program</emphasis></simpara>
-<simpara>This example creates several DATA datasets.&#160;&#160;The example also create a lookup table.&#160;&#160;The DATA dataset are addressed with the additional parameter to ensure there is no DATA dataset overlap.&#160;&#160;</simpara>
+<simpara>This example creates several DATA datasets. The example also create a lookup table. The DATA dataset are addressed with the additional parameter to ensure there is no DATA dataset overlap.</simpara>
 <screen>        #chip 16F886
         #option explicit
 
@@ -7589,16 +7607,14 @@ developers.</simpara>
 <simpara>Available on all Microchip PIC microcontrollers with self write capability. Not available on
 Atmel AVR at present.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
-<simpara><literal>ProgramErase</literal> erases information from the program memory on chips that
-support this feature. The largest value possible for <literal><emphasis>location</emphasis></literal> depends
-on the amount of program memory on the Microchip PIC microcontroller, which is given on the
-datasheet.</simpara>
-<simpara>This command must be called before writing to a block of memory. It is
-slow in comparison to other GCBASIC commands. Note that it erases memory
-in 32-byte blocks - see the relevant Microchip PIC microcontroller datasheet for more information.</simpara>
-<simpara>This is an advanced command which should only be used by advanced
-developers. Care must be taken with this command, as it can easily erase
-the program that is running on the microcontroller.</simpara>
+<simpara><literal>ProgramErase</literal> erases information from the program memory on chips that support this feature. The largest value possible for <literal><emphasis>location</emphasis></literal> depends on the amount of program memory on the Microchip PIC microcontroller, which is given on the datasheet.</simpara>
+<simpara>This command must be called before writing to a block of memory. It is slow in comparison to other GCBASIC commands.</simpara>
+<simpara><emphasis role="strong">Note that it erases memory in blocks/pages — the size varies by device:</emphasis>
+- Many classic <emphasis role="strong">PIC18F</emphasis> devices: typically 64 bytes (32 words) per erase row.
+- Newer <emphasis role="strong">PIC18 Q-series</emphasis> (e.g., PIC18FxxQ43, PIC18FxxQ84): typically <emphasis role="strong">256 bytes (128 words)</emphasis> per erase page.
+- Other sizes exist on some models (e.g., 512 bytes or larger on certain variants).</simpara>
+<simpara><emphasis role="strong">Always consult the relevant Microchip PIC microcontroller datasheet</emphasis> for the exact erase page/row size, required alignment (usually multiples of the page size), and any restrictions on self-write/erase operations (e.g., unlock sequences, row vs. page erase).</simpara>
+<simpara>Care must be taken with this command, as it can easily erase the program that is running on the microcontroller.</simpara>
 <simpara><emphasis role="strong">For more help, see <link linkend="_programread">ProgramRead</link></emphasis> and <emphasis role="strong"><link linkend="_programwrite">ProgramWrite</link></emphasis></simpara>
 </section>
 <section xml:id="_programread">
@@ -7612,13 +7628,10 @@ the program that is running on the microcontroller.</simpara>
 <simpara>Available on all Microchip PIC microcontrollers with self write capability. Not available on
 Atmel AVR at present.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
-<simpara><literal>ProgramRead</literal> reads information from the program memory on chips that
-support this feature. <literal><emphasis>location</emphasis></literal> and <literal><emphasis>store</emphasis></literal> are both word variables,
-meaning that they can store values over 255.</simpara>
-<simpara>The largest value possible for <literal><emphasis>location</emphasis></literal> depends on the amount of
-program memory on the Microchip PIC microcontroller, which is given on the datasheet. <literal><emphasis>store</emphasis></literal> range is explained in the next section.</simpara>
+<simpara><literal>ProgramRead</literal> reads information from the program memory on chips that support this feature. <literal><emphasis>location</emphasis></literal> and <literal><emphasis>store</emphasis></literal> are both word variables, meaning that they can store values over 255.</simpara>
+<simpara>The largest value possible for <literal><emphasis>location</emphasis></literal> depends on the amount of program memory on the Microchip PIC microcontroller, which is given on the datasheet. <literal><emphasis>store</emphasis></literal> range is explained in the next section.</simpara>
 <literallayout class="monospaced">_Maximum Stored Value_</literallayout>
-<simpara>The <emphasis role="strong">maximum value</emphasis> that can be stored in a single program memory <emphasis role="strong">word</emphasis> location across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16, PIC18), formatted as clean markdown:</simpara>
+<simpara>The <emphasis role="strong">maximum value</emphasis> that can be stored in a single program memory <emphasis role="strong">word</emphasis> location across the PIC families:</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <tgroup cols="6">
 <colspec colname="col_1" colwidth="16*"/>
@@ -7742,8 +7755,19 @@ program memory on the Microchip PIC microcontroller, which is given on the datas
 <simpara>The values above apply when storing constants, lookup table entries, <literal>retlw</literal> literals, <literal>data</literal>/<literal>db</literal> directives, etc. — i.e., the largest number that fits in one program memory <emphasis role="strong">word</emphasis>.</simpara>
 </listitem>
 </itemizedlist>
-<simpara>This is an advanced command which should only be used by advanced
-developers.</simpara>
+<simpara><emphasis>Addressing Notes</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><emphasis role="strong">PIC18F family</emphasis>: <literal>location</literal> is a <emphasis role="strong">byte address</emphasis> (TBLPTR is byte-oriented). For reading 16-bit <emphasis role="strong">words</emphasis>, <literal>location</literal> <emphasis role="strong">must be even</emphasis> (word starts on even byte boundary). Reading odd locations may return misaligned or garbage data.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Non-18F families</emphasis> (mid-range, baseline): <literal>location</literal> is a <emphasis role="strong">word address</emphasis> (consecutive integers indexing 12/14-bit words).</simpara>
+</listitem>
+<listitem>
+<simpara>Special variant: On some newer chips (e.g., 18FxxQ41 family), use <literal>PFMRead (<emphasis>location, store</emphasis>)</literal> instead.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>See <link linkend="_data">DATA command</link> for examples of storing and reading byte/word values in program memory.</simpara>
 <simpara><emphasis role="strong">For more help, see <link linkend="_programerase">ProgramErase</link></emphasis> and <emphasis role="strong"><link linkend="_programwrite">ProgramWrite</link></emphasis></simpara>
 </section>
 <section xml:id="_programwrite">
@@ -7754,14 +7778,12 @@ developers.</simpara>
 <simpara>Available on all Microchip PIC microcontrollers with self write capability. Not available on
 Atmel AVR at present.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
-<simpara><literal>ProgramWrite</literal> writes information to the program memory on chips that
-support this feature. <literal><emphasis>location</emphasis></literal> and <literal><emphasis>value</emphasis></literal> are both word variables.</simpara>
-<simpara>The largest value possible for <literal><emphasis>location</emphasis></literal> depends on the amount of
-program memory on the microcontroller , which is given on the datasheet. <literal><emphasis>value</emphasis></literal> is
-14 bits wide, and thus can store values up to 16383.</simpara>
-<simpara>This is an advanced command which should only be used by advanced
-developers. ProgramErase must be used to clear a block of memory BEFORE
-<literal>ProgramWrite</literal> is called.</simpara>
+<simpara><literal>ProgramWrite</literal> writes information to the program memory on chips that support this feature. <literal><emphasis>location</emphasis></literal> and <literal><emphasis>value</emphasis></literal> are both word variables.</simpara>
+<simpara>The largest value possible for <literal><emphasis>location</emphasis></literal> depends on the amount of program memory on the microcontroller (see datasheet).</simpara>
+<simpara><emphasis role="strong">The <literal><emphasis>value</emphasis></literal> parameter is a word (16-bit), but the maximum usable value depends on the chip family:</emphasis>
+- On <emphasis role="strong">PIC18F</emphasis> family devices: up to <emphasis role="strong">65535</emphasis> (0xFFFF, full 16 bits supported in one program memory word).
+- On <emphasis role="strong">PIC10/PIC12</emphasis> (baseline/enhanced)/<emphasis role="strong">PIC14/PIC16</emphasis> families: up to <emphasis role="strong">16383</emphasis> (0x3FFF, limited by 12/14-bit program memory word width).</simpara>
+<simpara><literal>ProgramErase</literal> <emphasis role="strong">must</emphasis> be used to clear a block of memory BEFORE <literal>ProgramWrite</literal> is called.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <simpara><emphasis role="strong">For more help, see <link linkend="_programerase">ProgramErase</link></emphasis> and <emphasis role="strong"><link linkend="_programread">ProgramRead</link></emphasis></simpara>
 </section>
@@ -36384,10 +36406,49 @@ Available on all microcontrollers.</simpara>
 </section>
 <section xml:id="_alias">
 <title>Alias</title>
-<simpara><literal>Alias</literal> creates a variable that shares the same memory location as another variable:</simpara>
-<screen>    Dim ADResult As Word Alias ADRESH, ADRESL</screen>
-<simpara><literal>Alias</literal> and <literal>At</literal> cannot be used together on the same declaration line.</simpara>
-<simpara><literal>Alias</literal> does not support <literal>Bit</literal> variables. For bit‑level aliasing, use constants or <literal>#Define</literal> macros.</simpara>
+<simpara>Alias creates a variable that shares the same memory location as another variable:
+These are useful for joining predefined byte variables together to form a word/long variable.
+When reading or writing to this variable, it is effectively the aliases that are being read or written to.&#160;&#160; Aliases  are used to refer to existing memory locations SFR or RAM and aliases can be used to construct other variables.&#160;&#160;  Constructed variables can be a mix  ( or not ) of SFR or RAM.  &#160;&#160; These are useful for joining predefined byte variables together to form a word/long variable.</simpara>
+<simpara>Aliases are not like pointers in many languages - they must always refer to an existing variable or register.</simpara>
+<simpara>When setting a register/variable bit ( i.e  my_variable.my_bit_address_variable ) and using a alias for the variable then you must ensure the bytes that construct the variable are consecutive.</simpara>
+<simpara>Alias and At cannot be used together on the same declaration line.&#160;&#160; Alias does not support Bit variables. &#160;&#160; For bit‑level aliasing, use constants or #Define macros.</simpara>
+<simpara>Aliases are alaways shown in the ASM source in the ;ALIAS VARIABLES section.</simpara>
+<simpara>The coding approach should be to DIMension the variable (word, integer, or long) first, then create the byte aliases:</simpara>
+<simpara>Example 1:</simpara>
+<screen>    Dim my_variable as LONG
+    Dim ByteOne   as Byte alias my_variable_E
+    Dim ByteTwo   as Byte alias my_variable_U
+    Dim ByteThree as Byte alias my_variable_H
+    Dim ByteFour  as Byte alias my_variable
+
+    Dim my_bit_address_variable as Byte
+    my_bit_address_variable = 23
+
+    'set the bit in the variable
+    my_variable.my_bit_address_variable = 1
+
+    'then, use the four byte variables as you need to.</screen>
+<simpara>To set a series of registers that are not consecutive, it is recommended to use a mask variable then apply it to the registers:</simpara>
+<simpara>Example 2:</simpara>
+<screen>    Dim my_variable as LONG
+    Dim my_bit_address_variable as Byte
+    my_bit_address_variable = 23
+
+    'set the bit in the variable
+    my_variable.my_bit_address_variable = 1
+
+    porta =  my_variable_E
+    portb =  my_variable_E
+    portc =  my_variable_E
+    portd =  my_variable_E</screen>
+<simpara>Example 3:</simpara>
+<screen>        Dim MyADResult As Word Alias ADRESH, ADRESL
+        //MyADResult reads the A/D values stored in registers ADRESH, ADRESL</screen>
+<simpara>Example4:</simpara>
+<screen>    dim Myhibyte, Mylobyte as Byte
+    dim Myvariable As Word Alias Myhibyte, Mylobyte
+    Myvariable=294
+    //294 is stored here: Myhibyte=1 Mylowbyte=38.</screen>
 <simpara><?asciidoc-hr?></simpara>
 </section>
 <section xml:id="_at_fixed_memory_location">

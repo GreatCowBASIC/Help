@@ -609,13 +609,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-02-23<br>
-16:31:04 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-03-07<br>
+18:30:19 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-02-12<br>
-08:19:22 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-02-26<br>
+07:49:59 GMT Standard Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -4585,19 +4585,27 @@ The program shows setting up the advanced variables, assigned a value and comple
 <strong>Variable Aliases</strong></p>
 </div>
 <div class="paragraph">
-<p>Variable can be defined as  aliases. &#160;&#160; Aliases  are used to refer to existing memory locations SFR or RAM and aliases can be used to construct other variables.&#160;&#160;  Constructed variables can be a mix  ( or not ) of SFR or RAM.  &#160;&#160; These are useful for joining predefined byte variables together to form a word/long variable.</p>
+<p>Alias creates a variable that shares the same memory location as another variable:
+These are useful for joining predefined byte variables together to form a word/long variable.
+When reading or writing to this variable, it is effectively the aliases that are being read or written to.&#160;&#160; Aliases  are used to refer to existing memory locations SFR or RAM and aliases can be used to construct other variables.&#160;&#160;  Constructed variables can be a mix  ( or not ) of SFR or RAM.  &#160;&#160; These are useful for joining predefined byte variables together to form a word/long variable.</p>
 </div>
 <div class="paragraph">
-<p>Aliases are not like pointers in many languages - they must always refer to an existing variable or variables and cannot be changed.</p>
+<p>Aliases are not like pointers in many languages - they must always refer to an existing variable or register.</p>
 </div>
 <div class="paragraph">
 <p>When setting a register/variable bit ( i.e  my_variable.my_bit_address_variable ) and using a alias for the variable then you must ensure the bytes that construct the variable are consecutive.</p>
 </div>
 <div class="paragraph">
-<p>Aliases are shown in the ASM source in the ;ALIAS VARIABLES section.</p>
+<p>Alias and At cannot be used together on the same declaration line.&#160;&#160; Alias does not support Bit variables. &#160;&#160; For bit‑level aliasing, use constants or #Define macros.</p>
+</div>
+<div class="paragraph">
+<p>Aliases are alaways shown in the ASM source in the ;ALIAS VARIABLES section.</p>
 </div>
 <div class="paragraph">
 <p>The coding approach should be to DIMension the variable (word, integer, or long) first, then create the byte aliases:</p>
+</div>
+<div class="paragraph">
+<p>Example 1:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4619,6 +4627,9 @@ The program shows setting up the advanced variables, assigned a value and comple
 <div class="paragraph">
 <p>To set a series of registers that are not consecutive, it is recommended to use a mask variable then apply it to the registers:</p>
 </div>
+<div class="paragraph">
+<p>Example 2:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre>    Dim my_variable as LONG
@@ -4632,6 +4643,26 @@ The program shows setting up the advanced variables, assigned a value and comple
     portb =  my_variable_E
     portc =  my_variable_E
     portd =  my_variable_E</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example 3:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        Dim MyADResult As Word Alias ADRESH, ADRESL
+        //MyADResult reads the A/D values stored in registers ADRESH, ADRESL</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example4:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    dim Myhibyte, Mylobyte as Byte
+    dim Myvariable As Word Alias Myhibyte, Mylobyte
+    Myvariable=294
+    //294 is stored here: Myhibyte=1 Mylowbyte=38.</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -10997,7 +11028,7 @@ developers.</p>
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p>The DATA construct creates an DATA dataset, or DATA block, for use with the specific microcontroller.&#160;&#160;A DATA dataset, or DATA block, is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.</p>
+<p>The DATA construct creates an DATA dataset, or DATA block, for use with the specific microcontroller. A DATA dataset, or DATA block, is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using the ProgRead() command or other DATA read operations.</p>
 </div>
 <div class="paragraph">
 <p>The advantage of an DATA dataset, or DATA block, is that they are memory efficient being loaded directly into the DATA during programming operations.</p>
@@ -11033,7 +11064,7 @@ developers.</p>
 <p><em>Single data values</em></p>
 </div>
 <div class="paragraph">
-<p>A single value on each line with in the dataset.&#160;&#160;The example dataset, shown below, has the data on different line in within the set.</p>
+<p>A single value on each line with in the dataset. The example dataset, shown below, has the data on different line in within the set.</p>
 </div>
 <div class="paragraph">
 <p>Simple example: This creates an DATA dataset at the first DATA location, then, the values of 12, 24, &#8230;&#8203; 72 are the consecutive values.</p>
@@ -11054,10 +11085,10 @@ developers.</p>
 <p><em>Multiple data values of the same line</em></p>
 </div>
 <div class="paragraph">
-<p>The following example creates the DATA dataset at DATA offset address of 0x10.&#160;&#160;</p>
+<p>The following example creates the DATA dataset at DATA offset address of 0x10.</p>
 </div>
 <div class="paragraph">
-<p>Multiple elements on a single line separated by commas.&#160;&#160;The example dataset, shown below, has the data separated by <code>,</code> and on different line in within the dataset.</p>
+<p>Multiple elements on a single line separated by commas. The example dataset, shown below, has the data separated by <code>,</code> and on different line in within the dataset.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -11071,7 +11102,7 @@ developers.</p>
 <p><em>Data values as constants, and, with data transformation</em></p>
 </div>
 <div class="paragraph">
-<p>Constants and calculations within the single line.  &#160;&#160;The example dataset, shown below, uses a defined constant to multiple the data with the dataset.</p>
+<p>Constants and calculations within the single line. The example dataset, shown below, uses a defined constant to multiple the data with the dataset.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -11088,17 +11119,13 @@ developers.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>&#160;&#160;
-&#160;&#160;</p>
-</div>
-<div class="paragraph">
 <p><em>Data values as Strings</em></p>
 </div>
 <div class="paragraph">
-<p>Strings can be defined.&#160;&#160;Strings are delimited by double quotes. &#160;&#160; The following examples show the methods.</p>
+<p>Strings can be defined. Strings are delimited by double quotes. The following examples show the methods.</p>
 </div>
 <div class="paragraph">
-<p>Any ASCII characters between any two "    " (double quotes) will be converted to dataset data.&#160;&#160; Also see ASCII escape codes.</p>
+<p>Any ASCII characters between any two "    " (double quotes) will be converted to dataset data. Also see ASCII escape codes.</p>
 </div>
 <div class="paragraph">
 <p>A source string can be one string per line or comma separated strings, therefore, on the same line.</p>
@@ -11181,7 +11208,7 @@ developers.</p>
 <p><em>Maximum Stored Value</em></p>
 </div>
 <div class="paragraph">
-<p>The <strong>maximum value</strong> that can be stored in a single program memory <strong>word</strong> location across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16, PIC18), formatted as clean markdown:</p>
+<p>The <strong>maximum value</strong> that can be stored in a single program memory <strong>word</strong> location across the PIC families:</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -11311,7 +11338,18 @@ developers.</p>
 <p>The values above apply when storing constants, lookup table entries, <code>retlw</code> literals, <code>data</code>/<code>db</code> directives, etc. — i.e., the largest number that fits in one program memory <strong>word</strong>.</p>
 </li>
 <li>
-<p>When reading word from 18F the addresses are even numbers addresses ( a word address is always an even number ), and non-18F are consectutive addresses.</p>
+<p><strong>Program memory addressing varies by family:</strong></p>
+</li>
+<li>
+<p>On <strong>PIC18F</strong> family chips, program memory is byte-addressable (addresses run consecutively: 0, 1, 2, 3, …). For <strong>word</strong> (16-bit) reads/writes, the address <strong>must be even</strong> (starting on the low byte of a word pair; odd addresses would misalign). Byte-level access uses fully consecutive addresses.</p>
+</li>
+<li>
+<p>On <strong>non-18F</strong> families (PIC10/PIC12/PIC14/PIC16 etc.), program memory is word-addressable with consecutive word indices (0, 1, 2, …); byte handling is limited or requires special care.</p>
+<div class="literalblock">
+<div class="content">
+<pre>Always use even addresses for word operations on PIC18F when using `ProgramRead`, `DATA` lookups, or tables to avoid reading split or incorrect data. See the chip datasheet for TBLPTR (table pointer) details on PIC18F.</pre>
+</div>
+</div>
 </li>
 </ul>
 </div>
@@ -11319,7 +11357,7 @@ developers.</p>
 <p><strong>Complete working example program</strong></p>
 </div>
 <div class="paragraph">
-<p>This example creates several DATA datasets.&#160;&#160;The example also create a lookup table.&#160;&#160;The DATA dataset are addressed with the additional parameter to ensure there is no DATA dataset overlap.&#160;&#160;</p>
+<p>This example creates several DATA datasets. The example also create a lookup table. The DATA dataset are addressed with the additional parameter to ensure there is no DATA dataset overlap.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -11374,20 +11412,22 @@ Atmel AVR at present.</p>
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p><code>ProgramErase</code> erases information from the program memory on chips that
-support this feature. The largest value possible for <code><em>location</em></code> depends
-on the amount of program memory on the Microchip PIC microcontroller, which is given on the
-datasheet.</p>
+<p><code>ProgramErase</code> erases information from the program memory on chips that support this feature. The largest value possible for <code><em>location</em></code> depends on the amount of program memory on the Microchip PIC microcontroller, which is given on the datasheet.</p>
 </div>
 <div class="paragraph">
-<p>This command must be called before writing to a block of memory. It is
-slow in comparison to other GCBASIC commands. Note that it erases memory
-in 32-byte blocks - see the relevant Microchip PIC microcontroller datasheet for more information.</p>
+<p>This command must be called before writing to a block of memory. It is slow in comparison to other GCBASIC commands.</p>
 </div>
 <div class="paragraph">
-<p>This is an advanced command which should only be used by advanced
-developers. Care must be taken with this command, as it can easily erase
-the program that is running on the microcontroller.</p>
+<p><strong>Note that it erases memory in blocks/pages — the size varies by device:</strong>
+- Many classic <strong>PIC18F</strong> devices: typically 64 bytes (32 words) per erase row.
+- Newer <strong>PIC18 Q-series</strong> (e.g., PIC18FxxQ43, PIC18FxxQ84): typically <strong>256 bytes (128 words)</strong> per erase page.
+- Other sizes exist on some models (e.g., 512 bytes or larger on certain variants).</p>
+</div>
+<div class="paragraph">
+<p><strong>Always consult the relevant Microchip PIC microcontroller datasheet</strong> for the exact erase page/row size, required alignment (usually multiples of the page size), and any restrictions on self-write/erase operations (e.g., unlock sequences, row vs. page erase).</p>
+</div>
+<div class="paragraph">
+<p>Care must be taken with this command, as it can easily erase the program that is running on the microcontroller.</p>
 </div>
 <div class="paragraph">
 <p><strong>For more help, see <a href="#_programread">ProgramRead</a></strong> and <strong><a href="#_programwrite">ProgramWrite</a></strong></p>
@@ -11417,13 +11457,10 @@ Atmel AVR at present.</p>
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p><code>ProgramRead</code> reads information from the program memory on chips that
-support this feature. <code><em>location</em></code> and <code><em>store</em></code> are both word variables,
-meaning that they can store values over 255.</p>
+<p><code>ProgramRead</code> reads information from the program memory on chips that support this feature. <code><em>location</em></code> and <code><em>store</em></code> are both word variables, meaning that they can store values over 255.</p>
 </div>
 <div class="paragraph">
-<p>The largest value possible for <code><em>location</em></code> depends on the amount of
-program memory on the Microchip PIC microcontroller, which is given on the datasheet. <code><em>store</em></code> range is explained in the next section.</p>
+<p>The largest value possible for <code><em>location</em></code> depends on the amount of program memory on the Microchip PIC microcontroller, which is given on the datasheet. <code><em>store</em></code> range is explained in the next section.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -11431,7 +11468,7 @@ program memory on the Microchip PIC microcontroller, which is given on the datas
 </div>
 </div>
 <div class="paragraph">
-<p>The <strong>maximum value</strong> that can be stored in a single program memory <strong>word</strong> location across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16, PIC18), formatted as clean markdown:</p>
+<p>The <strong>maximum value</strong> that can be stored in a single program memory <strong>word</strong> location across the PIC families:</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -11563,8 +11600,23 @@ program memory on the Microchip PIC microcontroller, which is given on the datas
 </ul>
 </div>
 <div class="paragraph">
-<p>This is an advanced command which should only be used by advanced
-developers.</p>
+<p><em>Addressing Notes</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>PIC18F family</strong>: <code>location</code> is a <strong>byte address</strong> (TBLPTR is byte-oriented). For reading 16-bit <strong>words</strong>, <code>location</code> <strong>must be even</strong> (word starts on even byte boundary). Reading odd locations may return misaligned or garbage data.</p>
+</li>
+<li>
+<p><strong>Non-18F families</strong> (mid-range, baseline): <code>location</code> is a <strong>word address</strong> (consecutive integers indexing 12/14-bit words).</p>
+</li>
+<li>
+<p>Special variant: On some newer chips (e.g., 18FxxQ41 family), use <code>PFMRead (<em>location, store</em>)</code> instead.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="#_data">DATA command</a> for examples of storing and reading byte/word values in program memory.</p>
 </div>
 <div class="paragraph">
 <p><strong>For more help, see <a href="#_programerase">ProgramErase</a></strong> and <strong><a href="#_programwrite">ProgramWrite</a></strong></p>
@@ -11591,18 +11643,18 @@ Atmel AVR at present.</p>
 <p><strong>Explanation:</strong></p>
 </div>
 <div class="paragraph">
-<p><code>ProgramWrite</code> writes information to the program memory on chips that
-support this feature. <code><em>location</em></code> and <code><em>value</em></code> are both word variables.</p>
+<p><code>ProgramWrite</code> writes information to the program memory on chips that support this feature. <code><em>location</em></code> and <code><em>value</em></code> are both word variables.</p>
 </div>
 <div class="paragraph">
-<p>The largest value possible for <code><em>location</em></code> depends on the amount of
-program memory on the microcontroller , which is given on the datasheet. <code><em>value</em></code> is
-14 bits wide, and thus can store values up to 16383.</p>
+<p>The largest value possible for <code><em>location</em></code> depends on the amount of program memory on the microcontroller (see datasheet).</p>
 </div>
 <div class="paragraph">
-<p>This is an advanced command which should only be used by advanced
-developers. ProgramErase must be used to clear a block of memory BEFORE
-<code>ProgramWrite</code> is called.</p>
+<p><strong>The <code><em>value</em></code> parameter is a word (16-bit), but the maximum usable value depends on the chip family:</strong>
+- On <strong>PIC18F</strong> family devices: up to <strong>65535</strong> (0xFFFF, full 16 bits supported in one program memory word).
+- On <strong>PIC10/PIC12</strong> (baseline/enhanced)/<strong>PIC14/PIC16</strong> families: up to <strong>16383</strong> (0x3FFF, limited by 12/14-bit program memory word width).</p>
+</div>
+<div class="paragraph">
+<p><code>ProgramErase</code> <strong>must</strong> be used to clear a block of memory BEFORE <code>ProgramWrite</code> is called.</p>
 </div>
 <div class="paragraph">
 <p><strong>Example:</strong></p>
@@ -48823,18 +48875,85 @@ Available on all microcontrollers.</p>
 <div class="sect2">
 <h3 id="_alias">Alias</h3>
 <div class="paragraph">
-<p><code>Alias</code> creates a variable that shares the same memory location as another variable:</p>
+<p>Alias creates a variable that shares the same memory location as another variable:
+These are useful for joining predefined byte variables together to form a word/long variable.
+When reading or writing to this variable, it is effectively the aliases that are being read or written to.&#160;&#160; Aliases  are used to refer to existing memory locations SFR or RAM and aliases can be used to construct other variables.&#160;&#160;  Constructed variables can be a mix  ( or not ) of SFR or RAM.  &#160;&#160; These are useful for joining predefined byte variables together to form a word/long variable.</p>
+</div>
+<div class="paragraph">
+<p>Aliases are not like pointers in many languages - they must always refer to an existing variable or register.</p>
+</div>
+<div class="paragraph">
+<p>When setting a register/variable bit ( i.e  my_variable.my_bit_address_variable ) and using a alias for the variable then you must ensure the bytes that construct the variable are consecutive.</p>
+</div>
+<div class="paragraph">
+<p>Alias and At cannot be used together on the same declaration line.&#160;&#160; Alias does not support Bit variables. &#160;&#160; For bit‑level aliasing, use constants or #Define macros.</p>
+</div>
+<div class="paragraph">
+<p>Aliases are alaways shown in the ASM source in the ;ALIAS VARIABLES section.</p>
+</div>
+<div class="paragraph">
+<p>The coding approach should be to DIMension the variable (word, integer, or long) first, then create the byte aliases:</p>
+</div>
+<div class="paragraph">
+<p>Example 1:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>    Dim ADResult As Word Alias ADRESH, ADRESL</pre>
+<pre>    Dim my_variable as LONG
+    Dim ByteOne   as Byte alias my_variable_E
+    Dim ByteTwo   as Byte alias my_variable_U
+    Dim ByteThree as Byte alias my_variable_H
+    Dim ByteFour  as Byte alias my_variable
+
+    Dim my_bit_address_variable as Byte
+    my_bit_address_variable = 23
+
+    'set the bit in the variable
+    my_variable.my_bit_address_variable = 1
+
+    'then, use the four byte variables as you need to.</pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>Alias</code> and <code>At</code> cannot be used together on the same declaration line.</p>
+<p>To set a series of registers that are not consecutive, it is recommended to use a mask variable then apply it to the registers:</p>
 </div>
 <div class="paragraph">
-<p><code>Alias</code> does not support <code>Bit</code> variables. For bit‑level aliasing, use constants or <code>#Define</code> macros.</p>
+<p>Example 2:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Dim my_variable as LONG
+    Dim my_bit_address_variable as Byte
+    my_bit_address_variable = 23
+
+    'set the bit in the variable
+    my_variable.my_bit_address_variable = 1
+
+    porta =  my_variable_E
+    portb =  my_variable_E
+    portc =  my_variable_E
+    portd =  my_variable_E</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example 3:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        Dim MyADResult As Word Alias ADRESH, ADRESL
+        //MyADResult reads the A/D values stored in registers ADRESH, ADRESL</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example4:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    dim Myhibyte, Mylobyte as Byte
+    dim Myvariable As Word Alias Myhibyte, Mylobyte
+    Myvariable=294
+    //294 is stored here: Myhibyte=1 Mylowbyte=38.</pre>
+</div>
 </div>
 <hr>
 </div>
@@ -60541,7 +60660,7 @@ If you use AVRDUDE then uou must ensure the Windows device driver is <code>libus
 <div id="footer">
 <div id="footer-text">
 Version Based on GCBASIC source (circa 2026 build)<br>
-Last updated 2026-02-12 08:19:22 GMT Standard Time
+Last updated 2026-02-26 07:49:59 GMT Standard Time
 </div>
 </div>
 </body>

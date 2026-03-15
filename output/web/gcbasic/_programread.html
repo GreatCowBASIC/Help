@@ -16,7 +16,7 @@
       <link rel="next" href="_programwrite.html" title="ProgramWrite" />
       <meta name="Section-title" content="ProgramRead" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-60139";
+            var treeCookieId = "treeview-60267";
             var language = "en";
             var w = new Object();
             //Localization
@@ -192,13 +192,10 @@ border: none; background: none; font-weight: none; color: none; }
                Atmel AVR at present.
             </p>
             <p><span class="strong"><strong>Explanation:</strong></span></p>
-            <p><code class="literal">ProgramRead</code> reads information from the program memory on chips that
-               support this feature. <code class="literal"><span class="emphasis"><em>location</em></span></code> and <code class="literal"><span class="emphasis"><em>store</em></span></code> are both word variables,
-               meaning that they can store values over 255.
+            <p><code class="literal">ProgramRead</code> reads information from the program memory on chips that support this feature. <code class="literal"><span class="emphasis"><em>location</em></span></code> and <code class="literal"><span class="emphasis"><em>store</em></span></code> are both word variables, meaning that they can store values over 255.
             </p>
-            <p>The largest value possible for <code class="literal"><span class="emphasis"><em>location</em></span></code> depends on the amount of
-               program memory on the Microchip PIC microcontroller, which is given on the datasheet. <code class="literal"><span class="emphasis"><em>store</em></span></code> range is explained in the next section.
-            </p><pre class="literallayout">_Maximum Stored Value_</pre><p>The <span class="strong"><strong>maximum value</strong></span> that can be stored in a single program memory <span class="strong"><strong>word</strong></span> location across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16, PIC18), formatted as clean markdown:
+            <p>The largest value possible for <code class="literal"><span class="emphasis"><em>location</em></span></code> depends on the amount of program memory on the Microchip PIC microcontroller, which is given on the datasheet. <code class="literal"><span class="emphasis"><em>store</em></span></code> range is explained in the next section.
+            </p><pre class="literallayout">_Maximum Stored Value_</pre><p>The <span class="strong"><strong>maximum value</strong></span> that can be stored in a single program memory <span class="strong"><strong>word</strong></span> location across the PIC families:
             </p>
             <div class="informaltable">
                <table border="1">
@@ -462,8 +459,18 @@ border: none; background: none; font-weight: none; color: none; }
                   </li>
                </ul>
             </div>
-            <p>This is an advanced command which should only be used by advanced
-               developers.
+            <p><span class="emphasis"><em>Addressing Notes</em></span></p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem"><span class="strong"><strong>PIC18F family</strong></span>: <code class="literal">location</code> is a <span class="strong"><strong>byte address</strong></span> (TBLPTR is byte-oriented). For reading 16-bit <span class="strong"><strong>words</strong></span>, <code class="literal">location</code> <span class="strong"><strong>must be even</strong></span> (word starts on even byte boundary). Reading odd locations may return misaligned or garbage data.
+                  </li>
+                  <li class="listitem"><span class="strong"><strong>Non-18F families</strong></span> (mid-range, baseline): <code class="literal">location</code> is a <span class="strong"><strong>word address</strong></span> (consecutive integers indexing 12/14-bit words).
+                  </li>
+                  <li class="listitem">Special variant: On some newer chips (e.g., 18FxxQ41 family), use <code class="literal">PFMRead (<span class="emphasis"><em>location, store</em></span>)</code> instead.
+                  </li>
+               </ul>
+            </div>
+            <p>See <a class="link" href="_data.html" title="DATA">DATA command</a> for examples of storing and reading byte/word values in program memory.
             </p>
             <p><span class="strong"><strong>For more help, see <a class="link" href="_programerase.html" title="ProgramErase">ProgramErase</a></strong></span> and <span class="strong"><strong><a class="link" href="_programwrite.html" title="ProgramWrite">ProgramWrite</a></strong></span></p>
          </div><script type="text/javascript" src="common/main.js">

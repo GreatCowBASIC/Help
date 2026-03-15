@@ -16,7 +16,7 @@
       <link rel="next" href="_programerase.html" title="ProgramErase" />
       <meta name="Section-title" content="DATA" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-60139";
+            var treeCookieId = "treeview-60267";
             var language = "en";
             var w = new Object();
             //Localization
@@ -190,8 +190,8 @@ border: none; background: none; font-weight: none; color: none; }
         END DATA</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
             <p>Available on all PIC microcontrollers with DATA memory.</p>
             <p><span class="strong"><strong>Explanation:</strong></span></p>
-            <p>The DATA construct creates an DATA dataset, or DATA block, for use with the specific microcontroller.  A DATA dataset, or
-               DATA block, is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using
+            <p>The DATA construct creates an DATA dataset, or DATA block, for use with the specific microcontroller. A DATA dataset, or DATA
+               block, is a list of values that are stored in the PROGMEM memory of the microcontroller, which then can be accessed using
                the ProgRead() command or other DATA read operations.
             </p>
             <p>The advantage of an DATA dataset, or DATA block, is that they are memory efficient being loaded directly into the DATA during
@@ -211,7 +211,7 @@ border: none; background: none; font-weight: none; color: none; }
             </div>
             <p><span class="strong"><strong>Defining DATA datasets</strong></span></p>
             <p><span class="emphasis"><em>Single data values</em></span></p>
-            <p>A single value on each line with in the dataset.  The example dataset, shown below, has the data on different line in within
+            <p>A single value on each line with in the dataset. The example dataset, shown below, has the data on different line in within
                the set.
             </p>
             <p>Simple example: This creates an DATA dataset at the first DATA location, then, the values of 12, 24, …​ 72 are the consecutive
@@ -224,14 +224,14 @@ border: none; background: none; font-weight: none; color: none; }
             60
             72
         End DATA</pre><p><span class="emphasis"><em>Multiple data values of the same line</em></span></p>
-            <p>The following example creates the DATA dataset at DATA offset address of 0x10.  </p>
-            <p>Multiple elements on a single line separated by commas.  The example dataset, shown below, has the data separated by <code class="literal">,</code> and on different line in within the dataset.
+            <p>The following example creates the DATA dataset at DATA offset address of 0x10.</p>
+            <p>Multiple elements on a single line separated by commas. The example dataset, shown below, has the data separated by <code class="literal">,</code> and on different line in within the dataset.
             </p><pre class="screen">        DATA EEDataSource  as Byte
             12,  24, 36
             48,  60, 72
         End DATA</pre><p><span class="emphasis"><em>Data values as constants, and, with data transformation</em></span></p>
-            <p>Constants and calculations within the single line.    The example dataset, shown below, uses a defined constant to multiple
-               the data with the dataset.
+            <p>Constants and calculations within the single line. The example dataset, shown below, uses a defined constant to multiple the
+               data with the dataset.
             </p><pre class="screen">        #define calculation_constant 2
 
         DATA EEDataSource as Word
@@ -241,12 +241,9 @@ border: none; background: none; font-weight: none; color: none; }
         8 * calculation_constant
         4 * calculation_constant
         5 * calculation_constant
-        End DATA</pre><p>  
-                 
-            </p>
-            <p><span class="emphasis"><em>Data values as Strings</em></span></p>
-            <p>Strings can be defined.  Strings are delimited by double quotes.    The following examples show the methods.</p>
-            <p>Any ASCII characters between any two "    " (double quotes) will be converted to dataset data.   Also see ASCII escape codes.</p>
+        End DATA</pre><p><span class="emphasis"><em>Data values as Strings</em></span></p>
+            <p>Strings can be defined. Strings are delimited by double quotes. The following examples show the methods.</p>
+            <p>Any ASCII characters between any two "    " (double quotes) will be converted to dataset data. Also see ASCII escape codes.</p>
             <p>A source string can be one string per line or comma separated strings, therefore, on the same line.</p>
             <p>Example:</p><pre class="screen">    DATA Test_1 as Byte
      "ABCDEFGHIJ"
@@ -357,7 +354,7 @@ border: none; background: none; font-weight: none; color: none; }
                </table>
             </div>
             <p><span class="emphasis"><em>Maximum Stored Value</em></span></p>
-            <p>The <span class="strong"><strong>maximum value</strong></span> that can be stored in a single program memory <span class="strong"><strong>word</strong></span> location across the PIC families you asked about (PIC10, PIC12, PIC14, PIC16, PIC18), formatted as clean markdown:
+            <p>The <span class="strong"><strong>maximum value</strong></span> that can be stored in a single program memory <span class="strong"><strong>word</strong></span> location across the PIC families:
             </p>
             <div class="informaltable">
                <table border="1">
@@ -619,14 +616,18 @@ border: none; background: none; font-weight: none; color: none; }
                   </li>
                   <li class="listitem">The values above apply when storing constants, lookup table entries, <code class="literal">retlw</code> literals, <code class="literal">data</code>/<code class="literal">db</code> directives, etc. — i.e., the largest number that fits in one program memory <span class="strong"><strong>word</strong></span>.
                   </li>
-                  <li class="listitem">When reading word from 18F the addresses are even numbers addresses ( a word address is always an even number ), and non-18F
-                     are consectutive addresses.
+                  <li class="listitem"><span class="strong"><strong>Program memory addressing varies by family:</strong></span></li>
+                  <li class="listitem">On <span class="strong"><strong>PIC18F</strong></span> family chips, program memory is byte-addressable (addresses run consecutively: 0, 1, 2, 3, …). For <span class="strong"><strong>word</strong></span> (16-bit) reads/writes, the address <span class="strong"><strong>must be even</strong></span> (starting on the low byte of a word pair; odd addresses would misalign). Byte-level access uses fully consecutive addresses.
                   </li>
+                  <li class="listitem">
+                     <p class="simpara">On <span class="strong"><strong>non-18F</strong></span> families (PIC10/PIC12/PIC14/PIC16 etc.), program memory is word-addressable with consecutive word indices (0, 1, 2, …); byte
+                        handling is limited or requires special care.
+                     </p><pre class="literallayout">Always use even addresses for word operations on PIC18F when using `ProgramRead`, `DATA` lookups, or tables to avoid reading split or incorrect data. See the chip datasheet for TBLPTR (table pointer) details on PIC18F.</pre></li>
                </ul>
             </div>
             <p><span class="strong"><strong>Complete working example program</strong></span></p>
-            <p>This example creates several DATA datasets.  The example also create a lookup table.  The DATA dataset are addressed with
-               the additional parameter to ensure there is no DATA dataset overlap.  
+            <p>This example creates several DATA datasets. The example also create a lookup table. The DATA dataset are addressed with the
+               additional parameter to ensure there is no DATA dataset overlap.
             </p><pre class="screen">        #chip 16F886
         #option explicit
 
