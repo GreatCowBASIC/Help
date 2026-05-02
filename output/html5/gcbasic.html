@@ -547,6 +547,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#__option_nolatch">#Option NoLatch</a></li>
 <li><a href="#__option_required">#Option Required</a></li>
 <li><a href="#__option_shadowregister">#Option Shadowregister</a></li>
+<li><a href="#__option_removeavrvectors">#Option removeAVRvectors</a></li>
 <li><a href="#__option_volatile">#Option Volatile</a></li>
 <li><a href="#__option_reservehighprog">#Option ReserveHighProg</a></li>
 </ul>
@@ -815,13 +816,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-03-07<br>
-18:30:21 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-05-02<br>
+16:04:40 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-02-26<br>
-07:49:59 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-05-02<br>
+15:40:12 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -56254,6 +56255,47 @@ the data value held in the port latch, regardless of the state of the actual pin
 </div>
 </div>
 <div class="sect2">
+<h3 id="__option_removeavrvectors">#Option removeAVRvectors</h3>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #option removeAVRvectors</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>#option removeAVRvectors</code> reduces the AVR interrupt vector table (IVR) in the compiled output to the smallest possible size, saving flash memory.</p>
+</div>
+<div class="paragraph">
+<p>Normally, AVR flash memory begins with the full interrupt vector table — a fixed block of addresses, one per interrupt source, that the processor jumps to when an interrupt occurs. The actual user code is placed in memory after this entire table. On devices with many interrupt sources this table can occupy a significant amount of flash, much of which is typically unused.</p>
+</div>
+<div class="paragraph">
+<p>When <code>#option removeAVRvectors</code> is used, the compiler determines which interrupt vectors are actually used in the program and writes only those entries, up to and including the highest used vector address. User code is then placed immediately after the last required vector entry. If no interrupts are used at all, the vector table is omitted entirely and user code starts at address 1, immediately after the reset vector.</p>
+</div>
+<div class="paragraph">
+<p><code>ON INTERRUPT</code> can be used with <code>#option removeAVRvectors</code>. The compiler will preserve the vector entries required by any interrupts that are defined in the program.</p>
+</div>
+<div class="paragraph">
+<p><strong>Restriction:</strong></p>
+</div>
+<div class="paragraph">
+<p>Inline ASM code that uses or references interrupt vectors directly must not be used when this directive is active, as the full vector table will not be present in the compiled output.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #option removeAVRvectors</pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
 <h3 id="__option_volatile">#Option Volatile</h3>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
@@ -60866,7 +60908,7 @@ If you use AVRDUDE then uou must ensure the Windows device driver is <code>libus
 <div id="footer">
 <div id="footer-text">
 Version Based on GCBASIC source (circa 2026 build)<br>
-Last updated 2026-02-26 07:49:59 GMT Standard Time
+Last updated 2026-05-02 15:40:12 GMT Summer Time
 </div>
 </div>
 </body>

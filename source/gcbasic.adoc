@@ -1194,6 +1194,8 @@ include::optionrequired.adoc[]
 
 include::optionshadowregister.adoc[]
 
+include::optionremoveavrvectors.adoc[]
+
 include::optionvolatile.adoc[]
 
 include::optionReserveHighProg.adoc[]
