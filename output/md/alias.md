@@ -35,7 +35,7 @@ Alias and At cannot be used together on the same declaration line.  
 Alias does not support Bit variables.    For bit‑level aliasing, use
 constants or \#Define macros.
 
-Aliases are alaways shown in the ASM source in the ;ALIAS VARIABLES
+Aliases are always shown in the ASM source in the ;ALIAS VARIABLES
 section.
 
 The coding approach should be to DIMension the variable (word, integer,

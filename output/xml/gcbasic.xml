@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2026-05-02</date>
+<date>2026-05-08</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team. Copyright 2005 - 2026</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-05-02<?asciidoc-br?>
-16:04:34 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-05-08<?asciidoc-br?>
+14:45:17 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-05-02<?asciidoc-br?>
-15:40:12 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-05-08<?asciidoc-br?>
+14:24:15 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -2287,6 +2287,370 @@ To apply operations to individual bits of variables see, <link linkend="_set">Se
 <link linkend="_if">If</link>, <link linkend="_do">Do</link>, <link linkend="_for">For</link>, <link linkend="_conditions">Conditions</link>
 <?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">For more help, see:</emphasis> <link linkend="_dim">Declaring variables with DIM</link>, <link linkend="_setting_variables">Setting Variables</link></simpara>
+</section>
+<section xml:id="_variables_and_data_types">
+<title>Variables and Data Types</title>
+<simpara><emphasis role="strong">Overview</emphasis></simpara>
+<simpara>GCBASIC supports fundamental numeric data types for variable declarations:
+<literal>Byte</literal>, <literal>Word</literal>, <literal>Integer</literal>, and <literal>Long</literal>.&#160;&#160;
+Each type differs in size, range, and whether it can represent negative numbers.&#160;&#160;
+For Advanced Variables see the appropiate Help page.</simpara>
+<simpara>Variables are declared using the <literal>Dim</literal> statement:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">Dim variable_name As DataType</programlisting>
+<simpara><?asciidoc-hr?></simpara>
+<simpara><emphasis role="strong">Data Types</emphasis></simpara>
+<simpara><emphasis role="strong"><emphasis>Byte</emphasis></emphasis></simpara>
+<simpara>A <literal>Byte</literal> is an unsigned 8-bit integer.&#160;&#160;</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<?dbhtml table-width="60%"?>
+<?dbfo table-width="60%"?>
+<?dblatex table-width="60%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="128*"/>
+<colspec colname="col_2" colwidth="128*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Property</entry>
+<entry align="left" valign="top">Value</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Size</simpara></entry>
+<entry align="left" valign="top"><simpara>8 bits (1 byte)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Signed</simpara></entry>
+<entry align="left" valign="top"><simpara>No</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Minimum value</simpara></entry>
+<entry align="left" valign="top"><simpara>0</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Maximum value</simpara></entry>
+<entry align="left" valign="top"><simpara>255</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<programlisting language="gcbasic" linenumbering="unnumbered">Dim my_byte As Byte
+my_byte = 200
+
+or
+
+Dim my_byte As Byte = 200</programlisting>
+<simpara>Use <literal>Byte</literal> when you need a small, non-negative counter or flag, or when interfacing
+directly with hardware registers.&#160;&#160;</simpara>
+<simpara><?asciidoc-hr?></simpara>
+<simpara><emphasis role="strong"><emphasis>Word</emphasis></emphasis></simpara>
+<simpara>A <literal>Word</literal> is an unsigned 16-bit integer.&#160;&#160;</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<?dbhtml table-width="60%"?>
+<?dbfo table-width="60%"?>
+<?dblatex table-width="60%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="128*"/>
+<colspec colname="col_2" colwidth="128*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Property</entry>
+<entry align="left" valign="top">Value</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Size</simpara></entry>
+<entry align="left" valign="top"><simpara>16 bits (2 bytes)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Signed</simpara></entry>
+<entry align="left" valign="top"><simpara>No</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Minimum value</simpara></entry>
+<entry align="left" valign="top"><simpara>0</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Maximum value</simpara></entry>
+<entry align="left" valign="top"><simpara>65,535</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<programlisting language="gcbasic" linenumbering="unnumbered">Dim my_word As Word
+my_word = 50000
+
+or
+
+Dim my_word As Word = 50000</programlisting>
+<simpara>Internally, a <literal>Word</literal> is composed of two bytes:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><literal>my_word_H</literal> — high byte (bits 15–8)</simpara>
+</listitem>
+<listitem>
+<simpara><literal>my_word</literal>   — low byte  (bits 7–0)</simpara>
+</listitem>
+</itemizedlist>
+<simpara>You access the two bytes via the <literal>my_word_H</literal> or <literal>my_word</literal>.&#160;&#160;If you want to address each byte indepently use the cast [BY]</simpara>
+<simpara><?asciidoc-hr?></simpara>
+<simpara><emphasis role="strong"><emphasis>Integer</emphasis></emphasis></simpara>
+<simpara>An <literal>Integer</literal> is a <emphasis role="strong">signed</emphasis> 16-bit integer.&#160;&#160;</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<?dbhtml table-width="60%"?>
+<?dbfo table-width="60%"?>
+<?dblatex table-width="60%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="128*"/>
+<colspec colname="col_2" colwidth="128*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Property</entry>
+<entry align="left" valign="top">Value</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Size</simpara></entry>
+<entry align="left" valign="top"><simpara>16 bits (2 bytes)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Signed</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes (two&#8217;s complement)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Minimum value</simpara></entry>
+<entry align="left" valign="top"><simpara>−32,768</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Maximum value</simpara></entry>
+<entry align="left" valign="top"><simpara>32,767</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<programlisting language="gcbasic" linenumbering="unnumbered">Dim my_integer As Integer
+my_integer = -1200</programlisting>
+<simpara><literal>Integer</literal> shares the same 16-bit storage as <literal>Word</literal> but interprets the most significant
+bit as a sign bit, allowing negative values.&#160;&#160;</simpara>
+<simpara><?asciidoc-hr?></simpara>
+<simpara><emphasis role="strong"><emphasis>Long</emphasis></emphasis></simpara>
+<simpara>A <literal>Long</literal> is an unsigned 32-bit integer.&#160;&#160;</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<?dbhtml table-width="60%"?>
+<?dbfo table-width="60%"?>
+<?dblatex table-width="60%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="128*"/>
+<colspec colname="col_2" colwidth="128*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Property</entry>
+<entry align="left" valign="top">Value</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Size</simpara></entry>
+<entry align="left" valign="top"><simpara>32 bits (4 bytes)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Signed</simpara></entry>
+<entry align="left" valign="top"><simpara>No</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Minimum value</simpara></entry>
+<entry align="left" valign="top"><simpara>0</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Maximum value</simpara></entry>
+<entry align="left" valign="top"><simpara>4,294,967,295</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<programlisting language="gcbasic" linenumbering="unnumbered">Dim my_long As Long
+my_long = 1000000</programlisting>
+<simpara>A <literal>Long</literal> occupies four consecutive bytes in memory.&#160;&#160;
+GCBASIC names these bytes using suffixes on the variable name (see <xref linkend="byte-aliasing"/>).&#160;&#160;</simpara>
+<simpara><?asciidoc-hr?></simpara>
+<simpara><emphasis>*Quick Reference*</emphasis></simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="5">
+<colspec colname="col_1" colwidth="20*"/>
+<colspec colname="col_2" colwidth="20*"/>
+<colspec colname="col_3" colwidth="20*"/>
+<colspec colname="col_4" colwidth="20*"/>
+<colspec colname="col_5" colwidth="20*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Type</entry>
+<entry align="left" valign="top">Bits</entry>
+<entry align="left" valign="top">Bytes</entry>
+<entry align="left" valign="top">Signed</entry>
+<entry align="left" valign="top">Range</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><literal>Byte</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>8</simpara></entry>
+<entry align="left" valign="top"><simpara>1</simpara></entry>
+<entry align="left" valign="top"><simpara>No</simpara></entry>
+<entry align="left" valign="top"><simpara>0 … 255</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Word</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>16</simpara></entry>
+<entry align="left" valign="top"><simpara>2</simpara></entry>
+<entry align="left" valign="top"><simpara>No</simpara></entry>
+<entry align="left" valign="top"><simpara>0 … 65,535</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Integer</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>16</simpara></entry>
+<entry align="left" valign="top"><simpara>2</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+<entry align="left" valign="top"><simpara>−32,768 … 32,767</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Long</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>32</simpara></entry>
+<entry align="left" valign="top"><simpara>4</simpara></entry>
+<entry align="left" valign="top"><simpara>No</simpara></entry>
+<entry align="left" valign="top"><simpara>0 … 4,294,967,295</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><?asciidoc-hr?></simpara>
+<simpara xml:id="byte-aliasing"><emphasis role="strong">Byte Aliasing</emphasis></simpara>
+<simpara>GCBASIC allows individual bytes within a multi-byte variable to be addressed directly
+using the <literal>Alias</literal> keyword.&#160;&#160;
+This is particularly useful for <literal>Long</literal> variables, where you may need to read or write
+individual bytes — for example, when packing data into serial frames or working with
+hardware that accepts byte-wide registers.&#160;&#160;</simpara>
+<simpara><emphasis role="strong">_Long Byte Layout _</emphasis></simpara>
+<simpara>A <literal>Long</literal> variable named <literal>my_variable</literal> occupies four bytes in memory.&#160;&#160;
+GCBASIC assigns the following internal byte names automatically:</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="25*"/>
+<colspec colname="col_3" colwidth="50*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Byte name</entry>
+<entry align="left" valign="top">Position</entry>
+<entry align="left" valign="top">Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><literal>my_variable_E</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Byte 4 (MSB)</simpara></entry>
+<entry align="left" valign="top"><simpara>Most significant byte (bits 31–24)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>my_variable_U</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Byte 3</simpara></entry>
+<entry align="left" valign="top"><simpara>Upper-middle byte (bits 23–16)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>my_variable_H</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Byte 2</simpara></entry>
+<entry align="left" valign="top"><simpara>Lower-middle byte (bits 15–8)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>my_variable</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Byte 1 (LSB)</simpara></entry>
+<entry align="left" valign="top"><simpara>Least significant byte (bits 7–0)</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<note>
+<simpara>The suffix convention follows the GCBASIC internal naming scheme:
+<literal>_E</literal> (extended), <literal>_U</literal> (upper), <literal>_H</literal> (high), and no suffix for the low byte.&#160;&#160;</simpara>
+</note>
+<simpara><emphasis role="strong"><emphasis>Declaring Byte Aliases for a Long</emphasis></emphasis></simpara>
+<simpara>To work with individual bytes of a <literal>Long</literal>, declare separate <literal>Byte</literal> variables that
+alias each byte by name:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">Dim my_variable As Long
+
+Dim ByteOne   As Byte Alias my_variable_E  ' Bits 31-24 (most significant)
+Dim ByteTwo   As Byte Alias my_variable_U  ' Bits 23-16
+Dim ByteThree As Byte Alias my_variable_H  ' Bits 15-8
+Dim ByteFour  As Byte Alias my_variable    ' Bits  7-0  (least significant)</programlisting>
+<simpara><literal>ByteOne</literal>, <literal>ByteTwo</literal>, <literal>ByteThree</literal>, and <literal>ByteFour</literal> are not separate memory locations —
+they are <emphasis role="strong">aliases</emphasis> that refer directly to the corresponding byte within <literal>my_variable</literal>.&#160;&#160;
+Writing to an alias immediately changes the underlying <literal>Long</literal>, and vice versa.&#160;&#160;</simpara>
+<simpara><emphasis role="strong">Memory Layout Diagram</emphasis></simpara>
+<literallayout class="monospaced"> my_variable (Long, 32-bit)
+ ┌──────────┬──────────┬──────────┬──────────┐
+ │ Byte 4   │ Byte 3   │ Byte 2   │ Byte 1   │
+ │ bits31-24│ bits23-16│ bits15-8 │ bits 7-0 │
+ │(my_var_E)│(my_var_U)│(my_var_H)│(my_var)  │
+ │ ByteOne  │ ByteTwo  │ByteThree │ ByteFour │
+ └──────────┴──────────┴──────────┴──────────┘
+  MSB                                     LSB</literallayout>
+<simpara><emphasis role="strong"><emphasis>Example: Extracting Bytes from a Long Value</emphasis></emphasis></simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">Dim my_variable As Long
+
+Dim ByteOne   As Byte Alias my_variable_E
+Dim ByteTwo   As Byte Alias my_variable_U
+Dim ByteThree As Byte Alias my_variable_H
+Dim ByteFour  As Byte Alias my_variable
+
+' Assign a value to the Long
+my_variable = 0x12345678
+
+' Now each alias holds its respective byte:
+' ByteOne   = 0x12  (18  decimal)
+' ByteTwo   = 0x34  (52  decimal)
+' ByteThree = 0x56  (86  decimal)
+' ByteFour  = 0x78  (120 decimal)
+
+HSerSend ByteOne    ' transmit most significant byte first
+HSerSend ByteTwo
+HSerSend ByteThree
+HSerSend ByteFour   ' transmit least significant byte last</programlisting>
+<simpara><emphasis role="strong"><emphasis>Example: Assembling a Long from Individual Bytes</emphasis></emphasis></simpara>
+<simpara>Aliases also allow you to build up a <literal>Long</literal> byte-by-byte:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">Dim my_variable As Long
+
+Dim ByteOne   As Byte Alias my_variable_E
+Dim ByteTwo   As Byte Alias my_variable_U
+Dim ByteThree As Byte Alias my_variable_H
+Dim ByteFour  As Byte Alias my_variable
+
+ByteOne   = 0x12
+ByteTwo   = 0x34
+ByteThree = 0x56
+ByteFour  = 0x78
+
+' my_variable now equals 0x12345678 (305,419,896 decimal)</programlisting>
+<warning>
+<simpara>The <literal>Alias</literal> keyword creates a <emphasis role="strong">reference</emphasis>, not a copy.
+Any change to the aliased byte variable immediately affects the full <literal>Long</literal>, and
+any assignment to the <literal>Long</literal> immediately changes the value seen through all aliases.&#160;&#160;
+Never alias the same byte to two different variables and write to both without
+understanding which write will take effect last.&#160;&#160;</simpara>
+</warning>
+<simpara><?asciidoc-hr?></simpara>
+<simpara><emphasis role="strong">See Also</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><literal>Dim</literal> — variable declaration</simpara>
+</listitem>
+<listitem>
+<simpara><literal>HSerSend</literal> — hardware serial transmit</simpara>
+</listitem>
+<listitem>
+<simpara><literal>Alias</literal> — memory aliasing for overlapping variable declarations</simpara>
+</listitem>
+</itemizedlist>
 </section>
 <section xml:id="_advanced_variabletypes">
 <title>Advanced VariableTypes</title>
@@ -35780,20 +36144,20 @@ The example shows how to stop a timer when not in use.</simpara>
 </section>
 <section xml:id="_reading_timers">
 <title>Reading Timers</title>
-<simpara>GCBASIC has the following functions to read the current timer value. They
+<simpara>GCBASIC has the following macros to read a specific timer value. They
 are:</simpara>
-<screen>    Timer0()
-    Timer1()
-    Timer2()
-    Timer3()
-    Timer4()
-    Timer5()
-    Timer6()
-    Timer7()
-    Timer8()
-    Timer10()
-    Timer12()</screen>
-<simpara>Note that these functions should only be used to read the timer value.  To write the timer value, <literal>settimer</literal> should be used.</simpara>
+<screen>    Timer0
+    Timer1
+    Timer2
+    Timer3
+    Timer4
+    Timer5
+    Timer6
+    Timer7
+    Timer8
+    Timer10
+    Timer12</screen>
+<simpara>Note that these macros should only be used to read the timer value.  To write the timer value, <literal>settimer</literal> should be used.</simpara>
 <simpara>Not all of these functions are available on all microcontrollers. For example, if a microcontrollers has three timers, then typically only <literal>Timer0</literal>, <literal>Timer1</literal> and <literal>Timer2</literal> will be available.</simpara>
 <simpara>Please refer to the datasheet for your microcontroller to determine the supported timer numbers, and if a specific timer is 8-bit or 16-bit.</simpara>
 </section>
@@ -36412,7 +36776,7 @@ When reading or writing to this variable, it is effectively the aliases that are
 <simpara>Aliases are not like pointers in many languages - they must always refer to an existing variable or register.</simpara>
 <simpara>When setting a register/variable bit ( i.e  my_variable.my_bit_address_variable ) and using a alias for the variable then you must ensure the bytes that construct the variable are consecutive.</simpara>
 <simpara>Alias and At cannot be used together on the same declaration line.&#160;&#160; Alias does not support Bit variables. &#160;&#160; For bit‑level aliasing, use constants or #Define macros.</simpara>
-<simpara>Aliases are alaways shown in the ASM source in the ;ALIAS VARIABLES section.</simpara>
+<simpara>Aliases are always shown in the ASM source in the ;ALIAS VARIABLES section.</simpara>
 <simpara>The coding approach should be to DIMension the variable (word, integer, or long) first, then create the byte aliases:</simpara>
 <simpara>Example 1:</simpara>
 <screen>    Dim my_variable as LONG
