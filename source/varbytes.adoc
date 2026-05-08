@@ -1,0 +1,280 @@
+= Variables and Data Types
+:description: GCBASIC variable types: Byte, Word, Integer, Long, and byte aliasing
+:keywords: GCBASIC, variables, byte, word, integer, long, alias, dim
+
+== Overview
+
+GCBASIC supports fundamental numeric data types for variable declarations:
+`Byte`, `Word`, `Integer`, and `Long`.{nbsp}{nbsp}
+Each type differs in size, range, and whether it can represent negative numbers.{nbsp}{nbsp}
+For Advanced Variables see the appropiate Help page.
+
+Variables are declared using the `Dim` statement:
+
+[source,gcbasic]
+----
+Dim variable_name As DataType
+----
+
+---
+
+== Data Types
+
+=== Byte
+
+A `Byte` is an unsigned 8-bit integer.{nbsp}{nbsp}
+
+[cols="1,1", options="header", width="60%"]
+|===
+| Property       | Value
+| Size           | 8 bits (1 byte)
+| Signed         | No
+| Minimum value  | 0
+| Maximum value  | 255
+|===
+
+[source,gcbasic]
+----
+Dim my_byte As Byte
+my_byte = 200
+
+or
+
+Dim my_byte As Byte = 200
+----
+
+Use `Byte` when you need a small, non-negative counter or flag, or when interfacing
+directly with hardware registers.{nbsp}{nbsp}
+
+---
+
+=== Word
+
+A `Word` is an unsigned 16-bit integer.{nbsp}{nbsp}
+
+[cols="1,1", options="header", width="60%"]
+|===
+| Property       | Value
+| Size           | 16 bits (2 bytes)
+| Signed         | No
+| Minimum value  | 0
+| Maximum value  | 65,535
+|===
+
+[source,gcbasic]
+----
+Dim my_word As Word
+my_word = 50000
+
+or
+
+Dim my_word As Word = 50000
+----
+
+Internally, a `Word` is composed of two bytes:
+
+* `my_word_H` — high byte (bits 15–8)
+* `my_word`   — low byte  (bits 7–0)
+
+You access the two bytes via the `my_word_H` or `my_word`.{nbsp}{nbsp}If you want to address each byte independently use the cast `[BYTE]` to control the assignment scope.
+
+[source,gcbasic]
+----
+    [BYTE] my_word   = 0x34
+    [BYTE] my_word_H = 0x12
+
+    // Will assign the variable the value of 0x1234
+----
+
+=== Integer
+
+An `Integer` is a *signed* 16-bit integer.{nbsp}{nbsp}
+
+[cols="1,1", options="header", width="60%"]
+|===
+| Property       | Value
+| Size           | 16 bits (2 bytes)
+| Signed         | Yes (two's complement)
+| Minimum value  | −32,768
+| Maximum value  | 32,767
+|===
+
+[source,gcbasic]
+----
+Dim my_integer As Integer
+my_integer = -1200
+----
+
+`Integer` shares the same 16-bit storage as `Word` but interprets the most significant
+bit as a sign bit, allowing negative values.{nbsp}{nbsp}
+
+You access the two bytes via the `my_integer_H` or `my_integer`.{nbsp}{nbsp}If you want to address each byte independently use the cast `[BYTE]` to control the assignment scope.
+
+---
+
+=== Long
+
+A `Long` is an unsigned 32-bit integer.{nbsp}{nbsp}
+
+[cols="1,1", options="header", width="60%"]
+|===
+| Property       | Value
+| Size           | 32 bits (4 bytes)
+| Signed         | No
+| Minimum value  | 0
+| Maximum value  | 4,294,967,295
+|===
+
+[source,gcbasic]
+----
+Dim my_long As Long
+my_long = 1000000
+----
+
+A `Long` occupies four consecutive bytes in memory.{nbsp}{nbsp}
+GCBASIC names these bytes using suffixes on the variable name (see <<byte-aliasing>>).{nbsp}{nbsp}
+
+---
+
+== Quick Reference
+
+[cols="1,1,1,1,1", options="header"]
+|===
+| Type     | Bits | Bytes | Signed | Range
+| `Byte`   | 8    | 1     | No     | 0 … 255
+| `Word`   | 16   | 2     | No     | 0 … 65,535
+| `Integer`| 16   | 2     | Yes    | −32,768 … 32,767
+| `Long`   | 32   | 4     | No     | 0 … 4,294,967,295
+|===
+
+---
+
+[[variable-byte-adressing]]
+== Variable Byte Addressing
+
+GCBASIC allows individual bytes within a multi-byte variable to be addressed directly, and you can use the `Alias` keyword.{nbsp}{nbsp}
+This is particularly useful for `Long` variables, where you may need to read or write
+individual bytes — for example, when packing data into serial frames or working with
+hardware that accepts byte-wide registers.{nbsp}{nbsp}
+
+
+=== Word Byte Layout
+
+[cols="1,1,2", options="header"]
+|===
+| Byte name          | Position     | Description
+| `my_variable_H`    | Byte 2       | Lower-middle byte (bits 15–8)
+| `my_variable`      | Byte 1 (LSB) | Least significant byte (bits 7–0)
+|===
+
+=== Integer Byte Layout
+
+[cols="1,1,2", options="header"]
+|===
+| Byte name          | Position     | Description
+| `my_variable_H`    | Byte 2       | Lower-middle byte (bits 15–8)
+| `my_variable`      | Byte 1 (LSB) | Least significant byte (bits 7–0)
+|===
+
+=== Long Byte Layout
+
+A `Long` variable named `my_variable` occupies four bytes in memory.{nbsp}{nbsp}
+GCBASIC assigns the following internal byte names automatically:
+
+[cols="1,1,2", options="header"]
+|===
+| Byte name          | Position     | Description
+| `my_variable_E`    | Byte 4 (MSB) | Most significant byte (bits 31–24)
+| `my_variable_U`    | Byte 3       | Upper-middle byte (bits 23–16)
+| `my_variable_H`    | Byte 2       | Lower-middle byte (bits 15–8)
+| `my_variable`      | Byte 1 (LSB) | Least significant byte (bits 7–0)
+|===
+
+NOTE: The suffix convention follows the GCBASIC internal naming scheme:
+`_E` (extended), `_U` (upper), `_H` (high), and no suffix for the low byte.{nbsp}{nbsp}
+
+=== Declaring Byte Aliases for variables
+
+To work with individual bytes of a `Long`, `Word` or `Integer`, declare separate `Byte` variables that alias each byte by name:
+
+[source,gcbasic]
+----
+Dim my_variable As Long
+
+Dim ByteOne   As Byte Alias my_variable_E  ' Bits 31-24 (most significant)
+Dim ByteTwo   As Byte Alias my_variable_U  ' Bits 23-16
+Dim ByteThree As Byte Alias my_variable_H  ' Bits 15-8
+Dim ByteFour  As Byte Alias my_variable    ' Bits  7-0  (least significant)
+----
+
+`ByteOne`, `ByteTwo`, `ByteThree`, and `ByteFour` are not separate memory locations —
+they are *aliases* that refer directly to the corresponding byte within `my_variable`.{nbsp}{nbsp}
+Writing to an alias immediately changes the underlying `Long`, and vice versa.{nbsp}{nbsp}
+
+=== Memory Layout Diagram
+
+[literal]
+----
+ my_variable (Long, 32-bit)
+ ┌──────────┬──────────┬──────────┬──────────┐
+ │ Byte 4   │ Byte 3   │ Byte 2   │ Byte 1   │
+ │ bits31-24│ bits23-16│ bits15-8 │ bits 7-0 │
+ │(my_var_E)│(my_var_U)│(my_var_H)│(my_var)  │
+ │ ByteOne  │ ByteTwo  │ByteThree │ ByteFour │
+ └──────────┴──────────┴──────────┴──────────┘
+  MSB                                     LSB
+----
+
+=== Example: Extracting Bytes from a Long Value
+
+[source,gcbasic]
+----
+Dim my_variable As Long
+
+Dim ByteOne   As Byte Alias my_variable_E
+Dim ByteTwo   As Byte Alias my_variable_U
+Dim ByteThree As Byte Alias my_variable_H
+Dim ByteFour  As Byte Alias my_variable
+
+' Assign a value to the Long
+my_variable = 0x12345678
+
+' Now each alias holds its respective byte:
+' ByteOne   = 0x12  (18  decimal)
+' ByteTwo   = 0x34  (52  decimal)
+' ByteThree = 0x56  (86  decimal)
+' ByteFour  = 0x78  (120 decimal)
+
+HSerSend ByteOne    ' transmit most significant byte first
+HSerSend ByteTwo
+HSerSend ByteThree
+HSerSend [Byte]ByteFour   ' transmit least significant byte last
+----
+
+=== Example: Assembling a Long from Individual Bytes
+
+Aliases also allow you to build up a `Long` byte-by-byte:
+
+[source,gcbasic]
+----
+Dim my_variable As Long
+
+Dim ByteOne   As Byte Alias my_variable_E
+Dim ByteTwo   As Byte Alias my_variable_U
+Dim ByteThree As Byte Alias my_variable_H
+Dim ByteFour  As Byte Alias my_variable
+
+ByteOne   = 0x12
+ByteTwo   = 0x34
+ByteThree = 0x56
+[Byte]ByteFour  = 0x78
+
+' my_variable now equals 0x12345678 (305,419,896 decimal)
+----
+
+WARNING: The `Alias` keyword creates a *reference*, not a copy.
+Any change to the aliased byte variable immediately affects the full `Long`, and
+any assignment to the `Long` immediately changes the value seen through all aliases.{nbsp}{nbsp}
+Never alias the same byte to two different variables and write to both without
+understanding which write will take effect last.{nbsp}{nbsp}
+
