@@ -92,7 +92,7 @@ When setting a register/variable bit ( i.e  my_variable.my_bit_address_variable 
 
 Alias and At cannot be used together on the same declaration line.&#160;&#160; Alias does not support Bit variables. &#160;&#160; For bit‑level aliasing, use constants or #Define macros.
 
-Aliases are alaways shown in the ASM source in the ;ALIAS VARIABLES section.
+Aliases are always shown in the ASM source in the ;ALIAS VARIABLES section.
 
 The coding approach should be to DIMension the variable (word, integer, or long) first, then create the byte aliases:
 
