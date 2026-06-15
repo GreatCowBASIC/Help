@@ -609,13 +609,13 @@ Select the drop down menu to see the menu
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-05-08<br>
-14:45:19 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-06-15<br>
+07:56:03 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-05-08<br>
-14:24:15 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-06-15<br>
+07:38:29 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -2777,6 +2777,281 @@ Hardware Serial (TX1) data will now be output on both B.6 and C.6
             RB6PPS = 0x0020    'TX1 &gt; RB6
 
     End Sub</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gcbasic_hxl_memory_map_output">GCBASIC HXL- Memory Map Output</h3>
+<div class="paragraph">
+<p><strong>Overview</strong></p>
+</div>
+<div class="paragraph">
+<p>GCBASIC and its assembler GCASM generate a diagnostic memory‑map report that is functionally similar to Microchip’s HEXMATE <strong>HXL</strong> output.</p>
+</div>
+<div class="paragraph">
+<p>The report provides a linearised, human‑readable view of program‑memory usage, showing which regions contain compiled code and which remain unused.</p>
+</div>
+<div class="paragraph">
+<p>The purpose mirrors the original HXL format:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="ca://s?q=GCBASIC_memory_usage_explanation">Verify memory usage</a></p>
+</li>
+<li>
+<p><a href="ca://s?q=GCBASIC_unused_memory_ranges">Detect unused or unexpected gaps</a></p>
+</li>
+<li>
+<p><a href="ca://s?q=GCBASIC_vector_placement">Confirm placement of reset and interrupt vectors</a></p>
+</li>
+<li>
+<p><a href="ca://s?q=GCBASIC_memory_mapping_debugging">Debug memory‑mapping behaviour</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>GCBASIC extends the traditional HXL concept by adding a <strong>visual hex‑grid map</strong>, making memory analysis easier and more intuitive.</p>
+</div>
+<div class="paragraph">
+<p><strong>Structure of the GCASM Output Summary</strong></p>
+</div>
+<div class="paragraph">
+<p>A typical output summary contains:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>    ### GCASM logfile and output summary ###
+
+    ### Command-line arguments ###
+    C:\GCstudio\gcbasic\GCBASIC.EXE ... /DO
+
+    ### Memory Definition (bytes) ###
+    0h-00001FFFh
+
+    ### Memory Usage ###
+    Input file ranges:
+    0h-1h; 4h-5Fh
+    Unused ranges:
+    2h-3h; 60h-1FFFh
+
+    ### Hex Memory Map ###
+    Legend:
+    -- = Unused memory
+    H1 = Used memory</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure mirrors the HEXMATE HXL file but adds a graphical representation of memory.</p>
+</div>
+<div class="paragraph">
+<p><strong>Memory Definition</strong></p>
+</div>
+<div class="paragraph">
+<p>The <strong>Memory Definition</strong> section specifies the linear memory window that GCBASIC will analyse:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>    0h–00001FFFh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unlike HEXMATE, which often uses a generic 64‑Kiword window, GCBASIC uses the <strong>actual device memory size</strong>, producing a more accurate and device‑specific report.</p>
+</div>
+<div class="paragraph">
+<p><strong>Memory Usage (HXL‑Equivalent)</strong></p>
+</div>
+<div class="paragraph">
+<p>This section is directly comparable to HEXMATE’s <strong>Input file ranges</strong> and <strong>Unused ranges</strong>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Input File Ranges</strong></p>
+</div>
+<div class="paragraph">
+<p>These are contiguous blocks of addresses that contain compiled program bytes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>    0h–1h; 4h–5Fh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Interpretation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    `0h–1h` → Reset vector and initial instructions
+    `4h–5Fh` → Main program body</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Unused Ranges</strong></p>
+</div>
+<div class="paragraph">
+<p>These are the gaps between used blocks:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>    2h–3h; 60h–1FFFh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is equivalent to HEXMATE’s unused‑range reporting and is essential for verifying expected gaps, bootloader boundaries, and linker‑like behaviour.</p>
+</div>
+<div class="paragraph">
+<p><strong>Hex Memory Map (GCBASIC‑Exclusive Feature)</strong></p>
+</div>
+<div class="paragraph">
+<p>GCBASIC adds a visual hex‑grid map similar to HEXMATE:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>    00000000 | H1 H1 -- -- H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000010 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000020 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000030 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000040 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000050 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This grid provides:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Byte‑accurate visibility of memory usage</p>
+</li>
+<li>
+<p>Immediate identification of gaps</p>
+</li>
+<li>
+<p>A debugging tool for startup code, ISRs, and padding</p>
+</li>
+<li>
+<p>A way to confirm that GCBASIC is generating dense, efficient code</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>How GCBASIC Builds the HXL‑Style Map</strong></p>
+</div>
+<div class="paragraph">
+<p>GCBASIC follows a process similar to HEXMATE:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Compile GCBASIC source into GCASM assembly.</p>
+</li>
+<li>
+<p>Assemble into a HEX file.</p>
+</li>
+<li>
+<p>Linearise all addresses.</p>
+</li>
+<li>
+<p>Mark each byte as used or unused.</p>
+</li>
+<li>
+<p>Consolidate contiguous used regions.</p>
+</li>
+<li>
+<p>Emit <strong>Input</strong> and <strong>Unused</strong> ranges.</p>
+</li>
+<li>
+<p>Render the visual hex‑grid map.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The key difference is that GCBASIC uses the <strong>actual device memory limits</strong> and integrates the report directly into the compiler output.</p>
+</div>
+<div class="paragraph">
+<p><strong>Comparison: HEXMATE HXL vs GCBASIC Output</strong></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Feature</th>
+<th class="tableblock halign-left valign-top">HEXMATE HXL</th>
+<th class="tableblock halign-left valign-top">GCBASIC/GCASM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microcontroller Support</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC, AVR &amp; LGT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Input file ranges</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unused ranges</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linearised address space</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Device‑specific memory window</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Visual hex‑grid map</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integrated into compiler</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Config‑word mapping</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Summary</strong></p>
+</div>
+<div class="paragraph">
+<p>GCBASIC’s GCASM output summary is effectively a modernised HXL file:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Same range reporting</p>
+</li>
+<li>
+<p>Same linear memory model</p>
+</li>
+<li>
+<p>Same diagnostic purpose</p>
+</li>
+<li>
+<p>Enhanced with a visual hex map</p>
+</li>
+<li>
+<p>More accurate due to real device memory limits</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It is a powerful tool for validating memory layout, debugging unexpected gaps, and ensuring correct program placement on microcontrollers.</p>
 </div>
 </div>
 <div class="sect2">
@@ -56262,7 +56537,43 @@ If any of the variables do not exist, the compiler will create a constant mappin
 </div>
 </div>
 <div class="sect2">
-<h3 id="__option_bootloader">5.3. #Option Bootloader</h3>
+<h3 id="__option_startupmethodsdisabled">5.3. #Option STARTUPMETHODSDISABLED</h3>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #option STARTUPMETHODSDISABLED</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will instruct the compiler to disable all library startup methods.&#160;&#160;
+Examination of the generated ASM will show the disabled methods as comments.&#160;&#160;
+The calls to these methods can be added into the user program at a suitable place ( if required ).</p>
+</div>
+<div class="paragraph">
+<p><code>#option STARTUPMETHODSDISABLED</code> is used to optimise the ASM created.</p>
+</div>
+<div class="paragraph">
+<p><strong>Introduction:</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16f877a
+
+    'Example command
+    #option STARTUPMETHODSDISABLED
+
+    'User Code......</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="__option_bootloader">5.4. #Option Bootloader</h3>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
 </div>
@@ -56307,7 +56618,7 @@ If any of the variables do not exist, the compiler will create a constant mappin
 </div>
 </div>
 <div class="sect2">
-<h3 id="__option_nocontextsave">5.4. #Option NoContextSave</h3>
+<h3 id="__option_nocontextsave">5.5. #Option NoContextSave</h3>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
 </div>
@@ -56376,7 +56687,7 @@ Normally GCBASIC will do this automatically, but in some cases it may be necessa
 </div>
 </div>
 <div class="sect2">
-<h3 id="__option_nolatch">5.5. #Option NoLatch</h3>
+<h3 id="__option_nolatch">5.6. #Option NoLatch</h3>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
 </div>
@@ -56421,7 +56732,7 @@ the data value held in the port latch, regardless of the state of the actual pin
 </div>
 </div>
 <div class="sect2">
-<h3 id="__option_required">5.6. #Option Required</h3>
+<h3 id="__option_required">5.7. #Option Required</h3>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
 </div>
@@ -56469,7 +56780,7 @@ the data value held in the port latch, regardless of the state of the actual pin
 </div>
 </div>
 <div class="sect2">
-<h3 id="__option_shadowregister">5.7. #Option Shadowregister</h3>
+<h3 id="__option_shadowregister">5.8. #Option Shadowregister</h3>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
 </div>
@@ -56518,7 +56829,7 @@ the data value held in the port latch, regardless of the state of the actual pin
 </div>
 </div>
 <div class="sect2">
-<h3 id="__option_removeavrvectors">5.8. #Option removeAVRvectors</h3>
+<h3 id="__option_removeavrvectors">5.9. #Option removeAVRvectors</h3>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
 </div>
@@ -56559,7 +56870,131 @@ the data value held in the port latch, regardless of the state of the actual pin
 <hr>
 </div>
 <div class="sect2">
-<h3 id="__option_volatile">5.9. #Option Volatile</h3>
+<h3 id="__option_usercodeonly">5.10. #Option UserCodeOnly</h3>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    #option UserCodeOnly LABEL:</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This option enables <strong>minimal‑startup user mode</strong>, allowing the developer to take full control of the program’s behaviour from the very first instruction.</p>
+</div>
+<div class="paragraph">
+<p>When enabled, the compiler omits all standard automatic startup routines normally inserted by GCBASIC. This directive is ideal for applications where the user requires absolute control over the execution environment.</p>
+</div>
+<div class="paragraph">
+<p>The label is mandated.  The label specified will be included in the ASM generated.</p>
+</div>
+<div class="paragraph">
+<p><strong>Behaviour:</strong></p>
+</div>
+<div class="paragraph">
+<p>Enabling <strong>UserCodeOnly</strong> removes or suppresses the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>No automatic stack initialisation</strong>
+The compiler does not configure the hardware stack or related registers.</p>
+</li>
+<li>
+<p><strong>No global interrupt enable (sei)</strong>
+Interrupts remain disabled unless explicitly enabled by the user.</p>
+</li>
+<li>
+<p><strong>Optional removal of the standard interrupt vector table</strong>
+If the label provided replaces the default vector, the user must supply their own interrupt entry code.</p>
+</li>
+<li>
+<p><strong>No GCBASIC runtime startup code</strong>
+No variable initialisation, no system setup, no runtime housekeeping.</p>
+</li>
+<li>
+<p><strong>No automatic calls to INITSYS or other init routines</strong>
+All system configuration must be performed manually.</p>
+</li>
+<li>
+<p><strong>Reduced .ORG directives at page boundaries</strong>
+The compiler avoids inserting automatic page‑alignment directives, giving the user full control of memory layout.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This mode is intended for advanced users who require a bare‑metal environment.</p>
+</div>
+<div class="paragraph">
+<p><strong>Ideal for:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Bare‑metal applications</strong>
+Where the user wants to define every instruction executed from reset.</p>
+</li>
+<li>
+<p><strong>Custom bootloaders</strong>
+Allows precise control over memory layout, vectors, and startup flow.</p>
+</li>
+<li>
+<p><strong>Mixed GCBASIC + assembly projects</strong>
+Ensures no hidden runtime code interferes with hand‑written assembly.</p>
+</li>
+<li>
+<p><strong>Minimal firmware with full user control</strong>
+Perfect for ultra‑small, deterministic, or timing‑critical applications.</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Example 1:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 16f877a
+
+    'Enable minimal user‑mode startup
+    #option usercodeonly StartHere:
+
+StartHere:
+    'User-defined reset entry point
+    #asmraw[
+        nop
+        nop
+    #asmraw]
+
+    'Your program continues here</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example 2:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    'Set chip model
+    #chip 18f452
+
+    'UserCodeOnly with custom interrupt vector
+    #option USERCODEONLY    myReset:
+
+
+
+MyReset:
+    'Manual system setup
+        clrf INTCON     ; interrupts remain disabled
+        clrf STATUS
+
+MainLoop:
+    goto MainLoop</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="__option_volatile">5.11. #Option Volatile</h3>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
 </div>
@@ -56602,7 +57037,7 @@ the data value held in the port latch, regardless of the state of the actual pin
 </div>
 </div>
 <div class="sect2">
-<h3 id="__option_reservehighprog">5.10. #Option ReserveHighProg</h3>
+<h3 id="__option_reservehighprog">5.12. #Option ReserveHighProg</h3>
 <div class="paragraph">
 <p><strong>Syntax:</strong></p>
 </div>
@@ -61171,7 +61606,7 @@ If you use AVRDUDE then uou must ensure the Windows device driver is <code>libus
 <div id="footer">
 <div id="footer-text">
 Version Based on GCBASIC source (circa 2026 build)<br>
-Last updated 2026-05-08 14:24:15 GMT Summer Time
+Last updated 2026-06-15 07:38:29 GMT Summer Time
 </div>
 </div>
 </body>

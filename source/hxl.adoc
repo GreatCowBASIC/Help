@@ -1,0 +1,146 @@
+=== GCBASIC HXL- Memory Map Output
+
+**Overview**
+
+GCBASIC and its assembler GCASM generate a diagnostic memory‑map report that is functionally similar to Microchip’s HEXMATE *HXL* output.
+
+The report provides a linearised, human‑readable view of program‑memory usage, showing which regions contain compiled code and which remain unused.
+
+The purpose mirrors the original HXL format:
+
+- link:ca://s?q=GCBASIC_memory_usage_explanation[Verify memory usage]
+- link:ca://s?q=GCBASIC_unused_memory_ranges[Detect unused or unexpected gaps]
+- link:ca://s?q=GCBASIC_vector_placement[Confirm placement of reset and interrupt vectors]
+- link:ca://s?q=GCBASIC_memory_mapping_debugging[Debug memory‑mapping behaviour]
+
+GCBASIC extends the traditional HXL concept by adding a *visual hex‑grid map*, making memory analysis easier and more intuitive.
+
+**Structure of the GCASM Output Summary**
+
+A typical output summary contains:
+
+```
+    ### GCASM logfile and output summary ###
+
+    ### Command-line arguments ###
+    C:\GCstudio\gcbasic\GCBASIC.EXE ... /DO
+
+    ### Memory Definition (bytes) ###
+    0h-00001FFFh
+
+    ### Memory Usage ###
+    Input file ranges:
+    0h-1h; 4h-5Fh
+    Unused ranges:
+    2h-3h; 60h-1FFFh
+
+    ### Hex Memory Map ###
+    Legend:
+    -- = Unused memory
+    H1 = Used memory
+```
+
+This structure mirrors the HEXMATE HXL file but adds a graphical representation of memory.
+
+**Memory Definition**
+
+The *Memory Definition* section specifies the linear memory window that GCBASIC will analyse:
+
+```
+    0h–00001FFFh
+```
+
+Unlike HEXMATE, which often uses a generic 64‑Kiword window, GCBASIC uses the *actual device memory size*, producing a more accurate and device‑specific report.
+
+**Memory Usage (HXL‑Equivalent)**
+
+This section is directly comparable to HEXMATE’s *Input file ranges* and *Unused ranges*.
+
+**Input File Ranges**
+
+These are contiguous blocks of addresses that contain compiled program bytes:
+
+```
+    0h–1h; 4h–5Fh
+```
+
+Interpretation:
+
+----
+    `0h–1h` → Reset vector and initial instructions  
+    `4h–5Fh` → Main program body  
+----
+
+**Unused Ranges**
+
+These are the gaps between used blocks:
+
+```
+    2h–3h; 60h–1FFFh
+```
+
+This is equivalent to HEXMATE’s unused‑range reporting and is essential for verifying expected gaps, bootloader boundaries, and linker‑like behaviour.
+
+**Hex Memory Map (GCBASIC‑Exclusive Feature)**
+
+GCBASIC adds a visual hex‑grid map similar to HEXMATE:
+
+```
+    00000000 | H1 H1 -- -- H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000010 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000020 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000030 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000040 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000050 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+```
+
+This grid provides:
+
+- Byte‑accurate visibility of memory usage  
+- Immediate identification of gaps  
+- A debugging tool for startup code, ISRs, and padding  
+- A way to confirm that GCBASIC is generating dense, efficient code  
+
+**How GCBASIC Builds the HXL‑Style Map**
+
+GCBASIC follows a process similar to HEXMATE:
+
+1. Compile GCBASIC source into GCASM assembly.
+2. Assemble into a HEX file.
+3. Linearise all addresses.
+4. Mark each byte as used or unused.
+5. Consolidate contiguous used regions.
+6. Emit *Input* and *Unused* ranges.
+7. Render the visual hex‑grid map.
+
+The key difference is that GCBASIC uses the *actual device memory limits* and integrates the report directly into the compiler output.
+
+**Comparison: HEXMATE HXL vs GCBASIC Output**
+
+[cols="1,1,1",options="header"]
+|===
+| Feature | HEXMATE HXL | GCBASIC/GCASM
+
+| Microcontroller Support | PIC | PIC, AVR & LGT
+| Input file ranges | Yes | Yes
+| Unused ranges | Yes | Yes
+| Linearised address space | Yes | Yes
+| Device‑specific memory window | No | Yes
+| Visual hex‑grid map | Yes | Yes
+| Integrated into compiler | No | Yes
+| Config‑word mapping | Yes | Yes
+|===
+
+**Summary**
+
+GCBASIC’s GCASM output summary is effectively a modernised HXL file:
+
+- Same range reporting  
+- Same linear memory model  
+- Same diagnostic purpose  
+- Enhanced with a visual hex map  
+- More accurate due to real device memory limits  
+
+It is a powerful tool for validating memory layout, debugging unexpected gaps, and ensuring correct program placement on microcontrollers.
+
+

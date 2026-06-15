@@ -23,3 +23,34 @@ This option will prevent the generated assembler from generating _Config items.
 
     'User Code......
 ----
+
+
+
+
+=== #Option STARTUPMETHODSDISABLED
+
+*Syntax:*
+----
+    #option STARTUPMETHODSDISABLED
+----
+This will instruct the compiler to disable all library startup methods.&#160;&#160;
+Examination of the generated ASM will show the disabled methods as comments.&#160;&#160;
+The calls to these methods can be added into the user program at a suitable place ( if required ).
+
+
+`#option STARTUPMETHODSDISABLED` is used to optimise the ASM created.
+
+*Introduction:*
+
+
+*Example:*
+----
+    'Set chip model
+    #chip 16f877a
+
+    'Example command
+    #option STARTUPMETHODSDISABLED
+
+    'User Code......
+----
+

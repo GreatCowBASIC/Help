@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2026-05-08</date>
+<date>2026-06-15</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team. Copyright 2005 - 2026</firstname>
@@ -163,13 +163,13 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-05-08<?asciidoc-br?>
-14:45:17 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-06-15<?asciidoc-br?>
+07:56:01 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-05-08<?asciidoc-br?>
-14:24:15 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-06-15<?asciidoc-br?>
+07:38:29 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -1598,6 +1598,191 @@ Hardware Serial (TX1) data will now be output on both B.6 and C.6
             RB6PPS = 0x0020    'TX1 &gt; RB6
 
     End Sub</screen>
+<section xml:id="_gcbasic_hxl_memory_map_output">
+<title>GCBASIC HXL- Memory Map Output</title>
+<simpara><emphasis role="strong">Overview</emphasis></simpara>
+<simpara>GCBASIC and its assembler GCASM generate a diagnostic memory‑map report that is functionally similar to Microchip’s HEXMATE <emphasis role="strong">HXL</emphasis> output.</simpara>
+<simpara>The report provides a linearised, human‑readable view of program‑memory usage, showing which regions contain compiled code and which remain unused.</simpara>
+<simpara>The purpose mirrors the original HXL format:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><link xlink:href="ca://s?q=GCBASIC_memory_usage_explanation">Verify memory usage</link></simpara>
+</listitem>
+<listitem>
+<simpara><link xlink:href="ca://s?q=GCBASIC_unused_memory_ranges">Detect unused or unexpected gaps</link></simpara>
+</listitem>
+<listitem>
+<simpara><link xlink:href="ca://s?q=GCBASIC_vector_placement">Confirm placement of reset and interrupt vectors</link></simpara>
+</listitem>
+<listitem>
+<simpara><link xlink:href="ca://s?q=GCBASIC_memory_mapping_debugging">Debug memory‑mapping behaviour</link></simpara>
+</listitem>
+</itemizedlist>
+<simpara>GCBASIC extends the traditional HXL concept by adding a <emphasis role="strong">visual hex‑grid map</emphasis>, making memory analysis easier and more intuitive.</simpara>
+<simpara><emphasis role="strong">Structure of the GCASM Output Summary</emphasis></simpara>
+<simpara>A typical output summary contains:</simpara>
+<screen>    ### GCASM logfile and output summary ###
+
+    ### Command-line arguments ###
+    C:\GCstudio\gcbasic\GCBASIC.EXE ... /DO
+
+    ### Memory Definition (bytes) ###
+    0h-00001FFFh
+
+    ### Memory Usage ###
+    Input file ranges:
+    0h-1h; 4h-5Fh
+    Unused ranges:
+    2h-3h; 60h-1FFFh
+
+    ### Hex Memory Map ###
+    Legend:
+    -- = Unused memory
+    H1 = Used memory</screen>
+<simpara>This structure mirrors the HEXMATE HXL file but adds a graphical representation of memory.</simpara>
+<simpara><emphasis role="strong">Memory Definition</emphasis></simpara>
+<simpara>The <emphasis role="strong">Memory Definition</emphasis> section specifies the linear memory window that GCBASIC will analyse:</simpara>
+<screen>    0h–00001FFFh</screen>
+<simpara>Unlike HEXMATE, which often uses a generic 64‑Kiword window, GCBASIC uses the <emphasis role="strong">actual device memory size</emphasis>, producing a more accurate and device‑specific report.</simpara>
+<simpara><emphasis role="strong">Memory Usage (HXL‑Equivalent)</emphasis></simpara>
+<simpara>This section is directly comparable to HEXMATE’s <emphasis role="strong">Input file ranges</emphasis> and <emphasis role="strong">Unused ranges</emphasis>.</simpara>
+<simpara><emphasis role="strong">Input File Ranges</emphasis></simpara>
+<simpara>These are contiguous blocks of addresses that contain compiled program bytes:</simpara>
+<screen>    0h–1h; 4h–5Fh</screen>
+<simpara>Interpretation:</simpara>
+<screen>    `0h–1h` → Reset vector and initial instructions
+    `4h–5Fh` → Main program body</screen>
+<simpara><emphasis role="strong">Unused Ranges</emphasis></simpara>
+<simpara>These are the gaps between used blocks:</simpara>
+<screen>    2h–3h; 60h–1FFFh</screen>
+<simpara>This is equivalent to HEXMATE’s unused‑range reporting and is essential for verifying expected gaps, bootloader boundaries, and linker‑like behaviour.</simpara>
+<simpara><emphasis role="strong">Hex Memory Map (GCBASIC‑Exclusive Feature)</emphasis></simpara>
+<simpara>GCBASIC adds a visual hex‑grid map similar to HEXMATE:</simpara>
+<screen>    00000000 | H1 H1 -- -- H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000010 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000020 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000030 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000040 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+    00000050 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1</screen>
+<simpara>This grid provides:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Byte‑accurate visibility of memory usage</simpara>
+</listitem>
+<listitem>
+<simpara>Immediate identification of gaps</simpara>
+</listitem>
+<listitem>
+<simpara>A debugging tool for startup code, ISRs, and padding</simpara>
+</listitem>
+<listitem>
+<simpara>A way to confirm that GCBASIC is generating dense, efficient code</simpara>
+</listitem>
+</itemizedlist>
+<simpara><emphasis role="strong">How GCBASIC Builds the HXL‑Style Map</emphasis></simpara>
+<simpara>GCBASIC follows a process similar to HEXMATE:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Compile GCBASIC source into GCASM assembly.</simpara>
+</listitem>
+<listitem>
+<simpara>Assemble into a HEX file.</simpara>
+</listitem>
+<listitem>
+<simpara>Linearise all addresses.</simpara>
+</listitem>
+<listitem>
+<simpara>Mark each byte as used or unused.</simpara>
+</listitem>
+<listitem>
+<simpara>Consolidate contiguous used regions.</simpara>
+</listitem>
+<listitem>
+<simpara>Emit <emphasis role="strong">Input</emphasis> and <emphasis role="strong">Unused</emphasis> ranges.</simpara>
+</listitem>
+<listitem>
+<simpara>Render the visual hex‑grid map.</simpara>
+</listitem>
+</orderedlist>
+<simpara>The key difference is that GCBASIC uses the <emphasis role="strong">actual device memory limits</emphasis> and integrates the report directly into the compiler output.</simpara>
+<simpara><emphasis role="strong">Comparison: HEXMATE HXL vs GCBASIC Output</emphasis></simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="33*"/>
+<colspec colname="col_3" colwidth="33*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Feature</entry>
+<entry align="left" valign="top">HEXMATE HXL</entry>
+<entry align="left" valign="top">GCBASIC/GCASM</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Microcontroller Support</simpara></entry>
+<entry align="left" valign="top"><simpara>PIC</simpara></entry>
+<entry align="left" valign="top"><simpara>PIC, AVR &amp; LGT</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Input file ranges</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Unused ranges</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Linearised address space</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Device‑specific memory window</simpara></entry>
+<entry align="left" valign="top"><simpara>No</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Visual hex‑grid map</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Integrated into compiler</simpara></entry>
+<entry align="left" valign="top"><simpara>No</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Config‑word mapping</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+<entry align="left" valign="top"><simpara>Yes</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><emphasis role="strong">Summary</emphasis></simpara>
+<simpara>GCBASIC’s GCASM output summary is effectively a modernised HXL file:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Same range reporting</simpara>
+</listitem>
+<listitem>
+<simpara>Same linear memory model</simpara>
+</listitem>
+<listitem>
+<simpara>Same diagnostic purpose</simpara>
+</listitem>
+<listitem>
+<simpara>Enhanced with a visual hex map</simpara>
+</listitem>
+<listitem>
+<simpara>More accurate due to real device memory limits</simpara>
+</listitem>
+</itemizedlist>
+<simpara>It is a powerful tool for validating memory layout, debugging unexpected gaps, and ensuring correct program placement on microcontrollers.</simpara>
+</section>
 <section xml:id="_uno_as_isp_programmer">
 <title>UNO as ISP programmer</title>
 <simpara>So, you have brought some ATtiny88 breakout boards online.&#160;&#160;
@@ -41056,6 +41241,24 @@ If any of the variables do not exist, the compiler will create a constant mappin
 
     'User Code......</screen>
 </section>
+<section xml:id="__option_startupmethodsdisabled">
+<title>#Option STARTUPMETHODSDISABLED</title>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    #option STARTUPMETHODSDISABLED</screen>
+<simpara>This will instruct the compiler to disable all library startup methods.&#160;&#160;
+Examination of the generated ASM will show the disabled methods as comments.&#160;&#160;
+The calls to these methods can be added into the user program at a suitable place ( if required ).</simpara>
+<simpara><literal>#option STARTUPMETHODSDISABLED</literal> is used to optimise the ASM created.</simpara>
+<simpara><emphasis role="strong">Introduction:</emphasis></simpara>
+<simpara><emphasis role="strong">Example:</emphasis></simpara>
+<screen>    'Set chip model
+    #chip 16f877a
+
+    'Example command
+    #option STARTUPMETHODSDISABLED
+
+    'User Code......</screen>
+</section>
 <section xml:id="__option_bootloader">
 <title>#Option Bootloader</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
@@ -41195,6 +41398,94 @@ the data value held in the port latch, regardless of the state of the actual pin
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <screen>    #option removeAVRvectors</screen>
 <simpara><?asciidoc-hr?></simpara>
+</section>
+<section xml:id="__option_usercodeonly">
+<title>#Option UserCodeOnly</title>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    #option UserCodeOnly LABEL:</screen>
+<simpara>This option enables <emphasis role="strong">minimal‑startup user mode</emphasis>, allowing the developer to take full control of the program’s behaviour from the very first instruction.</simpara>
+<simpara>When enabled, the compiler omits all standard automatic startup routines normally inserted by GCBASIC. This directive is ideal for applications where the user requires absolute control over the execution environment.</simpara>
+<simpara>The label is mandated.  The label specified will be included in the ASM generated.</simpara>
+<simpara><emphasis role="strong">Behaviour:</emphasis></simpara>
+<simpara>Enabling <emphasis role="strong">UserCodeOnly</emphasis> removes or suppresses the following:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><emphasis role="strong">No automatic stack initialisation</emphasis>
+The compiler does not configure the hardware stack or related registers.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">No global interrupt enable (sei)</emphasis>
+Interrupts remain disabled unless explicitly enabled by the user.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Optional removal of the standard interrupt vector table</emphasis>
+If the label provided replaces the default vector, the user must supply their own interrupt entry code.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">No GCBASIC runtime startup code</emphasis>
+No variable initialisation, no system setup, no runtime housekeeping.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">No automatic calls to INITSYS or other init routines</emphasis>
+All system configuration must be performed manually.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Reduced .ORG directives at page boundaries</emphasis>
+The compiler avoids inserting automatic page‑alignment directives, giving the user full control of memory layout.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>This mode is intended for advanced users who require a bare‑metal environment.</simpara>
+<simpara><emphasis role="strong">Ideal for:</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><emphasis role="strong">Bare‑metal applications</emphasis>
+Where the user wants to define every instruction executed from reset.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Custom bootloaders</emphasis>
+Allows precise control over memory layout, vectors, and startup flow.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Mixed GCBASIC + assembly projects</emphasis>
+Ensures no hidden runtime code interferes with hand‑written assembly.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Minimal firmware with full user control</emphasis>
+Perfect for ultra‑small, deterministic, or timing‑critical applications.</simpara>
+</listitem>
+</itemizedlist>
+<simpara><?asciidoc-hr?></simpara>
+<simpara><emphasis role="strong">Example 1:</emphasis></simpara>
+<screen>    'Set chip model
+    #chip 16f877a
+
+    'Enable minimal user‑mode startup
+    #option usercodeonly StartHere:
+
+StartHere:
+    'User-defined reset entry point
+    #asmraw[
+        nop
+        nop
+    #asmraw]
+
+    'Your program continues here</screen>
+<simpara><emphasis role="strong">Example 2:</emphasis></simpara>
+<screen>    'Set chip model
+    #chip 18f452
+
+    'UserCodeOnly with custom interrupt vector
+    #option USERCODEONLY    myReset:
+
+
+
+MyReset:
+    'Manual system setup
+        clrf INTCON     ; interrupts remain disabled
+        clrf STATUS
+
+MainLoop:
+    goto MainLoop</screen>
 </section>
 <section xml:id="__option_volatile">
 <title>#Option Volatile</title>
