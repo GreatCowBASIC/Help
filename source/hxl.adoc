@@ -131,6 +131,22 @@ The key difference is that GCBASIC uses the *actual device memory limits* and in
 | Config‑word mapping | Yes | Yes
 |===
 
+**To enable HXL file output file**
+
+There are two options to enable the compiler to produce the HXL output file.
+
+1.  Use the Preferennces Editor, select the Compiler Tab and select the HXL option.
+2.  Add the following to your configuration file.  Typically, this is called `use.ini`.  A `hxloutput = y` to the `[gcbasic]` section.
+
+----
+    [gcbasic]
+    hxloutput = y
+    debughxloutput = y
+----
+
+Optionally, you can add debug output by using the `debughxloutput = y` entry.
+
+
 **Summary**
 
 GCBASIC’s GCASM output summary is effectively a modernised HXL file:
