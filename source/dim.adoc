@@ -21,24 +21,36 @@
 
 The `Dim` command is used to declare variables, arrays, and strings. It can also create aliases for existing variables or place variables at specific memory locations.
 
-For PiC and early AVR, the variable is an undefined value unless explicitly set within a user program.
-
 GCBASIC supports **optional initialisation** at the point of declaration:
 
 ----
     Dim byte_var As Byte = 1
 ----
 
-This sets the variable to the specified value at program start.  
+This sets the variable to the specified value at program start.
 The traditional form remains fully valid:
 
 ----
     Dim byte_var As Byte
 ----
 
-If no initial value is provided, the variable is initialised to zero unless the compiler determines otherwise.
+If no initial value is provided, the starting state of the variable depends on the target chip family. Do not assume a variable starts at zero unless you have explicitly initialised it or confirmed your target is in the "initialised to zero" category below.
 
-*Command Availability:*  
+[cols="1,2", options="header"]
+|===
+| Chip Family | Behaviour without an initial value
+
+| AVR Dx (e.g. AVR128DA, AVR64DB, etc.)
+| Initialised to zero
+
+| LGT (LGT8F series)
+| Initialised to zero
+
+| All other supported chips (PIC, classic/early AVR, etc.)
+| Unknown/undefined state -- the variable holds whatever value was already present in memory (e.g. left over from a previous program, or the power-on state of RAM) until your program explicitly sets it
+|===
+
+*Command Availability:*
 Available on all microcontrollers.
 
 ---
@@ -65,13 +77,13 @@ You may optionally assign an initial value using `= value`:
     Dim Flag As Bit = 1
 ----
 
-This improves readability and reduces the need for separate initialisation code.
+This improves readability and reduces the need for separate initialisation code. It is also the only way to guarantee a variable's starting value on chip families that do not zero-initialise variables by default (see the table above).
 
 Initialisation is supported for:
 
-- Byte, Integer, Word, Long, Float  
-- Bit variables  
-- Aliased variables (if the alias target is valid)  
+- Byte, Integer, Word, Long, Float
+- Bit variables
+- Aliased variables (if the alias target is valid)
 - Arrays (initial value applies to all elements if supported by the compiler)
 
 Example:
@@ -268,6 +280,8 @@ Produces a 3-byte string: `Chr(223)`, `C`, `\` -- stored in the string table as:
     WordList(0) = 1024
 ----
 
+Note: on chip families that do not zero-initialise by default (see the table under "Dim" above), `WordList` will contain unknown values until written to; only `DataList` is guaranteed zero here because it is explicitly initialised.
+
 ---
 
 === New Example 3: Bit‑Level Access Using Constants
@@ -297,5 +311,5 @@ Produces a 3-byte string: `Chr(223)`, `C`, `\` -- stored in the string table as:
 
 ---
 
-*For more help, see:*  
+*For more help, see:*
 <<_serprint,SerPrint>> for string handling examples and <<_variables,Variables Types>> for more information on variable types.
