@@ -31,6 +31,7 @@ This demonstration program will support up to 256 bytes. For a larger buffer cha
     // turn on the RS232 and terminal port.
     // Define the USART settings
     #DEFINE USART_BAUD_RATE 9600
+    #DEFINE USART_BLOCKING  // Required, could use #define USART_TX_BLOCKING as the RX is interrupt driven.
 
     // This assumes you are using an ANSI compatible terminal.  Use PUTTY.EXE it is very easy to use.
 

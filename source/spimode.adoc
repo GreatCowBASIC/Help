@@ -3,7 +3,7 @@
 *Syntax:*
 [subs="quotes"]
 
-*Legacy SPI Operations*
+*Legacy SPI Module*
 
 ----
     SPIMode ( _Mode_ [, _SPIClockMode_])
@@ -15,7 +15,7 @@
     #DEFINE HWSPIClockMode  SPI_CPOL_0 + SPI_CPHA_0
 ----
 
-*AVRDX, 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers*
+*Modern SPI Module*
 
 
 For HWSPI channel 0
@@ -41,6 +41,15 @@ For HWSPI channel 0
 
 Available on Microchip PIC and AVR microcontrollers with Hardware SPI modules.
 
+*Legacy SPI Module vs Modern SPI Module:*
+
+GCBASIC automatically detects which SPI peripheral your chip has and generates the matching code - you do not select it yourself. However, the two modules differ in the options available and in how `SPIClockMode` is used, so it helps to know which one applies to your microcontroller:
+
+* *Legacy SPI Module* - the older-style SPI peripheral. This applies to classic PIC microcontrollers and to all AVR microcontrollers *except* the AVR Dx series. `SPIClockMode` is optional, and the fastest available speed is `MasterFast`.
+* *Modern SPI Module* - the newer, more capable SPI peripheral. This applies to recent PIC18 Q-series, K42, and K83 microcontrollers, and to AVR Dx-series microcontrollers. `SPIClockMode` is mandatory (it also sets the Slave Select behavior), and an additional `MasterUltraFast` speed is available. Modern SPI Module pins are usually also assigned through PPS.
+
+If you want to confirm which module the compiler selected for your chip, define `SHOWSPISCRIPTINFO` - see "Displaying SPI Configuration Information" later in this section.
+
 *Explanation:*
 
 _Mode_ sets the mode of the SPI module within the microcontroller. These are
@@ -49,7 +58,7 @@ the possible SPI Modes:
 |===
 |*Mode Name*
 |*Description*
-2+|*Legacy SPI Operations*
+2+|*Legacy SPI Module*
 |`MasterSlow`
 |Master mode, SPI clock is 1/64 of the frequency of the microcontroller.
 |`Master`
@@ -57,18 +66,18 @@ the possible SPI Modes:
 |`MasterFast`
 |Master mode, SPI clock is 1/4 of the frequency of the microcontroller.
 
-2+|*AVRDX, 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers*
+2+|*Modern SPI Module*
 |`MasterSlow`
-|SPI clock baud rate is calculated INT( ChipMHz / INT( SPI_BAUD_RATE  ) / 16 * 1000) + 1.  Where SPI_BAUD_RATE defaults to 4000.  
+|SPI clock baud rate is calculated as INT( ChipMHz * 8 / SPI_BAUD_RATE * 1000) - 1.  Where SPI_BAUD_RATE defaults to ChipMHz / 4 * 1000.  
 
 Also, see `SPI_BAUD_RATE` and `SPI_BAUD_RATE_REGISTER` for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value
 |`Master`
-|SPI clock baud rate is calculated as INT( ChipMHz / INT( SPI_BAUD_RATE  ) / 4 * 1000) + 1.  Where SPI_BAUD_RATE defaults to 4000.
+|SPI clock baud rate is calculated as INT( ChipMHz * 2 / SPI_BAUD_RATE * 1000) - 1.  Where SPI_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 
 Also, see `SPI_BAUD_RATE` and `SPI_BAUD_RATE_REGISTER` for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value
 
 |`MasterFast`
-|SPI clock baud rate is calculated as INT( ChipMHz / INT( SPI_BAUD_RATE  ) / 2 * 1000) + 1.  Where SPI_BAUD_RATE defaults to 4000.
+|SPI clock baud rate is calculated as INT( ChipMHz / SPI_BAUD_RATE * 1000) - 1.  Where SPI_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 
 Also, see `SPI_BAUD_RATE` and `SPI_BAUD_RATE_REGISTER` for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value
 |`MasterUltraFast`
@@ -81,23 +90,23 @@ Also, see `SPI_BAUD_RATE` and `SPI_BAUD_RATE_REGISTER` for changing SPI Baud Rat
 |===
 
 
-For *Legacy microcontrollers SPI operations* _SPIClockMode_ is an optional parameter to set the mode of the SPI clock mode. This optional parameter sets both the clock polarity and clock edge.
+For the *Legacy SPI Module* _SPIClockMode_ is an optional parameter to set the mode of the SPI clock mode. This optional parameter sets both the clock polarity and clock edge.
 
-For *Specific PICs microcontrollers SPI operations* _SPIClockMode_ is a mandated parameter to set the mode of the SPI clock mode and the clock polarity bit. This parameter sets both the clock polarity and clock edge.&#160;&#160;  
-There is no verification by the compiler if you do use the __SPIClockMode_ for the 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers - the compiler uses the default value of `SPI_SS = 0 & SPI_CPOL = 0 & SPI_CPHA = 0`&#160;&#160;The use of SPI_SS_n requires the PPS to be set.&#160;&#160;If PPS is not set then the SPI_SS will use the default value specified in the specfic GCBASIC library.
+For the *Modern SPI Module* _SPIClockMode_ is a mandated parameter to set the mode of the SPI clock mode and the clock polarity bit. This parameter sets both the clock polarity and clock edge.&#160;&#160;  
+There is no verification by the compiler if you do use the __SPIClockMode_ for the Modern SPI Module - the compiler uses the default value of `SPI_SS = 0 & SPI_CPOL = 0 & SPI_CPHA = 0`&#160;&#160;The use of SPI_SS_n requires the PPS to be set.&#160;&#160;If PPS is not set then the SPI_SS will use the default value specified in the specfic GCBASIC library.
 
 For the _SPIClockMode_range, see the tables below:
 
 [cols=2, options="header,autowidth"]
 |===
 |*SPIClockMode* |*Description*
-2+|_Legacy SPI operations_
+2+|_Legacy SPI Module_
 | 0 |SPI_CPOL = 0 & SPI_CPHA = 0
 | 1 |SPI_CPOL = 0 & SPI_CPHA = 1
 | 2 |SPI_CPOL = 1 & SPI_CPHA = 0
 | 3 |SPI_CPOL = 1 & SPI_CPHA = 1
 
-2+|18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers
+2+|_Modern SPI Module_
 
 | 0 |SPI_SS = 0 & SPI_CPOL = 0 & SPI_CPHA = 0
 | 2 |SPI_SS = 0 & SPI_CPOL = 1 & SPI_CPHA = 0
@@ -108,10 +117,10 @@ For the _SPIClockMode_range, see the tables below:
 
 You can use a constant value or alternatively you can use constants to set the SPIClockMode as follows:
 ----
-    _Legacy SPI microcontrollers_
+    _Legacy SPI Module_
     SPIMode ( MasterFast, SPI_CPOL_n + SPI_CPHA_n )
 
-    _18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers_
+    _Modern SPI Module_
     SPIMode ( MasterFast, SPI_SS_n + SPI_CPOL_n + SPI_CPHA_n )
 
 ----
@@ -121,18 +130,18 @@ Where the following parameters can be used as a calculation to set the SPIClockM
 |===
 |*Mode Name*
 |*Description*
-2+|_Legacy SPI operations and AVRs_ 
+2+|_Legacy SPI Module_ 
 |SPI_CPOL_0 |CPOL = 0
 |SPI_CPOL_1 |CPOL = 1
 |SPI_CPHA_0 |CPHA = 0
 |SPI_CPHA_1 |CPHA = 1
-2+|18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers
+2+|_Modern SPI Module_
 |SPI_SS_0|SS = 0  Clear polarity bit
 |SPI_SS_1|SS = 1  Set polarity bit
 |===
 
 
-*Explicitly changing the SPI baud rate on 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers*
+*Explicitly changing the SPI baud rate on the Modern SPI Module*
 
 You can explicitly change the SPI baud rate by defining the `SPI_BAUD_RATE` constant as follows.&#160;&#160; This will change the default SPI baud from 4000 to the specified numeric value. 
 
@@ -147,7 +156,7 @@ You can explicitly set the SPI baud rate register by defining the `SPI_BAUD_RATE
 ----
 
 
-*Legacy SPI Summary:*
+*Legacy SPI Module Summary:*
 
 When using SPI setting the clock frequency is completed using SPIMode, and the master must also configure the clock polarity and phase with respect to the data. Using the two options as CPOL and CPHA.
 
@@ -233,7 +242,7 @@ You must set the data line as inputs and outputs.
 ----
 
 
-*18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers SPI Summary:*
+*Modern SPI Module Summary:*
 
 When using SPI setting the clock frequency is completed using SPIMode, and the master must also configure the clock polarity and phase with respect to the data. &#160;&#160; Using the three options as CPOL, CPHA and SS. 
 
@@ -291,6 +300,15 @@ If you have set the PPS for SPI1SSPPS then control of the SPI SS ( also know as 
         FastHWSPITransfer 0x75
     LOOP
 
+----
+
+
+*Displaying SPI Configuration Information:*
+
+You can define `SHOWSPISCRIPTINFO` to have the compiler report diagnostic information while it evaluates the SPI configuration. This includes the chip name, whether the Legacy SPI Module or Modern SPI Module constants were defined, and the calculated SPI baud rate values.
+
+----
+    #DEFINE SHOWSPISCRIPTINFO
 ----
 
 

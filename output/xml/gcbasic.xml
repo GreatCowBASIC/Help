@@ -163,8 +163,8 @@ Select the drop down menu to see the menu
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-06-15<?asciidoc-br?>
-07:56:01 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-08-19<?asciidoc-br?>
+07:15:04 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
@@ -1762,6 +1762,20 @@ Hardware Serial (TX1) data will now be output on both B.6 and C.6
 </tbody>
 </tgroup>
 </informaltable>
+<simpara><emphasis role="strong">To enable HXL file output file</emphasis></simpara>
+<simpara>There are two options to enable the compiler to produce the HXL output file.</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Use the Preferennces Editor, select the Compiler Tab and select the HXL option.</simpara>
+</listitem>
+<listitem>
+<simpara>Add the following to your configuration file.  Typically, this is called <literal>use.ini</literal>.  A <literal>hxloutput = y</literal> to the <literal>[gcbasic]</literal> section.</simpara>
+</listitem>
+</orderedlist>
+<screen>    [gcbasic]
+    hxloutput = y
+    debughxloutput = y</screen>
+<simpara>Optionally, you can add debug output by using the <literal>debughxloutput = y</literal> entry.</simpara>
 <simpara><emphasis role="strong">Summary</emphasis></simpara>
 <simpara>GCBASIC’s GCASM output summary is effectively a modernised HXL file:</simpara>
 <itemizedlist>
@@ -30308,7 +30322,7 @@ Using software SPI mode - comment out <literal>#define SPI_HardwareSPI</literal>
 <section xml:id="_spimode">
 <title>SPIMode</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
-<simpara><emphasis role="strong">Legacy SPI Operations</emphasis></simpara>
+<simpara><emphasis role="strong">Legacy SPI Module</emphasis></simpara>
 <screen>    SPIMode ( _Mode_ [, _SPIClockMode_])
 
     // Specfic the hardware SPI operating mode, can be MasterFast, Master, MasterSlow
@@ -30316,7 +30330,7 @@ Using software SPI mode - comment out <literal>#define SPI_HardwareSPI</literal>
 
     // You can use a shared constant to set a consant with the desired SPIClockMode
     #DEFINE HWSPIClockMode  SPI_CPOL_0 + SPI_CPHA_0</screen>
-<simpara><emphasis role="strong">AVRDX, 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers</emphasis></simpara>
+<simpara><emphasis role="strong">Modern SPI Module</emphasis></simpara>
 <simpara>For HWSPI channel 0</simpara>
 <screen>    SPIMode ( _Mode_ , _SPIClockMode_ )
 
@@ -30334,6 +30348,17 @@ Using software SPI mode - comment out <literal>#define SPI_HardwareSPI</literal>
         #DEFINE SPI_BAUD_RATE_REGISTER  55</screen>
 <simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
 <simpara>Available on Microchip PIC and AVR microcontrollers with Hardware SPI modules.</simpara>
+<simpara><emphasis role="strong">Legacy SPI Module vs Modern SPI Module:</emphasis></simpara>
+<simpara>GCBASIC automatically detects which SPI peripheral your chip has and generates the matching code - you do not select it yourself. However, the two modules differ in the options available and in how <literal>SPIClockMode</literal> is used, so it helps to know which one applies to your microcontroller:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><emphasis role="strong">Legacy SPI Module</emphasis> - the older-style SPI peripheral. This applies to classic PIC microcontrollers and to all AVR microcontrollers <emphasis role="strong">except</emphasis> the AVR Dx series. <literal>SPIClockMode</literal> is optional, and the fastest available speed is <literal>MasterFast</literal>.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Modern SPI Module</emphasis> - the newer, more capable SPI peripheral. This applies to recent PIC18 Q-series, K42, and K83 microcontrollers, and to AVR Dx-series microcontrollers. <literal>SPIClockMode</literal> is mandatory (it also sets the Slave Select behavior), and an additional <literal>MasterUltraFast</literal> speed is available. Modern SPI Module pins are usually also assigned through PPS.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>If you want to confirm which module the compiler selected for your chip, define <literal>SHOWSPISCRIPTINFO</literal> - see "Displaying SPI Configuration Information" later in this section.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara><emphasis>Mode</emphasis> sets the mode of the SPI module within the microcontroller. These are
 the possible SPI Modes:</simpara>
@@ -30349,7 +30374,7 @@ the possible SPI Modes:</simpara>
 </thead>
 <tbody>
 <row>
-<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis role="strong">Legacy SPI Operations</emphasis></simpara></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis role="strong">Legacy SPI Module</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>MasterSlow</literal></simpara></entry>
@@ -30364,21 +30389,21 @@ the possible SPI Modes:</simpara>
 <entry align="left" valign="top"><simpara>Master mode, SPI clock is 1/4 of the frequency of the microcontroller.</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis role="strong">AVRDX, 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers</emphasis></simpara></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis role="strong">Modern SPI Module</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>MasterSlow</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated INT( ChipMHz / INT( SPI_BAUD_RATE  ) / 16 * 1000) + 1.  Where SPI_BAUD_RATE defaults to 4000.
+<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz * 8 / SPI_BAUD_RATE * 1000) - 1.  Where SPI_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 </simpara><simpara>Also, see <literal>SPI_BAUD_RATE</literal> and <literal>SPI_BAUD_RATE_REGISTER</literal> for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>Master</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz / INT( SPI_BAUD_RATE  ) / 4 * 1000) + 1.  Where SPI_BAUD_RATE defaults to 4000.
+<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz * 2 / SPI_BAUD_RATE * 1000) - 1.  Where SPI_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 </simpara><simpara>Also, see <literal>SPI_BAUD_RATE</literal> and <literal>SPI_BAUD_RATE_REGISTER</literal> for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>MasterFast</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz / INT( SPI_BAUD_RATE  ) / 2 * 1000) + 1.  Where SPI_BAUD_RATE defaults to 4000.
+<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz / SPI_BAUD_RATE * 1000) - 1.  Where SPI_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 </simpara><simpara>Also, see <literal>SPI_BAUD_RATE</literal> and <literal>SPI_BAUD_RATE_REGISTER</literal> for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value</simpara></entry>
 </row>
 <row>
@@ -30399,9 +30424,9 @@ the possible SPI Modes:</simpara>
 </tbody>
 </tgroup>
 </informaltable>
-<simpara>For <emphasis role="strong">Legacy microcontrollers SPI operations</emphasis> <emphasis>SPIClockMode</emphasis> is an optional parameter to set the mode of the SPI clock mode. This optional parameter sets both the clock polarity and clock edge.</simpara>
-<simpara>For <emphasis role="strong">Specific PICs microcontrollers SPI operations</emphasis> <emphasis>SPIClockMode</emphasis> is a mandated parameter to set the mode of the SPI clock mode and the clock polarity bit. This parameter sets both the clock polarity and clock edge.&#160;&#160;
-There is no verification by the compiler if you do use the <emphasis>_SPIClockMode</emphasis> for the 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers - the compiler uses the default value of <literal>SPI_SS = 0 &amp; SPI_CPOL = 0 &amp; SPI_CPHA = 0</literal>&#160;&#160;The use of SPI_SS_n requires the PPS to be set.&#160;&#160;If PPS is not set then the SPI_SS will use the default value specified in the specfic GCBASIC library.</simpara>
+<simpara>For the <emphasis role="strong">Legacy SPI Module</emphasis> <emphasis>SPIClockMode</emphasis> is an optional parameter to set the mode of the SPI clock mode. This optional parameter sets both the clock polarity and clock edge.</simpara>
+<simpara>For the <emphasis role="strong">Modern SPI Module</emphasis> <emphasis>SPIClockMode</emphasis> is a mandated parameter to set the mode of the SPI clock mode and the clock polarity bit. This parameter sets both the clock polarity and clock edge.&#160;&#160;
+There is no verification by the compiler if you do use the <emphasis>_SPIClockMode</emphasis> for the Modern SPI Module - the compiler uses the default value of <literal>SPI_SS = 0 &amp; SPI_CPOL = 0 &amp; SPI_CPHA = 0</literal>&#160;&#160;The use of SPI_SS_n requires the PPS to be set.&#160;&#160;If PPS is not set then the SPI_SS will use the default value specified in the specfic GCBASIC library.</simpara>
 <simpara>For the _SPIClockMode_range, see the tables below:</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <tgroup cols="2">
@@ -30415,7 +30440,7 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 </thead>
 <tbody>
 <row>
-<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis>Legacy SPI operations</emphasis></simpara></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis>Legacy SPI Module</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>0</simpara></entry>
@@ -30434,7 +30459,7 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 <entry align="left" valign="top"><simpara>SPI_CPOL = 1 &amp; SPI_CPHA = 1</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara>18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers</simpara></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis>Modern SPI Module</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>0</simpara></entry>
@@ -30456,10 +30481,10 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 </tgroup>
 </informaltable>
 <simpara>You can use a constant value or alternatively you can use constants to set the SPIClockMode as follows:</simpara>
-<screen>    _Legacy SPI microcontrollers_
+<screen>    _Legacy SPI Module_
     SPIMode ( MasterFast, SPI_CPOL_n + SPI_CPHA_n )
 
-    _18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers_
+    _Modern SPI Module_
     SPIMode ( MasterFast, SPI_SS_n + SPI_CPOL_n + SPI_CPHA_n )</screen>
 <simpara>Where the following parameters can be used as a calculation to set the SPIClockMode.</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
@@ -30474,7 +30499,7 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 </thead>
 <tbody>
 <row>
-<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis>Legacy SPI operations and AVRs</emphasis></simpara></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis>Legacy SPI Module</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>SPI_CPOL_0</simpara></entry>
@@ -30493,7 +30518,7 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 <entry align="left" valign="top"><simpara>CPHA = 1</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara>18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers</simpara></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis>Modern SPI Module</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>SPI_SS_0</simpara></entry>
@@ -30506,12 +30531,12 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 </tbody>
 </tgroup>
 </informaltable>
-<simpara><emphasis role="strong">Explicitly changing the SPI baud rate on 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers</emphasis></simpara>
+<simpara><emphasis role="strong">Explicitly changing the SPI baud rate on the Modern SPI Module</emphasis></simpara>
 <simpara>You can explicitly change the SPI baud rate by defining the <literal>SPI_BAUD_RATE</literal> constant as follows.&#160;&#160; This will change the default SPI baud from 4000 to the specified numeric value.</simpara>
 <screen>    #DEFINE SPI_BAUD_RATE   8000</screen>
 <simpara>You can explicitly set the SPI baud rate register by defining the <literal>SPI_BAUD_RATE_REGISTER</literal> constant as follows.&#160;&#160; This will write the explicit numeric value to the SPI baud register.&#160;&#160; This overwrites any compiler calculated value.</simpara>
 <screen>    #DEFINE SPI_BAUD_RATE_REGISTER  55</screen>
-<simpara><emphasis role="strong">Legacy SPI Summary:</emphasis></simpara>
+<simpara><emphasis role="strong">Legacy SPI Module Summary:</emphasis></simpara>
 <simpara>When using SPI setting the clock frequency is completed using SPIMode, and the master must also configure the clock polarity and phase with respect to the data. Using the two options as CPOL and CPHA.</simpara>
 <simpara>The timing diagram is shown below. The timing is further described and applies to both the master and the slave device.</simpara>
 <simpara>When CPOL=0 the base value of the clock is zero, i.e. the active state is 1 and idle state is 0.</simpara>
@@ -30592,7 +30617,7 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
         set SPI_DC ON
         wait 10 ms
        loop</screen>
-<simpara><emphasis role="strong">18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers SPI Summary:</emphasis></simpara>
+<simpara><emphasis role="strong">Modern SPI Module Summary:</emphasis></simpara>
 <simpara>When using SPI setting the clock frequency is completed using SPIMode, and the master must also configure the clock polarity and phase with respect to the data. &#160;&#160; Using the three options as CPOL, CPHA and SS.</simpara>
 <simpara>The timing diagram is as shown in the prevsious section that impacts CPOL and CPHA.&#160;&#160;</simpara>
 <simpara>If you have set the PPS for SPI1SSPPS then control of the SPI SS ( also know as CS / ChipSelect) is automatically controlled by the SPI transmission.</simpara>
@@ -30647,6 +30672,9 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
         // Send 0x75 via SPI over and over again...
         FastHWSPITransfer 0x75
     LOOP</screen>
+<simpara><emphasis role="strong">Displaying SPI Configuration Information:</emphasis></simpara>
+<simpara>You can define <literal>SHOWSPISCRIPTINFO</literal> to have the compiler report diagnostic information while it evaluates the SPI configuration. This includes the chip name, whether the Legacy SPI Module or Modern SPI Module constants were defined, and the calculated SPI baud rate values.</simpara>
+<screen>    #DEFINE SHOWSPISCRIPTINFO</screen>
 <simpara><emphasis role="strong">See also</emphasis> <link linkend="_spitransfer">SPITransfer</link>,<link linkend="_fasthwspitransfer">FastHWSPITransfer</link></simpara>
 </section>
 <section xml:id="_spitransfer">
@@ -30770,7 +30798,7 @@ data in <literal><emphasis>tx</emphasis></literal> will be sent to the slave.</s
 <section xml:id="_spi2mode">
 <title>SPI2Mode</title>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
-<simpara><emphasis role="strong">Legacy SPI Operations</emphasis></simpara>
+<simpara><emphasis role="strong">Legacy SPI Module</emphasis></simpara>
 <screen>    SPI2Mode ( _Mode_ [, _SPIClockMode_])
 
     // Specfic the hardware SPI operating mode, can be MasterFast, Master, MasterSlow
@@ -30778,7 +30806,7 @@ data in <literal><emphasis>tx</emphasis></literal> will be sent to the slave.</s
 
     // You can use a shared constant to set a consant with the desired SPIClockMode
     #DEFINE HWSPI2ClockMode  SPI_CPOL_0 + SPI_CPHA_0</screen>
-<simpara><emphasis role="strong">AVRDX, 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers</emphasis></simpara>
+<simpara><emphasis role="strong">Modern SPI Module</emphasis></simpara>
 <screen>    SPI2Mode ( _Mode_ , _SPIClockMode_ )
 
     // Specfic the hardware SPI operating mode, can be MasterUltraFast, MasterFast, Master, MasterSlow
@@ -30795,6 +30823,17 @@ data in <literal><emphasis>tx</emphasis></literal> will be sent to the slave.</s
         #DEFINE SPI2_BAUD_RATE_REGISTER  55</screen>
 <simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
 <simpara>Available on Microchip PIC and AVR microcontrollers with Hardware SPI modules.</simpara>
+<simpara><emphasis role="strong">Legacy SPI Module vs Modern SPI Module:</emphasis></simpara>
+<simpara>GCBASIC automatically detects which SPI peripheral your chip has and generates the matching code - you do not select it yourself. However, the two modules differ in the options available and in how <literal>SPIClockMode</literal> is used, so it helps to know which one applies to your microcontroller:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><emphasis role="strong">Legacy SPI Module</emphasis> - the older-style SPI peripheral. This applies to classic PIC microcontrollers and to all AVR microcontrollers <emphasis role="strong">except</emphasis> the AVR Dx series. <literal>SPIClockMode</literal> is optional, and the fastest available speed is <literal>MasterFast</literal>.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Modern SPI Module</emphasis> - the newer, more capable SPI peripheral. This applies to recent PIC18 Q-series, K42, and K83 microcontrollers, and to AVR Dx-series microcontrollers. <literal>SPIClockMode</literal> is mandatory (it also sets the Slave Select behavior), and an additional <literal>MasterUltraFast</literal> speed is available. Modern SPI Module pins are usually also assigned through PPS.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>If you want to confirm which module the compiler selected for your chip, define <literal>SHOWSPISCRIPTINFO</literal> - see "Displaying SPI Configuration Information" later in this section.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara><emphasis>Mode</emphasis> sets the mode of the SPI module within the microcontroller. These are
 the possible SPI Modes:</simpara>
@@ -30810,7 +30849,7 @@ the possible SPI Modes:</simpara>
 </thead>
 <tbody>
 <row>
-<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis role="strong">Legacy SPI Operations</emphasis></simpara></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis role="strong">Legacy SPI Module</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>MasterSlow</literal></simpara></entry>
@@ -30825,26 +30864,26 @@ the possible SPI Modes:</simpara>
 <entry align="left" valign="top"><simpara>Master mode, SPI clock is 1/4 of the frequency of the microcontroller.</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis role="strong">AVRDX, 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers</emphasis></simpara></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis role="strong">Modern SPI Module</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>MasterSlow</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated INT( ChipMHz / INT( SPI2_BAUD_RATE  ) / 16 * 1000) + 1.  Where SPI2_BAUD_RATE defaults to 4000.
+<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz * 8 / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 </simpara><simpara>Also, see <literal>SPI2_BAUD_RATE</literal> and <literal>SPI2_BAUD_RATE_REGISTER</literal> for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>Master</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz / INT( SPI2_BAUD_RATE  ) / 4 * 1000) + 1.  Where SPI2_BAUD_RATE defaults to 4000.
+<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz * 2 / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 </simpara><simpara>Also, see <literal>SPI2_BAUD_RATE</literal> and <literal>SPI2_BAUD_RATE_REGISTER</literal> for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>MasterFast</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz / INT( SPI2_BAUD_RATE  ) / 2 * 1000) + 1.  Where SPI2_BAUD_RATE defaults to 4000.
+<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 </simpara><simpara>Also, see <literal>SPI2_BAUD_RATE</literal> and <literal>SPI2_BAUD_RATE_REGISTER</literal> for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>MasterUltraFast</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI1BAUD is set to 0 and therefore the SPI clock baud rate to maximum</simpara></entry>
+<entry align="left" valign="top"><simpara>SPI2BAUD is set to 0 and therefore the SPI clock baud rate to maximum</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis role="strong">Slave Operations</emphasis></simpara></entry>
@@ -30860,9 +30899,9 @@ the possible SPI Modes:</simpara>
 </tbody>
 </tgroup>
 </informaltable>
-<simpara>For <emphasis role="strong">Legacy microcontrollers SPI operations</emphasis> <emphasis>SPIClockMode</emphasis> is an optional parameter to set the mode of the SPI clock mode. This optional parameter sets both the clock polarity and clock edge.</simpara>
-<simpara>For <emphasis role="strong">Specific PICs microcontrollers SPI operations</emphasis> <emphasis>SPIClockMode</emphasis> is a mandated parameter to set the mode of the SPI clock mode and the clock polarity bit. This parameter sets both the clock polarity and clock edge.&#160;&#160;
-There is no verification by the compiler if you do use the <emphasis>_SPIClockMode</emphasis> for the 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers - the compiler uses the default value of <literal>SPI_SS = 0 &amp; SPI_CPOL = 0 &amp; SPI_CPHA = 0</literal>&#160;&#160;The use of SPI_SS_n requires the PPS to be set.&#160;&#160;If PPS is not set then the SPI_SS will use the default value specified in the specfic GCBASIC library.</simpara>
+<simpara>For the <emphasis role="strong">Legacy SPI Module</emphasis> <emphasis>SPIClockMode</emphasis> is an optional parameter to set the mode of the SPI clock mode. This optional parameter sets both the clock polarity and clock edge.</simpara>
+<simpara>For the <emphasis role="strong">Modern SPI Module</emphasis> <emphasis>SPIClockMode</emphasis> is a mandated parameter to set the mode of the SPI clock mode and the clock polarity bit. This parameter sets both the clock polarity and clock edge.&#160;&#160;
+There is no verification by the compiler if you do use the <emphasis>_SPIClockMode</emphasis> for the Modern SPI Module - the compiler uses the default value of <literal>SPI_SS = 0 &amp; SPI_CPOL = 0 &amp; SPI_CPHA = 0</literal>&#160;&#160;The use of SPI_SS_n requires the PPS to be set.&#160;&#160;If PPS is not set then the SPI_SS will use the default value specified in the specfic GCBASIC library.</simpara>
 <simpara>For the _SPIClockMode_range, see the tables below:</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <tgroup cols="2">
@@ -30876,7 +30915,7 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 </thead>
 <tbody>
 <row>
-<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis>Legacy SPI operations</emphasis></simpara></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis>Legacy SPI Module</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>0</simpara></entry>
@@ -30895,7 +30934,7 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 <entry align="left" valign="top"><simpara>SPI_CPOL = 1 &amp; SPI_CPHA = 1</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara>18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers</simpara></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis>Modern SPI Module</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>0</simpara></entry>
@@ -30917,11 +30956,11 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 </tgroup>
 </informaltable>
 <simpara>You can use a constant value or alternatively you can use constants to set the SPIClockMode as follows:</simpara>
-<screen>    _Legacy SPI microcontrollers_
-    SPIMode ( MasterFast, SPI_CPOL_n + SPI_CPHA_n )
+<screen>    _Legacy SPI Module_
+    SPI2Mode ( MasterFast, SPI_CPOL_n + SPI_CPHA_n )
 
-    _18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers_
-    SPIMode ( MasterFast, SPI_SS_n + SPI_CPOL_n + SPI_CPHA_n )</screen>
+    _Modern SPI Module_
+    SPI2Mode ( MasterFast, SPI_SS_n + SPI_CPOL_n + SPI_CPHA_n )</screen>
 <simpara>Where the following parameters can be used as a calculation to set the SPIClockMode.</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <tgroup cols="2">
@@ -30935,7 +30974,7 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 </thead>
 <tbody>
 <row>
-<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis>Legacy SPI operations and AVRs</emphasis></simpara></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis>Legacy SPI Module</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>SPI_CPOL_0</simpara></entry>
@@ -30954,7 +30993,7 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 <entry align="left" valign="top"><simpara>CPHA = 1</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara>18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers</simpara></entry>
+<entry align="left" valign="top" namest="col_1" nameend="col_2"><simpara><emphasis>Modern SPI Module</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>SPI_SS_0</simpara></entry>
@@ -30967,13 +31006,13 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 </tbody>
 </tgroup>
 </informaltable>
-<simpara><emphasis role="strong">Explicitly changing the SPI baud rate on 18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers</emphasis></simpara>
+<simpara><emphasis role="strong">Explicitly changing the SPI baud rate on the Modern SPI Module</emphasis></simpara>
 <simpara>You can explicitly change the SPI baud rate by defining the <literal>SPI2_BAUD_RATE</literal> constant as follows.&#160;&#160; This will change the default SPI baud from 4000 to the specified numeric value.</simpara>
 <screen>    #DEFINE SPI2_BAUD_RATE   8000</screen>
 <simpara>You can explicitly set the SPI baud rate register by defining the <literal>SPI2_BAUD_RATE_REGISTER</literal> constant as follows.&#160;&#160; This will write the explicit numeric value to the SPI baud register.&#160;&#160; This overwrites any compiler calculated value.</simpara>
 <screen>    #DEFINE SPI2_BAUD_RATE_REGISTER  55</screen>
-<simpara><emphasis role="strong">Legacy SPI Summary:</emphasis></simpara>
-<simpara>When using SPI setting the clock frequency is completed using SPIMode, and the master must also configure the clock polarity and phase with respect to the data. Using the two options as CPOL and CPHA.</simpara>
+<simpara><emphasis role="strong">Legacy SPI Module Summary:</emphasis></simpara>
+<simpara>When using SPI setting the clock frequency is completed using SPI2Mode, and the master must also configure the clock polarity and phase with respect to the data. Using the two options as CPOL and CPHA.</simpara>
 <simpara>The timing diagram is shown below. The timing is further described and applies to both the master and the slave device.</simpara>
 <simpara>When CPOL=0 the base value of the clock is zero, i.e. the active state is 1 and idle state is 0.</simpara>
 <itemizedlist>
@@ -31022,12 +31061,12 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
         #define SPI2_DO       DIGITAL_11          ' Data out | MOSI
         #define SPI2_SCK      DIGITAL_13          ' Clock Line
 
-        dir SPI_DC    out
-        dir SPI_CS    out
-        dir SPI_RESET out
-        dir SPI_DO    Out
-        dir SPI_DI    In
-        dir SPI_SCK   Out
+        dir SPI2_DC    out
+        dir SPI2_CS    out
+        dir SPI2_RESET out
+        dir SPI2_DO    Out
+        dir SPI2_DI    In
+        dir SPI2_SCK   Out
 
         'If DIGITAL_10 is NOT used as the SPI2_CS (sometimes called SS) the port must and output or set as input/pulled high with a 10k resistor.
         'As follows:
@@ -31041,22 +31080,22 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
         dim outbyte, inbyte as byte
 
 
-        #DEFINE HWSPICLOCKMODE  SPI_CPOL_0 + SPI_CPHA_0
-        SPIMode ( MasterFast, HWSPICLOCKMODE )
+        #DEFINE HWSPI2CLOCKMODE  SPI_CPOL_0 + SPI_CPHA_0
+        SPI2Mode ( MasterFast, HWSPI2CLOCKMODE )
 
 
        do
-        set SPI_CS OFF//  Select line
-        set SPI_DC OFF//  Send Data if off, or, Data if On
-        SPITransfer ( outbyte, inbyte )
-        set SPI_CS ON//   Deselect Line
-        set SPI_DC ON
+        set SPI2_CS OFF//  Select line
+        set SPI2_DC OFF//  Send Data if off, or, Data if On
+        SPI2Transfer ( outbyte, inbyte )
+        set SPI2_CS ON//   Deselect Line
+        set SPI2_DC ON
         wait 10 ms
        loop</screen>
-<simpara><emphasis role="strong">18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers SPI Summary:</emphasis></simpara>
-<simpara>When using SPI setting the clock frequency is completed using SPIMode, and the master must also configure the clock polarity and phase with respect to the data. &#160;&#160; Using the three options as CPOL, CPHA and SS.</simpara>
+<simpara><emphasis role="strong">Modern SPI Module Summary:</emphasis></simpara>
+<simpara>When using SPI setting the clock frequency is completed using SPI2Mode, and the master must also configure the clock polarity and phase with respect to the data. &#160;&#160; Using the three options as CPOL, CPHA and SS.</simpara>
 <simpara>The timing diagram is as shown in the prevsious section that impacts CPOL and CPHA.&#160;&#160;</simpara>
-<simpara>If you have set the PPS for SPI1SSPPS then control of the SPI SS ( also know as CS / ChipSelect) is automatically controlled by the SPI transmission.</simpara>
+<simpara>If you have set the PPS for SPI2SSPPS then control of the SPI SS ( also know as CS / ChipSelect) is automatically controlled by the SPI transmission.</simpara>
 <itemizedlist>
 <listitem>
 <simpara>Example:*</simpara>
@@ -31068,13 +31107,15 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
     #DEFINE PPSToolPart 18F16Q41
 
     // Use PPS to assign SPI capabilities to specific ports
+    // NOTE: the RxxPPS pin assignments and function-selector values below are illustrative -
+    // confirm the correct pins and PPS function values for SPI2 on your specific device datasheet.
     SUB InitPPS
-        SPI1SDIPPS = 0x000C
+        SPI2SDIPPS = 0x000C
         RB6PPS = 0x001B
-        SPI1SCKPPS = 0x000E
+        SPI2SCKPPS = 0x000E
         RB5PPS = 0x001C
         RC6PPS = 0x001D
-        SPI1SSPPS = 0x0016
+        SPI2SSPPS = 0x0016
     END SUB
 
 
@@ -31087,13 +31128,13 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 
     // Specfic the hardware SPI operating model
     // Can be MasterUltraFast, MasterFast, Master, MasterSlow
-    #DEFINE HWSPIMode   MasterUltraFast
+    #DEFINE HWSPI2Mode   MasterUltraFast
 
     // You can use a shared constant to set a consant with the desired SPIClockMode
-    #DEFINE HWSPIClockMode  SPI_SS_0 + SPI_CPOL_0 + SPI_CPHA_0
+    #DEFINE HWSPI2ClockMode  SPI_SS_0 + SPI_CPOL_0 + SPI_CPHA_0
 
-    // Call SPIMode
-    SPIMode (HWSPIMode,  HWSPIClockMode )
+    // Call SPI2Mode
+    SPI2Mode (HWSPI2Mode,  HWSPI2ClockMode )
 
     // Define the GCBASIC required SPI port constants.
     // Must match any PPS defined.
@@ -31106,9 +31147,12 @@ There is no verification by the compiler if you do use the <emphasis>_SPIClockMo
 
     DO
         // Send 0x75 via SPI over and over again...
-        FastHWSPITransfer 0x75
+        FastHWSPI2Transfer 0x75
     LOOP</screen>
-<simpara><emphasis role="strong">See also</emphasis> <link linkend="_spitransfer">SPITransfer</link>,<link linkend="_fasthwspitransfer">FastHWSPITransfer</link></simpara>
+<simpara><emphasis role="strong">Displaying SPI Configuration Information:</emphasis></simpara>
+<simpara>You can define <literal>SHOWSPISCRIPTINFO</literal> to have the compiler report diagnostic information while it evaluates the SPI configuration. This includes the chip name, whether the Legacy SPI Module or Modern SPI Module constants were defined, and the calculated SPI baud rate values.</simpara>
+<screen>    #DEFINE SHOWSPISCRIPTINFO</screen>
+<simpara><emphasis role="strong">See also</emphasis> <link linkend="_spi2transfer">SPI2Transfer</link>,<link linkend="_fasthwspi2transfer">FastHWSPI2Transfer</link></simpara>
 </section>
 <section xml:id="_spi2transfer">
 <title>SPI2Transfer</title>
@@ -36909,6 +36953,7 @@ A subroutine uses a temporary variable of type byte, and relies on it overflowin
     Dim <emphasis>string</emphasis> [* <emphasis>size</emphasis>] [At <emphasis>location</emphasis>]</screen>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara>The <literal>Dim</literal> command is used to declare variables, arrays, and strings. It can also create aliases for existing variables or place variables at specific memory locations.</simpara>
+<simpara>For PiC and early AVR, the variable is an undefined value unless explicitly set within a user program.</simpara>
 <simpara>GCBASIC supports <emphasis role="strong">optional initialisation</emphasis> at the point of declaration:</simpara>
 <screen>    Dim byte_var As Byte = 1</screen>
 <simpara>This sets the variable to the specified value at program start.
@@ -37010,10 +37055,96 @@ When reading or writing to this variable, it is effectively the aliases that are
 </section>
 <section xml:id="_strings">
 <title>Strings</title>
-<simpara>A fixed‑length string is declared as:</simpara>
-<screen>    Dim Name * 16</screen>
-<simpara>This allocates a 16‑byte string (plus one extra byte internally).
-Fixed strings are not null‑terminated and do not resize automatically.</simpara>
+<simpara><emphasis role="strong">String</emphasis></simpara>
+<simpara>Declared as:</simpara>
+<screen>    Dim &lt;Name&gt; As String</screen>
+<simpara>This allocates a RAM for a string (plus one extra byte internally).
+Fixed strings are not null-terminated and do not resize automatically.</simpara>
+<simpara><emphasis role="strong">Fixed-length string</emphasis></simpara>
+<simpara>Declared as:</simpara>
+<screen>    Dim &lt;Name&gt; As String [* &lt;Length&gt;]
+    Dim &lt;Name&gt; * &lt;Length&gt;</screen>
+<simpara>This allocates a 16-byte string (plus one extra byte internally).
+Fixed strings are not null-terminated and do not resize automatically.</simpara>
+<simpara><emphasis role="strong">String Escape Sequences</emphasis></simpara>
+<simpara>String literals in GCBASIC source support escape sequences, allowing arbitrary
+byte values to be embedded directly in strings without workarounds.
+This capability removes the need to use CHR() which is expensive in terms of RAM.
+From build 1603.</simpara>
+<simpara><emphasis role="strong">Supported Sequences</emphasis></simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="20*"/>
+<colspec colname="col_2" colwidth="40*"/>
+<colspec colname="col_3" colwidth="40*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Sequence</entry>
+<entry align="left" valign="top">Value</entry>
+<entry align="left" valign="top">Example</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><literal>\xNN</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Hex byte, exactly 2 digits (0-9, A-F)</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>\xDC</literal> &#8594; Chr(220)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>\0xNN</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Hex byte, exactly 2 digits (0-9, A-F)</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>\0x1F</literal> &#8594; Chr(31)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>\NNN</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Decimal byte, exactly 3 digits (0-9)</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>\223</literal> &#8594; Chr(223)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>\r</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Carriage return</simpara></entry>
+<entry align="left" valign="top"><simpara>Chr(13)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>\n</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Newline</simpara></entry>
+<entry align="left" valign="top"><simpara>Chr(10)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>\t</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Tab</simpara></entry>
+<entry align="left" valign="top"><simpara>Chr(9)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>\\</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Literal backslash</simpara></entry>
+<entry align="left" valign="top"><simpara>Chr(92)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>\"</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Literal double-quote</simpara></entry>
+<entry align="left" valign="top"><simpara>Chr(34)</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><emphasis role="strong">Rules</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara>Hex digits must be uppercase or lowercase A-F; exactly 2 are required.</simpara>
+</listitem>
+<listitem>
+<simpara>Decimal values must be exactly 3 digits and in the range 000-255.</simpara>
+</listitem>
+<listitem>
+<simpara>An unrecognised escape sequence produces a compile-time error with file and line number.</simpara>
+</listitem>
+</itemizedlist>
+<simpara><emphasis role="strong">Example</emphasis></simpara>
+<screen>    tmpstring = "\223C\\"</screen>
+<simpara>Produces a 3-byte string: <literal>Chr(223)</literal>, <literal>C</literal>, <literal>\</literal>&#8201;&#8212;&#8201;stored in the string table as:</simpara>
+<screen>    StringTable2:
+    .DB  3, 223, 67, 92</screen>
 <simpara><?asciidoc-hr?></simpara>
 </section>
 <section xml:id="_new_example_1_basic_variables_with_initial_values">
@@ -42961,6 +43092,7 @@ The algorithm is a variant of <link xlink:href="https://en.wikipedia.org/wiki/Br
     // turn on the RS232 and terminal port.
     // Define the USART settings
     #DEFINE USART_BAUD_RATE 9600
+    #DEFINE USART_BLOCKING  // Required, could use #define USART_TX_BLOCKING as the RX is interrupt driven.
 
     // This assumes you are using an ANSI compatible terminal.  Use PUTTY.EXE it is very easy to use.
 
