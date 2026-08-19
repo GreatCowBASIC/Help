@@ -1,0 +1,49 @@
+<div class="section">
+
+<div class="titlepage">
+
+<div>
+
+<div>
+
+#### <span id="integertobin"></span>IntegerToBin
+
+</div>
+
+</div>
+
+</div>
+
+<span class="strong">**Syntax:**</span>
+
+``` screen
+    stringvar = IntegerToBin(integervar)
+```
+
+<span class="strong">**Command Availability:**</span>
+
+Available on all microcontrollers
+
+<span class="strong">**Explanation:**</span>
+
+The `IntegerToBin` function creates a string of a ANSI (signed 15 digit
+string ) characters. The function converts a number to a string
+consisting of ones and zeros that represents the binary value.
+
+<span class="strong">**Note:**</span> Supports Integer variables only.
+For BYTE variables use `VarToBin`, for Word variables use `WordToBin`
+and for LONG variables use `LongToBin`
+
+<span class="strong">**Example:**</span>
+
+``` screen
+    string = IntegerToBin( 1 )   ' Returns "+000000000000001"
+    string = IntegerToBin( -1 )  ' Returns "-000000000000001"
+```
+
+<span class="strong">**For more help, see**</span>
+<a href="bytetobin" class="link" title="ByteToBin">ByteToBin</a>,
+<a href="wordtobin" class="link" title="WordToBin">WordToBin</a>,
+<a href="longtobin" class="link" title="LongToBin">LongToBin</a>
+
+</div>
