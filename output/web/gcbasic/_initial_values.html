@@ -16,7 +16,7 @@
       <link rel="next" href="_alias.html" title="Alias" />
       <meta name="Section-title" content="Initial Values" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-61564";
+            var treeCookieId = "treeview-61620";
             var language = "en";
             var w = new Object();
             //Localization
@@ -187,7 +187,9 @@ border: none; background: none; font-weight: none; color: none; }
             <p>You may optionally assign an initial value using <code class="literal">= value</code>:
             </p><pre class="screen">    Dim Counter As Byte = 10
     Dim Temperature As Integer = -5
-    Dim Flag As Bit = 1</pre><p>This improves readability and reduces the need for separate initialisation code.</p>
+    Dim Flag As Bit = 1</pre><p>This improves readability and reduces the need for separate initialisation code. It is also the only way to guarantee a variable’s
+               starting value on chip families that do not zero-initialise variables by default (see the table above).
+            </p>
             <p>Initialisation is supported for:</p>
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">

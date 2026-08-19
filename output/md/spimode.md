@@ -115,24 +115,30 @@ Master mode, SPI clock is 1/4 of the frequency of the microcontroller.
 
 `MasterSlow`
 
-SPI clock baud rate is calculated as INT( ChipMHz \* 8 / SPI\_BAUD\_RATE
-\* 1000) - 1. Where SPI\_BAUD\_RATE defaults to ChipMHz / 4 \* 1000.
+SPIBAUDRATE\_SCRIPT constant ( used to set the register
+`SPI_BAUD_RATE_REGISTER` ) is calculated as INT( ChipMHz \* 8 /
+SPI\_BAUD\_RATE \* 1000) - 1. Where SPI\_BAUD\_RATE defaults to ChipMHz
+/ 4 \* 1000.
 
 Also, see `SPI_BAUD_RATE` and `SPI_BAUD_RATE_REGISTER` for changing SPI
 Baud Rate and settting the SPI Baud Rate register with an explicit value
 
 `Master`
 
-SPI clock baud rate is calculated as INT( ChipMHz \* 2 / SPI\_BAUD\_RATE
-\* 1000) - 1. Where SPI\_BAUD\_RATE defaults to ChipMHz / 4 \* 1000.
+SPIBAUDRATE\_SCRIPT constant ( used to set the register
+`SPI_BAUD_RATE_REGISTER` ) is calculated as INT( ChipMHz \* 2 /
+SPI\_BAUD\_RATE \* 1000) - 1. Where SPI\_BAUD\_RATE defaults to ChipMHz
+/ 4 \* 1000.
 
 Also, see `SPI_BAUD_RATE` and `SPI_BAUD_RATE_REGISTER` for changing SPI
 Baud Rate and settting the SPI Baud Rate register with an explicit value
 
 `MasterFast`
 
-SPI clock baud rate is calculated as INT( ChipMHz / SPI\_BAUD\_RATE \*
-1000) - 1. Where SPI\_BAUD\_RATE defaults to ChipMHz / 4 \* 1000.
+SPIBAUDRATE\_SCRIPT constant ( used to set the register
+`SPI_BAUD_RATE_REGISTER` ) is calculated as INT( ChipMHz /
+SPI\_BAUD\_RATE \* 1000) - 1. Where SPI\_BAUD\_RATE defaults to ChipMHz
+/ 4 \* 1000.
 
 Also, see `SPI_BAUD_RATE` and `SPI_BAUD_RATE_REGISTER` for changing SPI
 Baud Rate and settting the SPI Baud Rate register with an explicit value

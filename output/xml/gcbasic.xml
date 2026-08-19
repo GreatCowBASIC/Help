@@ -164,7 +164,7 @@ Select the drop down menu to see the menu
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
 <entry align="center" valign="top"><simpara>2026-08-19<?asciidoc-br?>
-07:15:04 GMT Summer Time</simpara></entry>
+17:25:24 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
@@ -30393,17 +30393,17 @@ the possible SPI Modes:</simpara>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>MasterSlow</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz * 8 / SPI_BAUD_RATE * 1000) - 1.  Where SPI_BAUD_RATE defaults to ChipMHz / 4 * 1000.
+<entry align="left" valign="top"><simpara>SPIBAUDRATE_SCRIPT constant ( used to set the register <literal>SPI_BAUD_RATE_REGISTER</literal> ) is calculated as INT( ChipMHz * 8 / SPI_BAUD_RATE * 1000) - 1.  Where SPI_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 </simpara><simpara>Also, see <literal>SPI_BAUD_RATE</literal> and <literal>SPI_BAUD_RATE_REGISTER</literal> for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>Master</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz * 2 / SPI_BAUD_RATE * 1000) - 1.  Where SPI_BAUD_RATE defaults to ChipMHz / 4 * 1000.
+<entry align="left" valign="top"><simpara>SPIBAUDRATE_SCRIPT constant ( used to set the register <literal>SPI_BAUD_RATE_REGISTER</literal> ) is calculated as INT( ChipMHz * 2 / SPI_BAUD_RATE * 1000) - 1.  Where SPI_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 </simpara><simpara>Also, see <literal>SPI_BAUD_RATE</literal> and <literal>SPI_BAUD_RATE_REGISTER</literal> for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>MasterFast</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz / SPI_BAUD_RATE * 1000) - 1.  Where SPI_BAUD_RATE defaults to ChipMHz / 4 * 1000.
+<entry align="left" valign="top"><simpara>SPIBAUDRATE_SCRIPT constant ( used to set the register <literal>SPI_BAUD_RATE_REGISTER</literal> ) is calculated as INT( ChipMHz / SPI_BAUD_RATE * 1000) - 1.  Where SPI_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 </simpara><simpara>Also, see <literal>SPI_BAUD_RATE</literal> and <literal>SPI_BAUD_RATE_REGISTER</literal> for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value</simpara></entry>
 </row>
 <row>
@@ -30868,17 +30868,17 @@ the possible SPI Modes:</simpara>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>MasterSlow</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz * 8 / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
+<entry align="left" valign="top"><simpara>SPI2BAUDRATE_SCRIPT constant ( used to set the register <literal>SPI2_BAUD_RATE_REGISTER</literal> ) is calculated as INT( ChipMHz * 8 / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 </simpara><simpara>Also, see <literal>SPI2_BAUD_RATE</literal> and <literal>SPI2_BAUD_RATE_REGISTER</literal> for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>Master</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz * 2 / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
+<entry align="left" valign="top"><simpara>SPI2BAUDRATE_SCRIPT constant ( used to set the register <literal>SPI2_BAUD_RATE_REGISTER</literal> ) is calculated as INT( ChipMHz * 2 / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 </simpara><simpara>Also, see <literal>SPI2_BAUD_RATE</literal> and <literal>SPI2_BAUD_RATE_REGISTER</literal> for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>MasterFast</literal></simpara></entry>
-<entry align="left" valign="top"><simpara>SPI clock baud rate is calculated as INT( ChipMHz / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
+<entry align="left" valign="top"><simpara>SPI2BAUDRATE_SCRIPT constant ( used to set the register <literal>SPI2_BAUD_RATE_REGISTER</literal> ) is calculated as INT( ChipMHz / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 </simpara><simpara>Also, see <literal>SPI2_BAUD_RATE</literal> and <literal>SPI2_BAUD_RATE_REGISTER</literal> for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value</simpara></entry>
 </row>
 <row>
@@ -36953,13 +36953,38 @@ A subroutine uses a temporary variable of type byte, and relies on it overflowin
     Dim <emphasis>string</emphasis> [* <emphasis>size</emphasis>] [At <emphasis>location</emphasis>]</screen>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara>The <literal>Dim</literal> command is used to declare variables, arrays, and strings. It can also create aliases for existing variables or place variables at specific memory locations.</simpara>
-<simpara>For PiC and early AVR, the variable is an undefined value unless explicitly set within a user program.</simpara>
 <simpara>GCBASIC supports <emphasis role="strong">optional initialisation</emphasis> at the point of declaration:</simpara>
 <screen>    Dim byte_var As Byte = 1</screen>
 <simpara>This sets the variable to the specified value at program start.
 The traditional form remains fully valid:</simpara>
 <screen>    Dim byte_var As Byte</screen>
-<simpara>If no initial value is provided, the variable is initialised to zero unless the compiler determines otherwise.</simpara>
+<simpara>If no initial value is provided, the starting state of the variable depends on the target chip family. Do not assume a variable starts at zero unless you have explicitly initialised it or confirmed your target is in the "initialised to zero" category below.</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="66*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Chip Family</entry>
+<entry align="left" valign="top">Behaviour without an initial value</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>AVR Dx (e.g. AVR128DA, AVR64DB, etc.)</simpara></entry>
+<entry align="left" valign="top"><simpara>Initialised to zero</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>LGT (LGT8F series)</simpara></entry>
+<entry align="left" valign="top"><simpara>Initialised to zero</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>All other supported chips (PIC, classic/early AVR, etc.)</simpara></entry>
+<entry align="left" valign="top"><simpara>Unknown/undefined state&#8201;&#8212;&#8201;the variable holds whatever value was already present in memory (e.g. left over from a previous program, or the power-on state of RAM) until your program explicitly sets it</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
 <simpara><emphasis role="strong">Command Availability:</emphasis>
 Available on all microcontrollers.</simpara>
 <simpara><?asciidoc-hr?></simpara>
@@ -36978,7 +37003,7 @@ Available on all microcontrollers.</simpara>
 <screen>    Dim Counter As Byte = 10
     Dim Temperature As Integer = -5
     Dim Flag As Bit = 1</screen>
-<simpara>This improves readability and reduces the need for separate initialisation code.</simpara>
+<simpara>This improves readability and reduces the need for separate initialisation code. It is also the only way to guarantee a variable&#8217;s starting value on chip families that do not zero-initialise variables by default (see the table above).</simpara>
 <simpara>Initialisation is supported for:</simpara>
 <itemizedlist>
 <listitem>
@@ -37169,6 +37194,7 @@ From build 1603.</simpara>
 
     DataList(1) = 15
     WordList(0) = 1024</screen>
+<simpara>Note: on chip families that do not zero-initialise by default (see the table under "Dim" above), <literal>WordList</literal> will contain unknown values until written to; only <literal>DataList</literal> is guaranteed zero here because it is explicitly initialised.</simpara>
 <simpara><?asciidoc-hr?></simpara>
 </section>
 <section xml:id="_new_example_3_bit_level_access_using_constants">

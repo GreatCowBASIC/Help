@@ -16,7 +16,7 @@
       <link rel="next" href="_new_example_3_bit_level_access_using_constants.html" title="New Example 3: Bit‑Level Access Using Constants" />
       <meta name="Section-title" content="New Example 2: Arrays and Initialisation" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-61564";
+            var treeCookieId = "treeview-61620";
             var language = "en";
             var w = new Object();
             //Localization
@@ -190,7 +190,9 @@ border: none; background: none; font-weight: none; color: none; }
     Dim WordList(4) As Word
 
     DataList(1) = 15
-    WordList(0) = 1024</pre><p></p>
+    WordList(0) = 1024</pre><p>Note: on chip families that do not zero-initialise by default (see the table under "Dim" above), <code class="literal">WordList</code> will contain unknown values until written to; only <code class="literal">DataList</code> is guaranteed zero here because it is explicitly initialised.
+            </p>
+            <p></p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">

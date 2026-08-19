@@ -25,4 +25,9 @@
     WordList(0) = 1024
 ```
 
+Note: on chip families that do not zero-initialise by default (see the
+table under "Dim" above), `WordList` will contain unknown values until
+written to; only `DataList` is guaranteed zero here because it is
+explicitly initialised.
+
 </div>

@@ -23,7 +23,9 @@ You may optionally assign an initial value using `= value`:
 ```
 
 This improves readability and reduces the need for separate
-initialisation code.
+initialisation code. It is also the only way to guarantee a variable’s
+starting value on chip families that do not zero-initialise variables by
+default (see the table above).
 
 Initialisation is supported for:
 

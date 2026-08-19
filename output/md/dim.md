@@ -37,9 +37,6 @@ The `Dim` command is used to declare variables, arrays, and strings. It
 can also create aliases for existing variables or place variables at
 specific memory locations.
 
-For PiC and early AVR, the variable is an undefined value unless
-explicitly set within a user program.
-
 GCBASIC supports <span class="strong">**optional initialisation**</span>
 at the point of declaration:
 
@@ -54,8 +51,20 @@ traditional form remains fully valid:
     Dim byte_var As Byte
 ```
 
-If no initial value is provided, the variable is initialised to zero
-unless the compiler determines otherwise.
+If no initial value is provided, the starting state of the variable
+depends on the target chip family. Do not assume a variable starts at
+zero unless you have explicitly initialised it or confirmed your target
+is in the "initialised to zero" category below.
+
+<div class="informaltable">
+
+| Chip Family                                              | Behaviour without an initial value                                                                                                                                                                     |
+|:---------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AVR Dx (e.g. AVR128DA, AVR64DB, etc.)                    | Initialised to zero                                                                                                                                                                                    |
+| LGT (LGT8F series)                                       | Initialised to zero                                                                                                                                                                                    |
+| All other supported chips (PIC, classic/early AVR, etc.) | Unknown/undefined state — the variable holds whatever value was already present in memory (e.g. left over from a previous program, or the power-on state of RAM) until your program explicitly sets it |
+
+</div>
 
 <span class="strong">**Command Availability:**</span> Available on all
 microcontrollers.

@@ -16,7 +16,7 @@
       <link rel="next" href="_variable_declaration.html" title="Variable Declaration" />
       <meta name="Section-title" content="Dim" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-61564";
+            var treeCookieId = "treeview-61620";
             var language = "en";
             var w = new Object();
             //Localization
@@ -199,11 +199,55 @@ border: none; background: none; font-weight: none; color: none; }
             <p>The <code class="literal">Dim</code> command is used to declare variables, arrays, and strings. It can also create aliases for existing variables or place variables
                at specific memory locations.
             </p>
-            <p>For PiC and early AVR, the variable is an undefined value unless explicitly set within a user program.</p>
             <p>GCBASIC supports <span class="strong"><strong>optional initialisation</strong></span> at the point of declaration:
             </p><pre class="screen">    Dim byte_var As Byte = 1</pre><p>This sets the variable to the specified value at program start.
                The traditional form remains fully valid:
-            </p><pre class="screen">    Dim byte_var As Byte</pre><p>If no initial value is provided, the variable is initialised to zero unless the compiler determines otherwise.</p>
+            </p><pre class="screen">    Dim byte_var As Byte</pre><p>If no initial value is provided, the starting state of the variable depends on the target chip family. Do not assume a variable
+               starts at zero unless you have explicitly initialised it or confirmed your target is in the "initialised to zero" category
+               below.
+            </p>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col class="col_1" />
+                     <col class="col_2" />
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th align="left" valign="top">Chip Family</th>
+                        <th align="left" valign="top">Behaviour without an initial value</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>AVR Dx (e.g. AVR128DA, AVR64DB, etc.)</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Initialised to zero</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>LGT (LGT8F series)</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Initialised to zero</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>All other supported chips (PIC, classic/early AVR, etc.)</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Unknown/undefined state — the variable holds whatever value was already present in memory (e.g. left over from a previous
+                              program, or the power-on state of RAM) until your program explicitly sets it
+                           </p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
             <p><span class="strong"><strong>Command Availability:</strong></span>
                Available on all microcontrollers.
             </p>
