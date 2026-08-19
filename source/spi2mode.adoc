@@ -68,16 +68,16 @@ the possible SPI Modes:
 
 2+|*Modern SPI Module*
 |`MasterSlow`
-|SPI clock baud rate is calculated as INT( ChipMHz * 8 / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.  
+|SPI2BAUDRATE_SCRIPT constant ( used to set the register `SPI2_BAUD_RATE_REGISTER` ) is calculated as INT( ChipMHz * 8 / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.  
 
 Also, see `SPI2_BAUD_RATE` and `SPI2_BAUD_RATE_REGISTER` for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value
 |`Master`
-|SPI clock baud rate is calculated as INT( ChipMHz * 2 / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
+|SPI2BAUDRATE_SCRIPT constant ( used to set the register `SPI2_BAUD_RATE_REGISTER` ) is calculated as INT( ChipMHz * 2 / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 
 Also, see `SPI2_BAUD_RATE` and `SPI2_BAUD_RATE_REGISTER` for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value
 
 |`MasterFast`
-|SPI clock baud rate is calculated as INT( ChipMHz / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
+|SPI2BAUDRATE_SCRIPT constant ( used to set the register `SPI2_BAUD_RATE_REGISTER` ) is calculated as INT( ChipMHz / SPI2_BAUD_RATE * 1000) - 1.  Where SPI2_BAUD_RATE defaults to ChipMHz / 4 * 1000.
 
 Also, see `SPI2_BAUD_RATE` and `SPI2_BAUD_RATE_REGISTER` for changing SPI Baud Rate and settting the SPI Baud Rate register with an explicit value
 |`MasterUltraFast`
