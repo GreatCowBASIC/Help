@@ -1,6 +1,0 @@
-<project> 																		
-  <property name="input-xml" value="gcbasic.xml"/> 									
-  <property name="input-images-dirs" value="images/** figures/** graphics/**"/>	
-  <property name="output-dir" value="../output/web/gcbasic"/>	    					
-  <import file="D:\GreatCowBASICGits\Help.git\prog\docbook-xsl-ns-1.78.1\webhelp\build.xml"/>									
-</project>																		
