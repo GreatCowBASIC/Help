@@ -1,4 +1,7 @@
-﻿==== Variable Lifecycle
+==== Variable Lifecycle
+
+(((Variables Operations,Variable Lifecycle)))
+
 
 *Explanation*
 
@@ -29,6 +32,7 @@ Variables local to particular subroutines are not implemented.
 All variables are global.  Bit variables defined in subs/function are global.
 
 Byte variables do not need to be defined using the DIM statement.  See #Option Explicit above.  Just to clarify byte is default type, this means:
+[source,gcbasic]
 ----
     Dim MainVar As Byte is unnecessary.
     MainVar = 128    automatic defines the MainVar variable
@@ -40,6 +44,7 @@ All variables are global, but, if they are defined inside a particular subroutin
 
 Example code:
 
+[source,gcbasic]
 ----
     Dim MainVar As Byte
     Dim OtherVar As Word
@@ -55,13 +60,15 @@ Example code:
     '(Byte is default type, but location shared with that of Counter in DemoSub. High byte ignored)
 
     Sub DemoSub
-        Dim Counter As Word
+        Dim Counter As Word          ' <<< a Word-typed alias for the same memory the caller sees as a Byte named Counter
         Counter = 2050
         'At this point:
         'MainVar and OtherVar as byte and word, as in main routine
         'Counter is a word, value 2050
     End Sub
 ----
+*Key line:* `Dim Counter As Word` -- because every variable in GCBASIC is global by name and address, this local `Dim` does not create separate storage; it only changes how the *same* memory is interpreted inside `DemoSub`. Outside the sub, that memory is read as a `Byte`, so `2050` (`0x0802`) is truncated to its low byte, `2`.
+
 In DemoSub, Counter is a word. But anywhere else in the program it is a byte unless otherwise specified.   If the variable is used/read in the main routine, it will be treated as a byte, and only the low 8 bits will be returned. In this example the low 8 bits of 2050 are 2.
 
 The main reason for keeping the type inside the subroutine was for the following scenario:
@@ -74,4 +81,8 @@ If the first subroutine is already in the program, and then the second one is ad
 The handling of variable types using this method minimises the size of the generated assembly code.
 
 
-*For more help, see* <<__option_explicit,Option Explicit>>
+**See Also:**
+
+* <<__option_explicit,Option Explicit>>
+* <<_dim,Dim>> -- declaring variables, as used throughout this page
+* <<_using_variables,Using Variables>> -- accessing individual bytes of a wider variable directly, without aliasing by name

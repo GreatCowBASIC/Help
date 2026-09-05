@@ -1,19 +1,23 @@
 ==== LCase
 
+(((String Manipulation,LCase)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __output__ = LCase(__source__)
 ----
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The `LCase` function will convert all of the letters in the string `_source_` to lower case, and return the result.
+The `LCase` function converts all of the letters in the string `_source_` to lower case, and returns the result. Characters that are not letters are left unchanged.
 
 *Example:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16F1936
@@ -29,7 +33,11 @@ The `LCase` function will convert all of the letters in the string `_source_` to
 
     'Display the string in lower case
     'Will display "hello, world!"
-    HSerPrint LCase(TestData)
+    HSerPrint LCase(TestData)          ' <<< the LCase instruction
     HSerPrintCRLF
 ----
-*See Also* <<_ucase,UCase>>
+*Key line:* `LCase(TestData)` -- returns `TestData` with every letter converted to lower case, leaving the comma and exclamation mark untouched.
+
+**See Also:**
+
+* <<_ucase,UCase>> -- the inverse conversion, to upper case

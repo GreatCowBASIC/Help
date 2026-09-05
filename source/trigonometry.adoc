@@ -1,7 +1,10 @@
 ==== Trigonometry Sine, Cosine and Tangent
 
+(((Maths,Trigonometry Sine\, Cosine and Tangent)))
+
+
 *Syntax*:
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     integer_variable = sin( __integer_variable__ )
 
@@ -20,6 +23,7 @@ The output values are also integers, represented as fixed point decimal fraction
 *Details:*
 
 The sine, cosine and tangent functions are available for your programs simply by including the header file offering the precision you need.
+[source,gcbasic]
 ----
     #INCLUDE <TRIG2PLACES.H> gives two decimal places
     #INCLUDE <TRIG3PLACES.H> gives three decimal places
@@ -34,6 +38,7 @@ Note that the tangent function is not available to four decimal places, since it
 These routines are completely general. The input argument may be positive, negative or zero, with no restriction on the size.&#160;&#160;Further observe that lookup tables are used, so the routines are very fast, efficient and accurate.
 
 *Example: Show the trigonometric values to three decimal places.*
+[source,gcbasic]
 ----
 
     ;----- Configuration
@@ -56,37 +61,37 @@ These routines are completely general. The input argument may be positive, negat
 
     ;----- Variables
 
-    dim ii as integer
+    dim index as integer
     dim outStr, valStr as string
 
     ;----- Program
 
     dir PortB out                   ;all outputs to the LCD
 
-    for ii = -720 to 720             ;arguments from -720 to 720
+    for index = -720 to 720             ;arguments from -720 to 720
     cls
     print "sin("                  ;print the label
-    print ii                      ;and the argument
+    print index                      ;and the argument
     print ")="                    ;and closing parenthesis
     locate 1,0
-    printTrig(sin(ii))             ;print value of the sine
+    printTrig(sin(index))             ;print value of the sine          ' <<< the sin instruction
     wait 500 mS                   ;pause to view
 
     cls                           ;do likewise for cosine
     print "cos("
-    print ii
+    print index
     print ")="
     locate 1,0
-    printTrig(cos(ii))
+    printTrig(cos(index))
     wait 500 mS                   ;pause to view
     cls                           ;do likewise for tangent
     print "tan("
-    print ii
+    print index
     print ")="
     locate 1,0
-    printTrig(tan(ii))
+    printTrig(tan(index))
     wait 500 mS                   ;pause to view
-    next i
+    next index
 
     sub printTrig(in value as integer)
         ;print decently formatted trig results
@@ -115,3 +120,9 @@ These routines are completely general. The input argument may be positive, negat
         print outStr
     end sub
 ----
+*Key line:* `printTrig(sin(index))` -- calls `sin()` with the loop angle `index` in whole degrees and passes the fixed-point result (scaled by 1000, since `TRIG3PLACES.H` is included) to the formatting sub-routine, which reinserts the decimal point; the loop variable is named `index` rather than a bare `i`/`ii`, since a single or doubled letter is easy to mistype in the matching `next` statement -- the original text used the ambiguous name `ii` and, worse, closed the loop with a mismatched `next i`.
+
+**See Also:**
+
+* <<_trigonometry_atan,Trigonometry ATAN>> -- related command in the same category
+* <<_abs,Abs>> -- related command in the same category

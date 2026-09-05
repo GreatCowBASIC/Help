@@ -1,7 +1,10 @@
-	==== HI2CSend
+==== HI2CSend
+
+(((I2C/TWI Hardware Module,HI2CSend)))
+
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     HI2CSend _data_
 ----
@@ -20,6 +23,7 @@ sending.
 
 This command is also available on microcontrollers with a second hardware I2C port.
 
+[source,gcbasic]
 ----
     HI2C2Send  data
 ----
@@ -27,10 +31,11 @@ This command is also available on microcontrollers with a second hardware I2C po
 *Example:*
 
 This example code retrieves multiple bytes from an EEPROM memory device.
+[source,gcbasic]
 ----
 	do
 	  HI2CReStart                         ;generate a start signal
-	  HI2CSend(eepDev)                    ;indicate a write
+	  HI2CSend(eepDev)                    ;indicate a write          ' <<< the HI2CSend instruction
 	loop While HI2CAckPollState
 
 	HI2CSend(eepAddr_H)                   ;as two bytes
@@ -50,4 +55,14 @@ This example code retrieves multiple bytes from an EEPROM memory device.
 	loop
 	HI2CStop
 ----
+*Key line:* `HI2CSend(eepDev)` -- sends the device address byte with the write bit set; the loop retries until the device ACKs (`HI2CAckPollState` returns false).
+
+**See Also:**
+
+* <<_hi2cstart,HI2CStart>> / <<_hi2crestart,HI2CRestart>> -- generating the start/restart condition used above
+* <<_hi2creceive,HI2CReceive>> -- the receiving counterpart used later in the example
+* <<_hi2cstop,HI2CStop>> -- ending the transaction
+* <<_hi2cackpollstate,HI2CAckPollState>> -- checking for a device ACK, as polled by the retry loop above
+* <<_hi2cmode,HI2CMode>> -- selecting master/slave mode before sending
+
 Supported in <HI2C.H>

@@ -2,7 +2,7 @@
 
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     bit = FnEquBit(BitIn)
 ----

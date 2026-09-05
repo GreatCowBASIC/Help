@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
  DectoBcd( ByteVariable )
 ```
 
@@ -26,21 +26,34 @@ Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-Converts numbers from Decimal to Binary Coded Decimal format. Support
-Bytes only.
+Converts numbers from decimal to Binary Coded Decimal (BCD) format.
+Supports bytes only. In BCD, each nibble (4 bits) of a byte represents
+one decimal digit — for example, the decimal number 23 becomes the BCD
+byte `0x23`.
 
-You can add this function. Just add this to your GCBASIC program and
-then call it when you need it.
+This is not a built-in GCBASIC command; it is a user-defined function
+you add to your own program and call when needed.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     Function DecToBcd(va) as Byte
-       DecToBcd=(va/10)*16+va%10
+       DecToBcd=(va/10)*16+va%10          ' <<< the DecToBcd instruction
     End Function
 ```
 
-<span class="strong">**Also see**</span>
-<a href="bcdtodec_gcb" class="link" title="BcdToDec_GCB">BcdToDec_GCB</a>
+<span class="strong">**Key line:**</span>
+`DecToBcd=(va/10)*16+va%10` — splits the decimal value `va` into tens
+and units, then packs the tens digit into the high nibble and the units
+digit into the low nibble of the result byte.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="bcdtodec_gcb" class="link" title="BcdToDec_GCB">BcdToDec_GCB</a> — the
+    inverse conversion
+
+</div>
 
 </div>

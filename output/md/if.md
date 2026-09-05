@@ -84,7 +84,7 @@ Supported:
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Turn a light on or off depending on a light sensor
 
     #chip 12F683, 8
@@ -97,7 +97,7 @@ Supported:
     Dir SENSOR_PORT In
 
     Do
-      If ReadAD(SENSOR) > 128 Then
+      If ReadAD(SENSOR) > 128 Then          ' <<< the If...Then...Else this page documents
         Set LIGHT Off
       Else
         Set LIGHT On
@@ -105,7 +105,25 @@ Supported:
     Loop
 ```
 
-<span class="strong">**For more help, see
-<a href="conditions" class="link" title="Conditions">Conditions</a>**</span>
+<span class="strong">**Key line:**</span>
+`If ReadAD(SENSOR) > 128 Then` — the condition is evaluated once; the
+`Else` branch runs only when it is false.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="conditions" class="link" title="Conditions">Conditions</a> — background
+    on how conditions are evaluated
+-   <a href="select" class="link" title="Select">Select Case</a> — alternative
+    when choosing between more than two branches
+-   <a href="do" class="link" title="Do">Do</a> — looping
+    construct used to repeat the check in the example above
+-   <a href="for" class="link" title="For">For</a> — fixed-count
+    loop alternative to Do
+-   <a href="readad" class="link" title="ReadAD">ReadAD</a> — reading
+    the sensor value tested in the example above
+
+</div>
 
 </div>

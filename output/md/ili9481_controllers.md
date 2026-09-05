@@ -42,7 +42,7 @@ code. This will initialise the driver.
   
 <span class="strong">**8-bit mode**</span>
 
-``` screen
+``` programlisting
     'Pin mappings for Data Bus Interface (DBI)
     'this GLCD driver supports 8 bit and 16 bit parallel data lines
 
@@ -72,7 +72,7 @@ code. This will initialise the driver.
 
 <span class="strong">**16-bit mode**</span>
 
-``` screen
+``` programlisting
     '16 bit DBI
     #include <glcd.h>
     #define GLCD_TYPE GLCD_TYPE_ILI9481
@@ -216,7 +216,7 @@ supported commands.
   
   
 
-``` screen
+``` programlisting
     ILI9481_BLACK   'hexidecimal value 0x0000
     ILI9481_RED     'hexidecimal value 0xF800
     ILI9481_GREEN   'hexidecimal value 0x0400
@@ -249,7 +249,7 @@ DBI example uses a Mega2560 board.
   
 <span class="strong">**Examples:**</span>
 
-``` screen
+``` programlisting
     '8 bit DBI
     #include <glcd.h>
     #include <UNO_mega328p.h >
@@ -270,18 +270,21 @@ DBI example uses a Mega2560 board.
     #define GLCD_DB4       DIGITAL_4
     #define GLCD_DB5       DIGITAL_5
     #define GLCD_DB6       DIGITAL_6
-    #define GLCD_DB7       DIGITAL_7
+    #define GLCD_DB7       DIGITAL_7          ' <<< the last of the 8 data-bus pins for the 8-bit DBI mode
 
     GLCDPrint(0, 0, "Test of the ILI9481 Device")
     end
 ```
 
-  
+<span class="strong">**Key line:**</span>
+`#define GLCD_DB7       DIGITAL_7` — completes the 8 data pins
+(`GLCD_DB0`..`GLCD_DB7`) that the 8-bit DBI mode of this driver
+requires, alongside the 5 control pins.  
   
   
   
 
-``` screen
+``` programlisting
     '16 bit DBI
     #chip mega2560, 16
     #include <glcd.h>
@@ -343,14 +346,21 @@ DBI example uses a Mega2560 board.
   
   
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>  
-  
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview and the full supported-display comparison table
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+-   <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
+-   <a href="pset" class="link" title="Pset">Pset</a>
+
+</div>
+
 Supported in &lt;GLCD.H&gt;
 
 </div>

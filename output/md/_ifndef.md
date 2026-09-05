@@ -35,4 +35,13 @@ would delete it.
 <a href="_ifdef" class="link" title="#ifdef">#ifdef</a> article
 for more information.
 
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="_ifdef" class="link" title="#ifdef">#ifdef</a> — the
+    full reference and worked examples, applicable here in reverse
+
+</div>
+
 </div>

@@ -1,6 +1,10 @@
 ===== ST7920Tile
 
+(((Graphical LCD,st7920tile)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     ST7920Tile ( word variable )
 ----
@@ -9,8 +13,16 @@
 This command tiles the screen with the word value provided.
 
 *Example usage:*
+[source,gcbasic]
 ----
     Dim tileValue as word
     tileValue = (0x55 * 256 ) + 0x55
-    ST7920Tile (tileValue) ‘tile the screen with a nice cross hatch
+    ST7920Tile (tileValue) 'tile the screen with a nice cross hatch          ' <<< the ST7920Tile instruction
 ----
+*Key line:* `ST7920Tile (tileValue)` -- repeats the 16-bit pattern `tileValue` (here 0x5555) across the entire screen; since the high and low bytes are identical alternating-bit patterns, the result is a cross-hatch fill.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920ctile,ST7920cTile>> -- tiling with a Chinese character instead of a raw pattern
+* <<_st7920gtile,ST7920gTile>> -- the graphic-mode two-byte tiling equivalent

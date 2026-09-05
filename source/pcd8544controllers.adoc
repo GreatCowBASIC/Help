@@ -1,5 +1,8 @@
 ==== PCD8544 Controllers
 
+(((Graphical LCD,PCD8544 Controllers)))
+
+
 
 This section covers GLCD devices that use the PCD844 graphics controller. +
 
@@ -21,9 +24,10 @@ The PCD844can operate in two modes. Full GLCD mode and Text/JPG mode the full GL
 
 To use the PCD844 driver simply include the following in your user code.  This will initialise the driver.
 
+[source,gcbasic]
 ----
     #include <glcd.h>
-    #define GLCD_TYPE GLCD_TYPE_PCD8544
+    #define GLCD_TYPE GLCD_TYPE_PCD8544          ' <<< the constant that selects this controller driver
 
     ' Pin mappings for software SPI for Nokia 3310 Device
     #define GLCD_DO     portc.5              'example port setting
@@ -33,6 +37,7 @@ To use the PCD844 driver simply include the following in your user code.  This w
     #define GLCD_RESET  portc.0              'example port setting
 
 ----
+*Key line:* `#define GLCD_TYPE GLCD_TYPE_PCD8544` -- tells `<glcd.h>` to compile in the PCD8544 driver rather than any of the library's other supported controllers; this display only supports software SPI, so no hardware-SPI constant is needed.
 
 The GCBASIC constants for the interface to the controller are shown in the table below.
 
@@ -101,12 +106,12 @@ default.
 
 |`GLCD_WIDTH`
 |The width parameter of the GLCD
-|160 +
+|84 +
 This cannot be changed
 
 |`GLCD_HEIGHT`
 |The height parameter of the GLCD
-|128 +
+|48 +
 This cannot be changed
 
 |`GLCDFontWidth`
@@ -172,12 +177,12 @@ specific attribute.
 |===
 
 
-*For a PCD8544 datasheet, please refer
-https://www.google.co.uk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCMQFjAA&url=https%3A%2F%2Fwww.sparkfun.com%2Fdatasheets%2FLCD%2FMonochrome%2FNokia5110.pdf&ei=bmjDVKePM83datDIgYgH&usg=AFQjCNFa7N9WMhSg849oXejlfP3FRvQqpA&sig2=ZFpG-ubTxvrBRAV4dRvhVw[here] +
+For a PCD8544 datasheet, please refer to the https://www.sparkfun.com/datasheets/LCD/Monochrome/Nokia5110.pdf[Nokia 5110 datasheet]. +
 
 This example shows how to drive a PCD8544 based Graphic LCD module with the built in commands of GCBASIC.
 
 Example:
+[source,gcbasic]
 ----
       #chip 16lf1939,32
       #option Explicit
@@ -246,7 +251,12 @@ Example:
 
 
 
-*For more help, see*
-<<_glcdcls,GLCDCLS>>, <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
+**See Also:**
+
+* <<_glcdcls,GLCDCLS>> -- clearing the display, as used above
+* <<_glcddrawchar,GLCDDrawChar>> -- drawing a single character, as used above
+* <<_glcdprint,GLCDPrint>> -- printing a value at a specific location, as used above
+* <<_glcdreadbyte,GLCDReadByte>> / <<_glcdwritebyte,GLCDWriteByte>> -- low-level byte access, for expert use
+* <<_pset,Pset>> -- setting a single pixel
 
 Supported in <GLCD.H> and <glcd_PCD8544.h>

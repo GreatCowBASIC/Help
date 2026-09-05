@@ -22,62 +22,75 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `SingleToString` function will convert a number into a string.
-`number` can be any Single variable.  For Byte numbers use
-`ByteToString()`, Word numbers use `WordToString()`, for Integer numbers
-use `IntegerToString()` and for Long numbers use `LongToString()`
+The `SingleToString` function converts a number into a string. `number`
+can be any Single variable. For Byte numbers use `ByteToString()`, for
+Word numbers use `WordToString()`, for Integer numbers use
+`IntegerToString()`, and for Long numbers use `LongToString()`.
 
-The string variable `stringvar` will contain the ACSII representation of
-the input number.  The length of the string is variable length dependent
-on the input variable value.
+The string variable `stringvar` contains the ASCII representation of the
+input number. The string length is variable, depending on the input
+value.
 
-This function is especially useful if a number needs to added to the end
-of a string, or if a custom data sending routine has been created but
-only supports the output of string variables.  
+This function is especially useful if a number needs to be added to the
+end of a string, or if a custom data-sending routine only supports the
+output of string variables.  
   
-These methods will not support conversion of hexadecimal number
+This function does not support conversion of hexadecimal number
 strings.  
   
 
-<span class="strong">**Operational Returned Controls**</span>
+<span class="strong">**Operational Return Codes**</span>
 
-The function returns either the number string or the message "Error
-".  The reasons for "Error " are:
+The function returns either the number string or the message `"Error "`.
+The reasons for an `"Error "` result are:
 
 <div class="itemizedlist">
 
--   Very small number that actaully compute as 0.0
--   The input values is too large
--   Too many chars-out of range
+-   A very small number that actually computes as 0.0
+-   The input value is too large
+-   Too many characters — out of range
 
 </div>
 
-There is a public variable available after using this
-function.  \`SysByte\_STS\_Err\` - this variable returns the following:
+A public variable is available after using this function:
+`SysByte_STS_Err`, which returns the following:
 
-    SysByte\_STS\_Err where 1 or 9 equates to no error.
+    \`SysByte\_STS\_Err\` where 1 or 9 equates to no error.
 
     1 equates to a properly formatted number string.
 
-    8 equateq to a properly formatted integer number string.
+    8 equates to a properly formatted integer number string.
 
-<span class="emphasis">*Bitwise returned details*</span>
+<span class="emphasis">*Bitwise Return Details*</span>
 
-``` literallayout
-SysByte_STS_Err.0 :  1 = good, or, 0 = bad
-SysByte_STS_Err.1 :  1 = decimals places to many chars, or, 0 = ok
-SysByte_STS_Err.2 :  1 = integer places to many chars-out of range, or, 0 = ok
-SysByte_STS_Err.3 :  1 = no decimal point, info only
-SysByte_STS_Err.4 :  1 = non numeric chars found
+``` programlisting
+    SysByte_STS_Err.0 :  1 = good, or, 0 = bad
+    SysByte_STS_Err.1 :  1 = too many decimal-place characters, or, 0 = ok
+    SysByte_STS_Err.2 :  1 = too many integer-place characters (out of range), or, 0 = ok
+    SysByte_STS_Err.3 :  1 = no decimal point, info only
+    SysByte_STS_Err.4 :  1 = non-numeric characters found
 ```
 
-<span class="strong">**Example Usage 1:**</span>
+<span class="strong">**Note:**</span> When calling `SingleToString()`,
+do not leave a space between the function name and the opening
+parenthesis — doing so produces a compiler error that is not obvious to
+diagnose.
 
-``` screen
+``` programlisting
+    ' use this -- no space between SingleToString and the opening parenthesis
+    SingleToString(number_variable)
+
+    ' do not use this -- note the space before the parenthesis
+    SingleToString (number_variable)
+```
+
+<span class="strong">**Example 1:**</span>
+
+``` programlisting
     'Set chip model
     #chip 16F1936
 
@@ -94,20 +107,11 @@ SysByte_STS_Err.4 :  1 = non numeric chars found
     Dim OutVar As String
 
     'Fill string with sensor reading
-    OutVar = SingleToString(SensorReading)
+    OutVar = SingleToString(SensorReading)          ' <<< the SingleToString instruction
 
     'Send
     HSerPrint OutVar
     HSerPrintCRLF
-
-    When using the functions SingleToString() do not leave space between the function
-    call and the left brace. You will get a compiler error that is
-    meaningless.
-
-    ' use this, note this is no space between the SingleToString() and the left brace!
-    SingleToString(number_variable)
-    ' do not use, note the space!
-    SingleToString (number_variable)
 
     Do
     Loop
@@ -115,24 +119,21 @@ SysByte_STS_Err.4 :  1 = non numeric chars found
     End
 ```
 
-  
-  
-<span class="strong">**Example Usage 2:**</span>
+<span class="strong">**Key line:**</span>
+`OutVar = SingleToString(SensorReading)` — converts the floating-point
+ADC reading into a decimal string, ready to be transmitted over the
+serial connection with `HSerPrint`.
 
-``` screen
-    '''
-    '''
-    '''
-    '''
+<span class="strong">**Example 2:**</span>
+
+``` programlisting
     '''************************************************************************
-    '''
     '''  PIC: 16F18855
     '''  Compiler: GCB
     '''  IDE: GCode
-    '''
     '''  Board: Xpress Evaluation Board
     '''  Date: June 2021
-    '''
+
     ' ----- Configuration
       'Chip Settings.
       #chip 16f18855,32
@@ -160,7 +161,7 @@ SysByte_STS_Err.4 :  1 = non numeric chars found
     do
        wait 100 ms
 
-       HSerPrint SingleToString( Singlevar )
+       HSerPrint SingleToString( Singlevar )          ' <<< the SingleToString instruction
        HSerPrintCRLF
        wait 1 s
     loop
@@ -168,13 +169,20 @@ SysByte_STS_Err.4 :  1 = non numeric chars found
     end
 ```
 
-  
-  
-<span class="strong">**See Also**</span>
-<a href="bytetohex" class="link" title="ByteToHex">ByteToString</a>,
-<a href="wordtohex" class="link" title="WordToHex">WordToString</a>,
-<a href="longtohex" class="link" title="LongToHex">LongToString</a>,
-<a href="singletohex" class="link" title="SingleToHex">SingleToString</a>,
-<a href="bytetohex" class="link" title="ByteToHex">ByteToHex</a>
+<span class="strong">**Key line:**</span>
+`HSerPrint SingleToString( Singlevar )` — converts the Single value -10
+to a string and prints it directly, without needing an intermediate
+string variable.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="bytetostring" class="link" title="ByteToString">ByteToString</a>
+-   <a href="wordtostring" class="link" title="WordToString">WordToString</a>
+-   <a href="longtostring" class="link" title="LongToString">LongToString</a>
+-   <a href="integertostring" class="link" title="IntegerToString">IntegerToString</a>
+
+</div>
 
 </div>

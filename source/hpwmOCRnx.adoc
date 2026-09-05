@@ -1,9 +1,13 @@
 // Edit KentS 5/7/17
 ==== HPWM AVR OCRnx
 
+(((Pulse width modulation,HPWM AVR OCRnx)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 
+[source,gcbasic]
 ----
      HPWM _channel_, _frequency_, _duty cycle_
 ----
@@ -145,6 +149,7 @@ OCR2A is used as a period register and thus not available
 
 
 *Example:*
+[source,gcbasic]
 ----
         'Using HPWM command to alternate ramping leds with the UNO board
     #chip mega328,16
@@ -173,7 +178,7 @@ OCR2A is used as a period register and thus not available
     '4KHz with 8MHz intosc and ckDiv8 fuse
     freq = 63
       For PWMled1 = 0 to 255
-        HPWM 2,freq,PWMled1
+        HPWM 2,freq,PWMled1          ' <<< the HPWM instruction (AVR OCRnx form)
         PWMled2 = NOT PWMled1
         HPWM 3,freq,PWMled2
         HPWM 4,freq,PWMled2
@@ -192,3 +197,10 @@ OCR2A is used as a period register and thus not available
 
     loop
 ----
+*Key line:* `HPWM 2,freq,PWMled1` -- drives AVR HPWM channel 2 (pin OC0B, on Timer0) at 63 KHz with a duty cycle that ramps through `PWMled1`; each channel used this way must have its `AVRTCx` timer constant and `AVRCHANx` channel constant defined, and its pin set to output, as shown above the loop.
+
+**See Also:**
+
+* <<_atmel_avr_pwm_overview,ATMEL AVR PWM Overview>> -- category overview
+* <<_hardware_pwm_code_optimisation,Hardware PWM Code Optimisation>> -- reducing program size by disabling unused channels
+* <<_hpwm_ccp,HPWM CCP>> -- the Microchip PIC equivalent of this command

@@ -1,7 +1,10 @@
 ==== HserPrintByteCRLF
 
+(((Serial Communications,HserPrintByteCRLF)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   `HserPrintByteCRLF`  _user_data_ [, 1 | 2  | 3 | 4 ]
 ----
@@ -16,6 +19,7 @@ Atmel AVR supports USART 1,2,3 and 4.
 
 To enable the use of the USART these are the enabling constants. &#160;&#160;These constants are required.&#160;&#160;You can change the `USART_BAUD_RATE` and to meet your needs.&#160;&#160;For addition USART ports use `#define USART**n**_BAUD_RATE 9600` where `**n**`` is the required port number.
 
+[source,gcbasic]
 ----
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
@@ -30,10 +34,16 @@ module and then send the ASCII codes 13 and 10. ASCII codes 13 and 10
 equate to a carriage return and line feed.
 
 *Example:*
+[source,gcbasic]
 ----
   'This program will send the status of PORTB through the hardware serial module.
 
-  HserPrintByteCRLF 65    ' Will print a single A on the terminal
+  HserPrintByteCRLF 65    ' Will print a single A on the terminal          ' <<< the HserPrintByteCRLF instruction
   HserPrintByteCRLF "A"   ' Will print a single A on the terminal
 ----
-*See also* <<_hserprintcrlf,HserPrintCRLF>>
+*Key line:* `HserPrintByteCRLF 65` -- sends the byte value 65 (ASCII `A`) followed automatically by a carriage return and line feed, saving the two separate `HSerSend` calls that `HserPrintByteCRLF` combines into one.
+
+**See Also:**
+
+* <<_hserprintcrlf,HserPrintCRLF>> -- sending only the carriage return and line feed, with no data byte
+* <<_hsersend,HSerSend>> -- sending a raw byte with no automatic CR/LF

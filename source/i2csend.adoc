@@ -1,7 +1,10 @@
 ==== I2CSend
 
+(((I2C Software,I2CSend)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
 	I2CSend _data_
 	I2CSend _data_, _ack_
@@ -21,6 +24,7 @@ mode, `I2CSend` will wait for the master to request the data before
 sending.
 
 *Example 1:*
+[source,gcbasic]
 ----
 	' I2CSend - using the ChipIno board, see here for information.
 	' This program send commands to a GCB Slave with three LEDs attached.
@@ -71,7 +75,10 @@ sending.
 
 	loop
 ----
+*Key line:* `I2CSend I2C_ADDRESS` -- addresses the target device; `I2CSendState` afterward reports `ACK` if the device responded, so the following register/command bytes are only sent when a device is actually present.
+
 *Example 2:*
+[source,gcbasic]
 ----
 	'This program will act as an I2C analog to digital converter
 	'When data is requested from address 83, registers 0 through
@@ -99,7 +106,7 @@ sending.
 			I2CReceive Register
 
 			OutValue = ReadAD(Register)
-			I2CSend OutValue
+			I2CSend OutValue          ' <<< the I2CSend instruction (slave mode)
 		End If
 
 		I2CStop
@@ -107,6 +114,7 @@ sending.
 		Wait 5 ms
 	Loop
 ----
+*Key line:* `I2CSend OutValue` -- in slave mode, this transmits the requested ADC reading back to the master once the master has requested it; `I2CSend` blocks until the master is ready to receive it.
 
 *Specific control of I2CSend*
 
@@ -119,6 +127,7 @@ _Examples_
 
 The following defined macros change the start and end behaviour.
 
+[source,gcbasic]
 ----
 		#define I2CPreSendMacro if LabI2CState <> True then exit Sub  'I2CPreSendMacro to ensure GLCD operations only operate within specfic lab
 		#define I2CPostSendMacro if LabI2CState = True then MSSP =1   'I2CPostSendMacro to ensure GLCD operations only operate within specfic lab setting a specific variable.
@@ -127,6 +136,7 @@ The following defined macros change the start and end behaviour.
 
 The following defined macro changes- the start  behaviour to call an alternative I2CSend method.
 
+[source,gcbasic]
 ----
 		#define I2CPreSendMacro     myI2CSend: exit sub
 
@@ -138,6 +148,7 @@ The following defined macro changes- the start  behaviour to call an alternative
 
 The following defined macros changes- the start  behaviour to call an alternative I2CSend method, then jump to the I2CPostSendMacroLabel which is at the end of I2CSend method.
 
+[source,gcbasic]
 ----
 		#define I2CPreSendMacro         myI2CSend: goto I2CPostSendMacroLabel
         #define I2CPostSendMacro        NOP
@@ -148,6 +159,7 @@ The following defined macros changes- the start  behaviour to call an alternativ
 ----
 This will generate the following ASM.&#160;&#160;The I2CPreSendMacro calls the MYI2CSEND() methhod, then BRAnches to the label I2CPOSTSENDMACROLABEL as the end of the method.
 
+[source,gcbasic]
 ----
 		;Source: i2c.h (339)
 		I2CSEND
@@ -170,3 +182,9 @@ This will generate the following ASM.&#160;&#160;The I2CPreSendMacro calls the M
 ----
 
 Supported in <I2C.H>
+
+**See Also:**
+
+* <<_i2c_overview,I2C Overview>> -- category overview
+* <<_i2cstart,I2CStart>> -- related command in the same category
+* <<_i2cstartoccurred,I2CStartoccurred>> -- related command in the same category

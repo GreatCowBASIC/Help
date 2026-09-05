@@ -39,7 +39,7 @@ interrupt-driven receiving.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program will receive bytes on PORTB.0 and send back using PORTB.1
 
     ; ----- Configuration
@@ -60,7 +60,7 @@ interrupt-driven receiving.
     ; Config I/O ports for receiving:
     #define SER1_RXPORT PORTB  ; I/O port (without .bit) must be defined
     #define SER1_RXPIN 0       ; portbit  must be defined
-    #define SER1_RXNOWAIT Off  ; don't wait for stopbit optional (default = Off)
+    #define SER1_RXNOWAIT Off  ; do not wait for stopbit optional (default = Off)
 
     ; ----- Variables
     Dim RecByte As Byte
@@ -72,7 +72,7 @@ interrupt-driven receiving.
      Ser1Print "Please send a byte!"
 
      Do Forever
-      RecByte = Ser1Receive   'receive one byte - wait until detecting startbit
+      RecByte = Ser1Receive   'receive one byte - wait until detecting startbit          ' <<< the Ser1Receive instruction
       Ser1Send  13            'new line in Terminal
       Ser1Send  10            '
       Ser1Print "You sent: "  'send a text
@@ -80,6 +80,23 @@ interrupt-driven receiving.
      Loop
 ```
 
+<span class="strong">**Key line:**</span>
+`RecByte = Ser1Receive` — blocks until the start-bit edge configured by
+`SER1_RXPORT`/`SER1_RXPIN` is detected, then reads one byte using the
+`SER1_BAUD`/`SER1_DATABITS`/`SER1_STOPBITS` framing defined above and
+stores it in `RecByte`.
+
 Exposed in SoftSerial.h authored by Frank Steinberg
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="sernsend" class="link" title="SerNSend">SerNSend</a> — sending
+    a single raw byte on the same channel
+-   <a href="sernprint" class="link" title="SerNPrint">SerNPrint</a> — sending
+    a string or numeric value on the same channel
+
+</div>
 
 </div>

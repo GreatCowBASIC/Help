@@ -1,7 +1,10 @@
 ==== Loge
 
+(((Maths,Loge)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     returned_word_variable = Loge ( __word_value__ )
 ----
@@ -11,13 +14,21 @@ Available on all microcontrollers.
 
 *Explanation:*
 
-The `Loge` command will return the base-e logarithm, to 2 decimal places.
+The `Loge` command returns the base-e (natural) logarithm, to 2 decimal places.
 
-The values returned are fixed-point numbers, with two decimal places assumed on the right. or if you prefer, think of the values as being scaled up by 100.
+The values returned are fixed-point numbers, with two decimal places assumed on the right -- or, if you prefer, think of the values as being scaled up by 100.
 
 *Example:*
+[source,gcbasic]
 ----
     dim log_value as word
-    log_value = loge ( 10 )
+    log_value = loge ( 10 )          ' <<< the Loge instruction -- returns 230, equating to 2.30
 ----
+*Key line:* `loge ( 10 )` -- returns the natural logarithm of 10 as a fixed-point word, `230`, representing 2.30.
 *Supported in <MATHS.H>*
+
+**See Also:**
+
+* <<_logarithms,Logarithms>> -- overview of the log family of functions
+* <<_log2,Log2>> -- base-2 logarithm
+* <<_log10,Log10>> -- base-10 logarithm

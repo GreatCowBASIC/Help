@@ -38,7 +38,7 @@ for initialisation.
   
 The first method is:  
 
-``` screen
+``` programlisting
     InitTimer4 prescaler, postscaler
 ```
 
@@ -53,7 +53,7 @@ source.  Microcontrollers that support this second method enable you to
 select different clock sources and to select more prescale values.  The
 method is shown below:  
 
-``` screen
+``` programlisting
     InitTimer4 clocksource, prescaler, postscaler
 ```
 
@@ -69,7 +69,7 @@ NOT**</span> have a T4CLKCON register then timers 2/4/6/8 for that
 specific microcontroller chip use the first method, and are configured
 using:  
 
-``` screen
+``` programlisting
     InitTimer4 (PreScale, PostScale)
 ```
 
@@ -77,7 +77,7 @@ If the microcontroller <span class="strong">**DOES**</span> have a
 T2CLKCON register then ALL timers 2/4/6/8 for that specific
 microcontroller chip use the second method, and are configured using:
 
-``` screen
+``` programlisting
     InitTimer4 (Source,PreScale,PostScale)
 ```
 
@@ -379,7 +379,7 @@ to value</strong></span></th>
 
 This code uses Timer 4 and On Interrupt to generate a 1ms pulse 20 ms.
 
-``` screen
+``` programlisting
     #chip 18F25K80, 8
 
     #DEFINE PIN3 PORTA.1
@@ -389,7 +389,7 @@ This code uses Timer 4 and On Interrupt to generate a 1ms pulse 20 ms.
     Match_Val = 154        'Interrupt afer 154 Timer ticks (~20ms)
 
     On interrupt timer4Match call PulsePin3  'Interrupt on match
-    Inittimer4 PS4_16, 15 'Prescale 1:64 /Postscale 1:16 (15)
+    Inittimer4 PS4_16, 15          ' <<< the InitTimer4 instruction 'Prescale 1:64 /Postscale 1:16 (15)
     Starttimer 4
 
     Do
@@ -400,5 +400,22 @@ This code uses Timer 4 and On Interrupt to generate a 1ms pulse 20 ms.
        pulseout Pin3, 1 ms
     End Sub
 ```
+
+<span class="strong">**Key line:**</span> `Inittimer4 PS4_16, 15` — sets
+a 1:16 prescale and a 1:16 postscale (encoded as the numeric value 15),
+tuning the timer to reach `Match_Val` roughly every 20 ms.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="timer_overview" class="link" title="Timer Overview">Timer Overview</a> — category
+    overview
+-   <a href="inittimer0" class="link" title="InitTimer0">InitTimer0</a> — related
+    command in the same category
+-   <a href="inittimer1" class="link" title="InitTimer1">InitTimer1</a> — related
+    command in the same category
+
+</div>
 
 </div>

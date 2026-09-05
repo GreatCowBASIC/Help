@@ -41,7 +41,7 @@ to a terminal, these commands should follow `SerPrint`.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program will display any values received over the serial
     'connection. If "pot" is received, the value of the analog sensor
     'will be sent.
@@ -94,7 +94,7 @@ to a terminal, these commands should follow `SerPrint`.
       'Show test messages
       Print "Serial Tester"
       Wait 1 s
-      SerPrint 1, "GCBASIC RS232 Test"
+      SerPrint 1, "GCBASIC RS232 Test"          ' <<< the SerPrint instruction
       SerSend 1, 13
       SerSend 1, 10
       Wait 1 s
@@ -152,7 +152,22 @@ to a terminal, these commands should follow `SerPrint`.
     End Function
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="rs232_software_overview" class="link" title="RS232 Software Overview">RS232 Software Overview</a>
+<span class="strong">**Key line:**</span>
+`SerPrint 1, "GCBASIC RS232 Test"` — writes the string out on channel 1
+with no terminating newline, so the two `SerSend` calls that follow it
+explicitly append a carriage return and line feed for the terminal.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="rs232_software_overview" class="link" title="RS232 Software Overview">RS232 Software Overview</a> — category
+    overview
+-   <a href="initser" class="link" title="InitSer">InitSer</a> — configures
+    the channel before SerPrint can be used
+-   <a href="sersend" class="link" title="SerSend">SerSend</a> — sending
+    the raw CR/LF bytes SerPrint omits
+
+</div>
 
 </div>

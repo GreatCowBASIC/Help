@@ -1,17 +1,21 @@
 === Midpoint Circle Algorithm
 
+(((Example Programs,Midpoint Circle Algorithm)))
+
+
 *Explanation:*
 
 GCBASIC can draw circles using the midpoint circle algorithm. The midpoint circle algorithm determines the points needed for drawing a circle.
-The algorithm is a variant of https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm[Bresenham's line algorithm], and is thus sometimes known as Bresenham's circle algorithm, although not actually invented by https://en.wikipedia.org/wiki/Jack_Elton_Bresenham[Jack E. Bresenham].
+The algorithm is a variant of https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm[Bresenham's line algorithm], and is thus sometimes known as Bresenham's circle algorithm, although it was not actually invented by https://en.wikipedia.org/wiki/Jack_Elton_Bresenham[Jack E. Bresenham].
 
-The example program below show the midpoint circle algorithm within GCBASIC.
+The example program below shows the midpoint circle algorithm within GCBASIC.
 
 *Example Output on GLCD Device:*
 
 image::midpointcirclealgorithmb1.PNG[graphic,align="center"]
 
 
+[source,gcbasic]
 ----
     'Midpoint Circle algorithm
     'Chip model
@@ -56,7 +60,7 @@ image::midpointcirclealgorithmb1.PNG[graphic,align="center"]
 
         GLCDDrawString 30,0,"ChipMhz@"
         GLCDDrawString 78,0, str(ChipMhz)
-        Circle(10,10,10,0)            ;upper left
+        Circle(10,10,10,0)            ;upper left          ' <<< drawing a circle via the midpoint circle algorithm
         Circle(117,10,10,0)           ;upper right
         Circle(63,31,10,0)            ;center
         Circle(63,31,20,0)            ;center
@@ -67,3 +71,9 @@ image::midpointcirclealgorithmb1.PNG[graphic,align="center"]
     loop
 
 ----
+*Key line:* `Circle(10,10,10,0)` -- draws a circle of radius 10 centred at pixel (10,10) with colour/mode 0; internally GCBASIC computes the outline using the midpoint circle algorithm described above rather than plotting each point trigonometrically, which is much cheaper on an 8-bit microcontroller.
+
+**See Also:**
+
+* <<_circle,Circle>> -- the command reference for drawing circles
+* <<_glcd_overview,GLCD Overview>> -- category overview

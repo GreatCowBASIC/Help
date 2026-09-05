@@ -36,11 +36,11 @@ support the selected mode of GLCD operation.
 Specific to the Rajguru Electronics 13002-Series display you can can
 specify a GLCD\_SubType 13002 to enable support.
 
-``` screen
+``` programlisting
     #include <glcd.h>
 
     ; ----- Define GLCD Hardware settings
-    #define GLCD_TYPE GLCD_TYPE_SH1106
+    #define GLCD_TYPE GLCD_TYPE_SH1106          ' <<< the constant that selects this controller driver
     #define GLCD_I2C_Address 0x78
     '#define GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE        'select Low Memory mode of operation
     '#define GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY        'select Text mode of operation
@@ -53,6 +53,14 @@ specify a GLCD\_SubType 13002 to enable support.
     #define HI2C_DATA
     HI2CMode Master
 ```
+
+<span class="strong">**Key line:**</span>
+`#define GLCD_TYPE GLCD_TYPE_SH1106` — tells `<glcd.h>` to compile in
+the SH1106 driver, which talks to the display over I2C using the
+standard `HI2C_*` constants; the commented-out
+`GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE` and
+`GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY` lines trade GLCD buffer size
+against available functionality on RAM-constrained microcontrollers.
 
 The GCBASIC constants for control display characteristics are shown in
 the table below.
@@ -200,7 +208,7 @@ For a SH1106 datasheet, please refer
 This example shows how to drive a SH1106 based Graphic LCD module with
 the built in commands of GCBASIC.
 
-``` screen
+``` programlisting
 ; ----- Configuration
     #chip mega328p,16
     #include <glcd.h>
@@ -272,7 +280,7 @@ The use Low Memory Mode GLCD the two defines
 `GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE` and
 `GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY` are included in the user program.
 
-``` screen
+``` programlisting
     #chip mega328p,16
     #include <glcd.h>
 
@@ -346,13 +354,30 @@ The use Low Memory Mode GLCD the two defines
     end
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**Key line:**</span>
+`GLCD_Open_PageTransaction 0,7` …​ `GLCD_Close_PageTransaction` — in Low
+Memory mode, every GLCD drawing command must be wrapped between these
+two calls so the driver can flush only the affected display pages (0 to
+7) instead of buffering the entire frame.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — clearing
+    the display, as used above
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a> — drawing
+    a single character, as used above
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — printing
+    a value at a specific location, as used above
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+    /
+    <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a> — low-level
+    byte access, for expert use
+-   <a href="pset" class="link" title="Pset">Pset</a> — setting a
+    single pixel
+
+</div>
 
 Supported in &lt;GLCD.H&gt;
 

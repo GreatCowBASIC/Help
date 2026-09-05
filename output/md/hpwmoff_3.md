@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     HPWMOff ( channel, PWMHardware )
 ```
 
@@ -33,7 +33,7 @@ PIC chip.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
  'This program will alter the brightness of an LED using
     'hardware PWM.
 
@@ -72,7 +72,24 @@ PIC chip.
         next
     next
 
-    HPWMOff 6, PWMHardware   'where PWMHardware is the defined constant or you can use TRUE
+    HPWMOff 6, PWMHardware   'where PWMHardware is the defined constant or you can use TRUE          ' <<< the HPWMOff instruction
 ```
+
+<span class="strong">**Key line:**</span>
+`HPWMOff 6, PWMHardware` — disables channel 6’s PWM output after the
+four brightness ramps complete; `PWMHardware` is the GCBASIC-defined
+constant identifying the hardware PWM module (or `TRUE` may be used
+directly).
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hpwm_10_bit" class="link" title="HPWM 10 Bit">HPWM 10 Bit</a> — starting
+    the PWM channel this command stops
+-   <a href="hpwmupdate_for_pwm_module_s" class="link" title="HPWMUpdate for PWM Module(s)">HPWMUpdate for PWM Module(s)</a> — adjusting
+    the duty cycle without stopping the channel
+
+</div>
 
 </div>

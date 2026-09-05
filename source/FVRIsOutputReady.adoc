@@ -1,5 +1,8 @@
 ==== FVRIsOutputReady
 
+(((Fixed Voltage Reference,FVRIsOutputReady)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 
@@ -9,28 +12,34 @@
 
 *Command Availability:*
 
-Available on all Microchip microcontrollers with the  Fixed Voltage Reference (FVR) module.
+Available on all Microchip microcontrollers with the Fixed Voltage Reference (FVR) module.
 
 *Explanation:*
 
-The method is a function that returns the state of the FVR.&#160;&#160;&#160;The returned value can be assigned to a variable to used as function.
+This function returns the state of the FVR.&#160;&#160;&#160;The returned value can be assigned to a variable or used directly as a condition.
 
-The method returns 0 or 1.&#160;&#160;&#160;As follows:
+The method returns 0 or 1, as follows:
 
 0 = Fixed Voltage Reference output is not ready or not enabled
 
 1 = Fixed Voltage Reference output is ready for use
 
+After `FVRInitialize` enables the FVR, the reference voltage takes a short time to stabilise. Reading the ADC before it stabilises can give an inaccurate result, so it is good practice to wait for `FVRIsOutputReady` to become true first.
+
 *Example:*
 
+[source,gcbasic]
 ----
 
     '// use FVR 4096 as Reference
     FVRInitialize ( FVR_4x )
-    wait while FVRIsOutputReady = false
+    wait while FVRIsOutputReady = false          ' <<< the FVRIsOutputReady instruction
     ADVal = ReadAd(AN0)
 
 ----
+*Key line:* `wait while FVRIsOutputReady = false` -- blocks here until the FVR reports that its output has stabilised, so the following `ReadAd` call reads against a settled reference voltage.
 
+**See Also:**
 
-*For more help, see* <<_fvrinitialize,FVRInitialize>>
+* <<_fvrinitialize,FVRInitialize>> -- enabling the FVR and selecting its voltage
+* <<_readad,ReadAD>> -- the ADC read this check protects the accuracy of

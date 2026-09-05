@@ -27,7 +27,7 @@ connectivity - this is shown in the tables below.
 To use the ILI9340 driver simply include the following in your user
 code. This will initialise the driver.
 
-``` screen
+``` programlisting
     #include <glcd.h>
     #DEFINE GLCD_TYPE GLCD_TYPE_ILI9340
 
@@ -153,7 +153,7 @@ supported commands.
 
 </div>
 
-``` screen
+``` programlisting
     ILI9340_BLACK   'hexidecimal value 0x0000
     ILI9340_RED     'hexidecimal value 0xF800
     ILI9340_GREEN   'hexidecimal value 0x07E0
@@ -182,7 +182,7 @@ the built in commands of GCBASIC.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     ;Chip Settings
     #chip 16F1937,32
     #config MCLRE_ON     'microcontroller specific configuration
@@ -198,19 +198,31 @@ the built in commands of GCBASIC.
     #define GLCD_RESET porta.2
     #define GLCD_DI porta.3
     #define GLCD_DO porta.4
-    #define GLCD_SCK porta.5
+    #define GLCD_SCK porta.5          ' <<< the last of the 5 required SPI pin definitions for this driver
 
     GLCDPrint(0, 0, "Test of the ILI9340 Device")
     end
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**Key line:**</span>
+`#define GLCD_SCK porta.5` — completes the 5 SPI pin definitions
+(`GLCD_DC`, `GLCD_CS`, `GLCD_RESET`, `GLCD_DI`, `GLCD_DO`, `GLCD_SCK`)
+the ILI9340 driver requires before any drawing command will work.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview and the full supported-display comparison table
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+-   <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
+-   <a href="pset" class="link" title="Pset">Pset</a>
+
+</div>
 
 Supported in &lt;GLCD.H&gt;
 

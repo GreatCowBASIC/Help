@@ -25,22 +25,22 @@ high side driving of the Common Anode displays as follows:
 
 <div class="informaltable">
 
-| <span class="strong">**Constant Name**</span> | <span class="strong">**Controls**</span>             | <span class="strong">**Comment**</span>                              |
-|:----------------------------------------------|:-----------------------------------------------------|:---------------------------------------------------------------------|
-| `7Seg_CommonAnode`                            | Inverts controls for Common Anode displays           | Required for Common Cathode displays                                 |
-| `7Seg_HighSide`                               | Support PFET or PNP high side driving of the display | Inverts Common Cathode addressing pin logic for multiplexed displays |
+| <span class="strong">**Constant Name**</span> | <span class="strong">**Controls**</span>             | <span class="strong">**Comment**</span>                                             |
+|:----------------------------------------------|:-----------------------------------------------------|:------------------------------------------------------------------------------------|
+| `7Seg_CommonAnode`                            | Inverts controls for Common Anode displays           | Required for Common Anode displays — omit this constant for Common Cathode displays |
+| `7Seg_HighSide`                               | Support PFET or PNP high side driving of the display | Inverts Common Cathode addressing pin logic for multiplexed displays                |
 
 </div>
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'A Common Anode 7 Segment display example using bs250p pfets
     'Chip model
     #chip 16f1783,8
 
     'support for Common Cathode
-    #define 7Seg_CommonAnode
+    #define 7Seg_CommonAnode          ' <<< the 7Seg_CommonAnode define required for this wiring
 
     'support for pfet or pnp high side drivers
     #define 7Seg_HighSide
@@ -88,9 +88,25 @@ high side driving of the Common Anode displays as follows:
     Loop
 ```
 
-<span class="strong">**Also, see**</span>
-<a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Degment Display Overview</a>,
-<a href="displaychar" class="link" title="DisplayChar">DisplayChar</a>,
-<a href="displayvalue" class="link" title="DisplayValue">DisplayValue</a>
+<span class="strong">**Key line:**</span>
+`#define 7Seg_CommonAnode` — inverts the segment and digit-select drive
+logic so the display’s shared anode wiring lights the correct segments;
+omitting this define on a Common Anode display would light every segment
+except the intended ones.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Segment Display Overview</a> — category
+    overview
+-   <a href="displaychar" class="link" title="DisplayChar">DisplayChar</a> — displaying
+    a single character instead of a full multi-digit value
+-   <a href="displayvalue" class="link" title="DisplayValue">DisplayValue</a> — full
+    reference for the command used above
+-   <a href="common_cathode" class="link" title="Common Cathode">Common Cathode</a> — the
+    counterpart wiring, which needs no extra constants
+
+</div>
 
 </div>

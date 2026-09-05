@@ -1,7 +1,11 @@
 ==== HI2CRestart
 
+(((I2C/TWI Hardware Module,HI2CRestart)))
+
+
 *Syntax:*
 
+[source,gcbasic]
 ----
     HI2CRestart
 ----
@@ -18,13 +22,15 @@ send a start and restart condition in a single command.
 *Note:*
 
 This command is also available on microcontrollers with a second hardware I2C port.
+[source,gcbasic]
 ----
     HI2C2Restart
 ----
 *Example:*
+[source,gcbasic]
 ----
     do
-        HI2CReStart                           ;generate a start signal
+        HI2CReStart                           ;generate a start signal          ' <<< the HI2CRestart instruction
         HI2CSend(eepDev)                      ;inidcate a write
     loop While HI2CAckPollState
 
@@ -45,4 +51,12 @@ This command is also available on microcontrollers with a second hardware I2C po
     loop
     HI2CStop
 ----
+*Key line:* `HI2CReStart` -- issues a start condition without first sending a stop, letting the loop retry addressing the same device (via `HI2CAckPollState`) or, on its second use below, switch the transaction from writing to reading.
+
+**See Also:**
+
+* <<_hi2c_overview,HI2C Overview>> -- category overview
+* <<_hi2creceive,HI2CReceive>> -- related command in the same category
+* <<_hi2cackpollstate,HI2CAckPollState>> -- related command in the same category
+
 Supported in <HI2C.H>

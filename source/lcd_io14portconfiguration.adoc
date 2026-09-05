@@ -1,9 +1,13 @@
 ====== LCD_IO 14 Port Configuration
 
+(((Liquid Crystal Display,lcd_io14portconfiguration)))
+
+
 *Using mode 14:*
 
 When using LCD mode 14 this is an example program to show a working solution,
 
+[source,gcbasic]
 ----
         #chip 18F67K40, 8
         #option explicit 
@@ -26,7 +30,7 @@ When using LCD mode 14 this is an example program to show a working solution,
                 End Sub
 
             //Constants - LCD connectivity type
-            #define LCD_IO 14
+            #define LCD_IO 14          ' <<< the constant that selects the SPI expander connection mode
 
             //Comment out to use software SPI
             #define LCD_HARDWARESPI
@@ -55,3 +59,9 @@ When using LCD mode 14 this is an example program to show a working solution,
         ClS
         Print "Hello World"
 ----
+*Key line:* `#define LCD_IO 14` -- selects the SPI expander connection mode; the `LCD_SPI_EXPD_ADDRESS` and related constants shown here are the library's own defaults, listed only for reference, while `LCD_SPI_DO`, `LCD_SPI_SCK`, and `LCD_SPI_CS` are the pins you must actually wire and define yourself.
+
+**See Also:**
+
+* <<_lcd_io_14,LCD_IO 14>> -- full reference for the LCD_IO 14 connection mode
+* <<_lcd_io_16,LCD_IO 16>> -- the related PIC16LF72 SPI expander mode

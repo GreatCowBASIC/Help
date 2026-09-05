@@ -1,7 +1,10 @@
 ==== SRAMWrite
 
+(((SRAM  ( Device ),SRAMWrite)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 
 ----
     SRAMWrite _location_, _data_
@@ -13,16 +16,17 @@ Available on all Microchip PIC and Atmel AVR microcontrollers with SRAM data mem
 
 *Explanation:*
 
-`SRAMWrite` is the method used to write information to the SRAM data storage, so that
-it can be accessed by the `SRAMRead` command.
+`SRAMWrite` is the method used to write information to the attached serial SRAM chip, so that
+it can be accessed later with the `SRAMRead` command.
 
-`_location_` represents the location to read data from, and this location will vary
+`_location_` represents the address to write to, and this will vary
 from one application/solution to another.
 
-`_data_` is the data that is to be written to the SRAM, a byte value or a byte variable.
+`_data_` is the data to be written to the SRAM: a byte value or a byte variable.
 
 *Example:*
 
+[source,gcbasic]
 ----
     #include <uno_mega328p.h>
     #option explicit
@@ -41,11 +45,15 @@ from one application/solution to another.
   'Main program
 
   dim out_byte as byte
+  out_byte = 0x55
 
-  'A subroutine:  Weite to SRAM location 0x10 and the variable out_byte
-  SRAMRead ( 0x10, out_byte )
-
+  'Write out_byte to SRAM location 0x10
+  SRAMWrite ( 0x10, out_byte )          ' <<< the SRAMWrite instruction
 
 ----
+*Key line:* `SRAMWrite ( 0x10, out_byte )` -- writes the value in `out_byte` to SRAM address `0x10`, ready to be read back with `SRAMRead ( 0x10, in_byte )`.
 
-*For more help, see <<_sram_overview,SRAMOverview>> or <<_sramread,SRAMRead>>*
+**See Also:**
+
+* <<_sram_overview,SRAM Overview>>
+* <<_sramread,SRAMRead>>

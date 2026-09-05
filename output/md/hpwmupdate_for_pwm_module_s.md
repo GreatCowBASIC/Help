@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     HPWMUpdate ( channel, duty_cycle )
 ```
 
@@ -61,7 +61,7 @@ ranges from 0 to 1023 where 1023 is 100% duty cycle.
 
 <span class="strong">**Example for Hardware PWM:**</span>
 
-``` screen
+``` programlisting
     'This program will alter the brightness of an LED using
     'hardware PWM.
 
@@ -93,7 +93,7 @@ ranges from 0 to 1023 where 1023 is 100% duty cycle.
     do
         'Turn up brightness over 2.5 seconds
         For Bright = 0 to 1023
-            HPWMUpdate 6, Bright
+            HPWMUpdate 6, Bright          ' <<< the HPWMUpdate instruction
             wait 10 ms
         next
         'Turn down brightness over 2.5 seconds
@@ -104,8 +104,22 @@ ranges from 0 to 1023 where 1023 is 100% duty cycle.
     loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="pwmoff" class="link" title="PWMOff">PWMOff</a>,
-<a href="hpwm_10_bit" class="link" title="HPWM 10 Bit">HPWM 10 Bit</a>
+<span class="strong">**Key line:**</span>
+`HPWMUpdate 6, Bright` — changes only channel 6’s duty cycle, leaving
+the frequency, timer, and PPS pin mapping set by the earlier
+`HPWM 6, 40, [word]0, 2` call untouched; `Bright` must be the same
+variable type (word) that the initial `HPWM` call used.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hpwm_10_bit" class="link" title="HPWM 10 Bit">HPWM 10 Bit</a> — sets
+    the initial frequency, timer, and duty cycle that HPWMUpdate then
+    adjusts
+-   <a href="hpwmoff_2" class="link" title="HPWMOff">HPWMOff</a> — stopping
+    the PWM signal entirely
+
+</div>
 
 </div>

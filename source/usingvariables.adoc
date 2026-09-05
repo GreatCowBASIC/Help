@@ -1,5 +1,8 @@
 ==== Using Variables
 
+(((Variables Operations,Using Variables)))
+
+
 *Explaination*
 
 Using and accessing bytes within word and long numbers etc may be required when you are creating your solution. This can be done with some ease.
@@ -8,6 +11,7 @@ Using and accessing bytes within word and long numbers etc may be required when 
 
 You can access the bytes within word and longs variables using the following as a guide using the Suffixes `_H`, `_U` and `_E`
 {empty} +
+[source,gcbasic]
 ----
     Dim workvariable as word
     workvariable = 21845
@@ -24,6 +28,7 @@ You can access the bytes within word and longs variables using the following as 
 {empty} +
 To further explain, where
 {empty} +
+[source,gcbasic]
 ----
     Dim rB as Byte
     Dim sW as Word
@@ -31,6 +36,7 @@ To further explain, where
 {empty} +
 To extract the bytes from a WORD of 16 bits use the Suffix `_H`
 {empty} +
+[source,gcbasic]
 ----
     'To use the bits 7-0 [lower byte] in the Word variable sW
     rB = sW
@@ -42,6 +48,7 @@ To extract the bytes from a WORD of 16 bits use the Suffix `_H`
 To extract the bytes from a LONG of 32 bits use the Suffixes `_H`, `_U` and
 `_E`, where
 {empty} +
+[source,gcbasic]
 ----
     Dim rB as Byte
     Dim tL as Long
@@ -61,6 +68,7 @@ To extract the bytes from a LONG of 32 bits use the Suffixes `_H`, `_U` and
 {empty} +
 To extract nibbles from the variable `rB`
 {empty} +
+[source,gcbasic]
 ----
     lower_nibble = rB & 0x0F
     upper_nibble = (rB & 0xF0) / 16
@@ -76,16 +84,19 @@ Because a Long (or Word) variable and the Least Significant Byte, of the variabl
 The code below uses a Long variable but the same principle is used for a Word.
 
 Assigning two values, a byte and a word constant value, to the variable tL to compare resulting impact on Long variable.
+[source,gcbasic]
 ----
     Dim tL as Long
 
     tL = 255  'All bits of the value 255 will reside in the lowest byte of the Long variable tL
-    tL = 286   'This assignment will flow into tL_H where tL_H =1 and tl=30.
+    tL = 286   ' <<< an overflowing assignment: 286 does not fit in one byte, so it flows into tL_H (tL_H becomes 1, tL becomes 30)
 
 ----
+*Key line:* `tL = 286` -- because 286 exceeds the 0-255 range of a single byte, GCBASIC automatically splits it across the Long variable's byte elements: the low byte `tL` receives 30 (286 - 256) and the next byte `tL_H` receives 1, so `tL_H * 256 + tL` reconstructs the original 286.
 
 Assigning values to specific elements of a Long variable.
 
+[source,gcbasic]
 ----
     'Assign value to specific elements
     tL_E = 0xF7
@@ -100,6 +111,7 @@ Assigning values to specific elements of a Long variable.
 ----
 
 Assigning values to the byte element of a long variable.
+[source,gcbasic]
 ----
     'This will assign the lowest byte with 0xA4 but this assignment will also clear the upper 3 byte elements of the long variable.
     tL = 0xA4
@@ -110,6 +122,7 @@ Assigning values to the byte element of a long variable.
 
 A method to check a variable is assigned as expected is to use HserPrint and HserPrint hex(), as follows:
 
+[source,gcbasic]
 ----
     ' HserPrint hex() only prints one byte so we need to handle the four elements
     HserPrint " Print tL _E, tL_U, tL_H & tL as hex"
@@ -124,6 +137,7 @@ A method to check a variable is assigned as expected is to use HserPrint and Hse
 
 The user code above will result in an output as follows:
 
+[source,gcbasic]
 ----
     Print tL _E, tL_U, tL_H & tL as hexF7C5E3A4
     Variable tL = 4156941220
@@ -131,3 +145,7 @@ The user code above will result in an output as follows:
 {empty} +
 {empty} +
 
+**See Also:**
+
+* <<_more_on_setting_variables_and_constants,More on setting Variables and Constants>> -- related command in the same category
+* <<_setting_variables,Setting Variables>> -- related command in the same category

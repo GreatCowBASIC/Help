@@ -38,13 +38,29 @@ it is only 6 digits.  
 
 Examples:
 
-• binary number 0B01010000 (decimal 80) switch on decimal point on
-digits 2 and 4. • number 0 switch off all digital points • 255
-(0B11111111) switch all on.
+<div class="itemizedlist">
+
+-   binary number 0B01010000 (decimal 80) switch on decimal point on
+    digits 2 and 4.
+-   number 0 switch off all digital points
+-   255 (0B11111111) switch all on.
+
+</div>
 
   
   
   
   
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="7_segment_displays_tm1637_6_digits" class="link" title="7 Segment Displays - TM1637 6 Digits">7 Segment Displays - TM1637 6 Digits</a> — category
+    overview and a full worked example using TMWrite6Dig
+-   <a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Segment Displays Overview</a> — top-level
+    category overview
+
+</div>
 
 </div>

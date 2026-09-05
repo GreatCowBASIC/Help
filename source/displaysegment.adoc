@@ -1,10 +1,13 @@
 // Edit EvanV 161116
 ==== DisplaySegment
 
+(((7-Segment Displays,DisplaySegment)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
-    DisplayValue (_display, data_)
+    DisplaySegment (_display, data_)
 ----
 *Command Availability:*
 
@@ -22,6 +25,7 @@ display.
 
 *Example*
 
+[source,gcbasic]
 ----
       'This program will count from 10 to 0 then fire the rocket!
       'The method DisplaySegment 1, smallTCharacter.  Sets the 7 segment to the value of 120, see the constant, 120 equates to a small t.
@@ -102,7 +106,7 @@ display.
 
         display:
          Repeat cnt
-                DisplaySegment 1, smallTCharacter
+                DisplaySegment 1, smallTCharacter          ' <<< the DisplaySegment instruction
                 wait 5 ms
                 Displaychar 2, "-"
                 DisplayValue 3, Num2
@@ -137,6 +141,10 @@ display.
       end
 
 ----
+*Key line:* `DisplaySegment 1, smallTCharacter` -- lights digit 1's segments directly from the raw 8-bit pattern `smallTCharacter` (120), bypassing the ASCII-to-segment lookup that `DisplayChar` performs, which is how this example draws a lower-case "t" that has no standard ASCII 7-segment mapping.
 
+**See Also:**
 
-*Also, see* <<_7_segment_displays_overview,7 Segment Display Overview>>, <<_displaychar,DisplayChar>>
+* <<_7_segment_displays_overview,7 Segment Display Overview>> -- category overview
+* <<_displaychar,DisplayChar>> -- displaying an ASCII character via automatic segment lookup
+* <<_displayvalue,DisplayValue>> -- displaying a decimal or hex digit

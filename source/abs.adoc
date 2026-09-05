@@ -1,7 +1,10 @@
 ==== Abs
 
+(((Maths,Abs)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     integer_variable = Abs( integer_variable )
 ----
@@ -11,10 +14,17 @@ Available on all microcontrollers.
 
 *Explanation:*
 
-The `Abs` function will compute the absolute value of a integer number therefore in the range of −32767 to +32767.
+The `Abs` function computes the absolute value of an integer number, in the range -32767 to +32767.
 
 *Example:*
+[source,gcbasic]
 ----
-    absolute_value = Abs( -127 )  ' Will return 127
-    absolute_value = Abs( 127 )   ' Will return 127 also. :-)
+    absolute_value = Abs( -127 )  ' Will return 127          ' <<< the Abs instruction
+    absolute_value = Abs( 127 )   ' Will return 127 also
 ----
+*Key line:* `Abs( -127 )` -- strips the sign from a negative value, returning `127` either way, regardless of whether the input was positive or negative.
+
+**See Also:**
+
+* <<_average,Average>> -- related command in the same category
+* <<_difference,Difference>> -- related command in the same category

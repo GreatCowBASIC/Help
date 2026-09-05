@@ -1,5 +1,8 @@
 ===== LCD_IO 10
 
+(((Liquid Crystal Display,lcd_io10)))
+
+
 LCD_IO 10 provides support for character LCD modules that use an
 I2C/TWI interface based on the **PCF8574 or PCF8574A I/O expander**.&#160;&#160;
 These I/O expanders are commonly found on low‑cost LCD “I2C backpacks”
@@ -96,6 +99,7 @@ This example demonstrates using two PCF8574‑based I2C LCDs on the same
 I2C bus. Up to eight LCDs may be connected simultaneously, each with a
 unique PCF8574 address (0x40–0x4E).
 
+[source,gcbasic]
 ----
     Set up I2C-LCD
     
@@ -119,6 +123,7 @@ This example demonstrates using two PCF8574‑based I2C LCDs on the same
 I2C bus. Up to eight LCDs may be connected simultaneously, each with a
 unique PCF8574 address (0x40–0x4E).
 
+[source,gcbasic]
 ----
     Set up I2C-LCD
     
@@ -149,7 +154,17 @@ unique PCF8574 address (0x40–0x4E).
 See other sections of the Help file for details on alternative
 connection modes.
 
-*For more help, see*
-<<_lcd_io_0,LCD_IO 0>>, <<_lcd_io_1,LCD_IO 1>>, <<_lcd_io_2,LCD_IO 2>>,
-<<_lcd_io_2_74xx164,LCD_IO 2_74xx164>>, <<_lcd_io_2_74xx174,LCD_IO 2_74xx174>>,
-<<_lcd_io_4,LCD_IO 4>>, <<_lcd_io_8,LCD_IO 8>>, <<_lcd_io_12,LCD_IO 12>>
+**See Also:**
+
+* <<_lcd_io_0,LCD_IO 0>> -- single subroutine, software-driven mode
+* <<_lcd_io_1,LCD_IO 1>> -- 1-wire, via a 74HC595 shift register
+* <<_lcd_io_2,LCD_IO 2>> -- 2-wire shift register, deprecated
+* <<_lcd_io_2_74xx164,LCD_IO 2_74xx164>> -- 2-wire via 74HC164/74LS164, the preferred 2-wire method
+* <<_lcd_io_2_74xx174,LCD_IO 2_74xx174>> -- 2-wire via 74LS174, deprecated
+* <<_lcd_io_3,LCD_IO 3>> -- 3-wire shift register with an added Enable line
+* <<_lcd_io_4,LCD_IO 4>> -- 4-bit parallel connection
+* <<_lcd_io_8,LCD_IO 8>> -- 8-bit parallel connection
+* <<_lcd_io_12,LCD_IO 12>> -- I2C via a Ywmjkdz-layout adapter
+* <<_lcd_io_14,LCD_IO 14>> -- SPI expander
+* <<_lcd_io_16,LCD_IO 16>> -- PIC16LF72 SPI expander
+* <<_lcd_io_107,LCD_IO 107>> -- K107 serial adapter

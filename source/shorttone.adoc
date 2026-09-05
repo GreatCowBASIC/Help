@@ -1,6 +1,10 @@
 ==== ShortTone
 
+(((Sound,ShortTone)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     ShortTone Frequency, Duration
 ----
@@ -18,6 +22,7 @@ of monophonic music, it should not be used for anything that requires a
 highly precise frequency.
 
 *Example:*
+[source,gcbasic]
 ----
     'Sample program to produce a tone on PORTB bit 1, based on the
     'reading of an LDR on AN0 (usually PORTA bit 0).
@@ -28,7 +33,11 @@ highly precise frequency.
     Dir PORTA.0 In
 
     Do
-        ShortTone ReadAD(AN0), 100
+        ShortTone ReadAD(AN0), 100          ' <<< the ShortTone instruction
     Loop
 ----
-*For more help, see* <<_sound_overview,Sound Overview>>
+*Key line:* `ShortTone ReadAD(AN0), 100` -- reads the light sensor and uses that 0-255 value directly as the frequency, in 10 Hz units, so brighter light plays a higher pitch, for 100 ms.
+
+**See Also:**
+
+* <<_sound_overview,Sound Overview>>

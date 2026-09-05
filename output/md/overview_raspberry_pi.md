@@ -16,18 +16,20 @@
 
 <span class="strong">**Introduction:**</span>
 
-GCBASIC can be used when using the Raspberry Pi.
+GCBASIC can be used with the Raspberry Pi.
 
 You can install the command-line version of GCBASIC on a Raspberry Pi
 (and similar single-board computers) and use it to compile your GCBASIC
 programs.
 
 You can also program most PICs and AVRs using only the Pi’s GPIO pins
-(see <a href="" class="xref">???</a>), as well as communicate with your
-device over the Pi’s serial port. This makes it easy to program, modify,
-and communicate with a PIC or AVR using just a Pi and an SSH connection.
+(see
+<a href="overview_raspberry_pi#Programming" class="link">Programming</a>),
+as well as communicate with your device over the Pi’s serial port. This
+makes it easy to program, modify, and communicate with a PIC or AVR
+using just a Pi and an SSH connection.
 
-GCBASIC is not published for ARM-based computers, there is currently no
+GCBASIC is not published for ARM-based computers - there is currently no
 pre-compiled version for ARM-based computers, so you will have to
 compile it from source. The GCBASIC compiler is written in
 <a href="https://www.freebasic.net/" class="link">FreeBASIC</a> (an
@@ -36,7 +38,7 @@ FreeBASIC compiler on your Pi, then use it to compile the GCBASIC
 compiler from its source code. This is relatively simple.
 
 FreeBASIC is not included in any of the major Linux repositories, but
-there is a customized version for ARMv7 boards like the Raspberry Pi on
+there is a customised version for ARMv7 boards like the Raspberry Pi on
 their
 <a href="https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/" class="link">web site</a>.
 
@@ -44,7 +46,7 @@ The following procedure will work with any ARMv7 single-board computer
 running a Debian derivative like
 <a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/" class="link">Raspberry Pi OS</a>
 or <a href="https://www.armbian.com/" class="link">Armbian</a>. This
-includes the Raspberry Pi 2 and 3, and all single board computers with
+includes the Raspberry Pi 2 and 3, and all single-board computers with
 an Allwinner H2+ or H3 microprocessor (Orange Pi PC, Orange Pi Zero,
 Nano Pi R1, etc). It has not been tested with a Raspberry Pi 4.
 
@@ -68,7 +70,7 @@ Pi.
 
 <div class="orderedlist">
 
-1.  Download the latest version FreeBASIC for ARMv7 from
+1.  Download the latest version of FreeBASIC for ARMv7 from
     <https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/>
     :
 
@@ -135,9 +137,16 @@ Now you can create and compile GCBASIC source files. For example, to
 compile a program you created named `myprogram.bas` into
 `myprogram.hex`, you could run:
 
-``` screen
-    $ gcbasic -A:GCASM -R:none -K:A -WX -V myprogram.bas
+``` programlisting
+    $ gcbasic -A:GCASM -R:none -K:A -WX -V myprogram.bas          ' <<< compiling from the command line on the Pi itself
 ```
+
+<span class="strong">**Key line:**</span>
+`gcbasic -A:GCASM -R:none -K:A -WX -V myprogram.bas` — see
+<a href="command_line_parameters" class="link" title="Command Line Parameters">Command Line Parameters</a>
+for the full reference; here `/A:GCASM` selects the internal assembler,
+`/K:A` preserves the assembly output for debugging, and `/WX`/`/V`
+enable strict warnings-as-errors and verbose output respectively.
 
 This will:
 
@@ -151,20 +160,32 @@ This will:
 
 </div>
 
-<span class="strong">**Programming**</span>
+<span id="Programming"></span><span
+class="strong">**Programming**</span>
 
 To transfer your compiled .hex program files from your Pi to your
 microcontroller, you will need additional software.
 
 For most PIC microcontrollers, you should use
 <a href="https://pickitplus.co.uk/Typesetter/index.php/PKCMD-Pi-Application" class="link">PICkitPlus for Pi</a>.
-PICKitPlus support the widest range of PICs including the latest PICs.
-It is fully supported application.
+PICkitPlus supports the widest range of PICs, including the latest PICs.
+It is a fully supported application.
 
 For AVR microcontrollers, you will need `avrdude`. It should be
 available in your distribution’s repository. If not, check here:
 <http://www.nongnu.org/avrdude/> . Instructions on how to use it can be
 found
 <a href="https://learn.adafruit.com/program-an-avr-or-arduino-using-raspberry-pi-gpio-pins/overview" class="link">here</a>.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="command_line_parameters" class="link" title="Command Line Parameters">Command Line Parameters</a> — the
+    full compiler switch reference used above
+-   <a href="overview_linux_operating_system" class="link" title="Overview - Linux Operating System">Overview - Linux Operating System</a> — the
+    closest equivalent desktop-Linux instructions
+
+</div>
 
 </div>

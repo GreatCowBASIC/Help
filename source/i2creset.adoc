@@ -1,6 +1,10 @@
 ==== I2CReset
 
+(((I2C Software,I2CReset)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     I2CReset
 ----
@@ -15,9 +19,17 @@ This will attempt a reset of the I2C by changing the state of the I2C
 bus.
 
 *Example:*
+[source,gcbasic]
 ----
- ...
-	I2CReset
- ...
+    'Call if the I2C bus appears to be stuck, for example a slave device holding SDA low
+    I2CReset          ' <<< the I2CReset instruction
 ----
+*Key line:* `I2CReset` -- toggles the I2C bus lines in an attempt to clear a stuck or hung bus condition, such as a slave device holding SDA low.
+
 Supported in <I2C.H>
+
+**See Also:**
+
+* <<_i2c_overview,I2C Overview>> -- category overview
+* <<_i2crestart,I2CRestart>> -- related command in the same category
+* <<_i2creceive,I2CReceive>> -- related command in the same category

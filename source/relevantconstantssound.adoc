@@ -1,5 +1,8 @@
 ==== Sound Overview
 
+(((Sound,Sound Overview)))
+
+
 *Introduction:*
 
 These GCBASIC methods generate tones of a given frequency and duration.
@@ -54,3 +57,7 @@ Set `_count_` and `_period_` to the appropriate values as follows:
 `_period_` to 1000000 / desired frequency / 2 +
 `_count_` to desired duration / _period_.
 
+**See Also:**
+
+* <<_tone,Tone>> -- related command in the same category
+* <<_shorttone,ShortTone>> -- related command in the same category

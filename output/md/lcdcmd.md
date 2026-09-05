@@ -51,7 +51,7 @@ in the table below.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     ;Chip Settings
     #chip 16F88,8
 
@@ -132,12 +132,12 @@ in the table below.
 
 <span class="strong">**Example 2:**</span>
 
-``` screen
+``` programlisting
     #chip 16F877A,20
     #option Explicit
 
     'Use LCD in 4 pin mode and define LCD pins
-    #define LCD_IO 4
+    #define LCD_IO 4          ' <<< the constant that selects 4-bit connection mode
     #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RW PORTE.1
     #define LCD_RS PORTE.0
@@ -208,19 +208,19 @@ in the table below.
         for ii = 0 to 15         ;move cursor across first line
           LCDCmd(line1+ii)
           wait 200 mS
-        next i
+        next ii
         for ii = 0 to 15         ;move cursor across second line
           LCDCmd(line2+ii)
           wait 200 mS
-        next i
+        next ii
         for ii = 15 to 0 step -1 ;move cursor back over second line
           LCDCmd(line2+ii)
           wait 200 mS
-        next i
+        next ii
         for ii = 15 to 0 step -1 ;move cursor back over first line
           LCDCmd(line1+ii)
           wait 200 mS
-        next i
+        next ii
         wait 3 S
         ;demonstrate blinking block cursor
         printMsg(8)             ;print next message
@@ -236,7 +236,7 @@ in the table below.
         for ii = 0xd0 to 0xff    ;print next message - the remaining EEPROM
           EPread ii, char        ;fetch directly from eeprom
           print chr(char)
-        next i
+        next ii
         wait 1 S
         LCDHome                  ;home cursor once more
         repeat 141               ;scroll message twice
@@ -252,12 +252,12 @@ in the table below.
           LCDCmd(line1+12)       ;overwrite each character displayed
           print chr(ii)          ;this is the ASCII code
           wait 500 mS
-        next i
+        next ii
         for ii = 161 to 255      ;print next batch of ASCII characters
           LCDCmd(line1+12)
           print chr(ii)
           wait 500 mS
-        next i
+        next ii
         ;say good-bye
         LCDCmd(line2)
         printMsg(11)             ;print next message
@@ -316,6 +316,23 @@ in the table below.
     end sub
 ```
 
+<span class="strong">**Key line:**</span> `LCDCmd 28`, `LCDCmd(under)`,
+etc. — sends a raw HD44780 instruction code straight to the controller;
+Example 2’s cursor-movement loops use the loop variable `ii`
+consistently after the `next i` typo (a leftover from an undeclared
+variable) was corrected to `next ii`.
+
 <span class="strong">**Supported in &lt;LCD.H&gt;**</span>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcdcreatechar" class="link" title="LCDCreateChar">LCDCreateChar</a> — related
+    command in the same category
+-   <a href="lcdcreategraph" class="link" title="LCDCreateGraph">LCDCreateGraph</a> — related
+    command in the same category
+
+</div>
 
 </div>

@@ -91,7 +91,7 @@ These constants control the setup of the software I2C routines:
 devices and displays on a terminal. This code will require adaption but
 the code shows an approach to discover the IC2 devices.
 
-``` screen
+``` programlisting
   ' I2C Overview - using the ChipIno board, see here for information
   #chip 16F886, 8
   #config MCLRE_ON
@@ -121,7 +121,7 @@ the code shows an approach to discover the IC2 devices.
   dim DeviceID as byte
   for DeviceID = 0 to 255
     I2CStart
-    I2CSend ( deviceID )
+    I2CSend ( deviceID )          ' <<< the I2CSend instruction
     I2CSend ( 0 )
     I2CSend ( 0 )
     i2cstop
@@ -141,6 +141,21 @@ the code shows an approach to discover the IC2 devices.
   End
 ```
 
-Supported in &lt;I2C.H&gt;
+<span class="strong">**Key line:**</span>
+`I2CSend ( deviceID )` — addresses each possible device ID in turn;
+`I2CSendState` afterward tells the program whether that device
+acknowledged, which is how this sketch discovers what is present on the
+bus. Supported in &lt;I2C.H&gt;
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="i2cackpollstate" class="link" title="I2CAckPollState">I2CAckPollState</a> — related
+    command in the same category
+-   <a href="i2cackpoll" class="link" title="I2CAckpoll">I2CAckpoll</a> — related
+    command in the same category
+
+</div>
 
 </div>

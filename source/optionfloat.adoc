@@ -1,16 +1,20 @@
 === #Option Float
 
+(((Compiler Options,#Option Float)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     #option Float 1
----- 
-This option enables float support in the user program.  
+----
+This option enables float support in the user program.
 
-This option ensures that all advanced variables are permitted in the user program.  
+This option ensures that all advanced variables are permitted in the user program.
 
 *Options:*
 
-There are four bitwise settings for the different tpye of advanced variables, as follows:
+There are four bitwise settings for the different types of advanced variable, as follows:
 
 1 = singles
 2 = doubles
@@ -18,6 +22,7 @@ There are four bitwise settings for the different tpye of advanced variables, as
 8 = uLongINT
 
 *Example 1:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16f877a
@@ -32,18 +37,23 @@ There are four bitwise settings for the different tpye of advanced variables, as
 ----
 
 *Example 2:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16f877a
 
     'Example command
-    #option Float 3   // Enable Single and Double 1 + 2 = 3
+    #option Float 3   // Enable Single and Double 1 + 2 = 3          ' <<< combining bitwise option flags
 
     dim myuserflag as single
 
     myuserflag = 123.456
 
 ----
+*Key line:* `#option Float 3   // Enable Single and Double 1 + 2 = 3` -- the value 3 is the bitwise OR of the Single flag (1) and the Double flag (2), enabling advanced-variable support for both types in one statement; adding LongInt or uLongInt support would mean also adding 4 and/or 8.
 
 
-*For more help, see* <<_variable_lifecycle,Variable Lifecycle>>
+**See Also:**
+
+* <<_advanced_variabletypes,Advanced VariableTypes>> -- Single, Double, LongInt, and uLongInt in full detail
+* <<_variable_lifecycle,Variable Lifecycle>> -- how declared variables are allocated and used

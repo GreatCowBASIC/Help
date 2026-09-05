@@ -45,7 +45,7 @@ strings.
   
 <span class="strong">**Example1:**</span>
 
-``` screen
+``` programlisting
     'Set chip model
     #chip 16F1936
 
@@ -62,7 +62,7 @@ strings.
     Dim OutVar As String
 
     'Fill string with sensor reading
-    OutVar = WordToString(SensorReading)
+    OutVar = WordToString(SensorReading)          ' <<< the WordToString instruction
 
     'Send
     HSerPrint OutVar
@@ -78,11 +78,16 @@ strings.
     WordToString (number_variable)
 ```
 
+<span class="strong">**Key line:**</span>
+`OutVar = WordToString(SensorReading)` — converts the 10-bit ADC reading
+into a 5-character string, which `HSerPrint` can then send directly
+since it otherwise expects a string argument.
+
   
   
 <span class="strong">**Example2:**</span>
 
-``` screen
+``` programlisting
     '''
     '''
     '''
@@ -123,7 +128,7 @@ strings.
     do
        wait 100 ms
 
-       HSerPrint WordToString( Wordvar )
+       HSerPrint WordToString( Wordvar )          ' <<< WordToString called inline as an HSerPrint argument
        HSerPrintCRLF
        wait 1 s
     loop
@@ -132,13 +137,30 @@ strings.
 ; ----- Support methods.  Subroutines and Functions
 ```
 
+<span class="strong">**Key line:**</span>
+`HSerPrint WordToString( Wordvar )` — calling `WordToString` directly
+inside `HSerPrint` avoids needing a separate string variable; note the
+space in `WordToString (number_variable)` shown as the incorrect form
+above — `WordToString(` must have no space before the parenthesis.
+
   
   
-<span class="strong">**See Also**</span>
-<a href="bytetohex" class="link" title="ByteToHex">ByteToString</a>,
-<a href="longtohex" class="link" title="LongToHex">LongToString</a>,
-<a href="integertohex" class="link" title="IntegerToHex">IntegerToString</a>,
-<a href="singletohex" class="link" title="SingleToHex">SingleToString</a>,
-<a href="bytetohex" class="link" title="ByteToHex">ByteToHex</a>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="bytetostring" class="link" title="ByteToString">ByteToString</a> — related
+    command in the same category
+-   <a href="longtostring" class="link" title="LongToString">LongToString</a> — related
+    command in the same category
+-   <a href="integertostring" class="link" title="IntegerToString">IntegerToString</a> — related
+    command in the same category
+-   <a href="singletostring" class="link" title="SingleToString">SingleToString</a> — related
+    command in the same category
+-   <a href="bytetohex" class="link" title="ByteToHex">ByteToHex</a> — related
+    command in the same category
+
+</div>
 
 </div>

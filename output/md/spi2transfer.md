@@ -36,7 +36,13 @@ command will pause the program until a transfer is initiated by the
 master. At this point, it will send the data in `tx` whilst reading the
 transmission from the master into the `rx` variable.
 
-<span class="strong">**See also**</span>
-<a href="spimode" class="link" title="SPIMode">SPIMode</a>,<a href="" class="link">FastHWSPI2Transfer</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="spimode" class="link" title="SPIMode">SPIMode</a>
+-   <a href="fasthwspi2transfer" class="link" title="FastHWSPI2Transfer">FastHWSPI2Transfer</a>
+
+</div>
 
 </div>

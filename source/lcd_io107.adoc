@@ -1,5 +1,8 @@
 ===== LCD_IO 107
 
+(((Liquid Crystal Display,lcd_io107)))
+
+
 *Using connection mode 107:*
 
 The LCD is controlled via the serial port.
@@ -31,6 +34,7 @@ be ignored.
 
 *Example Code:*
 
+[source,gcbasic]
 ----
 
     #chip 16f18313
@@ -76,8 +80,17 @@ be ignored.
 See the separate sections of the Help file for the specifics of each
 Connection Mode.
 
-*For more help, see*
-<<_lcd_io_0,LCD_IO 0>>, <<_lcd_io_1,LCD_IO 1>>, <<_lcd_io_2,LCD_IO 2>>
-<<_lcd_io_2_74xx164,LCD_IO 2_74xx164>>, <<_lcd_io_2_74xx174,LCD_IO 2_74xx174>>,
-<<_lcd_io_4,LCD_IO 4>>, <<_lcd_io_8,LCD_IO 8>>,
-<<_lcd_io_10,LCD_IO 10>>
+**See Also:**
+
+* <<_lcd_io_0,LCD_IO 0>> -- single subroutine, software-driven mode
+* <<_lcd_io_1,LCD_IO 1>> -- 1-wire, via a 74HC595 shift register
+* <<_lcd_io_2,LCD_IO 2>> -- 2-wire shift register, deprecated
+* <<_lcd_io_2_74xx164,LCD_IO 2_74xx164>> -- 2-wire via 74HC164/74LS164, the preferred 2-wire method
+* <<_lcd_io_2_74xx174,LCD_IO 2_74xx174>> -- 2-wire via 74LS174, deprecated
+* <<_lcd_io_3,LCD_IO 3>> -- 3-wire shift register with an added Enable line
+* <<_lcd_io_4,LCD_IO 4>> -- 4-bit parallel connection
+* <<_lcd_io_8,LCD_IO 8>> -- 8-bit parallel connection
+* <<_lcd_io_10,LCD_IO 10>> -- I2C via a PCF8574/PCF8574A I/O expander
+* <<_lcd_io_12,LCD_IO 12>> -- I2C via a Ywmjkdz-layout adapter
+* <<_lcd_io_14,LCD_IO 14>> -- SPI expander
+* <<_lcd_io_16,LCD_IO 16>> -- PIC16LF72 SPI expander

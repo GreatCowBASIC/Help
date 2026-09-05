@@ -16,18 +16,18 @@
 
 <span class="strong">**Explanation:**</span>
 
-GCBASIC support interfacing with IR remote controls. The header file
-contains explanations, for both hardware and software.
+GCBASIC supports interfacing with IR remote controls. The header file
+contains explanations for both hardware and software.
 
 This has been tested on many different IR sensors, and different remote
 controls.
 
 <span class="strong">**Demonstration program:**</span>
 
-The example is expected to work with most any IR sensor running at a 38
-kHz carrier frequency.
+The example is expected to work with almost any IR sensor running at a
+38 kHz carrier frequency.
 
-``` screen
+``` programlisting
     ;This demo prints the device number and key number sent by
     ;a Sony compatible IR remote control unit to an LCD
 
@@ -61,7 +61,7 @@ kHz carrier frequency.
     dir PortB out                     ;B.2 - B.6 for LCD
 
     do
-      readIR_Remote(device, button)   ;wait for button press
+      readIR_Remote(device, button)   ;wait for button press          ' <<< blocking until a Sony IR remote button press is decoded
 
       cls                             ;show device code
       print "Device: "
@@ -75,7 +75,17 @@ kHz carrier frequency.
     loop                              ;repeat forever
 ```
 
-<span class="strong">**See also
-<a href="sonyremote_h" class="link" title="SonyRemote.h">SonyRemote.h</a>**</span>.
+<span class="strong">**Key line:**</span>
+`readIR_Remote(device, button)` — blocks until a complete Sony-protocol
+IR packet is received, then fills `device` and `button` with the decoded
+device and key-press codes from the remote.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="sonyremote_h" class="link" title="SonyRemote.h">SonyRemote.h</a>
+
+</div>
 
 </div>

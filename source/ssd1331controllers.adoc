@@ -1,5 +1,8 @@
 ==== SSD1331 Controllers
 
+(((Graphical LCD,SSD1331 Controllers)))
+
+
 This section covers GLCD devices that use the SSD1331 graphics controller.  The SSD1331 is a single-chip controller/driver for 262K-color, graphic type OLED-LCD.
 
 The GCBASIC constants shown below control the configuration of the SSD1331 controller. &#160;&#160;&#160;GCBASIC supports SPI, hardware and software SPI, connectivity. This is shown in the tables below.
@@ -8,6 +11,7 @@ GCBASIC supports 65K-color mode operations.
 
 To use the SSD1331 driver simply include the following in your user code.  This will initialise the driver.
 
+[source,gcbasic]
 ----
         #include <glcd.h>
         #include <UNO_mega328p.h >
@@ -156,7 +160,9 @@ specific attribute.
  Any color can be defined using a valid hexidecimal word value between 0x0000 to 0xFFFF.
 |===
 
+The library predefines the named colors below as 16-bit RGB565 values (5 bits red, 6 bits green, 5 bits blue). Pass any of these constants, or your own custom 0x0000-0xFFFF value, as the colour parameter to `GLCDCLS`, `Box`, `FilledBox`, `Line`, `GLCDDrawChar`, or `GLCDDrawString`.
 
+[source,gcbasic]
 ----
     Colour           RGB 
     TFT_BLACK       0x0000
@@ -183,6 +189,7 @@ specific attribute.
 
 *Example:*
 
+[source,gcbasic]
 ----
     #chip mega328p, 16
     #option explicit
@@ -199,7 +206,7 @@ specific attribute.
     #define GLCD_DO       portb.3           ' Data out | MOSI
     #define GLCD_SCK      portb.5           ' Clock Line
 
-    #define SSD1331_HardwareSPI    ' remove/comment out if you want to use software SPI.
+    #define SSD1331_HardwareSPI    ' remove/comment out if you want to use software SPI.          ' <<< selects hardware SPI for the SSD1331 link
 
     'GLCD selected OLED font set.
     #define GLCD_OLED_FONT
@@ -213,10 +220,14 @@ specific attribute.
     GLCDPrintStringLN ("Anobium 2021")
     end
 ----
+*Key line:* `#define SSD1331_HardwareSPI` -- routes the SSD1331 traffic through the microcontroller's hardware SPI module instead of a bit-banged software implementation; commenting this line out (as the inline comment notes) falls back to software SPI, which works on any pins but is slower.
 
+**See Also:**
 
-
-*For more help, see*
-<<_glcdcls,GLCDCLS>>, <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
+* <<_glcdcls,GLCDCLS>> -- clearing the display, as used above
+* <<_glcddrawchar,GLCDDrawChar>> -- drawing a single character
+* <<_glcdprint,GLCDPrint>> -- printing a value at a specific location
+* <<_glcdreadbyte,GLCDReadByte>> / <<_glcdwritebyte,GLCDWriteByte>> -- low-level byte access, for expert use
+* <<_pset,Pset>> -- setting a single pixel
 
 Supported in <GLCD.H>

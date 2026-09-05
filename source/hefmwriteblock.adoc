@@ -1,8 +1,11 @@
 ==== HEFWriteBlock
 
+(((HEFM ( PFM ),HEFWriteBlock)))
+
+
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     HEFWriteBlock ( block_number,  buffer(), [, num_bytes] )
 ----
@@ -39,6 +42,7 @@ This parameter is not normally required as the default is set to the GCBASIC con
 {empty} +
 {empty} +
 *Example 1:*
+[source,gcbasic]
 ----
     '... code preamble to select part
     '... code to setup serial
@@ -58,6 +62,7 @@ For HEFM_Dump routine,  see <<_hefread,HEFRead>>
 {empty} +
 If example 1 were displayed on a serial terminal using HEFM_Dump.&#160;&#160;&#160;
 The result would show. Note the value display at the start of block 2 @ 0x3F80.
+[source,gcbasic]
 ----
 Block0  1 0   3 2   5 4   7 6   9 8   B A   D C   F E
 7F00    FFFF  FFFF  FFFF  FFFF  FFFF  FFFF  FFFF  FFFF  
@@ -85,12 +90,13 @@ Block3  1 0   3 2   5 4   7 6   9 8   B A   D C   F E
 ----
 {empty} +
 {empty} +
-See also
-<<_hefm_overview,HEFM Overview>>,
-<<_hefread,HEFRead>>,
-<<_hefreadword,HEFReadWord>>,
-<<_hefwrite,HEFWrite>>,
-<<_hefwriteword,HEFWriteWord>>,
-<<_hefreadblock,HEFReadBlock>>,
-<<_hefwriteblock,HEFWriteBlock>>,
-<<_heferaseblock,HEFEraseBlock>>
+**See Also:**
+
+* <<_hefm_overview,HEFM Overview>>
+* <<_hefread,HEFRead>>
+* <<_hefreadword,HEFReadWord>>
+* <<_hefwrite,HEFWrite>>
+* <<_hefwriteword,HEFWriteWord>>
+* <<_hefreadblock,HEFReadBlock>>
+* <<_hefwriteblock,HEFWriteBlock>>
+* <<_heferaseblock,HEFEraseBlock>>

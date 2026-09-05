@@ -1,7 +1,10 @@
 ==== If
 
+(((Flow control,If)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 
 ----
 *_Short form:_*
@@ -72,6 +75,7 @@ Supported:
 ----
 
 *Example:*
+[source,gcbasic]
 ----
     'Turn a light on or off depending on a light sensor
 
@@ -85,15 +89,19 @@ Supported:
     Dir SENSOR_PORT In
 
     Do
-      If ReadAD(SENSOR) > 128 Then
+      If ReadAD(SENSOR) > 128 Then          ' <<< the If...Then...Else this page documents
         Set LIGHT Off
       Else
         Set LIGHT On
       End If
     Loop
 ----
+*Key line:* `If ReadAD(SENSOR) > 128 Then` -- the condition is evaluated once; the `Else` branch runs only when it is false.
 
+**See Also:**
 
-
-
-*For more help, see <<_conditions,Conditions>>*
+* <<_conditions,Conditions>> -- background on how conditions are evaluated
+* <<_select,Select Case>> -- alternative when choosing between more than two branches
+* <<_do,Do>> -- looping construct used to repeat the check in the example above
+* <<_for,For>> -- fixed-count loop alternative to Do
+* <<_readad,ReadAD>> -- reading the sensor value tested in the example above

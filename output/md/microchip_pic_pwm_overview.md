@@ -43,10 +43,15 @@ the desired output pin.
 
 This method uses three parameters to setup the PWM.
 
-``` screen
+``` programlisting
     'HPWM channel, frequency, duty cycle
-    HPWM 1, 76, 80
+    HPWM 1, 76, 80          ' <<< the HPWM instruction
 ```
+
+<span class="strong">**Key line:**</span> `HPWM 1, 76, 80` — drives CCP
+channel 1 at a 76 kHz carrier frequency with an 80% duty cycle; unlike
+the software PWM method below, this runs continuously in the background
+using dedicated hardware, freeing the program to do other work.
 
 <span class="strong">**<span class="emphasis">*Hardware PWM using a PWM
 module*</span>**</span>
@@ -57,7 +62,7 @@ within the microcontroller Microcontrollers with PPS can change the pin
 
 This method uses four parameters to setup the PWM.
 
-``` screen
+``` programlisting
     'HPWM channel, frequency, duty cycle, timer
     HPWM 5, 76, 80, 2
 ```
@@ -71,7 +76,7 @@ The fixed mode can use CCP1 only, and, the parameters of the PWM cannot
 be dynamically changed in the user program.   The parameters are fixed
 by the definition of two constants.
 
-``` screen
+``` programlisting
     #define PWM_Freq 76    'Set frequency in KHz
     #define PWM_Duty 80    'Set duty cycle to 80 %
 
@@ -94,7 +99,7 @@ dynamically in the user program.
 The PWM is <span class="strong">**only**</span> operational for the
 number of cycles stated in the calling method.  
 
-``` screen
+``` programlisting
     'A call to use the software PWM on the specific port, with a duty of 127 for 100 cycles
 
     ; ----- Constants
@@ -106,8 +111,15 @@ number of cycles stated in the calling method.
     dir PWM_Out1 out
 
     'Pulse the PWM
-    PWMOut 1, 127, 100
+    PWMOut 1, 127, 100          ' <<< the PWMOut instruction
 ```
+
+<span class="strong">**Key line:**</span>
+`PWMOut 1, 127, 100` — generates 100 pulses at roughly 50% duty (127 of
+255) purely in software, on any output pin; because no dedicated
+hardware is used, this call blocks the program until all 100 cycles
+finish, unlike the hardware methods above which run independently once
+started.
 
 <span class="strong">**Relevant Constants:**</span>
 
@@ -115,5 +127,18 @@ A number of constants are used to control settings for the PWM hardware
 module of the microcontroller. To set them, place a line in the main
 program file that uses \#define to assign a value to the particular
 constant.  
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="atmel_avr_pwm_overview" class="link" title="ATMEL AVR PWM Overview">ATMEL AVR PWM Overview</a> — category
+    overview
+-   <a href="pwm_software_mode" class="link" title="PWM Software Mode">PWM Software Mode</a> — related
+    command in the same category
+-   <a href="pwmout" class="link" title="PWMOut">PWMOut</a> — related
+    command in the same category
+
+</div>
 
 </div>

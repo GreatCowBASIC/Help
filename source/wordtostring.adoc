@@ -1,7 +1,10 @@
 ==== WordToString
 
+(((String Manipulation,WordToString)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     _stringvar_ = WordToString(_Word_variable_)     'supports Word.
 ----
@@ -22,6 +25,7 @@ These methods will not support  conversion of hexadecimal number strings.
 {empty} +
 {empty} +
 *Example1:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16F1936
@@ -39,7 +43,7 @@ These methods will not support  conversion of hexadecimal number strings.
     Dim OutVar As String
 
     'Fill string with sensor reading
-    OutVar = WordToString(SensorReading)
+    OutVar = WordToString(SensorReading)          ' <<< the WordToString instruction
 
     'Send
     HSerPrint OutVar
@@ -54,9 +58,12 @@ These methods will not support  conversion of hexadecimal number strings.
     ' do not use, note the space!
     WordToString (number_variable)
 ----
+*Key line:* `OutVar = WordToString(SensorReading)` -- converts the 10-bit ADC reading into a 5-character string, which `HSerPrint` can then send directly since it otherwise expects a string argument.
+
 {empty} +
 {empty} +
 *Example2:*
+[source,gcbasic]
 ----
     '''
     '''
@@ -98,7 +105,7 @@ These methods will not support  conversion of hexadecimal number strings.
     do
        wait 100 ms
 
-       HSerPrint WordToString( Wordvar )
+       HSerPrint WordToString( Wordvar )          ' <<< WordToString called inline as an HSerPrint argument
        HSerPrintCRLF
        wait 1 s
     loop
@@ -107,8 +114,16 @@ These methods will not support  conversion of hexadecimal number strings.
 ; ----- Support methods.  Subroutines and Functions
 
 ----
+*Key line:* `HSerPrint WordToString( Wordvar )` -- calling `WordToString` directly inside `HSerPrint` avoids needing a separate string variable; note the space in `WordToString (number_variable)` shown as the incorrect form above -- `WordToString(` must have no space before the parenthesis.
 
 
 {empty} +
 {empty} +
-*See Also* <<_bytetohex,ByteToString>>, <<_longtohex,LongToString>>, <<_integertohex,IntegerToString>>, <<_singletohex,SingleToString>>, <<_bytetohex,ByteToHex>>
+
+**See Also:**
+
+* <<_bytetostring,ByteToString>> -- related command in the same category
+* <<_longtostring,LongToString>> -- related command in the same category
+* <<_integertostring,IntegerToString>> -- related command in the same category
+* <<_singletostring,SingleToString>> -- related command in the same category
+* <<_bytetohex,ByteToHex>> -- related command in the same category

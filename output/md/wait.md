@@ -19,21 +19,21 @@
 <span class="strong">**<span class="emphasis">*Fixed Length
 Delay:*</span>**</span>
 
-``` screen
+``` programlisting
     Wait time units
 ```
 
 <span class="strong">**<span class="emphasis">*Conditional
 Delay:*</span>**</span>
 
-``` screen
+``` programlisting
     Wait {While | Until} condition
 ```
 
 <span class="strong">**<span class="emphasis">*Using a variable to
-specific US Delay with Warning supression:*</span>**</span>
+specify a US delay with warning suppression:*</span>**</span>
 
-``` screen
+``` programlisting
     Wait timevalue US #OVERRIDEWARNING
 ```
 
@@ -43,11 +43,10 @@ Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `Wait` command will cause the program to wait for either a specified
+The `Wait` command causes the program to wait for either a specified
 amount of time (such as 1 second), or while/until a condition is true.
 
-When using the fixed-length delay, there is a variety of units that are
-available:
+When using the fixed-length delay, a variety of units are available:
 
 <div class="informaltable">
 
@@ -65,34 +64,34 @@ available:
 
 At one stage, GCBASIC variables could not hold more than 255. The `10us`
 and `10ms` units were added as a way to work around this limit. There is
-now no such limit (`Wait 1000 ms` will work for example), so these are
+now no such limit (`Wait 1000 ms` will work, for example), so these are
 not really needed. However, you may see them in some older examples or
-programs, and the `10us` units are sometimes the shortest delay that
-will work accurately.
+programs, and the `10us` unit is sometimes the shortest delay that will
+work accurately.
 
 <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 ### Warning
 
 <span class="strong">**PIC Devices Only**</span>  
-MS Delays at Clock frequency’s below 28kHz are not supported and will
+MS delays at clock frequencies below 28kHz are not supported and will
 silently fail.  
-US Delays at Clock frequency’s below 250kHz are not supported and will
+US delays at clock frequencies below 250kHz are not supported and will
 silently fail.  
-US Delays at lower Clock frequency’s is accurate ONLY when nn is
+US delays at lower clock frequencies are accurate ONLY when the value is
 divisible by 4. This is caused by the minimum ASM delay loop being a
 specific number of instructions.  
-US Delays at lower Clock frequency’ when not divisible by 4 will
-silently accept the nn value and incorrect delays will be produced. +
-Use `#OVERRIDEWARNING` to supress warnings. Delays at Clock frequency’s
-below 500kHz may be impacted by previous instructions; testing of actual
-delays is advised.  
+US delays at lower clock frequencies, when not divisible by 4, will
+silently accept the value and produce incorrect delays. + Use
+`#OVERRIDEWARNING` to suppress the resulting warning. Delays at clock
+frequencies below 500kHz may be impacted by previous instructions;
+testing of actual delays is advised.  
 
 </div>
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This code will wait until a button is pressed, then it will flash
     'a light every half a second and produce a 440 Hz tone.
 
@@ -106,7 +105,7 @@ delays is advised.
     Dir LIGHT Out
 
     'Assumes Button switches on when pressed
-    Wait Until BUTTON = 1
+    Wait Until BUTTON = 1          ' <<< the conditional form of Wait instruction
     Wait Until BUTTON = 0
 
     Do
@@ -124,9 +123,14 @@ delays is advised.
     Loop
 ```
 
+<span class="strong">**Key line:**</span>
+`Wait Until BUTTON = 1` — blocks the program here, checking `BUTTON`
+repeatedly, until it reads `1`; this is the conditional form of `Wait`,
+as opposed to the fixed-length `Wait 500 ms` used further down.
+
 To suppress warnings when using US.
 
-``` screen
+``` programlisting
     dim timevariable as Word
     timevariable = 100 // 100 is an example value that assigns the variable.
 
@@ -134,7 +138,19 @@ To suppress warnings when using US.
     wait timevariable US #OVERRIDEWARNING
 ```
 
-<span class="strong">**For more help, see
-<a href="conditions" class="link" title="Conditions">Conditions</a>**</span>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="conditions" class="link" title="Conditions">Conditions</a> — the
+    comparisons used in `Wait While`/`Wait Until`
+-   <a href="repeat" class="link" title="Repeat">Repeat</a> — looping
+    a fixed number of times, as combined with `Wait` above
+-   <a href="pulseout" class="link" title="PulseOut">PulseOut</a> — timed
+    pin pulses, often used alongside `Wait`
+-   <a href="pause" class="link" title="Pause">Pause</a> — the
+    older, milliseconds-only equivalent to a fixed-length `Wait`
+
+</div>
 
 </div>

@@ -1,7 +1,11 @@
 ==== HI2CStartOccurred
 
+(((I2C/TWI Hardware Module,HI2CStartOccurred)))
+
+
 *Syntax:*
 
+[source,gcbasic]
 ----
     HI2CStartOccurred
 ----
@@ -13,7 +17,7 @@ Only available for microcontrollers with the hardware I2C or TWI module.
 *Explanation:*
 
 Check if a start condition has occurred since the last run of this
-function
+function.
 
 Only used in slave mode.
 
@@ -21,8 +25,27 @@ Only used in slave mode.
 
 This command is also available on microcontrollers with a second hardware I2C port.
 
+[source,gcbasic]
 ----
     HI2C2StartOccurred
 ----
 
+*Example:*
+[source,gcbasic]
+----
+    'Slave-mode polling loop that waits for the master to begin a transmission
+    Do
+        If HI2CStartOccurred Then          ' <<< the HI2CStartOccurred instruction
+            HI2CReceive DataByte
+        End If
+    Loop
+----
+*Key line:* `If HI2CStartOccurred Then` -- checks whether the master has issued a start condition on the hardware I2C module since this function was last called, so the slave only attempts to receive data once a transmission has actually begun.
+
 Supported in <HI2C.H>
+
+**See Also:**
+
+* <<_hi2c_overview,HI2C Overview>> -- category overview
+* <<_hi2cstart,HI2CStart>> -- related command in the same category
+* <<_hi2cstop,HI2CStop>> -- related command in the same category

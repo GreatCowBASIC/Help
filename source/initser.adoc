@@ -1,5 +1,8 @@
 ==== InitSer
 
+(((Serial Communications,InitSer)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -43,6 +46,10 @@ high bits will be changed to low, and low to high.
 
 *Example:*
 
-Please refer to <<_sersend,SerSend>> for an example of `InitSer`
+Please refer to <<_sersend,SerSend>> for an example of `InitSer`, which sets up channel 1 with `InitSer 1, r9600, 1+WaitForStart, 8, 1, none, normal` before sending or receiving any bytes.
 
-*For more help, see* <<_rs232_software_overview,RS232 Software Overview>>
+**See Also:**
+
+* <<_rs232_software_overview,RS232 Software Overview>> -- category overview
+* <<_sersend,SerSend>> -- sending a byte on a channel configured by InitSer
+* <<_serreceive,SerReceive>> -- receiving a byte on a channel configured by InitSer

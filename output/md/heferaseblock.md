@@ -31,7 +31,7 @@ block.    HEFM data within the HEFM block to the erase state value of
 the device.    This Value is 0xFF and will read 0x3FFF if the entire
 14bit program memory word is displayed. Use Caution. Once the HEFM block
 is erased, the HEFM data is gone forever and cannot be recovered unless
-it was previpusly saved.  
+it was previously saved.  
   
 The single parameter is as follows:
 
@@ -44,7 +44,7 @@ updated.
 
 Erase a specific block of HEFM.
 
-``` screen
+``` programlisting
     '... code preamble to select part
     '... code to setup serial, if needed
 
@@ -55,14 +55,19 @@ Erase a specific block of HEFM.
 
   
   
-See also
-<a href="hefm_overview" class="link" title="HEFM Overview">HEFM Overview</a>,
-<a href="hefread" class="link" title="HEFRead">HEFRead</a>,
-<a href="hefreadword" class="link" title="HEFReadWord">HEFReadWord</a>,
-<a href="hefwrite" class="link" title="HEFWrite">HEFWrite</a>,
-<a href="hefwriteword" class="link" title="HEFWriteWord">HEFWriteWord</a>,
-<a href="hefreadblock" class="link" title="HEFReadBlock">HEFReadBlock</a>,
-<a href="hefwriteblock" class="link" title="HEFWriteBlock">HEFWriteBlock</a>,
-<a href="heferaseblock" class="link" title="HEFEraseBlock">HEFEraseBlock</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hefm_overview" class="link" title="HEFM Overview">HEFM Overview</a>
+-   <a href="hefread" class="link" title="HEFRead">HEFRead</a>
+-   <a href="hefreadword" class="link" title="HEFReadWord">HEFReadWord</a>
+-   <a href="hefwrite" class="link" title="HEFWrite">HEFWrite</a>
+-   <a href="hefwriteword" class="link" title="HEFWriteWord">HEFWriteWord</a>
+-   <a href="hefreadblock" class="link" title="HEFReadBlock">HEFReadBlock</a>
+-   <a href="hefwriteblock" class="link" title="HEFWriteBlock">HEFWriteBlock</a>
+-   <a href="heferaseblock" class="link" title="HEFEraseBlock">HEFEraseBlock</a>
+
+</div>
 
 </div>

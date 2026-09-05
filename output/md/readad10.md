@@ -16,181 +16,184 @@
 
 <span class="strong">**Syntax:**</span>
 
-For a normal ( also called a Single Channel ) read use.
+For a normal (also called a Single Channel) read, use:
 
-``` screen
+``` programlisting
     word_variable = ReadAD10( ANX )
 ```
 
-For a Differential Channel read use the following.  Where ANpX is the
-positive port, and ANnY is the negative port.
+For a Differential Channel read, use the following, where ANpX is the
+positive port and ANnY is the negative port:
 
-``` screen
+``` programlisting
     integer_variable = ReadAD10( ANpX , ANnY )
 ```
 
-To obtain a 10-bit value from an AD Channel use the following to force a
-10 bit AD Channel to respond with the correct value, in terms of the
-range \[0 to 1023\]
+To force a 10-bit AD channel to always respond with a value in the range
+\[0 to 1023\], use:
 
-``` screen
+``` programlisting
     integer_variable = ReadAD10( ANX , TRUE )
 ```
 
 <span class="strong">**Command Availability:**</span>
 
-ReadAD10 is a function that can be used to read the built-in analog to
-digital converter that many microcontroller chips include.  The port
-should be specified as AN0, AN1, AN2, etc., up to the number of analog
-inputs available on the chip that is in use.  Those familiar with Atmel
-AVR microcontrollers can also refer to the ports as ADC0, ADC1,
-etc.  Refer to the datasheet for the microcontroller chip to find the
-number of ports available.  (Note: it’s perfectly acceptable to use ANx
-on AVR, or ADCx on the microcontroller.)
+`ReadAD10` is a function that reads the built-in analog-to-digital
+converter (ADC) that most microcontroller chips include. The port is
+specified as `AN0`, `AN1`, `AN2`, and so on, up to the number of analog
+inputs available on the chip in use. Those familiar with Atmel AVR
+microcontrollers can also refer to the ports as `ADC0`, `ADC1`, and so
+on — refer to the chip’s datasheet to find the number of ports
+available. (Note: it is perfectly acceptable to use `ANx` on AVR, or
+`ADCx` on a Microchip PIC.)
 
-When using <span class="strong">**ReadAD10**</span> ( ANX ) the returned
-value is the <span class="strong">**full range**</span> of the ADC
-module.  Therefore, the method will return an 8 bit value \[0-255\], or
-an 10 bit value \[0-1023\] or an 12 bit value \[0-4095\].   This is
-dependent on the microcontrollers capabilities.   For a 10 bit value
-\[0-1023\] always to be returned use user\_variable = ReadAD10( ANX ,
-TRUE ).   The user variable can be a byte, word, integer or long but
-typically a word is recommnended.
+When using `ReadAD10( ANX )`, the returned value is the <span
+class="strong">**full range**</span> of the ADC module. The method
+returns an 8-bit value \[0-255\], a 10-bit value \[0-1023\], or a 12-bit
+value \[0-4095\] depending on the microcontroller’s capabilities. To
+guarantee a 10-bit value \[0-1023\] regardless of the chip, use
+`user_variable = ReadAD10( ANX , TRUE )` instead. The receiving variable
+can be a byte, word, integer, or long, but a word is typically
+recommended.
 
-When using <span class="strong">**ReadAD10**</span> ( ANpX , ANnY ), for
-differential ADC reading, the returned value is an integer as negative
-values will be returned.
+When using `ReadAD10( ANpX , ANnY )` for a differential reading, the
+returned value is an integer, since negative values can be returned.
 
-When using <span class="strong">**ReadAD10**</span> ( ANpX , TRUE ), to
-force a 10 bit ADC reading, the returned value is an integer.
+When using `ReadAD10( ANpX , TRUE )` to force a 10-bit reading, the
+returned value is also an integer.
 
-Other functions that are similar are <span
-class="strong">**ReadAD**</span> and <span
-class="strong">**ReadAD12**</span>.  See the relevant Help page for the
-specific usage of each function.
+Other functions with similar behaviour are `ReadAD` and `ReadAD12` — see
+their Help pages for the specific usage of each.
 
-<span class="strong">**AD\_Delay**</span> controls is the acquisition
-delay.   The default value is 20 us.  This can be changed to a longer
-acquisition delay by adding the following constant.
+`AD_DELAY` controls the acquisition delay: the time the ADC’s internal
+holding capacitor is given to charge to the input voltage before the
+reading is taken. The default value is 20 us. If a reading looks noisy
+or consistently off — especially from a high-impedance sensor, such as a
+bare voltage divider without a buffer — increasing this delay is often
+the fix, since the capacitor needs more time to settle. Change it with:
 
-``` screen
-    #define AD_Delay 4 10us
+``` programlisting
+    #define AD_DELAY 4 10us
 ```
 
-<span class="strong">**ADSpeed**</span>( controls the source of the
-clock for the ADC module.   It varies from one chip to another.  
-InternalClock is a microcontroller only option that will drive the ADC
-from an internal RC oscillator.  The default value is 128.
+`ADSPEED` controls the source of the clock for the ADC module; it varies
+from one chip to another. `InternalClock` is a microcontroller-only
+option that drives the ADC from an internal RC oscillator. The default
+value is 128.
 
-``` screen
+``` programlisting
     'default value
-    #define ADSpeed MediumSpeed
-
+    #define ADSPEED MEDIUMSPEED
 
     'pre-defined constants
-    #define HighSpeed 255
-    #define MediumSpeed 128
-    #define LowSpeed 0
+    #define HIGHSPEED 255
+    #define MEDIUMSPEED 128
+    #define LOWSPEED 0
 ```
 
-<span class="strong">**AD\_Acquisition\_Time\_Select\_bits**</span> also
-controls the Acquisition Time Select bits.   Acquisition time is the
-duration that the AD charge holding capacitor remains connected to AD
-channel from the instant the read is commenced is set until conversions
-begins.
+`AD_ACQUISITION_TIME_SELECT_BITS` also controls the acquisition time
+select bits. Acquisition time is the duration the ADC’s charge-holding
+capacitor stays connected to the AD channel, from the moment the read
+starts until conversion begins — the same underlying delay that
+`AD_DELAY` adjusts, exposed here as the raw bit pattern for
+microcontrollers whose datasheet documents it this way.
 
-The default value of AD\_Acquisition\_Time\_Select\_bits is 0b100 or
-decimal 4, where all three ACQT bits will be set.  To change use the
-following.
+The default value of `AD_ACQUISITION_TIME_SELECT_BITS` is `0b100`
+(decimal 4), which sets all three ACQT bits. To change it:
 
-``` screen
+``` programlisting
     'change the default value
-    #define AD_Acquisition_Time_Select_bits 0b001    'this will only set ACQT bit 0, ACQT bits 1 and 2 will be cleared.
+    #define AD_ACQUISITION_TIME_SELECT_BITS 0b001    'this will only set ACQT bit 0; ACQT bits 1 and 2 will be cleared
 ```
 
 <span class="strong">**Example 1 - Read 10-bit ADC**</span>
 
-``` screen
+``` programlisting
     #chip 16F819, 8
 
     'Set the input pin direction
     Dir PORTA.0 In
 
-
-    'Print 255 reading
+    'Print 255 readings
     For CurrentAddress = 0 to 255
 
         'Take a reading and show it
-        Print str(ReadAD10(AN0))
+        Print str(ReadAD10(AN0))          ' <<< the ReadAD10 instruction
 
         'Wait 10 minutes before getting another reading
         Wait 10 min
     Next
 ```
 
-<span class="strong">**Example 2 - Reading Reference Voltages:**</span>
+<span class="strong">**Key line:**</span>
+`Print str(ReadAD10(AN0))` — reads channel `AN0` and returns whatever
+resolution the chip’s ADC module natively supports (8, 10, or 12 bits).
 
-When selecting the reference source for ADC on ATmega328 GCBASIC will
-overwrite anything that you put into te ADMUX register - but this option
-allow you change the ADC reference source on Atmel AVR
-microcontrollers.   You can set the AD\_REF\_SOURCE constant to whatever
-you want to use.   It defaults to the VCC pin, as example you can set
-the Atmel AVR to use the 1.1V reference with this: <span
-class="strong">**\#define AD\_REF\_SOURCE AD\_REF\_256**</span> where
-256 refers to the 2.56V reference on some older AVRs, but the same code
-will select the 1.1V reference on an ATmega328p
+<span class="strong">**Example 2 - Reading Reference Voltages**</span>
 
-``` screen
-    ' Dynamically switching reference.
-    #define AD_REF_SOURCE ADRefSource
+When selecting the reference source for the ADC on an ATmega328, GCBASIC
+overwrites anything written directly into the `ADMUX` register — but
+this option lets you change the ADC reference source on Atmel AVR
+microcontrollers. Set the `AD_REF_SOURCE` constant to whichever
+reference you want to use. It defaults to the VCC pin; for example, you
+can set the Atmel AVR to use the 1.1V reference with
+`#define AD_REF_SOURCE AD_REF_256`, where 256 refers to the 2.56V
+reference on some older AVRs, though the same code selects the 1.1V
+reference on an ATmega328P.
+
+``` programlisting
+    'Dynamically switching reference.
+    #define AD_REF_SOURCE ADREFSOURCE
     #define AD_VREF_DELAY 5 ms
-    AdRefSource = AD_REF_AVCC
+    ADREFSOURCE = AD_REF_AVCC
     HSerPrint ReadAD10(AN1)
     HSerPrint ", "
-    AdRefSource = AD_REF_256
+    ADREFSOURCE = AD_REF_256          ' <<< switching the ADC reference source at run time
     HSerPrint ReadAD10(AN1)
 ```
 
-The example above sets the AD\_REF\_SOURCE to a variable, and then
-changes the value of the variable to select the source.   With this
-approach, we also need to allow time to charge the reference capacitor
-to the correct voltage.
+<span class="strong">**Key line:**</span>
+`ADREFSOURCE = AD_REF_256` — changes which reference voltage the next
+`ReadAD10` call uses. After switching references, allow `AD_VREF_DELAY`
+for the reference capacitor to charge to the new voltage before trusting
+the reading.
 
-<span class="strong">**Example 3 - Read 10-bit ADC forcing a 10-bit
-value to be returned**</span>
+<span class="strong">**Example 3 - Force a 10-bit value to be
+returned**</span>
 
-``` screen
+``` programlisting
     #chip 16F1789, 8
 
     'Set the input pin direction
     Dir PORTA.0 In
 
-
-    'Print 255 reading
+    'Print 255 readings
     For CurrentAddress = 0 to 255
 
         'Take a reading and show it
-        Print str(ReadAD10(AN0), TRUE)
-
+        Print str(ReadAD10(AN0), TRUE)          ' <<< forcing a 10-bit result regardless of the chip's native ADC resolution
         'Wait 10 minutes before getting another reading
         Wait 10 min
     Next
 ```
 
-<span class="strong">**Example 4**</span>
+<span class="strong">**Key line:**</span> `ReadAD10(AN0), TRUE` — the
+`TRUE` argument guarantees a value in the range \[0-1023\] even on a
+chip whose ADC natively returns 8 or 12 bits.
 
-This example used the diffential capabilities of ADC port and writes the
-output to the EEPROM.  The output value will be in the range of \[-1023
-to 1023\].
+<span class="strong">**Example 4 - Differential reading**</span>
 
-AN0 and AN2 are used for the diffential ADC reading.
+This example uses the differential capabilities of the ADC and writes
+the output to a serial terminal. The output value will be in the range
+\[-1023 to 1023\]. `AN0` and `AN2` are used for the differential
+reading.
 
-``` screen
+``` programlisting
     #chip 16F1789, 8
 
     'USART settings
     #define USART_BAUD_RATE 9600  'Initializes USART port with 9600 baud
-    #define USART_TX_BLOCKING ' wait for tx register to be empty
+    #define USART_TX_BLOCKING     'wait for tx register to be empty
     wait 100 ms
 
     'Set the input pin direction
@@ -201,7 +204,7 @@ AN0 and AN2 are used for the diffential ADC reading.
     For CurrentAddress = 0 to 255
 
         'Take a reading and log it
-        HSerPrint ReadAD10( AN0, AN2 )
+        HSerPrint ReadAD10( AN0, AN2 )          ' <<< the differential ReadAD10 instruction
         HserPrintCRLF
         'Wait 10 minutes before getting another reading
         Wait 10 min
@@ -209,8 +212,21 @@ AN0 and AN2 are used for the diffential ADC reading.
     Next
 ```
 
-<span class="strong">**See Also**</span>
-<a href="readad" class="link" title="ReadAD">ReadAD</a>,
-<a href="readad12" class="link" title="ReadAD12">ReadAD12</a>
+<span class="strong">**Key line:**</span> `ReadAD10( AN0, AN2 )` — reads
+the voltage difference between `AN0` (positive) and `AN2` (negative) as
+a signed integer, rather than an absolute voltage on a single pin.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="readad" class="link" title="ReadAD">ReadAD</a> — 8-bit
+    resolution single/differential read
+-   <a href="readad12" class="link" title="ReadAD12">ReadAD12</a> — 12-bit
+    resolution single/differential read
+-   <a href="hserprint" class="link" title="HSerPrint">HSerPrint</a> — sending
+    a reading over a serial connection, as used in Examples 2 and 4
+
+</div>
 
 </div>

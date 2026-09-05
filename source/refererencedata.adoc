@@ -1,25 +1,30 @@
 === Efficient Implementation of Lookup Reference Tables in GCBASIC
 
+(((Reference Data,Efficient Implementation of Lookup Reference Tables in GCBASIC)))
+
+
 *Introduction*
 
-This section explores the efficient implementation of lookup reference tables in embedded systems, specificially GCBASIC, focusing on the use of PROGMEM memory to store fixed data sets. It addresses common misconceptions about data storage and initialization, compares different methods of data handling, and provides advanced techniques for optimizing memory usage.
+This section explores the efficient implementation of lookup reference tables in embedded systems, specifically GCBASIC, focusing on the use of PROGMEM memory to store fixed data sets. It addresses common misconceptions about data storage and initialisation, compares different methods of data handling, and provides advanced techniques for optimising memory usage.
 
 Lookup reference tables are essential in embedded systems for storing fixed data sets that can be accessed during runtime. This section aims to clarify the correct implementation of these tables, debunking common myths and providing practical solutions for efficient data management.
 
 *Conventional Misconceptions*
 
-A common misconception is that the data required by a fixed lookup table is defined by its content and declared in a Dim statement, with its data filled at runtime. This implies that an array ( in RAM memory ) is empty initially and populated during initialization, leading to data duplication and wasted memory resources.
+A common misconception is that the data required by a fixed lookup table is defined by its content and declared in a Dim statement, with its data filled at runtime. This implies that an array (in RAM memory) is empty initially and populated during initialisation, leading to data duplication and wasted memory resources.
 
 *Correct Implementation*
 
-A fixed lookup table is a set of data (bytes, words, etc.) stored in the PROGMEM memory. The correct implementation involves using the TABLE and READTABLE commands:
+A fixed lookup table is a set of data (bytes, words, etc.) stored in PROGMEM memory. The correct implementation involves using the TABLE and READTABLE commands:
+
 * Definition: `TABLE tablename... data... END TABLE`
 * Reading: `READTABLE`
+
 There is no DIM in the definition process, and the data is part of the hex file, not filled at runtime.
 
 *Memory Efficiency*
 
-Storing data in PROGMEM ensures that there is only one copy of the data, avoiding duplication. Copying data to an array is redundant as reading the table can replace the array.
+Storing data in PROGMEM ensures that there is only one copy of the data, avoiding duplication. Copying data to an array is redundant, since reading the table can replace the array.
 
 *Practical Solutions*
 
@@ -27,7 +32,7 @@ Using `TABLE - END TABLE` is the simplest way to handle data. For data sets smal
 
 *Advanced Techniques*
 
-1. PROGMEM Page Size Constraint: On the 16F, `TABLE-END TABLE` is constrained by PROGMEM page size (2048 items).
+1. PROGMEM Page Size Constraint: On the 16F, `TABLE - END TABLE` is constrained by the PROGMEM page size (2048 items).
 2. EEPROM Storage: Use `EEPROM .. END EEPROM` and a direct method like `PROGREAD`. Data is stored in EEPROM, constrained by its size and typically byte values.
 3. Direct PROGMEM Storage: Use `DATA .. END DATA` and `PROGREAD`. Data is stored in PROGMEM, constrained by unused PROGMEM size and typically word values (max 0x3FFF for 16F chips).
 
@@ -41,9 +46,10 @@ Using arrays can be costly in terms of RAM and PROGMEM. The following examples i
 
 *Using an Array*
 
-64 words Progmem / 13 bytes RAM
+64 words PROGMEM / 13 bytes RAM
 
-```
+[source,gcbasic]
+----
         #CHIP 18F2550
         #option Explicit
 
@@ -53,15 +59,17 @@ Using arrays can be costly in terms of RAM and PROGMEM. The following examples i
         Dim myArray(10)
             myArray = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
         For myIndex = 1 to 10
-            myResult =  myArray(myIndex)
+            myResult =  myArray(myIndex)          ' <<< reading a value out of RAM via the array index
         Next
-```
+----
+*Key line:* `myResult = myArray(myIndex)` -- reads element `myIndex` from `myArray`, which is stored in RAM; the whole array had to be populated in RAM first, which is why this approach costs 13 bytes of RAM against only 2 for the table-based equivalent below.
 
 *Using a Table*
 
-56 words Progmem / 2 bytes RAM
+56 words PROGMEM / 2 bytes RAM
 
-```
+[source,gcbasic]
+----
         #CHIP 18F2550
         #option Explicit
 
@@ -69,21 +77,28 @@ Using arrays can be costly in terms of RAM and PROGMEM. The following examples i
 
         // Using a table 56 words Progmem / 2 bytes RAM
         For myIndex = 1 to 10
-            ReadTable myTable, myIndex, myResult
+            ReadTable myTable, myIndex, myResult          ' <<< the ReadTable instruction
         Next
 
         Table myTable
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10
         End Table
-```
+----
+*Key line:* `ReadTable myTable, myIndex, myResult` -- reads element `myIndex` directly out of the fixed `myTable` data stored in PROGMEM, with no RAM array needed to hold a copy of the data first; only the loop variables `myIndex` and `myResult` occupy RAM.
 
 
 *Usage*
 
-The `ReadTable` method provides data set capabilities to chips with limited RAM, using fewer resources and offering faster performance. Advanced techniques and proper understanding of memory usage can significantly optimize embedded system performance.
+The `ReadTable` method provides data set capabilities to chips with limited RAM, using fewer resources and offering faster performance. Advanced techniques and a proper understanding of memory usage can significantly optimise embedded system performance.
 
 *Notes*
 
 * A byte array is handled similarly to a string, which can be resource-intensive.
 
-By following these guidelines, developers can efficiently implement lookup reference tables in embedded systems, optimizing memory usage and performance.
+By following these guidelines, developers can efficiently implement lookup reference tables in embedded systems, optimising memory usage and performance.
+
+**See Also:**
+
+* <<_readtable,ReadTable>> -- the full command reference
+* <<_programread,ProgramRead>> -- reading raw PROGMEM data directly
+* <<_arrays,Arrays>> -- the RAM-based alternative compared above

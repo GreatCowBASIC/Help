@@ -1,7 +1,10 @@
 === #script
 
+(((Compiler Directives,#script)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     #script
     [__scriptcommand1__]
@@ -13,6 +16,8 @@
 *Explanation:*
 
 The `#script` block is used to create small sections of code which GCBASIC runs during compilation.
-A detail explanation and example are included in the Scripts article.
+A detailed explanation and example are included in the <<_scripts,Scripts>> article.
 
-*See Also* <<_scripts,Scripts>>
+**See Also:**
+
+* <<_scripts,Scripts>> -- the full explanation, constant precedence rules, and a worked PWM example

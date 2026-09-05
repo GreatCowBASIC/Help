@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     GLCDROTATE LANDSCOPE | PORTRAIT_REV | LANDSCAPE_REV  | PORTRAIT
 ```
 
@@ -29,7 +29,7 @@ class="strong">**NOT**</span> all GLCD chipset support these commands.
 
 The options are:
 
-``` screen
+``` programlisting
     LANDSCAPE
     PORTRAIT_REV
     LANDSCAPE_REV
@@ -39,18 +39,31 @@ The options are:
 The command will rotate the screen and set the following variables using
 the global variables shown below.
 
-``` screen
+``` programlisting
     GLCD_WIDTH
     GLCD_HEIGHT
 ```
 
 The command is supported by the following global constants.
 
-``` screen
+``` programlisting
     #define LANDSCAPE       1
     #define PORTRAIT_REV    2
     #define LANDSCAPE_REV   3
     #define PORTRAIT        4
 ```
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a> — related
+    command in the same category
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — related
+    command in the same category
+
+</div>
 
 </div>

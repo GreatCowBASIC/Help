@@ -1,21 +1,34 @@
 ==== FilledTriangle
 
+(((Graphical LCD,FilledTriangle)))
+
+
 *FilledTriangle:*
+[source,gcbasic]
 ----
     FilledTriangle( XPixelPosition1, YPixelPosition1, XPixelPosition2, YPixelPosition2, XPixelPosition3, YPixelPosition3 [,Optional LineColour] )
 ----
 *Explanation:*
 
-Draws a FilledTriangle on a GLCD at `XPixelPositionN`, `YPixelPositionN`.
+Draws a filled triangle on a GLCD with corners at `XPixelPositionN`, `YPixelPositionN` for N = 1, 2, 3.
 
-The constant `GLCD_PROTECTOVERRUN` can be added to prevent FilledTriangles from
-re-drawing at the screen edges. Ensure the `GLCD_Width` and `GLCD_HEIGHT`
+The constant `GLCD_PROTECTOVERRUN` can be added to prevent filled triangles from
+re-drawing at the screen edges. Ensure the `GLCD_WIDTH` and `GLCD_HEIGHT`
 constants are set correctly when using this additional constant.
 
 *Example:*
+[source,gcbasic]
 ----
     #include <glcd.h>
 
-    FilledTriangle(0, 0, 31, 63, 127, 0 )
+    FilledTriangle(0, 0, 31, 63, 127, 0 )          ' <<< the FilledTriangle instruction
 
 ----
+*Key line:* `FilledTriangle(0, 0, 31, 63, 127, 0 )` -- draws a solid triangle spanning the top-left corner, a point partway down the left side, and the top-right corner of a 128x64 display.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_triangle,Triangle>> -- the unfilled equivalent of this command
+* <<_filledbox,FilledBox>> -- related command in the same category
+* <<_filledcircle,FilledCircle>> -- related command in the same category

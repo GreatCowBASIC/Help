@@ -22,7 +22,7 @@
 
 You must specify the following include and the port of the sound device.
 
-``` screen
+``` programlisting
     #include <songplay.h>
     #define SOUNDOUT PORTN.N
 ```
@@ -64,7 +64,7 @@ For more information on the QBASIC PLAY command set, see
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Sample program to play a string
     'on PORTB bit 1.
     #chip 16F877A, 20
@@ -72,10 +72,21 @@ For more information on the QBASIC PLAY command set, see
     #define SoundOut PORTB.1
 
 
-    play "C C# C C#"
+    play "C C# C C#"          ' <<< the Play instruction
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="sound_overview" class="link" title="Sound Overview">Sound Overview</a>
+<span class="strong">**Key line:**</span> `play "C C# C C#"` — plays the
+four notes C, C-sharp, C, C-sharp in sequence, each at the default
+length and octave since none is specified.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="sound_overview" class="link" title="Sound Overview">Sound Overview</a>
+-   <a href="play_rtttl" class="link" title="Play RTTTL">Play RTTTL</a> — playing
+    a tune from the Nokia RTTTL string format instead
+
+</div>
 
 </div>

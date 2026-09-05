@@ -35,7 +35,7 @@ update the status LEDs as appropriate.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
   'A program to accept messages from a standard PS/2 keyboard
     'Any keys pressed will be shown on an LCD screen.
 
@@ -65,7 +65,7 @@ update the status LEDs as appropriate.
 
     Main:
         'Read the last pressed key
-        KeyIn = INKEY
+        KeyIn = INKEY          ' <<< the InKey instruction
         'If no key pressed, try reading again
         If KeyIn = 0 Then Goto Main
 
@@ -103,5 +103,24 @@ update the status LEDs as appropriate.
 
     Goto Main
 ```
+
+<span class="strong">**Key line:**</span> `KeyIn = INKEY` — polls the
+PS/2 keyboard for the most recently pressed key, returning 0 when
+nothing new has been pressed; the surrounding `Main:` loop simply reads
+again when it sees a 0, making this a non-blocking poll rather than a
+blocking read.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="ps_2_overview" class="link" title="PS/2 Overview">PS/2 Overview</a> — category
+    overview
+-   <a href="ps2setkbleds" class="link" title="PS2SetKBLeds">PS2SetKBLeds</a> — related
+    command in the same category
+-   <a href="ps2readbyte" class="link" title="PS2ReadByte">PS2ReadByte</a> — related
+    command in the same category
+
+</div>
 
 </div>

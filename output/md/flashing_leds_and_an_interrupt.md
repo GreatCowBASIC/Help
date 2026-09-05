@@ -20,17 +20,17 @@ This code implements four flashing LEDs. This is based on the Microchip
 PIC Low Pin Count Demo Board.
 
 The example program will blink the four red lights in succession. Press
-the Push Button Switch, labeled <span class="strong">**SW1**</span>, and
-the sequence of the lights will reverse. Rotate the potentiometer,
-labeled <span class="strong">**RP1**</span>, and the light sequence will
-blink at a different rate.
+the push button switch, labelled <span class="strong">**SW1**</span>,
+and the sequence of the lights will reverse. Rotate the potentiometer,
+labelled <span class="strong">**RP1**</span>, and the light sequence
+will blink at a different rate.
 
-This implements an interrupt for the switch press, reads the analog port
-and set the LEDs.
+This implements an interrupt for the switch press, reads the analog
+port, and sets the LEDs.
 
 <span class="strong">**Demonstration program:**</span>
 
-``` screen
+``` programlisting
     #chip 18F14K22, 32
     #config MCLRE_OFF
 
@@ -53,7 +53,7 @@ and set the LEDs.
         Dir IntPortA In
 
     'Variable and constants
-        #define intstate as byte
+        dim intstate as byte          ' <<< a real variable declaration, not a #define
         intstate = 0
         #define minwait 1
 
@@ -104,7 +104,7 @@ and set the LEDs.
           end if
 
         end if
-        'Reset interrupt - this may be been reset so set to zero so interrupt can operate.
+        'Reset interrupt - this may have been set so reset to zero so interrupt can operate.
         intstate = 0
 
     Loop
@@ -140,8 +140,20 @@ and set the LEDs.
     End Sub
 ```
 
-<span class="strong">**See Also**</span>
-<a href="interrupts" class="link" title="Interrupts">Interrupts</a>,
-<a href="readad10" class="link" title="ReadAD10">ReadAD10</a>
+<span class="strong">**Key line:**</span>
+`dim intstate as byte` — `intstate` is a real runtime variable that the
+interrupt routine reads and writes to guard against re-entry, so it must
+be declared with `dim` (which allocates RAM), not `#define` (which is
+only compile-time text substitution and has no `as byte` clause).
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="interrupts_overview" class="link" title="Interrupts Overview">Interrupts overview</a>
+-   <a href="readad10" class="link" title="ReadAD10">ReadAD10</a>
+-   <a href="on_interrupt" class="link" title="On Interrupt">On Interrupt</a>
+
+</div>
 
 </div>

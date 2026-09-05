@@ -22,18 +22,39 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `Ltrim` function will trim the 7-bit ASCII space character (value
-32) from the LEFT hand side of a string.
+The `Ltrim` function trims the 7-bit ASCII space character (value 32)
+from the left-hand side of a string.
 
-Use `Ltrim` on text that you have received from another source that may
-have irregular spacing at the left hand end of the string.
+Use `Ltrim` on text you have received from another source that may have
+irregular spacing at the left-hand end of the string.
 
-<span class="strong">**See Also**</span>
-<a href="trim" class="link" title="Trim">Trim</a>,
-<a href="rtrim" class="link" title="Rtrim">Rtrim</a>
+<span class="strong">**Example:**</span>
+
+``` programlisting
+    Dim TestData As String
+    TestData = "   Hello"
+
+    TestData = LTRIM(TestData)          ' <<< the LTRIM instruction
+    ' TestData now holds "Hello", with the leading spaces removed
+```
+
+<span class="strong">**Key line:**</span> `LTRIM(TestData)` — removes
+only the leading spaces from `TestData`, leaving any spaces at the end
+untouched.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="trim" class="link" title="Trim">Trim</a> — trimming
+    both ends at once
+-   <a href="rtrim" class="link" title="Rtrim">Rtrim</a> — trimming
+    only the right-hand side
+
+</div>
 
 </div>

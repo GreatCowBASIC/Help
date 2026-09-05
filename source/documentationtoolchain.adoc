@@ -1,0 +1,81 @@
+=== GCBASIC Documentation Toolchain
+
+*Introduction:*
+
+GCBASIC documentation is written in AsciiDoc and maintained through https://asciidoctor.org/[Asciidoctor], a fast text processor and publishing toolchain for converting AsciiDoc content to HTML5, DocBook, PDF, and Microsoft Compiled HTML Help (CHM).
+
+Asciidoctor is written in Ruby, packaged as a RubyGem. Because it is Ruby-based, it runs directly on Windows without needing a Linux virtual machine or a Cygwin environment.
+
+The advantages of maintaining GCBASIC documentation this way are:
+
+* A simple, plain-text markup language that remains fully readable in a text editor.
+* Purpose-built for writing software documentation.
+* One set of source files converts to XML, HTML, PDF, and CHM without rewriting anything.
+
+*Toolchain Layout:*
+
+Unlike older setups that required each tool to be installed system-wide, the current toolchain is fully self-contained. The repository layout is:
+
+[source,gcbasic]
+----
+    help
+     |------ source
+     |        |------- images
+     |        |------- *.adoc
+     |        |------- chm.bat
+     |        |------- gcbdoc.bat
+     |        |------- cleanhhc.bat
+     |
+     |------ prog
+     |        |------- ruby-2.2.2-i386-mingw32
+     |        |------- saxon6-5-5
+     |        |------- docbook-xsl-ns-1.78.1
+     |        |------- apache-ant-1.9.6
+     |        |------- utils                  (bundled hhc.exe)
+     |
+     |------ output
+              |------- chm
+              |------- html
+              |------- html5
+              |------- pdf
+              |------- web
+              |------- xml
+----
+
+`source` and `prog` must be siblings: `gcbdoc.bat` changes up one directory from `source` and expects `prog` there. Everything the build needs (Ruby, Saxon, the DocBook XSL-NS stylesheets, Apache Ant, and the HTML Help Compiler) already ships inside `prog`, so a fresh checkout needs no separate installs.
+
+*Building the Documentation:*
+
+From the `source` directory, the entry point is:
+
+[source,gcbasic]
+----
+    chm.bat
+----
+
+This runs `gcbdoc gcbasic chm`, which in turn:
+
+[start=1]
+. Converts `gcbasic.adoc` to DocBook XML with Asciidoctor.
+. Transforms the XML with Saxon and the DocBook XSL-NS `htmlhelp.xsl` stylesheet, chunking one HTML topic per section and generating `gcbasic.hhp`/`gcbasic.hhc`/`index.hhk`.
+. Runs `cleanhhc.bat` to strip dead links to empty category pages from the generated table of contents.
+. Compiles the topics into `gcbasic.chm` with the Microsoft HTML Help Compiler (`hhc.exe`).
+
+The finished file is `..\output\chm\gcbasic.chm`.
+
+`gcbdoc.bat` also supports `xml`, `html`, `html5`, `pdf`, `web`, and `all` as a second parameter, generating the equivalent output under `..\output\<type>\`, for the rare case one of those formats is needed; the CHM is the only shipped deliverable.
+
+*Writing a New Page:*
+
+Each command or topic lives in its own `sectionname.adoc` file, wired into the master `gcbasic.adoc` document with an `include::sectionname.adoc[]` line under the appropriate category heading.
+
+Use `template.adoc` (in the `source` folder) as the starting point for a new command page -- it shows the expected structure: a `*Syntax:*` block, `*Command Availability:*`, `*Explanation:*`, a worked `*Example:*` tagged `[source,gcbasic]` with a `' <<<` marker on the line the page is actually about, a `*Key line:*` explanation of that marker, and a **See Also:** list of related pages using AsciiDoc's `\<<_anchor,Display Text>>` cross-reference form.
+
+*Testing a Change:*
+
+While editing, rebuild with `chm.bat` and check the console output for `ERROR` lines or `invalid reference`/`no ID for constraint linkend` warnings -- the latter means an `\<<_anchor,...>>` link points at an anchor that does not exist. Anchors are generated automatically from a heading's text (lowercased, punctuation stripped to underscores, prefixed with `_`); when a heading uses unusual punctuation, do not guess the anchor -- inspect the actual generated DocBook XML for its real `xml:id` first.
+
+**See Also:**
+
+* <<_gcbasic_maintenance,GCBASIC Maintenance>> -- the release/build/DAT-file maintenance process
+* <<_development_guide,Development Guide>> -- contributing to GCBASIC itself, as distinct from its documentation

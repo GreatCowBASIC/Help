@@ -14,54 +14,54 @@
 
 </div>
 
-This section discusses the allocation of variables to RAM ( GPR, SRAM or
+This section discusses the allocation of variables to RAM (GPR, SRAM, or
 other TLA).
 
-Variables in GCBASIC can be bits, bytes, words, integers, longs, arrays
-or reals.   This section will NOT address reals as these are
+Variables in GCBASIC can be bits, bytes, words, integers, longs, arrays,
+or reals. This section will NOT address reals, as these are
 developmental variables only.
 
-Variables can also be defined as Aliases - this is discussed later in
+Variables can also be defined as aliases - this is discussed later in
 this section.
 
 <span class="strong">**Basic variable allocation**</span>
 
 Variables of type <span class="emphasis">*byte*</span>, <span
 class="emphasis">*word*</span>, <span class="emphasis">*integer*</span>,
-<span class="emphasis">*longs*</span> are placed in RAM using the
+and <span class="emphasis">*long*</span> are placed in RAM using the
 following simple rules.
 
 <div class="orderedlist">
 
-1.  A RAM memory location is automatically assigned starting at the
+1.  A RAM memory location is automatically assigned, starting at the
     first available memory location.
-2.  The first memory location is first RAM location as defined in the
-    chip datasheet.
-3.  Once a variable is allocated the RAM location is marked as used and
-    this specific location can be reviewed in the ASM source.
-4.  Bytes use a single RAM location, words two RAM locations, integer
-    and longs four RAM locations.
-5.  Subsequent variables of type byte, word, integer, longs are placed
+2.  The first memory location is the first RAM location as defined in
+    the chip datasheet.
+3.  Once a variable is allocated, the RAM location is marked as used,
+    and this specific location can be reviewed in the ASM source.
+4.  Bytes use a single RAM location, words use two RAM locations, and
+    integers and longs use four RAM locations.
+5.  Subsequent variables of type byte, word, integer, or long are placed
     in RAM at the next available RAM location.
 
 </div>
 
 Variables of <span class="emphasis">*array*</span> and <span
-class="emphasis">*strings*</span> type are placed in RAM using the
+class="emphasis">*string*</span> type are placed in RAM using the
 following simple rules.
 
 <div class="orderedlist">
 
-1.  A RAM memory location is automatically assigned from the end of RAM
-    less the ( size of the array + 1 byte ).
-2.  The last memory location is last RAM location as defined in the chip
-    datasheet.
-3.  Once an array is allocated the RAM location is marked as used and
-    the start of the array RAM location can be reviewed in the ASM
+1.  A RAM memory location is automatically assigned from the end of RAM,
+    less the size of the array plus 1 byte.
+2.  The last memory location is the last RAM location as defined in the
+    chip datasheet.
+3.  Once an array is allocated, the RAM location is marked as used, and
+    the start of the array’s RAM location can be reviewed in the ASM
     source.
-4.  Subsequent variables of type array in RAM at the next available RAM
-    location subtracted from the start the of previous RAM location
-    minus the size of this next array.
+4.  Subsequent variables of array type are placed in RAM at the next
+    available location, working backwards from the start of the previous
+    array, minus the size of this next array.
 
 </div>
 
@@ -70,71 +70,74 @@ using the following simple rules.
 
 <div class="orderedlist">
 
-1.  Bit memory location is automatically assigned to the first bit with
-    the creation of a BYTE variable at a RAM memory location that is
+1.  A bit’s memory location is automatically assigned to the first bit
+    of a BYTE variable, created at a RAM memory location that is
     automatically assigned starting at the first available memory
-    location.    This byte can handle 8 bits.
-2.  Once a bit is allocated the byte is marked as used and this specific
-    location can be reviewed in the ASM source.
-3.  Subsequent bits are allocation either to an existing byte variable,
-    or when 8 bits are allocated to an existing byte variable another
-    byte variable will be created.
+    location. This byte can hold 8 bits.
+2.  Once a bit is allocated, the byte is marked as used, and this
+    specific location can be reviewed in the ASM source.
+3.  Subsequent bits are allocated either to an existing byte variable,
+    or, when 8 bits have already been allocated to an existing byte
+    variable, another byte variable will be created.
 
 </div>
 
 <span class="strong">**Addressing Variables**</span>
 
-Addressing a variable memory address can be achieved by using the @
-prefix.    This will return the address of the variable ( @ applies to
-table data and any data block).
+Addressing a variable’s memory address can be achieved by using the @
+prefix. This will return the address of the variable (@ applies to table
+data and any data block).
 
 The following example shows registers DMAnSSAU, DMAnSSAH, DMAnSSAL being
 loaded with the address of the array WaveArray.
 
-``` screen
+``` programlisting
     ' Source start address
     Dim addressdummy as byte
     Dim DMAnSS as long ALIAS addressdummy, DMAnSSAU, DMAnSSAH, DMAnSSAL
-    DMAnSS = @WaveArray
+    DMAnSS = @WaveArray          ' <<< the @ address-of operator
 ```
 
-  
+<span class="strong">**Key line:**</span> `DMAnSS = @WaveArray` — writes
+the RAM address of `WaveArray` into `DMAnSS`, an alias over registers
+`DMAnSSAU`/`DMAnSSAH`/`DMAnSSAL`; this is how a DMA peripheral’s
+source-address registers are loaded with a variable’s real memory
+location without hand-splitting the address into bytes.  
 
 <span class="strong">**AT allocation**</span>
 
 The Dim variable command can be used to instruct GCBASIC to allocate
-variables at a specific memory location using the parameter AT.
+variables at a specific memory location, using the parameter AT.
 
-The compiler will inspect the provided AT memory location and if the
-memory location is already used ( by an existing variable), lower than
-the minimum memory location or greater than the maximum memory location
-an error will be issued.
+The compiler will inspect the provided AT memory location, and if the
+memory location is already used (by an existing variable), is lower than
+the minimum memory location, or is greater than the maximum memory
+location, an error will be issued.
 
   
 <span class="strong">**Variable Aliases**</span>
 
 Alias creates a variable that shares the same memory location as another
-variable: These are useful for joining predefined byte variables
+variable. These are useful for joining predefined byte variables
 together to form a word/long variable. When reading or writing to this
-variable, it is effectively the aliases that are being read or written
-to.   Aliases are used to refer to existing memory locations SFR or RAM
-and aliases can be used to construct other variables.   Constructed
-variables can be a mix ( or not ) of SFR or RAM.    These are useful for
-joining predefined byte variables together to form a word/long variable.
+variable, it is effectively the aliased variable that is being read or
+written to. Aliases are used to refer to existing memory locations,
+whether SFR or RAM, and aliases can be used to construct other
+variables. Constructed variables can be a mix (or not) of SFR or RAM.
 
 Aliases are not like pointers in many languages - they must always refer
 to an existing variable or register.
 
-When setting a register/variable bit ( i.e
-my\_variable.my\_bit\_address\_variable ) and using a alias for the
-variable then you must ensure the bytes that construct the variable are
+When setting a register/variable bit (i.e.
+`my_variable.my_bit_address_variable`) and using an alias for the
+variable, then you must ensure the bytes that construct the variable are
 consecutive.
 
-Alias and At cannot be used together on the same declaration line.  
-Alias does not support Bit variables.    For bit‑level aliasing, use
-constants or \#Define macros.
+Alias and At cannot be used together on the same declaration line. Alias
+does not support Bit variables. For bit-level aliasing, use constants or
+`#Define` macros.
 
-Aliases are alaways shown in the ASM source in the ;ALIAS VARIABLES
+Aliases are always shown in the ASM source, in the `;ALIAS VARIABLES`
 section.
 
 The coding approach should be to DIMension the variable (word, integer,
@@ -142,7 +145,7 @@ or long) first, then create the byte aliases:
 
 Example 1:
 
-``` screen
+``` programlisting
     Dim my_variable as LONG
     Dim ByteOne   as Byte alias my_variable_E
     Dim ByteTwo   as Byte alias my_variable_U
@@ -153,17 +156,23 @@ Example 1:
     my_bit_address_variable = 23
 
     'set the bit in the variable
-    my_variable.my_bit_address_variable = 1
+    my_variable.my_bit_address_variable = 1          ' <<< setting a single bit of the aliased Long by index
 
     'then, use the four byte variables as you need to.
 ```
 
+<span class="strong">**Key line:**</span>
+`my_variable.my_bit_address_variable = 1` — sets bit 23 of the 32-bit
+`my_variable` directly by variable index; because `ByteOne`-`ByteFour`
+are aliases over the same memory, this bit also becomes visible
+immediately through `ByteThree` (which covers bits 16-23).
+
 To set a series of registers that are not consecutive, it is recommended
-to use a mask variable then apply it to the registers:
+to use a mask variable and then apply it to the registers:
 
 Example 2:
 
-``` screen
+``` programlisting
     Dim my_variable as LONG
     Dim my_bit_address_variable as Byte
     my_bit_address_variable = 23
@@ -179,54 +188,53 @@ Example 2:
 
 Example 3:
 
-``` screen
+``` programlisting
         Dim MyADResult As Word Alias ADRESH, ADRESL
         //MyADResult reads the A/D values stored in registers ADRESH, ADRESL
 ```
 
-Example4:
+Example 4:
 
-``` screen
+``` programlisting
     dim Myhibyte, Mylobyte as Byte
     dim Myvariable As Word Alias Myhibyte, Mylobyte
     Myvariable=294
-    //294 is stored here: Myhibyte=1 Mylowbyte=38.
+    //294 is stored here: Myhibyte=1 Mylobyte=38.
 ```
 
 <span class="strong">**Memory Specification**</span>
 
-All memory specifics like RAM size, lower and upper RAM addresses are
-specified in the chip specific dat file.
+All memory specifics, like RAM size and the lower and upper RAM
+addresses, are specified in the chip-specific DAT file.
 
-The dat file details should be reviewed in PICINFO application. See the
-PICINFO/CHIPDATA tab for RAM and MaxAddress etc.
+The DAT file details should be reviewed in the PICINFO application. See
+the PICINFO/CHIPDATA tab for RAM and MaxAddress, etc.
 
-A simple calculation is MaxAddress - RAM +1 = the 'first memory
-address'. And, 'first memory address' + RAM -1 = 'the last memory
-address.
+A simple calculation is
+`MaxAddress - RAM + 1 = the first memory address`, and
+`first memory address + RAM - 1 = the last memory address`.
 
-This can be confirmed by review the DAT file. See the section
-\[FreeRAM\] for the start and end of RAM.
+This can be confirmed by reviewing the DAT file. See the `[FreeRAM]`
+section for the start and end of RAM.
 
-The dat file also has a \[NoBankRAM\]. NoBankRAM is somewhat misnamed -
-it is used for the defintion of (any) access bank locations.   If a
-memory location is defined in both NoBankRAM and FreeRAM, then the
-compiler knows that it is access bank RAM.  If an SFR location is in one
+The DAT file also has a `[NoBankRAM]` section. NoBankRAM is somewhat
+misnamed - it is used for the definition of (any) access bank locations.
+If a memory location is defined in both NoBankRAM and FreeRAM, then the
+compiler knows that it is access bank RAM. If an SFR location is in one
 of the NoBankRAM ranges, then the compiler knows not to do any bank
 selection when accessing that register.
 
-The \[NoBankRAM\] section includes two ranges, one for access bank RAM,
-one for access bank SFRs. The first range MUST be the ACCESS RAM range
-The first range is the FAST SFR range
+The `[NoBankRAM]` section includes two ranges: one for access bank RAM,
+and one for access bank SFRs. The first range MUST be the ACCESS RAM
+range. The second range is the FAST SFR range.
 
 If there are no ranges defined in NoBankRAM, the compiler will try to
-guess them.   On 18Fs, it will guess based on where the lowest SFR is,
-and from what the total RAM on the chip is.   If there’s only one range
-defined.    in the NoBankRAM locations, the compiler will assume that is
-the range for the RAM, and then will guess where the range for the
-access bank SFRs is.
+guess them. On 18Fs, it will guess based on where the lowest SFR is, and
+on the total RAM on the chip. If there is only one range defined in the
+NoBankRAM locations, the compiler will assume that is the range for the
+RAM, and will then guess where the range for the access bank SFRs is.
 
-``` screen
+``` programlisting
     'GCBASIC/GCGB Chip Data File
     'Chip: 18F27Q43
 
@@ -256,7 +264,7 @@ access bank SFRs is.
 
   
 
-In the example shown above the following can be extracted.  
+In the example shown above, the following can be extracted.  
 
 <div class="orderedlist">
 
@@ -271,5 +279,19 @@ In the example shown above the following can be extracted.
 
   
   
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="dim" class="link" title="Dim">Dim</a> — the Dim
+    statement, including the AT and Alias parameters used throughout
+    this page
+-   <a href="advanced_variabletypes" class="link" title="Advanced VariableTypes">Advanced VariableTypes</a> — more
+    on the `_H`/`_U`/`_E` byte-suffix aliasing convention
+-   <a href="variable_types" class="link" title="Variable Types">Variable Types</a> — category
+    overview
+
+</div>
 
 </div>

@@ -36,15 +36,26 @@ for INTEGER variables use `VarIntegerToBin`
 
 <span class="strong">**Example:**</span>
 
-``` screen
-    string = ULongIntToBin( 1 )   ' Returns "00000000000000000000000000000001"
+``` programlisting
+    string = ULongIntToBin( 1 )   ' Returns "00000000000000000000000000000001"          ' <<< the ULongIntToBin instruction
 
     string = ULongIntToBin( 254 ) ' Returns "00000000000000000000000011111110"
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="" class="link">ByteToBin</a>,
-<a href="" class="link">WordToBin</a>,
-<a href="" class="link">IntegerToBin</a>
+<span class="strong">**Key line:**</span>
+`string = ULongIntToBin( 1 )` — converts the ULongInt value 1 into a
+full 32-character string of ones and zeros; unlike `VarToBin`,
+`VarWToBin`, and `VarIntegerToBin`, this variant always produces exactly
+32 binary digits, matching the width of a ULongInt.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="bytetobin" class="link" title="ByteToBin">ByteToBin</a>
+-   <a href="wordtobin" class="link" title="WordToBin">WordToBin</a>
+-   <a href="integertobin" class="link" title="IntegerToBin">IntegerToBin</a>
+
+</div>
 
 </div>

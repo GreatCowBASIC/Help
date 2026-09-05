@@ -1,14 +1,18 @@
 === InfraRed Remote
 
+(((Example Programs,InfraRed Remote)))
+
+
 *Explanation:*
 
-GCBASIC support interfacing with IR remote controls. The header file contains explanations, for both hardware and software.
+GCBASIC supports interfacing with IR remote controls. The header file contains explanations for both hardware and software.
 
 This has been tested on many different IR sensors, and different remote controls.
 
 *Demonstration program:*
 
-The example is expected to work with most any IR sensor running at a 38 kHz carrier frequency.
+The example is expected to work with almost any IR sensor running at a 38 kHz carrier frequency.
+[source,gcbasic]
 ----
     ;This demo prints the device number and key number sent by
     ;a Sony compatible IR remote control unit to an LCD
@@ -43,7 +47,7 @@ The example is expected to work with most any IR sensor running at a 38 kHz carr
     dir PortB out                     ;B.2 - B.6 for LCD
 
     do
-      readIR_Remote(device, button)   ;wait for button press
+      readIR_Remote(device, button)   ;wait for button press          ' <<< blocking until a Sony IR remote button press is decoded
 
       cls                             ;show device code
       print "Device: "
@@ -56,5 +60,8 @@ The example is expected to work with most any IR sensor running at a 38 kHz carr
       wait 10 mS                      ;ignore any repeats
     loop                              ;repeat forever
 ----
+*Key line:* `readIR_Remote(device, button)` -- blocks until a complete Sony-protocol IR packet is received, then fills `device` and `button` with the decoded device and key-press codes from the remote.
 
-*See also <<_sonyremote_h,SonyRemote.h>>*.
+**See Also:**
+
+* <<_sonyremote_h,SonyRemote.h>>

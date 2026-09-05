@@ -1,5 +1,7 @@
-//added function clarification
 === Conditions
+
+(((Syntax,Conditions)))
+
 
 *About Conditions*
 
@@ -64,17 +66,17 @@ only needs one other condition. Other arithmetic operators may be
 combined in conditions, to change values before they are compared, for
 example.
 
-GCBASIC has two built in conditions - TRUE, which is always true, and
-FALSE, which is always false. These can be used to create Conditional tests and infinite
+GCBASIC has two built-in conditions - TRUE, which is always true, and
+FALSE, which is always false. These can be used to create conditional tests and infinite
 loops.
 
-The condition bit_variable = TRUE is treated as TRUE if the bit is on.&#160;&#160;Any non-zero value will be treated as equal to a high bit.
-The condition bit_variable  = other_type_of_variable generates a warning.&#160;&#160;If the byte_variable is set to TRUE and then compared to the bit, it will always be FALSE because the high bit will be treated as a 1.&#160;&#160;But the new warning will be generated, "Comparison will fail if %nonbit% is any value other than 0 or 1"
+The condition `bit_variable = TRUE` is treated as TRUE if the bit is on. Any non-zero value will be treated as equal to a high bit.
+The condition `bit_variable = other_type_of_variable` generates a warning. If the byte_variable is set to TRUE and then compared to the bit, it will always be FALSE, because the high bit will be treated as a 1. The warning generated is: "Comparison will fail if %nonbit% is any value other than 0 or 1".
 
 It is also possible to test individual bits in conditions. To do this,
 specify the bit to test, then 1 or 0 (or ON and OFF respectively).
 Presently there is no way to combine bit tests with other conditions -
-NOT, AND, OR and XOR will not work.
+NOT, AND, OR, and XOR will not work with them.
 
 *Example conditions:*
 [cols=2, options="header",width="80%"]
@@ -105,31 +107,34 @@ NOT, AND, OR and XOR will not work.
 |===
 
 
-*Constraints when using Conditional Test*
+*Constraints when using Conditional Tests*
 
-As GCBASIC is very flexible with the use of variables type this can cause issues when testing constants and/or functions.
+As GCBASIC is very flexible with the use of variable types, this can cause issues when testing constants and/or functions.
 
-A few simple rules. *Always put the function or constant first, or, always call the function with the addition of the braces.*
+A few simple rules: *Always put the function or constant first, or always call the function with the addition of the braces.*
 
-The example code below shows the correct method and an example that does compile but will not work as expected.
+The example code below shows the correct method, and an example that compiles but will not work as expected.
 
+[source,gcbasic]
 ----
     'Example A - works
     'Call the function by adding the braces
     '
     Do
-    Loop While HSerReceive() <> 62
+    Loop While HSerReceive() <> 62          ' <<< calling the function explicitly with braces
 
     'Example B - works
-    'Please the constant first - this is the general rule - put the constant first.
+    'Put the constant first - this is the general rule.
     '
     Do
     Loop While 62 <> HSerReceive
 ----
+*Key line:* `Loop While HSerReceive() <> 62` -- the trailing `()` forces GCBASIC to call `HSerReceive` and compare its return value against 62 on every loop pass; without the braces (and with the constant on the right), the compiler instead treats the bare function name as a value, which does not call the function at all.
 
 
-This fails as the function will not be called
+This fails, as the function will not be called:
 
+[source,gcbasic]
 ----
     'Example C - compiles but does not operate as expected
     Do
@@ -137,16 +142,9 @@ This fails as the function will not be called
 ----
 {empty} +
 {empty} +
-{empty} +
-{empty} +
-{empty} +
 
+**See Also:**
 
-
-
-
-
-
-
-
-
+* <<_if,If>> -- using conditions to branch
+* <<_do,Do>> -- using conditions to loop, as in the examples above
+* <<_hserreceive,HSerReceive>> -- the function used in the worked example

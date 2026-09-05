@@ -34,10 +34,15 @@ period register. The Hardware PWM is available through the OCnx pin.
 
 The method uses three parameters to setup the HPWM.
 
-``` literallayout
-'HPWM channel, frequency, duty cycle
-HPWM  2, 100, 50
+``` programlisting
+    'HPWM channel, frequency, duty cycle
+    HPWM  2, 100, 50          ' <<< the HPWM instruction
 ```
+
+<span class="strong">**Key line:**</span> `HPWM 2, 100, 50` — starts
+hardware PWM on channel 2 at a 100 Hz frequency with a 50% duty cycle,
+using the AVR’s Timer/Counter and OCRnx module rather than a
+software-timed loop.
 
 <span class="strong">**Relevant Constants:**</span>
 
@@ -50,7 +55,13 @@ constant.
    
    
 
-<span class="strong">**See**</span>
-<a href="hpwm_avr_ocrnx" class="link" title="HPWM AVR OCRnx">HPWM AVR OCRnx</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hpwm_avr_ocrnx" class="link" title="HPWM AVR OCRnx">HPWM AVR OCRnx</a> — full
+    reference for the HPWM command and its relevant constants
+
+</div>
 
 </div>

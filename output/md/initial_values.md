@@ -6,7 +6,7 @@
 
 <div>
 
-### <span id="initial_values"></span>Initial Values
+##### <span id="initial_values"></span>Initial Values
 
 </div>
 
@@ -16,7 +16,7 @@
 
 You may optionally assign an initial value using `= value`:
 
-``` screen
+``` programlisting
     Dim Counter As Byte = 10
     Dim Temperature As Integer = -5
     Dim Flag As Bit = 1
@@ -41,7 +41,7 @@ Initialisation is supported for:
 
 Example:
 
-``` screen
+``` programlisting
     Dim Buffer(8) As Byte = 0
 ```
 

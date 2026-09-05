@@ -26,15 +26,16 @@ Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-This command will make the program exit the routine it is currently in,
-as it would if it came to the end of the routine.
+This command makes the program exit the routine or loop it is currently
+in, as if it had reached the end of that routine or loop.
 
-Applies to Subroutines, Functions, For-Next loops, Do-Loop loops and
-Repeat loops.
+It applies to subroutines, functions, `For`-`Next` loops, `Do`-`Loop`
+loops, and `Repeat` loops — use the form matching what you want to exit
+(`Exit Sub`, `Exit Function`, `Exit Do`, `Exit For`, or `Exit Repeat`).
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     #chip tiny13, 1
 
     #define SENSOR PORTB.0
@@ -53,19 +54,32 @@ Repeat loops.
       If SENSOR = 0 Then
         Set BUZZER Off
         Set LIGHT Off
-        Exit Sub
+        Exit Sub          ' <<< the Exit instruction
       End If
       Set BUZZER On
       Set LIGHT On
     End Sub
 ```
 
-<span class="strong">**For more help, see
-<a href="do" class="link" title="Do">Do</a>,
-<a href="for" class="link" title="For">For</a>,
-<a href="subroutines" class="link" title="Subroutines">Sub</a>,
-<a href="functions" class="link" title="Functions">Functions</a>**</span>
-and <span
-class="strong">**<a href="repeat" class="link" title="Repeat">Repeat</a>**</span>
+<span class="strong">**Key line:**</span> `Exit Sub` — leaves `Burglar`
+immediately once the sensor reads clear, so the two lines that would
+otherwise switch the buzzer and light on are skipped.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="do" class="link" title="Do">Do</a> — the loop form
+    exited with `Exit Do`
+-   <a href="for" class="link" title="For">For</a> — the loop form
+    exited with `Exit For`
+-   <a href="repeat" class="link" title="Repeat">Repeat</a> — the
+    loop form exited with `Exit Repeat`
+-   <a href="subroutines" class="link" title="Subroutines">Sub</a> — the
+    routine form exited with `Exit Sub`, as used above
+-   <a href="functions" class="link" title="Functions">Functions</a> — the
+    routine form exited with `Exit Function`
+
+</div>
 
 </div>

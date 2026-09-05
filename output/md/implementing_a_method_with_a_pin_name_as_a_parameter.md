@@ -16,23 +16,23 @@
 
 <span class="strong">**Introduction**</span>
 
-A constant such as a Pin name cannot be passed to a sub routine or a
+A constant, such as a pin name, cannot be passed to a subroutine or a
 function. This is a constraint of GCBASIC.
 
-A macro can be used to implement a method of passing a constant to
+A macro can be used to implement a method of passing a constant to a
 reusable code section.
 
-The example shown below implements a button press routine and takes an
-input port constant and prints the result on an LCD display.
+The example shown below implements a button-press routine that takes an
+input port constant and prints the result on a serial terminal.
 
 <span class="strong">**Note:**</span> A macro will use more program
-memory as the macro will be compiled as inline code. Therefore, for
-every use of the macro will use additional program memory - the same
-amount of program memory for each call to the macro.
+memory, as the macro is compiled as inline code. Therefore, every use of
+the macro will use additional program memory - the same amount of
+program memory for each call to the macro.
 
 <span class="strong">**Demonstration Program:**</span>
 
-``` screen
+``` programlisting
     #chip 16F877a, 16
     #define Button PORTC.1    ' Switch on PIN 14 via 10K pullup resistor
     DIR Button In
@@ -46,7 +46,7 @@ amount of program memory for each call to the macro.
     HSerPrint "Button Test"
     HSerPrintCRLF 2
     Do
-       Test_button ( button )
+       Test_button ( button )          ' <<< passing a pin constant into a macro, not possible with a Sub or Function
     Loop
     ;==========================================
 
@@ -75,7 +75,19 @@ amount of program memory for each call to the macro.
     End Macro
 ```
 
-Also see
-<a href="macros_overview" class="link" title="Macros Overview">Macros Overview</a>
+<span class="strong">**Key line:**</span>
+`Test_button ( button )` — passes the port.pin constant `Button`
+(defined as `PORTC.1`) directly into the macro; because macro parameters
+substitute like constants rather than copying into a variable, the macro
+body can compare `Button = ON` against the real pin, something a Sub or
+Function parameter could not do.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="macros_overview" class="link" title="Macros Overview">Macros Overview</a>
+
+</div>
 
 </div>

@@ -1,6 +1,10 @@
 ==== SWAP
 
+(((Variables Operations,SWAP)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     SWAP( VariableA, VariableB)
 ----
@@ -12,4 +16,27 @@ Support Bytes and Words only.
 
 *Explanation:*
 
-A function that swaps (or exchanges) one byte or word for another. SWAP support the use of byte and word variables.
+A function that swaps (or exchanges) one byte or word for another. SWAP supports the use of byte and word variables.
+
+*Example:*
+[source,gcbasic]
+----
+    dim ByteA as Byte
+    dim ByteB as Byte
+
+    ByteA = 10
+    ByteB = 20
+
+    SWAP( ByteA, ByteB )          ' <<< the SWAP instruction
+
+    HSerPrint ByteA
+    HSerPrintCRLF
+    HSerPrint ByteB
+    HSerPrintCRLF
+----
+*Key line:* `SWAP( ByteA, ByteB )` -- exchanges the values held in `ByteA` and `ByteB`, so after this line `ByteA` holds 20 and `ByteB` holds 10.
+
+**See Also:**
+
+* <<_swap4,SWAP4>> -- related command in the same category
+* <<_using_variables,Using Variables>> -- related command in the same category

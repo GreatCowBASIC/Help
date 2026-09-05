@@ -22,18 +22,18 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `Hex` function will convert a Long number into hexadecimal format.
-The input `number` should be a Long variable, or a fixed number between
-0 and 4294967295 inclusive. After running the function, the string
-variable `stringvar` will contain an 8 digit hexadecimal number.
+The `LongToHex` function converts a Long number into hexadecimal format.
+The input `number` should be a `Long` variable, or a fixed number
+between 0 and 4294967295 inclusive. After running the function, the
+string variable `stringvar` contains an 8-digit hexadecimal number.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Set chip model
     #chip 16F1936
 
@@ -46,7 +46,7 @@ variable `stringvar` will contain an 8 digit hexadecimal number.
     'Uses Hex to display as hexadecimal
     For CurrentLocation = 0 to 65535
         'Send location
-        HSerPrint LongToHex(CurrentLocation)
+        HSerPrint LongToHex(CurrentLocation)          ' <<< the LongToHex instruction
         HSerPrint ":"
         'Read Long and send
         EPRead CurrentLocation, CurrLong
@@ -56,9 +56,20 @@ variable `stringvar` will contain an 8 digit hexadecimal number.
     Next
 ```
 
-<span class="strong">**See Also**</span>
-<a href="bytetohex" class="link" title="ByteToHex">ByteToHex</a>,<a href="" class="link">WordToHex</a>,
-<a href="integertohex" class="link" title="IntegerToHex">IntegerToHex</a>,
-<a href="singletohex" class="link" title="SingleToHex">SingleToHex</a>
+<span class="strong">**Key line:**</span>
+`LongToHex(CurrentLocation)` — formats the current address as a fixed
+8-digit hex string, so addresses line up neatly in the terminal output
+regardless of their value.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="bytetohex" class="link" title="ByteToHex">ByteToHex</a>
+-   <a href="wordtohex" class="link" title="WordToHex">WordToHex</a>
+-   <a href="integertohex" class="link" title="IntegerToHex">IntegerToHex</a>
+-   <a href="singletohex" class="link" title="SingleToHex">SingleToHex</a>
+
+</div>
 
 </div>

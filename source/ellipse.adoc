@@ -1,21 +1,33 @@
 ==== Ellipse
 
+(((Graphical LCD,Ellipse)))
+
+
 *Ellipse:*
+[source,gcbasic]
 ----
     Ellipse(XPixelPosition, YPixelPosition, XRadius, YRadius [,Optional LineColour] )
 ----
 *Explanation:*
 
-Draws a Ellipse on a GLCD at `XPixelPosition`, `YPixelPosition` with a specific vertex of `XRadius` and `YRadius`.
+Draws an unfilled ellipse on a GLCD centred at `XPixelPosition`, `YPixelPosition` with the given `XRadius` and `YRadius`.
 
-The constant `GLCD_PROTECTOVERRUN` can be added to prevent Ellipses from
-re-drawing at the screen edges. Ensure the `GLCD_Width` and `GLCD_HEIGHT`
+The constant `GLCD_PROTECTOVERRUN` can be added to prevent ellipses from
+re-drawing at the screen edges. Ensure the `GLCD_WIDTH` and `GLCD_HEIGHT`
 constants are set correctly when using this additional constant.
 
 *Example:*
+[source,gcbasic]
 ----
     #include <glcd.h>
 
-    Ellipse(63, 31, 20, 10)
+    Ellipse(63, 31, 20, 10)          ' <<< the Ellipse instruction
 
 ----
+*Key line:* `Ellipse(63, 31, 20, 10)` -- draws an ellipse centred at the middle of a 128x64 display, 40 pixels wide and 20 pixels tall (`XRadius`/`YRadius` are each half the full width/height).
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_filledellipse,FilledEllipse>> -- the filled equivalent of this command
+* <<_circle,Circle>> -- the equal-radius special case of an ellipse

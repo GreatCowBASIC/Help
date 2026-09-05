@@ -1,6 +1,10 @@
 ==== GLCDPrintWithSize
 
+(((Graphical LCD,GLCDPrintWithSize)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     GLCDPrintWithSize(PrintLocX, PrintLocY, PrintData_Byte , FontSize [, Color ] )    ',or
     GLCDPrintWithSize(PrintLocX, PrintLocY, PrintData_Word , FontSize [, Color ] )    ',or
@@ -26,8 +30,16 @@ Prints data values (byte, word, long or string) at a specified location on the G
 To display a string using font size two use:
 {empty} +
 {empty} +
+[source,gcbasic]
 ----
-    GLCDPrintWithSize(PrintLocX, PrintLocY, "Using font size #2", 2 )
+    GLCDPrintWithSize(PrintLocX, PrintLocY, "Using font size #2", 2 )          ' <<< the GLCDPrintWithSize instruction
 ----
+*Key line:* `GLCDPrintWithSize(PrintLocX, PrintLocY, "Using font size #2", 2 )` -- the fourth parameter (2) selects the font size, letting the same string be drawn larger or smaller than `GLCDPrint`'s single fixed size.
 {empty} +
 {empty} +
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_glcdprint,GLCDPrint>> -- the fixed-size equivalent of this command
+* <<_glcdprintlargefont,GLCDPrintLargeFont>> -- a dedicated large fixed font, string-only

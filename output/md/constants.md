@@ -17,7 +17,7 @@
 <span class="strong">**About Constants**</span>
 
 A constant tells the compiler to find a given string, and replace it
-with another string. The `#Define` directive create constants.
+with another string. The `#Define` directive creates constants.
 
 Constants are useful for situations where a routine needs to be easily
 altered. For example, a define could be used to specify the amount of
@@ -33,19 +33,19 @@ with the LCD.
 
 <span class="strong">**About Defines**</span>
 
-To create a constant is a matter of using the \#define directive. Here
+Creating a constant is a matter of using the `#define` directive. Here
 are some examples of defines:
 
-``` screen
-    #define LINE 34
+``` programlisting
+    #define LINEPARAMETER 34
     #define LIGHT PORTB.0
     #define LIGHTON Set PORTB.0 ON
 ```
 
-`LINE` is a simple constant - GCBASIC will find `LINE` in the program,
-and replace it with the number 34. This could be used in a line
-following program, to make it easier to calibrate the program for
-different lighting conditions.
+`LINEPARAMETER` is a simple constant - GCBASIC will find `LINEPARAMETER`
+in the program, and replace it with the number 34. This could be used in
+a line of the following program, to make it easier to calibrate the
+program for different lighting conditions.
 
 `LIGHT` is a port.pin - it represents a particular pin on the
 microcontroller. This would be of use if the program had many lines of
@@ -56,11 +56,11 @@ port the light was attached to would need to change in the future.
 than typing `Set PORTB.0 ON` over and over, it would then be made
 possible to type `LIGHTON`, and have the compiler do the hard work.
 
-<span class="strong">**GCBASIC Defined constants**</span>
+<span class="strong">**GCBASIC Defined Constants**</span>
 
-The are many GCBASIC standard constants, some are show below.
+There are many GCBASIC standard constants; some are shown below.
 
-``` screen
+``` programlisting
     #define ON 1
     #define OFF 0
     #define TRUE 255
@@ -74,38 +74,47 @@ The are many GCBASIC standard constants, some are show below.
     #define MOD %
 ```
 
-<span class="strong">**A GCBASIC special constant**</span>
+<span class="strong">**A GCBASIC Special Constant**</span>
 
-`FOREVER` is a special constant. For Graphical GCBASIC users think of
-this as 'false'. For those not using Graphical GCBASIC think of this as
-a non numeric value that has no value. You can use `FOREVER` in a
-DO-LOOP but not in a REPEAT-END REPEAT loop, as the in the later case
-the REPEAT will have no value and you will create an error condition.
+`FOREVER` is a special constant. For Graphical GCBASIC users, think of
+this as `false`. For those not using Graphical GCBASIC, think of this as
+a non-numeric value that has no value. You can use `FOREVER` in a
+`DO-LOOP`, but not in a `REPEAT-END REPEAT` loop, as in the latter case
+the REPEAT will have no value, and you will create an error condition.
 
-<span class="strong">**Precedence of Constants within
-GCBASIC.**</span>  
+<span class="strong">**Precedence of Constants within GCBASIC**</span>  
   
-The `#define` command creates constants, and, scripts also creates
-constants. See the `#script` section of ths Help.  
+The `#define` command creates constants, and scripts also create
+constants. See
+<a href="_script" class="link" title="#script">#script</a> for
+more on this.  
   
 The precedence is as follows:
 
 <div class="itemizedlist">
 
--   Constants defined in the main user program is read first,
+-   Constants defined in the main user program are read first,
 -   then, the constants defined in the include files. Constants defined
-    in the include files are ignored if they conflict or are different
-    to a constant, with the same title, in the main program.
+    in the include files are ignored if they conflict with, or differ
+    from, a constant with the same name in the main program.
 -   then, the scripts are processed. Scripts that create constants can
     therefore override any constant value previously defined.
 
 </div>
 
-All constants are listed in the Constant Debug File ( CDF ). The CDF
-shows all constants and the end state of the constants.  
+All constants are listed in the Constant Debug File (CDF). The CDF shows
+all constants and their end state.  
   
 
-See <span
-class="strong">**<a href="_define" class="link" title="#DEFINE">#define</a>**</span>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="_define" class="link" title="#DEFINE">#DEFINE</a> — the
+    directive that creates constants
+-   <a href="_script" class="link" title="#script">#script</a> — constants
+    created at compile time by scripts
+
+</div>
 
 </div>

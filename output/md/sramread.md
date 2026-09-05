@@ -31,17 +31,18 @@ data memory attached.
 
 <span class="strong">**Explanation:**</span>
 
-`SRAMRead` is the method, a function or a subroutine, used to read
-information from the SRAM data storage.
+`SRAMRead` is a method — available as either a function or a
+subroutine — used to read information from the attached serial SRAM
+chip.
 
-`location` represents the location to read data from.
+`location` represents the address to read data from.
 
 `store` is the variable in which to store the data after it has been
 read from SRAM.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     #include <uno_mega328p.h>
     #option explicit
 
@@ -60,16 +61,25 @@ read from SRAM.
 
   dim in_byte as byte
 
-  'Using a function:  Read from SRAM location 0x10 and place the results in the variable in_byte
-  in_byte = SRAMRead ( 0x10 )
+  'Using a function:  Read from SRAM location 0x10 and place the result in the variable in_byte
+  in_byte = SRAMRead ( 0x10 )          ' <<< the function form of SRAMRead this page documents
 
-  'Using a subroutine:  Read from SRAM location 0x10 and place the results in the variable in_byte
-  SRAMRead ( 0x10, in_byte )
+  'Using a subroutine:  Read from SRAM location 0x10 and place the result in the variable in_byte
+  SRAMRead ( 0x10, in_byte )          ' <<< the subroutine form of SRAMRead this page documents
 ```
 
-<span class="strong">**For more help, see
-<a href="sram_overview" class="link" title="SRAM Overview">SRAM Overview</a>
-or
-<a href="sramwrite" class="link" title="SRAMWrite">SRAMWrite</a>**</span>
+<span class="strong">**Key line:**</span>
+`in_byte = SRAMRead ( 0x10 )` — reads the byte at SRAM address `0x10`
+and returns it directly; the following line performs the identical read
+using the subroutine form instead.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="sram_overview" class="link" title="SRAM Overview">SRAM Overview</a>
+-   <a href="sramwrite" class="link" title="SRAMWrite">SRAMWrite</a>
+
+</div>
 
 </div>

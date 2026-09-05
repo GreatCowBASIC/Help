@@ -1,7 +1,11 @@
 //
 ==== PWMOff for AVR
 
+(((Pulse width modulation,PWMOff for AVR)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
 
   PWMOff
@@ -21,6 +25,7 @@ The PWMOff command will only disable the output of the OC0B/PWM module of the At
 This command is not available for any other OCnx/PWM modules.
 
 *Example:*
+[source,gcbasic]
 ----
     'This program demonstrates the PWMOn and PWMOff commands
     'of the fixed mode HPWM on OC0B pin.
@@ -41,12 +46,15 @@ This command is not available for any other OCnx/PWM modules.
       'turn on/off single channel 40 KHz PWM on OC0B pin
       PWMON
       wait 5 s
-      PWMOFF
+      PWMOFF          ' <<< the PWMOff instruction
       wait 5 s
 
     loop
 ----
+*Key line:* `PWMOFF` -- immediately disables the OC0B PWM output; the pin stops toggling until `PWMON` is called again.
 {empty} +
 {empty} +
 
-*For more help, see* <<_pwmon_for_avr,PWMOn>>
+**See Also:**
+
+* <<_pwmon_for_avr,PWMOn>> -- the counterpart command that enables the OC0B PWM output

@@ -1,6 +1,10 @@
 ===== ST7920GLCDClearGraphics
 
+(((Graphical LCD,st7920glcdcleargraphics)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     ST7920GLCDClearGraphics
 ----
@@ -9,6 +13,14 @@
 This command clears the GCLD display.
 
 *Example usage:*
+[source,gcbasic]
 ----
-    ST7920GLCDClearGraphics 'clear the screen
+    ST7920GLCDClearGraphics 'clear the screen          ' <<< the ST7920GLCDClearGraphics instruction
 ----
+*Key line:* `ST7920GLCDClearGraphics` -- clears every pixel on the display; call `ST7920GLCDEnableGraphics` first if the controller is currently in text mode.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920glcdenablegraphics,ST7920GLCDEnableGraphics>> -- switching to graphics mode before clearing it
+* <<_st7920glcddisablegraphics,ST7920GLCDDisableGraphics>> -- returning to text mode

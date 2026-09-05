@@ -1,7 +1,10 @@
 ==== I2CAckpoll
 
+(((I2C Software,I2CAckpoll)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
 	I2CAckpoll ( _I2C_device_address_ )
 ----
@@ -19,12 +22,21 @@ This sets a global variable `I2CAckPollState` that can be inspected in
 your calling routine.
 
 *Example:*
+[source,gcbasic]
 ----
 	 ...
 	' ACK polling removes the need to for the 24xxxxx device to have a 5ms write time
-	I2CACKPOLL( eeprom_device )
+	I2CACKPOLL( eeprom_device )          ' <<< the I2CAckpoll instruction
 	' You check the exit state, use I2CAckPollState to check the state of
 	' the acknowledge from the target device
 	 ...
 ----
+*Key line:* `I2CACKPOLL( eeprom_device )` -- repeatedly addresses `eeprom_device` on the bus, letting the caller poll `I2CAckPollState` until the device acknowledges, instead of waiting a fixed delay for its write cycle to finish.
+
 Supported in <I2C.H>
+
+**See Also:**
+
+* <<_i2c_overview,I2C Overview>> -- category overview
+* <<_i2cackpollstate,I2CAckPollState>> -- related command in the same category
+* <<_i2creceive,I2CReceive>> -- related command in the same category

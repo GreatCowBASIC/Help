@@ -22,7 +22,7 @@
 
 You must specify the following include and the port of the sound device.
 
-``` screen
+``` programlisting
     #include <songplay.h>
     #define SOUNDOUT PORTN.N
 ```
@@ -65,18 +65,24 @@ The three parts are separated by a colon.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     #chip 16f877a
     #include <songplay.h>
 
 
     #define SOUNDOUT PORTA.4
-    PlayRTTTL "HauntHouse: d=4,o=5,b=108: 2a4, 2e, 2d#, 2b4, 2a4, 2c, 2d, 2a#4, 2e., e, 1f4, 1a4, 1d#, 2e., d, 2c., b4, 1a4, 1p, 2a4, 2e, 2d#, 2b4, 2a4, 2c, 2d, 2a#4, 2e., e, 1f4, 1a4, 1d#, 2e., d, 2c., b4, 1a4"
+    PlayRTTTL "HauntHouse: d=4,o=5,b=108: 2a4, 2e, 2d#, 2b4, 2a4, 2c, 2d, 2a#4, 2e., e, 1f4, 1a4, 1d#, 2e., d, 2c., b4, 1a4, 1p, 2a4, 2e, 2d#, 2b4, 2a4, 2c, 2d, 2a#4, 2e., e, 1f4, 1a4, 1d#, 2e., d, 2c., b4, 1a4"          ' <<< the PlayRTTTL instruction
 ```
+
+<span class="strong">**Key line:**</span>
+`PlayRTTTL "HauntHouse: d=4,o=5,b=108: …​"` — plays the note sequence
+following the colon at a default quarter-note duration (`d=4`), fifth
+octave (`o=5`), and 108 beats per minute (`b=108`), as set out in the
+string’s settings section.
 
 <span class="strong">**Example 2:**</span>
 
-``` screen
+``` programlisting
      #chip 16f877a
     #include <songplay.h>
 
@@ -103,7 +109,14 @@ The three parts are separated by a colon.
     End
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="sound_overview" class="link" title="Sound Overview">Sound Overview</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="sound_overview" class="link" title="Sound Overview">Sound Overview</a>
+-   <a href="play" class="link" title="Play">Play</a> — playing a
+    tune from the simpler QBASIC PLAY string format instead
+
+</div>
 
 </div>

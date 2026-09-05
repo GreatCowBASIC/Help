@@ -1,8 +1,11 @@
 // Edit EvanV 171016  edit MLO 261016
 ==== DisplayValue
 
+(((7-Segment Displays,DisplayValue)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     DisplayValue (_display, data, dot_)
 ----
@@ -26,6 +29,7 @@ The command also support HEX characters in the range between 0x00 and
 
 *Example 1:*
 
+[source,gcbasic]
 ----
     'This program will count from 0 to 99 on two LED displays
     #chip 16F819, 8
@@ -61,7 +65,7 @@ The command also support HEX characters in the range between 0x00 and
             'So they must be called often enough that the flickering
             'cannot be seen.
             Repeat 500
-                DisplayValue 1, Num1
+                DisplayValue 1, Num1          ' <<< the DisplayValue instruction
                 Wait 1 ms
                 DisplayValue 2, Num2
                 Wait 1 ms
@@ -69,9 +73,11 @@ The command also support HEX characters in the range between 0x00 and
         Next
     Loop
 ----
+*Key line:* `DisplayValue 1, Num1` -- writes `Num1` to digit 1; because only one digit can be lit at a time on a multiplexed display, this call must be repeated fast enough (inside the `Repeat 500` loop) that the eye perceives both digits as lit simultaneously.
 
 *Example 2:*
 
+[source,gcbasic]
 ----
     'This program will count from 0 to 0xff on two LED displays
     #chip 16F819, 8
@@ -107,7 +113,7 @@ The command also support HEX characters in the range between 0x00 and
             'So they must be called often enough that the flickering
             'cannot be seen.
             Repeat 500
-                DisplayValue 1, Num1
+                DisplayValue 1, Num1          ' <<< DisplayValue with a hex digit (0-15)
                 Wait 1 ms
                 DisplayValue 2, Num2
                 Wait 1 ms
@@ -115,5 +121,10 @@ The command also support HEX characters in the range between 0x00 and
         Next
     Loop
 ----
+*Key line:* `DisplayValue 1, Num1` -- here `Num1` can range from 0 to 15, so `DisplayValue` shows the hex digits A through F as well as the decimal digits 0 through 9.
 
-*Also, see* <<_7_segment_displays_overview,7 Segment Display Overview>>, <<_displaychar,DisplayChar>>, <<_displaysegment,DisplaySegment>>
+**See Also:**
+
+* <<_7_segment_displays_overview,7 Segment Display Overview>> -- category overview
+* <<_displaychar,DisplayChar>> -- displaying an arbitrary ASCII character instead of a numeric digit
+* <<_displaysegment,DisplaySegment>> -- controlling individual segments directly

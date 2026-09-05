@@ -1,5 +1,8 @@
 ==== HPWM Fixed Mode for AVR
 
+(((Pulse width modulation,HPWM Fixed Mode for AVR)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -48,6 +51,7 @@ These constants are required for PWMOn.
 
 
 *Example:*
+[source,gcbasic]
 ----
     'This program demonstrates the PWMOn and PWMOff commands
     'of the fixed mode HPWM on OC0B pin.
@@ -66,13 +70,17 @@ These constants are required for PWMOn.
     do
 
       'turn on/off single channel 40 KHz PWM on OC0B pin
-      PWMON
+      PWMON          ' <<< the PWMOn instruction
       wait 5 s
       PWMOFF
       wait 5 s
 
     loop
 ----
-{empty} +
-{empty} +
-*For more help, see* <<_pwmon_for_avr,PWMOn>> and <<_pwmoff_for_avr,PWMOff>> *or, for Microchip microcontrollers see* <<_hpwm_fixed_mode,Fixed Mode PWM for Microchip>>
+*Key line:* `PWMON` -- starts the OC0B PWM output using the fixed frequency and duty cycle already set by the `PWM_Freq` and `PWM_Duty` constants above; unlike `HPWM`, this fixed-mode form takes no arguments.
+
+**See Also:**
+
+* <<_pwmon_for_avr,PWMOn>> -- full reference for this command
+* <<_pwmoff_for_avr,PWMOff>> -- stopping the PWM output
+* <<_hpwm_ccp,HPWM CCP>> -- the dynamic-mode equivalent for Microchip PIC microcontrollers

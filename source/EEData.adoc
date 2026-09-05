@@ -1,7 +1,10 @@
 ==== Dataset for EEPROM
 
+(((MCU EEPROM ( DFM ),Dataset for EEPROM)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
         EEPROM DataSetName [[,]address]
             // multiples values, strings etc.
@@ -27,13 +30,13 @@ EEPROM datasets are defined as follows:
 . Byte values,
 . EEPROM addresses and EEPROM datasets CANNOT overlap,
 . EEPROM addresses must not overlap TABLE data,
-. TABLE data has precedence from address 0x00 until the the end of TABLE all data,
+. TABLE data has precedence from address 0x00 until the end of TABLE all data,
 . Strings must be expressed as ASCII byte value(s),
 . Multiple elements on a single line separated by commas,
 . Constants and calculations within the single line dataset entries are permitted,
 . Decimal values are NOT supported,
 . Access is via EPRread(), not supported by READTABLE().
-. 18F devices must use even address for EEPROM location, and, 18F will pad (with 0x00) datasets to even number length.&#160;&#160;This is MPASM constraint and therefore the compiler and assembler will isssue specific error messages for odd EEPROM locations.   
+. 18F devices must use even address for EEPROM location, and, 18F will pad (with 0x00) datasets to even number length.&#160;&#160;This is MPASM constraint and therefore the compiler and assembler will issue specific error messages for odd EEPROM locations.   
 {empty} +
 {empty} +
 
@@ -46,6 +49,7 @@ A single value on each line with in the dataset.&#160;&#160;The example dataset,
 
 Simple example: This creates an EEPROM dataset at the first EEPROM location, then, the values of 12, 24, ... 72 are the consecutive values.
 
+[source,gcbasic]
 ----
         EEPROM EEDataSet
             12
@@ -63,6 +67,7 @@ The following example creates the EEPROM dataset at EEPROM offset address of 0x1
 
 Multiple elements on a single line separated by commas.&#160;&#160;The example dataset, shown below, has the data separated by `,` and on different line in within the dataset.
 
+[source,gcbasic]
 ----
         EEPROM EEDataSource  0x10
             12,  24, 36
@@ -72,7 +77,8 @@ Multiple elements on a single line separated by commas.&#160;&#160;The example d
 
 _Data values as constants, and, with data transformation_
 
-Constants and calculations within the single line.  &#160;&#160;The example dataset, shown below, uses a defined constant to multiple the data with the dataset.
+Constants and calculations within the single line.  &#160;&#160;The example dataset, shown below, uses a defined constant to multiply the data with the dataset.
+[source,gcbasic]
 ----
         #define calculation_constant 2
 
@@ -98,6 +104,7 @@ A source string can be one string per line or comma separated strings, therefore
 
 Example:
 
+[source,gcbasic]
 ----
     EEPROM Test_1
      "ABCDEFGHIJ"
@@ -131,6 +138,7 @@ Accepted escape strings are shown in the dataset below.
 
 This example creates several EEPROM datasets.&#160;&#160;The example also create a lookup table.&#160;&#160;The EEPROM dataset are addressed with the additional parameter to ensure there is no EEPROM dataset overlap.&#160;&#160; 
 
+[source,gcbasic]
 ----
         #chip 16F886
         #option explicit
@@ -154,7 +162,7 @@ This example creates several EEPROM datasets.&#160;&#160;The example also create
                     
                     Addresses and datasets CANNOT overlap.
                     Addresses must not overlap TABLE data.
-                    TABLE data has precendence from address 0x00 until the the end of TABLE data
+                    TABLE data has precendence from address 0x00 until the end of TABLE data
         */
 
 

@@ -54,23 +54,23 @@ be specified as AN0, AN1, AN2, etc., up to the number of analog inputs
 available on the chip that is in use.  Those familiar with Atmel AVR
 microcontrollers can also refer to the ports as ADC0, ADC1, etc.  Refer
 to the datasheet for the microcontroller chip to find the number of
-ports available.  (Note: it’s perfectly acceptable to use ANx on AVR, or
-ADCx on the microcontroller)
+ports available.  (Note: it is perfectly acceptable to use ANx on AVR,
+or ADCx on the microcontroller)
 
 Other functions that are similar are <span
 class="strong">**ReadAD10**</span> and <span
 class="strong">**ReadAD12**</span>.  See the relevant Help page for the
 specific usage of each function.
 
-The constant <span class="strong">**AD\_Delay**</span> controls is the
+The constant <span class="strong">**AD\_DELAY**</span> controls is the
 acquisition delay.  The default value is 20 us.  This can be changed by
 adding the following constant.
 
 ``` screen
-    #define AD_Delay 2 10us
+    #define AD_DELAY 2 10us
 ```
 
-<span class="strong">**ADSpeed**</span> controls the source of the clock
+<span class="strong">**ADSPEED**</span> controls the source of the clock
 for the ADC module.   It varies from one chip to another.  
 InternalClock is a Microchip PIC microcontroller only option that will
 drive the ADC from an internal RC oscillator.  The default value is 128.
@@ -79,13 +79,13 @@ Using ADSPEED
 
 ``` screen
     'default value
-    #define ADSpeed MediumSpeed
+    #define ADSPEED MEDIUMSPEED
 
 
     'pre-defined constants
-    #define HighSpeed 255
-    #define MediumSpeed 128
-    #define LowSpeed 0
+    #define HIGHSPEED 255
+    #define MEDIUMSPEED 128
+    #define LOWSPEED 0
 ```
 
 <span class="strong">**AD\_VREF\_DELAY**</span> controls the charging
@@ -93,26 +93,26 @@ time for VRef capacitor on Atmel AVR microcontrollers only.  This
 therefore controls the charge from internal VRef.   ReadAD will not be
 accurate for internal reference without this.
 
-<span class="strong">**AD\_Acquisition\_Time\_Select\_bits**</span> also
+<span class="strong">**AD\_ACQUISITION\_TIME\_SELECT\_BITS**</span> also
 controls the Acquisition Time Select bits.   Acquisition time is the
 duration that the AD charge holding capacitor remains connected to AD
 channel from the instant the read is commenced is set until conversions
 begins.
 
-The default value of AD\_Acquisition\_Time\_Select\_bits is 0b100 or
+The default value of AD\_ACQUISITION\_TIME\_SELECT\_BITS is 0b100 or
 decimal 4, where all three ACQT bits will be set.  To change use the
 following.
 
 ``` screen
     'change the default value
-    #define AD_Acquisition_Time_Select_bits 0b001    'this will only set ACQT bit 0, ACQT bits 1 and 2 will be cleared.
+    #define AD_ACQUISITION_TIME_SELECT_BITS 0b001    'this will only set ACQT bit 0, ACQT bits 1 and 2 will be cleared.
 ```
 
 <span class="strong">**Example 1**</span>
 
 This example reads the ADC port and writes the output to the EEPROM.
 
-``` screen
+``` programlisting
     #chip 16F819, 8
 
     'Set the input pin direction
@@ -122,7 +122,7 @@ This example reads the ADC port and writes the output to the EEPROM.
     For CurrentAddress = 0 to 255
 
         'Take a reading and log it
-        EPWrite CurrentAddress, ReadAD(AN0)
+        EPWrite CurrentAddress, ReadAD(AN0)          ' <<< the single-channel ReadAD instruction
 
         'Wait 10 minutes before getting another reading
         Wait 10 min
@@ -179,8 +179,23 @@ AN0 and AN2 are used for the diffential ADC reading.
     Next
 ```
 
-<span class="strong">**See Also**</span>
-<a href="readad10" class="link" title="ReadAD10">ReadAD10</a>,
-<a href="readad12" class="link" title="ReadAD12">ReadAD12</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="readad10" class="link" title="ReadAD10">ReadAD10</a> — 10-bit
+    resolution single/differential read
+-   <a href="readad12" class="link" title="ReadAD12">ReadAD12</a> — 12-bit
+    resolution single/differential read
+-   <a href="epwrite" class="link" title="EPWrite">EPWrite</a> — logging
+    a reading to EEPROM, as used in the examples above
+-   <a href="dir" class="link" title="Dir">Dir</a> — setting the
+    ADC pin’s direction before reading it
+-   <a href="pwmout" class="link" title="PWMOut">PWMOut</a> — a
+    common consumer of a ReadAD reading, as a live duty cycle
+-   <a href="wait" class="link" title="Wait">Wait</a> — pausing
+    between readings, as used in the examples above
+
+</div>
 
 </div>

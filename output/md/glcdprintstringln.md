@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     GLCDPrintStringLn( String )
 ```
 
@@ -31,8 +31,8 @@ has been displayed
 
 <span class="strong">**Example:**</span>
 
-``` screen
-    GLCDPrintStringLn ( "1.First Ln" )
+``` programlisting
+    GLCDPrintStringLn ( "1.First Ln" )          ' <<< the GLCDPrintStringLn instruction
     GLCDPrintStringLn ( "2.Second Ln" )
     GLCDPrintStringLn ( "" )
     GLCDPrintStringLn ( "4.Forth Ln" )
@@ -46,5 +46,24 @@ has been displayed
     val3 = 3
     GLCDPrintStringLn ( str( val3 ) + ".Third Ln" )
 ```
+
+<span class="strong">**Key line:**</span>
+`GLCDPrintStringLn ( "1.First Ln" )` — prints the string and then
+advances the string pointer to the start of the next line, so each
+successive call in this example lands on its own line without an
+explicit `GLCDLocateString` call.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview
+-   <a href="glcdprintstring" class="link" title="GLCDPrintString">GLCDPrintString</a> — printing
+    without advancing to the next line
+-   <a href="glcdlocatestring" class="link" title="GLCDLocateString">GLCDLocateString</a> — explicitly
+    positioning the string pointer, as used later in this example
+
+</div>
 
 </div>

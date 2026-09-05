@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     HPWMUpdate ( channel, duty_cycle )
 ```
 
@@ -58,7 +58,7 @@ ranges from 0 to 255 where 255 is 100% duty cycle.
 
 <span class="strong">**Example for CCP PWM:**</span>
 
-``` screen
+``` programlisting
     'This program will alter the brightness of an LED using
     'hardware PWM.
 
@@ -75,7 +75,7 @@ ranges from 0 to 255 where 255 is 100% duty cycle.
         'use for-loop to show the duty changing a 8bit value
         dim dutyvalue as byte
         for dutyvalue = 0 to 255
-            HPWMUpdate 1, dutyvalue
+            HPWMUpdate 1, dutyvalue          ' <<< the HPWMUpdate instruction
             wait 10 ms
         next
         for dutyvalue = 254 to 1
@@ -85,7 +85,23 @@ ranges from 0 to 255 where 255 is 100% duty cycle.
     loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="pwmoff" class="link" title="PWMOff">PWMOff</a>
+<span class="strong">**Key line:**</span>
+`HPWMUpdate 1, dutyvalue` — changes only channel 1’s duty cycle, leaving
+the frequency and timer source set by the earlier
+`HPWM 1, 40, dutyvalue` call untouched; this is faster than calling
+`HPWM` again for every step of a brightness ramp, but requires
+`HPWM_FAST` to be defined.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hpwm_ccp" class="link" title="HPWM CCP">HPWM CCP</a> — sets
+    the initial frequency, timer source, and duty cycle that HPWMUpdate
+    then adjusts
+-   <a href="hpwmoff" class="link" title="HPWMOff">HPWMOff</a> — stopping
+    the PWM signal entirely
+
+</div>
 
 </div>

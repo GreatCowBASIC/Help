@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax**</span>:
 
-``` screen
+``` programlisting
     LCDCursor value
 ```
 
@@ -40,9 +40,9 @@ older releases of GCB.
 `FLASHON` will flash the cursor.  
 `FLASHOFF` will stop flashing the cursor.
 
-<span class="strong">**Example :**</span> \#config osc = intrc
+<span class="strong">**Example :**</span>
 
-``` screen
+``` programlisting
     #chip 16f877a, 8
 
     ;Defines (Constants)
@@ -69,7 +69,7 @@ older releases of GCB.
     Locate 0,0
     Print "Cursor ON"
     Locate 1,0
-    LCDcursor CursorOn
+    LCDcursor CursorOn          ' <<< the LCDCursor instruction
     wait 3 S
 
     CLS
@@ -136,6 +136,22 @@ older releases of GCB.
     goto start
 ```
 
+<span class="strong">**Key line:**</span> `LCDcursor CursorOn` — turns
+on the underline cursor at the current position; the parameter can be
+any of `LCDON`, `LCDOFF`, `CURSORON`, `CURSOROFF`, `FLASHON`, or
+`FLASHOFF`, as demonstrated throughout the rest of this example.
+
 <span class="strong">**Supported in &lt;LCD.H&gt;**</span>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcdcreatechar" class="link" title="LCDCreateChar">LCDCreateChar</a> — related
+    command in the same category
+-   <a href="lcdcreategraph" class="link" title="LCDCreateGraph">LCDCreateGraph</a> — related
+    command in the same category
+
+</div>
 
 </div>

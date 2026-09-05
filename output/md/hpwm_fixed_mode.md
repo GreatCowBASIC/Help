@@ -122,7 +122,7 @@ frequency, a PWM module cycle and the PWM model source clock.
 The options for source clock are shown below. These are the PWM timers
 supported by the PWM modules, where `nn` is the frequency.
 
-``` screen
+``` programlisting
     PWM_Timer2_Freq `nn` or
     PWM_Timer4_Freq `nn` or
     PWM_Timer6_Freq `nn`.
@@ -132,14 +132,14 @@ The PWM module duty is set using PWM\_\`yy\`\_Duty `` xx' where `yy ``
 is between 1 and 9 and is a valid PWM module, and, `xx` is the Duty
 cycle for specific channels
 
-``` screen
+``` programlisting
     #define PWM_yy_Duty xx
 ```
 
 The PMW module clock source us PWM\_\`zz\`\_Clock\_Source `tt`. Where
 `zz` is channel and `tt` is the PWM clock source.
 
-``` screen
+``` programlisting
     #define PMW_zz_Clock_Source tt
 ```
 
@@ -152,7 +152,7 @@ channel clock source
 Example: For PWM channel 6 with a frequency of 38Khz with a duty of 50%
 with a clock source of timer 2, use
 
-``` screen
+``` programlisting
         #define PWM_Timer2_Freq 38
         #define PWM_7_Duty 50
         #define PMW_7_Clock_Source 6
@@ -160,57 +160,41 @@ with a clock source of timer 2, use
 
 Details of the constants with example parameters.
 
-``` literallayout
-#define PWM_Timer2_Freq 20        'Set frequency in KHz, just change the number
-#define PWM_Timer4_Freq 40        'Set frequency in KHz, just change the number
-#define PWM_Timer6_Freq 60        'Set frequency in KHz, just change the number
+``` programlisting
+        #define PWM_Timer2_Freq 20        'Set frequency in KHz, just change the number
+        #define PWM_Timer4_Freq 40        'Set frequency in KHz, just change the number
+        #define PWM_Timer6_Freq 60        'Set frequency in KHz, just change the number
 ```
 
 Supported PWM modules, with example parameters.
 
-``` literallayout
-#define PWM_1_Duty 10            'Set duty cycle as percentage 0-100%, just change the number
-#define PMW_1_Clock_Source 2
-```
+``` programlisting
+        #define PWM_1_Duty 10            'Set duty cycle as percentage 0-100%, just change the number
+        #define PMW_1_Clock_Source 2
 
-``` literallayout
-#define PWM_2_Duty 20
-#define PMW_2_Clock_Source 4
-```
+        #define PWM_2_Duty 20
+        #define PMW_2_Clock_Source 4
 
-``` literallayout
-#define PWM_3_Duty 30
-#define PMW_3_Clock_Source 6
-```
+        #define PWM_3_Duty 30
+        #define PMW_3_Clock_Source 6
 
-``` literallayout
-#define PWM_4_Duty 40
-#define PMW_4_Clock_Source 2
-```
+        #define PWM_4_Duty 40
+        #define PMW_4_Clock_Source 2
 
-``` literallayout
-#define PWM_5_Duty 50
-#define PMW_5_Clock_Source 6
-```
+        #define PWM_5_Duty 50
+        #define PMW_5_Clock_Source 6
 
-``` literallayout
-#define PWM_6_Duty 60
-#define PMW_6_Clock_Source 6
-```
+        #define PWM_6_Duty 60
+        #define PMW_6_Clock_Source 6
 
-``` literallayout
-#define PWM_7_Duty 70
-#define PMW_7_Clock_Source 4
-```
+        #define PWM_7_Duty 70
+        #define PMW_7_Clock_Source 4
 
-``` literallayout
-#define PWM_8_Duty 80
-#define PMW_8_Clock_Source 4
-```
+        #define PWM_8_Duty 80
+        #define PMW_8_Clock_Source 4
 
-``` literallayout
-#define PWM_9_Duty 90
-#define PMW_9_Clock_Source 6
+        #define PWM_9_Duty 90
+        #define PMW_9_Clock_Source 6
 ```
 
   
@@ -219,7 +203,7 @@ Supported PWM modules, with example parameters.
 
 Enable CCP1/PWM channel only. This is the legacy command.
 
-``` screen
+``` programlisting
     #chip 16f877a,20
 
     'Set the PWM pin to output mode
@@ -230,7 +214,7 @@ Enable CCP1/PWM channel only. This is the legacy command.
     #define PWM_Freq 38      'Frequency of PWM in KHz
     #define PWM_Duty 50      'Duty cycle of PWM (%)
 
-    PWMOn    'Will enable CCP1/PWM Only
+    PWMOn    'Will enable CCP1/PWM Only          ' <<< the PWMOn instruction (legacy, channel 1 only)
 
     wait 10 s                'Wait 10 s
 
@@ -240,12 +224,17 @@ Enable CCP1/PWM channel only. This is the legacy command.
     loop
 ```
 
+<span class="strong">**Key line:**</span> `PWMOn` — with no parameter
+this enables only CCP1/PWM, using the frequency and duty cycle set by
+`PWM_Freq`/`PWM_Duty`; this is the original, channel-1-only form of the
+command.
+
   
 <span class="strong">**Example \#2:**</span>
 
 Enable any CCP/PWM channel using a call to a method.
 
-``` screen
+``` programlisting
     #chip 16f877a,20
 
     'Set the PWM pin to output mode
@@ -256,7 +245,7 @@ Enable any CCP/PWM channel using a call to a method.
     #define PWM_Freq 38      'Frequency of PWM in KHz
     #define PWM_Duty 50      'Duty cycle of PWM (%)
 
-    PWMOn (2)    'Will enable any valid CCP/PWM channel
+    PWMOn (2)    'Will enable any valid CCP/PWM channel          ' <<< the PWMOn instruction with an explicit channel
 
     wait 10 s                'Wait 10 s
 
@@ -266,12 +255,16 @@ Enable any CCP/PWM channel using a call to a method.
     loop
 ```
 
+<span class="strong">**Key line:**</span> `PWMOn (2)` — the
+parameterised form extends the same fixed-frequency, fixed-duty
+behaviour to any CCP/PWM channel (1 through 5), not just channel 1.
+
   
-Example \#3:\*
+<span class="strong">**Example \#3:**</span>
 
 Enable any PWM module using a PWM specific method.
 
-``` screen
+``` programlisting
     'A real simple and easy PWM setup for 8 and 10 bit PWM channels
         #chip 18f25k42, 16
 
@@ -348,7 +341,7 @@ Enable any PWM module using a PWM specific method.
 
 
         '   Enable module 7
-        HPWMOn ( 7, PWMModule )
+        HPWMOn ( 7, PWMModule )          ' <<< the HPWMOn instruction, PWM-module form
         wait 2 s
         '   Disable channel 7
         HPWMOff ( 7, PWMModule)
@@ -371,15 +364,31 @@ Enable any PWM module using a PWM specific method.
     End
 ```
 
+<span class="strong">**Key line:**</span>
+`HPWMOn ( 7, PWMModule )` — starts PWM module 7 using the frequency,
+duty, and clock-source constants (`PWM_Timer2_Freq`, `PWM_7_Duty`,
+`PMW_7_Clock_Source`) defined above; `PWMModule` tells `HPWMOn` this is
+a PWM-module channel rather than a CCP channel.
+
   
   
 
   
 
-<span class="strong">**For more help, see**</span>
-<a href="pwmon" class="link" title="PWMOn">PWMOn</a> and
-<a href="pwmoff" class="link" title="PWMOff">PWMOff</a> <span
-class="strong">**or, for AVR see**</span>
-<a href="hpwm_fixed_mode_for_avr" class="link" title="HPWM Fixed Mode for AVR">Fixed Mode PWM for AVR</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="pwmon" class="link" title="PWMOn">PWMOn</a> — full
+    reference for the legacy channel-1 form
+-   <a href="pwmoff" class="link" title="PWMOff">PWMOff</a> — stopping
+    the PWM output
+-   <a href="hpwm_fixed_mode_for_avr" class="link" title="HPWM Fixed Mode for AVR">HPWM Fixed Mode for AVR</a> — the
+    Atmel AVR equivalent
+-   <a href="hpwm_ccp" class="link" title="HPWM CCP">HPWM CCP</a> — the
+    dynamic-mode alternative for changing frequency and duty cycle at
+    runtime
+
+</div>
 
 </div>

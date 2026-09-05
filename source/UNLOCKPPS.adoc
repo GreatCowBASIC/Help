@@ -1,5 +1,8 @@
 ==== UnLockPPS
 
+(((Peripheral Pin Select,UnLockPPS)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -20,14 +23,15 @@ Available on all Microchip microcontrollers only.
 
 
 
+[source,gcbasic]
 ----
-    #chip 16f18855,32
+    #chip 16f18855,85
     #option explicit
 
     'Set the PPS of the I2C and the RS232 ports.
     #startup InitPPS, 85
     Sub InitPPS
-      UNLOCKPPS
+      UNLOCKPPS          ' <<< the UnLockPPS instruction
         RC0PPS = 0x0010       'RC0->EUSART:TX;
         RXPPS  = 0x0011       'RC1->EUSART:RX;
 
@@ -38,5 +42,9 @@ Available on all Microchip microcontrollers only.
       LockPPS
     End Sub
 ----
+*Key line:* `UNLOCKPPS` -- temporarily unlocks the PPS registers so the pin-assignment lines that follow can take effect; `LockPPS` locks them again at the end of the same subroutine.
 
-*For more help, see: <<_lockpps, LockPPS>>*.
+**See Also:**
+
+* <<_lockpps,LockPPS>> -- re-locking the PPS registers after making changes
+* <<_peripheral_pin_select_for_microchip_microcontrollers,Introduction to PPS>> -- background on Peripheral Pin Select

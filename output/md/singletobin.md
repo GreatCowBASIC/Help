@@ -22,29 +22,38 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `SingleToBin` function creates a string of a ANSI (32) characters.
-The function converts a number to a string consisting of ones and zeros
-that represents the binary value.
+The `SingleToBin` function creates a string of ANSI characters
+representing a Single’s binary value. It converts a number into a
+32-character string consisting of ones and zeros.
 
-<span class="strong">**Note:**</span> Supports Single variables only.
-For BYTE variables use `VarToBin`, for WORD variables use `VarWToBinand`
-for INTEGER variables use `VarIntegerToBin`
+<span class="strong">**Note:**</span> Supports `Single` variables only.
+For `Byte` variables use `ByteToBin`, for `Word` variables use
+`WordToBin`, and for `Integer` variables use `IntegerToBin`.
 
 <span class="strong">**Example:**</span>
 
-``` screen
-    string = SingleToBin( 1 )   ' Returns "00000000000000000000000000000001"
+``` programlisting
+    string = SingleToBin( 1 )   ' Returns "00000000000000000000000000000001"          ' <<< the SingleToBin instruction
 
     string = SingleToBin( 254 ) ' Returns "00000000000000000000000011111110"
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="" class="link">ByteToBin</a>,
-<a href="" class="link">WordToBin</a>,
-<a href="" class="link">IntegerToBin</a>
+<span class="strong">**Key line:**</span> `SingleToBin( 1 )` — returns a
+fixed 32-character binary string, since a `Single` occupies 4 bytes (32
+bits) of storage.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="bytetobin" class="link" title="ByteToBin">ByteToBin</a>
+-   <a href="wordtobin" class="link" title="WordToBin">WordToBin</a>
+-   <a href="integertobin" class="link" title="IntegerToBin">IntegerToBin</a>
+
+</div>
 
 </div>

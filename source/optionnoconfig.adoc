@@ -1,56 +1,59 @@
-// Edit EvanV 171016
 === #Option NoConfig
 
+(((Compiler Options,#Option NoConfig)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     #option NoConfig
 ----
-This option will prevent the generated assembler from generating _Config items.
-
+This option will prevent the generated assembler from generating config items.
 
 `#option NoConfig` is used when using a bootloader.
 
-*Introduction:*
-
-
 *Example:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16f877a
 
     'Example command
-    #option NoConfig
+    #option NoConfig          ' <<< suppressing all compiler-generated config statements
 
     'User Code......
 ----
+*Key line:* `#option NoConfig` -- with this option set, none of GCBASIC's usual automatic CONFIG-word settings (oscillator mode, watchdog timer, MCLR, etc. - see <<_configuration,Configuration>>) are written into the generated ASM; this is required when a bootloader has already configured those bits and must not have them overwritten.
 
 
-
-
-=== #Option STARTUPMETHODSDISABLED
+=== #Option StartupMethodDisabled
 
 *Syntax:*
+[source,gcbasic]
 ----
-    #option STARTUPMETHODSDISABLED
+    #option StartupMethodDisabled
 ----
-This will instruct the compiler to disable all library startup methods.&#160;&#160;
-Examination of the generated ASM will show the disabled methods as comments.&#160;&#160;
-The calls to these methods can be added into the user program at a suitable place ( if required ).
+This will instruct the compiler to disable all library startup methods.
+Examination of the generated ASM will show the disabled methods as comments.
+The calls to these methods can be added into the user program at a suitable place, if required.
 
 
-`#option STARTUPMETHODSDISABLED` is used to optimise the ASM created.
-
-*Introduction:*
-
+`#option StartupMethodDisabled` is used to optimise the ASM created.
 
 *Example:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16f877a
 
     'Example command
-    #option STARTUPMETHODSDISABLED
+    #option StartupMethodDisabled
 
     'User Code......
 ----
 
+**See Also:**
+
+* <<_configuration,Configuration>> -- the config bits this option suppresses
+* <<__option_bootloader,#Option Bootloader>> -- the typical reason for using #option NoConfig
+* <<_compiler_control,Compiler Control>> -- redirecting or cancelling individual #startup routines instead of disabling all of them

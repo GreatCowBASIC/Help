@@ -36,7 +36,7 @@ The LCDHex will display the byte value as a 1 or 2 character HEX string.
 
 <span class="strong">**Example :**</span>
 
-``` screen
+``` programlisting
     ;Set chip model required:
     #chip mega328p, 16
     ;Setup LCD Parameters
@@ -81,7 +81,7 @@ The LCDHex will display the byte value as a 1 or 2 character HEX string.
           Print "DEC " : Print BV
           locate 1,0
           Print "HEX "
-          LCDHex BV, LeadingZeroActive ; dislay leading Zero
+          LCDHex BV, LeadingZeroActive ; dislay leading Zero          ' <<< the LCDHex instruction
         ' LCDHex BV         ; do not display leading zero
           wait 1 s
        next
@@ -91,6 +91,22 @@ The LCDHex will display the byte value as a 1 or 2 character HEX string.
     LOOP
 ```
 
+<span class="strong">**Key line:**</span>
+`LCDHex BV, LeadingZeroActive` — displays `BV` as a 2-digit hex string
+with a leading zero when needed; the commented-out `LCDHex BV` line
+below shows the shorter 1-or-2-digit form without the leading zero.
+
 <span class="strong">**Supported in &lt;LCD.H&gt;**</span>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcdhome" class="link" title="LCDHome">LCDHome</a> — related
+    command in the same category
+-   <a href="lcd_overview" class="link" title="LCD Overview">LCD Overview</a> — related
+    command in the same category
+
+</div>
 
 </div>

@@ -1,6 +1,9 @@
 // Edit EvanV 171016
 ==== HPWM CCP
 
+(((Pulse width modulation,HPWM CCP)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -45,6 +48,7 @@ ranges from 0 to 255 where 255 is 100% duty cycle.
 
 To stop the PWM signal use the `HPWMOff` method with the parameter of the channel.
 
+[source,gcbasic]
 ----
     'Stop the CCP/PWM signal
     HPWMOff ( 1 )
@@ -58,6 +62,7 @@ This will not cause any issue when using `HPWM` and `PWMOff` in the same program
 The optional constant `DisableCCPFixedModePWM` can be defined to prevent Timer2 from being enabled.  This constant may be required when you need to use Timer2 for non-CCP/PWM support.
 
 *Example:*
+[source,gcbasic]
 ----
     'This program will alter the brightness of an LED using
     'CCP/PWM.
@@ -72,7 +77,7 @@ The optional constant `DisableCCPFixedModePWM` can be defined to prevent Timer2 
     do
         'Turn up brightness over the range
         For Bright = 1 to 255
-            HPWM 1, 40, Bright
+            HPWM 1, 40, Bright          ' <<< the HPWM instruction
             wait 10 ms
         next
         'Turn down brightness over the range
@@ -82,3 +87,11 @@ The optional constant `DisableCCPFixedModePWM` can be defined to prevent Timer2 
         next
     loop
 ----
+*Key line:* `HPWM 1, 40, Bright` -- drives CCP channel 1 at a fixed 40 KHz frequency while sweeping the duty cycle through `Bright`, which is how this example ramps an LED's brightness up and down smoothly.
+
+**See Also:**
+
+* <<_hpwm_ccptimern,HPWM_CCPTimerN>> -- CCP/PWM support for timers 2, 4 and 6 with alternative clock sources
+* <<_hpwm_10_bit,HPWM 10 Bit>> -- 10-bit PWM support with other timers
+* <<_hpwmoff,HPWMOff>> -- stopping a PWM channel started with HPWM
+

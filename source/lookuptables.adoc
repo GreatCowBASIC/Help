@@ -1,9 +1,12 @@
 === Lookup Tables
 
+(((Syntax,Lookup Tables)))
+
+
 [[overview]]
 **Overview**
 
-_A lookup table is a list of values stored in the microcontroller’s memory and accessed using `ReadTable`._
+_A lookup table is a list of values stored in the microcontroller's memory and accessed using `ReadTable`._
 
 __Key Features__
 
@@ -11,7 +14,7 @@ __Key Features__
 - Supports `byte`, `word`, `long`, and `integer` types
 - ASCII string definitions supported
 - Constants and inline calculations permitted
-- External data sources allowed  
+- External data sources allowed
 
 _Note: Decimal values are not supported_
 
@@ -32,7 +35,7 @@ _Note: Decimal values are not supported_
 [[single-values]]
 __Single Values__
 
-[source]
+[source,gcbasic]
 ----
 Table TestDataSource
     12
@@ -47,7 +50,7 @@ End Table
 [[multiple-values]]
 __Multiple Values__
 
-[source]
+[source,gcbasic]
 ----
 Table TestDataSource
     12, 24, 36
@@ -56,9 +59,9 @@ End Table
 ----
 
 [[constants]]
-__Constants & Calculations__
+__Constants \& Calculations__
 
-[source]
+[source,gcbasic]
 ----
 #define calculation_constant 2
 
@@ -78,14 +81,14 @@ End Table
 [[simple-strings]]
 __Simple Examples__
 
-[source]
+[source,gcbasic]
 ----
 Table Test_1
     "ABCDEFGHIJ"
 End Table
 ----
 
-[source]
+[source,gcbasic]
 ----
 Table MnuTxt_1
     "  Display_1    Display_2    Display_3  "
@@ -107,8 +110,8 @@ __Equivalent Representations__
 
 - `"String1", "String2", "String3"`
 - `"String1String2String3"`
-- `"String1"`  
-  `"String2"`  
+- `"String1"`
+  `"String2"`
   `"String3"`
 
 [[escapes]]
@@ -136,22 +139,23 @@ __Equivalent Representations__
 [[basic-reading]]
 __Basic Reading__
 
-[source]
+[source,gcbasic]
 ----
 Dim TableCounter, Invalue as byte
 
 CLS
 For TableCounter = 1 to 6
-  ReadTable TestDataSource, TableCounter, Invalue
+  ReadTable TestDataSource, TableCounter, Invalue          ' <<< reading one element by its 1-based position
   Print InValue
   Print ","
 Next
 ----
+*Key line:* `ReadTable TestDataSource, TableCounter, Invalue` -- reads element number `TableCounter` (counting from 1) out of `TestDataSource` and stores it in `Invalue`; looping `TableCounter` from 1 to 6 walks the whole six-element table defined above.
 
 [[length-reading]]
 __Reading Table Length__
 
-[source]
+[source,gcbasic]
 ----
 Dim lengthoftable as word
 ReadTable TestDataSource, 0, lengthoftable
@@ -164,7 +168,7 @@ Print lengthoftable
 image::lookuptablesb1.PNG[graphic,align="center"]
 
 
-[source]
+[source,gcbasic]
 ----
 #chip 16f877a
 Table TestDataSource from "sourcefile.raw"
@@ -180,7 +184,7 @@ image::lookuptablesb2.PNG[graphic,align="center"]
 [[eeprom]]
 **EEPROM Table Storage**
 
-[source]
+[source,gcbasic]
 ----
 #chip 16F628
 
@@ -208,4 +212,7 @@ __EEPROM Limitations__
 [[reference]]
 **Reference**
 
-See: `ReadTable`
+**See Also:**
+
+* <<_readtable,ReadTable>> -- the command used throughout this page to read table data
+* <<_epwrite,EPWrite>> -- writing to EEPROM directly

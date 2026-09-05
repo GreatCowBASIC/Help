@@ -1,7 +1,10 @@
 ==== HSerGetString
 
+(((Serial Communications,HSerGetString)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     HSerGetString _myString_      ‘Get a multi char string  from USART 1
     HSerGetString _myString_,1    ‘Get a multi char string  from USART 1
@@ -20,6 +23,7 @@ Atmel AVR supports USART 1,2,3 and 4.
 
 To enable the use of the USART these are the enabling constants. &#160;&#160;These constants are required.&#160;&#160;You can change the `USART_BAUD_RATE` and to meet your needs.&#160;&#160;For addition USART ports use `#define USART**n**_BAUD_RATE 9600` where `**n**`` is the required port number.
 
+[source,gcbasic]
 ----
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
@@ -32,6 +36,7 @@ To enable the use of the USART these are the enabling constants. &#160;&#160;The
 This command will read a multi character string received as ascii input to the hardware serial module followed by a CR from an external serial source. It can be used only as a subroutine. Variable type is string and the  routine checks for numbers,letters, and puctuation.
 
 *Example:*
+[source,gcbasic]
 ----
   'This program receives char string and CR from a PC terminal, sends back the string on the serial port, and turns Led’s on off by command
 
@@ -74,7 +79,7 @@ This command will read a multi character string received as ascii input to the h
 
   Do Forever
 
-    HSerGetString MyString
+    HSerGetString MyString          ' <<< the HSerGetString instruction
     HSerPrint MyString
     HSerSend(13)
      If MyString = "LED1 ON" Then
@@ -92,4 +97,9 @@ This command will read a multi character string received as ascii input to the h
 
   Loop
 ----
-*See also* <<_hserreceive,HSerReceive>> and <<_hsergetnum,HSerGetNum>>
+*Key line:* `HSerGetString MyString` -- blocks while reading letters, digits, and punctuation from the default USART, until it sees the terminating carriage return, then stores the assembled text in `MyString`, which the program then compares against expected commands such as `"LED1 ON"`.
+
+**See Also:**
+
+* <<_hserreceive,HSerReceive>> -- reading a single raw byte instead of a whole string
+* <<_hsergetnum,HSerGetNum>> -- reading a whole number instead of a text string

@@ -17,7 +17,7 @@
 <span class="strong">**Syntax:**</span>
 
 ``` screen
-    DisplayValue (display, data)
+    DisplaySegment (display, data)
 ```
 
 <span class="strong">**Command Availability:**</span>
@@ -37,7 +37,7 @@ be set.
 
 <span class="strong">**Example**</span>
 
-``` screen
+``` programlisting
       'This program will count from 10 to 0 then fire the rocket!
       'The method DisplaySegment 1, smallTCharacter.  Sets the 7 segment to the value of 120, see the constant, 120 equates to a small t.
       ; ----- Configuration
@@ -117,7 +117,7 @@ be set.
 
         display:
          Repeat cnt
-                DisplaySegment 1, smallTCharacter
+                DisplaySegment 1, smallTCharacter          ' <<< the DisplaySegment instruction
                 wait 5 ms
                 Displaychar 2, "-"
                 DisplayValue 3, Num2
@@ -152,8 +152,24 @@ be set.
       end
 ```
 
-<span class="strong">**Also, see**</span>
-<a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Segment Display Overview</a>,
-<a href="displaychar" class="link" title="DisplayChar">DisplayChar</a>
+<span class="strong">**Key line:**</span>
+`DisplaySegment 1, smallTCharacter` — lights digit 1’s segments directly
+from the raw 8-bit pattern `smallTCharacter` (120), bypassing the
+ASCII-to-segment lookup that `DisplayChar` performs, which is how this
+example draws a lower-case "t" that has no standard ASCII 7-segment
+mapping.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Segment Display Overview</a> — category
+    overview
+-   <a href="displaychar" class="link" title="DisplayChar">DisplayChar</a> — displaying
+    an ASCII character via automatic segment lookup
+-   <a href="displayvalue" class="link" title="DisplayValue">DisplayValue</a> — displaying
+    a decimal or hex digit
+
+</div>
 
 </div>

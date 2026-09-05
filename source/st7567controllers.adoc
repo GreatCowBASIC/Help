@@ -1,5 +1,8 @@
 ==== ST7567 Controllers
 
+(((Graphical LCD,ST7567 Controllers)))
+
+
 
 This section covers GLCD devices that use the ST7567 graphics controller.
 
@@ -44,12 +47,13 @@ To use the ST7567 drivers simply include one of the following configuration.  Yo
 
 To use the ST7567 driver simply include the following in your user code.  This will initialise the driver.
 
+[source,gcbasic]
 ----
     'An I2C configuration
     #include <glcd.h>
 
     ; ----- Define GLCD Hardware settings
-    #define GLCD_TYPE GLCD_TYPE_ST7567
+    #define GLCD_TYPE GLCD_TYPE_ST7567          ' <<< the constant that selects this controller driver
     #define GLCD_I2C_Address 0x7E
     #define ST7567_BIAS     ST7567_SET_BIAS_7    ' ST7567_SET_BIAS_7 or ST7567_SET_BIAS_9
 
@@ -60,9 +64,11 @@ To use the ST7567 driver simply include the following in your user code.  This w
     #DEFINE I2C_CLOCK PORTB.6
     #DEFINE I2C_DISABLE_INTERRUPTS ON
 ----
+*Key line:* `#define GLCD_TYPE GLCD_TYPE_ST7567` -- tells `<glcd.h>` to compile in the ST7567 driver; ` ST7567_BIAS ` sets the LCD bias ratio for the 1/65 duty cycle and must match the specific ST7567 panel's datasheet, since the wrong bias produces a washed-out or overly dark display rather than a compile error.
 
 or,
 
+[source,gcbasic]
 ----
     'An SPI configuration'
     #include <glcd.h>
@@ -302,6 +308,7 @@ Parameter is dim value
 |===
 
 This example shows how to drive a ST7567 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode GLCD
+[source,gcbasic]
 ----
 
     #CHIP 18F26Q71
@@ -365,7 +372,7 @@ This example shows how to drive a ST7567 based Graphic I2C LCD module with the b
 
     ; ----- Main program
 
-        GLCDPrint 0, 0,   "GCBASIC"
+        GLCDPrint 0, 0,   "GCBASIC"          ' <<< the GLCDPrint instruction
         GLCDPrint (0, 16, "Anobium 2024")
         GLCDPrint (0, 32, "Portability Demo")
         GLCDPrint (0, 48, ChipNameStr )
@@ -416,12 +423,14 @@ This example shows how to drive a ST7567 based Graphic I2C LCD module with the b
         end
 
 ----
+*Key line:* `GLCDPrint 0, 0, "GCBASIC"` -- draws the string at pixel column 0, row 0 using the standard GCBASIC font set; the loop that follows demonstrates numeric formatting helpers such as `hex()` and `pad()` alongside Box, Circle, and Line.
 {empty} +
 {empty} +
 This example shows how to drive a ST7567 based Graphic I2C LCD module with the built in commands of GCBASIC using Low Memory Mode GLCD.
 {empty} +
 Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to support the Low Memory Mode of operation and the contraining of all GLCD commands with the transaction commands.  The use Low Memory Mode GLCD the two defines `GLCD_TYPE_ST7567_LOWMEMORY_GLCD_MODE` and `GLCD_TYPE_ST7567_CHARACTER_MODE_ONLY` are included in the user program.
 {empty} +
+[source,gcbasic]
 ----
 
     #chip {any valid chip}
@@ -503,6 +512,7 @@ Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to 
 {empty} +
 This example shows how to drive a ST7567 based Graphic SPI LCD module with the built in commands of GCBASIC.
 {empty} +
+[source,gcbasic]
 ----
 
     #chip  {any valid chip}
@@ -536,7 +546,7 @@ This example shows how to drive a ST7567 based Graphic SPI LCD module with the b
          SET led OFF
 
         GLCDCLS
-        GLCDPrint (30, 0, "Hello World!")
+        GLCDPrint (30, 0, "Hello World!")          ' <<< the GLCDPrint instruction, over the SPI (S4Wire) interface
         Circle (18,24,10)
         FilledCircle (48,24,10)
         Box (70,14,90,34)
@@ -551,9 +561,11 @@ This example shows how to drive a ST7567 based Graphic SPI LCD module with the b
 
     Loop
 ----
+*Key line:* `GLCDPrint (30, 0, "Hello World!")` -- identical usage to the I2C examples above; only the interface constants (`MOSI_ST7567`, `SCK_ST7567`, etc.) and ` S4Wire_DATA ` change to select SPI instead of I2C.
 {empty} +
 This example shows how to drive a ST7567 with the OLED fonts.  Note the use of the `GLCDfntDefaultSize` to select the size of the OLED font in use.
 {empty} +
+[source,gcbasic]
 ----
 
     #define GLCD_OLED_FONT
@@ -571,6 +583,7 @@ This example shows how to drive a ST7567 with the OLED fonts.  Note the use of t
 {empty} +
 This example shows how to set the ST7567 OLED the lowest constrast level by using a OLED chip specific command.
 {empty} +
+[source,gcbasic]
 ----
 
     'Use the GCB command to set the lowest constrast
@@ -592,6 +605,7 @@ This example shows how to disable the large OLED Fontset.  This disables the fon
 
 When the large OLED fontset is disabled every character will be shown as a block character.
 {empty} +
+[source,gcbasic]
 ----
 
 
@@ -610,8 +624,12 @@ When the large OLED fontset is disabled every character will be shown as a block
 ----
 {empty} +
 
+**See Also:**
 
-*For more help, see*
-<<_glcdcls,GLCDCLS>>, <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
+* <<_glcdcls,GLCDCLS>> -- clearing the display, as used above
+* <<_glcddrawchar,GLCDDrawChar>> -- drawing a single character
+* <<_glcdprint,GLCDPrint>> -- printing a value at a specific location, as used above
+* <<_glcdreadbyte,GLCDReadByte>> / <<_glcdwritebyte,GLCDWriteByte>> -- low-level byte access, for expert use
+* <<_pset,Pset>> -- setting a single pixel
 
 Supported in <GLCD.H>

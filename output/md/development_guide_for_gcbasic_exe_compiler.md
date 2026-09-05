@@ -17,133 +17,130 @@
 There are lots of ways to contribute to the GCBASIC project: coding,
 testing, improving the build process and tools, or contributing to the
 documentation. This guide provides information that will not only help
-you get started as a GCBASIC contributor, but that you will inform you
-as an experienced contributor wanting to help.
+you get started as a GCBASIC contributor, but that will also be useful
+to you as an experienced contributor wanting to help.
 
   
 
 <span class="strong">**Need Help?**</span>
 
 The GCBASIC community prides itself on being an open, accessible, and
-friendly community for new participants.   If you have difficulties
+friendly community for new participants. If you have difficulties
 getting involved or finding answers to your questions, please bring
 those questions to the forum via the discussion boards, where we can
 help you get started.
 
-We know EVEN before you start contributing that getting can be a
-challenge.   This guide is intended to help.   We are always looking for
+We know that, even before you start contributing, getting started can be
+a challenge. This guide is intended to help. We are always looking for
 ways to improve the software: making GCBASIC more open, accessible, and
-easier to participate with.   If you are having any trouble following
-this guide, or hit a barrier you cannot get around, please contact us
-via the discussion forum.   We will solve hurdles for new contributors
-and make GCBASIC better.  
+easier to participate in. If you are having any trouble following this
+guide, or hit a barrier you cannot get around, please contact us via the
+discussion forum. We will solve hurdles for new contributors and make
+GCBASIC better.
 
-This addresses the changes and updates to the GCBASIC compiler.  
+This addresses the changes and updates to the GCBASIC compiler.
 
   
   
 
 <span class="strong">**BACKGROUND**</span>
 
-The compiler was created by Dr. Hugh Considine when he was 12 years
-old.  That was in 2005.  Hugh came up with the idea for a new compiler -
-of the then available compilers - they were hard to use and not free.
-  And, he had some spare time.
+The compiler was created by Dr. Hugh Considine when he was 12 years old.
+That was in 2005. Hugh came up with the idea for a new compiler because
+the then-available compilers were hard to use and not free. And he had
+some spare time.
 
-Hugh believes that GCBASIC should be free to all - forever.  
+Hugh believes that GCBASIC should be free to all - forever.
 
-The original software was called Great Cow BASIC, but, he had some
-resistance in getting high schools in Australia to use and agree to the
-use of text based programming.   Graphical GCBASIC was created to
-address the need for a graphical user interface.  Graphical GCBASIC acts
-like a set of training wheels.    The concept of Graphical GCBASIC is
-that the icons make it less scary, and since they all share names with
-the BASIC commands it is then easy to remember what command corresponds
-to each icon..   Using Graphical GCBASIC users can then switch to text
-mode whenever they want to, go backwards and forwards a few times if
-they want, and finally end up using just the text programming.   It is a
-journey from a graphical user interface to text based programming.    
+The original software was called Great Cow BASIC, but he had some
+resistance in getting high schools in Australia to agree to the use of
+text-based programming. Graphical GCBASIC was created to address the
+need for a graphical user interface. Graphical GCBASIC acts like a set
+of training wheels. The concept of Graphical GCBASIC is that the icons
+make it less intimidating, and since they all share names with the BASIC
+commands, it is easy to remember which command corresponds to each icon.
+Using Graphical GCBASIC, users can then switch to text mode whenever
+they want to, go backwards and forwards a few times if they want, and
+finally end up using just the text programming. It is a journey from a
+graphical user interface to text-based programming.  
   
 Those who already have programming experience can go straight to
 GCBASIC, while those who would prefer a lighter learning curve can take
-the Graphical GCBASIC option.    The two approaches targets two
-different sets of users who ultimately want to do the same thing.  
+the Graphical GCBASIC option. The two approaches target two different
+sets of users who ultimately want to do the same thing.  
   
 As for the <span class="strong">**name**</span>, it was the fourth name
-Hugh tried.   First name was BASPIC, but it did not seem memorable
-enough.   Then, he considered some animal names - first thought was
-Chipmunk BASIC, but someone already used that!   Then, Bear BASIC, but
-decided against it on finding out the slang meaning of bear.   Final
-name was GCBASIC, which is named after something his sister and he came
-up with (when aged 12 and 15!!).   No-one else had that name, it had no
-meanings that could offend, and it was something odd enough to be
-memorable, so Great CoW CBASIC it was.
+Hugh tried. The first name was BASPIC, but it did not seem memorable
+enough. Then he considered some animal names - the first thought was
+Chipmunk BASIC, but someone already used that. Then Bear BASIC, but he
+decided against it on finding out the slang meaning of "bear". The final
+name was GCBASIC, named after something his sister and he came up with
+(when aged 12 and 15). No one else had that name, it had no meanings
+that could offend, and it was something odd enough to be memorable, so
+Great Cow BASIC it was.
 
 In 2013 Evan Venn joined the team as a compiler developer, with others
-joining in Bernd Dau, Trevor Roydhouse, Pete Everett, Theo Loermans,
-Giuseppe D’Elia, Derek Gore, Ian Smith, Bernd Dau, Theo Loermans, Urs
-Hopp, Kent Schafer, and Frank Steinberg.   Some those that joined in
-drove changes to the compiler, some changed the source code, some built
-tools and some built libraries.   They all had one thing in common -
-improvements to the GCBASIC compiler.
+joining including Bernd Dau, Trevor Roydhouse, Pete Everett, Theo
+Loermans, Giuseppe D’Elia, Derek Gore, Ian Smith, Urs Hopp, Kent
+Schafer, and Frank Steinberg. Some of those who joined drove changes to
+the compiler, some changed the source code, some built tools, and some
+built libraries. They all had one thing in common - improvements to the
+GCBASIC compiler.
 
-In 2021 we are still having new developers join the project like ToniG
+In 2021 we were still having new developers join the project, like ToniG
 adding a new capability for handling Tables.
 
-In 2023 we renamed to GCBASIC.  The Cow is now deadbeef …​ a hex number
-.. :-).
+In 2023 we renamed to GCBASIC. The Cow is now deadbeef …​ a hex number.
 
   
   
 
 <span class="strong">**THE COMPILER**</span>
 
-The compiler executable is called GCBASIC.EXE.    The compiler source is
-written in FreeBASIC.   FreeBASIC is a multiplatform, free/open source
+The compiler executable is called GCBASIC.EXE. The compiler source is
+written in FreeBASIC. FreeBASIC is a multiplatform, free/open source
 (GPL) BASIC programming language and a compiler for Microsoft Windows,
-protected-mode MS-DOS (DOS extender), Linux and FreeBSD.     
+protected-mode MS-DOS (DOS extender), Linux, and FreeBSD.  
   
 The official website is <https://www.freebasic.net/>  
   
 FreeBASIC provides syntax compatibility with programs originally written
-in Microsoft QuickBASIC (QB).   FreeBASIC is a command line only
-compiler, unless users manually install an external integrated
-development environment (IDE) of their choice.   IDEs specifically made
-for FreeBASIC include FBide and FbEdit, while more graphical options
-include WinFBE Suite and VisualFBEditor.    
+in Microsoft QuickBASIC (QB). FreeBASIC is a command-line-only compiler,
+unless users manually install an external integrated development
+environment (IDE) of their choice. IDEs specifically made for FreeBASIC
+include FBide and FbEdit, while more graphical options include WinFBE
+Suite and VisualFBEditor.  
   
-The source code is Open Source.   And, has a GNU GENERAL PUBLIC
-LICENSE.    
+The source code is Open Source, and has a GNU GENERAL PUBLIC LICENSE.  
   
 The source code for the compiler can be found on
 <a href="https://sourceforge.net/p/gcbasic/code/HEAD/tree/GCBASIC/trunk/" class="link">SourceForge</a>  
   
-Use SVN to UPDATE and COMMIT code changes.   You require developer
-access to SourceForge but if you have got this far then you already know
-this.   You are therefore required to use SVN for source code
-management.
+Use SVN to update and commit code changes. You require developer access
+to SourceForge, but if you have got this far then you already know this.
+You are therefore required to use SVN for source code management.
 
-When COMMITting you MUST update the change log, then, when you commit an
-update use the change log with the SourceForge commit number.   Then,
-add the new change at the end of the change log.   The COMMIT message
-should be the same as the description in the change log.   Add the
-\[<span class="emphasis">*COMMIT NUMBER\]*</span> to the description in
-the change log to show the COMMIT number.  
+When committing, you MUST update the change log; when you commit an
+update, use the change log entry with the SourceForge commit number.
+Then add the new change at the end of the change log. The commit message
+should be the same as the description in the change log. Add the
+`[COMMIT NUMBER]` to the description in the change log to show the
+commit number.
 
 You will find the changelog
-<a href="https://onedrive.live.com/Edit.aspx?resid=2F87FFE77F3DBEC7!67634&amp;wd=cpe&amp;authkey=!ADmkT3exl5l4Pkc" class="link">here</a>.  
-The change log is an EXCEL spreadsheet.  
+<a href="https://onedrive.live.com/Edit.aspx?resid=2F87FFE77F3DBEC7!67634&amp;wd=cpe&amp;authkey=!ADmkT3exl5l4Pkc" class="link">here</a>.
+The change log is an Excel spreadsheet.
 
   
   
 
 <span class="strong">**COMPILER ARCHITECTURE**</span>
 
-The compiler is relatively simple in terms of the architecture.   There
-is a main source program with a set of header files that contain other
-methods or declarations.   The GCBASIC header files are the following:
+The compiler is relatively simple in terms of the architecture. There is
+a main source program with a set of header files that contain other
+methods or declarations. The GCBASIC header files are the following:
 
-``` screen
+``` programlisting
     1. preprocessor.bi -  methods, statements, defines, declarations, prototypes, constants, enumerations, or similar types of statements
     2. utils.bi - methods that are shared across the architecture
     3. variables.bi - methods that control the creation and management of variables
@@ -154,29 +151,29 @@ methods or declarations.   The GCBASIC header files are the following:
 
 The supporting files are:
 
-``` screen
+``` programlisting
     1. messages.dat - the English messages source file.  All user messages from the compiler are sourced from this file.
     2. reservedwords.dat - the list of system reserved words
 ```
 
   
   
-The compiler process is simple.   The process, shown below, generates
-the ASM source and the HEX file from the user source program.
+The compiler process is simple. The process, shown below, generates the
+ASM source and the HEX file from the user source program.
 
-``` screen
+``` programlisting
     1. Create the indexes
     2. Declare the methods, arrays and variables
     3. Process the user source programs using PreProcessor method. This includes
-        i.     Loading of all source files including including files
+        i.     Loading of all source files including include files
         ii.    Translate files, if needed
         iii.   Examine source for comments, tables, asm, rawasm, functions;subs;macros, set origin of valid code
                     Origin = ";?F" + Str(RF) + "L" + Str(LC) + "S" + Str(SBC) + "?"
                     RF = File number
                     L  = Line number in source file
                     S  = Sub Routine number
-        iv.    Find compiler directives, except SCRIPT, ENDSCRIPT, IFDEF and ENDIF - including all the #DEFINEs outside of condiontal statements
-        v.     If GLCD_TYPE in user source program is found, then, determine the library and load that library with all dependent libraries. This method improves compiler performance by only loading the required libraries
+        iv.    Find compiler directives, except SCRIPT, ENDSCRIPT, IFDEF and ENDIF - including all the #DEFINEs outside of conditional statements
+        v.     If GLCD_TYPE in user source program is found, then determine the library and load that library with all dependent libraries. This method improves compiler performance by only loading the required libraries
         vi.    ReadChipData
         vii.   CheckClockSpeed
         viii.  ReadOptions
@@ -214,37 +211,37 @@ the ASM source and the HEX file from the user source program.
     7. Combine and locate the subroutines and functions for the selected chip using the MergeSubroutines method
     8. Complete the final optimisation using the FinalOptimise method
     9. Write the assembly using the WriteAssembly method
-    10. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other define Assembler
+    10. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other defined Assembler
     11. Optionally, pass programming operations to the programmer
     12. Write compilation report using the WriteCompilationReport method
     13. If needed, write the error and warning log using the WriteErrorLog method
     14. Exit, setting the ERRORLEVEL
 ```
 
-Note \#1: Constants are can be created in many places and the order is
-critical when trying to understant the process.
+Note \#1: Constants can be created in many places, and the order is
+critical when trying to understand the process.
 
 Step 3.iv; Step 3.xi, 3.xiv and xvi. These are Find compiler directives;
-Runscripts, process IFDEFs and replace Constants values respectively.  
+RunScripts, process IFDEFs, and replace Constants values, respectively.
 This means constants that are not created by the Find compiler
 directives step are clearly not available in the RunScripts step, and
-the same applies to the process IFDEFs step.  So, please consider the
-order of constant creation in terms of these steps.  Always think about
-the precendence of constant creation.  
+the same applies to the process IFDEFs step. So, please consider the
+order of constant creation in terms of these steps. Always think about
+the precedence of constant creation.
 
-Note \#2: When using IFDEFs Conditional statements you should \#UNDEFINE
-all constants prior to \#DEFINE.  Whilst the will be cases where the
-constant does not exist, or where the Preprocessor can determine the
-outcome of the Conditional statements there will be cases, specifically
-nested IFDEFs Conditional statements, where you will be required to use
-\#UNDEFINE to remove all warnings.
+Note \#2: When using IFDEFs conditional statements, you should
+`#UNDEFINE` all constants prior to `#DEFINE`. Whilst there will be cases
+where the constant does not exist, or where the preprocessor can
+determine the outcome of the conditional statements, there will be
+cases, specifically nested IFDEFs conditional statements, where you will
+be required to use `#UNDEFINE` to remove all warnings.
 
 Note \#3: Good practice is NOT to create constants in a library where
-the user can overwrite the value of the same constant.  You must
-determine if the user has created the constant and then create a default
-value if the user has not defined a value.   An example:
+the user can overwrite the value of the same constant. You must
+determine if the user has created the constant, and then create a
+default value if the user has not defined one. An example:
 
-``` screen
+``` programlisting
   IF NODEF(AD_DELAY) THEN
      'Acquisition time. Can be reduced in some circumstances - see PIC manual for details
      AD_DELAY = 2 10US
@@ -257,59 +254,60 @@ not define a value.
 <span class="strong">**FreeBASIC COMPILATION OF GCBASIC SOURCE
 CODE**</span>
 
-The compiler is relatively simple in terms of the compilation.  
+The compiler is relatively simple in terms of the compilation.
 
 Use the following versions of the FreeBASIC compiler to compile the
 GCBASIC source code.
 
 For Windows 32 bit
 
-``` screen
+``` programlisting
     FreeBASIC Compiler - Version 1.07.1 (2019-09-27), built for win32 (32bit)
     Copyright (C) 2004-2019 The FreeBASIC development team.
 ```
 
 For Windows 64 bit
 
-``` screen
+``` programlisting
     FreeBASIC Compiler - Version 1.07.1 (2019-09-27), built for win64 (64bit)
     Copyright (C) 2004-2019 The FreeBASIC development team.
 ```
 
-Using other version of Windows FREEBASIC compiler are NOT tested and may
-fail.   Use the specific versions shown above.
+Using other versions of the Windows FreeBASIC compiler is NOT tested and
+may fail. Use the specific versions shown above.
 
-The compile use the following command lines. Where "%ProgramFiles% is
-the root location of the FreeBASIC installation, and $SF is the location
-of the source files and the destination of the compiled executable.
+The compiler uses the following command lines. Where `%ProgramFiles%` is
+the root location of the FreeBASIC installation, and `$SF` is the
+location of the source files and the destination of the compiled
+executable.
 
 For Windows 32 bit
 
-``` screen
+``` programlisting
     "%ProgramFiles%\FreeBASIC\win32\fbc.exe"  $SF\gcbasic.bas   -exx -arch 586 -x $SF\gcbasic32.exe
 ```
 
 For Windows 64 bit
 
-``` screen
+``` programlisting
     "%ProgramFiles%\FreeBASIC\win64\fbc.exe"  $SF\gcbasic.bas   -x $SF\gcbasic64.exe -ex
 ```
 
-Linux, FreeBSD and Pi OS are also supported.   Please see
+Linux, FreeBSD, and Pi OS are also supported. Please see
 <a href="http://gcbasic.sourceforge.net/help/" class="link">Online Help</a>
-and search for the specific operating system.  
+and search for the specific operating system.
 
   
   
 
 <span class="strong">**FreeBASIC COMPILER TOOLCHAIN**</span>
 
-To simplify the establishment of development enviroment download a
+To simplify the establishment of a development environment, download a
 complete installation from
-<a href="https://sourceforge.net/projects/gcbasic/files/Support%20Files/GCBASICWindowsToolchain/FreeBASIC.zip/download" class="link">here</a>.  
+<a href="https://sourceforge.net/projects/gcbasic/files/Support%20Files/GCBASICWindowsToolchain/FreeBASIC.zip/download" class="link">here</a>.
 This includes the correct version of FreeBASIC and the libraries - all
-ready for use.   Simply unzip the ZIP to a folder and the toolchain is
-ready for use.   For an IDE please see the information above.  
+ready for use. Simply unzip the ZIP to a folder, and the toolchain is
+ready for use. For an IDE, please see the information above.
 
   
   
@@ -317,16 +315,16 @@ ready for use.   For an IDE please see the information above.  
 <span class="strong">**BUILDING THE GCBASIC EXECUTABLE USING THE FBEDIT
 IDE**</span>
 
-To build GCBASIC from the source files.   The list shows the
-installation of the FBEdit IDE.
+To build GCBASIC from the source files. The list shows the installation
+of the FBEdit IDE.
 
 Complete the following:
 
-``` screen
-        1. Download and install FreeBASIC from  url shown above.
+``` programlisting
+        1. Download and install FreeBASIC from the url shown above.
         2. Download and install fbedit from https://sourceforge.net/projects/fbedit/?source=dlp
         3. Download the GCBASIC source using SVN into a gcbasic source folder.
-        4. Run fbedit (installed at step #2).  Load project  GCBASIC.fbp  from GBASIC source folder.
+        4. Run fbedit (installed at step #2).  Load project  GCBASIC.fbp  from the GCBASIC source folder.
         5. Hit <f5> to compile.
 ```
 
@@ -335,17 +333,17 @@ Complete the following:
 
 <span class="strong">**CODING STYLES**</span>
 
-Remember, Hugh was 12 when he started this project.   You must forgive
-him for being a genius, but, he did not implement many programming
-styles and conventions that are common place today.  
+Remember, Hugh was 12 when he started this project. You must forgive him
+for being a genius, but he did not implement many programming styles and
+conventions that are commonplace today.
 
-There is a general lack of documentation.   We are adding documentation
-as we progress.   This can make the source frustrating initially but can
-find the code segments as they are clearly within method blocks.  
+There is a general lack of documentation. We are adding documentation as
+we progress. This can make the source frustrating initially, but you can
+find the code segments, as they are clearly within method blocks.
 
 The following rules are recommended.
 
-``` screen
+``` programlisting
     1. All CONSTANTS are capitalized
     2. Do not use TAB - use two spaces
     3. You can rename a variable to a meaningful name.  Hugh used a lot of single character variables many years ago.  This should be avoided in new code.

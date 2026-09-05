@@ -1,7 +1,10 @@
 ==== Average
 
+(((Maths,Average)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     integer_variable = Average(__byte_variable1__ , __byte_variable2__)
 ----
@@ -13,9 +16,16 @@ Available on all microcontrollers.
 
 A function that returns the average of two numbers. This only supports byte variables.
 
-Provides a very fast way to calculate the average of two 8 bit numbers.
+It provides a very fast way to calculate the average of two 8-bit numbers.
 
 *Example:*
+[source,gcbasic]
 ----
- average_value = Average(8,4)   ' Will return 6
+ average_value = Average(8,4)   ' Will return 6          ' <<< the Average instruction
 ----
+*Key line:* `Average(8,4)` -- adds the two byte values and halves the result in a single fast operation, returning `6`.
+
+**See Also:**
+
+* <<_abs,Abs>> -- related command in the same category
+* <<_difference,Difference>> -- related command in the same category

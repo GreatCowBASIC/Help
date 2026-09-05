@@ -1,6 +1,10 @@
 ==== CLS
 
+(((Liquid Crystal Display,CLS)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     CLS
 ----
@@ -14,9 +18,36 @@ The `CLS` command clears the contents of the LCD, and returns the cursor
 to the top left corner of the screen
 
 *Example :*
+[source,gcbasic]
 ----
-include::cls_code1.gcb[]
+        'A Flashing text "Hello World" program for GCBASIC
+
+        'General hardware configuration
+        #chip 16F877A, 20
+
+        'LCD connection settings
+        #define LCD_IO 8
+        #define LCD_DATA_PORT PORTC
+        #define LCD_RS PORTD.0
+        #define LCD_RW PORTD.1
+        #define LCD_Enable PORTD.2
+        #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
+
+
+        'Main routine
+        Do
+            Print "Hello World"
+            Wait 1 sec
+            CLS          ' <<< the CLS instruction
+            Wait 1 sec
+        Loop
 ----
-*For more help, see* <<_lcd_overview,LCD Overview>>
+*Key line:* `CLS` -- clears the whole display and returns the cursor to the top-left corner; since the loop calls `Print` again immediately afterward, the effect is text that flashes on and off every second.
+
+**See Also:**
+
+* <<_lcd_overview,LCD Overview>> -- LCD wiring and configuration background
+* <<_print,Print>> -- displaying text after clearing the screen, as used above
+* <<_locate,Locate>> -- moving the cursor to a specific position instead of clearing the whole display
 
 *Supported in <LCD.H>*

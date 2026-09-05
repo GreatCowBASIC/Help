@@ -1,6 +1,10 @@
 ==== GLCDPrintLargeFont
 
+(((Graphical LCD,GLCDPrintLargeFont)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     GLCDPrintLargeFont( PrintLocX, PrintLocY, PrintData_String [, Optional Colour] )
 ----
@@ -22,8 +26,16 @@ Prints data values (byte, word, long or string) at a specified location on the G
 As an exmaple, to display an string use:
 {empty} +
 {empty} +
+[source,gcbasic]
 ----
-    GLCDPrintLargeFont( 0, 0, "13 Pixels Fixed Font" )
+    GLCDPrintLargeFont( 0, 0, "13 Pixels Fixed Font" )          ' <<< the GLCDPrintLargeFont instruction
 ----
+*Key line:* `GLCDPrintLargeFont( 0, 0, "13 Pixels Fixed Font" )` -- draws the string at pixel coordinates (0, 0) using the larger 13-pixel fixed font; unlike `GLCDPrint`, this command accepts strings only, not byte/word/long values.
 {empty} +
 {empty} +
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_glcdprint,GLCDPrint>> -- the standard-font equivalent, which also accepts numeric values
+* <<_glcdprintwithsize,GLCDPrintWithSize>> -- selecting a specific font size instead of the fixed large font

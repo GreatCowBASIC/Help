@@ -1,7 +1,10 @@
 ==== RoundSingle
 
+(((Maths,RoundSingle)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     rounded_single_value = RoundSingle( single_variable )
 ----
@@ -11,11 +14,23 @@ Available on all microcontrollers.
 
 *Explanation:*
 
-The `RoundSingle` function will return a floating point number that is a rounded version of the specified number.  
+The `RoundSingle` function returns a floating-point number that is a rounded version of the specified number.
 
-This operates the same as Microsoft floor().
+This operates the same as Microsoft's `floor()`.
 
 *Example:*
+[source,gcbasic]
 ----
-    rounded_single_value = RoundSingle(  _singlevariable_ )  ' Will return  the range of single variable.
+    Dim singlevariable As Single
+    Dim rounded_single_value As Single
+    singlevariable = 7.85
+
+    rounded_single_value = RoundSingle( singlevariable )          ' <<< the RoundSingle instruction
+    ' rounded_single_value now holds 7.0
 ----
+*Key line:* `RoundSingle( singlevariable )` -- rounds `7.85` down to `7.0`, floor-style, rather than to the nearest whole number.
+
+**See Also:**
+
+* <<_abs,Abs>> -- related command in the same category
+* <<_int,Int>> -- truncating to an integer type instead of rounding within Single

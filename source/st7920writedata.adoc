@@ -1,8 +1,12 @@
 ===== ST7920WriteData
 
+(((Graphical LCD,st7920writedata)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
-    ST7920GWriteData ( byte_variable)
+    ST7920WriteData ( byte_variable)
 ----
 *Explanation:*
 
@@ -11,14 +15,22 @@ This command writes data to the controller.
 See the data sheet for more information.
 
 *Example usage:*
+[source,gcbasic]
 ----
     ...
     for yy = 0 to ( GLCD_HEIGHT - 1 )
       ST7920gLocate(0, yy)
       for xx = 0 to ( GLCD_COLS -1 )
+        ST7920WriteData( 0x55 )          ' <<< the ST7920WriteData instruction
         ST7920WriteData( 0x55 )
-        T7920WriteData( 0x55 )
       next
     next
     ...
 ----
+*Key line:* `ST7920WriteData( 0x55 )` -- writes the raw byte 0x55 to the display's DDRAM at the position set by `ST7920gLocate`; called twice per column here to fill both bytes needed at that pixel location.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920writecommand,ST7920WriteCommand>> -- sending a controller command instead of display data
+* <<_st7920glocate,ST7920gLocate>> -- positioning the write address before writing, as used above

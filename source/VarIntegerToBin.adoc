@@ -1,27 +1,36 @@
 ==== IntegerToBin
 
+(((String Manipulation,IntegerToBin)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __stringvar__ = IntegerToBin(__integervar__)
 ----
 
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The `IntegerToBin` function creates a string of a ANSI (signed 15 digit string ) characters.
-The function converts a number to a string consisting of ones and zeros that represents the binary value.
+The `IntegerToBin` function creates a signed, 16-character string representing an Integer's binary value: a leading `+` or `-` sign followed by 15 binary digits.
 
 *Note:*
-Supports Integer variables only.  For BYTE variables use `VarToBin`, for Word variables use `WordToBin` and for LONG variables use `LongToBin`
+Supports `Integer` variables only. For `Byte` variables use `ByteToBin`, for `Word` variables use `WordToBin`, and for `Long` variables use `LongToBin`.
 
 *Example:*
+[source,gcbasic]
 ----
-    string = IntegerToBin( 1 )   ' Returns "+000000000000001"
+    string = IntegerToBin( 1 )   ' Returns "+000000000000001"          ' <<< the IntegerToBin instruction
     string = IntegerToBin( -1 )  ' Returns "-000000000000001"
 
 ----
-*For more help, see* <<_bytetobin,ByteToBin>>, <<_wordtobin,WordToBin>>, <<_longtobin,LongToBin>>
+*Key line:* `IntegerToBin( -1 )` -- returns a string that keeps the sign character separate from the 15 magnitude digits, so the sign is always in the same position regardless of the value.
+
+**See Also:**
+
+* <<_bytetobin,ByteToBin>>
+* <<_wordtobin,WordToBin>>
+* <<_longtobin,LongToBin>>

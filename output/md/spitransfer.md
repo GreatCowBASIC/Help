@@ -45,7 +45,7 @@ on its LCD screen.
 
 <span class="strong">**Slave Program:**</span>
 
-``` screen
+``` programlisting
   'Select chip model and configuration
   #chip 16F88, 20
   #config MCLR_OFF
@@ -66,13 +66,17 @@ on its LCD screen.
   'Main loop - takes a reading, and then waits to send it across.
   do
   'Note that rx is 0 - this is because no data is to be received.
-  SPITransfer ReadAD(AN0), 0
+  SPITransfer ReadAD(AN0), 0          ' <<< the SPITransfer instruction (slave side)
   loop
 ```
 
-<span class="strong">**Master Program:**</span>
+<span class="strong">**Key line:**</span>
+`SPITransfer ReadAD(AN0), 0` — as a slave, this call blocks until the
+master initiates a transfer, then sends the ADC reading while receiving
+(and discarding) whatever the master sends. <span
+class="strong">**Master Program:**</span>
 
-``` screen
+``` programlisting
   'General hardware configuration
   #chip 16F877A, 20
 
@@ -82,7 +86,7 @@ on its LCD screen.
   #define LCD_DATA_PORT PORTC
   #define LCD_RS PORTD.0
   #define LCD_RW PORTD.1
-  #define LCD_Enable PORTD.2
+  #define LCD_ENABLE PORTD.2
 
   'Set SPI pin directions
   dir PORTC.5 out
@@ -96,7 +100,7 @@ on its LCD screen.
   do
   'Read a byte from the slave
   'No data to send, so tx is 0
-  SPITransfer 0, Temp
+  SPITransfer 0, Temp          ' <<< the SPITransfer instruction (master side)
 
   'Display data
   if Temp > 0 then
@@ -111,7 +115,21 @@ on its LCD screen.
   loop
 ```
 
-<span class="strong">**See also**</span>
-<a href="spimode" class="link" title="SPIMode">SPIMode</a>,<a href="fasthwspitransfer" class="link" title="FastHWSPITransfer">FastHWSPITransfer</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="spimode" class="link" title="SPIMode">SPIMode</a> — selecting
+    master/slave mode before transferring, as used above
+-   <a href="fasthwspitransfer" class="link" title="FastHWSPITransfer">FastHWSPITransfer</a> — a
+    faster variant of this command
+-   <a href="readad" class="link" title="ReadAD">ReadAD</a> — reading
+    the sensor value sent in the slave example above
+-   <a href="dir" class="link" title="Dir">Dir</a> — setting SPI
+    pin directions before transferring, as used above
+-   <a href="cls" class="link" title="CLS">CLS</a> — clearing the
+    LCD before showing the received reading, as used above
+
+</div>
 
 </div>

@@ -1,6 +1,10 @@
 ==== I2CStop
 
+(((I2C Software,I2CStop)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     I2CStop
 ----
@@ -13,13 +17,27 @@ Available on all microcontrollers except 12 bit instruction microcontrollers (10
 
 When in Master mode, this command will send an I2C stop condition, and
 re-enable interrupts if `I2CStart` disabled them. In Slave mode, it will
-re- enable interrupts.
+re-enable interrupts.
 
 `I2CStop` should be called at the end of every I2C transmission.
 
 *Example:*
+[source,gcbasic]
+----
+    'Writes a single byte to an I2C EEPROM at device address 0xA0, memory address 0x00
+    I2CStart
+    I2CSend 0xA0
+    I2CSend 0x00
+    I2CSend 0x55
+    I2CStop          ' <<< the I2CStop instruction
+----
+*Key line:* `I2CStop` -- sends the stop condition that ends the transmission, and re-enables interrupts if `I2CStart` had disabled them.
 
-Please see <<_i2csend,I2CSend>> and <<_i2creceive,I2CReceive>>
-for an example.
+**See Also:**
+
+* <<_i2c_overview,I2C Overview>> -- category overview
+* <<_i2cstart,I2CStart>> -- the matching command that begins the transmission
+* <<_i2csend,I2CSend>> -- sending bytes between I2CStart and I2CStop
+* <<_i2creceive,I2CReceive>> -- receiving bytes between I2CStart and I2CStop
 
 Supported in <I2C.H>

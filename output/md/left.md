@@ -22,16 +22,16 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `Left` function will extract the leftmost `count` characters from
-the input string `source`, and return them in a new string.
+The `Left` function extracts the leftmost `count` characters from the
+input string `source`, and returns them in a new string.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Set chip model
     #chip 16F1936
 
@@ -46,12 +46,22 @@ the input string `source`, and return them in a new string.
 
     'Display the leftmost 5 characters
     'Will display "Hello"
-    HSerPrint Left(TestData, 5)
+    HSerPrint Left(TestData, 5)          ' <<< the Left instruction
     HSerPrintCRLF
 ```
 
-<span class="strong">**See Also**</span>
-<a href="mid" class="link" title="Mid">Mid</a>,
-<a href="right" class="link" title="Right">Right</a>
+<span class="strong">**Key line:**</span> `Left(TestData, 5)` — returns
+the first 5 characters of `TestData`, giving `"Hello"`.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="right" class="link" title="Right">Right</a> — extracting
+    characters from the end of a string instead
+-   <a href="mid" class="link" title="Mid">Mid</a> — extracting
+    characters from an arbitrary position
+
+</div>
 
 </div>

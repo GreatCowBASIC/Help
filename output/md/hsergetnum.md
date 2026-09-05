@@ -42,7 +42,7 @@ meet your needs.  For addition USART ports use
 `#define USARTn_BAUD_RATE 9600` where `` n` `` is the required port
 number.
 
-``` screen
+``` programlisting
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
     #define USART_TX_BLOCKING
@@ -59,7 +59,7 @@ only as a subroutine.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
   'This program receives a number and CR from a PC terminal and sends it back on both usarts
   #chip 18f26k22, 16
 
@@ -92,13 +92,18 @@ only as a subroutine.
   Do forever
     'wait for char from UART
     'HSerReceive InChar
-    HSerGetNum myNum,2    'from usart 2
+    HSerGetNum myNum,2    'from usart 2          ' <<< the HSerGetNum instruction
     HSerPrint myNum,1            ' send out usart 1
     HSerPrint myNum,2        'send out usart 2
     HSerPrintCRLF 1,2        'send one CRLF out usart 2
     HserPrintCRLF 1,1        ‘send one CRLF out usart 1
   loop
 ```
+
+<span class="strong">**Key line:**</span> `HSerGetNum myNum,2` — blocks
+while reading ASCII digit characters from USART 2, ignoring any
+non-digit input, until it sees the terminating carriage return, then
+stores the assembled number in the word variable `myNum`.
 
 <span class="strong">**Example:**</span> This program receives number on
 serial port 1 and displays. This example shows using a Long as the input
@@ -107,7 +112,7 @@ variable.
 Therefore, the result is in the range of 0-99999. The example also shows
 how to detect a buffer overrun by testing the HSerInByte variable.
 
-``` screen
+``` programlisting
     #chip mega328p, 16
 
     #define USART_BAUD_RATE 9600
@@ -130,9 +135,15 @@ how to detect a buffer overrun by testing the HSerInByte variable.
     End
 ```
 
-<span class="strong">**See also**</span>
-<a href="hserreceive" class="link" title="HSerReceive">HSerReceive</a>
-and
-<a href="hsergetstring" class="link" title="HSerGetString">HSerGetString</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hserreceive" class="link" title="HSerReceive">HSerReceive</a> — reading
+    a single raw byte instead of a whole number
+-   <a href="hsergetstring" class="link" title="HSerGetString">HSerGetString</a> — reading
+    a whole text string instead of a number
+
+</div>
 
 </div>

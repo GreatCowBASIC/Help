@@ -1,5 +1,8 @@
 ==== LCDHex
 
+(((Liquid Crystal Display,LCDHex)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -22,6 +25,7 @@ The LCDHex will display the byte value as a 1 or 2 character HEX string.
 
 
 *Example :*
+[source,gcbasic]
 ----
     ;Set chip model required:
     #chip mega328p, 16
@@ -67,7 +71,7 @@ The LCDHex will display the byte value as a 1 or 2 character HEX string.
           Print "DEC " : Print BV
           locate 1,0
           Print "HEX "
-          LCDHex BV, LeadingZeroActive ; dislay leading Zero
+          LCDHex BV, LeadingZeroActive ; dislay leading Zero          ' <<< the LCDHex instruction
         ' LCDHex BV         ; do not display leading zero
           wait 1 s
        next
@@ -76,5 +80,11 @@ The LCDHex will display the byte value as a 1 or 2 character HEX string.
        Print "END TEST"
     LOOP
 ----
+*Key line:* `LCDHex BV, LeadingZeroActive` -- displays `BV` as a 2-digit hex string with a leading zero when needed; the commented-out `LCDHex BV` line below shows the shorter 1-or-2-digit form without the leading zero.
 
 *Supported in <LCD.H>*
+
+**See Also:**
+
+* <<_lcdhome,LCDHome>> -- related command in the same category
+* <<_lcd_overview,LCD Overview>> -- related command in the same category

@@ -148,9 +148,15 @@ To change the performance (communications speed) of the LCD use
 
 <span class="emphasis">*Example*</span>
 
-``` screen
- #DEFINE LCD_SPEED  FAST
+``` programlisting
+ #DEFINE LCD_SPEED  FAST          ' <<< the constant this overview discusses
 ```
+
+<span class="strong">**Key line:**</span>
+`#DEFINE LCD_SPEED FAST` — trades communication speed for reliability; a
+slower LCD controller can miss data if `FAST` or `OPTIMAL` is set when
+the display cannot actually keep up, so start at `SLOW` (the default)
+and increase only after confirming the display responds correctly.
 
 <div class="informaltable">
 
@@ -196,7 +202,10 @@ ready to receive the data.
 
 With most displays this equates to a speed of about 30,000 characters
 per second.  For comparision about 10 times faster than I2C using a
-PC8574 Expander (See LCD\_IO 10 or See LCD\_IO 112)
+PC8574 Expander (See
+<a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a>
+or
+<a href="lcd_io_12" class="link" title="LCD_IO 12">LCD_IO 12</a>)
 
 `OPTIMAL` is only supported in LCD\_IO 4,8 and only when LCD\_NO\_RW is
 not defined (RW Mode).  When `#DEFINE LCD_NO_RW` is defined, reading
@@ -219,7 +228,7 @@ command the following criteria must be true.
 
 Example:
 
-``` screen
+``` programlisting
   #DEFINE LCD_IO 4
   #DEFINE LCD_SPEED OPTIMAL
 
@@ -249,22 +258,23 @@ To change the LCD width characteristics use `#define LCD_WIDTH`
 See the separate sections of the Help file for the specifics of each
 Connection Mode.
 
-<span class="strong">**For more help, see**</span>
-<a href="lcd_io_0" class="link" title="LCD_IO 0">LCD_IO 0</a>,
-<a href="lcd_io_1" class="link" title="LCD_IO 1">LCD_IO 1</a>,
-<a href="lcd_io_2" class="link" title="LCD_IO 2">LCD_IO 2</a>,
-<a href="lcd_io_3" class="link" title="LCD_IO 3">LCD_IO 3</a>,
-<a href="lcd_io_2_74xx164" class="link" title="LCD_IO 2_74xx164">LCD_IO_2 74xx164</a>,
-<a href="lcd_io_2_74xx174" class="link" title="LCD_IO 2_74xx174">LCD_IO_2 74xx174</a>,
-<a href="lcd_io_4" class="link" title="LCD_IO 4">LCD_IO 4</a>,
-<a href="lcd_io_8" class="link" title="LCD_IO 8">LCD_IO 8</a>,
-<a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a>
-or
-<a href="lcd_io_12" class="link" title="LCD_IO 12">LCD_IO 12</a>
+<span class="strong">**See Also:**</span>
 
-<span class="strong">**and,**</span>
+<div class="itemizedlist">
 
-<a href="lcd_width" class="link" title="LCD_WIDTH">LCD_Width</a>,
-<a href="lcd_speed" class="link" title="LCD_SPEED">LCD_Speed</a>
+-   <a href="lcd_io_0" class="link" title="LCD_IO 0">LCD_IO 0</a>
+-   <a href="lcd_io_1" class="link" title="LCD_IO 1">LCD_IO 1</a>
+-   <a href="lcd_io_2" class="link" title="LCD_IO 2">LCD_IO 2</a>
+-   <a href="lcd_io_3" class="link" title="LCD_IO 3">LCD_IO 3</a>
+-   <a href="lcd_io_2_74xx164" class="link" title="LCD_IO 2_74xx164">LCD_IO 2_74xx164</a>
+-   <a href="lcd_io_2_74xx174" class="link" title="LCD_IO 2_74xx174">LCD_IO 2_74xx174</a>
+-   <a href="lcd_io_4" class="link" title="LCD_IO 4">LCD_IO 4</a>
+-   <a href="lcd_io_8" class="link" title="LCD_IO 8">LCD_IO 8</a>
+-   <a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a>
+-   <a href="lcd_io_12" class="link" title="LCD_IO 12">LCD_IO 12</a>
+-   <a href="lcd_width" class="link" title="LCD_WIDTH">LCD_WIDTH</a>
+-   <a href="lcd_speed" class="link" title="LCD_SPEED">LCD_SPEED</a>
+
+</div>
 
 </div>

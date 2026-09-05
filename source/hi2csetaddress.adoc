@@ -1,8 +1,12 @@
 ==== HI2CSetAddress
 
+(((I2C/TWI Hardware Module,HI2CSetAddress)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 
+[source,gcbasic]
 ----
     HI2CSetAddress address_number
 ----
@@ -20,8 +24,29 @@ Only used in slave mode.
 
 This command is also available on microcontrollers with a second hardware I2C port.
 
+[source,gcbasic]
 ----
     HI2C2SetAddress address_number
 ----
+
+*Example:*
+[source,gcbasic]
+----
+    #chip 16F1937, 32
+
+    HI2CMode Slave
+    HI2CSetAddress 0x60          ' <<< the HI2CSetAddress instruction
+
+    Do
+        'Wait for the master to address this device at 0x60
+    Loop
+----
+*Key line:* `HI2CSetAddress 0x60` -- sets this device's own I2C address to 0x60, so it only responds when a master addresses that specific value.
+
+**See Also:**
+
+* <<_hi2c_overview,HI2C Overview>> -- category overview
+* <<_hi2cmode,HI2CMode>> -- selecting slave mode before setting an address
+* <<_hi2creceive,HI2CReceive>> -- receiving data addressed to this device
 
 Supported in <HI2C.H>

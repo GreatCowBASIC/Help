@@ -1,6 +1,10 @@
 ==== GLCDTimeDelay
 
+(((Graphical LCD,GLCDTimeDelay)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     GLCDTime
 ----
@@ -12,7 +16,15 @@ of `20us` is for 32Mhz support. The can be reduced for slower chip speeds
 by change the constant `ST7920WriteDelay`.
 
 *Example usage:*
+[source,gcbasic]
 ----
-    GLCDTime                       'call the delay routine
+    GLCDTime                       'call the delay routine          ' <<< the GLCDTime instruction
     #define ST7920WriteDelay 1     'set the delay to 1 us
 ----
+*Key line:* `GLCDTime` -- inserts the write delay needed between GLCD data transmissions; the delay length comes from the `ST7920WriteDelay` constant, which defaults to 20 (20 us, tuned for a 32 MHz chip) and should be reduced on slower chips such as the 1 us shown here.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_glcdtransaction,GLCDTransaction>> -- related command in the same category
+* <<_glcdcls,GLCDCLS>> -- related command in the same category

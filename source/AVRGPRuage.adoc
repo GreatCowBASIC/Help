@@ -1,26 +1,25 @@
 === AVR R Register Usage
 
-:revdate: February 12, 2026
-:revnumber: Based on GCBASIC source (circa 2026 build)
-:source-highlighter: coderay
+(((Variables,AVR R Register Usage)))
+
 
 *Overview*
 
 GCBASIC uses a set of **system variables** for internal calculations, temporary storage, division/multiplication results, delays, string handling, and more. These are mapped to **General Purpose Registers (GPRs)** on AVR targets to avoid RAM access overhead where possible.
 
-The mapping is determined by the GCBASIC source code function `GetRegisterLoc(RegName As String)`, which returns the register number (0–31) or -1 if not found (falling back to RAM).
+The mapping is determined by the GCBASIC source code function `GetRegisterLoc(RegName As String)`, which returns the register number (0-31) or -1 if not found (falling back to RAM).
 
 Key points:
 
-* On chips with **only 16 GPRs** (`ChipGPR = 16`, e.g., ATtiny4/5/9/10 — physically mapped as R16–R31), system variables are placed in R16–R31.
-* On chips with **full 32 GPRs** (`ChipGPR != 16`, most AVRs), system variables use a mix of low (R0–R5) and high (R21–R31) registers.
-* **R6–R20** are typically unused for system variables in full mode (available for user code).
-* **X, Y, Z** pointers (R26:R27, R28:R29, R30:R31) are **not** allocated as system variables — reserved for addressing.
+* On chips with **only 16 GPRs** (`ChipGPR = 16`, e.g., ATtiny4/5/9/10 - physically mapped as R16-R31), system variables are placed in R16-R31.
+* On chips with **full 32 GPRs** (`ChipGPR != 16`, most AVRs), system variables use a mix of low (R0-R5) and high (R21-R31) registers.
+* **R6-R20** are typically unused for system variables in full mode (available for user code).
+* **X, Y, Z** pointers (R26:R27, R28:R29, R30:R31) are **not** allocated as system variables - reserved for addressing.
 * If DestLoc = -1 (e.g., SysSignByte on 16-GPR chips), the variable uses SRAM (RAM) instead of GPR.
 
 *GPR16 Allocation (ChipGPR = 16)*
 
-Allocation for low-GPR chips (only R16–R31 available).
+Allocation for low-GPR chips (only R16-R31 available).
 
 [cols="2,4,3,4", options="header"]
 |===
@@ -46,7 +45,7 @@ Allocation for low-GPR chips (only R16–R31 available).
 
 *Full Register Set Allocation (ChipGPR != 16)*
 
-Allocation for full 32-GPR chips (R0–R31 available).
+Allocation for full 32-GPR chips (R0-R31 available).
 
 [cols="2,5,3,3", options="header"]
 |===
@@ -58,7 +57,7 @@ Allocation for full 32-GPR chips (R0–R31 available).
 | R3       | SysCalcTempX_E, SysLongTempX_E, SysDivMultX_H | R19 | Extra byte
 | R4       | SysSignByte | RAM | Sign byte for signed operations
 | R5       | SysDivLoop, SysBitTest | R20 | Loop / bit temp
-| R6–R20   | (unused for system vars) | - | Available for user variables or scratch
+| R6-R20   | (unused for system vars) | - | Available for user variables or scratch
 | R21      | SysValueCopy | R21 | Value copy register (used in stack init, etc.)
 | R22      | SysCalcTempA, SysByteTempA, SysWordTempA, SysIntegerTempA, SysLongTempA | R22 | Primary calculation temp A (low)
 | R23      | SysCalcTempA_H, SysWordTempA_H, SysIntegerTempA_H, SysLongTempA_H | R23 | High byte
@@ -231,12 +230,17 @@ Variables sorted alphabetically, with their assigned register.
 
 *Additional Notes*
 
-* **SysValueCopy (R21)** — Frequently used for temporary value transfers, especially during stack pointer setup (`out SPH/SPL`) or register copies.
-* **Delay registers** — `DelayTemp`, `DelayTemp2`, and wait temps (`SysWaitTempUS`, `SysWaitTempMS`, etc.) are reused across delay routines.
-* **Division/Multiplication** — Remainder and intermediate results use `SysDivMultX`, `SysDivMultA`, etc.
-* **String handling** — `SysStringA`, `SysStringB`, `SysStringLength` for string operations.
-* **No overlap with X/Y/Z** — GCBASIC preserves these for `ld`, `st`, `lpm`, `elpm`, `ijmp`, etc.
-* **UserCodeOnlyEnabled mode** — May reduce usage of some temps if init code is skipped, but mappings remain the same.
-* **ChipGPR detection** — Determined from chip definition files; affects only low-GPR chips (e.g., ATtiny4/5/9/10 series).
+* **SysValueCopy (R21)** - Frequently used for temporary value transfers, especially during stack pointer setup (`out SPH/SPL`) or register copies.
+* **Delay registers** - `DelayTemp`, `DelayTemp2`, and wait temps (`SysWaitTempUS`, `SysWaitTempMS`, etc.) are reused across delay routines.
+* **Division/Multiplication** - Remainder and intermediate results use `SysDivMultX`, `SysDivMultA`, etc.
+* **String handling** - `SysStringA`, `SysStringB`, `SysStringLength` for string operations.
+* **No overlap with X/Y/Z** - GCBASIC preserves these for `ld`, `st`, `lpm`, `elpm`, `ijmp`, etc.
+* **UserCodeOnlyEnabled mode** - May reduce usage of some temps if init code is skipped, but mappings remain the same.
+* **ChipGPR detection** - Determined from chip definition files; affects only low-GPR chips (e.g., ATtiny4/5/9/10 series).
 
-This mapping is derived directly from the `GetRegisterLoc` function in GCBASIC source code.
+This mapping is derived directly from the `GetRegisterLoc` function in the GCBASIC compiler source code.
+
+**See Also:**
+
+* <<_advanced_variabletypes,Advanced VariableTypes>> -- the byte/word/long aliasing conventions (`_H`, `_U`, `_E` suffixes) referenced throughout these tables
+* <<_data_types,Data Types>> -- an introduction to GCBASIC's Byte, Word, Integer, and Long types

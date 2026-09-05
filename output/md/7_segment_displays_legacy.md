@@ -214,7 +214,7 @@ connectivity options.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
         'A Common Cathode 7 Segment display  2 digit example
         #chip 16F886, 8
 
@@ -302,8 +302,21 @@ connectivity options.
 
 </div>
 
-<span class="strong">**Also, see**</span>
-<a href="displaychar" class="link" title="DisplayChar">DisplayChar</a>,
-<a href="displayvalue" class="link" title="DisplayValue">DisplayValue</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Segment Displays Overview</a> — category
+    overview
+-   <a href="common_cathode" class="link" title="Common Cathode">Common Cathode</a> — wiring
+    example for a Common Cathode display
+-   <a href="common_anode" class="link" title="Common Anode">Common Anode</a> — wiring
+    example for a Common Anode display
+-   <a href="displaychar" class="link" title="DisplayChar">DisplayChar</a> — displaying
+    an ASCII character
+-   <a href="displayvalue" class="link" title="DisplayValue">DisplayValue</a> — displaying
+    a numeric digit
+
+</div>
 
 </div>

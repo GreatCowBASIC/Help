@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     ShortTone Frequency, Duration
 ```
 
@@ -35,7 +35,7 @@ highly precise frequency.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Sample program to produce a tone on PORTB bit 1, based on the
     'reading of an LDR on AN0 (usually PORTA bit 0).
 
@@ -45,11 +45,21 @@ highly precise frequency.
     Dir PORTA.0 In
 
     Do
-        ShortTone ReadAD(AN0), 100
+        ShortTone ReadAD(AN0), 100          ' <<< the ShortTone instruction
     Loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="sound_overview" class="link" title="Sound Overview">Sound Overview</a>
+<span class="strong">**Key line:**</span>
+`ShortTone ReadAD(AN0), 100` — reads the light sensor and uses that
+0-255 value directly as the frequency, in 10 Hz units, so brighter light
+plays a higher pitch, for 100 ms.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="sound_overview" class="link" title="Sound Overview">Sound Overview</a>
+
+</div>
 
 </div>

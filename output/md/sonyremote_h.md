@@ -18,56 +18,56 @@
 Library for GCBASIC
 
 This include file will let you easily read and use the infrared signals
-from a Sony compatible television remote control. In particular, the
-remote control transmits a pulse modulated signal, the sensor detects
+from a Sony-compatible television remote control. In particular, the
+remote control transmits a pulse-modulated signal; the sensor detects
 this, and the subroutine in this header file decodes the signal,
 returning two numbers: one representing the device (television, VCR,
-DVD, tuner, etc.), while the the other returns the key which has been
-depressed (VOL+, MUTE, channel numbers 0 through 9, etc.).
+DVD, tuner, etc.), and the other returning the key which has been
+pressed (VOL+, MUTE, channel numbers 0 through 9, etc.).
 
 This has been tested and confirmed with a fixed remote control purchased
-surplus for $2.00 from All Electronics, as well as an universal remote
-control, set to Sony mode.
+surplus for $2.00 from All Electronics, as well as a universal remote
+control set to Sony mode.
 
-Moreover it has also been tested with a Panasonic IR sensor and a Vishay
-sensor, both purchased surplus for about fifty cents.
+It has also been tested with a Panasonic IR sensor and a Vishay sensor,
+both purchased surplus for about fifty cents.
 
 Every combination performed well, and it is probably the case that most
-any garden variety 38 kHz IR sensor will work. The only tricky bit is
-making sure you get the pinout for your sensor correct, search out the
+any garden-variety 38 kHz IR sensor will work. The only tricky bit is
+making sure you get the pinout for your sensor correct - search out the
 datasheet for whichever device you use.
 
-There are only three pins: Ground Vcc Data
+There are only three pins: Ground, Vcc, Data.
 
 It is essential to filter the power applied to the Vcc pin. Do this by
 connecting a 100 ohm resistor from the +5V power supply to the Vcc pin,
-and bridge the pin to ground with a 4.7uF electrolytic capacitor.
+and bridging the pin to ground with a 4.7uF electrolytic capacitor.
 
 The Data pin requires a 4.7k pullup resistor.
 
 There is only one constant required of the calling program. It indicates
-which port line the IR sensor is connected to. For example,
+which port line the IR sensor is connected to. For example:
 
-``` screen
+``` programlisting
     #DEFINE IR_DATA_PIN PORTA.0
 ```
 
 There is one subroutine:
 
-``` screen
+``` programlisting
     readIR_Remote(IR_rem_dev, IR_rem_key)
 ```
 
 The values returned are, respectively, the device number mentioned
-earlier and the key that is currently pressed. Both are byte values.
+earlier and the key currently pressed. Both are byte values.
 
 Seventeen local bytes are consumed, and two bytes are used for the
-output parameters. That’s a grand total of nineteen bytes required when
+output parameters. That is a grand total of nineteen bytes required when
 invoking this subroutine.
 
 <span class="strong">**Header File**</span>
 
-``` screen
+``` programlisting
     sub readIR_Remote(out IR_rem_dev as byte, out IR_rem_key as byte)
       dim IR_rem_count, IR_rem_i as byte
       dim IR_rem_width(12) as byte            ;pulse width array
@@ -96,7 +96,7 @@ invoking this subroutine.
       for IR_rem_i = 1 to 7                   ;1st 7 bits are the key
         IR_rem_key = IR_rem_key / 2           ;shift into place
         if IR_rem_width(IR_rem_i) > 10 then   ;longer than 10 mS
-           IR_rem_key = IR_rem_key + 64       ;so call it a one
+           IR_rem_key = IR_rem_key + 64       ;so call it a one          ' <<< decoding a Sony IR pulse width as a binary 1 or 0
         end if
       next
 
@@ -109,5 +109,21 @@ invoking this subroutine.
       next
     end sub
 ```
+
+<span class="strong">**Key line:**</span>
+`IR_rem_key = IR_rem_key + 64` — a measured pulse width over 10 units is
+decoded as a binary 1 and added into the value being built; because the
+loop divides by 2 each pass first, this progressively shifts each new
+bit into the correct position, reconstructing the 7-bit key code from
+the raw pulse widths captured earlier.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="infrared_remote" class="link" title="InfraRed Remote">InfraRed Remote</a> — the
+    worked example program using this header
+
+</div>
 
 </div>

@@ -1,7 +1,10 @@
 ==== FastHWSPITransfer
 
+(((SPI,FastHWSPITransfer)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   `FastHWSPITransfer` _tx_
 ----
@@ -24,6 +27,7 @@ This is an example for this command.
 
 
 *Master Program:*
+[source,gcbasic]
 ----
   'General hardware configuration
   #chip 16F877A, 20
@@ -40,9 +44,13 @@ This is an example for this command.
   do
 
       'Send the value of 0x55
-      FastHWSPITransfer 0x55
+      FastHWSPITransfer 0x55          ' <<< the FastHWSPITransfer instruction
 
   loop
 ----
+*Key line:* `FastHWSPITransfer 0x55` -- sends the byte 0x55 to the slave without waiting to receive a reply; because it discards any incoming byte, this is faster than `SPITransfer` when the slave's response is not needed.
 
-*See also* <<_spitransfer,SPITransfer>>,<<_spimode,SPIMode>>
+**See Also:**
+
+* <<_spitransfer,SPITransfer>> -- the full send-and-receive equivalent of this command
+* <<_spimode,SPIMode>> -- selecting master mode before transferring, as used above

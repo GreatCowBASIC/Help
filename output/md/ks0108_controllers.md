@@ -30,9 +30,9 @@ The KS0108 is a monochrome device.
 To use the KS0108 driver simply include the following in your user code.
 This will initialise the driver.
 
-``` screen
+``` programlisting
     #include <glcd.h>
-    #DEFINE GLCD_TYPE GLCD_TYPE_KS0108
+    #DEFINE GLCD_TYPE GLCD_TYPE_KS0108          ' <<< the constant that selects this controller driver
 
 
     #define GLCD_RW       PORTB.1            'chip specific configuration
@@ -50,6 +50,12 @@ This will initialise the driver.
     #define GLCD_DB6      PORTC.1            'chip specific configuration
     #define GLCD_DB7      PORTC.0            'chip specific configuration
 ```
+
+<span class="strong">**Key line:**</span>
+`#DEFINE GLCD_TYPE GLCD_TYPE_KS0108` — tells `<glcd.h>` to compile in
+the KS0108 driver rather than any of the library’s other supported
+controllers; every `GLCD_*` pin constant below only takes effect once
+this line selects the KS0108.
 
 The GCBASIC constants for the interface to the controller are shown in
 the table below.
@@ -181,18 +187,12 @@ table below.
 <td style="text-align: center;"><p>Not defined</p></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><p><code class="literal">KS0108ReadDelay</code></p></td>
-<td style="text-align: left;"><p>Read delay</p></td>
-<td style="text-align: center;"><p>Default is 9</p>
-<p>Can be set to improve overall performance.</p></td>
+<td style="text-align: left;"><p><code class="literal">KS0108WriteDelay</code></p></td>
+<td style="text-align: left;"><p>Write delay, in microseconds, applied after each byte written to the controller.</p></td>
+<td style="text-align: center;"><p>Default is 2 (use 3 at 32 MHz).</p>
+<p>Can be reduced to improve performance on slower clock speeds.</p></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><p><code class="literal">KS0108WriteDelay</code></p></td>
-<td style="text-align: left;"><p>Write delay</p></td>
-<td style="text-align: center;"><p>Default is 1</p>
-<p>Can be set to improve performance.</p></td>
-</tr>
-<tr class="even">
 <td style="text-align: left;"><p><code class="literal">KS0108ClockDelay</code></p></td>
 <td style="text-align: left;"><p>Clock Delay</p></td>
 <td style="text-align: center;"><p>Default is 1</p>
@@ -253,8 +253,8 @@ below.
 | `Box`                                           | Draw a box on the GLCD to a specific size                                                | `Box ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour as 0 or 1] )`   |
 | `FilledBox`                                     | Draw a box on the GLCD to a specific size that is filled with the foreground colour.     | `FilledBox (Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour 0 or 1] )` |
 | `Line`                                          | Draw a line on the GLCD to a specific length that is filled with the specific attribute. | `Line ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour 0 or 1] )`     |
-| `GLCDOn`                                        | Turn the KS0108 On. The GLCD is On by default                                            | `GLCDOn`                                                                                       |
-| `GLCDOff`                                       | Turn the KS0108 Off. The GLCD is On by default                                           | `GLCDOff`                                                                                      |
+| `GLCD_KS0108_ON`                                | Turn the KS0108 display On. The GLCD is On by default                                    | `GLCD_KS0108_ON`                                                                               |
+| `GLCD_KS0108_OFF`                               | Turn the KS0108 display Off. The GLCD is On by default                                   | `GLCD_KS0108_OFF`                                                                              |
 | <span class="strong">**Private methods**</span> |                                                                                          |                                                                                                |
 | `PSet`                                          | Set a pixel on the GLCD at a specific position that is set with the specific attribute.  | `PSet(Xposition, Yposition, Pixel Colour 0 or 1)`                                              |
 | `GLCDWriteByte`                                 | Set a byte value to the controller, see the datasheet for usage.                         | `GLCDWriteByte ( LCDByte)`                                                                     |
@@ -270,7 +270,7 @@ the built in commands of GCBASIC. See
 <a href="http://www.greatcowbasic.com/sample-projects" class="link">Graphic LCD</a>
 for details, this is an external web site.
 
-``` screen
+``` programlisting
     ;Chip Settings
     #chip 16F886,16
     '#config MCLRE = on 'enable reset switch on CHIPINO
@@ -294,7 +294,7 @@ for details, this is an external web site.
 
     Do forever
         GLCDCLS
-        GLCDPrint 0,10,"Hello" 'Print Hello
+        GLCDPrint 0,10,"Hello" 'Print Hello          ' <<< the GLCDPrint instruction
         wait 5 s
         GLCDPrint 0,10, "ASCII #:" 'Print ASCII #:
         Box 18,30,28,40                    'Draw Box Around ASCII Character
@@ -313,13 +313,30 @@ for details, this is an external web site.
     Loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**Key line:**</span>
+`GLCDPrint 0,10,"Hello"` — draws the string "Hello" at pixel column 0,
+row 10 using the standard GCBASIC font set; the loop that follows
+demonstrates `Box`, `GLCDDrawChar`, `Line`, and `PSet` on the same
+128x64 monochrome panel.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — clearing
+    the display, as used above
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a> — drawing
+    a single character, as used above
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — printing
+    a value at a specific location, as used above
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+    /
+    <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a> — low-level
+    byte access, for expert use
+-   <a href="pset" class="link" title="Pset">Pset</a> — setting a
+    single pixel, as used above
+
+</div>
 
 Supported in &lt;GLCD.H&gt;
 

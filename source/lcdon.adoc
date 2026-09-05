@@ -1,7 +1,11 @@
 ==== LCDDisplayOn
 
+(((Liquid Crystal Display,LCDDisplayOn)))
+
+
 [subs="specialcharacters,quotes"]
 *Syntax*:
+[source,gcbasic]
 ----
     LCDDisplayOn
 ----
@@ -10,6 +14,7 @@
 
 Will turn on (restore) the LCD display
 
-*See also* <<_lcdcursor,LCDCursor>>
+**See Also:**
 
+* <<_lcdcursor,LCDCursor>>
 *Supported in <LCD.H>*

@@ -1,21 +1,34 @@
 ==== Get
 
+(((Liquid Crystal Display,Get)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     var = Get(Line, Column)
 ----
 *Command Availability:*
 
-Available on all microcontrollers with the LCD R/W line (pin 5) connected and if the following constant definition is used;
-`#define LCD_RW`. Only available when the LCD is connected using the 4 or 8 bit mode and when the constant definition
-`#define LCD_NO_RW` is NOT used.
+Available on all microcontrollers with the LCD R/W line (pin 5) connected, and only when the following constant definition is used: `#define LCD_RW`. Only available when the LCD is connected using 4-bit or 8-bit mode, and when the constant definition `#define LCD_NO_RW` is NOT used.
 
 *Explanation:*
 
-The `Get` function reads the ASCII character code at a given location on
-the LCD.
+The `Get` function reads the ASCII character code currently displayed at a given location on the LCD.
 
-*For more help, see* <<_put,Put >>,
-<<_lcd_overview,LCD Overview>>
+*Example:*
+[source,gcbasic]
+----
+    #define LCD_RW PORTD.1
+    Dim CurrentChar As Byte
+
+    CurrentChar = Get(0, 5)          ' <<< the Get instruction
+----
+*Key line:* `Get(0, 5)` -- reads back the ASCII code of whatever character the LCD is currently displaying at line 0, column 5, which requires the R/W line to be wired and enabled via `#define LCD_RW`.
+
+**See Also:**
+
+* <<_put,Put>> -- writing a character to the LCD instead of reading one back
+* <<_lcd_overview,LCD Overview>>
 
 *Supported in <LCD.H>*

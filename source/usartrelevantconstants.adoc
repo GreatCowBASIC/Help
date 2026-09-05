@@ -2,6 +2,9 @@
 
 ==== RS232 Hardware Overview
 
+(((Serial Communications,RS232 Hardware Overview)))
+
+
 *Introduction*
 
 GCBASIC support programs to communicate easily using RS232.
@@ -11,11 +14,13 @@ GCBASIC included microcontroller hardware-based serial routines are intended for
 Initialization of the USART module is handled automatically from your program by defining the chip, speed, and the baudrate.  The baudrate generator values are calculated and set,  usart is set to asynchronous, usart is enabled , the receive and transmit  are enabled. See the table below.
 
 *Example:*
+[source,gcbasic]
 ----
   #chip mega328p, 16
-  #define USART_BAUD_RATE 9600
+  #define USART_BAUD_RATE 9600          ' <<< the constant that sets the USART speed
   #define USART_TX_BLOCKING
 ----
+*Key line:* `#define USART_BAUD_RATE 9600` -- this is the only setting the USART module strictly requires; the compiler calculates and programs the baud-rate-generator registers automatically, and ` #define USART_TX_BLOCKING ` additionally makes ` HSerPrint ` and related transmit commands wait for the transmit register to empty instead of risking dropped bytes.
 *Command Availability:*
 
 Available on all microcontrollers with a USART or UART module. +
@@ -194,7 +199,7 @@ These constants affect the operation of the hardware RS232 routines:
 |*Constant Name*
 |*Controls*
 |*Default Value*
-|`USART_BAUD_RATE` |Baud rate (in bps) for the routines to operate at. |No default, user must enter a baud. Doesn't have to be a standard baud.
+|`USART_BAUD_RATE` |Baud rate (in bps) for the routines to operate at. |No default, user must enter a baud. Does not have to be a standard baud.
 |`USART_BLOCKING`
 |If defined, this constant will cause the USART routines to wait until data
 can be sent or received.
@@ -203,7 +208,7 @@ can be sent or received.
 |If defined, this constant will cause the Transmit USART routines to wait until Transmit register is empty before writing the next byte which prevents over running the register and losing data.
 | No parameter needed. Use “#defining” it implement the action.
 
-|`USART2_BAUD_RATE` |Baud rate (in bps) for the routines to operate at. |No default, user must enter a baud. Doesn't have to be a standard baud.
+|`USART2_BAUD_RATE` |Baud rate (in bps) for the routines to operate at. |No default, user must enter a baud. Does not have to be a standard baud.
 |`USART2_BLOCKING`
 |If defined, this constant will cause the USART routines to wait until data
 can be sent or received.
@@ -212,7 +217,7 @@ can be sent or received.
 |If defined, this constant will cause the Transmit USART routines to wait until Transmit register is empty before writing the next byte which prevents over running the register and losing data.
 | No parameter needed. Use “#defining” it implement the action.
 
-|`USART3_BAUD_RATE` |Baud rate (in bps) for the routines to operate at. |No default, user must enter a baud. Doesn't have to be a standard baud.
+|`USART3_BAUD_RATE` |Baud rate (in bps) for the routines to operate at. |No default, user must enter a baud. Does not have to be a standard baud.
 |`USART3_BLOCKING`
 |If defined, this constant will cause the USART routines to wait until data
 can be sent or received.
@@ -221,7 +226,7 @@ can be sent or received.
 |If defined, this constant will cause the Transmit USART routines to wait until Transmit register is empty before writing the next byte which prevents over running the register and losing data.
 | No parameter needed. Use “#defining” it implement the action.
 
-|`USART4_BAUD_RATE` |Baud rate (in bps) for the routines to operate at. |No default, user must enter a baud. Doesn't have to be a standard baud.
+|`USART4_BAUD_RATE` |Baud rate (in bps) for the routines to operate at. |No default, user must enter a baud. Does not have to be a standard baud.
 |`USART4_BLOCKING`
 |If defined, this constant will cause the USART routines to wait until data
 can be sent or received.
@@ -262,3 +267,8 @@ PIC only.
 |`SerPrintLF` | Causes a LineFeed to be sent after every HserPrint. Some communications require both CR and LF | No parameter needed. User “#defining” it implements the action
 
 |===
+
+**See Also:**
+
+* <<_rs232_software_overview,RS232 Software Overview>> -- related command in the same category
+* <<_initser,InitSer>> -- related command in the same category

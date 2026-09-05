@@ -1,19 +1,23 @@
 ==== WordToHex
 
+(((String Manipulation,WordToHex)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __stringvar__ = WordToHex(__number__)
 ----
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The `Hex` function will convert a Word number into hexadecimal format. The input `_number_` should be a Word variable, or a fixed number between 0 and 65525 inclusive. After running the function, the string variable `_stringvar_` will contain a 4 digit hexadecimal number.
+The `WordToHex` function converts a word number into hexadecimal format. The input `_number_` should be a word variable, or a fixed number between 0 and 65535 inclusive. After running the function, the string variable `_stringvar_` contains a 4-digit hexadecimal number.
 
 *Example:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16F1936
@@ -27,7 +31,7 @@ The `Hex` function will convert a Word number into hexadecimal format. The input
     'Uses Hex to display as hexadecimal
     For CurrentLocation = 0 to 65535
         'Send location
-        HSerPrint WordToHex(CurrentLocation)
+        HSerPrint WordToHex(CurrentLocation)          ' <<< the WordToHex instruction
         HSerPrint ":"
         'Read Word and send
         EPRead CurrentLocation, CurrWord
@@ -36,5 +40,11 @@ The `Hex` function will convert a Word number into hexadecimal format. The input
         HSerPrintCRLF
     Next
 ----
+*Key line:* `WordToHex(CurrentLocation)` -- formats the current address as a fixed 4-digit hex string, so addresses line up neatly in the terminal output regardless of their value.
 
-*See Also* <<_bytetohex,ByteToHex>>,<<_longtohex_,LongToHex>>, <<_integertohex,IntegerToHex>>, <<_singletohex,SingleToHex>> 
+**See Also:**
+
+* <<_bytetohex,ByteToHex>>
+* <<_longtohex,LongToHex>>
+* <<_integertohex,IntegerToHex>>
+* <<_singletohex,SingleToHex>>

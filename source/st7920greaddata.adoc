@@ -1,19 +1,31 @@
 ===== ST7920gReaddata
 
+(((Graphical LCD,st7920greaddata)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
-    byte_variable = ST7920gReaddata
+    word_variable = ST7920gReaddata
 ----
 *Explanation:*
 
-This function return the word value (16 bits) of the GLCD display for
+This function returns the word value (16 bits) of the GLCD display for
 the current XY position.
 
 See the data sheet for more information.
 
 *Example usage:*
+[source,gcbasic]
 ----
     ...
     ' Read a word from the display device.
-    word_variable = ST7920GLCDReadData
+    word_variable = ST7920gReaddata          ' <<< the ST7920gReaddata instruction
 ----
+*Key line:* `word_variable = ST7920gReaddata` -- reads a full 16-bit word from the display's DDRAM at the current XY position in a single call, rather than the two separate byte reads and manual combination that `ST7920GLCDReadByte` requires.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920glcdreadbyte,ST7920GLCDReadByte>> -- the byte-at-a-time equivalent of this command
+* <<_st7920glocate,ST7920gLocate>> -- positioning the read address before reading

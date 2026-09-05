@@ -16,72 +16,71 @@
 
 <span class="strong">**Introduction**</span>
 
-The demonstration shows how a macro can be used to optimised code by
-compiling code inline.
+The demonstration shows how a macro can be used to optimise code by
+compiling it inline.
 
-When the measurement of a pulse width to sub-microsecond resolution is
-required for instance measuring the high or low pulse width of an
-incoming analog signal a comparator can be combined with a timer to
+When measurement of a pulse width to sub-microsecond resolution is
+required - for instance, measuring the high or low pulse width of an
+incoming analog signal - a comparator can be combined with a timer to
 provide the pulse width.
 
 Microchip PIC has published a "Compiled Tips 'N Tricks Guide" that
 explains how to do certain tasks with Microchip PIC 8-bit
 microcontrollers.
 
-This guide provides the steps that need to be taken to perform the task
-of measuring a pulse width. The guide provides guidance on measuring a
-pulse width using Timer 1 and the CCP module. This guidance was used as
-the basis for the GCBASIC port the shown below. The guidance was generic
-and in this example polling the CCP flag bit was more convenient than
-using an interrupt.
+This guide provides the steps needed to perform the task of measuring a
+pulse width. It provides guidance on measuring a pulse width using Timer
+1 and the CCP module. This guidance was used as the basis for the
+GCBASIC port shown below. The guidance was generic, and in this example,
+polling the CCP flag bit was more convenient than using an interrupt.
 
-In this demonstration shown below, a 16F1829 microcontroller operating
-at 32 Mhz uses the internal oscillator. The demonstration code is based
-on a macro that uses Timer1 and CCP4. However, any of the four CCP
-modules could be used, the 16F1829 microcontroller has four CCP module.
+In the demonstration shown below, a 16F1829 microcontroller operating at
+32 MHz uses the internal oscillator. The demonstration code is based on
+a macro that uses Timer1 and CCP4. However, any of the four CCP modules
+could be used, as the 16F1829 microcontroller has four CCP modules.
 
-The timer resolution of this method uses a timer Prescaler of 1:8 and a
-microcontroller frequency of 32 MHz giving a pulse width resolution is
-1ms. With the timer Prescaler of 1:2 and the microcontroller frequency
-of 32MHz the resolution is 250 ns.
+The timer resolution of this method uses a timer prescaler of 1:8 and a
+microcontroller frequency of 32 MHz, giving a pulse width resolution of
+1us. With a timer prescaler of 1:2 and the microcontroller frequency of
+32 MHz, the resolution is 250 ns.
 
 The accuracy is dependent upon the accuracy of the system clock, but
-oscilliscope measurements have show an accuracy of +- 1us from 3us to
+oscilloscope measurements have shown an accuracy of +/- 1us from 3us to
 1000us.
 
-In this demonstration the following was implemented
+In this demonstration the following was implemented:
 
 <div class="itemizedlist">
 
--   Using GCBASIC a macro to ensure the generated assembler is inline to
-    ensure the timing is consistent and no sub routines are called.
+-   GCBASIC is used with a macro to ensure the generated assembler is
+    inline, so the timing is consistent and no subroutines are called.
 -   Another microcontroller was used to generate the pulses to be
-    measured
--   A TEK THS730A oscilliscope was used to measure/verify pulse widths
--   A 4x20 LDC module with an I2C Backpack was used to display the
+    measured.
+-   A TEK THS730A oscilloscope was used to measure/verify pulse widths.
+-   A 4x20 LCD module with an I2C backpack was used to display the
     results. However, as an alternative, a serial output  
-    to a terminal program to view the data could be used
+    to a terminal program to view the data could be used.
 
 </div>
 
 This demonstration could be improved by adding code to poll the TIMER1
-overflow flag. If the timer overflows, then either no pulse was detected
-or the pulse was longer than allowed by the prescaler/OSC settings. In
-this case, return a value of zero for pulse width.
+overflow flag. If the timer overflows, then either no pulse was
+detected, or the pulse was longer than allowed by the prescaler/OSC
+settings. In this case, return a value of zero for pulse width.
 
 <span class="strong">**Usage:**</span>
 
-To get positive pulse width use:
+To get the positive pulse width, use:
 
-``` screen
+``` programlisting
     PULSE_IN
 ```
 
-`PULSE_IN` returns a global word variable Pulse\_Width
+`PULSE_IN` returns a global word variable, `Pulse_Width`.
 
 <span class="strong">**Demonstration Program:**</span>
 
-``` screen
+``` programlisting
     #Chip 16F1829, 32
     #CONFIG MCLRE = OFF
 
@@ -113,7 +112,7 @@ To get positive pulse width use:
 
     'MAIN PROGRAM LOOP
     DO
-      PULSE_IN    'Call the Macro to get positive pulse width.
+      PULSE_IN    'Call the Macro to get positive pulse width.          ' <<< invoking a macro so the timing-critical code runs inline
       Locate 0,0
       PRINT Pulse_Width
       PRINT "    "
@@ -145,7 +144,20 @@ To get positive pulse width use:
     End MACRO
 ```
 
-Also see
-<a href="macros_overview" class="link" title="Macros Overview">Macros Overview</a>
+<span class="strong">**Key line:**</span>
+`PULSE_IN    'Call the Macro to get positive pulse width.` — because
+`PULSE_IN` is a macro, this call is expanded inline at compile time
+rather than becoming a subroutine call; this removes the call/return
+overhead and its variable timing jitter, which matters here since the
+code between the rising and falling edge polls directly determines the
+measured pulse width.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="macros_overview" class="link" title="Macros Overview">Macros Overview</a>
+
+</div>
 
 </div>

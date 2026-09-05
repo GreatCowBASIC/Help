@@ -1,5 +1,8 @@
 ==== Tone
 
+(((Sound,Tone)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -20,6 +23,7 @@ of monophonic music, it should not be used for anything that requires a
 highly precise frequency.
 
 *Example:*
+[source,gcbasic]
 ----
 'Sample program to produce a constant A note (440 Hz)
 'on PORTB bit 1.
@@ -27,7 +31,11 @@ highly precise frequency.
 #define SoundOut PORTB.1
 
 Do
-    Tone 440, 1000
+    Tone 440, 1000          ' <<< the Tone instruction
 Loop
 ----
-*For more help, see* <<_sound_overview,Sound Overview>>
+*Key line:* `Tone 440, 1000` -- plays a 440 Hz tone (concert pitch A) for 1000 x 10 ms, or 10 seconds, then the loop repeats it.
+
+**See Also:**
+
+* <<_sound_overview,Sound Overview>>

@@ -1,10 +1,13 @@
 ===== InitTimer0 8bit/16bit
+
+(((Timers,inittimer0_16bit)))
+
 // BillR 021416
 // Reveiwed EvanV 021316
 // Edit EvanV 031216
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     InitTimer0 source, prescaler + clocksource, postscaler
 ----
@@ -62,6 +65,7 @@ _8 bit Example:_
 
 The example show in the `osc` as an internal source, a `prescaler` value of 256 witht the HFINTOSC `clocksource` and a `postscaler` value of 2
 
+[source,gcbasic]
 ----
     InitTimer0 Osc, PRE0_256 + TMR0_HFINTOSC ,  POST0_2
     'also, note when in 8-bit mode you MUST set the 8bit timer value to the upper byte of a WORD, when setting the `SetTimer`
@@ -79,6 +83,7 @@ To use the 16 bit timer you need to add the constant `#define TMR0_16bit`.
 
 The example show in the `osc` as an internal source, a `prescaler` value of 256 witht the HFINTOSC `clocksource` and a `postscaler` value of 2
 
+[source,gcbasic]
 ----
     #define TMR0_16bit
     InitTimer0 Osc, PRE0_256 + TMR0_HFINTOSC ,  POST0_2
@@ -358,6 +363,7 @@ On Microchip PIC microcontroller that require `_postscaler_` is can be one of th
 *Example:*
 
 This code uses Timer 0 and On Interrupt to flash an LED.
+[source,gcbasic]
 ----
 /*
 
@@ -383,7 +389,7 @@ Remember four things to setup a timer.
 
     'Setup the timer.
     '          Source, Prescaler  + Clock Source    , Postscaler
-    InitTimer0 Osc,    PRE0_16384 + TMR0_HFINTOSC   , POST0_11
+    InitTimer0 Osc,    PRE0_16384 + TMR0_HFINTOSC   , POST0_11          ' <<< the InitTimer0 instruction (16-bit mode)
 
     ' Set the Timer start value.  Use the HIGH byte of the word when using an 8/16bit timer in 8 bit mode
     SetTimer ( 0, 0x5800 )
@@ -404,4 +410,10 @@ Remember four things to setup a timer.
 *Supported in <TIMER.H>*
 
 
-See also  see: <<_inittimer0,InitTimer0>> for microcontroller with only an 8 bit Timer 0 module.
+*Key line:* `InitTimer0 Osc,    PRE0_16384 + TMR0_HFINTOSC   , POST0_11` -- selects the internal HFINTOSC clock with a 1:16384 prescale and a 1:11 postscale, giving this 16-bit-capable Timer 0 a long enough period for the LED-flash example below.
+
+**See Also:**
+
+* <<_inittimer0,InitTimer0>> -- for microcontrollers with only an 8-bit Timer 0 module
+* <<_settimer,Settimer>> -- preloading the timer, as used above
+* <<_starttimer,StartTimer>> -- starting the timer, as used above

@@ -31,7 +31,7 @@ then be displayed on the LCD
 
 <span class="strong">**Example :**</span>
 
-``` screen
+``` programlisting
     ;Chip Settings
     #chip 16F88,8
 
@@ -61,11 +61,29 @@ then be displayed on the LCD
 
     ' Update the characters at high speed without re-printing on LCD
     for graphvalue = 0 to 8
-        LCDCreateGraph ( 0 ,  graphvalue )
+        LCDCreateGraph ( 0 ,  graphvalue )          ' <<< the LCDCreateGraph instruction
         wait 100 ms
     next
 ```
 
+<span class="strong">**Key line:**</span>
+`LCDCreateGraph ( 0 , graphvalue )` — redefines custom character 0 to
+show a bar graph filled to the level given by `graphvalue`; because
+every cell on the display already holds character 0 (from the
+`LCDWriteChar 0` loop above), redefining the character updates the whole
+graph at once without reprinting anything.
+
 <span class="strong">**Supported in &lt;LCD.H&gt;**</span>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcdcreatechar" class="link" title="LCDCreateChar">LCDCreateChar</a> — related
+    command in the same category
+-   <a href="lcdcmd" class="link" title="LCDCmd">LCDCmd</a> — related
+    command in the same category
+
+</div>
 
 </div>

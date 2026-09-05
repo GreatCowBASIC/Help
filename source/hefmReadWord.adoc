@@ -1,9 +1,12 @@
 //erv 04110218
 ==== HEFReadWord
 
+(((HEFM ( PFM ),HEFReadWord)))
+
+
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     'as a subroutine
     HEFReadWord ( location, data_word_variable )
@@ -21,7 +24,7 @@ Available on all PIC micro-controllers with HEFM memory
 HEFReadWord is used to read information, word values, from HEFM so that it can be accessed for use in a user program.
 {empty} +
 {empty} +
-`location` represents the location or relative address to read.  The location will range from location 0 to HEF_BYTES - 1, or for all practical purposes 0-127 since all PIC Microcontrollers with HEF support 128 bytes of HEF Memory. HEF_BYTES is a GCBASIC constant that represents the number of bytes of HEF Memory.&#160;&#160;&#160;
+`location` rerepresents the location or relative address to read.  The location will range from location 0 to HEF_BYTES - 1, or for all practical purposes 0-127 since all PIC Microcontrollers with HEF support 128 bytes of HEF Memory. HEF_BYTES is a GCBASIC constant that represents the number of bytes of HEF Memory.&#160;&#160;&#160;
 {empty} +
 {empty} +
 `data` is the data that is to be read from the HEFM data storage.&#160;&#160;&#160;
@@ -32,6 +35,7 @@ This method reads data from HEFM given the specific relative location.&#160;&#16
 {empty} +
 {empty} +
 *Example 1:*
+[source,gcbasic]
 ----
     '... code preamble to select part
     '... code to setup serial
@@ -41,7 +45,7 @@ This method reads data from HEFM given the specific relative location.&#160;&#16
     dim data_word_variable as word
     HEFWriteWord( 254, 4660 )
 
-    HEFReadWord( 254, data_word_variable )
+    HEFReadWord( 254, data_word_variable )          ' <<< the HEFReadWord instruction (subroutine form)
 
     HSerPrint "Value = "
     HSerPrint data_word_variable
@@ -51,12 +55,16 @@ This method reads data from HEFM given the specific relative location.&#160;&#16
 {empty} +
 If example 1 were displayed on a serial terminal.&#160;&#160;&#160;The result would show:
 
+[source,gcbasic]
 ----
     Value = 4660
 ----
+*Key line:* `HEFReadWord( 254, data_word_variable )` -- reads the word back from HEFM location 254 using the subroutine form, storing the result directly into `data_word_variable`.
+
 {empty} +
 {empty} +
 *Example 2:*
+[source,gcbasic]
 ----
     '... code preamble to select part
     '... code to setup serial
@@ -66,7 +74,7 @@ If example 1 were displayed on a serial terminal.&#160;&#160;&#160;The result wo
     dim data_word_variable as word
     HEFWriteWord( 254, 17185 )
 
-    data_word_variable = HEFReadWord( 254 )
+    data_word_variable = HEFReadWord( 254 )          ' <<< the HEFReadWord instruction (function form)
 
     HSerPrint "Value = "
     HSerPrint data_word_variable
@@ -76,18 +84,21 @@ If example 1 were displayed on a serial terminal.&#160;&#160;&#160;The result wo
 {empty} +
 If example 2 were displayed on a serial terminal.&#160;&#160;&#160;The result would show:
 
+[source,gcbasic]
 ----
     Value = 17185
 ----
+*Key line:* `data_word_variable = HEFReadWord( 254 )` -- reads the word back from HEFM location 254 using the function form, assigning the result to `data_word_variable`.
 
 {empty} +
 {empty} +
-See also
-<<_hefm_overview,HEFM Overview>>,
-<<_hefread,HEFRead>>,
-<<_hefreadword,HEFReadWord>>,
-<<_hefwrite,HEFWrite>>,
-<<_hefwriteword,HEFWriteWord>>,
-<<_hefreadblock,HEFReadBlock>>,
-<<_hefwriteblock,HEFWriteBlock>>,
-<<_heferaseblock,HEFEraseBlock>>
+**See Also:**
+
+* <<_hefm_overview,HEFM Overview>>
+* <<_hefread,HEFRead>>
+* <<_hefreadword,HEFReadWord>>
+* <<_hefwrite,HEFWrite>>
+* <<_hefwriteword,HEFWriteWord>>
+* <<_hefreadblock,HEFReadBlock>>
+* <<_hefwriteblock,HEFWriteBlock>>
+* <<_heferaseblock,HEFEraseBlock>>

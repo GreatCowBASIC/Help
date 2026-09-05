@@ -41,7 +41,7 @@ The command also support HEX characters in the range between 0x00 and
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     'This program will count from 0 to 99 on two LED displays
     #chip 16F819, 8
 
@@ -76,7 +76,7 @@ The command also support HEX characters in the range between 0x00 and
             'So they must be called often enough that the flickering
             'cannot be seen.
             Repeat 500
-                DisplayValue 1, Num1
+                DisplayValue 1, Num1          ' <<< the DisplayValue instruction
                 Wait 1 ms
                 DisplayValue 2, Num2
                 Wait 1 ms
@@ -85,9 +85,15 @@ The command also support HEX characters in the range between 0x00 and
     Loop
 ```
 
+<span class="strong">**Key line:**</span>
+`DisplayValue 1, Num1` — writes `Num1` to digit 1; because only one
+digit can be lit at a time on a multiplexed display, this call must be
+repeated fast enough (inside the `Repeat 500` loop) that the eye
+perceives both digits as lit simultaneously.
+
 <span class="strong">**Example 2:**</span>
 
-``` screen
+``` programlisting
     'This program will count from 0 to 0xff on two LED displays
     #chip 16F819, 8
 
@@ -122,7 +128,7 @@ The command also support HEX characters in the range between 0x00 and
             'So they must be called often enough that the flickering
             'cannot be seen.
             Repeat 500
-                DisplayValue 1, Num1
+                DisplayValue 1, Num1          ' <<< DisplayValue with a hex digit (0-15)
                 Wait 1 ms
                 DisplayValue 2, Num2
                 Wait 1 ms
@@ -131,9 +137,21 @@ The command also support HEX characters in the range between 0x00 and
     Loop
 ```
 
-<span class="strong">**Also, see**</span>
-<a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Segment Display Overview</a>,
-<a href="displaychar" class="link" title="DisplayChar">DisplayChar</a>,
-<a href="displaysegment" class="link" title="DisplaySegment">DisplaySegment</a>
+<span class="strong">**Key line:**</span> `DisplayValue 1, Num1` — here
+`Num1` can range from 0 to 15, so `DisplayValue` shows the hex digits A
+through F as well as the decimal digits 0 through 9.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Segment Display Overview</a> — category
+    overview
+-   <a href="displaychar" class="link" title="DisplayChar">DisplayChar</a> — displaying
+    an arbitrary ASCII character instead of a numeric digit
+-   <a href="displaysegment" class="link" title="DisplaySegment">DisplaySegment</a> — controlling
+    individual segments directly
+
+</div>
 
 </div>

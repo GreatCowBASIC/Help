@@ -27,7 +27,7 @@ GCBASIC supports 65K-color mode operations.
 To use the SSD1351 driver simply include the following in your user
 code. This will initialise the driver.
 
-``` screen
+``` programlisting
         #include <glcd.h>
         #define GLCD_TYPE GLCD_TYPE_SSD1351
 
@@ -202,20 +202,20 @@ supported commands.
 
 </div>
 
-``` screen
+``` programlisting
    SSD1351_BLACK   'hexidecimal value 0x0000
-   SSD1351_BLUE    'hexidecimal value 0xF800
-   SSD1351_RED     'hexidecimal value 0x001F
+   SSD1351_BLUE    'hexidecimal value 0x001F
+   SSD1351_RED     'hexidecimal value 0xF800
    SSD1351_GREEN   'hexidecimal value 0x07E0
-   SSD1351_CYAN    'hexidecimal value 0xFFE0
+   SSD1351_CYAN    'hexidecimal value 0x07FF
    SSD1351_MAGENTA 'hexidecimal value 0xF81F
-   SSD1351_YELLOW  'hexidecimal value 0x07FF
+   SSD1351_YELLOW  'hexidecimal value 0xFFE0
    SSD1351_WHITE   'hexidecimal value 0xFFFF
 ```
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     #chip mega328p, 16
     #option explicit
 
@@ -229,7 +229,7 @@ supported commands.
     #define GLCD_DO       portb.3           ' Data out | MOSI
     #define GLCD_SCK      portb.5           ' Clock Line
 
-    #define SSD1351_HardwareSPI    ' remove/comment out if you want to use software SPI.
+    #define SSD1351_HardwareSPI    ' remove/comment out if you want to use software SPI.          ' <<< selects hardware SPI for the SSD1351 link
 
     'GLCD selected OLED font set.
     #define GLCD_OLED_FONT
@@ -244,13 +244,31 @@ supported commands.
     end
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**Key line:**</span>
+`#define SSD1351_HardwareSPI` — routes the SSD1351 traffic through the
+microcontroller’s hardware SPI module instead of a bit-banged software
+implementation; commenting this line out falls back to software SPI,
+which works on any pins but is slower (remember to disable PPS SPI first
+if the pins were previously mapped through PPS).
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — clearing
+    the display, as used above
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a> — drawing
+    a single character
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — printing
+    a value at a specific location
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+    /
+    <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a> — low-level
+    byte access, for expert use
+-   <a href="pset" class="link" title="Pset">Pset</a> — setting a
+    single pixel
+
+</div>
 
 Supported in &lt;GLCD.H&gt;
 

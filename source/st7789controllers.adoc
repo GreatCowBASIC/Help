@@ -1,5 +1,8 @@
 ==== ST7789 Controllers
 
+(((Graphical LCD,ST7789 Controllers)))
+
+
 This section covers GLCD devices that use the ST7789 graphics controller.  The ST7789 is a TFT LCD Single Chip Driver with 240x240 or 320x240 Resolution and 65K colors.
 
 GCBASIC supports 65K-color mode operations.
@@ -9,9 +12,10 @@ The GCBASIC constants shown below control the configuration of the ST7789 contro
 
 To use the ST7789 driver simply include the following in your user code.  This will initialise the driver.
 
+[source,gcbasic]
 ----
     #include <glcd.h>
-    #DEFINE GLCD_TYPE       GLCD_TYPE_ST7789_240_240
+    #DEFINE GLCD_TYPE       GLCD_TYPE_ST7789_240_240          ' <<< the constant that selects this controller driver and geometry
     //  #DEFINE GLCD_TYPE   GLCD_TYPE_ST7789_320_240
 
     'Pin mappings for ST7789 - these MUST be specified
@@ -25,6 +29,7 @@ To use the ST7789 driver simply include the following in your user code.  This w
     #define GLCD_DI     porta.3           'example port setting
 
 ----
+*Key line:* `#DEFINE GLCD_TYPE GLCD_TYPE_ST7789_240_240` -- tells `<glcd.h>` to compile in the ST7789 driver for the 240x240 panel geometry; swap in `GLCD_TYPE_ST7789_320_240` for the 320x240 variant, and note that `GLCD_CS` and `GLCD_DI` are optional on this controller while `GLCD_DC`, `GLCD_RESET`, `GLCD_DO`, and `GLCD_SCK` are always required.
 
 
 The GCBASIC constants for the interface to the controller are shown in the table below.
@@ -182,7 +187,9 @@ The GCBASIC commands supported for this GLCD are shown in the table below.&#160;
  Any color can be defined using a valid hexidecimal word value between 0x0000 to 0xFFFF.
 |===
 
+The library predefines the named colors below as 16-bit RGB565 values (5 bits red, 6 bits green, 5 bits blue). Pass any of these constants, or your own custom 0x0000-0xFFFF value, as the colour parameter to `GLCDCLS`, `Box`, `FilledBox`, `Line`, `GLCDDrawChar`, or `GLCDDrawString`.
 
+[source,gcbasic]
 ----
     TFT_BLACK       0x0000
     TFT_NAVY        0x000F
@@ -213,6 +220,7 @@ The library support PIC, AVR and LGT - change to suit your configuration.
 
 *Example #1*
 
+[source,gcbasic]
 ----
     #chip LGT8F328P 
     #include <LGT8F328P.h>
@@ -242,7 +250,7 @@ The library support PIC, AVR and LGT - change to suit your configuration.
     GLCDfntDefaultsize = 2
 
     GLCDRotate Portrait_Rev
-    GLCDPrint (0,0,"Hello World",TFT_GREEN)
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)          ' <<< the GLCDPrint instruction
 
     GLCDRotate Portrait
     GLCDPrint (0,0,"Hello World",TFT_GREEN)
@@ -254,11 +262,13 @@ The library support PIC, AVR and LGT - change to suit your configuration.
     GLCDPrint (0,0,"Hello World",TFT_GREEN)
 
 ----
+*Key line:* `GLCDPrint (0,0,"Hello World",TFT_GREEN)` -- draws the string in green at the top-left corner; the four calls together demonstrate that `GLCDRotate` (`Portrait`, `Portrait_Rev`, `Landscape`, `Landscape_Rev`) changes where "top-left" points to on the physical panel.
 
 *Example #2*
 
 This example shows how to drive a ST7789 using a PIC with PPS.
 
+[source,gcbasic]
 ----
     #chip 16F15376
     #option Explicit
@@ -281,8 +291,8 @@ This example shows how to drive a ST7789 using a PIC with PPS.
     ' ********************** Setup the GLCD ************************************************
 
         #INCLUDE <glcd.h>
-        #define GLCD_TYPE        GLCD__TYPE_ST7789_240_240
-        // #define GLCD_TYPE     GLCD__TYPE_ST7789_320_240
+        #define GLCD_TYPE        GLCD_TYPE_ST7789_240_240
+        // #define GLCD_TYPE     GLCD_TYPE_ST7789_320_240
 
 
         'This is a PPS chip, so, need to make the DO/SDO & SCK match the PPS assignments
@@ -308,6 +318,7 @@ This example shows how to drive a ST7789 using a PIC with PPS.
 
 This example shows how to drive a ILI3941 with the OLED fonts.  Note the use of the `GLCDfntDefaultSize` to select the size of the OLED font in use.
 {empty} +
+[source,gcbasic]
 ----
 
 
@@ -331,6 +342,7 @@ This example shows how to disable the large OLED Fontset.  This disables the fon
 
 When the extended OLED fontset is disabled every character will be shown as a block character.
 
+[source,gcbasic]
 ----
     #define GLCD_OLED_FONT                'The constant is required to support OLED fonts
     #define GLCD_Disable_OLED_FONT2       'The constant to disable the extended OLED fontset.
@@ -349,7 +361,12 @@ When the extended OLED fontset is disabled every character will be shown as a bl
 
 
 
-*For more help, see*
-<<_glcdcls,GLCDCLS>>, <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
+**See Also:**
+
+* <<_glcdcls,GLCDCLS>> -- clearing the display
+* <<_glcddrawchar,GLCDDrawChar>> -- drawing a single character
+* <<_glcdprint,GLCDPrint>> -- printing a value at a specific location, as used above
+* <<_glcdreadbyte,GLCDReadByte>> / <<_glcdwritebyte,GLCDWriteByte>> -- low-level byte access, for expert use
+* <<_pset,Pset>> -- setting a single pixel
 
 Supported in <GLCD.H>

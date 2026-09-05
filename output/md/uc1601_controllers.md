@@ -50,11 +50,11 @@ connectivity - this is shown in the tables below.
 To use the UC1601 drivers simply include one of the following
 configuration.
 
-``` screen
+``` programlisting
     'An I2C configuration
     #include <glcd.h>
 
-    #define GLCD_TYPE GLCD_TYPE_UC1601
+    #define GLCD_TYPE GLCD_TYPE_UC1601          ' <<< the constant that selects this controller driver
     #define GLCD_I2C_Address      0x70                   'I2C address
     #define GLCD_RESET            portc.0                'Hard Reset pin connection
     #define GLCD_PROTECTOVERRUN
@@ -68,15 +68,21 @@ configuration.
     #define I2C_DISABLE_INTERRUPTS ON
 ```
 
+<span class="strong">**Key line:**</span>
+`#define GLCD_TYPE GLCD_TYPE_UC1601` — tells `<glcd.h>` to compile in
+the UC1601 driver; the `GLCD_I2C_Address` value must match the device’s
+hardware address strap, which the datasheet allows to be 0x70 through
+0x73, not only 0x70.
+
 The GCBASIC constants for control display characteristics are shown in
 the table below.
 
 <div class="informaltable">
 
-| <span class="strong">**Constants**</span> | <span class="strong">**Controls**</span> | <span class="strong">**Options**</span> |
-|:------------------------------------------|:-----------------------------------------|:----------------------------------------|
-| `GLCD_TYPE`                               | `GLCD_TYPE_UC1601`                       | Required                                |
-| `GLCD_I2C_Address`                        | I2C address of the GLCD.                 | Fixed at 0x70.                          |
+| <span class="strong">**Constants**</span> | <span class="strong">**Controls**</span> | <span class="strong">**Options**</span>                                                           |
+|:------------------------------------------|:-----------------------------------------|:--------------------------------------------------------------------------------------------------|
+| `GLCD_TYPE`                               | `GLCD_TYPE_UC1601`                       | Required                                                                                          |
+| `GLCD_I2C_Address`                        | I2C address of the GLCD.                 | Required. Datasheet-defined, typically 0x70 through 0x73 depending on the hardware address strap. |
 
 </div>
 
@@ -243,7 +249,7 @@ For a UC1601 datasheet, please refer
 This example shows how to drive a UC1601 based Graphic I2C LCD module
 with the built in commands of GCBASIC using Full Mode GLCD
 
-``` screen
+``` programlisting
         ; ----- Configuration
         #chip 16f18446, 32
         #option explicit
@@ -291,7 +297,7 @@ The use Low Memory Mode GLCD the two defines
 `GLCD_TYPE_UC1601_CHARACTER_MODE_ONLY` are included in the user
 program.  
 
-``` screen
+``` programlisting
     #chip mega328p,16
     #include <glcd.h>
 
@@ -322,15 +328,32 @@ program.
     end
 ```
 
+<span class="strong">**Key line:**</span>
+`GLCD_Open_PageTransaction 0,3` …​ `GLCD_Close_PageTransaction` — in Low
+Memory mode, GLCD drawing commands must be wrapped between these two
+calls so the driver flushes only the affected text lines (pages 0 to 3
+cover this 22-pixel-high display) instead of buffering the whole frame.
+
   
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — clearing
+    the display, as used above
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a> — drawing
+    a single character
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — printing
+    a value at a specific location, as used above
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+    /
+    <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a> — low-level
+    byte access, for expert use
+-   <a href="pset" class="link" title="Pset">Pset</a> — setting a
+    single pixel
+
+</div>
 
 Supported in &lt;GLCD.H&gt;
 

@@ -1,26 +1,30 @@
-// Edit EvanV 171016
 === #Option NoContextSave
 
+(((Compiler Options,#Option NoContextSave)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     #option NoContextSave
 ----
 *Explanation:*
 
 Interrupts can occur at almost any time, and may interrupt another command as it runs. To ensure that the interrupted command can continue properly after the interrupt, some temporary variables (the context) must be saved.
-Normally GCBASIC will do this automatically, but in some cases it may be necessary to prevent this. If porting some existing assembly code to GCBASIC, or creating a bootloader using GCBASIC that will call another program,
+Normally GCBASIC will do this automatically, but in some cases it may be necessary to prevent this - for example, when porting existing assembly code to GCBASIC, or when creating a bootloader using GCBASIC that will call another program.
 
-`NoContextSave` can be used to prevent the context saving code from being added automatically.
+`NoContextSave` can be used to prevent the context-saving code from being added automatically.
 
-Be very careful using this option - it is very easy to cause random corruption of variables. If creating your own context saving code, you may need to save several variables. These are:
+Be very careful using this option - it is very easy to cause random corruption of variables. If creating your own context-saving code, you may need to save several variables. These are:
 
  . For Microchip PIC microcontrollers 12F/16F: W, STATUS, PCLATH
  . For Microchip PIC microcontrollers 12F1/16F1/18F: W, STATUS, PCLATH, PCLATU, BSR
  . For Atmel AVR microcontrollers: All 32 registers
 
-Other variables may also need to be saved, depending on what commands are used inside the interrupt handler.   Everything that is saved will also need to be restored manually when the interrupt handler finishes.
+Other variables may also need to be saved, depending on what commands are used inside the interrupt handler. Everything that is saved will also need to be restored manually when the interrupt handler finishes.
 
 *Example:*
+[source,gcbasic]
 ----
     ' This shows an example that could be used by a bootloader to call some application code.
 
@@ -31,7 +35,7 @@ Other variables may also need to be saved, depending on what commands are used i
     #chip 18F2620
 
     'Do not save context automatically
-    #option NoContextSave
+    #option NoContextSave          ' <<< disabling GCBASIC's automatic interrupt context save/restore
 
     'Main bootloader routine
     Set PORTB.0 On
@@ -45,3 +49,9 @@ Other variables may also need to be saved, depending on what commands are used i
         goto 0x108
     End Sub
 ----
+*Key line:* `#option NoContextSave` -- here the interrupt handler does not use W, STATUS, or any other register before jumping away, so no context needs saving; had it done any real work first, this option would require the handler to manually save and restore every register listed above before returning.
+
+**See Also:**
+
+* <<__option_bootloader,#Option Bootloader>> -- the typical scenario this option supports
+* <<_on_interrupt,On Interrupt>> -- the normal, automatic interrupt-handling mechanism this option bypasses

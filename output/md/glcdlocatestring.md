@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     GLCDLocateString(PrintLocX, PrintLocY )
 ```
 
@@ -34,19 +34,19 @@ etc.
 
 An example:
 
-``` screen
+``` programlisting
     GLCDLocateString( 0, 1 )    'The first line of the display
     GLCDLocateString( 0, 6 )    'The sixth line of the display
 ```
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     GLCDPrintStringLn ( "1.First Ln" )
     GLCDPrintStringLn ( "2.Second Ln" )
     GLCDPrintStringLn ( "" )
     GLCDPrintStringLn ( "4.Forth Ln" )
-    GLCDLocateString( 0, 5 )
+    GLCDLocateString( 0, 5 )          ' <<< the GLCDLocateString instruction
     GLCDPrintString ( "5." )
     GLCDPrintStringLn ( "Fifth Ln" )
 
@@ -56,5 +56,24 @@ An example:
     val3 = 3
     GLCDPrintStringLn ( str( val3 ) + ".Third Ln" )
 ```
+
+<span class="strong">**Key line:**</span>
+`GLCDLocateString( 0, 5 )` — moves the string pointer to line 5 before
+the following `GLCDPrintString`/`GLCDPrintStringLn` calls write there,
+letting the program jump between lines out of sequence (as also shown by
+the later jump back to line 3).
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview
+-   <a href="glcdprintstring" class="link" title="GLCDPrintString">GLCDPrintString</a> — printing
+    without moving to the next line
+-   <a href="glcdprintstringln" class="link" title="GLCDPrintStringLn">GLCDPrintStringLn</a> — printing
+    and advancing to the next line
+
+</div>
 
 </div>

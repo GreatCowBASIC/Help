@@ -17,7 +17,7 @@
 <span class="strong">**Syntax:**</span>
 
 ``` screen
-   InitSer channel, rate, start, data, stop, parity, invert
+  InitSer channel, rate, start, data, stop, parity, invert
 ```
 
 <span class="strong">**Command Availability:**</span>
@@ -61,9 +61,21 @@ high bits will be changed to low, and low to high.
 
 Please refer to
 <a href="sersend" class="link" title="SerSend">SerSend</a> for an
-example of `InitSer`
+example of `InitSer`, which sets up channel 1 with
+`InitSer 1, r9600, 1+WaitForStart, 8, 1, none, normal` before sending or
+receiving any bytes.
 
-<span class="strong">**For more help, see**</span>
-<a href="rs232_software_overview" class="link" title="RS232 Software Overview">RS232 Software Overview</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="rs232_software_overview" class="link" title="RS232 Software Overview">RS232 Software Overview</a> — category
+    overview
+-   <a href="sersend" class="link" title="SerSend">SerSend</a> — sending
+    a byte on a channel configured by InitSer
+-   <a href="serreceive" class="link" title="SerReceive">SerReceive</a> — receiving
+    a byte on a channel configured by InitSer
+
+</div>
 
 </div>

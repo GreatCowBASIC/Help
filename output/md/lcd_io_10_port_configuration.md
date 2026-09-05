@@ -51,8 +51,8 @@ To apply an alternative configuration, define the following eight
 constants.  Doing so replaces the default mappings shown in the table
 above.  
 
-``` screen
-    #DEFINE I2C_LCD_E   I2C_LCD_BYTE.1
+``` programlisting
+    #DEFINE I2C_LCD_E   I2C_LCD_BYTE.1          ' <<< overriding the default Enable bit mapping
     #DEFINE I2C_LCD_RW  I2C_LCD_BYTE.2
     #DEFINE I2C_LCD_RS  I2C_LCD_BYTE.0
     #DEFINE I2C_LCD_BL  I2C_LCD_BYTE.3
@@ -61,5 +61,26 @@ above.  
     #DEFINE I2C_LCD_D6  I2C_LCD_BYTE.5
     #DEFINE I2C_LCD_D7  I2C_LCD_BYTE.4
 ```
+
+<span class="strong">**Key line:**</span>
+`#DEFINE I2C_LCD_E I2C_LCD_BYTE.1` — redefining any of the eight
+`I2C_LCD_*` constants overrides that single bit mapping from its
+default; because the constants are independent, you only need to
+override the bits that differ on your specific I2C backpack, not all
+eight.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a> — full
+    reference for the LCD\_IO 10 connection mode and I2C address
+    constants
+-   <a href="lcd_io_10_example" class="link" title="LCD_IO 10 Example">LCD_IO 10 Example</a> — worked
+    examples using this connection mode
+-   <a href="lcd_io_12" class="link" title="LCD_IO 12">LCD_IO 12</a> — the
+    alternate Ywmjkdz I2C expander layout
+
+</div>
 
 </div>

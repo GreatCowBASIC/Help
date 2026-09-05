@@ -1,5 +1,8 @@
 ==== PS/2 Overview
 
+(((PS/2,PS/2 Overview)))
+
+
 *PS2 Overview*
 
 These routines make it easier to communicate with a PS/2 device,
@@ -30,3 +33,8 @@ The following diagram show a typical connection between the keyboard and the mic
 
 
 image::overview_ps21.PNG[[graphic,align="center"]
+
+**See Also:**
+
+* <<_inkey,InKey>> -- related command in the same category
+* <<_ps2setkbleds,PS2SetKBLeds>> -- related command in the same category

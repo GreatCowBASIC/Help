@@ -29,9 +29,9 @@ Available on all PIC micro-controllers with HEFM memory
 HEFWriteWord is used to write information, word values, to HEFM, so that
 it can be accessed in a user program via the HEFReadWord command.  
   
-`location` presents the location or relative address to write write. A
-data Word requires 2 HEF Locations, therefore the location will range
-from 0 to 126 in steps of 2.  
+`location` represents the location or relative address to write. A data
+Word requires 2 HEF Locations, therefore the location will range from 0
+to 126 in steps of 2.  
   
 `data` is the data that is to be written to the HEFM location.   This
 can be a word value or a word variable.  
@@ -43,25 +43,29 @@ EEPROM but this method supports Word values.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     '... code preamble to select part
     '... code to setup serial
 
     'The following example stores a word value in HEFM location 0
 
-    HEFWrite( 0, 0x1234)
+    HEFWriteWord( 0, 0x1234)          ' <<< the HEFWriteWord instruction
 ```
+
+<span class="strong">**Key line:**</span>
+`HEFWriteWord( 0, 0x1234)` — stores the 16-bit value 0x1234 at HEFM
+location 0.
 
   
   
 <span class="strong">**Example 2:**</span>
 
-``` screen
+``` programlisting
     '... code preamble to select part
     '... code to setup serial
 
     'This example will write two word values to two specific locations.
-    HEFWriteWord (16, 0xAA01)
+    HEFWriteWord (16, 0xAA01)   ' <<< the HEFWriteWord instruction
     HEFWriteWord (18, 0xBB02)
 ```
 
@@ -70,7 +74,7 @@ EEPROM but this method supports Word values.
 If example 2 were displayed on a serial terminal.   The result would
 show, where `--` is the existing value.
 
-``` screen
+``` programlisting
     Block0
     3F00   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     3F10   01 AA 02 BB -- -- -- -- -- -- -- -- -- -- -- --
@@ -78,16 +82,26 @@ show, where `--` is the existing value.
     3F30   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 ```
 
+<span class="strong">**Key line:**</span>
+`HEFWriteWord (16, 0xAA01)` — stores the 16-bit value 0xAA01 at HEFM
+location 16; the terminal dump above shows the two written words
+(0xAA01, 0xBB02) laid out low-byte-first.
+
   
   
-See also
-<a href="hefm_overview" class="link" title="HEFM Overview">HEFM Overview</a>,
-<a href="hefread" class="link" title="HEFRead">HEFRead</a>,
-<a href="hefreadword" class="link" title="HEFReadWord">HEFReadWord</a>,
-<a href="hefwrite" class="link" title="HEFWrite">HEFWrite</a>,
-<a href="hefwriteword" class="link" title="HEFWriteWord">HEFWriteWord</a>,
-<a href="hefreadblock" class="link" title="HEFReadBlock">HEFReadBlock</a>,
-<a href="hefwriteblock" class="link" title="HEFWriteBlock">HEFWriteBlock</a>,
-<a href="heferaseblock" class="link" title="HEFEraseBlock">HEFEraseBlock</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hefm_overview" class="link" title="HEFM Overview">HEFM Overview</a>
+-   <a href="hefread" class="link" title="HEFRead">HEFRead</a>
+-   <a href="hefreadword" class="link" title="HEFReadWord">HEFReadWord</a>
+-   <a href="hefwrite" class="link" title="HEFWrite">HEFWrite</a>
+-   <a href="hefwriteword" class="link" title="HEFWriteWord">HEFWriteWord</a>
+-   <a href="hefreadblock" class="link" title="HEFReadBlock">HEFReadBlock</a>
+-   <a href="hefwriteblock" class="link" title="HEFWriteBlock">HEFWriteBlock</a>
+-   <a href="heferaseblock" class="link" title="HEFEraseBlock">HEFEraseBlock</a>
+
+</div>
 
 </div>

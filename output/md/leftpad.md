@@ -40,7 +40,7 @@ LCD.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Set chip model
  'Set chip model
     #chip 16f877a
@@ -83,7 +83,7 @@ LCD.
 
     inString = "12345"
 
-    outString1 = leftpad(inString, 9, "*")
+    outString1 = leftpad(inString, 9, "*")          ' <<< the LeftPad instruction, with an explicit pad character
     outString2 = leftpad(inString, 9)
 
     'show results on LCD-Display
@@ -99,5 +99,22 @@ LCD.
 
     end
 ```
+
+<span class="strong">**Key line:**</span>
+`outString1 = leftpad(inString, 9, "*")` — pads `inString` ("12345") out
+to 9 characters by adding `*` characters on the left, giving
+`"****12345"`; the second call omits the pad character and defaults to
+padding with blank spaces instead.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="left" class="link" title="Left">Left</a> — related
+    command in the same category
+-   <a href="asc" class="link" title="Asc">Asc</a> — related
+    command in the same category
+
+</div>
 
 </div>

@@ -38,7 +38,7 @@ for initialisation.
   
 The first method is:  
 
-``` screen
+``` programlisting
     InitTimer2 prescaler, postscaler
 ```
 
@@ -53,7 +53,7 @@ source.  Microcontrollers that support this second method enable you to
 select different clock sources and to select more prescale values.  The
 method is shown below:  
 
-``` screen
+``` programlisting
     InitTimer2 clocksource, prescaler, postscaler
 ```
 
@@ -69,7 +69,7 @@ NOT**</span> have a T2CLKCON register then timers 2/4/6/8 for that
 specific microcontroller chip use the first method, and are configured
 using:  
 
-``` screen
+``` programlisting
     InitTimer2 (PreScale, PostScale)
 ```
 
@@ -77,7 +77,7 @@ If the microcontroller <span class="strong">**DOES**</span> have a
 T2CLKCON register then ALL timers 2/4/6/8 for that specific
 microcontroller chip use the second method, and are configured using:
 
-``` screen
+``` programlisting
     InitTimer2 (Source,PreScale,PostScale)
 ```
 
@@ -499,7 +499,7 @@ to value</strong></span></th>
 This code uses Timer 2 and On Interrupt to flash an LED every 200 timer
 ticks.
 
-``` screen
+``` programlisting
     #chip 16F1788, 8
 
     #DEFINE LED PORTA.1
@@ -509,7 +509,7 @@ ticks.
     Match_Val = 200       'Interrupt afer 200 timer ticks
 
     On interrupt timer2Match call FlashLED  'Interrupt on match
-    Inittimer2 PS2_64, 15 'Prescale 1:64 /Postscale 1:16 (15)
+    Inittimer2 PS2_64, 15          ' <<< the InitTimer2 instruction 'Prescale 1:64 /Postscale 1:16 (15)
     Starttimer 2
 
     Do
@@ -521,5 +521,23 @@ ticks.
         pulseout LED, 5 ms
     END SUB
 ```
+
+<span class="strong">**Key line:**</span> `Inittimer2 PS2_64, 15` — sets
+a 1:64 prescale and a 1:16 postscale (encoded as the numeric value 15),
+determining how many timer ticks occur before `Match_Val` is reached and
+the interrupt fires.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="timer_overview" class="link" title="Timer Overview">Timer Overview</a> — category
+    overview
+-   <a href="inittimer0" class="link" title="InitTimer0">InitTimer0</a> — related
+    command in the same category
+-   <a href="inittimer1" class="link" title="InitTimer1">InitTimer1</a> — related
+    command in the same category
+
+</div>
 
 </div>

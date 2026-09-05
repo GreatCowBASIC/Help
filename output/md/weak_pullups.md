@@ -14,41 +14,42 @@
 
 </div>
 
-`Weak pullups` provide a method within many microcontrollers such as the
-Atmel AVR and Microchip PIC microcontrollers to support
-internal/selectable pull-ups for convenience and reduced parts count.
+`Weak pullups` provide a method within many microcontrollers, such as
+the Atmel AVR and Microchip PIC families, to support internal/selectable
+pull-ups for convenience and reduced parts count.
 
-If you require `Weak pullups` these internal pullups can provide a
-simple solution. For example, you can use them to ground input pins with
-a switch closure - with the pullup enabled, the pin is held in a high
+If you require weak pullups, these internal pullups can provide a simple
+solution. For example, you can use them to ground input pins with a
+switch closure — with the pullup enabled, the pin is held in a high
 state until the input line pulls it to ground. Be aware of possible EMI
-interference and also make sure to use a debounce routine.
+interference, and be sure to use a debounce routine.
 
-If you need your weak pullups to exactly control current (rare for most
-microcontroller applications), then you should consider 10k resistors
-(5V/10K = 500uA) Why? If you review in the microcontroller data sheet,
-there is no resistance given for the weak pullups. That is because they
-are not weak pull-resistors they are weak pullups consisting of what
-appear to be high-resistance channel pFETs. Their channel resistance
-will vary with temperature and between parts; not easy to characterize.
+If you need your weak pullups to precisely control current (rare for
+most microcontroller applications), consider 10K resistors instead
+(5V/10K = 500uA). Why? Because the microcontroller datasheet gives no
+resistance value for the weak pullups — they are not weak
+pull-resistors, but weak pullups consisting of what appear to be
+high-resistance channel pFETs. Their channel resistance varies with
+temperature and between parts, and is not easy to characterise
+precisely.
 
-The data sheet gives a current range for the internals as 50-400uA (at
-5V).
+The datasheet gives a current range for the internal pullups of 50-400uA
+(at 5V).
 
-PORTs can have an individually controlled weak internal pullup. When
+Ports can have an individually controlled weak internal pullup. When
 set, each bit of the appropriate Microchip PIC register enables the
-corresponding pin pullup. There is a master bit within a specific
-register bit that enables pullups on all pins which also have their
-corresponding weak pull bit set. Also when set, there is a weak pull
-register bit to disable all weak pullups.
+corresponding pin’s pullup. There is a master bit within a specific
+register that enables pullups on all pins that also have their
+corresponding weak-pull bit set. Also, when set, there is a weak-pull
+register bit that disables all weak pullups.
 
 The weak pullup is automatically turned off when the port pin is
-configured as an output. The pullups are disabled on a Power-on Reset.
+configured as an output. The pullups are disabled on a power-on reset.
 
 Each specific microcontroller has different registers/bits for this
 functionality.
 
-You should review the datasheet for the method for a specific
+You should review the datasheet for the method used on a specific
 microcontroller.
 
 The following code demonstrates how to set the weak pullups available on
@@ -56,14 +57,14 @@ port B of an 18F25K20.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'A program to show the use of weak pullups on portb.
     'Set chip model
     #chip 18F25k20,16 'at 16 MHz
     #config MCLR = Off
 
     Set RBPU = 0 'enabling Port B pullups in general.
-    SET WPUB1 = 1 'portb.1 pulled up
+    SET WPUB1 = 1 'portb.1 pulled up          ' <<< the instruction that enables the weak pullup on a specific pin
     Set WPUB2 = 1 'portb.2
     Set WPUB3 = 1 'portb.3
     Set WPUB4 = 1 'portb.4
@@ -83,6 +84,24 @@ port B of an 18F25K20.
     end
 ```
 
-Also, see I2C Slave Hardware for an example using a 16F microcontroller.
+<span class="strong">**Key line:**</span> `SET WPUB1 = 1` — enables the
+individual weak pullup on `PORTB.1`; `RBPU = 0` must also be cleared
+first to enable pullups on Port B generally, since the master enable bit
+is active-low on this device family.
+
+See also the I2C Slave Hardware example for a similar use on a 16F
+microcontroller.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="dir" class="link" title="Dir">Dir</a> — setting pin
+    direction, which weak pullups only apply to when configured as an
+    input
+-   <a href="getuserid" class="link" title="GetUserID">GetUserID</a> — related
+    command in the same category
+
+</div>
 
 </div>

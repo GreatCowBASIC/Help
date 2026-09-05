@@ -16,20 +16,20 @@
 
 <span class="strong">**Explanation:**</span>
 
-This program demonstrates how to control and display using a LCD the
+This program demonstrates how to control and display, using an LCD, the
 code for the keypad.
 
-This program can be adapted. This program uses the hardware I2C module
-within the microcontroller. If your microcontroller does not have a
-hardware I2C module then please use the software I2C GCBASIC library for
-most microcontrollers.
+This program can be adapted. It uses the hardware I2C module within the
+microcontroller. If your microcontroller does not have a hardware I2C
+module, then please use the software I2C GCBASIC library, which is
+supported on most microcontrollers.
 
-This program also has an interrupt driven I2C handler to manage the I2C
-from the Start event.
+This program also has an interrupt-driven I2C handler to manage I2C from
+the Start event.
 
 <span class="strong">**Demonstration program:**</span>
 
-``` screen
+``` programlisting
     'Code for the keypad and LCD Microchip PIC microcontroller on the Microlab board v2
     'microcontroller is responsible for:
     ' - Reading keypad
@@ -111,7 +111,7 @@ from the Start event.
     Dir I2C_DATA In
     Dir I2C_CLOCK In
     HI2CMode Slave
-    HI2CSetAddress 128
+    HI2CSetAddress 128          ' <<< the I2C slave address this device responds to
 
     'Buffer for incoming I2C messages
     'Each message takes 4 bytes
@@ -332,5 +332,23 @@ from the Start event.
 
     End Sub
 ```
+
+<span class="strong">**Key line:**</span> `HI2CSetAddress 128` — sets
+this microcontroller’s own I2C address to 128 as a slave device; the
+main microcontroller (the I2C master) must address 128 to communicate
+with this keypad/LCD board.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="i2c_master_hardware" class="link" title="I2C Master Hardware">I2C Master Hardware</a> — the
+    corresponding master-side example
+-   <a href="hi2c_overview" class="link" title="HI2C Overview">HI2C Overview</a> — the
+    hardware I2C command reference
+-   <a href="keypaddata" class="link" title="KeypadData">KeypadData</a> — reading
+    the physical keypad
+
+</div>
 
 </div>

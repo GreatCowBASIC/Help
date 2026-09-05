@@ -1,7 +1,10 @@
 ==== InitTimer12
 
+(((Timers,InitTimer12)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
 InitTimer12 _prescaler_, _postscaler_
 ----
@@ -128,3 +131,9 @@ On Microchip PIC microcontroller one of the following constants where the Postsc
 |15
 
 |===
+
+**See Also:**
+
+* <<_timer_overview,Timer Overview>> -- category overview
+* <<_inittimer0,InitTimer0>> -- related command in the same category
+* <<_inittimer1,InitTimer1>> -- related command in the same category

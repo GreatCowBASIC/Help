@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     var = Random
 ```
 
@@ -34,7 +34,7 @@ time, until `Randomize` is used.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Set chip model
     #chip tiny2313, 1
 
@@ -43,9 +43,24 @@ time, until `Randomize` is used.
 
     'Generate random numbers, and output on PORTB
     Do
-        PORTB = Random
+        PORTB = Random          ' <<< the Random instruction
         Wait 1 s
     Loop
 ```
+
+<span class="strong">**Key line:**</span> `PORTB = Random` — reads the
+next pseudo-random byte from the generator and writes it straight out to
+`PORTB`.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="overview" class="link" title="Overview">Overview</a> — category
+    overview
+-   <a href="randomize" class="link" title="Randomize">Randomize</a> — related
+    command in the same category
+
+</div>
 
 </div>

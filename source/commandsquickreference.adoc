@@ -1,0 +1,2656 @@
+== Commands Quick Reference
+
+This page is the definitive, browsable index of every documented GCBASIC command: an alphabetical index for looking up a command you already know the name of, and a categorised breakdown for browsing by feature area. Every entry links straight to that command's *Syntax:* section.
+
+=== Alphabetical Index
+
+[cols="3,3,6", options="header"]
+|===
+| Command | Category | Summary
+
+| <<_47xxx_eeram_devices,47xxx EERam Devices>>
+| EERAM ( Device )
+| This section covers the 47xxx EERam devices.
+
+| <<_7_segment_displays_legacy,7 Segment Displays - Legacy>>
+| 7-Segment Displays
+| The GCBASIC 7 segment display methods make it easier for GCBASIC programs to display numbers and letters on 7 segment LED displays.
+
+| <<_7_segment_displays_tm1637_4_digits,7 Segment Displays - TM1637 4 Digits>>
+| 7-Segment Displays
+| The TM1637 disaplay module is used for displaying numbers on a keyboard matrix.
+
+| <<_7_segment_displays_tm1637_6_digits,7 Segment Displays - TM1637 6 Digits>>
+| 7-Segment Displays
+| The TM1637 display module is used for displaying numbers on a keyboard matrix.
+
+| <<_7_segment_displays_overview,7 Segment Displays Overview>>
+| 7-Segment Displays
+| The 7 Segment Displays module provide a cheap red, green, blue or white bright LED Display.
+
+| <<_abs,Abs>>
+| Maths
+| integer_variable = Abs( integer_variable )
+
+| <<_adformat_deprecated_do_not_use,ADFormat (Deprecated - Do not use)>>
+| Analog/Digital conversion
+| ADFormat ( Format_Left \| Format_Right )
+
+| <<_adoff,ADOff>>
+| Analog/Digital conversion
+| This command is obsolete. There should be no need to call it. GCBASIC
+
+| <<_ads_7843_serial_driver,ADS 7843 Serial Driver>>
+| Touch Screen
+| ADS7843_Init
+
+| <<_alloc,Alloc>>
+| Variables Operations
+| Alloc creates a special type of variable - an array variant. This array variant can store values. The values stored in this array variant...
+
+| <<_analog_digital_conversion_code_optimisation,Analog/Digital Conversion Code Optimisation>>
+| Analog/Digital conversion
+| The analog to digital converter (ADC or A/D) module support is implemented by GCBASIC to provide 8-bit, 10-bit and 12-bit Single channel ...
+
+| <<_analog_digital_conversion_overview,Analog/Digital Conversion Overview>>
+| Analog/Digital conversion
+| The analog to digital converter (ADC or A/D) module support is implemented by GCBASIC to provide 8-bit, 10-bit and 12-bit Single channel ...
+
+| <<_asc,Asc>>
+| String Manipulation
+| byte__var__= ASC(string, [position] )
+
+| <<_atmel_avr_pwm_overview,ATMEL AVR PWM Overview>>
+| Pulse width modulation
+| The methods described in this section allow the generation of Pulse
+
+| <<_average,Average>>
+| Maths
+| integer_variable = Average(__byte_variable1__ , __byte_variable2__)
+
+| <<_bcdtodec_gcb,BcdToDec_GCB>>
+| Variables Operations
+| BcdToDec_GCB ( ByteVariable )
+
+| <<_bitwise_operations_overview,Bitwise Operations Overview>>
+| Bitwise
+| GCBASIC (as with most other microcontroller programming languages) supports bitwise operations.
+
+| <<_box,Box>>
+| Graphical LCD
+| Box(LineX1,LineY1, LineX2, LineY2 [, LineColour ] )
+
+| <<_bytetobin,ByteToBin>>
+| String Manipulation
+| __stringvar__ = ByteToBin(__bytevar__)
+
+| <<_bytetohex,ByteToHex>>
+| String Manipulation
+| __stringvar__ = ByteToHex(__number__)
+
+| <<_bytetostring,ByteToString>>
+| String Manipulation
+| _stringvar_ = ByteToString(_byte_variable_) 'supports byte.
+
+| <<_chr,Chr>>
+| String Manipulation
+| _stringvar_ = CHR(_bytevar_)
+
+| <<_circle,Circle>>
+| Graphical LCD
+| Circle(XPixelPosition, YPixelPosition, Radius [ [,Optional LineColour] [,Optional Rounding] ] )
+
+| <<_cleartimer,ClearTimer>>
+| Timers
+| ClearTimer _TimerNo_
+
+| <<_cls,CLS>>
+| Liquid Crystal Display
+| CLS
+
+| <<_common_anode,Common Anode>>
+| 7-Segment Displays
+| This is a Common Anode 7 Segment display example.
+
+| <<_common_cathode,Common Cathode>>
+| 7-Segment Displays
+| This is a Common Cathode 7 Segment display example.
+
+| <<_concatenation,Concatenation>>
+| String Manipulation
+| __stringvar__ = variable1 + variable2
+
+| <<_data,DATA>>
+| PROGMEM ( PFM )
+| DATA DataSetName [as Byte \| Word]
+
+| <<_dataset_for_eeprom,Dataset for EEPROM>>
+| MCU EEPROM ( DFM )
+| EEPROM DataSetName [[,]address]
+
+| <<_dectobcd_gcb,DecToBcd_GCB>>
+| Variables Operations
+| DectoBcd( ByteVariable )
+
+| <<_deviceconfigurationread,DeviceConfigurationRead>>
+| PROGMEM ( MCU Configuration )
+| deviceconfigurationRead (_location, store_)
+
+| <<_difference,Difference>>
+| Maths
+| Difference ( word_variable1 , word_variable2 ) or
+
+| <<_dim,Dim>>
+| Variables Operations
+| Dim _variable_ // will define a Byte variable
+
+| <<_dir,Dir>>
+| Miscellaneous Commands
+| Dir __port.bit__ {In \| Out} __(Individual Form)__
+
+| <<_displaychar,DisplayChar>>
+| 7-Segment Displays
+| DisplayChar (_display, character, dot_)
+
+| <<_displaysegment,DisplaySegment>>
+| 7-Segment Displays
+| DisplayValue (_display, data_)
+
+| <<_displayvalue,DisplayValue>>
+| 7-Segment Displays
+| DisplayValue (_display, data, dot_)
+
+| <<_do,Do>>
+| Flow control
+| Do [{While \| Until} _condition_]
+
+| <<_ds18b20,DS18B20>>
+| One Wire Devices
+| The DS18B20 is a 1-Wire digital temperature sensor from Maxim IC.
+
+| <<_ds18b20setresolution,DS18B20SetResolution>>
+| One Wire Devices
+| For Single Channel/Device only. The method assumes a single DS18B20 device on the OneWire bus.
+
+| <<_ellipse,Ellipse>>
+| Graphical LCD
+| Ellipse(XPixelPosition, YPixelPosition, XRadius, YRadius [,Optional LineColour] )
+
+| <<_end,End>>
+| Flow control
+| End
+
+| <<_e_paper_controllers,e-Paper Controllers>>
+| Graphical LCD
+| This section covers GLCD devices known as e-Papers.
+
+| <<_epread,EPRead>>
+| MCU EEPROM ( DFM )
+| EPRead _location, store_
+
+| <<_epwrite,EPWrite>>
+| MCU EEPROM ( DFM )
+| EPWrite _location_, _data_
+
+| <<_exit,Exit>>
+| Flow control
+| Exit Sub \| Exit Function \| Exit Do \| Exit For \| Exit Repeat
+
+| <<_fasthwspi2transfer,FastHWSPI2Transfer>>
+| SPI
+| FastHWSPI2Transfer _tx_
+
+| <<_fasthwspitransfer,FastHWSPITransfer>>
+| SPI
+| FastHWSPITransfer _tx_
+
+| <<_fill,Fill>>
+| String Manipulation
+| _stringvar_ = Fill ( byte_value_of_the_new_length , pad_character )
+
+| <<_filledbox,FilledBox>>
+| Graphical LCD
+| FilledBox(LineX1,LineY1, LineX2, LineY2, Optional LineColour = 1)
+
+| <<_filledcircle,FilledCircle>>
+| Graphical LCD
+| FilledCircle(XPixelPosition, YPixelPosition, Radius [,Optional LineColour] )
+
+| <<_filledellipse,FilledEllipse>>
+| Graphical LCD
+| FilledEllipse(XPixelPosition, YPixelPosition, XRadius, YRadius [,Optional LineColour] )
+
+| <<_filledtriangle,FilledTriangle>>
+| Graphical LCD
+| FilledTriangle( XPixelPosition1, YPixelPosition1, XPixelPosition2, YPixelPosition2, XPixelPosition3, YPixelPosition3 [,Optional LineColou...
+
+| <<_fnlsl,FnLSL>>
+| Bitwise
+| BitsOut = FnLSL(BitsIn, NumBits)
+
+| <<_fnlsr,FnLSR>>
+| Bitwise
+| BitsOut = FnLSR(BitsIn, NumBits)
+
+| <<_fonts_and_characters,Fonts and Characters>>
+| Graphical LCD
+| This section covers GLCD fonts and characters.
+
+| <<_for,For>>
+| Flow control
+| For _counter_ = _start_ To _end_ [Step _increment_]
+
+| <<_fvrinitialize,FVRInitialize>>
+| Fixed Voltage Reference
+| FVRInitialize ( FVR_OFF \| FVR_1x \| FVR_2x \| FVR_4x )
+
+| <<_fvrisoutputready,FVRIsOutputReady>>
+| Fixed Voltage Reference
+| user_var = FVRIsOutputReady()
+
+| <<_get,Get>>
+| Liquid Crystal Display
+| var = Get(Line, Column)
+
+| <<_getuserid,GetUserID>>
+| Miscellaneous Commands
+| Available on all Microchip microcontrollers that support UserIDs.
+
+| <<_glcd_overview,GLCD Overview>>
+| Graphical LCD
+| The GLCD commands are used to control a Graphical Liquid Crystal Display (GLCD)
+
+| <<_glcdcls,GLCDCLS>>
+| Graphical LCD
+| GLCDCLS [GLCDBackground]
+
+| <<_glcddisplay,GLCDDisplay>>
+| Graphical LCD
+| GLCDDisplay Off \| On
+
+| <<_glcddrawchar,GLCDDrawChar>>
+| Graphical LCD
+| GLCDDrawChar(CharLocX, CharLocY, CharCode [, Optional Colour] )
+
+| <<_glcddrawstring,GLCDDrawString>>
+| Graphical LCD
+| GLCDDrawString(CharLocX, CharLocY, String [, Optional Colour] )
+
+| <<_glcdlocatestring,GLCDLocateString>>
+| Graphical LCD
+| GLCDLocateString(PrintLocX, PrintLocY )
+
+| <<_glcdprint,GLCDPrint>>
+| Graphical LCD
+| GLCDPrint(PrintLocX, PrintLocY, PrintData_Byte [, Optional Colour] ) ',or
+
+| <<_glcdprintlargefont,GLCDPrintLargeFont>>
+| Graphical LCD
+| GLCDPrintLargeFont( PrintLocX, PrintLocY, PrintData_String [, Optional Colour] )
+
+| <<_glcdprintstring,GLCDPrintString>>
+| Graphical LCD
+| GLCDPrintString( String )
+
+| <<_glcdprintstringln,GLCDPrintStringLn>>
+| Graphical LCD
+| GLCDPrintStringLn( String )
+
+| <<_glcdprintwithsize,GLCDPrintWithSize>>
+| Graphical LCD
+| GLCDPrintWithSize(PrintLocX, PrintLocY, PrintData_Byte , FontSize [, Color ] ) ',or
+
+| <<_glcdreadbyte,GLCDReadByte>>
+| Graphical LCD
+| byte_variable = GLCDReadByte
+
+| <<_glcdrotate,GLCDRotate>>
+| Graphical LCD
+| GLCDROTATE LANDSCOPE \| PORTRAIT_REV \| LANDSCAPE_REV \| PORTRAIT
+
+| <<_glcdtimedelay,GLCDTimeDelay>>
+| Graphical LCD
+| GLCDTime
+
+| <<_glcdtransaction,GLCDTransaction>>
+| Graphical LCD
+| GLCD_Open_PageTransaction
+
+| <<_glcdwritebyte,GLCDWriteByte>>
+| Graphical LCD
+| GLCDWriteByte (LCDByte)
+
+| <<_gosub,Gosub>>
+| Flow control
+| Gosub _label_
+
+| <<_goto,Goto>>
+| Flow control
+| Goto _label_
+
+| <<_hardware_pwm_code_optimisation,Hardware PWM Code Optimisation>>
+| Pulse width modulation
+| For compatibility all channels are supported by default. This is maintains backward compatibility. +
+
+| <<_heferaseblock,HEFEraseBlock>>
+| HEFM ( PFM )
+| HEFEraseBlock ( block_number )
+
+| <<_hefm_overview,HEFM Overview>>
+| HEFM ( PFM )
+| Some enhanced mid-range Microchip PIC devices support High-Endurance Flash (HEF) memory. These devices lack the data EEPROM found on othe...
+
+| <<_hefread,HEFRead>>
+| HEFM ( PFM )
+| 'as a subroutine
+
+| <<_hefreadblock,HEFReadBlock>>
+| HEFM ( PFM )
+| HEFReadBlock ( block_number, buffer(), [, num_bytes] )
+
+| <<_hefreadword,HEFReadWord>>
+| HEFM ( PFM )
+| 'as a subroutine
+
+| <<_hefwrite,HEFWrite>>
+| HEFM ( PFM )
+| HEFWrite ( location, data )
+
+| <<_hefwriteblock,HEFWriteBlock>>
+| HEFM ( PFM )
+| HEFWriteBlock ( block_number, buffer(), [, num_bytes] )
+
+| <<_hefwriteword,HEFWriteWord>>
+| HEFM ( PFM )
+| HEFWriteWord ( location, data_word_value )
+
+| <<_hex,Hex>>
+| Deprecated string functions.
+| __stringvar__ = Hex(__number__)
+
+| <<_hi2c_overview,HI2C Overview>>
+| I2C/TWI Hardware Module
+| These methods allow GCBASIC programs to send and receive Inter- Integrated Circuit (I2C™) messages via:
+
+| <<_hi2cackpollstate,HI2CAckPollState>>
+| I2C/TWI Hardware Module
+| <test condition[s]> HI2CAckPollState
+
+| <<_hi2cmode,HI2CMode>>
+| I2C/TWI Hardware Module
+| HI2CMode Master \| Slave
+
+| <<_hi2creceive,HI2CReceive>>
+| I2C/TWI Hardware Module
+| HI2CReceive _data_
+
+| <<_hi2crestart,HI2CRestart>>
+| I2C/TWI Hardware Module
+| HI2CRestart
+
+| <<_hi2csetaddress,HI2CSetAddress>>
+| I2C/TWI Hardware Module
+| HI2CSetAddress address_number
+
+| <<_hi2cstart,HI2CStart>>
+| I2C/TWI Hardware Module
+| HI2CStart
+
+| <<_hi2cstartoccurred,HI2CStartOccurred>>
+| I2C/TWI Hardware Module
+| HI2CStartOccurred
+
+| <<_hi2cstop,HI2CStop>>
+| I2C/TWI Hardware Module
+| HI2CStop
+
+| <<_hi2cstopped,HI2CStopped>>
+| I2C/TWI Hardware Module
+| HI2CStopped
+
+| <<_hi2cwaitmssp,HI2CWaitMSSP>>
+| I2C/TWI Hardware Module
+| HI2CWaitMSSP
+
+| <<_hpwm_10_bit,HPWM 10 Bit>>
+| Pulse width modulation
+| HPWM _channel, frequency, duty cycle, timer [, resolution]_
+
+| <<_hpwm_16_bit,HPWM 16 Bit>>
+| Pulse width modulation
+| HPWM16 _channel, frequency, duty cycle_ 'Enable a 16-bit PWM channel'
+
+| <<_hpwm_avr_ocrnx,HPWM AVR OCRnx>>
+| Pulse width modulation
+| HPWM _channel_, _frequency_, _duty cycle_
+
+| <<_hpwm_ccp,HPWM CCP>>
+| Pulse width modulation
+| HPWM _channel, frequency, duty cycle_
+
+| <<_hpwm_fixed_mode,HPWM Fixed Mode>>
+| Pulse width modulation
+| PWMOn 'only applies to CCP/PWM channel 1
+
+| <<_hpwm_fixed_mode_for_avr,HPWM Fixed Mode for AVR>>
+| Pulse width modulation
+| PWMOn
+
+| <<_hpwm_ccptimern,HPWM_CCPTimerN>>
+| Pulse width modulation
+| HPWM_CCPTimerN _channel_, _frequency_, _duty cycle_ [, _timer_ 2, 4 or 6 ]
+
+| <<_hpwmoff,HPWMOff>>
+| Pulse width modulation
+| HPWMOff ( channel ) 'selectively turn off the CCP channel
+
+| <<_hpwmoff_2,HPWMOff>>
+| Pulse width modulation
+| HPWMOff ( channel ) 'selectively turn off the CCP channel
+
+| <<_hpwmoff_3,HPWMOff>>
+| Pulse width modulation
+| HPWMOff ( channel, PWMHardware )
+
+| <<_hpwmupdate_for_ccp_pwm_modules_s,HPWMUpdate for CCP/PWM Modules(s)>>
+| Pulse width modulation
+| HPWMUpdate ( channel, duty_cycle )
+
+| <<_hpwmupdate_for_pwm_module_s,HPWMUpdate for PWM Module(s)>>
+| Pulse width modulation
+| HPWMUpdate ( channel, duty_cycle )
+
+| <<_hsergetnum,HSerGetNum>>
+| Serial Communications
+| HSerGetNum _myNum_ ‘Gets a multi digit number from USART 1
+
+| <<_hsergetstring,HSerGetString>>
+| Serial Communications
+| HSerGetString _myString_ ‘Get a multi char string from USART 1
+
+| <<_hserprint,HSerPrint>>
+| Serial Communications
+| HSerPrint _user_value_ [,1\|2\|3\|4] 'Choose comport with optional parameter
+
+| <<_hserprintbytecrlf,HserPrintByteCRLF>>
+| Serial Communications
+| HserPrintByteCRLF _user_data_ [, 1 \| 2 \| 3 \| 4 ]
+
+| <<_hserprintcrlf,HserPrintCRLF>>
+| Serial Communications
+| HserPrintCRLF [optional BYTE] [, 1 \| 2 \| 3 \| 4 ]
+
+| <<_hserprintstringcrlf,HSerPrintStringCRLF>>
+| Serial Communications
+| HSerPrintStringCRLF _user_string_ [,1\|2\|3\|4] 'Choose comport with optional parameter
+
+| <<_hserreceive,HSerReceive>>
+| Serial Communications
+| HSerReceive (_user_byte_variable_)
+
+| <<_hserreceivefrom,HSerReceiveFrom>>
+| Serial Communications
+| _user_byte_ = HSerReceiveFrom [,1 \| 2 \| 3 \| 4]
+
+| <<_hsersend,HSerSend>>
+| Serial Communications
+| HSerSend _user_byte_ [,1\|2\|3\|4] 'Choose comport with optional parameter
+
+| <<_hx8347g_controllers,HX8347G Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the HX8347G graphics controller.
+
+| <<_hyperbole,Hyperbole>>
+| Graphical LCD
+| Hyperbole (x, y, a_axis, b_axis, type, ModeStop, optional LineColour=GLCDForeground)
+
+| <<_i2c_overview,I2C Overview>>
+| I2C Software
+| These software routines allow GCBASIC programs to send and receive I2C
+
+| <<_i2cackpoll,I2CAckpoll>>
+| I2C Software
+| I2CAckpoll ( _I2C_device_address_ )
+
+| <<_i2cackpollstate,I2CAckPollState>>
+| I2C Software
+| <test condition> I2CAckPollState
+
+| <<_i2creceive,I2CReceive>>
+| I2C Software
+| I2CReceive _data_
+
+| <<_i2creset,I2CReset>>
+| I2C Software
+| I2CReset
+
+| <<_i2crestart,I2CRestart>>
+| I2C Software
+| I2CRestart
+
+| <<_i2csend,I2CSend>>
+| I2C Software
+| I2CSend _data_
+
+| <<_i2cstart,I2CStart>>
+| I2C Software
+| I2CStart
+
+| <<_i2cstartoccurred,I2CStartoccurred>>
+| I2C Software
+| I2CStartoccurred
+
+| <<_i2cstop,I2CStop>>
+| I2C Software
+| I2CStop
+
+| <<_if,If>>
+| Flow control
+| If _condition_ Then _command_
+
+| <<_ili9326_controllers,ILI9326 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the ILI9326 graphics controller. The ILI9326 is a TFT LCD Single Chip Driver with 400RGBx320 Re...
+
+| <<_ili9340_controllers,ILI9340 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the ILI9340 graphics controller. The ILI9340 is a TFT LCD Single Chip Driver with 240RGBx320 Re...
+
+| <<_ili9341_controllers,ILI9341 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the ILI9341 graphics controller. The ILI9341 is a TFT LCD Single Chip Driver with 240RGBx320 Re...
+
+| <<_ili9481_controllers,ILI9481 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the ILI9481 graphics controller.
+
+| <<_ili9486_l_controllers,ILI9486(L) Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the ILI9486(L) graphics controller.
+
+| <<_ili9488_controllers,ILI9488 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the ILI9488 graphics controller.
+
+| <<_indcall,IndCall>>
+| Flow control
+| IndCall _Address_
+
+| <<_initser,InitSer>>
+| Serial Communications
+| InitSer _channel, rate, start, data, stop, parity, invert_
+
+| <<_inittimer0,InitTimer0>>
+| Timers
+| InitTimer0 source, prescaler
+
+| <<_inittimer1,InitTimer1>>
+| Timers
+| InitTimer1 _source, prescaler_
+
+| <<_inittimer10,InitTimer10>>
+| Timers
+| InitTimer10 _prescaler_, _postscaler_
+
+| <<_inittimer12,InitTimer12>>
+| Timers
+| InitTimer12 _prescaler_, _postscaler_
+
+| <<_inittimer2,InitTimer2>>
+| Timers
+| InitTimer2 _prescaler_, _postscaler_
+
+| <<_inittimer3,InitTimer3>>
+| Timers
+| InitTimer3 _source_, _prescaler_
+
+| <<_inittimer4,InitTimer4>>
+| Timers
+| InitTimer4 _prescaler_, _postscaler_
+
+| <<_inittimer5,InitTimer5>>
+| Timers
+| InitTimer5 _source_, _prescaler_
+
+| <<_inittimer6,InitTimer6>>
+| Timers
+| InitTimer6 _prescaler_, _postscaler_
+
+| <<_inittimer7,InitTimer7>>
+| Timers
+| InitTimer7 _source_, _prescaler_
+
+| <<_inittimer8,InitTimer8>>
+| Timers
+| InitTimer8 _prescaler_, _postscaler_
+
+| <<_inkey,InKey>>
+| PS/2
+| output = InKey
+
+| <<_instr,Instr>>
+| String Manipulation
+| __location__ = Instr(__source__, __find__)
+
+| <<_int,Int>>
+| Maths
+| integer_variable = Int( single_variable )
+
+| <<_integertobin,IntegerToBin>>
+| String Manipulation
+| __stringvar__ = IntegerToBin(__integervar__)
+
+| <<_integertohex,IntegerToHex>>
+| String Manipulation
+| __stringvar__ = IntegerToHex(__number__)
+
+| <<_integertostring,IntegerToString>>
+| String Manipulation
+| _stringvar_ = IntegerToString(_Integer_variable_) 'supports Integer.
+
+| <<_interrupts_overview,Interrupts overview>>
+| Interrupts
+| Interrupts are a feature of many microcontrollers. They allow the
+
+| <<_intoff,IntOff>>
+| Interrupts
+| IntOff
+
+| <<_inton,IntOn>>
+| Interrupts
+| IntOn
+
+| <<_keypad_overview,Keypad Overview>>
+| Keypad
+| The keypad routines allow for a program to read from a 4 x 4 matrix
+
+| <<_keypaddata,KeypadData>>
+| Keypad
+| _var_ = KeypadData
+
+| <<_keypadraw,KeypadRaw>>
+| Keypad
+| _largevar_ = KeypadRaw
+
+| <<_ks0108_controllers,KS0108 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the KS0108 graphics controller.
+
+| <<_lcase,LCase>>
+| String Manipulation
+| __output__ = LCase(__source__)
+
+| <<_lcd_overview,LCD Overview>>
+| Liquid Crystal Display
+| The LCD routines in this section allow GCBASIC programs to control an
+
+| <<_lcdbacklight,LCDBacklight>>
+| Liquid Crystal Display
+| LCDBacklight ( On \| Off )
+
+| <<_lcdcmd,LCDCmd>>
+| Liquid Crystal Display
+| LCDCMD _value_
+
+| <<_lcdcreatechar,LCDCreateChar>>
+| Liquid Crystal Display
+| LCDCreateChar _char, chardata()_
+
+| <<_lcdcreategraph,LCDCreateGraph>>
+| Liquid Crystal Display
+| LCDCreateGraph _value_
+
+| <<_lcdcursor,LCDCursor>>
+| Liquid Crystal Display
+| LCDCursor value
+
+| <<_lcddisplayoff,LCDDisplayOff>>
+| Liquid Crystal Display
+| LCDDisplayOff
+
+| <<_lcddisplayon,LCDDisplayOn>>
+| Liquid Crystal Display
+| LCDDisplayOn
+
+| <<_lcdhex,LCDHex>>
+| Liquid Crystal Display
+| LCDHex value
+
+| <<_lcdhome,LCDHome>>
+| Liquid Crystal Display
+| LCDHome
+
+| <<_lcdspace,LCDSpace>>
+| Liquid Crystal Display
+| LCDSpace value
+
+| <<_lcdwritechar,LCDWriteChar>>
+| Liquid Crystal Display
+| LCDWriteChar _char_
+
+| <<_left,Left>>
+| String Manipulation
+| __output__ = Left(__source__, __count__)
+
+| <<_leftpad,LeftPad>>
+| String Manipulation
+| LeftPad(_string_variable_,_byte_value_of_the_new_length_,_pad_character_)
+
+| <<_len,Len>>
+| String Manipulation
+| __output__= Len( string )
+
+| <<_line,Line>>
+| Graphical LCD
+| Line(LineX1,LineY1, LineX2, LineY2, Optional LineColour = 1)
+
+| <<_locate,Locate>>
+| Liquid Crystal Display
+| Locate _Line, Column_
+
+| <<_lockpps,LockPPS>>
+| Peripheral Pin Select
+| LOCKPSS
+
+| <<_log10,Log10>>
+| Maths
+| returned_word_variable = Log10 (__word_value__)
+
+| <<_log2,Log2>>
+| Maths
+| returned_word_variable = Log2 ( __word_value__ )
+
+| <<_logarithms,Logarithms>>
+| Maths
+| GCBASIC support logarithmic functions through the include file <maths.h>.
+
+| <<_loge,Loge>>
+| Maths
+| returned_word_variable = Loge ( __word_value__ )
+
+| <<_longtobin,LongToBin>>
+| String Manipulation
+| __stringvar__ = LongToBin(__longvar__)
+
+| <<_longtohex,LongToHex>>
+| String Manipulation
+| __stringvar__ = LongToHex(__number__)
+
+| <<_longtostring,LongToString>>
+| String Manipulation
+| _stringvar_ = LongToString(_Long_variable_) 'supports Long.
+
+| <<_ltrim,Ltrim>>
+| String Manipulation
+| __stringvar__ = LTRIM(__stringvar__)
+
+| <<_microchip_pic_pwm_overview,Microchip PIC PWM Overview>>
+| Pulse width modulation
+| The methods described in this section allow the generation of Pulse
+
+| <<_mid,Mid>>
+| String Manipulation
+| __output__ = Mid(__source__, __start__[, __count__])
+
+| <<_more_on_setting_variables_and_constants,More on setting Variables and Constants>>
+| Variables Operations
+| Within GCBASIC you can use regular variable assignments. But, you can also use C like maths assignments.
+
+| <<_nextion_controllers,NEXTION Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the serially attached Nextion graphics displays.
+
+| <<_nt7108c_controllers,NT7108C Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the NT7108C graphics controller.
+
+| <<_on_interrupt,On Interrupt>>
+| Interrupts
+| On Interrupt event Call handler
+
+| <<_on_interrupt_the_default_handler,On Interrupt: The default handler>>
+| Interrupts
+| GCBASIC supports a default interrupt handler in two modes:
+
+| <<_overview,Overview>>
+| Random Numbers
+| These routines allow GCBASIC to generate pseudo-random numbers.
+
+| <<_pad,Pad>>
+| String Manipulation
+| out_string = Pad( __string_variable__, __byte_value_of_the_new_length__, __pad_character__)
+
+| <<_parabola,Parabola>>
+| Graphical LCD
+| Parabola (x, y, p_factor, type, modestop, optional LineColour=GLCDForeground)
+
+| <<_pause,Pause>>
+| Flow control
+| Pause time_ms
+
+| <<_pcd8544_controllers,PCD8544 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the PCD844 graphics controller. +
+
+| <<_peek,Peek>>
+| Miscellaneous Commands
+| __OutputVariable__ = Peek (__location__)
+
+| <<_peripheral_pin_select_for_microchip_microcontrollers,Peripheral Pin Select for Microchip microcontrollers.>>
+| Peripheral Pin Select
+| Peripheral Pin Select (PPS) enables the digital peripheral I/O pins to be changed to support mapping of external pins to different pins.
+
+| <<_pfmread,PFMRead>>
+| PROGMEM ( PFM )
+| PFMRead (_location, store_)
+
+| <<_pfmwrite,PFMWrite>>
+| PROGMEM ( PFM )
+| PFMWrite (_location_, _value_)
+
+| <<_play,Play>>
+| Sound
+| Play SoundPlayDataString
+
+| <<_play_rtttl,Play RTTTL>>
+| Sound
+| PlayRTTTL SoundPlayRTTTLDataString
+
+| <<_poke,Poke>>
+| Miscellaneous Commands
+| Poke(__location__, __value__)
+
+| <<_pot,Pot>>
+| Miscellaneous Commands
+| Pot _pin, output_
+
+| <<_power,Power>>
+| Maths
+| power( base, exponent )
+
+| <<_print,Print>>
+| Liquid Crystal Display
+| Print _string_
+
+| <<_programerase,ProgramErase>>
+| PROGMEM ( PFM )
+| ProgramErase (_location_)
+
+| <<_programread,ProgramRead>>
+| PROGMEM ( PFM )
+| ProgramRead (_location, store_)
+
+| <<_programwrite,ProgramWrite>>
+| PROGMEM ( PFM )
+| ProgramWrite (_location_, _value_)
+
+| <<_ps_2_overview,PS/2 Overview>>
+| PS/2
+| These routines make it easier to communicate with a PS/2 device,
+
+| <<_ps2readbyte,PS2ReadByte>>
+| PS/2
+| output = PS2ReadByte
+
+| <<_ps2setkbleds,PS2SetKBLeds>>
+| PS/2
+| PS2SetKBLeds (_LedStatus_)
+
+| <<_ps2writebyte,PS2WriteByte>>
+| PS/2
+| PS2WriteByte _user_data_
+
+| <<_pset,Pset>>
+| Graphical LCD
+| PSet(XPosition, YPosition, GLCDState)
+
+| <<_pulsein,PulseIn>>
+| Miscellaneous Commands
+| PulseIn __pin__, __user_variable__, __time units__
+
+| <<_pulseininv,PulseInInv>>
+| Miscellaneous Commands
+| PulseInInv __pin__, __user_variable__, __time units__
+
+| <<_pulseout,PulseOut>>
+| Miscellaneous Commands
+| PulseOut __pin__, __time units__
+
+| <<_pulseoutinv,PulseOutInv>>
+| Miscellaneous Commands
+| PulseOutInv _pin,_ _time units_
+
+| <<_put,Put>>
+| Liquid Crystal Display
+| Put _Line_, _Column_, _Character_
+
+| <<_pwm_software_mode,PWM Software Mode>>
+| Pulse width modulation
+| PWMOut _channel, duty cycle, cycles_
+
+| <<_pwmoff,PWMOff>>
+| Pulse width modulation
+| PWMOff
+
+| <<_pwmoff_for_avr,PWMOff for AVR>>
+| Pulse width modulation
+| PWMOff
+
+| <<_pwmon,PWMOn>>
+| Pulse width modulation
+| PWMOn
+
+| <<_pwmon_for_avr,PWMOn for AVR>>
+| Pulse width modulation
+| PWMOn
+
+| <<_pwmout,PWMOut>>
+| Pulse width modulation
+| PWMOut _channel, duty cycle, cycles_
+
+| <<_random,Random>>
+| Random Numbers
+| var = Random
+
+| <<_randomize,Randomize>>
+| Random Numbers
+| Randomize
+
+| <<_readad,ReadAD>>
+| Analog/Digital conversion
+| For a normal ( also called a Single Channel ) read use.
+
+| <<_readad10,ReadAD10>>
+| Analog/Digital conversion
+| For a normal ( also called a Single Channel ) read use.
+
+| <<_readad12,ReadAD12>>
+| Analog/Digital conversion
+| For a normal ( also called a Single Channel ) read use.
+
+| <<_readdigitaltemp,ReadDigitalTemp>>
+| One Wire Devices
+| ReadDigitalTemp
+
+| <<_reading_timers,Reading Timers>>
+| Timers
+| GCBASIC has the following macros to read a specific timer value. They
+
+| <<_readtemp,ReadTemp>>
+| One Wire Devices
+| byte_var = ReadTemp
+
+| <<_readtemp12,ReadTemp12>>
+| One Wire Devices
+| byte_var = ReadTemp12
+
+| <<_repeat,Repeat>>
+| Flow control
+| Repeat _times_
+
+| <<_right,Right>>
+| String Manipulation
+| __output__ = Right(__source__, __count__)
+
+| <<_rotate,Rotate>>
+| Variables Operations
+| Rotate _variable_ {Left \| Right} [Simple]
+
+| <<_roundsingle,RoundSingle>>
+| Maths
+| rounded_single_value = RoundSingle( single_variable )
+
+| <<_rs232_hardware_overview,RS232 Hardware Overview>>
+| Serial Communications
+| GCBASIC support programs to communicate easily using RS232.
+
+| <<_rs232_software_overview,RS232 Software Overview>>
+| Serial Communications
+| These routines allow the microcontroller to send and receive RS232 data.
+
+| <<_rs232_software_overview_optimised,RS232 Software Overview - Optimised>>
+| Serial Communications
+| These routines allow the microcontroller to send and receive RS232 data.
+
+| <<_rtrim,Rtrim>>
+| String Manipulation
+| __stringvar__ = Rtrim(__stringvar__)
+
+| <<_saferaseblock,SAFEraseBlock>>
+| SAFM
+| SAFEraseBlock ( block_number )
+
+| <<_safm_overview,SAFM Overview>>
+| SAFM
+| Some Advanced (18F) and some Enhanced Mid-Range (16F) Microchip PIC devices support Storage Area Flash (SAF) memory. These devices also i...
+
+| <<_safread,SAFRead>>
+| SAFM
+| 'as a subroutine
+
+| <<_safreadblock,SAFReadBlock>>
+| SAFM
+| SAFReadBlock ( block_number, buffer(), [, num_bytes] )
+
+| <<_safreadword,SAFReadWord>>
+| SAFM
+| 'as a subroutine
+
+| <<_safwrite,SAFWrite>>
+| SAFM
+| SAFWrite ( location, data )
+
+| <<_safwriteblock,SAFWriteBlock>>
+| SAFM
+| SAFWriteBlock ( block_number, buffer(), [, num_bytes] )
+
+| <<_safwriteword,SAFWriteWord>>
+| SAFM
+| SAFWriteWord ( location, data_word_value )
+
+| <<_scale,Scale>>
+| Maths
+| integer_variable = Scale (value_word , fromLow_integer , fromHigh_integer , toLow_integer , toHigh_integer [, calibration_integer] )
+
+| <<_ssd1289_controllers,SDD1289 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the SDD1289 graphics controller. The SDD1289 is a 240 x 320 single chip controller driver IC fo...
+
+| <<_select,Select>>
+| Flow control
+| Select Case _var_
+
+| <<_sernprint,SerNPrint>>
+| Serial Communications
+| Ser1Print value
+
+| <<_sernreceive,SerNReceive>>
+| Serial Communications
+| bytevar = Ser1Receive
+
+| <<_sernsend,SerNSend>>
+| Serial Communications
+| Ser1Send data
+
+| <<_serprint,SerPrint>>
+| Serial Communications
+| SerPrint _channel, value_
+
+| <<_serreceive,SerReceive>>
+| Serial Communications
+| SerReceive _channel_, _output_
+
+| <<_sersend,SerSend>>
+| Serial Communications
+| SerSend _channel_, _data_
+
+| <<_set,Set>>
+| Variables Operations
+| Set _variable.bit_ {On \| Off}
+
+| <<_settimer,Settimer>>
+| Timers
+| Settimer _timernumber_, _byte_value_
+
+| <<_setting_variables,Setting Variables>>
+| Variables Operations
+| {empty} +
+
+| <<_setwith,SetWith>>
+| Bitwise
+| SetWith(TargetBit, Source)
+
+| <<_sh1106_controllers,SH1106 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the SH1106 graphics controller. THe SH1106 is a single-chip CMOS OLED/PLED driver with controll...
+
+| <<_shorttone,ShortTone>>
+| Sound
+| ShortTone Frequency, Duration
+
+| <<_singletobin,SingleToBin>>
+| String Manipulation
+| __stringvar__ = SingleToBin(__Singlevar__)
+
+| <<_singletohex,SingleToHex>>
+| String Manipulation
+| __stringvar__ = SingleToHex(__number__)
+
+| <<_singletostring,SingleToString>>
+| String Manipulation
+| _stringvar_ = SingleToString(_Single_variable_) 'supports Single.
+
+| <<_smt_timers,SMT Timers>>
+| Timers
+| The Signal Measurement Timer (SMT) capability is a 24-bit counter with advanced clocking and gating logic, which can be configured for me...
+
+| <<_sound_overview,Sound Overview>>
+| Sound
+| These GCBASIC methods generate tones of a given frequency and duration.
+
+| <<_spi_overview,SPI Overview>>
+| SPI
+| The SPI interface allows for the transmission and receiption of data simultaneously on two lines (MOSI and MISO).
+
+| <<_spi2mode,SPI2Mode>>
+| SPI
+| SPI2Mode ( _Mode_ [, _SPIClockMode_])
+
+| <<_spi2transfer,SPI2Transfer>>
+| SPI
+| SPI2Transfer _tx_, _rx_
+
+| <<_spimode,SPIMode>>
+| SPI
+| SPIMode ( _Mode_ [, _SPIClockMode_])
+
+| <<_spitransfer,SPITransfer>>
+| SPI
+| SPITransfer _tx_, _rx_
+
+| <<_sqrt,Sqrt>>
+| Maths
+| word_variable = sqrt ( __word__ )
+
+| <<_sram_overview,SRAM Overview>>
+| SRAM  ( Device )
+| Serial SRAM is a standalone volatile memory that provides an easy and inexpensive way to add more RAM to application. These are 8-pin low...
+
+| <<_sramread,SRAMRead>>
+| SRAM  ( Device )
+| SRAMRead _location, store_
+
+| <<_sramwrite,SRAMWrite>>
+| SRAM  ( Device )
+| SRAMWrite _location_, _data_
+
+| <<_ssd1306_controllers,SSD1306 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the SSD1306 graphics controller.
+
+| <<_ssd1331_controllers,SSD1331 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the SSD1331 graphics controller. The SSD1331 is a single-chip controller/driver for 262K-color,...
+
+| <<_ssd1351_controllers,SSD1351 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the SSD1351 graphics controller. The SSD1351 is a single-chip controller/driver for 262K-color,...
+
+| <<_st7567_controllers,ST7567 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the ST7567 graphics controller.
+
+| <<_st7735_controllers,ST7735 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the ST7735 graphics controller. The ST7735 or ST7735R is a single-chip controller/driver for 26...
+
+| <<_st7789_controllers,ST7789 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the ST7789 graphics controller. The ST7789 is a TFT LCD Single Chip Driver with 240x240 or 320x...
+
+| <<_st7920_controllers,ST7920 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the ST7920 graphics controller.
+
+| <<_starttimer,StartTimer>>
+| Timers
+| StartTimer _TimerNo_
+
+| <<_stoptimer,StopTimer>>
+| Timers
+| StopTimer _TimerNo_
+
+| <<_str,Str>>
+| Deprecated string functions.
+| _stringvar_ = Str(_number_) 'supports decimal byte and word strings only.
+
+| <<_stringtobyte,StringToByte>>
+| String Manipulation
+| var = StringToByte(__string__) 'Supports decimal byte range strings only.
+
+| <<_stringtolong,StringToLong>>
+| String Manipulation
+| var = StringToLong(__string__) 'Supports decimal Long range strings only.
+
+| <<_stringtosingle,StringToSingle>>
+| String Manipulation
+| var = StringToSingle(__string__) 'Supports decimal Single range strings only.
+
+| <<_stringtoword,StringToWord>>
+| String Manipulation
+| var = StringToWord(__string__) 'Supports decimal Word range strings only.
+
+| <<_swap,SWAP>>
+| Variables Operations
+| SWAP( VariableA, VariableB)
+
+| <<_swap4,SWAP4>>
+| Variables Operations
+| SWAP4( VariableA)
+
+| <<_t6963_controllers,T6963 Controllers>>
+| Graphical LCD
+| This section covers Graphical Liquid Crystal Display (GLCD) devices that use the Toshiba T6963 graphics controller. The T6963 is a monoch...
+
+| <<_timer_overview,Timer Overview>>
+| Timers
+| GCBASIC supports methods to set, clear, read, start and stop the microcontroller timers.
+
+| <<_tm_bright,TM_Bright>>
+| 7-Segment Displays
+| TM_Bright = Brightness
+
+| <<_tm_bright_2,TM_Bright>>
+| 7-Segment Displays
+| TM_Bright = Brightness
+
+| <<_tm_point,TM_Point>>
+| 7-Segment Displays
+| TM_Point = (Point)
+
+| <<_tmdec_2,TMDec>>
+| 7-Segment Displays
+| TMDec Value [, Options ]
+
+| <<_tmdec,TMDec>>
+| 7-Segment Displays
+| TMDec Value [, Options ]
+
+| <<_tmhex,TMHex>>
+| 7-Segment Displays
+| TMHex Value
+
+| <<_tmhex_2,TMHex>>
+| 7-Segment Displays
+| TMHex Value
+
+| <<_tmwrite4dig,TMWrite4Dig>>
+| 7-Segment Displays
+| TMWrite4Dig (dig1, dig2, dig3, dig4 [, Brightness ], Colon ] ] )
+
+| <<_tmwrite6dig,TMWrite6Dig>>
+| 7-Segment Displays
+| TMWrite6Dig (dig1, dig2, dig3, dig4, dig5, dig6, Brightness, Point)
+
+| <<_tmwritechar_2,TMWriteChar>>
+| 7-Segment Displays
+| TMWriteChar ( TMaddr, TMchar )
+
+| <<_tmwritechar,TMWriteChar>>
+| 7-Segment Displays
+| TMWriteChar ( TMaddr, TMchar )
+
+| <<_tone,Tone>>
+| Sound
+| Tone _Frequency, Duration_
+
+| <<_triangle,Triangle>>
+| Graphical LCD
+| Triangle(XPixelPosition1, YPixelPosition1, XPixelPosition2, YPixelPosition2, XPixelPosition3, YPixelPosition3 [,Optional LineColour] )
+
+| <<_trigonometry_atan,Trigonometry ATAN>>
+| Maths
+| GCBASIC supports the trigonometric function for ATan.
+
+| <<_trigonometry_sine_cosine_and_tangent,Trigonometry Sine, Cosine and Tangent>>
+| Maths
+| GCBASIC supports Three Primary Trigonometric Functions
+
+| <<_trim,Trim>>
+| String Manipulation
+| __stringvar__ = Trim(__stringvar__)
+
+| <<_uc1601_controllers,UC1601 Controllers>>
+| Graphical LCD
+| This section covers GLCD devices that use the UC1601 graphics controller.
+
+| <<_ucase,UCase>>
+| String Manipulation
+| __output__ = UCase(__source__)
+
+| <<_ulonginttobin,ULongIntToBin>>
+| String Manipulation
+| __stringvar__ = ULongIntToBin(__ULongIntvar__)
+
+| <<_unlockpps,UnLockPPS>>
+| Peripheral Pin Select
+| UNLOCKPPS
+
+| <<_using_variables,Using Variables>>
+| Variables Operations
+| Using and accessing bytes within word and long numbers etc may be required when you are creating your solution. This can be done with som...
+
+| <<_val,Val>>
+| Deprecated string functions.
+| var = Val(__string__) 'Supports decimal byte and word strings only.
+
+| <<_variable_lifecycle,Variable Lifecycle>>
+| Variables Operations
+| Within GCBASIC you can use variables. This section details the Variable Lifecycle when using variables.
+
+| <<_wait,Wait>>
+| Flow control
+| Wait time units
+
+| <<_weak_pullups,Weak Pullups>>
+| Miscellaneous Commands
+| Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support internal/s...
+
+| <<_wordtobin,WordToBin>>
+| String Manipulation
+| __stringvar__ = WordToBin(__bytevar__)
+
+| <<_wordtohex,WordToHex>>
+| String Manipulation
+| __stringvar__ = WordToHex(__number__)
+
+| <<_wordtostring,WordToString>>
+| String Manipulation
+| _stringvar_ = WordToString(_Word_variable_) 'supports Word.
+
+|===
+
+=== By Category
+
+*Analog/Digital conversion*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_adformat_deprecated_do_not_use,ADFormat (Deprecated - Do not use)>>
+| ADFormat ( Format_Left \| Format_Right )
+
+| <<_adoff,ADOff>>
+| This command is obsolete. There should be no need to call it. GCBASIC
+
+| <<_analog_digital_conversion_code_optimisation,Analog/Digital Conversion Code Optimisation>>
+| The analog to digital converter (ADC or A/D) module support is implemented by GCBASIC to provide 8-bit, 10-bit and 12-bit Single channel ...
+
+| <<_analog_digital_conversion_overview,Analog/Digital Conversion Overview>>
+| The analog to digital converter (ADC or A/D) module support is implemented by GCBASIC to provide 8-bit, 10-bit and 12-bit Single channel ...
+
+| <<_readad,ReadAD>>
+| For a normal ( also called a Single Channel ) read use.
+
+| <<_readad10,ReadAD10>>
+| For a normal ( also called a Single Channel ) read use.
+
+| <<_readad12,ReadAD12>>
+| For a normal ( also called a Single Channel ) read use.
+
+|===
+
+*Bitwise*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_bitwise_operations_overview,Bitwise Operations Overview>>
+| GCBASIC (as with most other microcontroller programming languages) supports bitwise operations.
+
+| <<_fnlsl,FnLSL>>
+| BitsOut = FnLSL(BitsIn, NumBits)
+
+| <<_fnlsr,FnLSR>>
+| BitsOut = FnLSR(BitsIn, NumBits)
+
+| <<_setwith,SetWith>>
+| SetWith(TargetBit, Source)
+
+|===
+
+*MCU EEPROM ( DFM )*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_dataset_for_eeprom,Dataset for EEPROM>>
+| EEPROM DataSetName [[,]address]
+
+| <<_epread,EPRead>>
+| EPRead _location, store_
+
+| <<_epwrite,EPWrite>>
+| EPWrite _location_, _data_
+
+|===
+
+*HEFM ( PFM )*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_heferaseblock,HEFEraseBlock>>
+| HEFEraseBlock ( block_number )
+
+| <<_hefm_overview,HEFM Overview>>
+| Some enhanced mid-range Microchip PIC devices support High-Endurance Flash (HEF) memory. These devices lack the data EEPROM found on othe...
+
+| <<_hefread,HEFRead>>
+| 'as a subroutine
+
+| <<_hefreadblock,HEFReadBlock>>
+| HEFReadBlock ( block_number, buffer(), [, num_bytes] )
+
+| <<_hefreadword,HEFReadWord>>
+| 'as a subroutine
+
+| <<_hefwrite,HEFWrite>>
+| HEFWrite ( location, data )
+
+| <<_hefwriteblock,HEFWriteBlock>>
+| HEFWriteBlock ( block_number, buffer(), [, num_bytes] )
+
+| <<_hefwriteword,HEFWriteWord>>
+| HEFWriteWord ( location, data_word_value )
+
+|===
+
+*PROGMEM ( PFM )*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_data,DATA>>
+| DATA DataSetName [as Byte \| Word]
+
+| <<_pfmread,PFMRead>>
+| PFMRead (_location, store_)
+
+| <<_pfmwrite,PFMWrite>>
+| PFMWrite (_location_, _value_)
+
+| <<_programerase,ProgramErase>>
+| ProgramErase (_location_)
+
+| <<_programread,ProgramRead>>
+| ProgramRead (_location, store_)
+
+| <<_programwrite,ProgramWrite>>
+| ProgramWrite (_location_, _value_)
+
+|===
+
+*PROGMEM ( MCU Configuration )*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_deviceconfigurationread,DeviceConfigurationRead>>
+| deviceconfigurationRead (_location, store_)
+
+|===
+
+*SAFM*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_saferaseblock,SAFEraseBlock>>
+| SAFEraseBlock ( block_number )
+
+| <<_safm_overview,SAFM Overview>>
+| Some Advanced (18F) and some Enhanced Mid-Range (16F) Microchip PIC devices support Storage Area Flash (SAF) memory. These devices also i...
+
+| <<_safread,SAFRead>>
+| 'as a subroutine
+
+| <<_safreadblock,SAFReadBlock>>
+| SAFReadBlock ( block_number, buffer(), [, num_bytes] )
+
+| <<_safreadword,SAFReadWord>>
+| 'as a subroutine
+
+| <<_safwrite,SAFWrite>>
+| SAFWrite ( location, data )
+
+| <<_safwriteblock,SAFWriteBlock>>
+| SAFWriteBlock ( block_number, buffer(), [, num_bytes] )
+
+| <<_safwriteword,SAFWriteWord>>
+| SAFWriteWord ( location, data_word_value )
+
+|===
+
+*EERAM ( Device )*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_47xxx_eeram_devices,47xxx EERam Devices>>
+| This section covers the 47xxx EERam devices.
+
+|===
+
+*SRAM  ( Device )*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_sram_overview,SRAM Overview>>
+| Serial SRAM is a standalone volatile memory that provides an easy and inexpensive way to add more RAM to application. These are 8-pin low...
+
+| <<_sramread,SRAMRead>>
+| SRAMRead _location, store_
+
+| <<_sramwrite,SRAMWrite>>
+| SRAMWrite _location_, _data_
+
+|===
+
+*Flow control*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_do,Do>>
+| Do [{While \| Until} _condition_]
+
+| <<_end,End>>
+| End
+
+| <<_exit,Exit>>
+| Exit Sub \| Exit Function \| Exit Do \| Exit For \| Exit Repeat
+
+| <<_for,For>>
+| For _counter_ = _start_ To _end_ [Step _increment_]
+
+| <<_gosub,Gosub>>
+| Gosub _label_
+
+| <<_goto,Goto>>
+| Goto _label_
+
+| <<_if,If>>
+| If _condition_ Then _command_
+
+| <<_indcall,IndCall>>
+| IndCall _Address_
+
+| <<_pause,Pause>>
+| Pause time_ms
+
+| <<_repeat,Repeat>>
+| Repeat _times_
+
+| <<_select,Select>>
+| Select Case _var_
+
+| <<_wait,Wait>>
+| Wait time units
+
+|===
+
+*Fixed Voltage Reference*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_fvrinitialize,FVRInitialize>>
+| FVRInitialize ( FVR_OFF \| FVR_1x \| FVR_2x \| FVR_4x )
+
+| <<_fvrisoutputready,FVRIsOutputReady>>
+| user_var = FVRIsOutputReady()
+
+|===
+
+*Interrupts*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_interrupts_overview,Interrupts overview>>
+| Interrupts are a feature of many microcontrollers. They allow the
+
+| <<_intoff,IntOff>>
+| IntOff
+
+| <<_inton,IntOn>>
+| IntOn
+
+| <<_on_interrupt,On Interrupt>>
+| On Interrupt event Call handler
+
+| <<_on_interrupt_the_default_handler,On Interrupt: The default handler>>
+| GCBASIC supports a default interrupt handler in two modes:
+
+|===
+
+*Keypad*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_keypad_overview,Keypad Overview>>
+| The keypad routines allow for a program to read from a 4 x 4 matrix
+
+| <<_keypaddata,KeypadData>>
+| _var_ = KeypadData
+
+| <<_keypadraw,KeypadRaw>>
+| _largevar_ = KeypadRaw
+
+|===
+
+*Graphical LCD*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_box,Box>>
+| Box(LineX1,LineY1, LineX2, LineY2 [, LineColour ] )
+
+| <<_circle,Circle>>
+| Circle(XPixelPosition, YPixelPosition, Radius [ [,Optional LineColour] [,Optional Rounding] ] )
+
+| <<_ellipse,Ellipse>>
+| Ellipse(XPixelPosition, YPixelPosition, XRadius, YRadius [,Optional LineColour] )
+
+| <<_e_paper_controllers,e-Paper Controllers>>
+| This section covers GLCD devices known as e-Papers.
+
+| <<_filledbox,FilledBox>>
+| FilledBox(LineX1,LineY1, LineX2, LineY2, Optional LineColour = 1)
+
+| <<_filledcircle,FilledCircle>>
+| FilledCircle(XPixelPosition, YPixelPosition, Radius [,Optional LineColour] )
+
+| <<_filledellipse,FilledEllipse>>
+| FilledEllipse(XPixelPosition, YPixelPosition, XRadius, YRadius [,Optional LineColour] )
+
+| <<_filledtriangle,FilledTriangle>>
+| FilledTriangle( XPixelPosition1, YPixelPosition1, XPixelPosition2, YPixelPosition2, XPixelPosition3, YPixelPosition3 [,Optional LineColou...
+
+| <<_fonts_and_characters,Fonts and Characters>>
+| This section covers GLCD fonts and characters.
+
+| <<_glcd_overview,GLCD Overview>>
+| The GLCD commands are used to control a Graphical Liquid Crystal Display (GLCD)
+
+| <<_glcdcls,GLCDCLS>>
+| GLCDCLS [GLCDBackground]
+
+| <<_glcddisplay,GLCDDisplay>>
+| GLCDDisplay Off \| On
+
+| <<_glcddrawchar,GLCDDrawChar>>
+| GLCDDrawChar(CharLocX, CharLocY, CharCode [, Optional Colour] )
+
+| <<_glcddrawstring,GLCDDrawString>>
+| GLCDDrawString(CharLocX, CharLocY, String [, Optional Colour] )
+
+| <<_glcdlocatestring,GLCDLocateString>>
+| GLCDLocateString(PrintLocX, PrintLocY )
+
+| <<_glcdprint,GLCDPrint>>
+| GLCDPrint(PrintLocX, PrintLocY, PrintData_Byte [, Optional Colour] ) ',or
+
+| <<_glcdprintlargefont,GLCDPrintLargeFont>>
+| GLCDPrintLargeFont( PrintLocX, PrintLocY, PrintData_String [, Optional Colour] )
+
+| <<_glcdprintstring,GLCDPrintString>>
+| GLCDPrintString( String )
+
+| <<_glcdprintstringln,GLCDPrintStringLn>>
+| GLCDPrintStringLn( String )
+
+| <<_glcdprintwithsize,GLCDPrintWithSize>>
+| GLCDPrintWithSize(PrintLocX, PrintLocY, PrintData_Byte , FontSize [, Color ] ) ',or
+
+| <<_glcdreadbyte,GLCDReadByte>>
+| byte_variable = GLCDReadByte
+
+| <<_glcdrotate,GLCDRotate>>
+| GLCDROTATE LANDSCOPE \| PORTRAIT_REV \| LANDSCAPE_REV \| PORTRAIT
+
+| <<_glcdtimedelay,GLCDTimeDelay>>
+| GLCDTime
+
+| <<_glcdtransaction,GLCDTransaction>>
+| GLCD_Open_PageTransaction
+
+| <<_glcdwritebyte,GLCDWriteByte>>
+| GLCDWriteByte (LCDByte)
+
+| <<_hx8347g_controllers,HX8347G Controllers>>
+| This section covers GLCD devices that use the HX8347G graphics controller.
+
+| <<_hyperbole,Hyperbole>>
+| Hyperbole (x, y, a_axis, b_axis, type, ModeStop, optional LineColour=GLCDForeground)
+
+| <<_ili9326_controllers,ILI9326 Controllers>>
+| This section covers GLCD devices that use the ILI9326 graphics controller. The ILI9326 is a TFT LCD Single Chip Driver with 400RGBx320 Re...
+
+| <<_ili9340_controllers,ILI9340 Controllers>>
+| This section covers GLCD devices that use the ILI9340 graphics controller. The ILI9340 is a TFT LCD Single Chip Driver with 240RGBx320 Re...
+
+| <<_ili9341_controllers,ILI9341 Controllers>>
+| This section covers GLCD devices that use the ILI9341 graphics controller. The ILI9341 is a TFT LCD Single Chip Driver with 240RGBx320 Re...
+
+| <<_ili9481_controllers,ILI9481 Controllers>>
+| This section covers GLCD devices that use the ILI9481 graphics controller.
+
+| <<_ili9486_l_controllers,ILI9486(L) Controllers>>
+| This section covers GLCD devices that use the ILI9486(L) graphics controller.
+
+| <<_ili9488_controllers,ILI9488 Controllers>>
+| This section covers GLCD devices that use the ILI9488 graphics controller.
+
+| <<_ks0108_controllers,KS0108 Controllers>>
+| This section covers GLCD devices that use the KS0108 graphics controller.
+
+| <<_line,Line>>
+| Line(LineX1,LineY1, LineX2, LineY2, Optional LineColour = 1)
+
+| <<_nextion_controllers,NEXTION Controllers>>
+| This section covers GLCD devices that use the serially attached Nextion graphics displays.
+
+| <<_nt7108c_controllers,NT7108C Controllers>>
+| This section covers GLCD devices that use the NT7108C graphics controller.
+
+| <<_parabola,Parabola>>
+| Parabola (x, y, p_factor, type, modestop, optional LineColour=GLCDForeground)
+
+| <<_pcd8544_controllers,PCD8544 Controllers>>
+| This section covers GLCD devices that use the PCD844 graphics controller. +
+
+| <<_pset,Pset>>
+| PSet(XPosition, YPosition, GLCDState)
+
+| <<_ssd1289_controllers,SDD1289 Controllers>>
+| This section covers GLCD devices that use the SDD1289 graphics controller. The SDD1289 is a 240 x 320 single chip controller driver IC fo...
+
+| <<_sh1106_controllers,SH1106 Controllers>>
+| This section covers GLCD devices that use the SH1106 graphics controller. THe SH1106 is a single-chip CMOS OLED/PLED driver with controll...
+
+| <<_ssd1306_controllers,SSD1306 Controllers>>
+| This section covers GLCD devices that use the SSD1306 graphics controller.
+
+| <<_ssd1331_controllers,SSD1331 Controllers>>
+| This section covers GLCD devices that use the SSD1331 graphics controller. The SSD1331 is a single-chip controller/driver for 262K-color,...
+
+| <<_ssd1351_controllers,SSD1351 Controllers>>
+| This section covers GLCD devices that use the SSD1351 graphics controller. The SSD1351 is a single-chip controller/driver for 262K-color,...
+
+| <<_st7567_controllers,ST7567 Controllers>>
+| This section covers GLCD devices that use the ST7567 graphics controller.
+
+| <<_st7735_controllers,ST7735 Controllers>>
+| This section covers GLCD devices that use the ST7735 graphics controller. The ST7735 or ST7735R is a single-chip controller/driver for 26...
+
+| <<_st7789_controllers,ST7789 Controllers>>
+| This section covers GLCD devices that use the ST7789 graphics controller. The ST7789 is a TFT LCD Single Chip Driver with 240x240 or 320x...
+
+| <<_st7920_controllers,ST7920 Controllers>>
+| This section covers GLCD devices that use the ST7920 graphics controller.
+
+| <<_t6963_controllers,T6963 Controllers>>
+| This section covers Graphical Liquid Crystal Display (GLCD) devices that use the Toshiba T6963 graphics controller. The T6963 is a monoch...
+
+| <<_triangle,Triangle>>
+| Triangle(XPixelPosition1, YPixelPosition1, XPixelPosition2, YPixelPosition2, XPixelPosition3, YPixelPosition3 [,Optional LineColour] )
+
+| <<_uc1601_controllers,UC1601 Controllers>>
+| This section covers GLCD devices that use the UC1601 graphics controller.
+
+|===
+
+*Touch Screen*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_ads_7843_serial_driver,ADS 7843 Serial Driver>>
+| ADS7843_Init
+
+|===
+
+*Liquid Crystal Display*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_cls,CLS>>
+| CLS
+
+| <<_get,Get>>
+| var = Get(Line, Column)
+
+| <<_lcd_overview,LCD Overview>>
+| The LCD routines in this section allow GCBASIC programs to control an
+
+| <<_lcdbacklight,LCDBacklight>>
+| LCDBacklight ( On \| Off )
+
+| <<_lcdcmd,LCDCmd>>
+| LCDCMD _value_
+
+| <<_lcdcreatechar,LCDCreateChar>>
+| LCDCreateChar _char, chardata()_
+
+| <<_lcdcreategraph,LCDCreateGraph>>
+| LCDCreateGraph _value_
+
+| <<_lcdcursor,LCDCursor>>
+| LCDCursor value
+
+| <<_lcddisplayoff,LCDDisplayOff>>
+| LCDDisplayOff
+
+| <<_lcddisplayon,LCDDisplayOn>>
+| LCDDisplayOn
+
+| <<_lcdhex,LCDHex>>
+| LCDHex value
+
+| <<_lcdhome,LCDHome>>
+| LCDHome
+
+| <<_lcdspace,LCDSpace>>
+| LCDSpace value
+
+| <<_lcdwritechar,LCDWriteChar>>
+| LCDWriteChar _char_
+
+| <<_locate,Locate>>
+| Locate _Line, Column_
+
+| <<_print,Print>>
+| Print _string_
+
+| <<_put,Put>>
+| Put _Line_, _Column_, _Character_
+
+|===
+
+*Pulse width modulation*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_atmel_avr_pwm_overview,ATMEL AVR PWM Overview>>
+| The methods described in this section allow the generation of Pulse
+
+| <<_hardware_pwm_code_optimisation,Hardware PWM Code Optimisation>>
+| For compatibility all channels are supported by default. This is maintains backward compatibility. +
+
+| <<_hpwm_10_bit,HPWM 10 Bit>>
+| HPWM _channel, frequency, duty cycle, timer [, resolution]_
+
+| <<_hpwm_16_bit,HPWM 16 Bit>>
+| HPWM16 _channel, frequency, duty cycle_ 'Enable a 16-bit PWM channel'
+
+| <<_hpwm_avr_ocrnx,HPWM AVR OCRnx>>
+| HPWM _channel_, _frequency_, _duty cycle_
+
+| <<_hpwm_ccp,HPWM CCP>>
+| HPWM _channel, frequency, duty cycle_
+
+| <<_hpwm_fixed_mode,HPWM Fixed Mode>>
+| PWMOn 'only applies to CCP/PWM channel 1
+
+| <<_hpwm_fixed_mode_for_avr,HPWM Fixed Mode for AVR>>
+| PWMOn
+
+| <<_hpwm_ccptimern,HPWM_CCPTimerN>>
+| HPWM_CCPTimerN _channel_, _frequency_, _duty cycle_ [, _timer_ 2, 4 or 6 ]
+
+| <<_hpwmoff,HPWMOff>>
+| HPWMOff ( channel ) 'selectively turn off the CCP channel
+
+| <<_hpwmoff_3,HPWMOff>>
+| HPWMOff ( channel, PWMHardware )
+
+| <<_hpwmoff_2,HPWMOff>>
+| HPWMOff ( channel ) 'selectively turn off the CCP channel
+
+| <<_hpwmupdate_for_ccp_pwm_modules_s,HPWMUpdate for CCP/PWM Modules(s)>>
+| HPWMUpdate ( channel, duty_cycle )
+
+| <<_hpwmupdate_for_pwm_module_s,HPWMUpdate for PWM Module(s)>>
+| HPWMUpdate ( channel, duty_cycle )
+
+| <<_microchip_pic_pwm_overview,Microchip PIC PWM Overview>>
+| The methods described in this section allow the generation of Pulse
+
+| <<_pwm_software_mode,PWM Software Mode>>
+| PWMOut _channel, duty cycle, cycles_
+
+| <<_pwmoff,PWMOff>>
+| PWMOff
+
+| <<_pwmoff_for_avr,PWMOff for AVR>>
+| PWMOff
+
+| <<_pwmon,PWMOn>>
+| PWMOn
+
+| <<_pwmon_for_avr,PWMOn for AVR>>
+| PWMOn
+
+| <<_pwmout,PWMOut>>
+| PWMOut _channel, duty cycle, cycles_
+
+|===
+
+*Random Numbers*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_overview,Overview>>
+| These routines allow GCBASIC to generate pseudo-random numbers.
+
+| <<_random,Random>>
+| var = Random
+
+| <<_randomize,Randomize>>
+| Randomize
+
+|===
+
+*7-Segment Displays*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_7_segment_displays_legacy,7 Segment Displays - Legacy>>
+| The GCBASIC 7 segment display methods make it easier for GCBASIC programs to display numbers and letters on 7 segment LED displays.
+
+| <<_7_segment_displays_tm1637_4_digits,7 Segment Displays - TM1637 4 Digits>>
+| The TM1637 disaplay module is used for displaying numbers on a keyboard matrix.
+
+| <<_7_segment_displays_tm1637_6_digits,7 Segment Displays - TM1637 6 Digits>>
+| The TM1637 display module is used for displaying numbers on a keyboard matrix.
+
+| <<_7_segment_displays_overview,7 Segment Displays Overview>>
+| The 7 Segment Displays module provide a cheap red, green, blue or white bright LED Display.
+
+| <<_common_anode,Common Anode>>
+| This is a Common Anode 7 Segment display example.
+
+| <<_common_cathode,Common Cathode>>
+| This is a Common Cathode 7 Segment display example.
+
+| <<_displaychar,DisplayChar>>
+| DisplayChar (_display, character, dot_)
+
+| <<_displaysegment,DisplaySegment>>
+| DisplayValue (_display, data_)
+
+| <<_displayvalue,DisplayValue>>
+| DisplayValue (_display, data, dot_)
+
+| <<_tm_bright_2,TM_Bright>>
+| TM_Bright = Brightness
+
+| <<_tm_bright,TM_Bright>>
+| TM_Bright = Brightness
+
+| <<_tm_point,TM_Point>>
+| TM_Point = (Point)
+
+| <<_tmdec_2,TMDec>>
+| TMDec Value [, Options ]
+
+| <<_tmdec,TMDec>>
+| TMDec Value [, Options ]
+
+| <<_tmhex_2,TMHex>>
+| TMHex Value
+
+| <<_tmhex,TMHex>>
+| TMHex Value
+
+| <<_tmwrite4dig,TMWrite4Dig>>
+| TMWrite4Dig (dig1, dig2, dig3, dig4 [, Brightness ], Colon ] ] )
+
+| <<_tmwrite6dig,TMWrite6Dig>>
+| TMWrite6Dig (dig1, dig2, dig3, dig4, dig5, dig6, Brightness, Point)
+
+| <<_tmwritechar,TMWriteChar>>
+| TMWriteChar ( TMaddr, TMchar )
+
+| <<_tmwritechar_2,TMWriteChar>>
+| TMWriteChar ( TMaddr, TMchar )
+
+|===
+
+*One Wire Devices*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_ds18b20,DS18B20>>
+| The DS18B20 is a 1-Wire digital temperature sensor from Maxim IC.
+
+| <<_ds18b20setresolution,DS18B20SetResolution>>
+| For Single Channel/Device only. The method assumes a single DS18B20 device on the OneWire bus.
+
+| <<_readdigitaltemp,ReadDigitalTemp>>
+| ReadDigitalTemp
+
+| <<_readtemp,ReadTemp>>
+| byte_var = ReadTemp
+
+| <<_readtemp12,ReadTemp12>>
+| byte_var = ReadTemp12
+
+|===
+
+*Serial Communications*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_hsergetnum,HSerGetNum>>
+| HSerGetNum _myNum_ ‘Gets a multi digit number from USART 1
+
+| <<_hsergetstring,HSerGetString>>
+| HSerGetString _myString_ ‘Get a multi char string from USART 1
+
+| <<_hserprint,HSerPrint>>
+| HSerPrint _user_value_ [,1\|2\|3\|4] 'Choose comport with optional parameter
+
+| <<_hserprintbytecrlf,HserPrintByteCRLF>>
+| HserPrintByteCRLF _user_data_ [, 1 \| 2 \| 3 \| 4 ]
+
+| <<_hserprintcrlf,HserPrintCRLF>>
+| HserPrintCRLF [optional BYTE] [, 1 \| 2 \| 3 \| 4 ]
+
+| <<_hserprintstringcrlf,HSerPrintStringCRLF>>
+| HSerPrintStringCRLF _user_string_ [,1\|2\|3\|4] 'Choose comport with optional parameter
+
+| <<_hserreceive,HSerReceive>>
+| HSerReceive (_user_byte_variable_)
+
+| <<_hserreceivefrom,HSerReceiveFrom>>
+| _user_byte_ = HSerReceiveFrom [,1 \| 2 \| 3 \| 4]
+
+| <<_hsersend,HSerSend>>
+| HSerSend _user_byte_ [,1\|2\|3\|4] 'Choose comport with optional parameter
+
+| <<_initser,InitSer>>
+| InitSer _channel, rate, start, data, stop, parity, invert_
+
+| <<_rs232_hardware_overview,RS232 Hardware Overview>>
+| GCBASIC support programs to communicate easily using RS232.
+
+| <<_rs232_software_overview,RS232 Software Overview>>
+| These routines allow the microcontroller to send and receive RS232 data.
+
+| <<_rs232_software_overview_optimised,RS232 Software Overview - Optimised>>
+| These routines allow the microcontroller to send and receive RS232 data.
+
+| <<_sernprint,SerNPrint>>
+| Ser1Print value
+
+| <<_sernreceive,SerNReceive>>
+| bytevar = Ser1Receive
+
+| <<_sernsend,SerNSend>>
+| Ser1Send data
+
+| <<_serprint,SerPrint>>
+| SerPrint _channel, value_
+
+| <<_serreceive,SerReceive>>
+| SerReceive _channel_, _output_
+
+| <<_sersend,SerSend>>
+| SerSend _channel_, _data_
+
+|===
+
+*PS/2*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_inkey,InKey>>
+| output = InKey
+
+| <<_ps_2_overview,PS/2 Overview>>
+| These routines make it easier to communicate with a PS/2 device,
+
+| <<_ps2readbyte,PS2ReadByte>>
+| output = PS2ReadByte
+
+| <<_ps2setkbleds,PS2SetKBLeds>>
+| PS2SetKBLeds (_LedStatus_)
+
+| <<_ps2writebyte,PS2WriteByte>>
+| PS2WriteByte _user_data_
+
+|===
+
+*SPI*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_fasthwspi2transfer,FastHWSPI2Transfer>>
+| FastHWSPI2Transfer _tx_
+
+| <<_fasthwspitransfer,FastHWSPITransfer>>
+| FastHWSPITransfer _tx_
+
+| <<_spi_overview,SPI Overview>>
+| The SPI interface allows for the transmission and receiption of data simultaneously on two lines (MOSI and MISO).
+
+| <<_spi2mode,SPI2Mode>>
+| SPI2Mode ( _Mode_ [, _SPIClockMode_])
+
+| <<_spi2transfer,SPI2Transfer>>
+| SPI2Transfer _tx_, _rx_
+
+| <<_spimode,SPIMode>>
+| SPIMode ( _Mode_ [, _SPIClockMode_])
+
+| <<_spitransfer,SPITransfer>>
+| SPITransfer _tx_, _rx_
+
+|===
+
+*I2C Software*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_i2c_overview,I2C Overview>>
+| These software routines allow GCBASIC programs to send and receive I2C
+
+| <<_i2cackpoll,I2CAckpoll>>
+| I2CAckpoll ( _I2C_device_address_ )
+
+| <<_i2cackpollstate,I2CAckPollState>>
+| <test condition> I2CAckPollState
+
+| <<_i2creceive,I2CReceive>>
+| I2CReceive _data_
+
+| <<_i2creset,I2CReset>>
+| I2CReset
+
+| <<_i2crestart,I2CRestart>>
+| I2CRestart
+
+| <<_i2csend,I2CSend>>
+| I2CSend _data_
+
+| <<_i2cstart,I2CStart>>
+| I2CStart
+
+| <<_i2cstartoccurred,I2CStartoccurred>>
+| I2CStartoccurred
+
+| <<_i2cstop,I2CStop>>
+| I2CStop
+
+|===
+
+*I2C/TWI Hardware Module*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_hi2c_overview,HI2C Overview>>
+| These methods allow GCBASIC programs to send and receive Inter- Integrated Circuit (I2C™) messages via:
+
+| <<_hi2cackpollstate,HI2CAckPollState>>
+| <test condition[s]> HI2CAckPollState
+
+| <<_hi2cmode,HI2CMode>>
+| HI2CMode Master \| Slave
+
+| <<_hi2creceive,HI2CReceive>>
+| HI2CReceive _data_
+
+| <<_hi2crestart,HI2CRestart>>
+| HI2CRestart
+
+| <<_hi2csetaddress,HI2CSetAddress>>
+| HI2CSetAddress address_number
+
+| <<_hi2cstart,HI2CStart>>
+| HI2CStart
+
+| <<_hi2cstartoccurred,HI2CStartOccurred>>
+| HI2CStartOccurred
+
+| <<_hi2cstop,HI2CStop>>
+| HI2CStop
+
+| <<_hi2cstopped,HI2CStopped>>
+| HI2CStopped
+
+| <<_hi2cwaitmssp,HI2CWaitMSSP>>
+| HI2CWaitMSSP
+
+|===
+
+*Sound*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_play,Play>>
+| Play SoundPlayDataString
+
+| <<_play_rtttl,Play RTTTL>>
+| PlayRTTTL SoundPlayRTTTLDataString
+
+| <<_shorttone,ShortTone>>
+| ShortTone Frequency, Duration
+
+| <<_sound_overview,Sound Overview>>
+| These GCBASIC methods generate tones of a given frequency and duration.
+
+| <<_tone,Tone>>
+| Tone _Frequency, Duration_
+
+|===
+
+*Timers*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_cleartimer,ClearTimer>>
+| ClearTimer _TimerNo_
+
+| <<_inittimer0,InitTimer0>>
+| InitTimer0 source, prescaler
+
+| <<_inittimer1,InitTimer1>>
+| InitTimer1 _source, prescaler_
+
+| <<_inittimer10,InitTimer10>>
+| InitTimer10 _prescaler_, _postscaler_
+
+| <<_inittimer12,InitTimer12>>
+| InitTimer12 _prescaler_, _postscaler_
+
+| <<_inittimer2,InitTimer2>>
+| InitTimer2 _prescaler_, _postscaler_
+
+| <<_inittimer3,InitTimer3>>
+| InitTimer3 _source_, _prescaler_
+
+| <<_inittimer4,InitTimer4>>
+| InitTimer4 _prescaler_, _postscaler_
+
+| <<_inittimer5,InitTimer5>>
+| InitTimer5 _source_, _prescaler_
+
+| <<_inittimer6,InitTimer6>>
+| InitTimer6 _prescaler_, _postscaler_
+
+| <<_inittimer7,InitTimer7>>
+| InitTimer7 _source_, _prescaler_
+
+| <<_inittimer8,InitTimer8>>
+| InitTimer8 _prescaler_, _postscaler_
+
+| <<_reading_timers,Reading Timers>>
+| GCBASIC has the following macros to read a specific timer value. They
+
+| <<_settimer,Settimer>>
+| Settimer _timernumber_, _byte_value_
+
+| <<_smt_timers,SMT Timers>>
+| The Signal Measurement Timer (SMT) capability is a 24-bit counter with advanced clocking and gating logic, which can be configured for me...
+
+| <<_starttimer,StartTimer>>
+| StartTimer _TimerNo_
+
+| <<_stoptimer,StopTimer>>
+| StopTimer _TimerNo_
+
+| <<_timer_overview,Timer Overview>>
+| GCBASIC supports methods to set, clear, read, start and stop the microcontroller timers.
+
+|===
+
+*Variables Operations*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_alloc,Alloc>>
+| Alloc creates a special type of variable - an array variant. This array variant can store values. The values stored in this array variant...
+
+| <<_bcdtodec_gcb,BcdToDec_GCB>>
+| BcdToDec_GCB ( ByteVariable )
+
+| <<_dectobcd_gcb,DecToBcd_GCB>>
+| DectoBcd( ByteVariable )
+
+| <<_dim,Dim>>
+| Dim _variable_ // will define a Byte variable
+
+| <<_more_on_setting_variables_and_constants,More on setting Variables and Constants>>
+| Within GCBASIC you can use regular variable assignments. But, you can also use C like maths assignments.
+
+| <<_rotate,Rotate>>
+| Rotate _variable_ {Left \| Right} [Simple]
+
+| <<_set,Set>>
+| Set _variable.bit_ {On \| Off}
+
+| <<_setting_variables,Setting Variables>>
+| {empty} +
+
+| <<_swap,SWAP>>
+| SWAP( VariableA, VariableB)
+
+| <<_swap4,SWAP4>>
+| SWAP4( VariableA)
+
+| <<_using_variables,Using Variables>>
+| Using and accessing bytes within word and long numbers etc may be required when you are creating your solution. This can be done with som...
+
+| <<_variable_lifecycle,Variable Lifecycle>>
+| Within GCBASIC you can use variables. This section details the Variable Lifecycle when using variables.
+
+|===
+
+*String Manipulation*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_asc,Asc>>
+| byte__var__= ASC(string, [position] )
+
+| <<_bytetobin,ByteToBin>>
+| __stringvar__ = ByteToBin(__bytevar__)
+
+| <<_bytetohex,ByteToHex>>
+| __stringvar__ = ByteToHex(__number__)
+
+| <<_bytetostring,ByteToString>>
+| _stringvar_ = ByteToString(_byte_variable_) 'supports byte.
+
+| <<_chr,Chr>>
+| _stringvar_ = CHR(_bytevar_)
+
+| <<_concatenation,Concatenation>>
+| __stringvar__ = variable1 + variable2
+
+| <<_fill,Fill>>
+| _stringvar_ = Fill ( byte_value_of_the_new_length , pad_character )
+
+| <<_instr,Instr>>
+| __location__ = Instr(__source__, __find__)
+
+| <<_integertobin,IntegerToBin>>
+| __stringvar__ = IntegerToBin(__integervar__)
+
+| <<_integertohex,IntegerToHex>>
+| __stringvar__ = IntegerToHex(__number__)
+
+| <<_integertostring,IntegerToString>>
+| _stringvar_ = IntegerToString(_Integer_variable_) 'supports Integer.
+
+| <<_lcase,LCase>>
+| __output__ = LCase(__source__)
+
+| <<_left,Left>>
+| __output__ = Left(__source__, __count__)
+
+| <<_leftpad,LeftPad>>
+| LeftPad(_string_variable_,_byte_value_of_the_new_length_,_pad_character_)
+
+| <<_len,Len>>
+| __output__= Len( string )
+
+| <<_longtobin,LongToBin>>
+| __stringvar__ = LongToBin(__longvar__)
+
+| <<_longtohex,LongToHex>>
+| __stringvar__ = LongToHex(__number__)
+
+| <<_longtostring,LongToString>>
+| _stringvar_ = LongToString(_Long_variable_) 'supports Long.
+
+| <<_ltrim,Ltrim>>
+| __stringvar__ = LTRIM(__stringvar__)
+
+| <<_mid,Mid>>
+| __output__ = Mid(__source__, __start__[, __count__])
+
+| <<_pad,Pad>>
+| out_string = Pad( __string_variable__, __byte_value_of_the_new_length__, __pad_character__)
+
+| <<_right,Right>>
+| __output__ = Right(__source__, __count__)
+
+| <<_rtrim,Rtrim>>
+| __stringvar__ = Rtrim(__stringvar__)
+
+| <<_singletobin,SingleToBin>>
+| __stringvar__ = SingleToBin(__Singlevar__)
+
+| <<_singletohex,SingleToHex>>
+| __stringvar__ = SingleToHex(__number__)
+
+| <<_singletostring,SingleToString>>
+| _stringvar_ = SingleToString(_Single_variable_) 'supports Single.
+
+| <<_stringtobyte,StringToByte>>
+| var = StringToByte(__string__) 'Supports decimal byte range strings only.
+
+| <<_stringtolong,StringToLong>>
+| var = StringToLong(__string__) 'Supports decimal Long range strings only.
+
+| <<_stringtosingle,StringToSingle>>
+| var = StringToSingle(__string__) 'Supports decimal Single range strings only.
+
+| <<_stringtoword,StringToWord>>
+| var = StringToWord(__string__) 'Supports decimal Word range strings only.
+
+| <<_trim,Trim>>
+| __stringvar__ = Trim(__stringvar__)
+
+| <<_ucase,UCase>>
+| __output__ = UCase(__source__)
+
+| <<_ulonginttobin,ULongIntToBin>>
+| __stringvar__ = ULongIntToBin(__ULongIntvar__)
+
+| <<_wordtobin,WordToBin>>
+| __stringvar__ = WordToBin(__bytevar__)
+
+| <<_wordtohex,WordToHex>>
+| __stringvar__ = WordToHex(__number__)
+
+| <<_wordtostring,WordToString>>
+| _stringvar_ = WordToString(_Word_variable_) 'supports Word.
+
+|===
+
+*Deprecated string functions.*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_hex,Hex>>
+| __stringvar__ = Hex(__number__)
+
+| <<_str,Str>>
+| _stringvar_ = Str(_number_) 'supports decimal byte and word strings only.
+
+| <<_val,Val>>
+| var = Val(__string__) 'Supports decimal byte and word strings only.
+
+|===
+
+*Miscellaneous Commands*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_dir,Dir>>
+| Dir __port.bit__ {In \| Out} __(Individual Form)__
+
+| <<_getuserid,GetUserID>>
+| Available on all Microchip microcontrollers that support UserIDs.
+
+| <<_peek,Peek>>
+| __OutputVariable__ = Peek (__location__)
+
+| <<_poke,Poke>>
+| Poke(__location__, __value__)
+
+| <<_pot,Pot>>
+| Pot _pin, output_
+
+| <<_pulsein,PulseIn>>
+| PulseIn __pin__, __user_variable__, __time units__
+
+| <<_pulseininv,PulseInInv>>
+| PulseInInv __pin__, __user_variable__, __time units__
+
+| <<_pulseout,PulseOut>>
+| PulseOut __pin__, __time units__
+
+| <<_pulseoutinv,PulseOutInv>>
+| PulseOutInv _pin,_ _time units_
+
+| <<_weak_pullups,Weak Pullups>>
+| Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support internal/s...
+
+|===
+
+*Maths*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_abs,Abs>>
+| integer_variable = Abs( integer_variable )
+
+| <<_average,Average>>
+| integer_variable = Average(__byte_variable1__ , __byte_variable2__)
+
+| <<_difference,Difference>>
+| Difference ( word_variable1 , word_variable2 ) or
+
+| <<_int,Int>>
+| integer_variable = Int( single_variable )
+
+| <<_log10,Log10>>
+| returned_word_variable = Log10 (__word_value__)
+
+| <<_log2,Log2>>
+| returned_word_variable = Log2 ( __word_value__ )
+
+| <<_logarithms,Logarithms>>
+| GCBASIC support logarithmic functions through the include file <maths.h>.
+
+| <<_loge,Loge>>
+| returned_word_variable = Loge ( __word_value__ )
+
+| <<_power,Power>>
+| power( base, exponent )
+
+| <<_roundsingle,RoundSingle>>
+| rounded_single_value = RoundSingle( single_variable )
+
+| <<_scale,Scale>>
+| integer_variable = Scale (value_word , fromLow_integer , fromHigh_integer , toLow_integer , toHigh_integer [, calibration_integer] )
+
+| <<_sqrt,Sqrt>>
+| word_variable = sqrt ( __word__ )
+
+| <<_trigonometry_atan,Trigonometry ATAN>>
+| GCBASIC supports the trigonometric function for ATan.
+
+| <<_trigonometry_sine_cosine_and_tangent,Trigonometry Sine, Cosine and Tangent>>
+| GCBASIC supports Three Primary Trigonometric Functions
+
+|===
+
+*Peripheral Pin Select*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_lockpps,LockPPS>>
+| LOCKPSS
+
+| <<_peripheral_pin_select_for_microchip_microcontrollers,Peripheral Pin Select for Microchip microcontrollers.>>
+| Peripheral Pin Select (PPS) enables the digital peripheral I/O pins to be changed to support mapping of external pins to different pins.
+
+| <<_unlockpps,UnLockPPS>>
+| UNLOCKPPS
+
+|===
+
+=== Commands Not Yet Documented
+
+The following names are recognised by the GCBASIC compiler (per its reserved-word list) but do not currently have a dedicated Help page or any mention in the existing documentation text. They are listed here as a known-gaps appendix, not fabricated pages -- if you rely on one of these, please raise it so a page can be added.
+
+[cols="1"]
+|===
+| _glcdpage
+| _glcdpagesh
+| _glcdpagesl
+| createbutton
+| eeram_write_command
+| fillroundrect
+| glcdprintdefaultfont_nextion
+| hefreadbyte
+| hline
+| hpwm16_log2
+| hpwm16_setdc
+| hpwm16_setgoing 
+| hpwm16_setprps
+| hpwm16init
+| i2cslavedevicereceive
+| masterrst
+| owout
+| ppulse
+| roundrect
+| safreadbyte
+| shiftr
+| st7735rotation
+| st7735sendcommand
+| vline
+|===
+
+

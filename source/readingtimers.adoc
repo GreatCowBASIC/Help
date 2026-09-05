@@ -1,7 +1,11 @@
 ==== Reading Timers
 
+(((Timers,Reading Timers)))
+
+
 GCBASIC has the following macros to read a specific timer value. They
 are:
+[source,gcbasic]
 ----
     Timer0
     Timer1
@@ -20,4 +24,10 @@ Note that these macros should only be used to read the timer value.  To write th
 
 Not all of these functions are available on all microcontrollers. For example, if a microcontrollers has three timers, then typically only `Timer0`, `Timer1` and `Timer2` will be available.
 
-Please refer to the datasheet for your microcontroller to determine the supported timer numbers, and if a specific timer is 8-bit or 16-bit. 
+Please refer to the datasheet for your microcontroller to determine the supported timer numbers, and if a specific timer is 8-bit or 16-bit.
+
+**See Also:**
+
+* <<_timer_overview,Timer Overview>> -- category overview
+* <<_cleartimer,ClearTimer>> -- related command in the same category
+* <<_inittimer0,InitTimer0>> -- related command in the same category

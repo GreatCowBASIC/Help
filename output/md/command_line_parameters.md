@@ -6,8 +6,7 @@
 
 <div>
 
-<span id="command_line_parameters"></span>Command Line Parameters
-------------------------------------------------------------------
+### <span id="command_line_parameters"></span>Command Line Parameters
 
 </div>
 
@@ -37,26 +36,26 @@
 
 <div class="informaltable">
 
-| <span class="strong">**Switch**</span> | <span class="strong">**Description**</span>                                                                                                                                                                                                                                                                                                          | <span class="strong">**Default**</span>                           |
-|:---------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------|
-| `/A:assembler`                         | Batch file used to call assembler<sup>(1)</sup>. If `/A:GCASM` is given, GCBASIC will use its internal assembler.                                                                                                                                                                                                                                    | The program will not be assembled                                 |
-| `/AO`                                  | Use .build folder for assembly operations.                                                                                                                                                                                                                                                                                                           | This is the Assembly Only switch.                                 |
-| `/CP`                                  | Exports the config bits automatically selected by the compiler to an output file called `source_filename.config`. The output file is the source filename with the extension of config.                                                                                                                                                               | None                                                              |
-| `/DO`                                  | Use .build folder for debugger operations.                                                                                                                                                                                                                                                                                                           | This is the DirectoryOutput switch.                               |
-| `/F[:[0|F][1|T]`                       | Used to bypass compilation when not needed, compiler will verify that config settings in the already compiled file match those required for the programmer. If not, a recompilation will be forced. Skip compilation if the hex file is up to date and has correct config. /F:x ( F or 0) to force a fresh compile regardless of what ini specifies. |                                                                   |
-| `/FO`                                  | Used to bypass compilation and program only. Compiler will verify that config settings in the already compiled file match those required for the programmer. If not, a recompilation will be forced.                                                                                                                                                 |                                                                   |
-| `/H:[Y/1 | N/0]`                       | Set the production, or not, of the hex output file. /H:1 is the default. To prevent production of the hex output file - use /H:0                                                                                                                                                                                                                     | The default is to produce the hex output file                     |
-| `/K:[C|A]`                             | Keep original code in assembly output. `/K:C` will save comments, `/K:A` will preserve all input code.                                                                                                                                                                                                                                               | No original code left in output.                                  |
-| `/L`                                   | Show license and exit.                                                                                                                                                                                                                                                                                                                               | \-                                                                |
-| `/M:[Y/1| N/0]`                        | Mute the banner messages, or not. `/M:1` is the default. To prevent banner messages use `/M:0`.                                                                                                                                                                                                                                                      | The default is to output banner messages                          |
-| `/NP`                                  | Do not pause on errors. Use with IDEs.                                                                                                                                                                                                                                                                                                               | Pause when an error occurs, and wait for the user to press a key. |
-| `/O:filename`                          | Sets the name of the assembly file generated to `filename`.                                                                                                                                                                                                                                                                                          | Same name as the input file, but with a `.asm` extension.         |
-| `/P:programmer`                        | Batch file used to call programmer<sup>(1)</sup>. This parameter is ignored if the program is not assembled.                                                                                                                                                                                                                                         | The program will not be downloaded.                               |
-| `/S:fsp`                               | Load the settings from a specified file, rather than use the defaults.                                                                                                                                                                                                                                                                               | /S:use.ini                                                        |
-| `/V:[0|F][1|T]`                        | Verbose mode — compiler gives more detailed information about its activities. `/Vx` will override any configuration in the user ini file.                                                                                                                                                                                                            | \-                                                                |
-| `/WX`                                  | Force compiler to ensure all include files are valid.                                                                                                                                                                                                                                                                                                |                                                                   |
-| `/version`                             | Show build date and version of the compiler.                                                                                                                                                                                                                                                                                                         |                                                                   |
-| `filename`                             | The file to compile.                                                                                                                                                                                                                                                                                                                                 | \-                                                                |
+| <span class="strong">**Switch**</span> | <span class="strong">**Description**</span>                                                                                                                                                                                                                                                                                                                               | <span class="strong">**Default**</span>                           |
+|:---------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------|
+| `/A:assembler`                         | Batch file used to call assembler<sup>(1)</sup>. If `/A:GCASM` is given, GCBASIC will use its internal assembler.                                                                                                                                                                                                                                                         | The program will not be assembled                                 |
+| `/AO`                                  | Use .build folder for assembly operations.                                                                                                                                                                                                                                                                                                                                | This is the Assembly Only switch.                                 |
+| `/CP`                                  | Exports the config bits automatically selected by the compiler to an output file called `source_filename.config`. The output file is the source filename with the extension of config.                                                                                                                                                                                    | None                                                              |
+| `/DO`                                  | Use .build folder for debugger operations.                                                                                                                                                                                                                                                                                                                                | This is the DirectoryOutput switch.                               |
+| `/F[:[0|F][1|T]`                       | Used to bypass compilation when not needed - the compiler will verify that the config settings in the already-compiled file match those required for the programmer. If not, a recompilation will be forced. Skip compilation if the hex file is up to date and has the correct config. /F:x (F or 0) to force a fresh compile regardless of what the ini file specifies. |                                                                   |
+| `/FO`                                  | Used to bypass compilation and program only. The compiler will verify that the config settings in the already-compiled file match those required for the programmer. If not, a recompilation will be forced.                                                                                                                                                              |                                                                   |
+| `/H:[Y/1 | N/0]`                       | Set the production, or not, of the hex output file. /H:1 is the default. To prevent production of the hex output file, use /H:0.                                                                                                                                                                                                                                          | The default is to produce the hex output file                     |
+| `/K:[C|A]`                             | Keep original code in assembly output. `/K:C` will save comments, `/K:A` will preserve all input code.                                                                                                                                                                                                                                                                    | No original code left in output.                                  |
+| `/L`                                   | Show license and exit.                                                                                                                                                                                                                                                                                                                                                    | \-                                                                |
+| `/M:[Y/1| N/0]`                        | Mute the banner messages, or not. `/M:1` is the default. To prevent banner messages, use `/M:0`.                                                                                                                                                                                                                                                                          | The default is to output banner messages                          |
+| `/NP`                                  | Do not pause on errors. Use with IDEs.                                                                                                                                                                                                                                                                                                                                    | Pause when an error occurs, and wait for the user to press a key. |
+| `/O:filename`                          | Sets the name of the generated assembly file to `filename`.                                                                                                                                                                                                                                                                                                               | Same name as the input file, but with a `.asm` extension.         |
+| `/P:programmer`                        | Batch file used to call programmer<sup>(1)</sup>. This parameter is ignored if the program is not assembled.                                                                                                                                                                                                                                                              | The program will not be downloaded.                               |
+| `/S:fsp`                               | Load the settings from a specified file, rather than use the defaults.                                                                                                                                                                                                                                                                                                    | /S:use.ini                                                        |
+| `/V:[0|F][1|T]`                        | Verbose mode — the compiler gives more detailed information about its activities. `/Vx` will override any configuration in the user ini file.                                                                                                                                                                                                                             | \-                                                                |
+| `/WX`                                  | Force compiler to ensure all include files are valid.                                                                                                                                                                                                                                                                                                                     |                                                                   |
+| `/version`                             | Show build date and version of the compiler.                                                                                                                                                                                                                                                                                                                              |                                                                   |
+| `filename`                             | The file to compile.                                                                                                                                                                                                                                                                                                                                                      | \-                                                                |
 
 </div>
 
@@ -67,24 +66,24 @@ replaced by the name of the `.asm` file but without an extension, and
 `%CHIPMODEL%` will be replaced with the name of the chip. The name of
 the chip will be the same as that on the chip data file.</span>
 
-A batch file to load the `ASM` from GCBASIC into `MPASM`. Command line
-should be like this:
+A batch file to load the `ASM` from GCBASIC into `MPASM`. The command
+line should look like this:
 
-``` screen
+``` programlisting
     C:\progra~1\microc~1\mpasms~1\MPASMWIN /c- /o- /q+ /l- /x- /w1 %code%.asm
 ```
 
-A batch file to compile in GCBASIC then load the `ASM` from GCBASIC into
-`GPASM`. Command line should be like this:
+A batch file to compile in GCBASIC and then load the `ASM` from GCBASIC
+into `GPASM`. The command line should look like this:
 
-``` screen
+``` programlisting
     gcbasic.exe %1 /NP /K:A /A:"..\gputils\bin\gpasm.exe %~d1%~p1%~n1.asm"
 ```
 
-To instruct MAKEHEX.BAT to use `GPASM`. You have GPUTILS installed. The
-batch file should be edited as follows:
+To instruct MAKEHEX.BAT to use `GPASM` (you have GPUTILS installed),
+edit the batch file as follows:
 
-``` screen
+``` programlisting
     REM Create the ASM
     gcbasic.exe /NP /K:A %1
     REM Use GPASM piping to the GCB error log
@@ -93,20 +92,20 @@ batch file should be edited as follows:
 
 To summarise, you can use any of the following:
 
-``` screen
+``` programlisting
     gcbasic.exe filetocompile.gcb /A:GCASM /P:"icprog -L%FILENAME%" /V /O:compiled.asm
 ```
 
 GCBASIC will compile the file, then assemble the program, and run this
 command:
 
-``` screen
+``` programlisting
     `icprog -Lcompiled.hex`
 ```
 
-You can also create/edit the gcbasic.ini file :
+You can also create/edit the gcbasic.ini file:
 
-``` screen
+``` programlisting
 Assembler settings
     Assembler = C:\Program Files\Microchip\MPASM Suite\mpasmwin
     AssemblerParams = /c- /o- /q+ /l+ /x- /w1 "%FileName%"
@@ -117,45 +116,46 @@ Programmer settings
 ```
 
 This example will use MPASM to assemble the program. It will run the
-program specified in the assembler = line, and give it these parameters:
+program specified on the assembler = line, and give it these parameters:
 
-``` screen
+``` programlisting
     `/c- /o- /q+ /l+ /x- /w1 "compiled.asm"`
 ```
 
-Then, it will run the programmer, and give it these parameters when it
+Then it will run the programmer, and give it these parameters when it
 calls it:
 
-``` screen
+``` programlisting
     `/device=PIC16F88 /p "compiled.hex"`
 ```
 
-`%ChipModel%` will get replaced with the chip you are using, so this the
-chip GCBASIC will pass to WinPIC.
+`%ChipModel%` will get replaced with the chip you are using, so this is
+the chip GCBASIC will pass to WinPIC.
 
 <span class="strong">**Errors.txt**</span>
 
 The compiler only produces the file errors.txt if there is an error. The
-creation of the errors.txt file makes it easier for IDEs to detect if
-the program compiled successfully - if the file was not produced then
-the IDE would be unalbe to present the error message to the user.
+creation of the errors.txt file makes it easier for IDEs to detect
+whether the program compiled successfully - if the file was not
+produced, the IDE would be unable to present the error message to the
+user.
 
-The file error.txt is always produced in the same folder as the
+The file errors.txt is always produced in the same folder as the
 compiler. Typically: C:\\GCStudio\\GCBASIC\\Errors.txt
 
 <span class="strong">**USE.INI**</span>
 
-USE.INI is the provided setup file for the compiler.  The name of
-`use.ini` is historic and of no relevance.
+USE.INI is the provided setup file for the compiler. The name `use.ini`
+is historic and of no relevance.
 
-USE.INI is generally updated by using the `PREFERENCES EDITOR`.  
+USE.INI is generally updated by using the `PREFERENCES EDITOR`.
 
-USE.INI is self documenting and open `use.ini` in an editor will shown
-the full capabilities of setting file.
+USE.INI is self-documenting - opening `use.ini` in an editor will show
+the full capabilities of the settings file.
 
-The details below show the self documentation in a typical `use.ini`
+The details below show the self-documentation in a typical `use.ini`
 
-``` screen
+``` programlisting
 Preferences file for GC BASIC
 Location: GCB install (or custom) dir
 
@@ -163,16 +163,16 @@ Documentation for the [gcbasic] section of the use.ini file
     programmer = arduinouno   - the currently selected available programmers
     showprogresscounters = n  - show percent values as compiler runs. requires Verbose = y
     verbose = y               - show verbose compiler information
-    preserve = n              - preservice source program in ASM
+    preserve = n              - preserve source program in ASM
     warningsaserrors = n      - treat Warnings from scripts as errors.
     pauseaftercompile = n     - pause after compiler. Do not do this with IDEs
     flashonly = n             - Flash the chip is source older that hex file
     assembler = GCASM         - currently selected Assembler
     hexappendgcbmessage = n   - appends a message in the HEX file
-    laxsyntax = n             - use lax syntax when Y, the compiler will not check that reserved words
+    laxsyntax = n             - use lax syntax when Y, the compiler will not check that reserved words are used with their correct case and spelling
     mutebanners = n           - mutes the post compilation messages
     evbs = n                  - show extra verbose compiler information, requires Verbose = y
-    nosummary = n             - mutes almost all messages psot compilation
+    nosummary = n             - mutes almost all messages post compilation
     extendedverbosemessages = n  - show even more verbose compiler information, requires Verbose = y
     conditionaldebugfile =    - creates CDF file
     columnwidth = 180         - ASM width before wrapping
@@ -191,5 +191,16 @@ Documentation for the [gcbasic] section of the use.ini file
                              - 32 = ADRDX
                              - 64 = GCASM
 ```
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="using_gcbasic" class="link" title="Using GCBASIC">Using GCBASIC</a> — compiling
+    and flashing from the IDE instead of the command line
+-   <a href="about_the_preferences_editor" class="link" title="About the Preferences Editor">About the Preferences Editor</a> — the
+    GUI tool for editing use.ini
+
+</div>
 
 </div>

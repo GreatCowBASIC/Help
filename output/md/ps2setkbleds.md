@@ -37,7 +37,7 @@ will stay off.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
   'A spinning LED program for a keyboard
     'Will flash Num Lock, then Caps Lock, then Scroll Lock.
 
@@ -52,7 +52,7 @@ will stay off.
     Do
 
         'Turn on only Num Lock (bit 1)
-        PS2SetKBLeds b'00000010'
+        PS2SetKBLeds b'00000010'          ' <<< the PS2SetKBLeds instruction
         Wait 250 ms
 
         'Turn on only Caps Lock (bit 2)
@@ -65,5 +65,24 @@ will stay off.
 
     Loop
 ```
+
+<span class="strong">**Key line:**</span>
+`PS2SetKBLeds b'00000010'` — sets bit 1 (Num Lock) high and the other
+status LEDs low, turning on only the Num Lock LED; this does not affect
+the actual Caps Lock/Num Lock/Scroll Lock state tracked by `InKey`, only
+the physical LEDs.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="ps_2_overview" class="link" title="PS/2 Overview">PS/2 Overview</a> — category
+    overview
+-   <a href="inkey" class="link" title="InKey">InKey</a> — related
+    command in the same category
+-   <a href="ps2readbyte" class="link" title="PS2ReadByte">PS2ReadByte</a> — related
+    command in the same category
+
+</div>
 
 </div>

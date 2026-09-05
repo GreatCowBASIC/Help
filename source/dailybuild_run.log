@@ -1,0 +1,11 @@
+﻿
+D:\GreatCowBASICGits\Help.git\source>echo off 
+dailybuild.cmd : 'all' is not recognized as an internal or external command,
+At line:2 char:1
++ & '.\dailybuild.cmd' 'Rockbox1234!' *> 'dailybuild_run.log'
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ('all' is not re...ternal command,:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+operable program or batch file.
+

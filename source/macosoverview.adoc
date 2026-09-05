@@ -1,24 +1,27 @@
 === Overview - Apple macOS GCBASIC
 
+(((GCBASIC for Apple macOS,Overview - Apple macOS GCBASIC)))
+
+
 *Introduction*
 
-The GCBASIC compiler can be used with the Apple macOS operating system. It should run on any version from Snow Leopard 10.6 and above. It is guaranteed to run on both High Sierra 10.13 and Mojave 10.14 which have been extensively tested.
+The GCBASIC compiler can be used with the Apple macOS operating system. It should run on any version from Snow Leopard 10.6 and above. It is guaranteed to run on both High Sierra 10.13 and Mojave 10.14, which have been extensively tested.
 
 You have a choice to make. You can either:
 
-. download a macOS installer which will install a precompiled 64 bit binary for the GCBASIC compiler along with support files and some optional components; or
-. download, compile and install the GCBASIC compiler from the source files.
+. download a macOS installer which will install a precompiled 64-bit binary for the GCBASIC compiler, along with support files and some optional components; or
+. download, compile, and install the GCBASIC compiler from the source files.
 
-There are instructions below for both choices. If I was you, I would use the macOS GCBASIC Installer and save valuable programming time :-)
+There are instructions below for both choices. If you use the macOS GCBASIC Installer, you will save valuable programming time.
 
 *Instructions for using the GCBASIC Installer*
 
 [start=1]
  . Download the GCBASIC - macOS Installer disk image (.dmg) file from https://sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download
 
- . Double click the .dmg file to mount it on your Desktop and a window will open which contains the Installer.
+ . Double click the .dmg file to mount it on your Desktop, and a window will open which contains the Installer.
 
- . Double click the REAME_FIRST.txt file and read it for any important information you may need before proceeding.
+ . Double click the README_FIRST.txt file and read it for any important information you may need before proceeding.
 
  . Double click the GCBASIC icon and follow the installer prompts.
 
@@ -31,19 +34,21 @@ Complete the following steps to compile and install the GCBASIC compiler:
 
  . Download the GCBASIC UNIX Source Distribution from SourceForge at http://gcbasic.sourceforge.net/Typesetter/index.php/Download
 
- . Note: the following instructions assume the distribution file is named GCBASIC-UNIX-v0_98_05.rar however the version number (v0_98_05) may change before these instructions are updated, so you may have to adjust the filename to match the version you have downloaded.
+ . Note: the following instructions assume the distribution file is named GCBASIC-UNIX-v0_98_05.rar; however, the version number (v0_98_05) may change before these instructions are updated, so you may have to adjust the filename to match the version you have downloaded.
 
- . Unfortunately Apple replaced the gcc compiler with the clang compiler and FreeBASIC needs the real gcc due to a certain use of goto... so, you can compile your own version of gcc following the instructions at https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/ or you can take the low road and just download the pre-compiled binary version from https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2
+ . Unfortunately, Apple replaced the gcc compiler with the clang compiler, and FreeBASIC needs the real gcc due to a certain use of `goto`. So, you can compile your own version of gcc following the instructions at https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/, or you can take the low road and just download the pre-compiled binary version from https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2
 
  . Open a Terminal window (Terminal can be found in Applications > Utilities).
 
  . Move gcc-8.3.tar.bz2 from your Downloads directory to your Home directory by typing the following command in your Terminal window:
+[source,gcbasic]
 ----
    mv ~/Downloads/gcc-8.3.tar.bz2 ~/
 ----
 
 [start=6]
  . Unpack the gcc-8.3.tar.bz2 compressed tar file by typing the following command into your Terminal window:
+[source,gcbasic]
 ----
    gzcat gcc-8.3.tar.bz2 | tar xvf -
 ----
@@ -51,6 +56,7 @@ This will produce a new directory called gcc-8.3.
 
 [start=7]
  . You now need to link the binary gcc-8.3 to just gcc by typing the following commands into your Terminal window:
+[source,gcbasic]
 ----
    cd gcc-8.3
    ln -s gcc-8.3 gcc
@@ -59,6 +65,7 @@ This will produce a new directory called gcc-8.3.
 
 [start=8]
  . Move the gcc-8.3 directory to the /usr/local/ directory by typing the following commands into your Terminal window:
+[source,gcbasic]
 ----
    sudo mv gcc-8.3 /usr/local
 ----
@@ -69,18 +76,21 @@ Note: You will be asked for your password to execute the above command.
 
 [start=10]
  . Ensure that the Xcode command line tools are installed by typing the following command in your Terminal window:
+[source,gcbasic]
 ----
    xcode-select --install.
 ----
 
 [start=11]
  . Move the FreeBASIC compressed tar file from your Downloads directory to your home directory by typing the following command in your Terminal window:
+[source,gcbasic]
 ----
    mv ~/Downloads/fbc-1.06-darwin-wip20160505.tar.bz2 ~/
 ----
 
 [start=12]
  . Unpack the FreeBASIC compressed tar file by typing these commands in your Terminal window:
+[source,gcbasic]
 ----
    gzcat fbc-1.06-darwin-wip20160505.tar.bz2 | tar xvf -
 ----
@@ -88,39 +98,44 @@ This will produce a new directory called fbc-1.06.
 
 [start=13]
  . Move the GCBASIC compressed tar file from your Downloads directory to your home directory by typing the following command in your Terminal window:
+[source,gcbasic]
 ----
    mv ~/Downloads/GCBASIC-UNIX-v0_98_05.rar ~/
 ----
 
 [start=14]
  . Unpack the GCBASIC compressed tar file by typing these commands in your Terminal window:
+[source,gcbasic]
 ----
    unrar x GCBASIC-UNIX-v0_98_05.rar
 ----
-This will produce a new directory called GCBASIC. *Note:* If you do not currently have the unrar program which can extract rar file archives you can download and install it for free from the App Store.
+This will produce a new directory called GCBASIC. *Note:* If you do not currently have the unrar program, which can extract rar file archives, you can download and install it for free from the App Store.
 
 [start=15]
  . Change to the GCBASIC/Sources directory by typing this command in your Terminal window:
+[source,gcbasic]
 ----
    cd ~/GCBASIC/Sources
 ----
 
 [start=16]
 . Compile the GCBASIC binary (gcbasic) by typing the following command into your Terminal window:
+[source,gcbasic]
 ----
   sh DarwinBuild/build.sh
 ----
 Note 1: If you did not install the various files with the same names as in the instructions above into your Home directory, you will need to edit the build.sh script file and change the file paths and filenames to the appropriate values.
 
-Note 2: You may need to alter the library and include paths in the build.sh script depending on your version of macOS (it is currently setup for the Xcode High Sierra 10.13 and Mojave 10.14 versions of macOS).
+Note 2: You may need to alter the library and include paths in the build.sh script, depending on your version of macOS (it is currently set up for the Xcode High Sierra 10.13 and Mojave 10.14 versions of macOS).
 
 [start=17]
  . Confirm the proper execution, and the version, of GCBASIC by typing the following command in the Terminal window:
+[source,gcbasic]
 ----
    gcbasic
 ----
 
-Now you should be able create GCB source files with your favourite editor and compile those files with the gcbasic compiler.
+Now you should be able to create GCB source files with your favourite editor and compile those files with the gcbasic compiler.
 
 *Programming microcontrollers*
 
@@ -128,14 +143,19 @@ To program your microcontroller with your GCBASIC-created hex file, you will nee
 
 . For Microchip PIC microcontroller programming, you might find what you need at: https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120 and the macOS version of the `pk2cmd` v1.2 command line programming software.
 
-. For Atmel AVR microcontroller programming, you will need the `avrdude` programming software. Check here: http://www.nongnu.org/avrdude/ for it.
+. For Atmel AVR microcontroller programming, you will need the `avrdude` programming software. Check here: http://www.nongnu.org/avrdude/
 
-Alternatively, if you use Virtual Machine software such as _Parallels_ or _VMWare Fusion_ to run Windows programs, you can use Windows GUI programming software.
+Alternatively, if you use virtual machine software such as _Parallels_ or _VMWare Fusion_ to run Windows programs, you can use Windows GUI programming software.
 
-* For Microchip, the PICKit 2 and PICkit 3 standalone GUI software or even better the PICkitPlus software (https://sourceforge.net/projects/pickit3plus/) for both the PICkit 2 (https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120) and PICkit 3 (https://www.microchip.com/Developmenttools/ProductDetails/PG164130) which has fixed various bugs in those programs and been updated to program the latest Microchip 8 bit microcontrollers.
+* For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or even better the PICkitPlus software (https://sourceforge.net/projects/pickit3plus/) for both the PICkit 2 (https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120) and PICkit 3 (https://www.microchip.com/Developmenttools/ProductDetails/PG164130), which has fixed various bugs in those programs and been updated to program the latest Microchip 8-bit microcontrollers.
 
 *Help*
 
 GCBASIC Help documentation is installed in the Documentation subdirectory in your GCBASIC directory.
 
 If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at https://sourceforge.net/p/gcbasic/discussion/
+
+**See Also:**
+
+* <<_overview_linux_operating_system,Overview - Linux Operating System>> -- the equivalent instructions for Linux
+* <<_overview_freebsd_gcbasic,Overview - FreeBSD GCBASIC>> -- the equivalent instructions for FreeBSD

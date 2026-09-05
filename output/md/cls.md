@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     CLS
 ```
 
@@ -31,7 +31,7 @@ to the top left corner of the screen
 
 <span class="strong">**Example :**</span>
 
-``` screen
+``` programlisting
         'A Flashing text "Hello World" program for GCBASIC
 
         'General hardware configuration
@@ -50,13 +50,29 @@ to the top left corner of the screen
         Do
             Print "Hello World"
             Wait 1 sec
-            CLS
+            CLS          ' <<< the CLS instruction
             Wait 1 sec
         Loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="lcd_overview" class="link" title="LCD Overview">LCD Overview</a>
+<span class="strong">**Key line:**</span> `CLS` — clears the whole
+display and returns the cursor to the top-left corner; since the loop
+calls `Print` again immediately afterward, the effect is text that
+flashes on and off every second.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcd_overview" class="link" title="LCD Overview">LCD Overview</a> — LCD
+    wiring and configuration background
+-   <a href="print" class="link" title="Print">Print</a> — displaying
+    text after clearing the screen, as used above
+-   <a href="locate" class="link" title="Locate">Locate</a> — moving
+    the cursor to a specific position instead of clearing the whole
+    display
+
+</div>
 
 <span class="strong">**Supported in &lt;LCD.H&gt;**</span>
 

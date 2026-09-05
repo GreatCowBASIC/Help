@@ -29,7 +29,7 @@ Available on all PIC micro-controllers with HEFM memory
 HEFWrite is used to write information, byte values, to HEFM so that it
 can be accessed later for use in a user program.  
   
-`location` represents the location or relative address to write. The
+`location` rerepresents the location or relative address to write. The
 location will range from location 0 to HEF\_BYTES - 1, or for all
 practical purposes 0-127 since all PIC Microcontrollers with HEF support
 128 bytes of HEF Memory. HEF\_BYTES is a GCBASIC constant that
@@ -44,20 +44,23 @@ This method is similar to the EPWrite method for EEPROM.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     '... code preamble to select part
     '... code to setup serial
 
     'The following example writes a byte value of 126 into HEFM location 34
 
-     HEFWrite( 34, 126 )
+     HEFWrite( 34, 126 )          ' <<< the HEFWrite instruction
 ```
+
+<span class="strong">**Key line:**</span> `HEFWrite( 34, 126 )` — writes
+the byte value 126 to HEFM location 34.
 
   
   
 <span class="strong">**Example 2:**</span>
 
-``` screen
+``` programlisting
     '... code preamble to select part
     '... code to setup serial
 
@@ -69,7 +72,7 @@ This method is similar to the EPWrite method for EEPROM.
      Dim HEFaddress as Byte
 
     For Rel_Address = 0 to 127
-        HEFWrite ( Rel_Address, Rel_Address )
+        HEFWrite ( Rel_Address, Rel_Address )          ' <<< the HEFWrite instruction
     Next
     HEFM_DUMP
 
@@ -122,7 +125,7 @@ End sub
 If example 2 were displayed on a serial terminal.   The result would
 show:
 
-``` screen
+``` programlisting
 Block0     0     1     2     3     4     5     6     7
 3F80     3F00  3F01  3F02  3F03  3F04  3F05  3F06  3F07
 3F88     3F08  3F09  3F0A  3F0B  3F0C  3F0D  3F0E  3F0F
@@ -148,16 +151,26 @@ Block3     0     1     2     3     4     5     6     7
 3FF8     3F78  3F79  3F7A  3F7B  3F7C  3F7D  3F7E  3F7F
 ```
 
+<span class="strong">**Key line:**</span>
+`HEFWrite ( Rel_Address, Rel_Address )` — writes each of the 128 HEFM
+locations with its own relative address as the data, which is what the
+terminal dump above shows being read back out.
+
   
   
-See also
-<a href="hefm_overview" class="link" title="HEFM Overview">HEFM Overview</a>,
-<a href="hefread" class="link" title="HEFRead">HEFRead</a>,
-<a href="hefreadword" class="link" title="HEFReadWord">HEFReadWord</a>,
-<a href="hefwrite" class="link" title="HEFWrite">HEFWrite</a>,
-<a href="hefwriteword" class="link" title="HEFWriteWord">HEFWriteWord</a>,
-<a href="hefreadblock" class="link" title="HEFReadBlock">HEFReadBlock</a>,
-<a href="hefwriteblock" class="link" title="HEFWriteBlock">HEFWriteBlock</a>,
-<a href="heferaseblock" class="link" title="HEFEraseBlock">HEFEraseBlock</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hefm_overview" class="link" title="HEFM Overview">HEFM Overview</a>
+-   <a href="hefread" class="link" title="HEFRead">HEFRead</a>
+-   <a href="hefreadword" class="link" title="HEFReadWord">HEFReadWord</a>
+-   <a href="hefwrite" class="link" title="HEFWrite">HEFWrite</a>
+-   <a href="hefwriteword" class="link" title="HEFWriteWord">HEFWriteWord</a>
+-   <a href="hefreadblock" class="link" title="HEFReadBlock">HEFReadBlock</a>
+-   <a href="hefwriteblock" class="link" title="HEFWriteBlock">HEFWriteBlock</a>
+-   <a href="heferaseblock" class="link" title="HEFEraseBlock">HEFEraseBlock</a>
+
+</div>
 
 </div>

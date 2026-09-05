@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     ST7920Locate ( Xpos, Ypos)
 ```
 
@@ -29,7 +29,7 @@ of the ST7920 controller (to accomodate Mandarin and Cyrillic), you must
 place the text on the column according to the numbers above the diagram
 below. The addressing is handle by the command.
 
-``` screen
+``` programlisting
 |--0--|--1--|--2--|...      ...|--7--|
 
 +--+--+--+--+--+---------------------+
@@ -53,7 +53,7 @@ below. The addressing is handle by the command.
 
 Writing 'a' onto the 1st column, and 1st row:
 
-``` screen
+``` programlisting
 |--0--|--1--|--2--|...      ...|--7--|
 
 +--+--+--+--+--+---------------------+
@@ -77,8 +77,27 @@ Writing 'a' onto the 1st column, and 1st row:
 
 <span class="strong">**Example usage:**</span>
 
-``` screen
-    ST7920Locate ( 64, 31) ‘the pixel at the mid screen point
+``` programlisting
+    ST7920Locate ( 64, 31) 'the pixel at the mid screen point          ' <<< the ST7920Locate instruction
 ```
+
+<span class="strong">**Key line:**</span>
+`ST7920Locate ( 64, 31)` — positions the text cursor at pixel column 64,
+row 31 (the middle of a 128x64 display); the ST7920 controller then maps
+this to the correct internal row/column address itself, as shown in the
+diagrams above.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview
+-   <a href="st7920glcddisablegraphics" class="link" title="ST7920GLCDDisableGraphics">ST7920GLCDDisableGraphics</a> — switching
+    to text mode before printing at this location
+-   <a href="st7920ctile" class="link" title="ST7920cTile">ST7920CTile</a> — placing
+    a custom character tile at a specific location
+
+</div>
 
 </div>

@@ -1,27 +1,42 @@
 ==== PFMWrite
 
-*Syntax:*
-[subs="quotes"]
+(((PROGMEM ( PFM ),PFMWrite)))
 
+
+*Syntax:*
+[subs="specialcharacters,quotes"]
 ----
     PFMWrite (_location_, _value_)
 ----
 
 *Command Availability:*
 
-Available on all Microchip PIC microcontrollers with PFM self write capability.
+Available on Microchip PIC microcontrollers with PFM (Program Flash Memory) self-write capability, such as the 18FxxQ41 family.
 
 *Explanation:*
 
-`PFMWrite` writes information to the program memory on chips that
-support this feature. `_location_` is a word variable, and `_store_` can be a byte of word.
+`PFMWrite` writes information to the program memory on chips that support this feature. `_location_` is a word variable identifying the word to write, and `_value_` is the word value to store there.
 
-The largest value possible for `_location_` depends on the amount of
-program memory on the microcontroller.
+The largest value possible for `_location_` depends on the amount of program memory on the microcontroller.
 
-This is an advanced command which should only be used by advanced
-developers.
+This is an advanced command intended for developers who need direct control over program-memory self-write operations; most programs should use <<_data,DATA>> blocks instead. As with `ProgramWrite`, the target row must normally be erased before it can be written -- consult the chip's datasheet for the row size and any required unlock sequence.
 
 *Example:*
 
-*For more help, see *<<_pfmread,PFMRead>>*
+[source,gcbasic]
+----
+    #chip 18F56Q43, 64
+
+    Dim WordLocation As Word
+
+    WordLocation = 0x1000
+
+    PFMWrite ( WordLocation, 0x1234 )          ' <<< the PFMWrite instruction
+----
+*Key line:* `PFMWrite ( WordLocation, 0x1234 )` -- stores the 16-bit value `0x1234` at the program-memory word addressed by `WordLocation`.
+
+**See Also:**
+
+* <<_pfmread,PFMRead>> -- reading back the value this page writes
+* <<_programwrite,ProgramWrite>> -- the equivalent command on chip families that do not use the PFM naming
+* <<_data,DATA>> -- defining a program-memory dataset instead of writing individual words

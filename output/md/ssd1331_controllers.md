@@ -27,7 +27,7 @@ GCBASIC supports 65K-color mode operations.
 To use the SSD1331 driver simply include the following in your user
 code. This will initialise the driver.
 
-``` screen
+``` programlisting
         #include <glcd.h>
         #include <UNO_mega328p.h >
 
@@ -204,7 +204,13 @@ supported commands.
 
 </div>
 
-``` screen
+The library predefines the named colors below as 16-bit RGB565 values (5
+bits red, 6 bits green, 5 bits blue). Pass any of these constants, or
+your own custom 0x0000-0xFFFF value, as the colour parameter to
+`GLCDCLS`, `Box`, `FilledBox`, `Line`, `GLCDDrawChar`, or
+`GLCDDrawString`.
+
+``` programlisting
     Colour           RGB
     TFT_BLACK       0x0000
     TFT_NAVY        0x000F
@@ -229,7 +235,7 @@ supported commands.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     #chip mega328p, 16
     #option explicit
 
@@ -245,7 +251,7 @@ supported commands.
     #define GLCD_DO       portb.3           ' Data out | MOSI
     #define GLCD_SCK      portb.5           ' Clock Line
 
-    #define SSD1331_HardwareSPI    ' remove/comment out if you want to use software SPI.
+    #define SSD1331_HardwareSPI    ' remove/comment out if you want to use software SPI.          ' <<< selects hardware SPI for the SSD1331 link
 
     'GLCD selected OLED font set.
     #define GLCD_OLED_FONT
@@ -260,13 +266,30 @@ supported commands.
     end
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**Key line:**</span>
+`#define SSD1331_HardwareSPI` — routes the SSD1331 traffic through the
+microcontroller’s hardware SPI module instead of a bit-banged software
+implementation; commenting this line out (as the inline comment notes)
+falls back to software SPI, which works on any pins but is slower.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — clearing
+    the display, as used above
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a> — drawing
+    a single character
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — printing
+    a value at a specific location
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+    /
+    <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a> — low-level
+    byte access, for expert use
+-   <a href="pset" class="link" title="Pset">Pset</a> — setting a
+    single pixel
+
+</div>
 
 Supported in &lt;GLCD.H&gt;
 

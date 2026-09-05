@@ -1,0 +1,16 @@
+    #chip mega8, 8
+
+    ' Connection mode 2_74XX164: a Data and a Clock line drive a 74HC164/74LS164
+    ' shift register, which in turn drives the LCD. This is the preferred
+    ' 2-wire method; pin 11 of the shift register controls the backlight.
+    #define LCD_IO 2_74XX164
+    #define LCD_DB PORTC.0
+    #define LCD_CB PORTC.1
+    #define LCD_NO_RW
+
+    LCDBacklight On
+
+    CLS
+    Print "GCBASIC"
+    Locate 1,0
+    Print "  Hello World."          ' <<< the print instruction this page documents

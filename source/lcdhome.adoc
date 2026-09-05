@@ -1,6 +1,10 @@
 ==== LCDHome
 
+(((Liquid Crystal Display,LCDHome)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     LCDHome
 ----
@@ -16,6 +20,7 @@ The currentcontents of the LCD screen will be retained.
 
 
 *Example:*
+[source,gcbasic]
 ----
     ;Chip Settings
     #chip 16F88,8
@@ -41,7 +46,15 @@ The currentcontents of the LCD screen will be retained.
     cls
     lcdcursor flash
     print "Test Home Cmd"
-    LCDHome
+    LCDHome          ' <<< the LCDHome instruction
     wait 3 s
 ----
+*Key line:* `LCDHome` -- moves the cursor back to row 0, column 0 without clearing the display, so the text already printed by `print "Test Home Cmd"` remains visible.
+
+**See Also:**
+
+* <<_cls,CLS>> -- clears the display and also returns the cursor to home
+* <<_locate,Locate>> -- moving the cursor to any specific position, not just home
+* <<_lcd_overview,LCD Overview>> -- category overview
+
 *Supported in <LCD.H>*

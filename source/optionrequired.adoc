@@ -1,6 +1,10 @@
 === #Option Required
-// Edit EvanV
+
+(((Compiler Options,#Option Required)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     #option REQUIRED PIC|AVR CONSTANT %message.dat entry%
     #option REQUIRED PIC|AVR CONSTANT "Message string"
@@ -10,25 +14,32 @@
     #option REQUIRED DISABLE
 
 ----
-This option ensure that the specific CONSTANT exists within a library to ensure a specific capability is available with the microcontroller.
+This option ensures that a specific CONSTANT exists within a library, to ensure a specific capability is available on the microcontroller.
 
-*Introduction:*
+*Explanation:*
 
-This will cause the compiler check the CONSTANT is a non zero value.&#160;&#160;If the CONSTANT does not exist it will be treated as a zero value.
+This will cause the compiler to check that the CONSTANT is a non-zero value. If the CONSTANT does not exist, it will be treated as a zero value.
 
 *Example:*
 
-This example tests the CONSTANT `CHIPUSART` for both the PIC and AVR microcontrollers.&#160;&#160;If the CONSTANT is zero or does not exist then the string will be displayed as an error message.
+This example tests the CONSTANT `CHIPUSART` for both the PIC and AVR microcontrollers. If the CONSTANT is zero or does not exist, then the string will be displayed as an error message.
 
+[source,gcbasic]
 ----
     #option REQUIRED PIC CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."
-    #option REQUIRED AVR CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."
+    #option REQUIRED AVR CHIPUSART "Hardware Serial operations. Remove USART commands to resolve errors."          ' <<< requiring a real hardware capability before compiling USART code
 ----
+*Key line:* `#option REQUIRED AVR CHIPUSART "..."` -- checks that the `CHIPUSART` constant (see <<_other_directives,Other directives>>) is non-zero for the target AVR chip; if the selected chip has no hardware USART, compilation fails immediately with the given message, rather than producing broken ASM later.
 
 *Disabling:*
 
-To disable checking capability, add the following directive.
+To disable checking this capability, add the following directive.
 
+[source,gcbasic]
 ----
     #option REQUIRED DISABLE
 ----
+
+**See Also:**
+
+* <<_other_directives,Other directives>> -- the CHIPxxx constants this option checks

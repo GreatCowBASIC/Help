@@ -1,5 +1,8 @@
 ==== ILI9488 Controllers
 
+(((Graphical LCD,ILI9488 Controllers)))
+
+
 This section covers GLCD devices that use the ILI9488 graphics controller.
 
 ILI9488 is a 262k-color single-chip SoC driver for a-TFT liquid crystal display with resolution of 320 x 240 resolution, 16.7M-color and with internal GRAM .
@@ -15,6 +18,7 @@ To use the ILI9488 driver simply include the following in your user code.  This 
 {empty} +
 {empty} +
 **SPI mode**
+[source,gcbasic]
 ----
     'Pin mappings for SPI
 
@@ -171,6 +175,7 @@ The GCBASIC commands supported for this GLCD are shown in the table below.&#160;
 
 {empty} +
 {empty} +
+[source,gcbasic]
 ----
     ILI9488_TFT_BLACK       //0x000000
     ILI9488_TFT_RED         //0xFC0000
@@ -203,6 +208,7 @@ These examples show how to drive a ILI9488 based Graphic LCD module with the bui
 {empty} +
 {empty} +
 *Examples - PPS Enabled*
+[source,gcbasic]
 ----
     #chip 18F26K83, 64 
     #option Explicit
@@ -251,14 +257,16 @@ These examples show how to drive a ILI9488 based Graphic LCD module with the bui
     #DEFINE DEFAULT_GLCDBACKGROUND TFT_WHITE
 
 
-    GLCDPrint 0, 0, "Test of the ILI9488 Device", TFT_BLACK
+    GLCDPrint 0, 0, "Test of the ILI9488 Device", TFT_BLACK          ' <<< draws text using an explicit foreground color argument
     end
 ----
+*Key line:* `GLCDPrint 0, 0, "Test of the ILI9488 Device", TFT_BLACK` -- the ILI9488 driver's 18-bit color scheme accepts a color as a trailing argument directly on drawing commands, in addition to setting `GLCDForeground`.
 {empty} +
 {empty} +
 {empty} +
 {empty} +
 *Examples - Legacy non PPS microcontroller*
+[source,gcbasic]
 ----
     #chip 16F1939
     #option Explicit
@@ -288,6 +296,7 @@ These examples show how to drive a ILI9488 based Graphic LCD module with the bui
 ----
 {empty} +
 {empty} +
+[source,gcbasic]
 ----
 
 
@@ -295,10 +304,16 @@ These examples show how to drive a ILI9488 based Graphic LCD module with the bui
 {empty} +
 {empty} +
 
-*For more help, see*
-<<_glcdcls,GLCDCLS>>,  <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
-{empty} +
-{empty} +
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview and the full supported-display comparison table
+* <<_glcdcls,GLCDCLS>>
+* <<_glcddrawchar,GLCDDrawChar>>
+* <<_glcdprint,GLCDPrint>>
+* <<_glcdreadbyte,GLCDReadByte>>
+* <<_glcdwritebyte,GLCDWriteByte>>
+* <<_pset,Pset>>
+
 Supported in <GLCD.H>
 
 {empty} +

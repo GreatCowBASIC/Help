@@ -1,26 +1,38 @@
 ==== Circle
 
+(((Graphical LCD,Circle)))
+
+
 *Circle:*
+[source,gcbasic]
 ----
     Circle(XPixelPosition, YPixelPosition, Radius [ [,Optional LineColour] [,Optional Rounding] ] )
 ----
 *Explanation:*
 
-Draws a circle on a GLCD at `XPixelPosition`, `YPixelPosition` with a specific `Radius`.
+Draws an unfilled circle on a GLCD centred at `XPixelPosition`, `YPixelPosition` with the given `Radius`.
 
 The constant `GLCD_PROTECTOVERRUN` can be added to prevent circles from
-re-drawing at the screen edges. Ensure the `GLCD_Width` and `GLCD_HEIGHT`
+re-drawing at the screen edges. Ensure the `GLCD_WIDTH` and `GLCD_HEIGHT`
 constants are set correctly when using this additional constant.
 
 *Example:*
+[source,gcbasic]
 ----
     #include <glcd.h>
 
     circle(10,10,10)  ;upper left
     circle(117,10,10) ;upper right
-    circle(63,31,10)  ;center
+    circle(63,31,10)  ;center          ' <<< the Circle instruction
     circle(63,31,20)  ;center
     circle(10,53,10)  ;lower left
     circle(117,53,10) ;lower right
 ----
-image::circleb1.PNG[graphic,align="center"] 
+*Key line:* `circle(63,31,10)` -- draws a 10-pixel-radius unfilled circle centred at the middle of a 128x64 display.
+image::circleb1.PNG[graphic,align="center"]
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_filledcircle,FilledCircle>> -- the filled equivalent of this command
+* <<_fonts_and_characters,Fonts and Characters>> -- related command in the same category

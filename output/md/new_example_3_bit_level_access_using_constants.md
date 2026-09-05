@@ -6,7 +6,7 @@
 
 <div>
 
-### <span id="new_example_3_bit_level_access_using_constants"></span>New Example 3: Bit‑Level Access Using Constants
+### <span id="new_example_3_bit_level_access_using_constants"></span>New Example 3: Bit-Level Access Using Constants
 
 </div>
 
@@ -14,33 +14,32 @@
 
 </div>
 
-``` screen
+``` programlisting
     #Option Explicit
     #Chip 16F1825, 32
 
-    Dim SerialByte As Byte = 0
+    Dim SerialByte As Byte = 0          ' <<< the Dim declaration this page documents
 
-    #Define StatusReady  SerialByte.0
-    #Define StatusError  SerialByte.1
-    #Define StatusMotor  SerialByte.2
+    #Define STATUSREADY  SerialByte.0
+    #Define STATUSERROR  SerialByte.1
+    #Define STATUSMOTOR  SerialByte.2
 
     Do
         SerialByte = SerialByte + 1
 
-        If StatusReady = 1 Then
-            StatusError = 0
+        If STATUSREADY = 1 Then
+            STATUSERROR = 0
         End If
 
-        If StatusError = 1 Then
-            StatusMotor = 0
+        If STATUSERROR = 1 Then
+            STATUSMOTOR = 0
         End If
     Loop
 ```
 
-<span class="strong">**For more help, see:**</span>
-<a href="serprint" class="link" title="SerPrint">SerPrint</a> for
-string handling examples and
-<a href="variables" class="link" title="Variables">Variables Types</a>
-for more information on variable types.
+<span class="strong">**Key line:**</span>
+`Dim SerialByte As Byte = 0` — declares the single backing byte that the
+three `#Define` bit constants below then address individually, starting
+it at a known value of `0` rather than an undefined one.
 
 </div>

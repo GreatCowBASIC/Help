@@ -1,14 +1,18 @@
 === Flashing LEDs and an Interrupt
 
+(((Example Programs,Flashing LEDs and an Interrupt)))
+
+
 *Explanation:*
 
 This code implements four flashing LEDs. This is based on the Microchip PIC Low Pin Count Demo Board.
 
-The example program will blink the four red lights in succession. Press the Push Button Switch, labeled *SW1*, and the sequence of the lights will reverse. Rotate the potentiometer, labeled *RP1*, and the light sequence will blink at a different rate.
+The example program will blink the four red lights in succession. Press the push button switch, labelled *SW1*, and the sequence of the lights will reverse. Rotate the potentiometer, labelled *RP1*, and the light sequence will blink at a different rate.
 
-This implements an interrupt for the switch press, reads the analog port and set the LEDs.
+This implements an interrupt for the switch press, reads the analog port, and sets the LEDs.
 
 *Demonstration program:*
+[source,gcbasic]
 ----
     #chip 18F14K22, 32
     #config MCLRE_OFF
@@ -32,7 +36,7 @@ This implements an interrupt for the switch press, reads the analog port and set
         Dir IntPortA In
 
     'Variable and constants
-        #define intstate as byte
+        dim intstate as byte          ' <<< a real variable declaration, not a #define
         intstate = 0
         #define minwait 1
 
@@ -83,7 +87,7 @@ This implements an interrupt for the switch press, reads the analog port and set
           end if
 
         end if
-        'Reset interrupt - this may be been reset so set to zero so interrupt can operate.
+        'Reset interrupt - this may have been set so reset to zero so interrupt can operate.
         intstate = 0
 
     Loop
@@ -118,4 +122,10 @@ This implements an interrupt for the switch press, reads the analog port and set
 
     End Sub
 ----
-*See Also* <<_interrupts,Interrupts >>, <<_readad10,ReadAD10>>
+*Key line:* `dim intstate as byte` -- `intstate` is a real runtime variable that the interrupt routine reads and writes to guard against re-entry, so it must be declared with `dim` (which allocates RAM), not `#define` (which is only compile-time text substitution and has no `as byte` clause).
+
+**See Also:**
+
+* <<_interrupts_overview,Interrupts overview>>
+* <<_readad10,ReadAD10>>
+* <<_on_interrupt,On Interrupt>>

@@ -1,7 +1,10 @@
 ==== SPI2Transfer
 
+(((SPI,SPI2Transfer)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   `SPI2Transfer` _tx_, _rx_
 ----
@@ -22,4 +25,7 @@ transfer is initiated by the master. At this point, it will send the
 data in `_tx_` whilst reading the transmission from the master into the
 `_rx_` variable.
 
-*See also* <<_spimode,SPIMode>>,<<_fasthwSPI2Transfer,FastHWSPI2Transfer>>
+**See Also:**
+
+* <<_spimode,SPIMode>>
+* <<_fasthwspi2transfer,FastHWSPI2Transfer>>

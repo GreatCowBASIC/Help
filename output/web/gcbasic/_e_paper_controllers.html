@@ -16,7 +16,7 @@
       <link rel="next" href="_hx8347g_controllers.html" title="HX8347G Controllers" />
       <meta name="Section-title" content="e-Paper Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-61620";
+            var treeCookieId = "treeview-89895";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,126 +184,137 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p>This section covers GLCD devices known as e-Papers.</p>
-            <p>An e-paper device is a Microencapsulated Electrophoretic Display, MED.</p>
-            <p>A MED display uses tiny spheres, in which the charged color pigments are suspending in the transparent oil and would move
-               depending on the electronic charge.  
-               The e-paper screen display patterns by reflecting the ambient light, so it has no background light requirement.  
-               Under sunshine, the e-paper screen still has high visibility with a wide viewing angle of 180 degree.  
-               It is the ideal choice for e-reading or providing information that can be refeshed at a slow rate of change.  
+            <p><a id="d0e33323" class="indexterm"></a>
+               <a id="d0e33329" class="indexterm"></a></p>
+            <p>This section covers GLCD devices known as e-Paper displays.</p>
+            <p>An e-Paper device is a Microencapsulated Electrophoretic Display (MED).</p>
+            <p>A MED display uses tiny spheres in which charged colour pigments are suspended in a transparent oil and move depending on
+               the electronic charge applied.  
+               The e-Paper screen displays patterns by reflecting ambient light, so it has no backlight requirement.  
+               Under sunlight, the e-Paper screen still has high visibility with a wide viewing angle of 180 degrees.  
+               It is the ideal choice for e-reading or for providing information that can be refreshed at a slow rate of change.  
             </p>
-            <p><span class="strong"><strong>GLCD Support for e-Papers</strong></span></p>
-            <p>GCBASIC supports covers the full range of GLCD capabilities like line, circle, print.</p>
-            <p>GCBASIC supports SPI communications for the e-Papers - both hardware and software.  And, GCBASIC suppors low memory configurations
+            <p><span class="strong"><strong>GLCD Support for e-Paper</strong></span></p>
+            <p>GCBASIC covers the full range of GLCD capabilities, such as line, circle, and print.</p>
+            <p>GCBASIC supports SPI communications for e-Paper displays — both hardware and software. GCBASIC also supports low-memory configurations
                and SRAM for the display buffer.
             </p>
-            <p>See the demonstration programs to show you how to use these GCLD capabilities.</p>
+            <p>See the demonstration programs to see how to use these GLCD capabilities.</p>
             <p><span class="strong"><strong>Memory Usage</strong></span></p>
-            <p>The GCBASIC library uses RAM to buffer the e-paper display.  
-               The amount of RAM used is specific the the total pixel of the specific e-paper display.  
-               You can control to amount of RAM used as the buffer using the device specific constants, see below.  
-               Each device specific library has four memory options.  
-               Each of the memory options uses different amount RAM.  
-               The greater the amount of RAM used the faster the process of updating the e-paper display.  
-               Conversely, the smaller the amount of RAM used the slower the process of updating the e-paper display.  
+            <p>The GCBASIC library uses RAM to buffer the e-Paper display.  
+               The amount of RAM used is specific to the total pixel count of the specific e-Paper display.  
+               You can control the amount of RAM used as the buffer using the device-specific constants, shown below.  
+               Each device-specific library has four memory options.  
+               Each of the memory options uses a different amount of RAM.  
+               The greater the amount of RAM used, the faster the process of updating the e-Paper display.  
+               Conversely, the smaller the amount of RAM used, the slower the process of updating the e-Paper display.  
             </p>
             <p><span class="strong"><strong>GLCD Page Transactions</strong></span></p>
-            <p>To make the operation of the library seamless - the library supports GLCDTransaction.  
-               GLCDTransaction automatically manages the methods to update the e-paper via the buffer, where the buffer can be small.  
-               The process of transaction send GLCD commands to the e-paper display on a page and page basis.  
-               Each page is the size of the buffer and for a large e-paper display the number of pages may be equivilent to the numbers of
+            <p>To make the operation of the library seamless, the library supports <code class="literal">GLCDTransaction</code>.  
+               <code class="literal">GLCDTransaction</code> automatically manages the methods to update the e-Paper via the buffer, where the buffer can be small.  
+               The transaction process sends GLCD commands to the e-Paper display on a page-by-page basis.  
+               Each page is the size of the buffer, and for a large e-Paper display the number of pages may be equivalent to the number of
                pixels high (height).
             </p>
-            <p>GLCDTransaction simplies the operation by ensure the buffer is setup correctly, handles the GLCD appropiately, handles the
-               sending of the buffer and then close out the process to update to the display.
+            <p><code class="literal">GLCDTransaction</code> simplifies the operation by ensuring the buffer is set up correctly, handling the GLCD appropriately, sending the buffer,
+               and then closing out the process to update the display.
             </p>
-            <p>To use GLCDTransaction use the followng two methods.</p><pre class="screen">        GLCD_Open_PageTransaction
+            <p>To use <code class="literal">GLCDTransaction</code>, use the following two methods.
+            </p><pre class="programlisting">        GLCD_Open_PageTransaction
             ....
             glcd commands
             .....
 
-        GLCD_Close_PageTransaction</pre><p>It recommended to use GLCDTransactions at all times.  These methods remove the complexity of the e-paper update process.</p>
-            <p>When using GLCDTransaction you must start the transaction with`GLCD_Open_PageTransaction` then include a series of GLCD commands
-               and then terminate the transaction with <code class="literal">GLCD_Close_PageTransaction</code>.
+        GLCD_Close_PageTransaction</pre><p>It is recommended to use <code class="literal">GLCDTransaction</code> at all times.  These methods remove the complexity of the e-Paper update process.
             </p>
-            <p><span class="strong"><strong>GLCDTransaction Insight</strong></span>: When using GLCDtransactions the number of buffer pages is probably be greater then 1 (unless using the SRAM option), so
-               the process of incrementing variables and calls to non-GLCD methods must be considered carefully.    The transaction process
-               <span class="strong"><strong>will</strong></span> increment variables and call non-GLCD methods the same number of times as the number of pages.  Therefore, design GLCDTransaction
-               operations with this is mind.
+            <p>When using <code class="literal">GLCDTransaction</code>, you must start the transaction with <code class="literal">GLCD_Open_PageTransaction</code>, then include a series of GLCD commands, and then terminate the transaction with <code class="literal">GLCD_Close_PageTransaction</code>.
             </p>
-            <p><span class="strong"><strong>SRAM as the e-paper buffer</strong></span></p>
-            <p>To improve memory usage the e-paper the e-Paper libraries support the use of SRAM.  
-               SRAM can be used as an alternative to the microcontrollers RAM.  
-               Using SRAM does have a small performance impact but does free up the critical resource of the microcontroller RAM.  
-               The use of SRAM within the e-paper library is transparent to the user.  
-               To use SRAM as the e-paper buffer you will need to set-up the SRAM library.  
-               See the SRAM library for more details on SRAM usage.   
+            <p><span class="strong"><strong>GLCDTransaction Insight</strong></span>: When using <code class="literal">GLCDTransaction</code>, the number of buffer pages is probably greater than 1 (unless using the SRAM option), so the process of incrementing variables
+               and calling non-GLCD methods must be considered carefully.  The transaction process <span class="strong"><strong>will</strong></span> increment variables and call non-GLCD methods the same number of times as the number of pages.  Therefore, design <code class="literal">GLCDTransaction</code> operations with this in mind.
             </p>
-            <p>When using SRAM for the e-paper buffer it is still remcommend to use GLCDTransaction as this ensure the SRAM buffer is correctly
-               initialised.
+            <p><span class="strong"><strong>SRAM as the e-Paper Buffer</strong></span></p>
+            <p>To improve memory usage, the e-Paper libraries support the use of SRAM.  
+               SRAM can be used as an alternative to the microcontroller’s own RAM.  
+               Using SRAM does have a small performance impact but frees up the critical resource of microcontroller RAM.  
+               The use of SRAM within the e-Paper library is transparent to the user.  
+               To use SRAM as the e-Paper buffer, you will need to set up the SRAM library.  
+               See <a class="link" href="_sram_overview.html" title="SRAM Overview">SRAM Overview</a> for more details on SRAM usage.  
             </p>
-            <p><span class="strong"><strong>Refresh mode</strong></span></p>
-            <p>This library uses Full refresh:  The e-Paper will flicker when full refreshing.  
+            <p>When using SRAM for the e-Paper buffer, it is still recommended to use <code class="literal">GLCDTransaction</code>, since this ensures the SRAM buffer is correctly initialised.
+            </p>
+            <p><span class="strong"><strong>Refresh Mode</strong></span></p>
+            <p>This library uses full refresh:  the e-Paper will flicker when fully refreshing.  
                This flicker removes the ghost image from the display.  
-               You could use Partial refresh as this doesnot flicker.  
-               Note that you cannot use Partial refresh all the time, you should full refresh e-paper regularly, otherwise, the ghost problem
-               will get worse and even damage the display.  
+               You could use partial refresh, as this does not flicker.  
+               Note that you cannot use partial refresh all the time — you should fully refresh the e-Paper regularly, otherwise the ghosting
+               problem will get worse and could even damage the display.  
             </p>
-            <p><span class="strong"><strong>Refresh rate</strong></span></p>
-            <p>When using the e-Paper library, you should set the update interval at least 180seconds, except when using Partial mode.  </p>
-            <p>Please set the e-Paper to sleep mode in software or remove the power directly, otherwise, the e-Paper will be damaged because
-               of working in high voltage for extendedtime periods.  
-               You need to update the content of the e-Paper at least once every 24 hours to avoid from burn-in problem.  
+            <p><span class="strong"><strong>Refresh Rate</strong></span></p>
+            <p>When using the e-Paper library, you should set the update interval to at least 180 seconds, except when using partial mode.  </p>
+            <p>Please set the e-Paper to sleep mode in software, or remove power directly, when not actively updating it — otherwise the
+               e-Paper may be damaged from working at high voltage for extended periods.  
+               You need to update the content of the e-Paper at least once every 24 hours to avoid a burn-in problem.  
             </p>
             <p><span class="strong"><strong>Operating Voltages</strong></span></p>
-            <p>The e-Paper should be driven with 3V3 operating voltages and signals.  </p>
-            <p>If your Microcontroller (PIC, AVR and therefore an Arduino)cannot drive the e-Paper successfully.  
-               You must convert the level to 3.3V.   
-               The I/O level of Arduino is 5V.   HEALTH WARNING:You can also try to connect the Vcc pin to the 5V of Arduino to see whether
-               the e-Paper works, but we recommend you not to use 5V for a long time.  
+            <p>The e-Paper should be driven with 3.3V operating voltages and signals.  </p>
+            <p>If your microcontroller (PIC, AVR, and therefore an Arduino) cannot drive the e-Paper at its native voltage, you must convert
+               the level to 3.3V.  
+               The I/O level of an Arduino is 5V.   HEALTH WARNING: you can also try connecting the Vcc pin to the Arduino’s 5V supply to
+               see whether the e-Paper works, but we recommend against using 5V for a long time.  
             </p>
-            <p><span class="strong"><strong>The e-Paper looks a little black or grey</strong></span></p>
-            <p>You can try to change the value of Vcom the library by setting the VCOM_AND_DATA_INTERVAL constant.  
-               See the Vcom and data interval in the dataheet.  VCOM_AND_DATA_INTERVAL can be 0x00 to 0x0F
+            <p><span class="strong"><strong>The e-Paper Looks a Little Black or Grey</strong></span></p>
+            <p>You can try changing the Vcom value in the library by setting the <code class="literal">VCOM_AND_DATA_INTERVAL</code> constant.  
+               See the Vcom and data interval values in the datasheet.  `VCOM_AND_DATA_INTERVAL` can range from <code class="literal">0x00</code> to <code class="literal">0x0F</code>.
             </p>
-            <p><span class="strong"><strong>GCBASIC library supports Black/White NOT Black/White/Red</strong></span></p>
-            <p>The default is Black/White. To support Black/White/Red add `#define PANEL_SETTING_KWR 0x00`to you user program. </p>
-            <p>The constant are the TFT_BLACK and TFT_WHITE constants.</p>
-            <p><span class="strong"><strong>The e-paper has ghosting problem after working for some days</strong></span></p>
-            <p>Please set the e-paper to sleep mode or disconnect it if you do not refresh the e-paper but need to power on your solution.  </p>
-            <p>Do NOT leave power on for extended periods, otherwise, the voltage of panel remains high and it will damage the e-paper display.  </p>
+            <p><span class="strong"><strong>GCBASIC Library Supports Black/White, NOT Black/White/Red</strong></span></p>
+            <p>The default is Black/White. To support Black/White/Red, add <code class="literal">#define PANEL_SETTING_KWR 0x00</code> to your user program. 
+            </p>
+            <p>The relevant constants are <code class="literal">TFT_BLACK</code> and <code class="literal">TFT_WHITE</code>.
+            </p>
+            <p><span class="strong"><strong>The e-Paper Has a Ghosting Problem After Working for Some Days</strong></span></p>
+            <p>Please set the e-Paper to sleep mode, or disconnect it, if you do not refresh the e-Paper but need to keep your solution powered
+               on.  
+            </p>
+            <p>Do NOT leave power on for extended periods; otherwise the voltage on the panel remains high and it will damage the e-Paper
+               display.  
+            </p>
             <p><span class="strong"><strong>e-Paper Guidelines</strong></span></p>
             <p>Remove power if practical.</p>
             <p>ALWAYS use <code class="literal">GLCDDisplay Off</code> or sleep mode.
             </p>
-            <p>When in storage CLEAR the screen…​. avoid burn it - use</p><pre class="screen">    GLCDCLD TFT_WHITE
-    GLCDDisplay Off</pre><p>The recommended method is:</p><pre class="screen">    GLCDCLS TFT_WHITE
+            <p>When in storage, CLEAR the screen to avoid burn-in — use:</p><pre class="programlisting">    GLCDCLS TFT_WHITE          ' &lt;&lt;&lt; clear the display to white before storage
+    GLCDDisplay Off</pre><p>The recommended method is:</p><pre class="programlisting">    GLCDCLS TFT_WHITE
     GLCDDisplay Off
     do
-    loop</pre><p><span class="strong"><strong>Using the e-Paper Library</strong></span></p>
-            <p>To use the e-Paper driver for a specific simply include the following in your user code.  </p>
-            <p>This will initialise the driver.  </p><pre class="screen">    'Setup for the e-Paper
+    loop</pre><p><span class="strong"><strong>Key line:</strong></span> <code class="literal">GLCDCLS TFT_WHITE</code> — clears the whole panel to white before the display is put into sleep mode, preventing a static image from burning in during
+               long-term storage.
+            </p>
+            <p><span class="strong"><strong>Using the e-Paper Library</strong></span></p>
+            <p>To use the e-Paper driver for a specific device, simply include the following in your user code.  </p>
+            <p>This will initialise the driver.  </p><pre class="programlisting">    'Setup for the e-Paper
      #include &lt;glcd.h&gt;
 
      #define GLCD_TYPE GLCD_TYPE_EPD_EPD7in5
      #define GLCD_EXTENDEDFONTSET1
      #define GLCD_OLED_FONT
-     #define GLCD_TYPE_EPD7in5_LOWMEMORY4_GLCD_MODE fastest but uses a lot of RAM
+     #define GLCD_TYPE_EPD7in5_LOWMEMORY4_GLCD_MODE 'fastest but uses a lot of RAM
      '#define GLCD_TYPE_EPD7in5_LOWMEMORY3_GLCD_MODE
      '#define GLCD_TYPE_EPD7in5_LOWMEMORY2_GLCD_MODE
-     '#define GLCD_TYPE_EPD7in5_LOWMEMORY1_GLCD_MODEslowest uses the least amount of RAM
+     '#define GLCD_TYPE_EPD7in5_LOWMEMORY1_GLCD_MODE 'slowest, uses the least amount of RAM
 
 
     'Pin mappings for SPI - this GLCD driver supports Hardware SPI and Software SPI
-    #define GLCD_DC portA.0 ' Data(hight)/ command(low) line
+    #define GLCD_DC portA.0 ' Data(high)/ command(low) line
     #define GLCD_CS portC.1 ' Chip select line (negate)
-    #define GLCD_RESETportD.2 ' Reset line (negate)
+    #define GLCD_RESET portD.2 ' Reset line (negate)
     #define GLCD_DO portC.5 ' GLCD MOSI connect to MCU SDO
-    #define GLCD_SCKportC.3 ' Clock Line
+    #define GLCD_SCK portC.3 ' Clock Line
     #define GLCD_Busy portC.0 ' Busy Line
 
-    'The following should be used for hardware SPI remove or comment out if you want to use software SPI.
-    #define EPD_HardwareSPI</pre><p>The GCBASIC constants for control display characteristics are shown in the table below.</p>
+    'The following should be used for hardware SPI; remove or comment out if you want to use software SPI.
+    #define EPD_HardwareSPI</pre><p>Note: the <code class="literal">GLCD_RESET</code> and <code class="literal">GLCD_SCK</code> defines above previously ran together with their pin name (for example <code class="literal">GLCD_RESETportD.2</code> with no space) — this has been corrected, since a missing space there would stop the line being parsed as a valid <code class="literal">#define</code> and prevent the program compiling.
+            </p>
+            <p>The GCBASIC constants for controlling display characteristics are shown in the table below.</p>
             <div class="informaltable">
                <table border="1">
                   <colgroup>
@@ -338,7 +349,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>Memory usage for the display buffer.  
                               
                            </p>
-                           <p>Memory management is crutial when using the e-paper displays.</p>
+                           <p>Memory management is crucial when using e-Paper displays.</p>
                         </td>
                         <td align="left" valign="top">
                            <p><code class="literal">GLCD_TYPE_EPD7in5_LOWMEMORY4_GLCD_MODE</code> …​  <code class="literal">GLCD_TYPE_EPD7in5_LOWMEMORY1_GLCD_MODE</code>,
@@ -355,7 +366,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">GLCD_DC</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Specifies the output pin that is connected to Data/Command IO pin on the
+                           <p>Specifies the output pin that is connected to the Data/Command IO pin on the
                               GLCD.
                            </p>
                         </td>
@@ -378,10 +389,10 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p><code class="literal">GLCD_Reset</code></p>
+                           <p><code class="literal">GLCD_RESET</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Specifies the output pin that is connected to Reset pin on the GLCD.</p>
+                           <p>Specifies the output pin that is connected to the Reset pin on the GLCD.</p>
                         </td>
                         <td align="left" valign="top">
                            <p>Required</p>
@@ -392,7 +403,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">GLCD_DO</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Specifies the output pin that is connected to Data Out (GLCD in) pin on
+                           <p>Specifies the output pin that is connected to the Data Out (GLCD in) pin on
                               the GLCD.
                            </p>
                         </td>
@@ -405,7 +416,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">GLCD_SCK</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Specifies the output pin that is connected to Clock (CLK) pin on the
+                           <p>Specifies the output pin that is connected to the Clock (CLK) pin on the
                               GLCD.
                            </p>
                         </td>
@@ -418,7 +429,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">GLCD_BUSY</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Specifies the output pin that is connected to Busy pin on the
+                           <p>Specifies the output pin that is connected to the Busy pin on the
                               GLCD.
                            </p>
                         </td>
@@ -431,7 +442,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">EPD_HardwareSPI</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Instructs the library to use hardware SPI, remove or comment out if you want to use software SPI.</p>
+                           <p>Instructs the library to use hardware SPI; remove or comment out if you want to use software SPI.</p>
                         </td>
                         <td align="left" valign="top">
                            <p><code class="literal">#define EPD_HardwareSPI</code></p>
@@ -442,10 +453,10 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">HWSPIMode</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Specifies the speed of the SPI communications for Hardware SPI only.</p>
+                           <p>Specifies the speed of the SPI communications for hardware SPI only.</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Optional defaults to MASTERFAST.
+                           <p>Optional, defaults to MASTERFAST.
                               
                            </p>
                            <p>Options are MASTERSLOW,<br />
@@ -458,7 +469,7 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p>The GCBASIC constants for control display characteristics are shown in the table below.<br /></p>
+            <p>The GCBASIC constants for the display’s fixed characteristics are shown in the table below.<br /></p>
             <div class="informaltable">
                <table border="1">
                   <colgroup>
@@ -508,14 +519,14 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>Specifies the font width of the GCBASIC font set.</p>
                         </td>
                         <td align="center" valign="top">
-                           <p><code class="literal">6</code> or <code class="literal">5</code> for the OLED font set.
+                           <p><code class="literal">6</code>, or <code class="literal">5</code> for the OLED font set.
                            </p>
                         </td>
                      </tr>
                   </tbody>
                </table>
             </div>
-            <p>The GCBASIC commands supported for this GLCD are shown in the table below.   Always review the appropiate library for the
+            <p>The GCBASIC commands supported for this GLCD are shown in the table below.   Always review the appropriate library for the
                latest full set of supported commands.
             </p>
             <div class="informaltable">
@@ -549,10 +560,10 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">GLCDDisplay</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Enables sleep mode, or, enables operations</p>
+                           <p>Enables sleep mode, or enables operations</p>
                         </td>
                         <td align="left" valign="top">
-                           <p><code class="literal">GLCDDisplay Off</code>, or, <code class="literal">GLCDDisplay On</code></p>
+                           <p><code class="literal">GLCDDisplay Off</code>, or <code class="literal">GLCDDisplay On</code></p>
                         </td>
                      </tr>
                      <tr>
@@ -646,11 +657,11 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">GLCD_Open_PageTransaction</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Commence a series of GLCD commands with memory buffer management.  Must be followed a  <code class="literal">GLCD_Close_PageTransaction</code> command.
+                           <p>Commence a series of GLCD commands with memory buffer management. Must be followed by a <code class="literal">GLCD_Close_PageTransaction</code> command.
                            </p>
                         </td>
                         <td align="left" valign="top">
-                           <p><code class="literal">GLCD_Open_PageTransaction</code>. Parameters may be passed where the two parameters are the range of pages to be updated
+                           <p><code class="literal">GLCD_Open_PageTransaction</code>. Parameters may be passed, where the two parameters are the range of pages to be updated.
                            </p>
                         </td>
                      </tr>
@@ -659,7 +670,7 @@ border: none; background: none; font-weight: none; color: none; }
                            <p><code class="literal">GLCD_Close_PageTransaction</code></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Terminate a series of GLCD commands.  Must follow a <code class="literal">GLCD_Open_PageTransaction</code> command.
+                           <p>Terminate a series of GLCD commands. Must follow a <code class="literal">GLCD_Open_PageTransaction</code> command.
                            </p>
                         </td>
                         <td align="left" valign="top">
@@ -670,7 +681,7 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p><span class="strong"><strong>Example Usage:</strong></span></p><pre class="screen">#chip mega328p, 16
+            <p><span class="strong"><strong>Example Usage:</strong></span></p><pre class="programlisting">#chip mega328p, 16
 #include &lt;uno_mega328p.h&gt;
 #option explicit
 
@@ -692,9 +703,9 @@ border: none; background: none; font-weight: none; color: none; }
  'Pin mappings for SPI - this GLCD driver supports Hardware SPI and Software SPI
  #define GLCD_DC DIGITAL_9
  #define GLCD_CS DIGITAL_10
- #define GLCD_RESETDIGITAL_8
+ #define GLCD_RESET DIGITAL_8
  #define GLCD_DO DIGITAL_11
- #define GLCD_SCKDIGITAL_13
+ #define GLCD_SCK DIGITAL_13
  #define GLCD_Busy DIGITAL_7
 
  #define EPD_HARDWARESPI
@@ -708,7 +719,7 @@ GLCDForeground=TFT_BLACK
 GLCDBackground=TFT_WHITE
 
 
- GLCD_Open_PageTransaction
+ GLCD_Open_PageTransaction          ' &lt;&lt;&lt; opens a page transaction so the five print lines below are batched into one buffered update
     GLCDPrintStringLN ("GCBASIC")
     GLCDPrintStringLN ("")
     GLCDPrintStringLN ("Test of the e-Paper")
@@ -724,8 +735,26 @@ GLCDBackground=TFT_WHITE
 
  do
 
- loop</pre><p><span class="strong"><strong>For more help, see</strong></span>
-               <a class="link" href="_glcdcls.html" title="GLCDCLS">GLCDCLS</a>, <a class="link" href="_glcddrawchar.html" title="GLCDDrawChar">GLCDDrawChar</a>, <a class="link" href="_glcdprint.html" title="GLCDPrint">GLCDPrint</a>, <a class="link" href="_glcdreadbyte.html" title="GLCDReadByte">GLCDReadByte</a>, <a class="link" href="_glcdwritebyte.html" title="GLCDWriteByte">GLCDWriteByte</a>, <a class="link" href="_pset.html" title="Pset">Pset</a> or <a class="link" href="_glcdtransaction.html" title="GLCDTransaction">GLCDTransaction</a></p>
+ loop</pre><p><span class="strong"><strong>Key line:</strong></span> <code class="literal">GLCD_Open_PageTransaction</code> — begins a buffered update so the five <code class="literal">GLCDPrintStringLN</code> calls that follow are sent to the e-Paper together and closed out cleanly by the matching <code class="literal">GLCD_Close_PageTransaction</code>, rather than triggering a separate slow refresh per line.
+            </p>
+            <p>Note: the pin defines in this example (<code class="literal">GLCD_RESETDIGITAL_8</code>, <code class="literal">GLCD_SCKDIGITAL_13</code>) previously ran together with no space, which is the same missing-space bug corrected in the setup example above.
+            </p>
+            <p><span class="strong"><strong>See Also:</strong></span></p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem"><a class="link" href="_glcd_overview.html" title="GLCD Overview">GLCD Overview</a> — category overview and the full supported-display comparison table
+                  </li>
+                  <li class="listitem"><a class="link" href="_glcdcls.html" title="GLCDCLS">GLCDCLS</a></li>
+                  <li class="listitem"><a class="link" href="_glcddrawchar.html" title="GLCDDrawChar">GLCDDrawChar</a></li>
+                  <li class="listitem"><a class="link" href="_glcdprint.html" title="GLCDPrint">GLCDPrint</a></li>
+                  <li class="listitem"><a class="link" href="_glcdreadbyte.html" title="GLCDReadByte">GLCDReadByte</a></li>
+                  <li class="listitem"><a class="link" href="_glcdwritebyte.html" title="GLCDWriteByte">GLCDWriteByte</a></li>
+                  <li class="listitem"><a class="link" href="_pset.html" title="Pset">Pset</a></li>
+                  <li class="listitem"><a class="link" href="_glcdtransaction.html" title="GLCDTransaction">GLCDTransaction</a></li>
+                  <li class="listitem"><a class="link" href="_sram_overview.html" title="SRAM Overview">SRAM Overview</a> — using external SRAM as the e-Paper frame buffer
+                  </li>
+               </ul>
+            </div>
             <p>Supported in &lt;GLCD.H&gt;</p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
@@ -756,22 +785,22 @@ GLCDBackground=TFT_WHITE
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
                         <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
-                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
-                        <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
-                        <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
-                        <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
-                        <li><span class="file"><a href="_frequent_errors.html" tabindex="1">Frequent errors</a></span></li>
-                        <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
-                        <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
-                        <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
+                        <li><span class="file"><a href="_primer.html" tabindex="1">Primer</a></span><ul>
+                              <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
+                              <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
+                              <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
+                              <li><span class="file"><a href="_frequent_errors.html" tabindex="1">Frequent errors</a></span></li>
+                              <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
+                              <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
+                              <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
+                              <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_gcbasic_compiler_insights.html" tabindex="1">GCBASIC Compiler Insights</a></span><ul>
                               <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
                               <li><span class="file"><a href="_compiler_control.html" tabindex="1">Compiler Control</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
-                        <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
-                        <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span><ul>
+                              <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
+                              <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span></li>
                               <li><span class="file"><a href="_gcbasic_hxl_memory_map_output.html" tabindex="1">GCBASIC HXL- Memory Map Output</a></span></li>
                               <li><span class="file"><a href="_uno_as_isp_programmer.html" tabindex="1">UNO as ISP programmer</a></span></li>
                            </ul>
@@ -786,9 +815,13 @@ GLCDBackground=TFT_WHITE
                               <li><span class="file"><a href="_data_types.html" tabindex="1">Data Types</a></span></li>
                               <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
                               <li><span class="file"><a href="_variables_and_data_types.html" tabindex="1">Variables and Data Types</a></span></li>
+                              <li><span class="file"><a href="_the_positives_and_negatives_of_variable_types.html" tabindex="1">The Positives and Negatives of Variable Types</a></span></li>
                               <li><span class="file"><a href="_advanced_variabletypes.html" tabindex="1">Advanced VariableTypes</a></span></li>
                               <li><span class="file"><a href="_variable_memory_allocation_addressing_control.html" tabindex="1">Variable Memory Allocation, Addressing &amp; Control</a></span></li>
                               <li><span class="file"><a href="_avr_r_register_usage.html" tabindex="1">AVR R Register Usage</a></span></li>
+                              <li><span class="file"><a href="_new_example_1_basic_variables_with_initial_values.html" tabindex="1">New Example 1: Basic Variables with Initial Values</a></span></li>
+                              <li><span class="file"><a href="_new_example_2_arrays_and_initialisation.html" tabindex="1">New Example 2: Arrays and Initialisation</a></span></li>
+                              <li><span class="file"><a href="_new_example_3_bit_level_access_using_constants.html" tabindex="1">New Example 3: Bit-Level Access Using Constants</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_reference_data.html" tabindex="1">Reference Data</a></span><ul>
@@ -811,6 +844,12 @@ GLCDBackground=TFT_WHITE
                               <li><span class="file"><a href="_converters.html" tabindex="1">Converters</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_commands_quick_reference.html" tabindex="1">Commands Quick Reference</a></span><ul>
+                              <li><span class="file"><a href="_alphabetical_index.html" tabindex="1">Alphabetical Index</a></span></li>
+                              <li><span class="file"><a href="_by_category.html" tabindex="1">By Category</a></span></li>
+                              <li><span class="file"><a href="_commands_not_yet_documented.html" tabindex="1">Commands Not Yet Documented</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_command_references.html" tabindex="1">Command References</a></span><ul>
                               <li><span class="file"><a href="_analog_digital_conversion.html" tabindex="1">Analog/Digital conversion</a></span><ul>
                                     <li><span class="file"><a href="_analog_digital_conversion_overview.html" tabindex="1">Analog/Digital Conversion Overview</a></span></li>
@@ -820,6 +859,7 @@ GLCDBackground=TFT_WHITE
                                     <li><span class="file"><a href="_readad10.html" tabindex="1">ReadAD10</a></span></li>
                                     <li><span class="file"><a href="_readad12.html" tabindex="1">ReadAD12</a></span></li>
                                     <li><span class="file"><a href="_analog_digital_conversion_code_optimisation.html" tabindex="1">Analog/Digital Conversion Code Optimisation</a></span></li>
+                                    <li><span class="file"><a href="_pot.html" tabindex="1">Pot</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_bitwise.html" tabindex="1">Bitwise</a></span><ul>
@@ -827,6 +867,11 @@ GLCDBackground=TFT_WHITE
                                     <li><span class="file"><a href="_fnlsl.html" tabindex="1">FnLSL</a></span></li>
                                     <li><span class="file"><a href="_fnlsr.html" tabindex="1">FnLSR</a></span></li>
                                     <li><span class="file"><a href="_setwith.html" tabindex="1">SetWith</a></span></li>
+                                    <li><span class="file"><a href="_deprecated_bitwise_functions.html" tabindex="1">Deprecated bitwise functions.</a></span><ul>
+                                          <li><span class="file"><a href="_fnequbit.html" tabindex="1">FnEquBit</a></span></li>
+                                          <li><span class="file"><a href="_fnnotbit.html" tabindex="1">FnNotBit</a></span></li>
+                                       </ul>
+                                    </li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_memory.html" tabindex="1">Memory</a></span><ul>
@@ -872,7 +917,7 @@ GLCDBackground=TFT_WHITE
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_eeram_device.html" tabindex="1">EERAM ( Device )</a></span><ul>
-                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
+                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERAM Devices</a></span></li>
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_sram_device.html" tabindex="1">SRAM  ( Device )</a></span><ul>
@@ -904,7 +949,7 @@ GLCDBackground=TFT_WHITE
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_interrupts.html" tabindex="1">Interrupts</a></span><ul>
-                                    <li><span class="file"><a href="_interrupts_overview.html" tabindex="1">Interrupts overview</a></span></li>
+                                    <li><span class="file"><a href="_interrupts_overview.html" tabindex="1">Interrupts Overview</a></span></li>
                                     <li><span class="file"><a href="_intoff.html" tabindex="1">IntOff</a></span></li>
                                     <li><span class="file"><a href="_inton.html" tabindex="1">IntOn</a></span></li>
                                     <li><span class="file"><a href="_on_interrupt.html" tabindex="1">On Interrupt</a></span></li>
@@ -932,9 +977,10 @@ GLCDBackground=TFT_WHITE
                                           <li><span class="file"><a href="_nextion_controllers.html" tabindex="1">NEXTION Controllers</a></span></li>
                                           <li><span class="file"><a href="_nt7108c_controllers.html" tabindex="1">NT7108C Controllers</a></span></li>
                                           <li><span class="file"><a href="_pcd8544_controllers.html" tabindex="1">PCD8544 Controllers</a></span></li>
-                                          <li><span class="file"><a href="_sdd1289_controllers.html" tabindex="1">SDD1289 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1289_controllers.html" tabindex="1">SSD1289 Controllers</a></span></li>
                                           <li><span class="file"><a href="_sh1106_controllers.html" tabindex="1">SH1106 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1309_controllers.html" tabindex="1">SSD1309 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1351_controllers.html" tabindex="1">SSD1351 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7567_controllers.html" tabindex="1">ST7567 Controllers</a></span></li>
@@ -964,6 +1010,7 @@ GLCDBackground=TFT_WHITE
                                           <li><span class="file"><a href="_uc1601_controllers.html" tabindex="1">UC1601 Controllers</a></span></li>
                                        </ul>
                                     </li>
+                                    <li><span class="file"><a href="_initglcd.html" tabindex="1">InitGLCD</a></span></li>
                                     <li><span class="file"><a href="_box.html" tabindex="1">Box</a></span></li>
                                     <li><span class="file"><a href="_circle.html" tabindex="1">Circle</a></span></li>
                                     <li><span class="file"><a href="_ellipse.html" tabindex="1">Ellipse</a></span></li>
@@ -1015,6 +1062,9 @@ GLCDBackground=TFT_WHITE
                                                 <li><span class="file"><a href="_lcd_io_12_port_configuration.html" tabindex="1">LCD_IO 12 Port Configuration</a></span></li>
                                              </ul>
                                           </li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_multiple_i2c_adapters_lcd_io_12.html" tabindex="1">Multiple I2C Adapters (LCD_IO 12)</a></span><ul>
                                           <li><span class="file"><a href="_lcd_io_14.html" tabindex="1">LCD_IO 14</a></span><ul>
                                                 <li><span class="file"><a href="_lcd_io_14_port_configuration.html" tabindex="1">LCD_IO 14 Port Configuration</a></span></li>
                                              </ul>
@@ -1052,6 +1102,10 @@ GLCDBackground=TFT_WHITE
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_pulse_width_modulation.html" tabindex="1">Pulse width modulation</a></span><ul>
+                                    <li><span class="file"><a href="_pulseout.html" tabindex="1">PulseOut</a></span></li>
+                                    <li><span class="file"><a href="_pulseoutinv.html" tabindex="1">PulseOutInv</a></span></li>
+                                    <li><span class="file"><a href="_pulsein.html" tabindex="1">PulseIn</a></span></li>
+                                    <li><span class="file"><a href="_pulseininv.html" tabindex="1">PulseInInv</a></span></li>
                                     <li><span class="file"><a href="_microchip_pic_pwm_overview.html" tabindex="1">Microchip PIC PWM Overview</a></span><ul>
                                           <li><span class="file"><a href="_pwm_software_mode.html" tabindex="1">PWM Software Mode</a></span><ul>
                                                 <li><span class="file"><a href="_pwmout.html" tabindex="1">PWMOut</a></span></li>
@@ -1196,6 +1250,7 @@ GLCDBackground=TFT_WHITE
                                     <li><span class="file"><a href="_i2cstart.html" tabindex="1">I2CStart</a></span></li>
                                     <li><span class="file"><a href="_i2cstartoccurred.html" tabindex="1">I2CStartoccurred</a></span></li>
                                     <li><span class="file"><a href="_i2cstop.html" tabindex="1">I2CStop</a></span></li>
+                                    <li><span class="file"><a href="_pcf8574.html" tabindex="1">PCF8574</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_i2c_twi_hardware_module.html" tabindex="1">I2C/TWI Hardware Module</a></span><ul>
@@ -1203,6 +1258,7 @@ GLCDBackground=TFT_WHITE
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
+                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -1242,6 +1298,7 @@ GLCDBackground=TFT_WHITE
                                     <li><span class="file"><a href="_stoptimer.html" tabindex="1">StopTimer</a></span></li>
                                     <li><span class="file"><a href="_reading_timers.html" tabindex="1">Reading Timers</a></span></li>
                                     <li><span class="file"><a href="_smt_timers.html" tabindex="1">SMT Timers</a></span></li>
+                                    <li><span class="file"><a href="_millis_timer_based_functions.html" tabindex="1">Millis - Timer based functions</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_variables_operations.html" tabindex="1">Variables Operations</a></span><ul>
@@ -1249,17 +1306,14 @@ GLCDBackground=TFT_WHITE
                                     <li><span class="file"><a href="_more_on_setting_variables_and_constants.html" tabindex="1">More on setting Variables and Constants</a></span></li>
                                     <li><span class="file"><a href="_setting_variables.html" tabindex="1">Setting Variables</a></span></li>
                                     <li><span class="file"><a href="_variable_lifecycle.html" tabindex="1">Variable Lifecycle</a></span></li>
-                                    <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span></li>
-                                 </ul>
-                              </li>
-                              <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
-                              <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
-                              <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
-                              <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
-                              <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
-                              <li><span class="file"><a href="_new_example_1_basic_variables_with_initial_values.html" tabindex="1">New Example 1: Basic Variables with Initial Values</a></span></li>
-                              <li><span class="file"><a href="_new_example_2_arrays_and_initialisation.html" tabindex="1">New Example 2: Arrays and Initialisation</a></span></li>
-                              <li><span class="file"><a href="_new_example_3_bit_level_access_using_constants.html" tabindex="1">New Example 3: Bit‑Level Access Using Constants</a></span><ul>
+                                    <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span><ul>
+                                          <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
+                                          <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
+                                          <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
+                                          <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
+                                          <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
+                                       </ul>
+                                    </li>
                                     <li><span class="file"><a href="_alloc.html" tabindex="1">Alloc</a></span></li>
                                     <li><span class="file"><a href="_bcdtodec_gcb.html" tabindex="1">BcdToDec_GCB</a></span></li>
                                     <li><span class="file"><a href="_dectobcd_gcb.html" tabindex="1">DecToBcd_GCB</a></span></li>
@@ -1267,6 +1321,8 @@ GLCDBackground=TFT_WHITE
                                     <li><span class="file"><a href="_set.html" tabindex="1">Set</a></span></li>
                                     <li><span class="file"><a href="_swap4.html" tabindex="1">SWAP4</a></span></li>
                                     <li><span class="file"><a href="_swap.html" tabindex="1">SWAP</a></span></li>
+                                    <li><span class="file"><a href="_peek.html" tabindex="1">Peek</a></span></li>
+                                    <li><span class="file"><a href="_poke.html" tabindex="1">Poke</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_string_manipulation.html" tabindex="1">String Manipulation</a></span><ul>
@@ -1315,16 +1371,7 @@ GLCDBackground=TFT_WHITE
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_miscellaneous_commands.html" tabindex="1">Miscellaneous Commands</a></span><ul>
-                                    <li><span class="file"><a href="_dir.html" tabindex="1">Dir</a></span></li>
                                     <li><span class="file"><a href="_getuserid.html" tabindex="1">GetUserID</a></span></li>
-                                    <li><span class="file"><a href="_pot.html" tabindex="1">Pot</a></span></li>
-                                    <li><span class="file"><a href="_pulseout.html" tabindex="1">PulseOut</a></span></li>
-                                    <li><span class="file"><a href="_pulseoutinv.html" tabindex="1">PulseOutInv</a></span></li>
-                                    <li><span class="file"><a href="_pulsein.html" tabindex="1">PulseIn</a></span></li>
-                                    <li><span class="file"><a href="_pulseininv.html" tabindex="1">PulseInInv</a></span></li>
-                                    <li><span class="file"><a href="_peek.html" tabindex="1">Peek</a></span></li>
-                                    <li><span class="file"><a href="_poke.html" tabindex="1">Poke</a></span></li>
-                                    <li><span class="file"><a href="_weak_pullups.html" tabindex="1">Weak Pullups</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_maths.html" tabindex="1">Maths</a></span><ul>
@@ -1346,7 +1393,9 @@ GLCDBackground=TFT_WHITE
                                     <li><span class="file"><a href="_trigonometry_atan.html" tabindex="1">Trigonometry ATAN</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="_peripheral_pin_select.html" tabindex="1">Peripheral Pin Select</a></span><ul>
+                              <li><span class="file"><a href="_port_control.html" tabindex="1">Port control</a></span><ul>
+                                    <li><span class="file"><a href="_dir.html" tabindex="1">Dir</a></span></li>
+                                    <li><span class="file"><a href="_weak_pullups.html" tabindex="1">Weak Pullups</a></span></li>
                                     <li><span class="file"><a href="_peripheral_pin_select_for_microchip_microcontrollers.html" tabindex="1">Peripheral Pin Select for Microchip microcontrollers.</a></span></li>
                                     <li><span class="file"><a href="_unlockpps.html" tabindex="1">UnLockPPS</a></span></li>
                                     <li><span class="file"><a href="_lockpps.html" tabindex="1">LockPPS</a></span></li>
@@ -1374,10 +1423,10 @@ GLCDBackground=TFT_WHITE
                               <li><span class="file"><a href="_other_directives.html" tabindex="1">Other directives</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_compiler_options.html" tabindex="1">Compiler Options</a></span><ul>
+                        <li><span class="file"><a href="_compiler_preprocessor_options.html" tabindex="1">Compiler Preprocessor Options</a></span><ul>
                               <li><span class="file"><a href="__option_explicit.html" tabindex="1">#Option Explicit</a></span></li>
                               <li><span class="file"><a href="__option_noconfig.html" tabindex="1">#Option NoConfig</a></span></li>
-                              <li><span class="file"><a href="__option_startupmethodsdisabled.html" tabindex="1">#Option STARTUPMETHODSDISABLED</a></span></li>
+                              <li><span class="file"><a href="__option_startupmethoddisabled.html" tabindex="1">#Option StartupMethodDisabled</a></span></li>
                               <li><span class="file"><a href="__option_bootloader.html" tabindex="1">#Option Bootloader</a></span></li>
                               <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
                               <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
@@ -1419,42 +1468,34 @@ GLCDBackground=TFT_WHITE
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
-                              <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
-                              <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_operating_systems_support.html" tabindex="1">Operating Systems Support</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                               <li><span class="file"><a href="_make_asm_make_hex_and_programming_operations_using_the_provided_linux_scripts.html" tabindex="1">Make ASM, Make HEX and Programming Operations using the provided Linux scripts</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
                               <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
                               <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
+                              <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
                               <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">COMPILER SOURCE INSIGHTS</a></span></li>
+                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">Compiler Source Insights</a></span></li>
                               <li><span class="file"><a href="_about_glcd_library_support.html" tabindex="1">ABOUT GLCD Library Support</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span><ul>
+                                    <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">About the Preferences Editor</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
+                              <li><span class="file"><a href="_gcbasic_documentation_toolchain.html" tabindex="1">GCBASIC Documentation Toolchain</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">ABOUT THE PREFERENCES EDITOR</a></span></li>
                         <li><span class="file"><a href="_gcbasic_with_the_avrisp_or_mkii_programmer.html" tabindex="1">GCBASIC with the AVRISP or MKII Programmer</a></span><ul>
                               <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                      </ul>
                   </div>
                </div>

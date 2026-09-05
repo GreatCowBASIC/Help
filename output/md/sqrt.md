@@ -23,18 +23,18 @@
 <span class="strong">**Explanation:**</span>
 
 A square root routine for GCBASIC. The function only involves bit
-shifting, addition and subtraction, which makes it fast and efficient.
+shifting, addition, and subtraction, which makes it fast and efficient.
 
-This method required a word variable as the input and a word variable as
-the output. The method will handle arguments of up to 4294.
+This method requires a word variable as the input and a word variable as
+the output. The method handles arguments of up to 4294.
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers, required MATHS.H include file.
+Available on all microcontrollers; requires the `MATHS.H` include file.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     ;Demo: Show the first 100 square roots to 2 decimal places.
     ;This uses the maths.h include file.
 
@@ -73,7 +73,7 @@ Available on all microcontrollers, required MATHS.H include file.
       print i
       print ")="
 
-      valStr = str(sqrt(i))         ;format decimal nicely
+      valStr = str(sqrt(i))         ;format decimal nicely          ' <<< the Sqrt instruction
       length = len(valStr)
 
       select case length
@@ -92,6 +92,21 @@ Available on all microcontrollers, required MATHS.H include file.
     next i
 ```
 
-<span class="strong">**Supported in &lt;MATHS.H&gt;**</span>
+<span class="strong">**Key line:**</span> `sqrt(i)` — computes the
+integer square root of the loop counter `i`, scaled as a fixed-point
+value that the surrounding `select case` block then reformats with a
+decimal point. <span class="strong">**Supported in
+&lt;MATHS.H&gt;**</span>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="power" class="link" title="Power">Power</a> — the
+    inverse-square relationship to Sqrt
+-   <a href="abs" class="link" title="Abs">Abs</a> — related
+    command in the same category
+
+</div>
 
 </div>

@@ -1,5 +1,8 @@
 ==== Locate
 
+(((Liquid Crystal Display,Locate)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -20,6 +23,7 @@ location.
 
 
 *Example :*
+[source,gcbasic]
 ----
     'A Hello World program for GCBASIC.
     'Uses Locate to show "World" on the second line
@@ -33,13 +37,19 @@ location.
     #define LCD_DATA_PORT PORTC
     #define LCD_RS PORTD.0
     #define LCD_RW PORTD.1
-    #define LCD_Enable PORTD.2
+    #define LCD_ENABLE PORTD.2
 
     'Main routine
     Print "Hello"
-    Locate 1, 5
+    Locate 1, 5          ' <<< the Locate instruction
     Print "World"
 ----
-*For more help, see* <<_lcd_overview,LCD Overview>>
+*Key line:* `Locate 1, 5` -- moves the cursor to line 1, column 5 before the next `Print`, so "World" appears on the second line rather than overwriting "Hello".
+
+**See Also:**
+
+* <<_lcd_overview,LCD Overview>> -- LCD wiring and configuration background
+* <<_print,Print>> -- displaying text at the located position, as used above
+* <<_cls,CLS>> -- clearing the whole display instead of moving the cursor
 
 *Supported in <LCD.H>*

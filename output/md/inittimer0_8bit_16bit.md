@@ -82,7 +82,7 @@ Parameters are required as shown in the table below:
 The example show in the `osc` as an internal source, a `prescaler` value
 of 256 witht the HFINTOSC `clocksource` and a `postscaler` value of 2
 
-``` screen
+``` programlisting
     InitTimer0 Osc, PRE0_256 + TMR0_HFINTOSC ,  POST0_2
     'also, note when in 8-bit mode you MUST set the 8bit timer value to the upper byte of a WORD, when setting the `SetTimer`
     SetTimer 0, 0x5800   'Setting the HIGH byte!!!
@@ -96,7 +96,7 @@ To use the 16 bit timer you need to add the constant
 The example show in the `osc` as an internal source, a `prescaler` value
 of 256 witht the HFINTOSC `clocksource` and a `postscaler` value of 2
 
-``` screen
+``` programlisting
     #define TMR0_16bit
     InitTimer0 Osc, PRE0_256 + TMR0_HFINTOSC ,  POST0_2
 ```
@@ -377,7 +377,7 @@ the range of 1 to 16.
 
 This code uses Timer 0 and On Interrupt to flash an LED.
 
-``` screen
+``` programlisting
 /*
 
 Remember four things to setup a timer.
@@ -402,7 +402,7 @@ Remember four things to setup a timer.
 
     'Setup the timer.
     '          Source, Prescaler  + Clock Source    , Postscaler
-    InitTimer0 Osc,    PRE0_16384 + TMR0_HFINTOSC   , POST0_11
+    InitTimer0 Osc,    PRE0_16384 + TMR0_HFINTOSC   , POST0_11          ' <<< the InitTimer0 instruction (16-bit mode)
 
     ' Set the Timer start value.  Use the HIGH byte of the word when using an 8/16bit timer in 8 bit mode
     SetTimer ( 0, 0x5800 )
@@ -422,8 +422,23 @@ Remember four things to setup a timer.
 
 <span class="strong">**Supported in &lt;TIMER.H&gt;**</span>
 
-See also see:
-<a href="inittimer0" class="link" title="InitTimer0">InitTimer0</a>
-for microcontroller with only an 8 bit Timer 0 module.
+<span class="strong">**Key line:**</span>
+`InitTimer0 Osc,    PRE0_16384 + TMR0_HFINTOSC   , POST0_11` — selects
+the internal HFINTOSC clock with a 1:16384 prescale and a 1:11
+postscale, giving this 16-bit-capable Timer 0 a long enough period for
+the LED-flash example below.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="inittimer0" class="link" title="InitTimer0">InitTimer0</a> — for
+    microcontrollers with only an 8-bit Timer 0 module
+-   <a href="settimer" class="link" title="Settimer">Settimer</a> — preloading
+    the timer, as used above
+-   <a href="starttimer" class="link" title="StartTimer">StartTimer</a> — starting
+    the timer, as used above
+
+</div>
 
 </div>

@@ -38,7 +38,7 @@ point decimal fractions.
 The sine, cosine and tangent functions are available for your programs
 simply by including the header file offering the precision you need.
 
-``` screen
+``` programlisting
     #INCLUDE <TRIG2PLACES.H> gives two decimal places
     #INCLUDE <TRIG3PLACES.H> gives three decimal places
     #INCLUDE <TRIG4PLACES.H> gives four decimal places
@@ -67,7 +67,7 @@ efficient and accurate.
 <span class="strong">**Example: Show the trigonometric values to three
 decimal places.**</span>
 
-``` screen
+``` programlisting
     ;----- Configuration
     #CHIP 16F88, 8                  ;PIC16F88 RUNNING AT 8 MHZ
     #CONFIG MCLR=OFF                ;RESET HANDLED INTERNALLY
@@ -88,37 +88,37 @@ decimal places.**</span>
 
     ;----- Variables
 
-    dim ii as integer
+    dim index as integer
     dim outStr, valStr as string
 
     ;----- Program
 
     dir PortB out                   ;all outputs to the LCD
 
-    for ii = -720 to 720             ;arguments from -720 to 720
+    for index = -720 to 720             ;arguments from -720 to 720
     cls
     print "sin("                  ;print the label
-    print ii                      ;and the argument
+    print index                      ;and the argument
     print ")="                    ;and closing parenthesis
     locate 1,0
-    printTrig(sin(ii))             ;print value of the sine
+    printTrig(sin(index))             ;print value of the sine          ' <<< the sin instruction
     wait 500 mS                   ;pause to view
 
     cls                           ;do likewise for cosine
     print "cos("
-    print ii
+    print index
     print ")="
     locate 1,0
-    printTrig(cos(ii))
+    printTrig(cos(index))
     wait 500 mS                   ;pause to view
     cls                           ;do likewise for tangent
     print "tan("
-    print ii
+    print index
     print ")="
     locate 1,0
-    printTrig(tan(ii))
+    printTrig(tan(index))
     wait 500 mS                   ;pause to view
-    next i
+    next index
 
     sub printTrig(in value as integer)
         ;print decently formatted trig results
@@ -147,5 +147,26 @@ decimal places.**</span>
         print outStr
     end sub
 ```
+
+<span class="strong">**Key line:**</span>
+`printTrig(sin(index))` — calls `sin()` with the loop angle `index` in
+whole degrees and passes the fixed-point result (scaled by 1000, since
+`TRIG3PLACES.H` is included) to the formatting sub-routine, which
+reinserts the decimal point; the loop variable is named `index` rather
+than a bare `i`/`ii`, since a single or doubled letter is easy to
+mistype in the matching `next` statement — the original text used the
+ambiguous name `ii` and, worse, closed the loop with a mismatched
+`next i`.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="trigonometry_atan" class="link" title="Trigonometry ATAN">Trigonometry ATAN</a> — related
+    command in the same category
+-   <a href="abs" class="link" title="Abs">Abs</a> — related
+    command in the same category
+
+</div>
 
 </div>

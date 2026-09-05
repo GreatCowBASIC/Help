@@ -1,7 +1,10 @@
 ==== I2CReceive
 
+(((I2C Software,I2CReceive)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   I2CReceive _data_
   I2CReceive _data_, _ack_
@@ -25,6 +28,7 @@ global variable `I2CMatch` will be set to true when the received value is
 equal to the constant `I2C_ADDRESS`.
 
 *Example 1 - Master Mode:*
+[source,gcbasic]
 ----
   ' I2C Receive - using the ChipIno board, see here for information. ' This program reads an I2C register and LED is set to on if the value  is over 100.
   ' This program will read from address 83, register 1.
@@ -51,7 +55,7 @@ equal to the constant `I2C_ADDRESS`.
     I2CSend 1
 
     'Read value
-    I2CReceive ValueIn
+    I2CReceive ValueIn          ' <<< the I2CReceive instruction
 
     'Send stop
     I2CStop
@@ -65,10 +69,13 @@ equal to the constant `I2C_ADDRESS`.
 
   Loop
 ----
+*Key line:* `I2CReceive ValueIn` -- reads one byte from the I2C bus into `ValueIn`, automatically ACKing since no `_ack_` argument was given.
+
 *Example 2 - Slave Mode:*
 
 See the <<_i2c_overview,I2C Overview>> for the
 Master mode device to control this Slave mode device.
+[source,gcbasic]
 ----
   ' I2CReceive_Slave.gcb - using a 16F88.
   ' This program receives commands from a GCB Master. This Slave has three LEDs attached.
@@ -99,7 +106,7 @@ Master mode device to control this Slave mode device.
 
   do
     I2CStart                 ;wait for Start signal
-    I2CReceive( addr )         ;then wait for an address
+    I2CReceive( addr )         ' <<< the I2CReceive instruction (slave mode)
 
     if I2CMatch  = true then    ;if it matches, proceed
 
@@ -137,4 +144,13 @@ Master mode device to control this Slave mode device.
 
   loop
 ----
+*Key line:* `I2CReceive( addr )` -- in slave mode, this blocks until the master sends the address byte, then sets `I2CMatch` to true if it equals this device's own `I2C_ADDRESS`.
+
+**See Also:**
+
+* <<_i2c_overview,I2C Overview>> -- category overview
+* <<_i2csend,I2CSend>> -- the counterpart command for transmitting data
+* <<_i2cstart,I2CStart>> / <<_i2cstop,I2CStop>> -- framing the transaction used above
+* <<_i2crestart,I2CRestart>> -- switching direction within a transaction
+
 Supported in <I2C.H>

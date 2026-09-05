@@ -1,7 +1,10 @@
 ==== SPITransfer
 
+(((SPI,SPITransfer)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   `SPITransfer` _tx_, _rx_
 ----
@@ -30,6 +33,7 @@ the slave, and sent across to the master which shows the data on its LCD
 screen.
 
 *Slave Program:*
+[source,gcbasic]
 ----
   'Select chip model and configuration
   #chip 16F88, 20
@@ -51,10 +55,12 @@ screen.
   'Main loop - takes a reading, and then waits to send it across.
   do
   'Note that rx is 0 - this is because no data is to be received.
-  SPITransfer ReadAD(AN0), 0
+  SPITransfer ReadAD(AN0), 0          ' <<< the SPITransfer instruction (slave side)
   loop
 ----
+*Key line:* `SPITransfer ReadAD(AN0), 0` -- as a slave, this call blocks until the master initiates a transfer, then sends the ADC reading while receiving (and discarding) whatever the master sends.
 *Master Program:*
+[source,gcbasic]
 ----
   'General hardware configuration
   #chip 16F877A, 20
@@ -65,7 +71,7 @@ screen.
   #define LCD_DATA_PORT PORTC
   #define LCD_RS PORTD.0
   #define LCD_RW PORTD.1
-  #define LCD_Enable PORTD.2
+  #define LCD_ENABLE PORTD.2
 
   'Set SPI pin directions
   dir PORTC.5 out
@@ -79,7 +85,7 @@ screen.
   do
   'Read a byte from the slave
   'No data to send, so tx is 0
-  SPITransfer 0, Temp
+  SPITransfer 0, Temp          ' <<< the SPITransfer instruction (master side)
 
   'Display data
   if Temp > 0 then
@@ -94,4 +100,10 @@ screen.
   loop
 ----
 
-*See also* <<_spimode,SPIMode>>,<<_fasthwspitransfer,FastHWSPITransfer>>
+**See Also:**
+
+* <<_spimode,SPIMode>> -- selecting master/slave mode before transferring, as used above
+* <<_fasthwspitransfer,FastHWSPITransfer>> -- a faster variant of this command
+* <<_readad,ReadAD>> -- reading the sensor value sent in the slave example above
+* <<_dir,Dir>> -- setting SPI pin directions before transferring, as used above
+* <<_cls,CLS>> -- clearing the LCD before showing the received reading, as used above

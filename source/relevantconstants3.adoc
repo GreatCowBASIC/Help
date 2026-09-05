@@ -1,5 +1,8 @@
 ==== RS232 Software Overview - Optimised
 
+(((Serial Communications,RS232 Software Overview - Optimised)))
+
+
 *Introduction:*
 
 These routines allow the microcontroller to send and receive RS232 data.
@@ -156,3 +159,8 @@ SER3_TXDELAYus
 Default =0
 
 |===
+
+**See Also:**
+
+* <<_rs232_software_overview,RS232 Software Overview>> -- related command in the same category
+* <<_initser,InitSer>> -- related command in the same category

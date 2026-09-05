@@ -27,19 +27,19 @@
 The `#chip` directive is used to specify the chip model and frequency
 that GCBASIC will use.
 
-The `model` is the specific microcontroller - examples are "16F819".
+The `model` is the specific microcontroller - an example is "16F819".
 
 The `frequency` is the frequency of the chip in MHz, and is required for
 the delay and PWM routines. The following constants simplify setting
-specific frequencies. `31k`, `32.768K`, `125k`, `250k` or `500k`. Any of
-these constant can be used. As shown in the example below.
+specific frequencies: `31k`, `32.768K`, `125k`, `250k`, or `500k`. Any
+of these constants can be used, as shown in the example below.
 
-If `frequency` is not present the compiler will select a frequency
-default frequency that should work for the microcontroller.
+If `frequency` is not present, the compiler will select a default
+frequency that should work for the microcontroller.
 
-If `numeric constant` is specified then the compiler will complete a
-simple math calculation to determine the frequency.  The only supported
-math instruction is divide.
+If `numeric constant` is specified, then the compiler will complete a
+simple maths calculation to determine the frequency. The only supported
+maths operation is divide.
 
 <div class="orderedlist">
 
@@ -48,7 +48,7 @@ math instruction is divide.
 2.  If the chip does not have an internal oscillator, then GCBASIC will
     assume that the chip is being run at its maximum possible clock
     frequency using an external crystal.
-3.  If you are using an external crystal then you must specify a chip
+3.  If you are using an external crystal, then you must specify a chip
     frequency.
 
 </div>
@@ -58,26 +58,26 @@ When using an AVR:
 <div class="orderedlist">
 
 1.  There is no need to specify "AT" before the name.
-2.  Only AVRDX chips support setting the internal frequency using the
-    `frequency` statement.
-3.  megaAVR assumes an external oscillator, and, therefore the
-    `frequency` must match the external oscillator frequency.  For
-    Arduino products this is typically 16Mhz
+2.  Only AVR Dx-series chips support setting the internal frequency
+    using the `frequency` statement.
+3.  megaAVR assumes an external oscillator, and therefore the
+    `frequency` must match the external oscillator frequency. For
+    Arduino products this is typically 16MHz.
 
 </div>
 
-When using a LGT:
+When using an LGT:
 
 <div class="orderedlist">
 
-1.  Only LGT support setting the internal frequency using the
+1.  Only LGT supports setting the internal frequency using the
     `frequency` statement.
 
 </div>
 
 <span class="strong">**Examples:**</span>
 
-``` screen
+``` programlisting
     #chip 12F509, 4
     #chip 18F4550, 48
     #chip 16F88, 0.125
@@ -99,29 +99,29 @@ When using a LGT:
     #config osc=SOSC
 ```
 
-<span class="strong">**Setting Other Clock frequencies:**</span> Some
-alternative compilers allow value of the clock frequency to be set with
-the numerical value in Hertz (<span class="emphasis">*i.e.*</span>
-24576000). This can be useful when using the clock frequencies other
-than standard frequencies.
+<span class="strong">**Setting Other Clock Frequencies:**</span> Some
+alternative compilers allow the value of the clock frequency to be set
+with a numerical value in Hertz (<span class="emphasis">*i.e.*</span>
+24576000). This can be useful when using clock frequencies other than
+the standard frequencies.
 
-GCBASIC requires clock frequencys to be specified in MHz, but will
+GCBASIC requires clock frequencies to be specified in MHz, but will
 accept decimal points. For example, if you wanted to run a 16F1827 at
 24576000 Hz, you would write the following:
 
-``` screen
+``` programlisting
     #chip 16F1827, 24.576
 ```
 
 <span class="strong">**GCBASIC support for microcontrollers:**</span>
 
 Each microcontroller has a microcontroller data file. This file is
-located in \\GCBasic\\chipdata\\ folder when installed.
+located in the `\GCBasic\chipdata\` folder when installed.
 
-An example is 12F1840.dat
+An example is 12F1840.dat.
 
-The there are two sections in the microcontroller data file that control
-the "chip frequency", they are:
+There are two sections in the microcontroller data file that control the
+"chip frequency": they are
 
 ``` literallayout
 *[ChipData]* and *[ConfigOps]*
@@ -129,10 +129,10 @@ the "chip frequency", they are:
 
 <span class="strong">**ChipData section**</span>
 
-The ChipData section for 12F1840 microcontroller. The 12F1840 is used an
-example
+The ChipData section for the 12F1840 microcontroller. The 12F1840 is
+used as an example.
 
-``` screen
+``` programlisting
     [ChipData]
     Prog=4096
     EEPROM=256
@@ -149,12 +149,12 @@ example
     MaxAddress=4095
 ```
 
-The IntOsc line specifies the supported internal clock frequencies - The
+The IntOsc line specifies the supported internal clock frequencies - the
 12F1840 microcontroller supports nine internal frequencies (ChipMHz).
-\#Chip is used as follows: The 31kSupport line specifies the chip
-supports 31k for internal clock frequency.
+`#chip` is used as follows: The 31kSupport line specifies that the chip
+supports 31k as an internal clock frequency.
 
-``` screen
+``` programlisting
     #chip 12F1840, 32
 ```
 
@@ -163,37 +163,37 @@ A ChipMHz of 32 does two things.
 <div class="orderedlist">
 
 1.  When using the internal oscillator, it tells the compiler to set the
-    chip clock frequency (FOSC) to 32MHz
+    chip clock frequency (FOSC) to 32MHz.
 2.  It tells the compiler to calculate all delays (wait times) based
-    upon FOSC of 32 MHz. Unlike Picaxe Basic (and other compilers)
-    GCBASIC delays ("wait") are correct regardless of the setting of
-    FOSC. If you set the internal oscillator to 4 MHz a "wait 1 ms" will
-    still be 1 ms.
+    upon an FOSC of 32 MHz. Unlike PICAXE BASIC (and other compilers),
+    GCBASIC delays (`wait`) are correct regardless of the setting of
+    FOSC. If you set the internal oscillator to 4 MHz, a "wait 1 ms"
+    will still be 1 ms.
 
 </div>
 
-If you set chipMHz to something other than the valid options in the
-\[ChipData\] IntOsc section of the microcontroller specific dat file,
-then, the compiler assumes that you are using an external oscillator and
+If you set ChipMHz to something other than the valid options in the
+`[ChipData]` IntOsc section of the microcontroller-specific dat file,
+then the compiler assumes that you are using an external oscillator and
 will calculate the delays according to the value you use. The wait times
 will be incorrect if you are not using an external oscillator at the
-same frequency as ChipMhz.
+same frequency as ChipMHz.
 
-``` screen
+``` programlisting
     Example:  #chip 12F1840, 12
 ```
 
-Since "12" is not a valid internal osc frequency, the microcontroller
-FOSC will default to 8 MHz because there is no external crystal
-installed. However, the wait times will be incorrect as they will be
-calculated by the compiler based upon a 12 Mhz clock.
+Since "12" is not a valid internal oscillator frequency, the
+microcontroller FOSC will default to 8 MHz, because there is no external
+crystal installed. However, the wait times will be incorrect, as they
+will be calculated by the compiler based upon a 12 MHz clock.
 
 <span class="strong">**ConfigOps section**</span>
 
-The \[ConfigOps\] section of 12F1840.dat is towards the end of the chip
-data file. For the 12F1840 is looks like this
+The `[ConfigOps]` section of 12F1840.dat is towards the end of the chip
+data file. For the 12F1840 it looks like this:
 
-``` screen
+``` programlisting
     [ConfigOps]
     OSC=LP,XT,HS,EXTRC,INTOSC,ECL,ECM,ECH
     WDTE=OFF,SWDTEN,NSLEEP,ON
@@ -216,45 +216,45 @@ data file. For the 12F1840 is looks like this
 microcontroller. `INTOSC` is the internal oscillator. All others are
 some form of external clock source. `PLLEN` sets the internal Phase Lock
 Loop either on or off. With this chip the default clock frequency is 8
-Mhz. The PLL multiplies this by 4. So to get 32 Mhz the basic internal
-oscillator will be 8 Mhz then multiplied by 4. For 16 MHz it wil be 4
-multiplied by 2.
+MHz. The PLL multiplies this by 4. So to get 32 MHz the basic internal
+oscillator will be 8 MHz, then multiplied by 4. For 16 MHz it will be 4
+MHz, multiplied by 4.
 
 GCB sets the PLL automatically, so this option should generally be left
-alone. IF PLLEN is set to ON, then GCB may not be able to set the
-correct frewuency of the internal oscillator. Only set PLL = ON if you
+alone. If PLLEN is set to ON, then GCB may not be able to set the
+correct frequency of the internal oscillator. Only set PLL = ON if you
 know what you are doing.
 
-It is a good practice to set the oscillator source in \#config at the
+It is good practice to set the oscillator source in `#config` at the
 beginning of your code when you are not using the internal oscillator.
 This prevents potential errors. Example:
 
-``` screen
+``` programlisting
     #Chip 12F1840, 16
     #Config OSC = INTOSC   'This is normally not required as the internal oscillator is the default oscillator.
 ```
 
-In this example above, GCBASIC will automatically set the necessary OSC
-bits for the microcontroller. Frequency bits will be set to 4 MHz and
-the PLL will be turned on and wait times will be calculated on an FOSC
-of 16.
+In the example above, GCBASIC will automatically set the necessary OSC
+bits for the microcontroller. Frequency bits will be set to 4 MHz, and
+the PLL will be turned on, and wait times will be calculated on an FOSC
+of 16 MHz.
 
-You can set the clock to other frequencies but you have to put the PIC
-into `EC` or `External Clock` mode and then supply that specific clock
+You can set the clock to other frequencies, but you have to put the PIC
+into `EC`, or `External Clock`, mode and then supply that specific clock
 frequency to the OSC1 pin.
 
 There are three EC modes on the PIC12F1840:
 
-``` screen
+``` programlisting
     ECL - 0 MHz - 0.5 MHz
     ECM - 0.5 MHz - 4 MHz
     ECH = 4 MHz - 32MHz
 ```
 
-Example: For a 2.1 MHz clock you would need to set the \#config and the
-clock frequency, and, provide the OSC1 pin with a 2.1 MHz signal.
+Example: For a 2.1 MHz clock, you would need to set the `#config` and
+the clock frequency, and provide the OSC1 pin with a 2.1 MHz signal.
 
-``` screen
+``` programlisting
     #chip 12f1840,2.1
     #config OSC = ECM
 ```
@@ -263,39 +263,52 @@ clock frequency, and, provide the OSC1 pin with a 2.1 MHz signal.
 
 When "\#config osc=" is not specified in the source code, most
 microcontrollers will default to an external oscillator source. This
-means at runtime the chip is expecting an external clock signal. If the
-external clock signal is not present, the chip detects a "failure" of
-the external clock and will "falls back" to the default internal
-oscillator setting.
+means that at runtime the chip is expecting an external clock signal. If
+the external clock signal is not present, the chip detects a "failure"
+of the external clock and falls back to the default internal oscillator
+setting.
 
 The PLLEN bit defaults to OFF. The PLL is enabled depending upon the
-ChipMhz in \#Chip xxxxxx, ChipMhz.
+ChipMHz in `#chip xxxxxx, ChipMHz`.
 
-The GCBASIC defaults - This is how the bits are set if there is no
-\#config in the source code, GCBASIC does set certain bits. To examine
-what bits are set on a particular chip you can omit \#config in the
-source code, thenm compile the code and then use "Open ASM" in the
-GCBASIC IDE. The bits that are set will be in the config section. All
-other bits ( those not specifically set) with \#Config will be at the
-POR setting as described below, The `POR` settings are shown in the
-datasheet for each microcontroller.
+The GCBASIC defaults - this is how the bits are set if there is no
+`#config` in the source code; GCBASIC does set certain bits. To examine
+what bits are set on a particular chip, you can omit `#config` in the
+source code, then compile the code and use "Open ASM" in the GCBASIC
+IDE. The bits that are set will be in the config section. All other bits
+(those not specifically set with `#Config`) will be at the POR setting
+as described below. The `POR` settings are shown in the datasheet for
+each microcontroller.
 
-Currently GCBASIC sets the `LVP` bit `OFF` by default on many chips.
-This does not affect normal HV programming like a with a PicKit3. The
+Currently, GCBASIC sets the `LVP` bit `OFF` by default on many chips.
+This does not affect normal HV programming, like with a PicKit3. The
 default of LVP = OFF will prevent the microcontroller from being
-programmed with Low Voltage Programmer. This means that if a PIC
-microcontroller has previously been programmed with with "LVP = OFF",
-then it must be erased or reprogrammed with LVP = ON using a HVP
-programmer prior to using certain programming devices e.g. Curiosity
-development boards, or "NS" programmers as these required that LVP = ON.
+programmed with a Low Voltage Programmer. This means that if a PIC
+microcontroller has previously been programmed with LVP = OFF, then it
+must be erased or reprogrammed with LVP = ON, using an HVP programmer,
+prior to using certain programming devices, e.g. Curiosity development
+boards, or "NS" programmers, as these require LVP = ON.
 
 When LVP = ON, the MCLR pin is automatically set to EXTERNAL MCLR. This
-means that the MCLRE pin CANNOT be sue for general purpose I/O
+means that the MCLRE pin CANNOT be used for general purpose I/O
 functions.
 
-The native `POR` (Power On Reset) defaults. This is the state of the
-config bits after Power on if the ASM code has no configuration entries
-or on a blank factory chip. The only way to power up in this state with
-GCB code is to use " \#option NoConfig" in the GCBASIC source code.
+The native `POR` (Power On Reset) defaults are the state of the config
+bits after power-on if the ASM code has no configuration entries, or on
+a blank factory chip. The only way to power up in this state with GCB
+code is to use `#option NoConfig` in the GCBASIC source code.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="_config" class="link" title="#config">#config</a> — setting
+    configuration options such as OSC directly
+-   <a href="configuration" class="link" title="Configuration">Configuration</a> — background
+    on the microcontroller CONFIG word
+-   <a href="_option_noconfig" class="link" title="#Option NoConfig">#Option NoConfig</a> — suppressing
+    all compiler-generated config statements
+
+</div>
 
 </div>

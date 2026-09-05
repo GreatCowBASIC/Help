@@ -1,14 +1,17 @@
 === Overview - Linux Operating System
 
-*Introduction:*
-GCBASIC can be used when using the Linux Operating System.
+(((GCBASIC for Linux,Overview - Linux Operating System)))
 
-This instructions are not distribution specific, but are for Linux only (not Windows).
+
+*Introduction:*
+GCBASIC can be used with the Linux operating system.
+
+These instructions are not distribution-specific, but are for Linux only (not Windows).
 
 *Instructions:*
 Complete the following steps to compile and install GCBASIC for Linux:
 [start=1]
- . Install FreeBasic from your distributions repository or http://www.freebasic.net/wiki/CompilerInstalling
+ . Install FreeBasic from your distribution's repository or http://www.freebasic.net/wiki/CompilerInstalling
 
 
  . Download the "GCBASIC - Linux Distribution" from SourceForge at https://sourceforge.net/projects/gcbasic/files/
@@ -18,14 +21,16 @@ Complete the following steps to compile and install GCBASIC for Linux:
 
 
  . From a console, change to the GCBASIC Sources in the unpacked directory:
+[source,gcbasic]
 ----
    eg. cd ~/Downloads/sources/linuxbuild/
 ----
 [start=5]
- . Make sure that `install.sh` is set as executable (ie. `chmod +x install.sh`), and then execute: ./install.sh build
+ . Make sure that `install.sh` is set as executable (ie. `chmod +x install.sh`), and then execute: `./install.sh build`
 
 
  . You will need root privileges for this step. You can switch user (su) to root, or optionally use `sudo`.
+[source,gcbasic]
 ----
    Execute: [sudo] ./install.sh install
 ----
@@ -33,18 +38,18 @@ Complete the following steps to compile and install GCBASIC for Linux:
  . If you su'd to root, use `exit` to drop back to your normal user. Then, be sure to follow the instructions given by the script for updating your path.
 
 
- . Confirm proper execution, and the version, of GCBASIC by executing: gcbasic /version
+ . Confirm proper execution, and the version, of GCBASIC by executing: `gcbasic /version`
 
 
 Now you can create and compile GCBASIC source files.
 
 *Programming microcontrollers:*
 
-To program your microcontroller with your GCBASIC created hex file, you will need additional programming and programmer software.
+To program your microcontroller with your GCBASIC-created hex file, you will need additional programming and programmer software.
 
-For Microchip PIC microcontroller programming, you might find what you need at: www.pickitplus.co.uk  The PICKitPlus Team provide programmers and Linux software.
+For Microchip PIC microcontroller programming, you might find what you need at: www.pickitplus.co.uk. The PICkitPlus Team provide programmers and Linux software.
 
-For Atmel AVR microcontroller programming, you will need `avrdude`. It should be available in your distributions repository. If not, check here: http://www.nongnu.org/avrdude/
+For Atmel AVR microcontroller programming, you will need `avrdude`. It should be available in your distribution's repository. If not, check here: http://www.nongnu.org/avrdude/
 
 {empty} +
 {empty} +
@@ -53,7 +58,7 @@ For Atmel AVR microcontroller programming, you will need `avrdude`. It should be
 
 === Make ASM, Make HEX and Programming Operations using the provided Linux scripts
 
-The scripts provided are intended to assist in the creation of the ASM file ( from a GCBASIC source file ), creation of the HEX file ( also from a GCBASIC source file ) and to support programming operations ( often called `FLASH`ing the microcontroller ).
+The scripts provided are intended to assist in the creation of the ASM file (from a GCBASIC source file), creation of the HEX file (also from a GCBASIC source file), and to support programming operations (often called `FLASH`ing the microcontroller).
 
 [cols=3, options="header,autowidth",width="80%"]
 |===
@@ -67,28 +72,35 @@ The scripts provided are intended to assist in the creation of the ASM file ( fr
 
 
 |`makehex.sh`
-|To compile and asseble the GCBASIC source program to create the ASM and a microcontroller specific HEX file.
+|To compile and assemble the GCBASIC source program to create the ASM and a microcontroller-specific HEX file.
 |`makehex.sh sourcefile.gcb`
 
 
 |`flash.sh`
-|To compile,asseble the GCBASIC source program to create the ASM and a microcontroller specific HEX file, and, then to program the microcontroller
+|To compile, assemble the GCBASIC source program to create the ASM and a microcontroller-specific HEX file, and then to program the microcontroller
 |`flash.sh sourcefile.gcb`
 
 |===
 
 *Examples*
 
-There are multiple constructs to run multiple programs on a single command line.&#160;&#160;The most common are ';' and '&&'
+There are multiple constructs to run multiple programs on a single command line. The most common are `;` and `&&`.
 
-To run another command immadiately after running makehex.sh.&#160;&#160;Use the following: 
+To run another command immediately after running makehex.sh, use the following:
+[source,gcbasic]
 ----
    makehex.sh sourcefile.gcb; anothercommand
 ----
 
-To run another command only if makehex.sh does not exit with an error such as a compiler error.&#160;&#160;Use the following: 
+To run another command only if makehex.sh does not exit with an error, such as a compiler error, use the following:
 
+[source,gcbasic]
 ----
-   makehex.sh sourcefile.gcb && anothercommand
+   makehex.sh sourcefile.gcb && anothercommand          ' <<< running a follow-on command only if compilation succeeded
 ----
+*Key line:* `makehex.sh sourcefile.gcb && anothercommand` -- the shell `&&` operator only runs `anothercommand` if `makehex.sh` exits with a success status; a compiler error causes `makehex.sh` to exit with a failure status, which skips `anothercommand` entirely, unlike the `;` form above it, which always runs the second command regardless.
 
+**See Also:**
+
+* <<_overview_apple_macos_gcbasic,Overview - Apple macOS GCBASIC>> -- the equivalent instructions for macOS
+* <<_overview_freebsd_gcbasic,Overview - FreeBSD GCBASIC>> -- the equivalent instructions for FreeBSD

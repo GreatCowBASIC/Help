@@ -22,18 +22,18 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `Hex` function will convert a byte number into hexadecimal format.
+The `ByteToHex` function converts a byte number into hexadecimal format.
 The input `number` should be a byte variable, or a fixed number between
 0 and 255 inclusive. After running the function, the string variable
-`stringvar` will contain a 2 digit hexadecimal number.
+`stringvar` contains a 2-digit hexadecimal number.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Set chip model
     #chip 16F1936
 
@@ -46,7 +46,7 @@ The input `number` should be a byte variable, or a fixed number between
     'Uses Hex to display as hexadecimal
     For CurrentLocation = 0 to 255
         'Send location
-        HSerPrint ByteToHex(CurrentLocation)
+        HSerPrint ByteToHex(CurrentLocation)          ' <<< the ByteToHex instruction
         HSerPrint ":"
         'Read byte and send
         EPRead CurrentLocation, CurrByte
@@ -56,9 +56,20 @@ The input `number` should be a byte variable, or a fixed number between
     Next
 ```
 
-<span class="strong">**See Also**</span>
-<a href="wordtohex" class="link" title="WordToHex">WordToHex</a>,<a href="" class="link">LongToHex</a>,
-<a href="integertohex" class="link" title="IntegerToHex">IntegerToHex</a>,
-<a href="singletohex" class="link" title="SingleToHex">SingleToHex</a>
+<span class="strong">**Key line:**</span>
+`ByteToHex(CurrentLocation)` — formats the current EEPROM address as a
+fixed 2-digit hex string, so addresses line up neatly in the terminal
+output regardless of their value.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="wordtohex" class="link" title="WordToHex">WordToHex</a>
+-   <a href="longtohex" class="link" title="LongToHex">LongToHex</a>
+-   <a href="integertohex" class="link" title="IntegerToHex">IntegerToHex</a>
+-   <a href="singletohex" class="link" title="SingleToHex">SingleToHex</a>
+
+</div>
 
 </div>

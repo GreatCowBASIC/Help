@@ -22,16 +22,16 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `Right` function will extract the rightmost `count` characters from
-the input string `source`, and return them in a new string.
+The `Right` function extracts the rightmost `count` characters from the
+input string `source`, and returns them in a new string.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Set chip model
     #chip 16F1936
 
@@ -45,8 +45,22 @@ the input string `source`, and return them in a new string.
 
     'Display the rightmost 6 characters
     'Will display "world!"
-    HSerPrint Right(TestData, 6)
+    HSerPrint Right(TestData, 6)          ' <<< the Right instruction
     HSerPrintCRLF
 ```
+
+<span class="strong">**Key line:**</span> `Right(TestData, 6)` — returns
+the last 6 characters of `TestData`, giving `"world!"`.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="left" class="link" title="Left">Left</a> — extracting
+    characters from the start of a string instead
+-   <a href="mid" class="link" title="Mid">Mid</a> — extracting
+    characters from an arbitrary position
+
+</div>
 
 </div>

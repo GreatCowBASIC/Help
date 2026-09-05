@@ -16,7 +16,7 @@
       <link rel="next" href="_variable_lifecycle.html" title="Variable Lifecycle" />
       <meta name="Section-title" content="Setting Variables" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-61620";
+            var treeCookieId = "treeview-89895";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,6 +184,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
+            <p><a id="d0e76044" class="indexterm"></a>
+               <a id="d0e76050" class="indexterm"></a></p>
             <p><br />
                <span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <span class="emphasis"><em>Variable</em></span> = <span class="emphasis"><em>data</em></span></pre><p><br />
                <span class="strong"><strong>Explanation:</strong></span>
@@ -197,7 +199,7 @@ border: none; background: none; font-weight: none; color: none; }
                <br />
                If <code class="literal"><span class="emphasis"><em>data</em></span></code> is a calculation, then it may have any of the following operands:
             </p>
-            <p><br /></p><pre class="screen">    + (add)
+            <p><br /></p><pre class="programlisting">    + (add)
     - (subtract, or negate if there is no value before it)
     * (multiply)
     / (divide)
@@ -218,7 +220,7 @@ border: none; background: none; font-weight: none; color: none; }
                The <code class="literal">And</code>, <code class="literal">Or</code>, <code class="literal">Xor</code> and <code class="literal">Not</code> operators function both as bitwise and logical operators.
                <br />
                GCBASIC understands order of operations. If multiple operands are present, they will be processed in this order:
-               <br /></p><pre class="screen">    Brackets
+               <br /></p><pre class="programlisting">    Brackets
     Unary operations (not and negate)
     Multiply/Divide/Modulo
     Add/Subtract
@@ -234,13 +236,13 @@ border: none; background: none; font-weight: none; color: none; }
             <p><span class="strong"><strong>And with other operations</strong></span></p>
             <p>The order of operations, comparison operations have a higher precedence than boolean operations.  GCBASIC behaves the same
                way as most other languages.  Source code like this (randomly taken from glcd_ili9326.h) works.
-            </p><pre class="screen">if GLCDfntDefaultSize = 2 and CurrCharRow = 7 then</pre><p>It is an easy mistake to compare values and get the precendent incorrect.  Generally, if you can use an individual bit check,
+            </p><pre class="programlisting">if GLCDfntDefaultSize = 2 and CurrCharRow = 7 then</pre><p>It is an easy mistake to compare values and get the precendent incorrect.  Generally, if you can use an individual bit check,
                that is generally the best way to go. These are a lot simpler for the compiler to deal with and result in much nicer assembly.
             </p>
-            <p>This works using the correct order of precendence.</p><pre class="screen">    if (H_Byte &amp; 0x10) = 0x10 Then ...
+            <p>This works using the correct order of precendence.</p><pre class="programlisting">    if (H_Byte &amp; 0x10) = 0x10 Then ...
 
     'or, using the individual bit check to do the same
-    if H_Byte.4 Then</pre><p>This will fail as the order of precendence as shown below.</p><pre class="screen">    if H_Byte &amp; 0x10 = 0x10 Then ...
+    if H_Byte.4 Then</pre><p>This will fail as the order of precendence as shown below.</p><pre class="programlisting">    if H_Byte &amp; 0x10 = 0x10 Then ...
 
     'the code above equates. This is not achieve the testing of the H_byte.4
     if H_Byte &amp; ( 0x10 = 0x10 ) Then ...</pre><p><span class="strong"><strong>Divide or division</strong></span></p>
@@ -251,7 +253,7 @@ border: none; background: none; font-weight: none; color: none; }
             </p>
             <p>If you that calculation a division, the compiler will use the long division routine, if the value may overflow, and then 
                fit the result into a word.   This code provides the correct result, again within the limitations of integer numbers:
-            </p><pre class="screen">    dim L1s as word
+            </p><pre class="programlisting">    dim L1s as word
     dim L1p as word
     L1s = 6547200 / L1p</pre><p>Division also sets the global system variable SysCalcTempX to the remainder of the division.  However the following simple
                rules apply.
@@ -272,7 +274,7 @@ border: none; background: none; font-weight: none; color: none; }
                it in other BASIC dialects.
                <br />
                <br /></p>
-            <p><span class="strong"><strong>Example:</strong></span></p><pre class="screen">    'This program is to illustrate the setting of variables.
+            <p><span class="strong"><strong>Example:</strong></span></p><pre class="programlisting">    'This program is to illustrate the setting of variables.
     Chipmunk = 46        'Sets the variable Chipmunk to 46
     Animal = Chipmunk    'Sets the variable Animal to the value of the variable Chipmunk
     Bear = 2 + 3 * 5     'Sets the variable Bear to the result of 2 + 3 * 5, 17.
@@ -286,14 +288,14 @@ border: none; background: none; font-weight: none; color: none; }
                <br />
                <br />
                GCBASIC supports the method setting a specific bit of a variable or register.  Use the following method:
-               <br /></p><pre class="screen">    'variable.bit method
+               <br /></p><pre class="programlisting">    'variable.bit method
     myByteVariable.0 = 1   'will set bit 0 to 1
     myByteVariable.1 = 0   'will set bit 1 to 0
     myByteVariable.2 = 1   'will set bit 2 to 1</pre><p><br /></p>
             <p>To set more than one bit in one command GCBASIC supports the bits method.
                <br /></p>
             <p>GCBASIC also supports setting specific bits of a variable or register.  Use the following method:
-               <br /></p><pre class="screen">    'variable.bitS method
+               <br /></p><pre class="programlisting">    'variable.bitS method
     SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'
     ' would generate ASM [for your specific microcontroller like the following.
     ' bcf OSCTUNE,PLLEN,ACCESS
@@ -313,28 +315,42 @@ border: none; background: none; font-weight: none; color: none; }
                <br /></p>
             <p>The <code class="literal">[canskip]</code> prefix will handle the error condition when a specific bit or specific bits do not exist.  The following example shows the
                usage.
-               <br /></p><pre class="screen">    [canskip] SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'</pre><p><br />
+               <br /></p><pre class="programlisting">    [canskip] SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'</pre><p><br />
                This method is limited to literal values.  You cannot use value from another variable as the setting value (at v0.98.00).
                <br />
                <br />
                This example shows how the error handler compares to not have the <code class="literal">[canskip]</code> prefix
-               <br /></p><pre class="screen">      ' Of these two lines, only the first compiles:
+               <br /></p><pre class="programlisting">      ' Of these two lines, only the first compiles:
       [canskip] SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'    'first line with error handler
       SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'              'second line with no error handler
 
       'Second line produces this message:
       'samevar.gcb (16): Error: Bit IRCF3 is not a valid bit and cannot be set</pre><p><br />
                <span class="strong"><strong>Setting a String - set a string with Escape characters</strong></span></p>
-            <p>An example showing how to set a string to an escape sequence for an ANSI terminal.  You can `Dim`ension a string and then
-               assign the elements similar to setting array elements.
-            </p><pre class="screen">    dim line2 as string
-    line2 =  27, "[", "2", "H", 27, "[","K"
+            <p>An example showing how to set a string to an escape sequence for an ANSI terminal.&amp;#160;&amp;#160;You can `Dim`ension a string
+               and then assign the elements similar to setting array elements.
+            </p><pre class="programlisting">    dim line2 as string
+    line2 =  27, "[", "2", "H", 27, "[","K"          ' &lt;&lt;&lt; building a string one element at a time, mixing numbers and characters
     HSerPrint line2</pre><p>Will send the following to the terminal.
                &lt;esc&gt;[2H&lt;esc&gt;[K
             </p>
+            <p><span class="strong"><strong>Key line:</strong></span> ` line2 = 27, "[", "2", "H", 27, "[","K" ` — assigns each element of the string individually; numeric elements like ` 27
+               ` are stored as the raw byte (ASCII ESC), while quoted elements are stored as their literal characters, letting a string mix
+               control codes and printable text in one assignment.
+            </p>
             <p><br />
                <br /></p>
-            <p><span class="strong"><strong>For more help, see:</strong></span> <a class="link" href="_variables.html" title="Variables">Variables</a></p>
+            <p><span class="strong"><strong>See Also:</strong></span></p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem"><a class="link" href="_variable_types.html" title="Variable Types">Variable Types</a> — background on GCBASIC’s variable types and casting
+                  </li>
+                  <li class="listitem"><a class="link" href="_using_variables.html" title="Using Variables">Using Variables</a> — accessing individual bytes of Word/Long variables with the ` _H <code class="literal">/</code> _U <code class="literal">/</code> _E ` suffixes
+                  </li>
+                  <li class="listitem"><a class="link" href="_dim.html" title="Dim">Dim</a> — declaring the variables being set here
+                  </li>
+               </ul>
+            </div>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -364,22 +380,22 @@ border: none; background: none; font-weight: none; color: none; }
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
                         <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
-                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
-                        <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
-                        <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
-                        <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
-                        <li><span class="file"><a href="_frequent_errors.html" tabindex="1">Frequent errors</a></span></li>
-                        <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
-                        <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
-                        <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
+                        <li><span class="file"><a href="_primer.html" tabindex="1">Primer</a></span><ul>
+                              <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
+                              <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
+                              <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
+                              <li><span class="file"><a href="_frequent_errors.html" tabindex="1">Frequent errors</a></span></li>
+                              <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
+                              <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
+                              <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
+                              <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_gcbasic_compiler_insights.html" tabindex="1">GCBASIC Compiler Insights</a></span><ul>
                               <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
                               <li><span class="file"><a href="_compiler_control.html" tabindex="1">Compiler Control</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
-                        <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
-                        <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span><ul>
+                              <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
+                              <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span></li>
                               <li><span class="file"><a href="_gcbasic_hxl_memory_map_output.html" tabindex="1">GCBASIC HXL- Memory Map Output</a></span></li>
                               <li><span class="file"><a href="_uno_as_isp_programmer.html" tabindex="1">UNO as ISP programmer</a></span></li>
                            </ul>
@@ -394,9 +410,13 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_data_types.html" tabindex="1">Data Types</a></span></li>
                               <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
                               <li><span class="file"><a href="_variables_and_data_types.html" tabindex="1">Variables and Data Types</a></span></li>
+                              <li><span class="file"><a href="_the_positives_and_negatives_of_variable_types.html" tabindex="1">The Positives and Negatives of Variable Types</a></span></li>
                               <li><span class="file"><a href="_advanced_variabletypes.html" tabindex="1">Advanced VariableTypes</a></span></li>
                               <li><span class="file"><a href="_variable_memory_allocation_addressing_control.html" tabindex="1">Variable Memory Allocation, Addressing &amp; Control</a></span></li>
                               <li><span class="file"><a href="_avr_r_register_usage.html" tabindex="1">AVR R Register Usage</a></span></li>
+                              <li><span class="file"><a href="_new_example_1_basic_variables_with_initial_values.html" tabindex="1">New Example 1: Basic Variables with Initial Values</a></span></li>
+                              <li><span class="file"><a href="_new_example_2_arrays_and_initialisation.html" tabindex="1">New Example 2: Arrays and Initialisation</a></span></li>
+                              <li><span class="file"><a href="_new_example_3_bit_level_access_using_constants.html" tabindex="1">New Example 3: Bit-Level Access Using Constants</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_reference_data.html" tabindex="1">Reference Data</a></span><ul>
@@ -419,6 +439,12 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_converters.html" tabindex="1">Converters</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_commands_quick_reference.html" tabindex="1">Commands Quick Reference</a></span><ul>
+                              <li><span class="file"><a href="_alphabetical_index.html" tabindex="1">Alphabetical Index</a></span></li>
+                              <li><span class="file"><a href="_by_category.html" tabindex="1">By Category</a></span></li>
+                              <li><span class="file"><a href="_commands_not_yet_documented.html" tabindex="1">Commands Not Yet Documented</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_command_references.html" tabindex="1">Command References</a></span><ul>
                               <li><span class="file"><a href="_analog_digital_conversion.html" tabindex="1">Analog/Digital conversion</a></span><ul>
                                     <li><span class="file"><a href="_analog_digital_conversion_overview.html" tabindex="1">Analog/Digital Conversion Overview</a></span></li>
@@ -428,6 +454,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_readad10.html" tabindex="1">ReadAD10</a></span></li>
                                     <li><span class="file"><a href="_readad12.html" tabindex="1">ReadAD12</a></span></li>
                                     <li><span class="file"><a href="_analog_digital_conversion_code_optimisation.html" tabindex="1">Analog/Digital Conversion Code Optimisation</a></span></li>
+                                    <li><span class="file"><a href="_pot.html" tabindex="1">Pot</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_bitwise.html" tabindex="1">Bitwise</a></span><ul>
@@ -435,6 +462,11 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_fnlsl.html" tabindex="1">FnLSL</a></span></li>
                                     <li><span class="file"><a href="_fnlsr.html" tabindex="1">FnLSR</a></span></li>
                                     <li><span class="file"><a href="_setwith.html" tabindex="1">SetWith</a></span></li>
+                                    <li><span class="file"><a href="_deprecated_bitwise_functions.html" tabindex="1">Deprecated bitwise functions.</a></span><ul>
+                                          <li><span class="file"><a href="_fnequbit.html" tabindex="1">FnEquBit</a></span></li>
+                                          <li><span class="file"><a href="_fnnotbit.html" tabindex="1">FnNotBit</a></span></li>
+                                       </ul>
+                                    </li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_memory.html" tabindex="1">Memory</a></span><ul>
@@ -480,7 +512,7 @@ border: none; background: none; font-weight: none; color: none; }
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_eeram_device.html" tabindex="1">EERAM ( Device )</a></span><ul>
-                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
+                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERAM Devices</a></span></li>
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_sram_device.html" tabindex="1">SRAM  ( Device )</a></span><ul>
@@ -512,7 +544,7 @@ border: none; background: none; font-weight: none; color: none; }
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_interrupts.html" tabindex="1">Interrupts</a></span><ul>
-                                    <li><span class="file"><a href="_interrupts_overview.html" tabindex="1">Interrupts overview</a></span></li>
+                                    <li><span class="file"><a href="_interrupts_overview.html" tabindex="1">Interrupts Overview</a></span></li>
                                     <li><span class="file"><a href="_intoff.html" tabindex="1">IntOff</a></span></li>
                                     <li><span class="file"><a href="_inton.html" tabindex="1">IntOn</a></span></li>
                                     <li><span class="file"><a href="_on_interrupt.html" tabindex="1">On Interrupt</a></span></li>
@@ -540,9 +572,10 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_nextion_controllers.html" tabindex="1">NEXTION Controllers</a></span></li>
                                           <li><span class="file"><a href="_nt7108c_controllers.html" tabindex="1">NT7108C Controllers</a></span></li>
                                           <li><span class="file"><a href="_pcd8544_controllers.html" tabindex="1">PCD8544 Controllers</a></span></li>
-                                          <li><span class="file"><a href="_sdd1289_controllers.html" tabindex="1">SDD1289 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1289_controllers.html" tabindex="1">SSD1289 Controllers</a></span></li>
                                           <li><span class="file"><a href="_sh1106_controllers.html" tabindex="1">SH1106 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1309_controllers.html" tabindex="1">SSD1309 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1351_controllers.html" tabindex="1">SSD1351 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7567_controllers.html" tabindex="1">ST7567 Controllers</a></span></li>
@@ -572,6 +605,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_uc1601_controllers.html" tabindex="1">UC1601 Controllers</a></span></li>
                                        </ul>
                                     </li>
+                                    <li><span class="file"><a href="_initglcd.html" tabindex="1">InitGLCD</a></span></li>
                                     <li><span class="file"><a href="_box.html" tabindex="1">Box</a></span></li>
                                     <li><span class="file"><a href="_circle.html" tabindex="1">Circle</a></span></li>
                                     <li><span class="file"><a href="_ellipse.html" tabindex="1">Ellipse</a></span></li>
@@ -623,6 +657,9 @@ border: none; background: none; font-weight: none; color: none; }
                                                 <li><span class="file"><a href="_lcd_io_12_port_configuration.html" tabindex="1">LCD_IO 12 Port Configuration</a></span></li>
                                              </ul>
                                           </li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_multiple_i2c_adapters_lcd_io_12.html" tabindex="1">Multiple I2C Adapters (LCD_IO 12)</a></span><ul>
                                           <li><span class="file"><a href="_lcd_io_14.html" tabindex="1">LCD_IO 14</a></span><ul>
                                                 <li><span class="file"><a href="_lcd_io_14_port_configuration.html" tabindex="1">LCD_IO 14 Port Configuration</a></span></li>
                                              </ul>
@@ -660,6 +697,10 @@ border: none; background: none; font-weight: none; color: none; }
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_pulse_width_modulation.html" tabindex="1">Pulse width modulation</a></span><ul>
+                                    <li><span class="file"><a href="_pulseout.html" tabindex="1">PulseOut</a></span></li>
+                                    <li><span class="file"><a href="_pulseoutinv.html" tabindex="1">PulseOutInv</a></span></li>
+                                    <li><span class="file"><a href="_pulsein.html" tabindex="1">PulseIn</a></span></li>
+                                    <li><span class="file"><a href="_pulseininv.html" tabindex="1">PulseInInv</a></span></li>
                                     <li><span class="file"><a href="_microchip_pic_pwm_overview.html" tabindex="1">Microchip PIC PWM Overview</a></span><ul>
                                           <li><span class="file"><a href="_pwm_software_mode.html" tabindex="1">PWM Software Mode</a></span><ul>
                                                 <li><span class="file"><a href="_pwmout.html" tabindex="1">PWMOut</a></span></li>
@@ -804,6 +845,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_i2cstart.html" tabindex="1">I2CStart</a></span></li>
                                     <li><span class="file"><a href="_i2cstartoccurred.html" tabindex="1">I2CStartoccurred</a></span></li>
                                     <li><span class="file"><a href="_i2cstop.html" tabindex="1">I2CStop</a></span></li>
+                                    <li><span class="file"><a href="_pcf8574.html" tabindex="1">PCF8574</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_i2c_twi_hardware_module.html" tabindex="1">I2C/TWI Hardware Module</a></span><ul>
@@ -811,6 +853,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
+                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -850,6 +893,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_stoptimer.html" tabindex="1">StopTimer</a></span></li>
                                     <li><span class="file"><a href="_reading_timers.html" tabindex="1">Reading Timers</a></span></li>
                                     <li><span class="file"><a href="_smt_timers.html" tabindex="1">SMT Timers</a></span></li>
+                                    <li><span class="file"><a href="_millis_timer_based_functions.html" tabindex="1">Millis - Timer based functions</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_variables_operations.html" tabindex="1">Variables Operations</a></span><ul>
@@ -857,17 +901,14 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_more_on_setting_variables_and_constants.html" tabindex="1">More on setting Variables and Constants</a></span></li>
                                     <li id="webhelp-currentid"><span class="file"><a href="_setting_variables.html" tabindex="1">Setting Variables</a></span></li>
                                     <li><span class="file"><a href="_variable_lifecycle.html" tabindex="1">Variable Lifecycle</a></span></li>
-                                    <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span></li>
-                                 </ul>
-                              </li>
-                              <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
-                              <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
-                              <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
-                              <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
-                              <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
-                              <li><span class="file"><a href="_new_example_1_basic_variables_with_initial_values.html" tabindex="1">New Example 1: Basic Variables with Initial Values</a></span></li>
-                              <li><span class="file"><a href="_new_example_2_arrays_and_initialisation.html" tabindex="1">New Example 2: Arrays and Initialisation</a></span></li>
-                              <li><span class="file"><a href="_new_example_3_bit_level_access_using_constants.html" tabindex="1">New Example 3: Bit‑Level Access Using Constants</a></span><ul>
+                                    <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span><ul>
+                                          <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
+                                          <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
+                                          <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
+                                          <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
+                                          <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
+                                       </ul>
+                                    </li>
                                     <li><span class="file"><a href="_alloc.html" tabindex="1">Alloc</a></span></li>
                                     <li><span class="file"><a href="_bcdtodec_gcb.html" tabindex="1">BcdToDec_GCB</a></span></li>
                                     <li><span class="file"><a href="_dectobcd_gcb.html" tabindex="1">DecToBcd_GCB</a></span></li>
@@ -875,6 +916,8 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_set.html" tabindex="1">Set</a></span></li>
                                     <li><span class="file"><a href="_swap4.html" tabindex="1">SWAP4</a></span></li>
                                     <li><span class="file"><a href="_swap.html" tabindex="1">SWAP</a></span></li>
+                                    <li><span class="file"><a href="_peek.html" tabindex="1">Peek</a></span></li>
+                                    <li><span class="file"><a href="_poke.html" tabindex="1">Poke</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_string_manipulation.html" tabindex="1">String Manipulation</a></span><ul>
@@ -923,16 +966,7 @@ border: none; background: none; font-weight: none; color: none; }
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_miscellaneous_commands.html" tabindex="1">Miscellaneous Commands</a></span><ul>
-                                    <li><span class="file"><a href="_dir.html" tabindex="1">Dir</a></span></li>
                                     <li><span class="file"><a href="_getuserid.html" tabindex="1">GetUserID</a></span></li>
-                                    <li><span class="file"><a href="_pot.html" tabindex="1">Pot</a></span></li>
-                                    <li><span class="file"><a href="_pulseout.html" tabindex="1">PulseOut</a></span></li>
-                                    <li><span class="file"><a href="_pulseoutinv.html" tabindex="1">PulseOutInv</a></span></li>
-                                    <li><span class="file"><a href="_pulsein.html" tabindex="1">PulseIn</a></span></li>
-                                    <li><span class="file"><a href="_pulseininv.html" tabindex="1">PulseInInv</a></span></li>
-                                    <li><span class="file"><a href="_peek.html" tabindex="1">Peek</a></span></li>
-                                    <li><span class="file"><a href="_poke.html" tabindex="1">Poke</a></span></li>
-                                    <li><span class="file"><a href="_weak_pullups.html" tabindex="1">Weak Pullups</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_maths.html" tabindex="1">Maths</a></span><ul>
@@ -954,7 +988,9 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_trigonometry_atan.html" tabindex="1">Trigonometry ATAN</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="_peripheral_pin_select.html" tabindex="1">Peripheral Pin Select</a></span><ul>
+                              <li><span class="file"><a href="_port_control.html" tabindex="1">Port control</a></span><ul>
+                                    <li><span class="file"><a href="_dir.html" tabindex="1">Dir</a></span></li>
+                                    <li><span class="file"><a href="_weak_pullups.html" tabindex="1">Weak Pullups</a></span></li>
                                     <li><span class="file"><a href="_peripheral_pin_select_for_microchip_microcontrollers.html" tabindex="1">Peripheral Pin Select for Microchip microcontrollers.</a></span></li>
                                     <li><span class="file"><a href="_unlockpps.html" tabindex="1">UnLockPPS</a></span></li>
                                     <li><span class="file"><a href="_lockpps.html" tabindex="1">LockPPS</a></span></li>
@@ -982,10 +1018,10 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_other_directives.html" tabindex="1">Other directives</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_compiler_options.html" tabindex="1">Compiler Options</a></span><ul>
+                        <li><span class="file"><a href="_compiler_preprocessor_options.html" tabindex="1">Compiler Preprocessor Options</a></span><ul>
                               <li><span class="file"><a href="__option_explicit.html" tabindex="1">#Option Explicit</a></span></li>
                               <li><span class="file"><a href="__option_noconfig.html" tabindex="1">#Option NoConfig</a></span></li>
-                              <li><span class="file"><a href="__option_startupmethodsdisabled.html" tabindex="1">#Option STARTUPMETHODSDISABLED</a></span></li>
+                              <li><span class="file"><a href="__option_startupmethoddisabled.html" tabindex="1">#Option StartupMethodDisabled</a></span></li>
                               <li><span class="file"><a href="__option_bootloader.html" tabindex="1">#Option Bootloader</a></span></li>
                               <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
                               <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
@@ -1027,42 +1063,34 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
-                              <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
-                              <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_operating_systems_support.html" tabindex="1">Operating Systems Support</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                               <li><span class="file"><a href="_make_asm_make_hex_and_programming_operations_using_the_provided_linux_scripts.html" tabindex="1">Make ASM, Make HEX and Programming Operations using the provided Linux scripts</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
                               <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
                               <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
+                              <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
                               <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">COMPILER SOURCE INSIGHTS</a></span></li>
+                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">Compiler Source Insights</a></span></li>
                               <li><span class="file"><a href="_about_glcd_library_support.html" tabindex="1">ABOUT GLCD Library Support</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span><ul>
+                                    <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">About the Preferences Editor</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
+                              <li><span class="file"><a href="_gcbasic_documentation_toolchain.html" tabindex="1">GCBASIC Documentation Toolchain</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">ABOUT THE PREFERENCES EDITOR</a></span></li>
                         <li><span class="file"><a href="_gcbasic_with_the_avrisp_or_mkii_programmer.html" tabindex="1">GCBASIC with the AVRISP or MKII Programmer</a></span><ul>
                               <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                      </ul>
                   </div>
                </div>

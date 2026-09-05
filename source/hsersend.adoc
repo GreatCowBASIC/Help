@@ -1,7 +1,10 @@
 ==== HSerSend
 
+(((Serial Communications,HSerSend)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     HSerSend _user_byte_ [,1|2|3|4]   'Choose comport with optional parameter
                                       'Default comport is 1
@@ -17,6 +20,7 @@ Atmel AVR supports USART 1,2,3 and 4.
 
 To enable the use of the USART these are the enabling constants. &#160;&#160;These constants are required.&#160;&#160;You can change the `USART_BAUD_RATE` and to meet your needs.&#160;&#160;For addition USART ports use `#define USART**n**_BAUD_RATE 9600` where `**n**`` is the required port number.
 
+[source,gcbasic]
 ----
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
@@ -30,6 +34,7 @@ This command will send a byte given by _user_byte_ using the hardware RS232
 module.
 
 *Example:*
+[source,gcbasic]
 ----
   'This program will send the status of PORTB through the hardware
   'serial module.
@@ -51,9 +56,16 @@ module.
   'Main loop
   Do
     'Send PORTB value through USART
-    HSerSend PORTB
+    HSerSend PORTB          ' <<< the HSerSend instruction
     HSerSend(13)    ' sends a CR
     'Short delay for receiver to process message
     Wait 10 ms      'probably not necessary with blocking statement
   Loop
 ----
+*Key line:* `HSerSend PORTB` -- sends a single raw byte (the current value of `PORTB`) directly over the hardware serial connection.
+
+**See Also:**
+
+* <<_hserprint,HSerPrint>> -- sending a string, integer, word, or long, rather than a single raw byte
+* <<_hserreceive,HSerReceive>> -- the receiving counterpart to HSerSend
+* <<_dir,Dir>> -- setting the pin directions before sending, as used above

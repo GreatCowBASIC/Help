@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
      HPWM channel, frequency, duty cycle
 ```
 
@@ -235,7 +235,7 @@ OCR2A is used as a period register and thus not available</p></td>
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
         'Using HPWM command to alternate ramping leds with the UNO board
     #chip mega328,16
 
@@ -263,7 +263,7 @@ OCR2A is used as a period register and thus not available</p></td>
     '4KHz with 8MHz intosc and ckDiv8 fuse
     freq = 63
       For PWMled1 = 0 to 255
-        HPWM 2,freq,PWMled1
+        HPWM 2,freq,PWMled1          ' <<< the HPWM instruction (AVR OCRnx form)
         PWMled2 = NOT PWMled1
         HPWM 3,freq,PWMled2
         HPWM 4,freq,PWMled2
@@ -282,5 +282,24 @@ OCR2A is used as a period register and thus not available</p></td>
 
     loop
 ```
+
+<span class="strong">**Key line:**</span> `HPWM 2,freq,PWMled1` — drives
+AVR HPWM channel 2 (pin OC0B, on Timer0) at 63 KHz with a duty cycle
+that ramps through `PWMled1`; each channel used this way must have its
+`AVRTCx` timer constant and `AVRCHANx` channel constant defined, and its
+pin set to output, as shown above the loop.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="atmel_avr_pwm_overview" class="link" title="ATMEL AVR PWM Overview">ATMEL AVR PWM Overview</a> — category
+    overview
+-   <a href="hardware_pwm_code_optimisation" class="link" title="Hardware PWM Code Optimisation">Hardware PWM Code Optimisation</a> — reducing
+    program size by disabling unused channels
+-   <a href="hpwm_ccp" class="link" title="HPWM CCP">HPWM CCP</a> — the
+    Microchip PIC equivalent of this command
+
+</div>
 
 </div>

@@ -6,8 +6,7 @@
 
 <div>
 
-<span id="acknowledgements"></span>Acknowledgements
-----------------------------------------------------
+### <span id="acknowledgements"></span>Acknowledgements
 
 </div>
 
@@ -23,12 +22,12 @@ Stefano Bonomi - Two-wire LCD subroutines
 
 Geordie Millar - Swap and Swap4 subroutines
 
-Jacques Nilo - HEFM and help file conversion to asciidoc
+Jacques Nilo - HEFM and help file conversion to AsciiDoc
 
 Finn Stokes - 8-bit multiply routine, program memory access code
 
-Evan Venn - Utilities, revised I2C routines, this help file and
-generally everything else!
+Evan Venn - Utilities, revised I2C routines, this help file, and
+generally everything else
 
 <span class="strong">**Translation Contributors:**</span>
 
@@ -47,7 +46,7 @@ Chuck Hellebuyck - His documentation for the GLCD and other pieces, see
 
 Frank Steinberg - GCode IDE for GCBASIC.
 
-Alexy T. - SynWrite IDE used for GCB IDE, see
+Alexy T. - SynWrite IDE used for the GCB IDE, see
 <http://www.uvviewsoft.com/synwrite>
 
 Thomas Henry for the Select Case and the Sine Table examples.
@@ -56,20 +55,31 @@ William Roth for the LCD code and supporting diagrams.
 
 Theo Loermans for the revised LCD sections and the serial library.
 
-Chris Roper for the bitwise methods including the library including
-FnEquBit, FnNotBit, FnlslBit, FnlsrBit, SetWith and 47xxx.
+Chris Roper for the bitwise methods, including the library featuring
+FnEquBit, FnNotBit, FnlslBit, FnlsrBit, SetWith, and 47xxx.
 
-Jberg2024 for the adaption of the Software Serial routines to improve
+Jberg2024 for the adaptation of the Software Serial routines to improve
 usage.
 
-Angel Mier for the USB driver installation
+Angel Mier for the USB driver installation.
 
-<span class="strong">**Conversion of asciidoctor documentation
+<span class="strong">**Conversion of AsciiDoc documentation
 files**</span>:
 
 See the
 <a href="http://asciidoctor.org/" class="link">asciidoctor Web site</a>
 and the
 <a href="http://discuss.asciidoctor.org/" class="link">support forum</a>.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="libraries_overview" class="link" title="Libraries Overview">Libraries Overview</a> — the
+    libraries these contributors built
+-   <a href="tricks_and_tips" class="link" title="Tricks and Tips">Tricks and Tips</a> — category
+    overview
+
+</div>
 
 </div>

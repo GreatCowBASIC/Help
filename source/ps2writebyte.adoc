@@ -1,7 +1,10 @@
 ==== PS2WriteByte
 
+(((PS/2,PS2WriteByte)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     PS2WriteByte _user_data_
 ----

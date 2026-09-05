@@ -1,7 +1,10 @@
 ==== Rotate
 
+(((Variables Operations,Rotate)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     Rotate _variable_ {Left | Right} [Simple]
 ----
@@ -46,7 +49,7 @@ As you may notice the STATUS.C bit added a 0 to the rotation. So this will take 
 
 *Simple option*
 
-Many times you want to rotate the variable around like the STATUS.C bit wasn’t there so the MSB of the variable fills the LSB of the variable on Rotate Left or the LSB fills the MSB on Rotate Right. That is where the SIMPLE option comes in. It adds a hidden step that shifts the STATUS.C bit twice so the bit moves from one end of the variable to the other.
+Many times you want to rotate the variable around like the STATUS.C bit wasn't there so the MSB of the variable fills the LSB of the variable on Rotate Left or the LSB fills the MSB on Rotate Right. That is where the SIMPLE option comes in. It adds a hidden step that shifts the STATUS.C bit twice so the bit moves from one end of the variable to the other.
 [cols="1,1,^1", options="header,autowidth"]
 |===
 |*Command*
@@ -79,6 +82,7 @@ Therefore, it may be necessary to clear the C flag before using `Rotate`.
 Use `Set C Off` before using the `Rotate` command to clear the flag.
 
 *Example:*
+[source,gcbasic]
 ----
     'This program will use Rotate to show a chasing LED.
     '8 LEDs should be connected to PORTB, one on each pin.
@@ -94,7 +98,14 @@ Use `Set C Off` before using the `Rotate` command to clear the flag.
     'Chase
     C = 0
     Do
-        Rotate PORTB Right Simple
+        Rotate PORTB Right Simple          ' <<< the Rotate instruction
         Wait 250 ms
     Loop
 ----
+*Key line:* `Rotate PORTB Right Simple` -- shifts every bit of PORTB one place right, with the `Simple` option wrapping the bit that falls off the LSB back around to the MSB, so the two lit LEDs appear to chase around the port continuously.
+
+**See Also:**
+
+* <<_using_variables,Using Variables>> -- related command in the same category
+* <<_more_on_setting_variables_and_constants,More on setting Variables and Constants>> -- related command in the same category
+* <<_set,Set>> -- clearing the STATUS.C / carry flag before rotating, as recommended above

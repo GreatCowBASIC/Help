@@ -1,29 +1,46 @@
 ==== ProgramWrite
 
-*Syntax:*
-[subs="quotes"]
+(((PROGMEM ( PFM ),ProgramWrite)))
 
+
+*Syntax:*
+[subs="specialcharacters,quotes"]
 ----
     ProgramWrite (_location_, _value_)
 ----
 
 *Command Availability:*
 
-Available on all Microchip PIC microcontrollers with self write capability. Not available on
-Atmel AVR at present.
+Available on all Microchip PIC microcontrollers with self-write capability. Not currently available on Atmel AVR.
 
 *Explanation:*
 
 `ProgramWrite` writes information to the program memory on chips that support this feature. `_location_` and `_value_` are both word variables.
 
-The largest value possible for `_location_` depends on the amount of program memory on the microcontroller (see datasheet).
+The largest value possible for `_location_` depends on the amount of program memory on the microcontroller (see the datasheet).
 
 **The `_value_` parameter is a word (16-bit), but the maximum usable value depends on the chip family:**
-- On **PIC18F** family devices: up to **65535** (0xFFFF, full 16 bits supported in one program memory word).
-- On **PIC10/PIC12** (baseline/enhanced)/**PIC14/PIC16** families: up to **16383** (0x3FFF, limited by 12/14-bit program memory word width).
+- On **PIC18F** family devices: up to **65535** (0xFFFF, the full 16 bits supported in one program-memory word).
+- On **PIC10/PIC12** (baseline/enhanced)/**PIC14/PIC16** families: up to **16383** (0x3FFF, limited by the 12/14-bit program-memory word width).
 
 `ProgramErase` **must** be used to clear a block of memory BEFORE `ProgramWrite` is called.
 
 *Example:*
 
-*For more help, see <<_programerase,ProgramErase>>* and *<<_programread,ProgramRead>>*
+[source,gcbasic]
+----
+    #chip 18F26K22, 16
+
+    Dim WriteLocation As Word
+    WriteLocation = 0x1000
+
+    ProgramErase ( WriteLocation )
+    ProgramWrite ( WriteLocation, 1234 )          ' <<< the ProgramWrite instruction
+----
+*Key line:* `ProgramWrite ( WriteLocation, 1234 )` -- stores the value `1234` at the program-memory word addressed by `WriteLocation`, immediately after the preceding `ProgramErase` clears that row.
+
+**See Also:**
+
+* <<_programerase,ProgramErase>> -- erasing a block before it can be written
+* <<_programread,ProgramRead>> -- reading back the value this page writes
+* <<_pfmwrite,PFMWrite>> -- the equivalent command on 18FxxQ41-family chips

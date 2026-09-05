@@ -76,7 +76,7 @@ can disable any PWM channel by setting the appropiatge change to FALSE.
 On some microcontrollers you may need to set the port.pin as an output
 for PWM to operated as desired.  
 
-``` screen
+``` programlisting
         #define USE_HPWM1 TRUE
         #define USE_HPWM2 TRUE
 ```
@@ -85,7 +85,7 @@ for PWM to operated as desired.
   
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     'This program will alter the brightness of an LED using
     'hardware PWM.
 
@@ -116,7 +116,7 @@ for PWM to operated as desired.
     do
         'Turn up brightness over the range
         For Bright = 0 to 1023
-            HPWM 6, 40, Bright, 2
+            HPWM 6, 40, Bright, 2          ' <<< the HPWM instruction
             wait 10 ms
         next
         'Turn down brightness over the range
@@ -127,9 +127,15 @@ for PWM to operated as desired.
     loop
 ```
 
+<span class="strong">**Key line:**</span>
+`HPWM 6, 40, Bright, 2` — drives 10-bit PWM channel 6 at 40 KHz clocked
+from Timer 2, with `Bright` (a word, so resolution is 1023) as the duty
+cycle; because `Bright` is a word the optional resolution parameter can
+be omitted.
+
 <span class="strong">**Example 2:**</span>
 
-``` screen
+``` programlisting
     'This program will alter the brightness of an LED using
     'hardware PWM.
 
@@ -160,7 +166,7 @@ for PWM to operated as desired.
     do
         'Turn up brightness over the range
         For Bright = 0 to 1023
-            HPWM 3, 40, Bright, 2
+            HPWM 3, 40, Bright, 2          ' <<< the HPWM instruction, on a different chip and channel
             wait 10 ms
         next
         'Turn down brightness over the range
@@ -171,7 +177,22 @@ for PWM to operated as desired.
     loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="pwmoff" class="link" title="PWMOff">PWMOff</a>
+<span class="strong">**Key line:**</span> `HPWM 3, 40, Bright, 2` — the
+same 40 KHz, Timer-2-clocked setup as Example 1, but on channel 3 of a
+16F1705, showing that the channel number (not the timer or frequency) is
+what changes between chips with a different PPS-mapped PWM output.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hpwm_ccp" class="link" title="HPWM CCP">HPWM CCP</a> — the
+    CCP-module equivalent of this command
+-   <a href="hpwmupdate_for_pwm_module_s" class="link" title="HPWMUpdate for PWM Module(s)">HPWMUpdate for PWM Module(s)</a> — updating
+    only the duty cycle without a full re-initialisation
+-   <a href="hpwmoff_2" class="link" title="HPWMOff">HPWMOff</a> — stopping
+    the PWM channel
+
+</div>
 
 </div>

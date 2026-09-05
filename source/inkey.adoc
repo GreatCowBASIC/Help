@@ -1,7 +1,10 @@
 ==== InKey
 
+(((PS/2,InKey)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     output = InKey
 ----
@@ -19,6 +22,7 @@ It will also monitor Caps Lock, Num Lock and Scroll Lock keys, and
 update the status LEDs as appropriate.
 
 *Example:*
+[source,gcbasic]
 ----
 	'A program to accept messages from a standard PS/2 keyboard
 	'Any keys pressed will be shown on an LCD screen.
@@ -49,7 +53,7 @@ update the status LEDs as appropriate.
 
 	Main:
 		'Read the last pressed key
-		KeyIn = INKEY
+		KeyIn = INKEY          ' <<< the InKey instruction
 		'If no key pressed, try reading again
 		If KeyIn = 0 Then Goto Main
 
@@ -87,3 +91,10 @@ update the status LEDs as appropriate.
 
 	Goto Main
 ----
+*Key line:* `KeyIn = INKEY` -- polls the PS/2 keyboard for the most recently pressed key, returning 0 when nothing new has been pressed; the surrounding `Main:` loop simply reads again when it sees a 0, making this a non-blocking poll rather than a blocking read.
+
+**See Also:**
+
+* <<_ps_2_overview,PS/2 Overview>> -- category overview
+* <<_ps2setkbleds,PS2SetKBLeds>> -- related command in the same category
+* <<_ps2readbyte,PS2ReadByte>> -- related command in the same category

@@ -1,24 +1,36 @@
 ==== FilledCircle
 
+(((Graphical LCD,FilledCircle)))
+
+
 *Circle:*
+[source,gcbasic]
 ----
     FilledCircle(XPixelPosition, YPixelPosition, Radius [,Optional LineColour] )
 ----
 
 *Explanation:*
 
-Draws a circle on a GLCD at `XPixelPosition`, `YPixelPosition` with a specific `Radius`.
+Draws a filled circle on a GLCD centred at `XPixelPosition`, `YPixelPosition` with the given `Radius`.
 
 *Example:*
+[source,gcbasic]
 ----
     #include <glcd.h>
 
     filledcircle(10,10,10)  ;upper left
     filledcircle(117,10,10) ;upper right
-    filledcircle(63,31,10)  ;center
+    filledcircle(63,31,10)  ;center          ' <<< the FilledCircle instruction
     filledcircle(63,31,20)  ;center
     filledcircle(10,53,10)  ;lower left
     filledcircle(117,53,10) ;lower right
 ----
+*Key line:* `filledcircle(63,31,10)` -- draws a solid 10-pixel-radius circle centred at the middle of a 128x64 display.
 image::filledcircleb1.PNG[graphic,align="center"]
 
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_circle,Circle>> -- the unfilled equivalent of this command
+* <<_filledbox,FilledBox>> -- related command in the same category
+* <<_filledellipse,FilledEllipse>> -- related command in the same category

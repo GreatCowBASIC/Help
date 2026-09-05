@@ -22,16 +22,17 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `UCase` function will convert all of the letters in the string
-`source` to upper case, and return the result.
+The `UCase` function converts all of the letters in the string `source`
+to upper case, and returns the result. Characters that are not letters
+are left unchanged.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Set chip model
     #chip 16F1936
 
@@ -46,11 +47,21 @@ The `UCase` function will convert all of the letters in the string
 
     'Display the string in upper case
     'Will display "HELLO, WORLD!"
-    HSerPrint UCase(TestData)
+    HSerPrint UCase(TestData)          ' <<< the UCase instruction
     HSerPrintCRLF
 ```
 
-<span class="strong">**See Also**</span>
-<a href="lcase" class="link" title="LCase">LCase</a>
+<span class="strong">**Key line:**</span> `UCase(TestData)` — returns
+`TestData` with every letter converted to upper case, leaving the comma
+and exclamation mark untouched.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcase" class="link" title="LCase">LCase</a> — the
+    inverse conversion, to lower case
+
+</div>
 
 </div>

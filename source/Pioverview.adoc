@@ -1,18 +1,21 @@
 === Overview - Raspberry Pi
 
+(((GCBASIC for ARM & Pi,Overview - Raspberry Pi)))
+
+
 *Introduction:*
 
-GCBASIC can be used when using the Raspberry Pi.
+GCBASIC can be used with the Raspberry Pi.
 
 You can install the command-line version of GCBASIC on a Raspberry Pi (and similar single-board computers) and use it to compile your GCBASIC programs.
 
-You can also program most PICs and AVRs using only the Pi's GPIO pins (see <<Programming>>), as well as communicate with your device over the Pi's serial port.  This makes it easy to program, modify, and communicate with a PIC or AVR using just a Pi and an SSH connection.
+You can also program most PICs and AVRs using only the Pi's GPIO pins (see <<Programming,Programming>>), as well as communicate with your device over the Pi's serial port. This makes it easy to program, modify, and communicate with a PIC or AVR using just a Pi and an SSH connection.
 
-GCBASIC is not published for ARM-based computers, there is currently no pre-compiled version for ARM-based computers, so you will have to compile it from source.  The GCBASIC compiler is written in https://www.freebasic.net/[FreeBASIC] (an open-source version of BASIC), so you will need to first install the FreeBASIC compiler on your Pi, then use it to compile the GCBASIC compiler from its source code.  This is relatively simple.
+GCBASIC is not published for ARM-based computers - there is currently no pre-compiled version for ARM-based computers, so you will have to compile it from source. The GCBASIC compiler is written in https://www.freebasic.net/[FreeBASIC] (an open-source version of BASIC), so you will need to first install the FreeBASIC compiler on your Pi, then use it to compile the GCBASIC compiler from its source code. This is relatively simple.
 
-FreeBASIC is not included in any of the major Linux repositories, but there is a customized version for ARMv7 boards like the Raspberry Pi on their https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/[web site].
+FreeBASIC is not included in any of the major Linux repositories, but there is a customised version for ARMv7 boards like the Raspberry Pi on their https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/[web site].
 
-The following procedure will work with any ARMv7 single-board computer running a Debian derivative like https://www.raspberrypi.org/downloads/raspberry-pi-os/[Raspberry Pi OS ] or https://www.armbian.com/[Armbian].  This includes the Raspberry Pi 2 and 3, and all single board computers with an Allwinner H2+ or H3 microprocessor (Orange Pi PC, Orange Pi Zero, Nano Pi R1, etc).  It has not been tested with a Raspberry Pi 4.
+The following procedure will work with any ARMv7 single-board computer running a Debian derivative like https://www.raspberrypi.org/downloads/raspberry-pi-os/[Raspberry Pi OS] or https://www.armbian.com/[Armbian]. This includes the Raspberry Pi 2 and 3, and all single-board computers with an Allwinner H2+ or H3 microprocessor (Orange Pi PC, Orange Pi Zero, Nano Pi R1, etc). It has not been tested with a Raspberry Pi 4.
 
 *Instructions:*
 
@@ -22,12 +25,14 @@ _Installing FreeBASIC_
 
 [start=1]
  . Install FreeBASIC dependencies
+[source,gcbasic]
 ----
     $ sudo apt-get install libx11-dev libxext-dev libxpm-dev libxrandr-dev libncurses5 libncurses5-dev
 ----
 
 [start=2]
- . Download the latest version FreeBASIC for ARMv7 from https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/ :
+ . Download the latest version of FreeBASIC for ARMv7 from https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/ :
+[source,gcbasic]
 ----
     $ cd ~
     $ wget https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/fbc_linux_armv7a_hf_debian_0376_2020-09-17.zip
@@ -36,6 +41,7 @@ _Installing FreeBASIC_
 
 [start=3]
  . Install FreeBASIC
+[source,gcbasic]
 ----
   $ cd fbc_linux_armv7a_hf_debian/
   $ chmod +x install.sh
@@ -45,6 +51,7 @@ _Installing FreeBASIC_
 _Installing GCBASIC_
 
  . Download and extract the GCBASIC sources:
+[source,gcbasic]
 ----
     $ wget "https://downloads.sourceforge.net/project/gcbasic/GCBasic%20-%20Linux%20Distribution/GCB%40Syn.rar"
     $ sudo apt install unar
@@ -55,6 +62,7 @@ _Installing GCBASIC_
 
 [start=2]
  . Build and install the compiler:
+[source,gcbasic]
 ----
     $ chmod +x install.sh
     $ ./install.sh build
@@ -63,15 +71,18 @@ _Installing GCBASIC_
 
 [start=3]
  . Verify the compiler is properly installed and view the full list of compiler options
+[source,gcbasic]
 ----
     $ gcbasic
 ----
 
 Now you can create and compile GCBASIC source files. For example, to compile a program you created named `myprogram.bas` into `myprogram.hex`, you could run:
 
+[source,gcbasic]
 ----
-    $ gcbasic -A:GCASM -R:none -K:A -WX -V myprogram.bas
+    $ gcbasic -A:GCASM -R:none -K:A -WX -V myprogram.bas          ' <<< compiling from the command line on the Pi itself
 ----
+*Key line:* `gcbasic -A:GCASM -R:none -K:A -WX -V myprogram.bas` -- see <<_command_line_parameters,Command Line Parameters>> for the full reference; here `/A:GCASM` selects the internal assembler, `/K:A` preserves the assembly output for debugging, and `/WX`/`/V` enable strict warnings-as-errors and verbose output respectively.
 
 This will:
 
@@ -81,12 +92,16 @@ This will:
  * treat warnings as errors, and
  * print compiler messages in verbose mode
 
+[[Programming]]
 *Programming*
 
 To transfer your compiled .hex program files from your Pi to your microcontroller, you will need additional software.
 
-For most PIC microcontrollers, you should use https://pickitplus.co.uk/Typesetter/index.php/PKCMD-Pi-Application[PICkitPlus for Pi].  PICKitPlus support the widest range of PICs including the latest PICs. It is fully supported application.
+For most PIC microcontrollers, you should use https://pickitplus.co.uk/Typesetter/index.php/PKCMD-Pi-Application[PICkitPlus for Pi]. PICkitPlus supports the widest range of PICs, including the latest PICs. It is a fully supported application.
 
-// or https://wiki.kewl.org/dokuwiki/projects:pickle[pickle].  A description of how to use it is https://www.pedalpc.com/blog/program-pic-raspberry-pi/[here]
+For AVR microcontrollers, you will need `avrdude`. It should be available in your distribution's repository. If not, check here: http://www.nongnu.org/avrdude/ . Instructions on how to use it can be found https://learn.adafruit.com/program-an-avr-or-arduino-using-raspberry-pi-gpio-pins/overview[here].
 
-For AVR microcontrollers, you will need `avrdude`. It should be available in your distribution's repository. If not, check here: http://www.nongnu.org/avrdude/ .  Instructions on how to use it can be found https://learn.adafruit.com/program-an-avr-or-arduino-using-raspberry-pi-gpio-pins/overview[here].
+**See Also:**
+
+* <<_command_line_parameters,Command Line Parameters>> -- the full compiler switch reference used above
+* <<_overview_linux_operating_system,Overview - Linux Operating System>> -- the closest equivalent desktop-Linux instructions

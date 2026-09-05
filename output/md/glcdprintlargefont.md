@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     GLCDPrintLargeFont( PrintLocX, PrintLocY, PrintData_String [, Optional Colour] )
 ```
 
@@ -37,11 +37,28 @@ on the GLCD screen.
 As an exmaple, to display an string use:  
   
 
-``` screen
-    GLCDPrintLargeFont( 0, 0, "13 Pixels Fixed Font" )
+``` programlisting
+    GLCDPrintLargeFont( 0, 0, "13 Pixels Fixed Font" )          ' <<< the GLCDPrintLargeFont instruction
 ```
 
+<span class="strong">**Key line:**</span>
+`GLCDPrintLargeFont( 0, 0, "13 Pixels Fixed Font" )` — draws the string
+at pixel coordinates (0, 0) using the larger 13-pixel fixed font; unlike
+`GLCDPrint`, this command accepts strings only, not byte/word/long
+values.  
   
-  
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — the
+    standard-font equivalent, which also accepts numeric values
+-   <a href="glcdprintwithsize" class="link" title="GLCDPrintWithSize">GLCDPrintWithSize</a> — selecting
+    a specific font size instead of the fixed large font
+
+</div>
 
 </div>

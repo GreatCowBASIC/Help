@@ -1,13 +1,72 @@
-body {background-color: #FFFCEA;}
-p {font-family: Arial, Helvetica, sans-serif; font-size=12pt}
-.informaltable {font-family: Arial, Helvetica, sans-serif; font-size=12pt}
-.itemizedlist {font-family: Arial, Helvetica, sans-serif; font-size=12pt}
-.variablelist {font-family: Arial, Helvetica, sans-serif; font-size=12pt}
-.listitem {font-family: Arial, Helvetica, sans-serif; font-size=12pt}
-.screen {font-family: "Courier New", Courier, monospace; font-size=12pt}
-.literal {font-family: "Courier New", Courier, monospace; font-size=12pt}
-.literallayout {font-family: "Courier New", Courier, monospace; font-size=12pt}
-.blue {color: blue}
-.red {color: red}
-.gray {color: gray}
-h1,h2,h3,h4,h5,h6 { font-family: Arial, Helvetica, sans-serif; font-size=14pt; background-color: #C0C0C0 ; }
+body {
+    background-color: #FFFFFF;
+    color: #1F2328;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+p, .informaltable, .itemizedlist, .variablelist, .listitem {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #1F2328;
+}
+
+a { color: #0B5FFF; }
+a:visited { color: #6423C7; }
+a:hover { color: #08379B; }
+
+.screen, .literal, .literallayout, code, pre {
+    font-family: "Cascadia Mono", "Consolas", "Courier New", Courier, monospace;
+    font-size: 13px;
+}
+
+.screen, .literallayout {
+    background-color: #F6F8FA;
+    border: 1px solid #D8DEE4;
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: #1F2328;
+}
+
+.literal, code {
+    background-color: #F0F2F5;
+    color: #B3261E;
+    padding: 1px 4px;
+    border-radius: 3px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #D8DEE4;
+}
+
+th {
+    background-color: #F6F8FA;
+    color: #1F2328;
+    font-weight: 600;
+}
+
+td, th {
+    padding: 6px 10px;
+}
+
+.blue { color: #0B5FFF; }
+.red { color: #C4281C; }
+.gray { color: #57606A; }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    color: #0B3D91;
+    background-color: #FFFFFF;
+    border-bottom: 2px solid #E4E8EC;
+    padding-bottom: 4px;
+}
+
+h1 { font-size: 22px; }
+h2 { font-size: 19px; }
+h3 { font-size: 17px; }
+h4, h5, h6 { font-size: 15px; }

@@ -7,6 +7,9 @@
 //
 ==== 7 Segment Displays - TM1637 4 Digits
 
+(((7-Segment Displays,7 Segment Displays - TM1637 4 Digits)))
+
+
 *Introduction*
 
 The TM1637 disaplay module is used for displaying numbers on a keyboard matrix.&#160;&#160;
@@ -98,6 +101,7 @@ The direction/port setting is managed by the library.
 |===
 *Example program*
 
+[source,gcbasic]
 ----
 
   #chip mega328p,16
@@ -108,18 +112,24 @@ The direction/port setting is managed by the library.
 
   '---- main program --------
 
-    TMWrite4Dig (17, 16, 17, 16, 0) 'clear display
+    TMWrite4Dig (17, 16, 17, 16, 0) 'clear display          ' <<< the TMWrite4Dig instruction
       wait 2 s
     TMWrite4Dig (17, 16, 17, 16, 10,0) '- -
       wait 2 s
     TMchar_Bright = 10
 
 ----
+*Key line:* `TMWrite4Dig (17, 16, 17, 16, 0)` -- writes digit codes 17 (minus sign) and 16 (blank) to all four positions, clearing the display; `TMWrite4Dig` accepts either decimal digits 0-9 or the special codes 16-20 for blank, minus, degree, bracket, and question mark.
 
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
 
-{empty} +
-{empty} +
-{empty} +
-{empty} +
-{empty} +
-{empty} +
+**See Also:**
+
+* <<_7_segment_displays_overview,7 Segment Displays Overview>> -- category overview
+* <<_7_segment_displays_tm1637_6_digits,7 Segment Displays - TM1637 6 Digits>> -- related command in the same category
+* <<_7_segment_displays_legacy,7 Segment Displays - Legacy>> -- related command in the same category

@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     byte_var = ReadTemp12
 ```
 
@@ -29,7 +29,7 @@ Available on all microcontrollers.
 `ReadTemp12` is a function that returns the raw value of the sensor. The
 following two lines must be included in the GCBASIC source file.
 
-``` screen
+``` programlisting
     #include <DS18B20.h>
     #define DQ PortC.3 ; change port configuration as required
 ```
@@ -37,7 +37,7 @@ following two lines must be included in the GCBASIC source file.
 Reads sensor and stores in output variable. The conversion takes up to
 750ms. `Readtemp12` carries out a full 12 bit conversion.
 
-This command is for advanced users only. For standard ‘whole degree’
+This command is for advanced users only. For standard 'whole degree'
 data use the `Readtemp` command.
 
 The temperature is read back as the raw 12 bit data into a word variable
@@ -86,7 +86,7 @@ pin of the sensor must be connected.
 
        ' The function readtemp12 returns the raw value of the sensor.
        ' The sensor is read as a 12 bit value. Each unit equates to 0.0625 of a degree
-       DSdata = readtemp12
+       DSdata = readtemp12          ' <<< the ReadTemp12 instruction
        SignBit = DSdata / 256 / 128
        If SignBit = 0 Then goto Positive
        ' its negative!
@@ -123,5 +123,23 @@ pin of the sensor must be connected.
 
     loop
 ```
+
+<span class="strong">**Key line:**</span> `DSdata = readtemp12` — reads
+the sensor’s full raw 12-bit value (0.0625-degree resolution) with no
+rounding; the rest of the example manually extracts the sign bit and
+converts the raw units into whole and fractional degrees Celsius.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="ds18b20" class="link" title="DS18B20">DS18B20</a> — category
+    overview
+-   <a href="readtemp" class="link" title="ReadTemp">ReadTemp</a> — the
+    simpler, pre-rounded whole-degree equivalent
+-   <a href="readdigitaltemp" class="link" title="ReadDigitalTemp">ReadDigitalTemp</a> — returns
+    ready-to-print integer and decimal parts instead of a raw value
+
+</div>
 
 </div>

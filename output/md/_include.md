@@ -26,13 +26,13 @@
 subroutines and constants from it, and then copy them into the current
 program.
 
-There are two forms of include; absolute and relative.
+There are two forms of include: absolute and relative.
 
 Absolute is used to refer to files in the `..\GCBASIC\include`
-directory. The name of the file is specified in between &lt; and &gt;
+directory. The name of the file is specified between `<` and `>`
 symbols. For instance, to include the file `srf04.h`, the directive is:
 
-``` screen
+``` programlisting
     #include <srf04.h>
 ```
 
@@ -40,7 +40,7 @@ Relative is used to read files in the same folder as the currently
 selected program. Filenames are given enclosed in quotation marks, such
 as where `mycode.h` is the name of the file that is to be read.
 
-``` screen
+``` programlisting
     #include "mycode.h"
 ```
 
@@ -52,5 +52,16 @@ Those who are familiar with `#include` in assembly or C should bear in
 mind that `#include` in GCBASIC works differently to `#include` in most
 other languages - code is not inserted at the location of the
 `#include`, but rather at the end of the current program.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="_insert" class="link" title="#insert">#insert</a> — inserting
+    code at the exact location of the directive instead
+-   <a href="converters" class="link" title="Converters">Converters</a> — converting
+    non-GCBASIC data files before including them
+
+</div>
 
 </div>

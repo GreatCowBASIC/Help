@@ -1,7 +1,11 @@
 ==== HI2CStopped
 
+(((I2C/TWI Hardware Module,HI2CStopped)))
+
+
 *Syntax:*
 
+[source,gcbasic]
 ----
     HI2CStopped
 ----
@@ -11,15 +15,34 @@ Only available for microcontrollers with the hardware I2C or TWI module.
 
 *Explanation:*
 
-In Slave mode only. Check if start condition received since last used of
-HI2CStopped.
+In Slave mode only. Checks whether a stop condition has been received since the last use of
+`HI2CStopped`.
 
 *Note:*
 
 This command is also available on microcontrollers with a second hardware I2C port.
 
+[source,gcbasic]
 ----
     HI2C2Stopped
 ----
 
+*Example:*
+[source,gcbasic]
+----
+    'Slave-mode polling loop that detects when the master has ended the transmission
+    Do
+        If HI2CStopped Then          ' <<< the HI2CStopped instruction
+            'The master has released the bus; the transaction is complete
+        End If
+    Loop
+----
+*Key line:* `If HI2CStopped Then` -- checks whether the master has issued a stop condition on the hardware I2C module since this function was last called, signalling that the current transaction has ended.
+
 Supported in <HI2C.H>
+
+**See Also:**
+
+* <<_hi2c_overview,HI2C Overview>> -- category overview
+* <<_hi2cstart,HI2CStart>> -- related command in the same category
+* <<_hi2cstartoccurred,HI2CStartOccurred>> -- related command in the same category

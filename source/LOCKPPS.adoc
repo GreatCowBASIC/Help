@@ -1,9 +1,12 @@
 ==== LockPPS
 
+(((Peripheral Pin Select,LockPPS)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
-    LOCKPSS
+    LOCKPPS
 ----
 
 *Explanation:*
@@ -20,6 +23,7 @@ Available on all Microchip microcontrollers only.
 
 
 
+[source,gcbasic]
 ----
     #chip 16f18855,32
     #option explicit
@@ -35,8 +39,12 @@ Available on all Microchip microcontrollers only.
         SSP1DATPPS = 0x13     'RC4->MSSP1:SDA1;
         RC3PPS = 0x15         'RC3->MSSP1:SCL1;
         RC4PPS = 0x14         'RC4->MSSP1:SDA1;
-      LOCKPPS
+      LOCKPPS          ' <<< the LockPPS instruction
     End Sub
 ----
+*Key line:* `LOCKPPS` -- re-locks the PPS registers once the pin assignments above have been made, preventing further inadvertent changes.
 
-*For more help, see: <<_unlockpps,UnlockPPS>>.*
+**See Also:**
+
+* <<_unlockpps,UnLockPPS>> -- unlocking the PPS registers before making changes
+* <<_peripheral_pin_select_for_microchip_microcontrollers,Introduction to PPS>> -- background on Peripheral Pin Select

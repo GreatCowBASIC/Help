@@ -1,7 +1,11 @@
 // Edit EvanV 171016 0,95.010.RC9+
 ==== PWMOff
 
+(((Pulse width modulation,PWMOff)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     PWMOff
 ----
@@ -18,6 +22,7 @@ This command does not operate on any other CCP channel.
 This command will disable the output of the CCP1/PWM module on the Microchip PIC chip.
 
 *Example:*
+[source,gcbasic]
 ----
     'This program will enable a 76 Khz PWM signal, with a duty cycle
     'of 80%. It will emit the signal for 10 seconds, then stop.
@@ -25,8 +30,11 @@ This command will disable the output of the CCP1/PWM module on the Microchip PIC
     #define PWM_Duty 80    'Set duty cycle to 80 %
     PWMOn                  'Turn on the PWM
     WAIT 10 s              'Wait 10 seconds
-    PWMOff                 'Turn off the PWM
+    PWMOff                 'Turn off the PWM          ' <<< the PWMOff instruction
 ----
+*Key line:* `PWMOff` -- immediately disables the CCP1 module's PWM output; the pin stops toggling until `PWMOn` is called again.
 {empty} +
 {empty} +
-*For more help, also see* <<_pwmon,PWMOn>>
+**See Also:**
+
+* <<_pwmon,PWMOn>> -- the counterpart command that enables the CCP1 PWM output

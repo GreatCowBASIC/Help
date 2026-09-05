@@ -1,5 +1,8 @@
 ==== Play RTTTL
 
+(((Sound,Play RTTTL)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -8,6 +11,7 @@
 
 You must specify the following include and the port of the sound device.
 
+[source,gcbasic]
 ----
     #include <songplay.h>
     #define SOUNDOUT PORTN.N
@@ -36,18 +40,21 @@ The three parts are separated by a colon.
 
 
 *Example 1:*
+[source,gcbasic]
 ----
     #chip 16f877a
     #include <songplay.h>
 
 
     #define SOUNDOUT PORTA.4
-    PlayRTTTL "HauntHouse: d=4,o=5,b=108: 2a4, 2e, 2d#, 2b4, 2a4, 2c, 2d, 2a#4, 2e., e, 1f4, 1a4, 1d#, 2e., d, 2c., b4, 1a4, 1p, 2a4, 2e, 2d#, 2b4, 2a4, 2c, 2d, 2a#4, 2e., e, 1f4, 1a4, 1d#, 2e., d, 2c., b4, 1a4"
+    PlayRTTTL "HauntHouse: d=4,o=5,b=108: 2a4, 2e, 2d#, 2b4, 2a4, 2c, 2d, 2a#4, 2e., e, 1f4, 1a4, 1d#, 2e., d, 2c., b4, 1a4, 1p, 2a4, 2e, 2d#, 2b4, 2a4, 2c, 2d, 2a#4, 2e., e, 1f4, 1a4, 1d#, 2e., d, 2c., b4, 1a4"          ' <<< the PlayRTTTL instruction
 ----
+*Key line:* `PlayRTTTL "HauntHouse: d=4,o=5,b=108: ..."` -- plays the note sequence following the colon at a default quarter-note duration (`d=4`), fifth octave (`o=5`), and 108 beats per minute (`b=108`), as set out in the string's settings section.
 
 
 
 *Example 2:*
+[source,gcbasic]
 ----
 
 		#chip 16f877a
@@ -76,4 +83,7 @@ The three parts are separated by a colon.
     End
 
 ----
-*For more help, see* <<_sound_overview,Sound Overview>>
+**See Also:**
+
+* <<_sound_overview,Sound Overview>>
+* <<_play,Play>> -- playing a tune from the simpler QBASIC PLAY string format instead

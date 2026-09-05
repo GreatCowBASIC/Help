@@ -27,17 +27,17 @@ Available on all microcontrollers.
 <span class="strong">**Explanation:**</span>
 
 `IndCall` provides a basic implementation of function pointers.
-`Address` is the program memory location of the subroutine that is to be
-called. There are two ways to specify this - either by providing a
-direct reference to the subroutine using the @ operator, or by
-specifying a word variable that contains the address.
+`Address` is the program-memory location of the subroutine to be called.
+There are two ways to specify this: either by providing a direct
+reference to the subroutine using the `@` operator, or by specifying a
+word variable that contains the address.
 
 This command is useful for callbacks. For example, a particular
 subroutine might read bytes from a serial connection, but different
 actions may need to be taken at different times. A different subroutine
-could be created for each action, and then the subroutine for the
-appropriate action could be passed to the serial connection reading
-routine each time it is called.
+could be created for each action, and the subroutine for the appropriate
+action could then be passed to the serial-connection-reading routine
+each time it is called.
 
 <span class="strong">**Note:**</span> Calling subroutines that have
 parameters using `IndCall` is not supported. Errors may occur. If data
@@ -45,7 +45,7 @@ needs to be passed, use a variable instead.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Flash an LED using an indirect call
     #chip 12F683
 
@@ -57,7 +57,7 @@ needs to be passed, use a variable instead.
     'Main loop
     Do
     'Indirect call to subroutine at location FlashingSub
-        IndCall FlashingSub
+        IndCall FlashingSub          ' <<< the IndCall instruction
     Loop
 
     'LED flashing subroutine
@@ -66,5 +66,23 @@ needs to be passed, use a variable instead.
         Wait 500 ms
     End Sub
 ```
+
+<span class="strong">**Key line:**</span> `IndCall FlashingSub` — calls
+whichever subroutine’s address is currently stored in `FlashingSub`
+(here, `Blink`, set via `@Blink` above), rather than naming the
+subroutine directly.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="do" class="link" title="Do">Do</a> — the loop
+    repeatedly issuing the indirect call above
+-   <a href="subroutines" class="link" title="Subroutines">Sub</a> — defining
+    the subroutines that `IndCall` can target
+-   <a href="end" class="link" title="End">End</a> — related
+    command in the same category
+
+</div>
 
 </div>

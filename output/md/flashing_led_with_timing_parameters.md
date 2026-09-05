@@ -19,11 +19,11 @@
 This is an example of how to define a subroutine.
 
 When called, this subroutine will blink an LED for the number of times
-and duration as determined by the input parameters.
+and duration determined by the input parameters.
 
 The syntax of the subroutine is:
 
-``` screen
+``` programlisting
     ' Flash_LED (numtimes, OnTime, (optional) OffTime)
     ' Where numtimes is from 1 - 255 and OnTime/OffTime is
     ' from 0 - 65535 ms. If OffTime is not entered, then
@@ -41,13 +41,13 @@ The syntax of the subroutine is:
 
 Shown below is a working example program using a Microchip PIC 18F25K22.
 
-Change Settings/PORTS as needed for other Chips.
+Change settings/ports as needed for other chips.
 
 Connect an LED to the LED pin via a 1K series resistor.
 
 <span class="strong">**Demonstration program:**</span>
 
-``` screen
+``` programlisting
     #chip 18F25K22, 16
     #define LED PORTC.1       'Led on PIN 14 via 1K resistor
     DIR LED OUT
@@ -59,7 +59,7 @@ Connect an LED to the LED pin via a 1K series resistor.
        Wait 2 Sec
        Flash_LED ( 5,250,500 )    '5 flashes On 250 ms / off 500 ms
        Wait 2 Sec
-       Flash_LED ( 10,100 )       '10 rapid flashes
+       Flash_LED ( 10,100 )       '10 rapid flashes          ' <<< calling the sub with only the required parameters
        Wait 2 Sec
     Loop
     ;==========================================
@@ -73,5 +73,21 @@ Connect an LED to the LED pin via a 1K series resistor.
         end repeat
     End Sub
 ```
+
+<span class="strong">**Key line:**</span> `Flash_LED ( 10,100 )` — since
+`OffTime` is declared `Optional …​ = OnTime`, omitting it here makes the
+off duration default to the same value as `OnTime` (100 ms), giving 10
+flashes with equal 100 ms on/off times.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="subroutines" class="link" title="Subroutines">Subroutines</a> — Optional
+    parameters and default values in full detail
+-   <a href="repeat" class="link" title="Repeat">Repeat</a> — the
+    loop construct used above
+
+</div>
 
 </div>

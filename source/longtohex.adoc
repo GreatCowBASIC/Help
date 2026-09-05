@@ -1,19 +1,23 @@
 ==== LongToHex
 
+(((String Manipulation,LongToHex)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __stringvar__ = LongToHex(__number__)
 ----
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The `Hex` function will convert a Long number into hexadecimal format. The input `_number_` should be a Long variable, or a fixed number between 0 and 4294967295 inclusive. After running the function, the string variable `_stringvar_` will contain an 8 digit hexadecimal number.
+The `LongToHex` function converts a Long number into hexadecimal format. The input `_number_` should be a `Long` variable, or a fixed number between 0 and 4294967295 inclusive. After running the function, the string variable `_stringvar_` contains an 8-digit hexadecimal number.
 
 *Example:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16F1936
@@ -27,7 +31,7 @@ The `Hex` function will convert a Long number into hexadecimal format. The input
     'Uses Hex to display as hexadecimal
     For CurrentLocation = 0 to 65535
         'Send location
-        HSerPrint LongToHex(CurrentLocation)
+        HSerPrint LongToHex(CurrentLocation)          ' <<< the LongToHex instruction
         HSerPrint ":"
         'Read Long and send
         EPRead CurrentLocation, CurrLong
@@ -36,5 +40,11 @@ The `Hex` function will convert a Long number into hexadecimal format. The input
         HSerPrintCRLF
     Next
 ----
+*Key line:* `LongToHex(CurrentLocation)` -- formats the current address as a fixed 8-digit hex string, so addresses line up neatly in the terminal output regardless of their value.
 
-*See Also* <<_bytetohex,ByteToHex>>,<<_wordtohex_,WordToHex>>, <<_integertohex,IntegerToHex>>, <<_singletohex,SingleToHex>> 
+**See Also:**
+
+* <<_bytetohex,ByteToHex>>
+* <<_wordtohex,WordToHex>>
+* <<_integertohex,IntegerToHex>>
+* <<_singletohex,SingleToHex>>

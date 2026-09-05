@@ -180,7 +180,7 @@ Prescaler can be one of the following:<br />
 
 This example will ..
 
-``` screen
+``` programlisting
     #Chip 16F18855, 32
 
     #option explicit
@@ -206,7 +206,7 @@ This example will ..
       DIR     Potentiometer In
 
 
-     SETSMT1PERIOD ( 4045000 )        ' 1.000s periodwith the parameters of SMT_FOSC and SMTPres_1 within the clock variance of the interclock
+     SETSMT1PERIOD ( 4045000 )          ' <<< the SetSMT1Period instruction, 1.000s period with the parameters of SMT_FOSC and SMTPres_1 within the clock variance of the interclock
                                       ' a perfect internal clock would be 4000000
 
      SETSMT2PERIOD ( 9322401 )        ' 4.600s period with the parameters of SMT_FOSC4 and SMTPres_8
@@ -239,9 +239,26 @@ This example will ..
     End SUB
 ```
 
-  
+<span class="strong">**Key line:**</span>
+`SETSMT1PERIOD ( 4045000 )` — sets the 24-bit match value that
+determines SMT1’s overflow period; combined with the
+`SMT_FOSC`/`SMTPres_1` clock settings below, 4,045,000 ticks works out
+to approximately 1.000 second.  
   
 
 <span class="strong">**Supported in &lt;SMT\_Timers.h&gt;**</span>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="timer_overview" class="link" title="Timer Overview">Timer Overview</a> — category
+    overview
+-   <a href="cleartimer" class="link" title="ClearTimer">ClearTimer</a> — related
+    command in the same category
+-   <a href="inittimer0" class="link" title="InitTimer0">InitTimer0</a> — related
+    command in the same category
+
+</div>
 
 </div>

@@ -1,6 +1,10 @@
 ==== GLCDCLS
 
+(((Graphical LCD,GLCDCLS)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     GLCDCLS [GLCDBackground]
 ----
@@ -11,3 +15,9 @@ Clears the screen of a Graphic LCD.  This command is supported by all GLCD displ
 For colour GLCD displays only.  The optional parameter can be used to clear the screen to a specific colour.  Using this additional parameter will also change the GLCDBackground colour to this same colour.
 
 Specific to the ST7920 GLCD devices. This command supports the clearing the GLCD to either text mode or graphics mode.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_glcddisplay,GLCDDisplay>> -- related command in the same category
+* <<_glcddrawchar,GLCDDrawChar>> -- related command in the same category

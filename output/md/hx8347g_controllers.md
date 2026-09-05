@@ -48,7 +48,7 @@ code. This will initialise the driver.
   
 <span class="strong">**8-bit mode**</span>
 
-``` screen
+``` programlisting
     'This GLCD driver supports 8 bit only. UNO ports can be replaced with porta.b constants.
 
     #include <glcd.h>
@@ -226,7 +226,7 @@ supported commands.
   
   
 
-``` screen
+``` programlisting
     HX8347G_BLACK   'hexidecimal value 0x0000
     HX8347G_RED     'hexidecimal value 0xF800
     HX8347G_GREEN   'hexidecimal value 0x0400
@@ -259,7 +259,7 @@ DBI example uses a Mega2560 board.
   
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     #chip mega328p, 16
     #option explicit
 
@@ -290,22 +290,33 @@ DBI example uses a Mega2560 board.
 
 
     GLCDRotate ( Portrait )
-    GLCDCLS HX8347_RED
+    GLCDCLS HX8347_RED          ' <<< clears the screen using an HX8347G-specific color constant
     GLCDPrint(0, 0, "Test of the HX8347G Device")
     end
 ```
 
+<span class="strong">**Key line:**</span> `GLCDCLS HX8347_RED` — clears
+the display to a specific color using the `HX8347G_[color]` constant
+family, rather than the default background color.
+
   
   
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>  
-  
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview and the full supported-display comparison table
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+-   <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
+-   <a href="pset" class="link" title="Pset">Pset</a>
+
+</div>
+
 Supported in &lt;GLCD.H&gt;
 
 </div>

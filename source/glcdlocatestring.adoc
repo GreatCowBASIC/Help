@@ -1,6 +1,10 @@
 ==== GLCDLocateString
 
+(((Graphical LCD,GLCDLocateString)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
 
     GLCDLocateString(PrintLocX, PrintLocY )
@@ -19,6 +23,7 @@ For the purpose of this command. The screen addressing is the first line equates
 
 An example:
 
+[source,gcbasic]
 ----
 
     GLCDLocateString( 0, 1 )    'The first line of the display
@@ -29,13 +34,14 @@ An example:
 
 
 *Example:*
+[source,gcbasic]
 ----
 
     GLCDPrintStringLn ( "1.First Ln" )
     GLCDPrintStringLn ( "2.Second Ln" )
     GLCDPrintStringLn ( "" )
     GLCDPrintStringLn ( "4.Forth Ln" )
-    GLCDLocateString( 0, 5 )
+    GLCDLocateString( 0, 5 )          ' <<< the GLCDLocateString instruction
     GLCDPrintString ( "5." )
     GLCDPrintStringLn ( "Fifth Ln" )
 
@@ -46,3 +52,10 @@ An example:
     GLCDPrintStringLn ( str( val3 ) + ".Third Ln" )
 
 ----
+*Key line:* `GLCDLocateString( 0, 5 )` -- moves the string pointer to line 5 before the following `GLCDPrintString`/`GLCDPrintStringLn` calls write there, letting the program jump between lines out of sequence (as also shown by the later jump back to line 3).
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_glcdprintstring,GLCDPrintString>> -- printing without moving to the next line
+* <<_glcdprintstringln,GLCDPrintStringLn>> -- printing and advancing to the next line

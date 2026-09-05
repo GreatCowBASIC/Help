@@ -17,7 +17,7 @@
 <span class="strong">**Syntax:**</span>
 
 ``` screen
-    LOCKPSS
+    LOCKPPS
 ```
 
 <span class="strong">**Explanation:**</span>
@@ -35,7 +35,7 @@ assembler is handled correctly.
 
 Available on all Microchip microcontrollers only.
 
-``` screen
+``` programlisting
     #chip 16f18855,32
     #option explicit
 
@@ -50,11 +50,23 @@ Available on all Microchip microcontrollers only.
         SSP1DATPPS = 0x13     'RC4->MSSP1:SDA1;
         RC3PPS = 0x15         'RC3->MSSP1:SCL1;
         RC4PPS = 0x14         'RC4->MSSP1:SDA1;
-      LOCKPPS
+      LOCKPPS          ' <<< the LockPPS instruction
     End Sub
 ```
 
-<span class="strong">**For more help, see:
-<a href="unlockpps" class="link" title="UnLockPPS">UnlockPPS</a>.**</span>
+<span class="strong">**Key line:**</span> `LOCKPPS` — re-locks the PPS
+registers once the pin assignments above have been made, preventing
+further inadvertent changes.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="unlockpps" class="link" title="UnLockPPS">UnLockPPS</a> — unlocking
+    the PPS registers before making changes
+-   <a href="peripheral_pin_select_for_microchip_microcontrollers" class="link" title="Peripheral Pin Select for Microchip microcontrollers.">Introduction to PPS</a> — background
+    on Peripheral Pin Select
+
+</div>
 
 </div>

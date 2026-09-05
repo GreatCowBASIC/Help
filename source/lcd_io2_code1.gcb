@@ -1,0 +1,14 @@
+    #chip mega8, 8
+
+    ' Connection mode 2 (deprecated): a Data and a Clock line drive a
+    ' 74LS174 shift register, which in turn drives the LCD. This mode does
+    ' not support backlight control; use LCD_IO 2_74XX164 for new designs.
+    #define LCD_IO 2
+    #define LCD_DB PORTC.0
+    #define LCD_CB PORTC.1
+    #define LCD_NO_RW
+
+    CLS
+    Print "GCBASIC"
+    Locate 1,0
+    Print "  Hello World."          ' <<< the print instruction this page documents

@@ -36,7 +36,7 @@ can be a string, integer, long, word or byte.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program will send text and an icrementing value using PORTB.1
 
     ; ----- Configuration
@@ -61,12 +61,28 @@ can be a string, integer, long, word or byte.
       Wait 1 s       'time to enjoy the result
       Ser1Send  13   'new line in Terminal
       Ser1Send  10
-      Ser1Print "Software-UART: "  'send a text
+      Ser1Print "Software-UART: "  'send a text          ' <<< the Ser1Print instruction
       Ser1Print xx   'send the value of xx
       xx += 1
     Loop
 ```
 
+<span class="strong">**Key line:**</span>
+`Ser1Print "Software-UART: "` — writes the string as ASCII text with no
+terminating newline, so the second call `Ser1Print xx` appends the
+numeric value of `xx` directly after it on the same line.
+
 Exposed in SoftSerial.h authored by Frank Steinberg
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="sernsend" class="link" title="SerNSend">SerNSend</a> — sending
+    a single raw byte on the same channel
+-   <a href="sernreceive" class="link" title="SerNReceive">SerNReceive</a> — reading
+    a byte back on the same channel
+
+</div>
 
 </div>

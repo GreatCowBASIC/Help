@@ -16,7 +16,7 @@
       <link rel="next" href="_analog_digital_conversion_code_optimisation.html" title="Analog/Digital Conversion Code Optimisation" />
       <meta name="Section-title" content="ReadAD12" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-61620";
+            var treeCookieId = "treeview-89895";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,77 +184,74 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
+            <p><a id="d0e19825" class="indexterm"></a>
+               <a id="d0e19831" class="indexterm"></a></p>
             <p><span class="strong"><strong>Syntax:</strong></span></p>
-            <p>For a normal ( also called a Single Channel )  read use.</p><pre class="screen">    user_variable = ReadAD12( ANX )</pre><p>For a Differential Channel read use the following.  Where ANpX is the positive port, and ANnY is the negative port.</p><pre class="screen">    user_variable = ReadAD12( ANpX , ANnY )</pre><p>To obtain a 12-bit value from an AD Channel use the following to force a 12 bit AD Channel to respond with the correct value,
-               in terms of the range of [0 to 4095]
-            </p><pre class="screen">    user_variable = ReadAD12( ANX , TRUE )</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
-            <p>When using <span class="strong"><strong>ReadAD12</strong></span> ( ANX ) the returned value is an 12 bit number [0-4095].  The user variable can be a word, integer or long.
+            <p>For a normal (also called a Single Channel) read, use:</p><pre class="programlisting">    user_variable = ReadAD12( ANX )</pre><p>For a Differential Channel read, use the following, where ANpX is the positive port and ANnY is the negative port:</p><pre class="programlisting">    user_variable = ReadAD12( ANpX , ANnY )</pre><p>To force a 12-bit AD channel to always respond with a value in the range [0 to 4095], use:</p><pre class="programlisting">    user_variable = ReadAD12( ANX , TRUE )</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
+            <p>When using <code class="literal">ReadAD12( ANX )</code>, the returned value is a 12-bit number [0-4095]. The receiving variable can be a word, integer, or long.
             </p>
-            <p>When using <span class="strong"><strong>ReadAD12</strong></span> ( ANpX , ANnY ) the returned value is an integer as negative values can be returned.
+            <p>When using <code class="literal">ReadAD12( ANpX , ANnY )</code>, the returned value is an integer, since negative values can be returned.
             </p>
-            <p><span class="strong"><strong>ReadAD12</strong></span>  is a function that can be used to read the built-in analog to digital converter that many microcontroller chips include.  Port
-               should be specified as AN0, AN1, AN2, etc., up to the number of analog inputs available on the chip that is in use.  Those
-               familiar with Atmel AVR microcontrollers can also refer to the ports as ADC0, ADC1, etc.  Refer to the datasheet for the microcontroller
-               chip to find the number of ports available.  (Note: it’s perfectly acceptable to use ANx on AVR, or ADCx on the microcontroller.)
+            <p><code class="literal">ReadAD12</code> is a function that reads the built-in analog-to-digital converter (ADC) that most microcontroller chips include. The port
+               is specified as <code class="literal">AN0</code>, <code class="literal">AN1</code>, <code class="literal">AN2</code>, and so on, up to the number of analog inputs available on the chip in use. Those familiar with Atmel AVR microcontrollers
+               can also refer to the ports as <code class="literal">ADC0</code>, <code class="literal">ADC1</code>, and so on — refer to the chip’s datasheet to find the number of ports available. (Note: it is perfectly acceptable to use
+               <code class="literal">ANx</code> on AVR, or <code class="literal">ADCx</code> on a Microchip PIC.)
             </p>
-            <p>Other functions that are similar are <span class="strong"><strong>ReadAD</strong></span> and <span class="strong"><strong>ReadAD10</strong></span>.  See the relevant Help page for the specific usage of each function.
+            <p>Other functions with similar behaviour are <code class="literal">ReadAD</code> and <code class="literal">ReadAD10</code> — see their Help pages for the specific usage of each.
             </p>
-            <p><span class="strong"><strong>AD_Delay</strong></span> controls is the acquisition delay.   The default value is 20 us.  This can be changed to a longer acquisition delay by adding
-               the following constant.
-            </p><pre class="screen">    #define AD_Delay 4 10us</pre><p><span class="strong"><strong>ADSpeed</strong></span>( controls the source of the clock for the ADC module.   It varies from one microcontroller to another.   InternalClock is
-               a Microchip PIC microcontroller only option that will drive the ADC from an internal RC oscillator.  The default value is
-               128.
-            </p><pre class="screen">    'default value
-    #define ADSpeed MediumSpeed
-
+            <p><code class="literal">AD_DELAY</code> controls the acquisition delay: the time the ADC’s internal holding capacitor is given to charge to the input voltage before
+               the reading is taken. The default value is 20 us. If a reading looks noisy or consistently off — especially from a high-impedance
+               sensor, such as a bare voltage divider without a buffer — increasing this delay is often the fix, since the capacitor needs
+               more time to settle. Change it with:
+            </p><pre class="programlisting">    #define AD_DELAY 4 10us</pre><p><code class="literal">ADSPEED</code> controls the source of the clock for the ADC module; it varies from one microcontroller to another. <code class="literal">InternalClock</code> is a Microchip PIC-only option that drives the ADC from an internal RC oscillator. The default value is 128.
+            </p><pre class="programlisting">    'default value
+    #define ADSPEED MEDIUMSPEED
 
     'pre-defined constants
-    #define HighSpeed 255
-    #define MediumSpeed 128
-    #define LowSpeed 0</pre><p><span class="strong"><strong>AD_Acquisition_Time_Select_bits</strong></span> also controls the Acquisition Time Select bits.   Acquisition time is the duration that the AD charge
-               holding capacitor remains connected to AD channel from the instant the read is commenced is set until conversions begins.
+    #define HIGHSPEED 255
+    #define MEDIUMSPEED 128
+    #define LOWSPEED 0</pre><p><code class="literal">AD_ACQUISITION_TIME_SELECT_BITS</code> also controls the acquisition time select bits. Acquisition time is the duration the ADC’s charge-holding capacitor stays
+               connected to the AD channel, from the moment the read starts until conversion begins — the same underlying delay that <code class="literal">AD_DELAY</code> adjusts, exposed here as the raw bit pattern for microcontrollers whose datasheet documents it this way.
             </p>
-            <p>The default value of AD_Acquisition_Time_Select_bits is 0b100 or decimal 4, where all three ACQT bits will be set.  To change
-               use the following.
-            </p><pre class="screen">    'change the default value
-    #define AD_Acquisition_Time_Select_bits 0b001    'this will only set ACQT bit 0, ACQT bits 1 and 2 will be cleared.</pre><p><span class="strong"><strong>Example 1  - Read 12-bit ADC</strong></span></p><pre class="screen">    #chip 16F1788, 8
+            <p>The default value of <code class="literal">AD_ACQUISITION_TIME_SELECT_BITS</code> is <code class="literal">0b100</code> (decimal 4), which sets all three ACQT bits. To change it:
+            </p><pre class="programlisting">    'change the default value
+    #define AD_ACQUISITION_TIME_SELECT_BITS 0b001    'this will only set ACQT bit 0; ACQT bits 1 and 2 will be cleared</pre><p><span class="strong"><strong>Example 1 - Read 12-bit ADC</strong></span></p><pre class="programlisting">    #chip 16F1788, 8
 
     'Set the input pin direction
     Dir PORTA.0 In
-
 
     'Print 255 readings
     For CurrentAddress = 0 to 255
 
         'Take a reading and show it
-        Print str(ReadAD12(AN0))
+        Print str(ReadAD12(AN0))          ' &lt;&lt;&lt; the ReadAD12 instruction
 
         'Wait 10 minutes before getting another reading
         Wait 10 min
-    Next</pre><p><span class="strong"><strong>Example 2  - Force a 12-bit value to be returned</strong></span></p><pre class="screen">    #chip 16F1788, 8
-
+    Next</pre><p><span class="strong"><strong>Key line:</strong></span> <code class="literal">Print str(ReadAD12(AN0))</code> — reads channel <code class="literal">AN0</code> and returns whatever resolution the chip’s ADC module natively supports (8, 10, or 12 bits).
+            </p>
+            <p><span class="strong"><strong>Example 2 - Force a 12-bit value to be returned</strong></span></p><pre class="programlisting">    #chip 16F1788, 8
 
     'Set the input pin direction
     Dir PORTA.0 In
-
 
     'Print 255 readings
     For CurrentAddress = 0 to 255
 
         'Take a reading and show it
-        Print str(ReadAD12(AN0), TRUE)
-
+        Print str(ReadAD12(AN0), TRUE)          ' &lt;&lt;&lt; forcing a 12-bit result regardless of the chip's native ADC resolution
         'Wait 10 minutes before getting another reading
         Wait 10 min
-    Next</pre><p><span class="strong"><strong>Example 3</strong></span></p>
-            <p>This example used the diffential capabilities of ADC port and writes the output to the EEPROM.  The output value will be in
-               the range of [-4095 to 4095].
+    Next</pre><p><span class="strong"><strong>Key line:</strong></span> <code class="literal">ReadAD12(AN0), TRUE</code> — the <code class="literal">TRUE</code> argument guarantees a value in the range [0-4095] even on a chip whose ADC natively returns 8 or 10 bits.
             </p>
-            <p>AN0 and AN2 are used for the diffential ADC reading.</p><pre class="screen">    #chip 16F1789, 8
+            <p><span class="strong"><strong>Example 3 - Differential reading</strong></span></p>
+            <p>This example uses the differential capabilities of the ADC and writes the output to a serial terminal. The output value will
+               be in the range [-4095 to 4095]. <code class="literal">AN0</code> and <code class="literal">AN2</code> are used for the differential reading.
+            </p><pre class="programlisting">    #chip 16F1789, 8
 
     'USART settings
     #define USART_BAUD_RATE 9600  'Initializes USART port with 9600 baud
-    #define USART_TX_BLOCKING ' wait for tx register to be empty
+    #define USART_TX_BLOCKING     'wait for tx register to be empty
     wait 100 ms
 
     'Set the input pin direction
@@ -265,12 +262,24 @@ border: none; background: none; font-weight: none; color: none; }
     For CurrentAddress = 0 to 255
 
         'Take a reading and log it
-        HSerPrint ReadAD12( AN0, AN2 )
+        HSerPrint ReadAD12( AN0, AN2 )          ' &lt;&lt;&lt; the differential ReadAD12 instruction
         HserPrintCRLF
         'Wait 10 minutes before getting another reading
         Wait 10 min
 
-    Next</pre><p><span class="strong"><strong>See Also</strong></span> <a class="link" href="_readad.html" title="ReadAD">ReadAD</a>, <a class="link" href="_readad10.html" title="ReadAD10">ReadAD10</a></p>
+    Next</pre><p><span class="strong"><strong>Key line:</strong></span> <code class="literal">ReadAD12( AN0, AN2 )</code> — reads the voltage difference between <code class="literal">AN0</code> (positive) and <code class="literal">AN2</code> (negative) as a signed integer, rather than an absolute voltage on a single pin.
+            </p>
+            <p><span class="strong"><strong>See Also:</strong></span></p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem"><a class="link" href="_readad.html" title="ReadAD">ReadAD</a> — 8-bit resolution single/differential read
+                  </li>
+                  <li class="listitem"><a class="link" href="_readad10.html" title="ReadAD10">ReadAD10</a> — 10-bit resolution single/differential read
+                  </li>
+                  <li class="listitem"><a class="link" href="_hserprint.html" title="HSerPrint">HSerPrint</a> — sending a reading over a serial connection, as used in Example 3
+                  </li>
+               </ul>
+            </div>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -300,22 +309,22 @@ border: none; background: none; font-weight: none; color: none; }
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
                         <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
-                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
-                        <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
-                        <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
-                        <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
-                        <li><span class="file"><a href="_frequent_errors.html" tabindex="1">Frequent errors</a></span></li>
-                        <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
-                        <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
-                        <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
+                        <li><span class="file"><a href="_primer.html" tabindex="1">Primer</a></span><ul>
+                              <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
+                              <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
+                              <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
+                              <li><span class="file"><a href="_frequent_errors.html" tabindex="1">Frequent errors</a></span></li>
+                              <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
+                              <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
+                              <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
+                              <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_gcbasic_compiler_insights.html" tabindex="1">GCBASIC Compiler Insights</a></span><ul>
                               <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
                               <li><span class="file"><a href="_compiler_control.html" tabindex="1">Compiler Control</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
-                        <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
-                        <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span><ul>
+                              <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
+                              <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span></li>
                               <li><span class="file"><a href="_gcbasic_hxl_memory_map_output.html" tabindex="1">GCBASIC HXL- Memory Map Output</a></span></li>
                               <li><span class="file"><a href="_uno_as_isp_programmer.html" tabindex="1">UNO as ISP programmer</a></span></li>
                            </ul>
@@ -330,9 +339,13 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_data_types.html" tabindex="1">Data Types</a></span></li>
                               <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
                               <li><span class="file"><a href="_variables_and_data_types.html" tabindex="1">Variables and Data Types</a></span></li>
+                              <li><span class="file"><a href="_the_positives_and_negatives_of_variable_types.html" tabindex="1">The Positives and Negatives of Variable Types</a></span></li>
                               <li><span class="file"><a href="_advanced_variabletypes.html" tabindex="1">Advanced VariableTypes</a></span></li>
                               <li><span class="file"><a href="_variable_memory_allocation_addressing_control.html" tabindex="1">Variable Memory Allocation, Addressing &amp; Control</a></span></li>
                               <li><span class="file"><a href="_avr_r_register_usage.html" tabindex="1">AVR R Register Usage</a></span></li>
+                              <li><span class="file"><a href="_new_example_1_basic_variables_with_initial_values.html" tabindex="1">New Example 1: Basic Variables with Initial Values</a></span></li>
+                              <li><span class="file"><a href="_new_example_2_arrays_and_initialisation.html" tabindex="1">New Example 2: Arrays and Initialisation</a></span></li>
+                              <li><span class="file"><a href="_new_example_3_bit_level_access_using_constants.html" tabindex="1">New Example 3: Bit-Level Access Using Constants</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_reference_data.html" tabindex="1">Reference Data</a></span><ul>
@@ -355,6 +368,12 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_converters.html" tabindex="1">Converters</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_commands_quick_reference.html" tabindex="1">Commands Quick Reference</a></span><ul>
+                              <li><span class="file"><a href="_alphabetical_index.html" tabindex="1">Alphabetical Index</a></span></li>
+                              <li><span class="file"><a href="_by_category.html" tabindex="1">By Category</a></span></li>
+                              <li><span class="file"><a href="_commands_not_yet_documented.html" tabindex="1">Commands Not Yet Documented</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_command_references.html" tabindex="1">Command References</a></span><ul>
                               <li><span class="file"><a href="_analog_digital_conversion.html" tabindex="1">Analog/Digital conversion</a></span><ul>
                                     <li><span class="file"><a href="_analog_digital_conversion_overview.html" tabindex="1">Analog/Digital Conversion Overview</a></span></li>
@@ -364,6 +383,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_readad10.html" tabindex="1">ReadAD10</a></span></li>
                                     <li id="webhelp-currentid"><span class="file"><a href="_readad12.html" tabindex="1">ReadAD12</a></span></li>
                                     <li><span class="file"><a href="_analog_digital_conversion_code_optimisation.html" tabindex="1">Analog/Digital Conversion Code Optimisation</a></span></li>
+                                    <li><span class="file"><a href="_pot.html" tabindex="1">Pot</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_bitwise.html" tabindex="1">Bitwise</a></span><ul>
@@ -371,6 +391,11 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_fnlsl.html" tabindex="1">FnLSL</a></span></li>
                                     <li><span class="file"><a href="_fnlsr.html" tabindex="1">FnLSR</a></span></li>
                                     <li><span class="file"><a href="_setwith.html" tabindex="1">SetWith</a></span></li>
+                                    <li><span class="file"><a href="_deprecated_bitwise_functions.html" tabindex="1">Deprecated bitwise functions.</a></span><ul>
+                                          <li><span class="file"><a href="_fnequbit.html" tabindex="1">FnEquBit</a></span></li>
+                                          <li><span class="file"><a href="_fnnotbit.html" tabindex="1">FnNotBit</a></span></li>
+                                       </ul>
+                                    </li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_memory.html" tabindex="1">Memory</a></span><ul>
@@ -416,7 +441,7 @@ border: none; background: none; font-weight: none; color: none; }
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_eeram_device.html" tabindex="1">EERAM ( Device )</a></span><ul>
-                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
+                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERAM Devices</a></span></li>
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_sram_device.html" tabindex="1">SRAM  ( Device )</a></span><ul>
@@ -448,7 +473,7 @@ border: none; background: none; font-weight: none; color: none; }
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_interrupts.html" tabindex="1">Interrupts</a></span><ul>
-                                    <li><span class="file"><a href="_interrupts_overview.html" tabindex="1">Interrupts overview</a></span></li>
+                                    <li><span class="file"><a href="_interrupts_overview.html" tabindex="1">Interrupts Overview</a></span></li>
                                     <li><span class="file"><a href="_intoff.html" tabindex="1">IntOff</a></span></li>
                                     <li><span class="file"><a href="_inton.html" tabindex="1">IntOn</a></span></li>
                                     <li><span class="file"><a href="_on_interrupt.html" tabindex="1">On Interrupt</a></span></li>
@@ -476,9 +501,10 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_nextion_controllers.html" tabindex="1">NEXTION Controllers</a></span></li>
                                           <li><span class="file"><a href="_nt7108c_controllers.html" tabindex="1">NT7108C Controllers</a></span></li>
                                           <li><span class="file"><a href="_pcd8544_controllers.html" tabindex="1">PCD8544 Controllers</a></span></li>
-                                          <li><span class="file"><a href="_sdd1289_controllers.html" tabindex="1">SDD1289 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1289_controllers.html" tabindex="1">SSD1289 Controllers</a></span></li>
                                           <li><span class="file"><a href="_sh1106_controllers.html" tabindex="1">SH1106 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1309_controllers.html" tabindex="1">SSD1309 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1351_controllers.html" tabindex="1">SSD1351 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7567_controllers.html" tabindex="1">ST7567 Controllers</a></span></li>
@@ -508,6 +534,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_uc1601_controllers.html" tabindex="1">UC1601 Controllers</a></span></li>
                                        </ul>
                                     </li>
+                                    <li><span class="file"><a href="_initglcd.html" tabindex="1">InitGLCD</a></span></li>
                                     <li><span class="file"><a href="_box.html" tabindex="1">Box</a></span></li>
                                     <li><span class="file"><a href="_circle.html" tabindex="1">Circle</a></span></li>
                                     <li><span class="file"><a href="_ellipse.html" tabindex="1">Ellipse</a></span></li>
@@ -559,6 +586,9 @@ border: none; background: none; font-weight: none; color: none; }
                                                 <li><span class="file"><a href="_lcd_io_12_port_configuration.html" tabindex="1">LCD_IO 12 Port Configuration</a></span></li>
                                              </ul>
                                           </li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_multiple_i2c_adapters_lcd_io_12.html" tabindex="1">Multiple I2C Adapters (LCD_IO 12)</a></span><ul>
                                           <li><span class="file"><a href="_lcd_io_14.html" tabindex="1">LCD_IO 14</a></span><ul>
                                                 <li><span class="file"><a href="_lcd_io_14_port_configuration.html" tabindex="1">LCD_IO 14 Port Configuration</a></span></li>
                                              </ul>
@@ -596,6 +626,10 @@ border: none; background: none; font-weight: none; color: none; }
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_pulse_width_modulation.html" tabindex="1">Pulse width modulation</a></span><ul>
+                                    <li><span class="file"><a href="_pulseout.html" tabindex="1">PulseOut</a></span></li>
+                                    <li><span class="file"><a href="_pulseoutinv.html" tabindex="1">PulseOutInv</a></span></li>
+                                    <li><span class="file"><a href="_pulsein.html" tabindex="1">PulseIn</a></span></li>
+                                    <li><span class="file"><a href="_pulseininv.html" tabindex="1">PulseInInv</a></span></li>
                                     <li><span class="file"><a href="_microchip_pic_pwm_overview.html" tabindex="1">Microchip PIC PWM Overview</a></span><ul>
                                           <li><span class="file"><a href="_pwm_software_mode.html" tabindex="1">PWM Software Mode</a></span><ul>
                                                 <li><span class="file"><a href="_pwmout.html" tabindex="1">PWMOut</a></span></li>
@@ -740,6 +774,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_i2cstart.html" tabindex="1">I2CStart</a></span></li>
                                     <li><span class="file"><a href="_i2cstartoccurred.html" tabindex="1">I2CStartoccurred</a></span></li>
                                     <li><span class="file"><a href="_i2cstop.html" tabindex="1">I2CStop</a></span></li>
+                                    <li><span class="file"><a href="_pcf8574.html" tabindex="1">PCF8574</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_i2c_twi_hardware_module.html" tabindex="1">I2C/TWI Hardware Module</a></span><ul>
@@ -747,6 +782,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
+                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -786,6 +822,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_stoptimer.html" tabindex="1">StopTimer</a></span></li>
                                     <li><span class="file"><a href="_reading_timers.html" tabindex="1">Reading Timers</a></span></li>
                                     <li><span class="file"><a href="_smt_timers.html" tabindex="1">SMT Timers</a></span></li>
+                                    <li><span class="file"><a href="_millis_timer_based_functions.html" tabindex="1">Millis - Timer based functions</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_variables_operations.html" tabindex="1">Variables Operations</a></span><ul>
@@ -793,17 +830,14 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_more_on_setting_variables_and_constants.html" tabindex="1">More on setting Variables and Constants</a></span></li>
                                     <li><span class="file"><a href="_setting_variables.html" tabindex="1">Setting Variables</a></span></li>
                                     <li><span class="file"><a href="_variable_lifecycle.html" tabindex="1">Variable Lifecycle</a></span></li>
-                                    <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span></li>
-                                 </ul>
-                              </li>
-                              <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
-                              <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
-                              <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
-                              <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
-                              <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
-                              <li><span class="file"><a href="_new_example_1_basic_variables_with_initial_values.html" tabindex="1">New Example 1: Basic Variables with Initial Values</a></span></li>
-                              <li><span class="file"><a href="_new_example_2_arrays_and_initialisation.html" tabindex="1">New Example 2: Arrays and Initialisation</a></span></li>
-                              <li><span class="file"><a href="_new_example_3_bit_level_access_using_constants.html" tabindex="1">New Example 3: Bit‑Level Access Using Constants</a></span><ul>
+                                    <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span><ul>
+                                          <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
+                                          <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
+                                          <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
+                                          <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
+                                          <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
+                                       </ul>
+                                    </li>
                                     <li><span class="file"><a href="_alloc.html" tabindex="1">Alloc</a></span></li>
                                     <li><span class="file"><a href="_bcdtodec_gcb.html" tabindex="1">BcdToDec_GCB</a></span></li>
                                     <li><span class="file"><a href="_dectobcd_gcb.html" tabindex="1">DecToBcd_GCB</a></span></li>
@@ -811,6 +845,8 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_set.html" tabindex="1">Set</a></span></li>
                                     <li><span class="file"><a href="_swap4.html" tabindex="1">SWAP4</a></span></li>
                                     <li><span class="file"><a href="_swap.html" tabindex="1">SWAP</a></span></li>
+                                    <li><span class="file"><a href="_peek.html" tabindex="1">Peek</a></span></li>
+                                    <li><span class="file"><a href="_poke.html" tabindex="1">Poke</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_string_manipulation.html" tabindex="1">String Manipulation</a></span><ul>
@@ -859,16 +895,7 @@ border: none; background: none; font-weight: none; color: none; }
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_miscellaneous_commands.html" tabindex="1">Miscellaneous Commands</a></span><ul>
-                                    <li><span class="file"><a href="_dir.html" tabindex="1">Dir</a></span></li>
                                     <li><span class="file"><a href="_getuserid.html" tabindex="1">GetUserID</a></span></li>
-                                    <li><span class="file"><a href="_pot.html" tabindex="1">Pot</a></span></li>
-                                    <li><span class="file"><a href="_pulseout.html" tabindex="1">PulseOut</a></span></li>
-                                    <li><span class="file"><a href="_pulseoutinv.html" tabindex="1">PulseOutInv</a></span></li>
-                                    <li><span class="file"><a href="_pulsein.html" tabindex="1">PulseIn</a></span></li>
-                                    <li><span class="file"><a href="_pulseininv.html" tabindex="1">PulseInInv</a></span></li>
-                                    <li><span class="file"><a href="_peek.html" tabindex="1">Peek</a></span></li>
-                                    <li><span class="file"><a href="_poke.html" tabindex="1">Poke</a></span></li>
-                                    <li><span class="file"><a href="_weak_pullups.html" tabindex="1">Weak Pullups</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_maths.html" tabindex="1">Maths</a></span><ul>
@@ -890,7 +917,9 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_trigonometry_atan.html" tabindex="1">Trigonometry ATAN</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="_peripheral_pin_select.html" tabindex="1">Peripheral Pin Select</a></span><ul>
+                              <li><span class="file"><a href="_port_control.html" tabindex="1">Port control</a></span><ul>
+                                    <li><span class="file"><a href="_dir.html" tabindex="1">Dir</a></span></li>
+                                    <li><span class="file"><a href="_weak_pullups.html" tabindex="1">Weak Pullups</a></span></li>
                                     <li><span class="file"><a href="_peripheral_pin_select_for_microchip_microcontrollers.html" tabindex="1">Peripheral Pin Select for Microchip microcontrollers.</a></span></li>
                                     <li><span class="file"><a href="_unlockpps.html" tabindex="1">UnLockPPS</a></span></li>
                                     <li><span class="file"><a href="_lockpps.html" tabindex="1">LockPPS</a></span></li>
@@ -918,10 +947,10 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_other_directives.html" tabindex="1">Other directives</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_compiler_options.html" tabindex="1">Compiler Options</a></span><ul>
+                        <li><span class="file"><a href="_compiler_preprocessor_options.html" tabindex="1">Compiler Preprocessor Options</a></span><ul>
                               <li><span class="file"><a href="__option_explicit.html" tabindex="1">#Option Explicit</a></span></li>
                               <li><span class="file"><a href="__option_noconfig.html" tabindex="1">#Option NoConfig</a></span></li>
-                              <li><span class="file"><a href="__option_startupmethodsdisabled.html" tabindex="1">#Option STARTUPMETHODSDISABLED</a></span></li>
+                              <li><span class="file"><a href="__option_startupmethoddisabled.html" tabindex="1">#Option StartupMethodDisabled</a></span></li>
                               <li><span class="file"><a href="__option_bootloader.html" tabindex="1">#Option Bootloader</a></span></li>
                               <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
                               <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
@@ -963,42 +992,34 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
-                              <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
-                              <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_operating_systems_support.html" tabindex="1">Operating Systems Support</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                               <li><span class="file"><a href="_make_asm_make_hex_and_programming_operations_using_the_provided_linux_scripts.html" tabindex="1">Make ASM, Make HEX and Programming Operations using the provided Linux scripts</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
                               <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
                               <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
+                              <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
                               <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">COMPILER SOURCE INSIGHTS</a></span></li>
+                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">Compiler Source Insights</a></span></li>
                               <li><span class="file"><a href="_about_glcd_library_support.html" tabindex="1">ABOUT GLCD Library Support</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span><ul>
+                                    <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">About the Preferences Editor</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
+                              <li><span class="file"><a href="_gcbasic_documentation_toolchain.html" tabindex="1">GCBASIC Documentation Toolchain</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">ABOUT THE PREFERENCES EDITOR</a></span></li>
                         <li><span class="file"><a href="_gcbasic_with_the_avrisp_or_mkii_programmer.html" tabindex="1">GCBASIC with the AVRISP or MKII Programmer</a></span><ul>
                               <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                      </ul>
                   </div>
                </div>

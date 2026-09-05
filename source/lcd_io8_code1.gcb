@@ -1,0 +1,17 @@
+    #chip 16F877A, 20
+
+    ' Connection mode 8: a full 8-bit parallel connection. All 8 data lines
+    ' share one port, in sequential order (DB0 to bit 0, DB7 to bit 7).
+    ' R/W is disabled here (LCD_NO_RW), so tie the LCD's R/W pin to ground.
+    #define LCD_IO 8
+    #define LCD_NO_RW
+
+    #define LCD_DATA_PORT PORTB
+    #define LCD_RS PORTA.7
+    #define LCD_Enable PORTA.6
+
+    CLS
+
+    Print "Hello World."          ' <<< the print instruction this page documents
+
+    END

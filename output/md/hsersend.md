@@ -36,7 +36,7 @@ meet your needs.  For addition USART ports use
 `#define USARTn_BAUD_RATE 9600` where `` n` `` is the required port
 number.
 
-``` screen
+``` programlisting
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
     #define USART_TX_BLOCKING
@@ -50,7 +50,7 @@ class="emphasis">*user\_byte*</span> using the hardware RS232 module.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
   'This program will send the status of PORTB through the hardware
   'serial module.
 
@@ -71,11 +71,28 @@ class="emphasis">*user\_byte*</span> using the hardware RS232 module.
   'Main loop
   Do
     'Send PORTB value through USART
-    HSerSend PORTB
+    HSerSend PORTB          ' <<< the HSerSend instruction
     HSerSend(13)    ' sends a CR
     'Short delay for receiver to process message
     Wait 10 ms      'probably not necessary with blocking statement
   Loop
 ```
+
+<span class="strong">**Key line:**</span> `HSerSend PORTB` — sends a
+single raw byte (the current value of `PORTB`) directly over the
+hardware serial connection.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hserprint" class="link" title="HSerPrint">HSerPrint</a> — sending
+    a string, integer, word, or long, rather than a single raw byte
+-   <a href="hserreceive" class="link" title="HSerReceive">HSerReceive</a> — the
+    receiving counterpart to HSerSend
+-   <a href="dir" class="link" title="Dir">Dir</a> — setting the
+    pin directions before sending, as used above
+
+</div>
 
 </div>

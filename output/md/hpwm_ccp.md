@@ -65,7 +65,7 @@ ranges from 0 to 255 where 255 is 100% duty cycle.
 To stop the PWM signal use the `HPWMOff` method with the parameter of
 the channel.
 
-``` screen
+``` programlisting
     'Stop the CCP/PWM signal
     HPWMOff ( 1 )
 ```
@@ -83,7 +83,7 @@ to use Timer2 for non-CCP/PWM support.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program will alter the brightness of an LED using
     'CCP/PWM.
 
@@ -97,7 +97,7 @@ to use Timer2 for non-CCP/PWM support.
     do
         'Turn up brightness over the range
         For Bright = 1 to 255
-            HPWM 1, 40, Bright
+            HPWM 1, 40, Bright          ' <<< the HPWM instruction
             wait 10 ms
         next
         'Turn down brightness over the range
@@ -107,5 +107,23 @@ to use Timer2 for non-CCP/PWM support.
         next
     loop
 ```
+
+<span class="strong">**Key line:**</span> `HPWM 1, 40, Bright` — drives
+CCP channel 1 at a fixed 40 KHz frequency while sweeping the duty cycle
+through `Bright`, which is how this example ramps an LED’s brightness up
+and down smoothly.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hpwm_ccptimern" class="link" title="HPWM_CCPTimerN">HPWM_CCPTimerN</a> — CCP/PWM
+    support for timers 2, 4 and 6 with alternative clock sources
+-   <a href="hpwm_10_bit" class="link" title="HPWM 10 Bit">HPWM 10 Bit</a> — 10-bit
+    PWM support with other timers
+-   <a href="hpwmoff" class="link" title="HPWMOff">HPWMOff</a> — stopping
+    a PWM channel started with HPWM
+
+</div>
 
 </div>

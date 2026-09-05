@@ -1,8 +1,10 @@
 ==== SetWith
 
-*Syntax:*
-[subs="quotes"]
+(((Bitwise,SetWith)))
 
+
+*Syntax:*
+[subs="specialcharacters,quotes"]
 
 ----
     SetWith(TargetBit, Source)
@@ -14,14 +16,13 @@ Available on all microcontrollers.
 
 *Explanation:*
 
-`SetWith` is an extended version of SET, it allows a Bit Field to be set or cleared by evaluating the content of Source. `SetWith` should always be used when TargetBit is an I/O Bit and Source is a Function, in order to avoid the possibility of I/O jitter.
+`SetWith` is an extended version of `Set` that sets or clears a single bit by evaluating the result of `Source`, rather than requiring a literal `On`/`Off`. Use `SetWith` whenever `TargetBit` is an I/O pin and `Source` is the result of a function or expression, rather than writing the pin in two steps (evaluate, then `If...Then Set`) -- doing it in one call avoids a brief window where the pin could glitch to its old state before your code catches up, an effect commonly called I/O jitter.
 
-Source may be a variable and of  type: Bit, Byte, Word or Long, a Constant, an expression or a Function.
-
-It will SET  TargetBit  to 1 if Source evaluates to anything other than zero. TargetBit  will always be a 1 or a 0 regardless of the variable type of TargetBit.
+`Source` can be a variable of type Bit, Byte, Word, or Long, a constant, an expression, or a function's result. `SetWith` sets `TargetBit` to 1 if `Source` evaluates to anything other than zero, and to 0 otherwise -- `TargetBit` is always driven to exactly 1 or 0, regardless of `Source`'s variable type or magnitude.
 
 *Example:*
 
+[source,gcbasic]
 ----
     ' This program will reflect the state of SW1(RA3) on LED DS1(RC0) of the Microchip
     ' Low Pin Count Demo Board. Notice that because SW1 is normally High the state has to
@@ -37,9 +38,14 @@ It will SET  TargetBit  to 1 if Source evaluates to anything other than zero. Ta
 
     Do
       ' set the Bit DS1 to equal the Bit SW1
-      SetWith( DS1, !SW1 )
+      SetWith( DS1, !SW1 )          ' <<< the SetWith instruction
     Loop
     END
 ----
+*Key line:* `SetWith( DS1, !SW1 )` -- drives `DS1` to the logical inverse of `SW1` in a single, jitter-free step, rather than reading `SW1` and writing `DS1` as two separate statements.
 
-*See Also <<_bitwise_operations_overview, Bitwise Operations Overview>>* and *<<_conditions, Conditions>>*
+**See Also:**
+
+* <<_bitwise_operations_overview,Bitwise Operations Overview>> -- background on GCBASIC's bitwise operations
+* <<_set,Set>> -- the simpler On/Off form that `SetWith` extends
+* <<_dir,Dir>> -- setting the pin directions used in the example above

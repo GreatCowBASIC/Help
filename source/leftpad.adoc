@@ -1,8 +1,11 @@
 ==== LeftPad
 
+(((String Manipulation,LeftPad)))
+
+
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     LeftPad(_string_variable_,_byte_value_of_the_new_length_,_pad_character_)
 ----
@@ -21,6 +24,7 @@ The character used to pad the string is specified by the third parameter.
 A typical use is to pad a string to be displayed on a serial terminal or LCD.
 
 *Example:*
+[source,gcbasic]
 ----
     'Set chip model
  'Set chip model
@@ -64,7 +68,7 @@ A typical use is to pad a string to be displayed on a serial terminal or LCD.
 
     inString = "12345"
 
-    outString1 = leftpad(inString, 9, "*")
+    outString1 = leftpad(inString, 9, "*")          ' <<< the LeftPad instruction, with an explicit pad character
     outString2 = leftpad(inString, 9)
 
     'show results on LCD-Display
@@ -80,3 +84,9 @@ A typical use is to pad a string to be displayed on a serial terminal or LCD.
 
     end
 ----
+*Key line:* `outString1 = leftpad(inString, 9, "{asterisk}")` -- pads `inString` ("12345") out to 9 characters by adding `{asterisk}` characters on the left, giving `"{asterisk}{asterisk}{asterisk}{asterisk}12345"`; the second call omits the pad character and defaults to padding with blank spaces instead.
+
+**See Also:**
+
+* <<_left,Left>> -- related command in the same category
+* <<_asc,Asc>> -- related command in the same category

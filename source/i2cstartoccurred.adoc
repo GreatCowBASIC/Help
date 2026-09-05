@@ -1,6 +1,10 @@
 ==== I2CStartoccurred
 
+(((I2C Software,I2CStartoccurred)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     I2CStartoccurred
 ----
@@ -11,13 +15,24 @@ Available on all microcontrollers except 12 bit instruction Microchip PIC microc
 
 *Explanation:*
 
-If the I2C routine IS operating in Slave mode, this function will check if a start condition has occurred since the last run of this function.
-	'Only used in slave mode
+If the I2C routine is operating in Slave mode, this function checks whether a start condition has occurred since the last time the function was called. It is only used in slave mode.
 
 *Example:*
+[source,gcbasic]
+----
+    'Slave-mode polling loop that waits for the master to begin a transmission
+    Do
+        If I2CStartoccurred Then          ' <<< the I2CStartoccurred instruction
+            I2CReceive DataByte
+        End If
+    Loop
+----
+*Key line:* `If I2CStartoccurred Then` -- checks whether the master has issued a start condition since this function was last called, so the slave only attempts to receive data once a transmission has actually begun.
 
-Please see <<_i2csend,I2CSend>> and <<_i2creceive,I2CReceive>>
-for an example.
+**See Also:**
+
+* <<_i2c_overview,I2C Overview>> -- category overview
+* <<_i2creceive,I2CReceive>> -- receiving the data once a start condition has been detected
+* <<_i2cstart,I2CStart>> -- the master-side command that generates the start condition this function detects
 
 Supported in <I2C.H>
-

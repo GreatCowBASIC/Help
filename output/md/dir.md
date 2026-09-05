@@ -49,7 +49,7 @@ for in. When IN and OUT are used there are no compatibility issues.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program sets PORTA bits 0 and 1 to in, and the rest to out.
     'It also sets all of PORTB to output, except for B1.
     'Individual form is used for PORTA:
@@ -62,11 +62,15 @@ for in. When IN and OUT are used there are no compatibility issues.
     DIR PORTA.6 OUT
     DIR PORTA.7 OUT
     'Entire port form used for B:
-    DIR PORTB b'00000010'
+    DIR PORTB b'00000010'          ' <<< the entire-port form this page documents
 
     'Entire port form used for C:
     DIR PORTC IN
 ```
+
+<span class="strong">**Key line:**</span> `DIR PORTB b'00000010'` — sets
+every bit of PORTB in one call; bit 1 becomes an input (1), all other
+bits become outputs (0).
 
 <span class="strong">**Automatic DIRection setting by the
 compiler**</span>
@@ -92,7 +96,7 @@ communication, or if you are just reading the latch. To avoid making
 incorrect assumptions, the compiler will expect you to set the pin
 direction manually.
 
-If you use "portA.2 = 1", you’ve only written to the pin, so the
+If you use "portA.2 = 1", you have only written to the pin, so the
 compiler knows it must be an output.
 
 If you use "portA.2 = not portA.2", the compiler sees that you are
@@ -101,6 +105,19 @@ direction instead of trying to guess what you are doing.
 
 The compiler also records any use of the Dir command, and will not do
 any automatic direction setting on a pin if Dir has been used on that
-pin anywhere in the user program..
+pin anywhere in the user program.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="set" class="link" title="Set">Set</a> — setting a
+    pin’s output state after configuring its direction
+-   <a href="pwmout" class="link" title="PWMOut">PWMOut</a> — an
+    example that sets a pin’s direction before driving it
+-   <a href="readad" class="link" title="ReadAD">ReadAD</a> — reading
+    an analog pin, which does not need an explicit Dir
+
+</div>
 
 </div>

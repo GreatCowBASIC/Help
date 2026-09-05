@@ -18,23 +18,23 @@
 
 The GCBASIC compiler can be used with the Apple macOS operating system.
 It should run on any version from Snow Leopard 10.6 and above. It is
-guaranteed to run on both High Sierra 10.13 and Mojave 10.14 which have
+guaranteed to run on both High Sierra 10.13 and Mojave 10.14, which have
 been extensively tested.
 
 You have a choice to make. You can either:
 
 <div class="orderedlist">
 
-1.  download a macOS installer which will install a precompiled 64 bit
-    binary for the GCBASIC compiler along with support files and some
+1.  download a macOS installer which will install a precompiled 64-bit
+    binary for the GCBASIC compiler, along with support files and some
     optional components; or
-2.  download, compile and install the GCBASIC compiler from the source
+2.  download, compile, and install the GCBASIC compiler from the source
     files.
 
 </div>
 
-There are instructions below for both choices. If I was you, I would use
-the macOS GCBASIC Installer and save valuable programming time :-)
+There are instructions below for both choices. If you use the macOS
+GCBASIC Installer, you will save valuable programming time.
 
 <span class="strong">**Instructions for using the GCBASIC
 Installer**</span>
@@ -43,10 +43,10 @@ Installer**</span>
 
 1.  Download the GCBASIC - macOS Installer disk image (.dmg) file from
     <https://sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download>
-2.  Double click the .dmg file to mount it on your Desktop and a window
+2.  Double click the .dmg file to mount it on your Desktop, and a window
     will open which contains the Installer.
-3.  Double click the REAME\_FIRST.txt file and read it for any important
-    information you may need before proceeding.
+3.  Double click the README\_FIRST.txt file and read it for any
+    important information you may need before proceeding.
 4.  Double click the GCBASIC icon and follow the installer prompts.
 
 </div>
@@ -64,15 +64,15 @@ compiler:
 2.  Download the GCBASIC UNIX Source Distribution from SourceForge at
     <http://gcbasic.sourceforge.net/Typesetter/index.php/Download>
 3.  Note: the following instructions assume the distribution file is
-    named GCBASIC-UNIX-v0\_98\_05.rar however the version number
+    named GCBASIC-UNIX-v0\_98\_05.rar; however, the version number
     (v0\_98\_05) may change before these instructions are updated, so
     you may have to adjust the filename to match the version you have
     downloaded.
-4.  Unfortunately Apple replaced the gcc compiler with the clang
-    compiler and FreeBASIC needs the real gcc due to a certain use of
-    goto…​ so, you can compile your own version of gcc following the
+4.  Unfortunately, Apple replaced the gcc compiler with the clang
+    compiler, and FreeBASIC needs the real gcc due to a certain use of
+    `goto`. So, you can compile your own version of gcc following the
     instructions at
-    <https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/> or
+    <https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/>, or
     you can take the low road and just download the pre-compiled binary
     version from
     <https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2>
@@ -194,8 +194,8 @@ This will produce a new directory called fbc-1.06.
 
 This will produce a new directory called GCBASIC. <span
 class="strong">**Note:**</span> If you do not currently have the unrar
-program which can extract rar file archives you can download and install
-it for free from the App Store.
+program, which can extract rar file archives, you can download and
+install it for free from the App Store.
 
 <div class="orderedlist">
 
@@ -225,9 +225,8 @@ edit the build.sh script file and change the file paths and filenames to
 the appropriate values.
 
 Note 2: You may need to alter the library and include paths in the
-build.sh script depending on your version of macOS (it is currently
-setup for the Xcode High Sierra 10.13 and Mojave 10.14 versions of
-macOS).
+build.sh script, depending on your version of macOS (it is currently set
+up for the Xcode High Sierra 10.13 and Mojave 10.14 versions of macOS).
 
 <div class="orderedlist">
 
@@ -240,7 +239,7 @@ macOS).
    gcbasic
 ```
 
-Now you should be able create GCB source files with your favourite
+Now you should be able to create GCB source files with your favourite
 editor and compile those files with the gcbasic compiler.
 
 <span class="strong">**Programming microcontrollers**</span>
@@ -257,26 +256,26 @@ will need additional hardware and software.
     software.
 2.  For Atmel AVR microcontroller programming, you will need the
     `avrdude` programming software. Check here:
-    <http://www.nongnu.org/avrdude/> for it.
+    <http://www.nongnu.org/avrdude/>
 
 </div>
 
-Alternatively, if you use Virtual Machine software such as <span
+Alternatively, if you use virtual machine software such as <span
 class="emphasis">*Parallels*</span> or <span class="emphasis">*VMWare
 Fusion*</span> to run Windows programs, you can use Windows GUI
 programming software.
 
 <div class="itemizedlist">
 
--   For Microchip, the PICKit 2 and PICkit 3 standalone GUI software or
+-   For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or
     even better the PICkitPlus software
     (<https://sourceforge.net/projects/pickit3plus/>) for both the
     PICkit 2
     (<https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120>)
     and PICkit 3
-    (<https://www.microchip.com/Developmenttools/ProductDetails/PG164130>)
+    (<https://www.microchip.com/Developmenttools/ProductDetails/PG164130>),
     which has fixed various bugs in those programs and been updated to
-    program the latest Microchip 8 bit microcontrollers.
+    program the latest Microchip 8-bit microcontrollers.
 
 </div>
 
@@ -288,5 +287,16 @@ subdirectory in your GCBASIC directory.
 If at any time you encounter an issue and need help, you will find it
 over at the friendly GCBASIC discussion forums at
 <https://sourceforge.net/p/gcbasic/discussion/>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="overview_linux_operating_system" class="link" title="Overview - Linux Operating System">Overview - Linux Operating System</a> — the
+    equivalent instructions for Linux
+-   <a href="overview_freebsd_gcbasic" class="link" title="Overview - FreeBSD GCBASIC">Overview - FreeBSD GCBASIC</a> — the
+    equivalent instructions for FreeBSD
+
+</div>
 
 </div>

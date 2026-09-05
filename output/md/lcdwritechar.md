@@ -35,7 +35,7 @@ characters 0 through 7 are user defined, and can be set using the
 
 <span class="strong">**Example :**</span>
 
-``` screen
+``` programlisting
     'This program draws a smiling face character
 
     'Create an array to store the character until it is copied
@@ -55,12 +55,25 @@ characters 0 through 7 are user defined, and can be set using the
     LCDCreateChar 0, CharArray()
 
     'Draw the custom character
-    LCDWriteChar 0
+    LCDWriteChar 0          ' <<< the LCDWriteChar instruction
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="lcdcreatechar" class="link" title="LCDCreateChar">LCDCreateChar</a>,
-<a href="lcd_overview" class="link" title="LCD Overview">LCD Overview</a>
+<span class="strong">**Key line:**</span> `LCDWriteChar 0` — displays
+the custom character stored at index 0 (the smiling face defined by
+`CharArray` and copied in with `LCDCreateChar`) at the current cursor
+position; passing a value of 32 or higher instead would print a standard
+ASCII character.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcdcreatechar" class="link" title="LCDCreateChar">LCDCreateChar</a> — defining
+    the custom character shown above
+-   <a href="lcd_overview" class="link" title="LCD Overview">LCD Overview</a> — category
+    overview
+
+</div>
 
 <span class="strong">**Supported in &lt;LCD.H&gt;**</span>
 

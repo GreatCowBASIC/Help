@@ -1,28 +1,48 @@
 ==== PFMRead
 
+(((PROGMEM ( PFM ),PFMRead)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 
 ----
 
-    PFMRead (_location, store_)
+    PFMRead (_location_, _store_)
 
 ----
 
 *Command Availability:*
 
-Available on all Microchip PIC microcontrollers with PFM self write capability.
+Available on Microchip PIC microcontrollers with PFM (Program Flash Memory) self-write capability, such as the 18FxxQ41 family.
 
 *Explanation:*
 
-`PFMRead` reads information from the program memory on chips that
-support this feature. `_location_` is a word variable, and `_store_` can be a byte of word.
+`PFMRead` reads information from the program memory on chips that support this feature. `_location_` is a word variable identifying the word to read, and `_store_` can be a byte or word variable to receive the result.
 
-The largest value possible for `_location_` depends on the amount of
-program memory on the Microchip PIC microcontroller.
+The largest value possible for `_location_` depends on the amount of program memory on the Microchip PIC microcontroller.
 
-This is an advanced command which should only be used by advanced
-developers.
+This is an advanced command intended for developers who need direct control over program-memory self-read operations; most programs should use <<_data,DATA>> blocks and `ProgramRead` instead.
 
+*Example:*
 
-*For more help, see <<_pfmwrite,PFMWrite>>*
+[source,gcbasic]
+----
+    #chip 18F56Q43, 64
+
+    Dim WordLocation As Word
+    Dim StoredValue As Word
+
+    WordLocation = 0x1000
+
+    PFMRead ( WordLocation, StoredValue )          ' <<< the PFMRead instruction
+
+    HSerPrint StoredValue
+----
+*Key line:* `PFMRead ( WordLocation, StoredValue )` -- reads the program-memory word at `WordLocation` back into `StoredValue`.
+
+**See Also:**
+
+* <<_pfmwrite,PFMWrite>> -- writing the value this page reads back
+* <<_programread,ProgramRead>> -- the equivalent command on chip families that do not use the PFM naming
+* <<_data,DATA>> -- defining a program-memory dataset to read with this command

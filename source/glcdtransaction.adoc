@@ -1,6 +1,10 @@
 ==== GLCDTransaction
 
+(((Graphical LCD,GLCDTransaction)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
 
     GLCD_Open_PageTransaction
@@ -23,6 +27,7 @@ GLCDTransaction simplies the operation by ensure the buffer is setup correctly, 
 
 To use GLCDTransaction use the followng methods.
 
+[source,gcbasic]
 ----
     GLCD_Open_PageTransaction
       ....
@@ -49,6 +54,7 @@ When using SRAM for the e-paper buffer it is still remcommend to use GLCDTransac
 *Optional GLCD_Open_Transaction parameters*
 
 *Syntax:*
+[source,gcbasic]
 ----
 
     GLCD_Open_PageTransaction ( low_page, high_page )
@@ -59,3 +65,9 @@ When using SRAM for the e-paper buffer it is still remcommend to use GLCDTransac
 You can optionally pass `GLCD_Open_PageTransaction` two parmeters.  The parameters will constrain the GLCD display update process to the specific pages.
 
 This can be used when only updating a potion of the screen to improve performance.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_glcdtimedelay,GLCDTimeDelay>> -- related command in the same category
+* <<_glcdcls,GLCDCLS>> -- related command in the same category

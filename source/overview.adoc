@@ -1,5 +1,8 @@
 ==== I2C Overview
 
+(((I2C Software,I2C Overview)))
+
+
 *Introduction:*
 
 These software routines allow GCBASIC programs to send and receive I2C
@@ -53,6 +56,7 @@ part of your solution
 *Example:*
 This example examines the IC2 devices and displays on a terminal.
 This code will require adaption but the code shows an approach to discover the IC2 devices.
+[source,gcbasic]
 ----
   ' I2C Overview - using the ChipIno board, see here for information
   #chip 16F886, 8
@@ -83,7 +87,7 @@ This code will require adaption but the code shows an approach to discover the I
   dim DeviceID as byte
   for DeviceID = 0 to 255
     I2CStart
-    I2CSend ( deviceID )
+    I2CSend ( deviceID )          ' <<< the I2CSend instruction
     I2CSend ( 0 )
     I2CSend ( 0 )
     i2cstop
@@ -102,4 +106,10 @@ This code will require adaption but the code shows an approach to discover the I
   HSerPrint   "End of Device Search": HSerPrintCRLF 2
   End
 ----
+*Key line:* `I2CSend ( deviceID )` -- addresses each possible device ID in turn; `I2CSendState` afterward tells the program whether that device acknowledged, which is how this sketch discovers what is present on the bus.
 Supported in <I2C.H>
+
+**See Also:**
+
+* <<_i2cackpollstate,I2CAckPollState>> -- related command in the same category
+* <<_i2cackpoll,I2CAckpoll>> -- related command in the same category

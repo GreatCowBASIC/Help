@@ -26,27 +26,28 @@ Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-`FnLSR` (Logical Shift Right) will perform a Bitwise right shift.
-`FnLSR` will return BitsIn shifted NumBits to the right, it is
-equivalent to the 'C' operation:
+`FnLSR` (Logical Shift Right) performs a bitwise right shift. It returns
+`BitsIn` shifted right by `NumBits` places, equivalent to the C
+operation:
 
-``` screen
+``` programlisting
     BitsOut = BitsIn >> NumBits
 ```
 
-Each right shift is the equivalent of dividing BitsIn by 2.
+Each right shift is equivalent to dividing `BitsIn` by 2 (discarding any
+remainder). `BitsIn` and `NumBits` can each be a variable, constant, or
+another function’s result, of type Bit, Byte, Word, or Long. Zeros are
+shifted in from the left; bits shifted out of the right end are
+discarded and lost — there is no rounding, so shifting an odd number
+right always truncates rather than rounds.
 
-BitsIn and NumBits may be may be a variable and of type: Bit, Byte,
-Word, Long, Constant or another Function.
-
-Zeros are shifted in from the left, Bits that are shifted out are lost.
-
-It is useful for mathematical and logical operations, as well as
-creating serial data streams or manipulating I/O ports.
+It is useful for mathematical and logical operations, as well as for
+creating serial data streams or manipulating I/O ports one bit-pattern
+at a time.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     ' This program will shift the LEDs on the Microchip PIC Low Pin Count Demo Board
     ' from Right to Left, that is DS4(RC3) to DS1(RC0) and repeat.
 
@@ -61,15 +62,28 @@ creating serial data streams or manipulating I/O ports.
     Do
       LEDPORT = LEDMask    ' Display the Pattern
       wait 500 ms
-      LEDMask = FnLSR(LEDMask, 1) & 0x0F ' Mask the lower 4 bits
+      LEDMask = FnLSR(LEDMask, 1) & 0x0F ' <<< the FnLSR instruction
       if LEDPORT.0 then LEDMask.3 = 1    ' Restart the sequence
     Loop
     End
 ```
 
-<span class="strong">**See Also
-<a href="bitwise_operations_overview" class="link" title="Bitwise Operations Overview">Bitwise Operations Overview</a>**</span>
-and <span
-class="strong">**<a href="conditions" class="link" title="Conditions">Conditions</a>**</span>
+<span class="strong">**Key line:**</span>
+`FnLSR(LEDMask, 1) & 0x0F` — shifts the lit LED one position right, then
+masks the result down to 4 bits so the pattern wraps within \`LEDPORT’s
+lower nibble instead of drifting into unrelated bits.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="bitwise_operations_overview" class="link" title="Bitwise Operations Overview">Bitwise Operations Overview</a> — background
+    on GCBASIC’s bitwise operations
+-   <a href="fnlsl" class="link" title="FnLSL">FnLSL</a> — the
+    equivalent left-shift function
+-   <a href="conditions" class="link" title="Conditions">Conditions</a> — the
+    `if` test used to restart the sequence in the example above
+
+</div>
 
 </div>

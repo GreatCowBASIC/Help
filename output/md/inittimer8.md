@@ -38,7 +38,7 @@ for initialisation.
   
 The first method is:  
 
-``` screen
+``` programlisting
     InitTimer8 prescaler, postscaler
 ```
 
@@ -53,7 +53,7 @@ source.  Microcontrollers that support this second method enable you to
 select different clock sources and to select more prescale values.  The
 method is shown below:  
 
-``` screen
+``` programlisting
     InitTimer8 clocksource, prescaler, postscaler
 ```
 
@@ -69,7 +69,7 @@ NOT**</span> have a T2CLKCON register then timers 2/4/6/8 for that
 specific microcontroller chip use the first method, and are configured
 using:  
 
-``` screen
+``` programlisting
     InitTimer8 (PreScale, PostScale)
 ```
 
@@ -77,7 +77,7 @@ If the microcontroller <span class="strong">**DOES**</span> have a
 T2CLKCON register then ALL timers 2/4/6/8 for that specific
 microcontroller chip use the second method, and are configured using:
 
-``` screen
+``` programlisting
     InitTimer8 (Source,PreScale,PostScale)
 ```
 
@@ -229,6 +229,19 @@ the Postscaler Rate Select bits are in the range of 1 to 16.
 |                 1:14 Postscaler                 |                          13                          |
 |                 1:15 Postscaler                 |                          14                          |
 |                 1:16 Postscaler                 |                          15                          |
+
+</div>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="timer_overview" class="link" title="Timer Overview">Timer Overview</a> — category
+    overview
+-   <a href="inittimer0" class="link" title="InitTimer0">InitTimer0</a> — related
+    command in the same category
+-   <a href="inittimer1" class="link" title="InitTimer1">InitTimer1</a> — related
+    command in the same category
 
 </div>
 

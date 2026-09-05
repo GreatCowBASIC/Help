@@ -35,7 +35,7 @@ meet your needs.  For addition USART ports use
 `#define USARTn_BAUD_RATE 9600` where `` n` `` is the required port
 number.
 
-``` screen
+``` programlisting
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
     #define USART_TX_BLOCKING
@@ -51,14 +51,27 @@ carriage return and line feed.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
   'This program will send the status of PORTB through the hardware serial module.
 
-  HserPrintByteCRLF 65    ' Will print a single A on the terminal
+  HserPrintByteCRLF 65    ' Will print a single A on the terminal          ' <<< the HserPrintByteCRLF instruction
   HserPrintByteCRLF "A"   ' Will print a single A on the terminal
 ```
 
-<span class="strong">**See also**</span>
-<a href="hserprintcrlf" class="link" title="HserPrintCRLF">HserPrintCRLF</a>
+<span class="strong">**Key line:**</span> `HserPrintByteCRLF 65` — sends
+the byte value 65 (ASCII `A`) followed automatically by a carriage
+return and line feed, saving the two separate `HSerSend` calls that
+`HserPrintByteCRLF` combines into one.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hserprintcrlf" class="link" title="HserPrintCRLF">HserPrintCRLF</a> — sending
+    only the carriage return and line feed, with no data byte
+-   <a href="hsersend" class="link" title="HSerSend">HSerSend</a> — sending
+    a raw byte with no automatic CR/LF
+
+</div>
 
 </div>

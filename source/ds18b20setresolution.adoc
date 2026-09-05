@@ -1,10 +1,14 @@
 ==== DS18B20SetResolution
 
+(((One Wire Devices,DS18B20SetResolution)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 For Single Channel/Device only. The method assumes a single DS18B20 device on the OneWire bus.
+[source,gcbasic]
 ----
-    DS18B20SetResolution ( [DS18B20SetResolution_CONTSTANT] )
+    DS18B20SetResolution ( [DS18B20SetResolution_CONSTANT] )
 ----
 
 
@@ -51,19 +55,20 @@ See example 3 below.
 
 The follow example sets the operating resolution of the DS18B20 to 12 bits.
 
-[subs="specialcharacters,quotes"]
+[source,gcbasic]
 ----
     #include <DS18B20.h>
     #define DQ PortC.3 ; change port configuration as required
-    DS18B20SetResolution ( DS18B20_TEMP_12_BIT )
+    DS18B20SetResolution ( DS18B20_TEMP_12_BIT )          ' <<< the DS18B20SetResolution instruction
 ----
+*Key line:* `DS18B20SetResolution ( DS18B20_TEMP_12_BIT )` -- sets the sensor's conversion resolution to 12 bits (0.0625C per unit), the highest precision available; higher resolution also means a longer conversion time on the OneWire bus, so lower-bit constants trade precision for speed.
 
 
 *Example Usage 2*
 
 The follow example sets the operating resolution of the DS18B20 to 9 bits.
 
-[subs="specialcharacters,quotes"]
+[source,gcbasic]
 ----
     #include <DS18B20.h>
     #define DQ PortC.3 ; change port configuration as required
@@ -74,7 +79,7 @@ The follow example sets the operating resolution of the DS18B20 to 9 bits.
 
 The follow example sets the operating resolution of the DS18B20 to the default value of 12 bits.
 
-[subs="specialcharacters,quotes"]
+[source,gcbasic]
 ----
     #include <DS18B20.h>
     #define DQ PortC.3 ; change port configuration as required
@@ -89,6 +94,7 @@ Change the `DS18B20SetResolution ()` method to set the resolution of a specific 
 
 You may need to change the chip, edit/remove PPS, and/or the change LCD settings to make this program work with your configuration.&#160;&#160;
 
+[source,gcbasic]
 ----
 #chip 16f18313
 #config MCLR=ON
@@ -194,3 +200,8 @@ You may need to change the chip, edit/remove PPS, and/or the change LCD settings
 ----
 {empty} +
 {empty} +
+
+**See Also:**
+
+* <<_ds18b20,DS18B20>> -- related command in the same category
+* <<_readdigitaltemp,ReadDigitalTemp>> -- related command in the same category

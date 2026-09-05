@@ -1,5 +1,8 @@
 ==== LCDCreateChar
 
+(((Liquid Crystal Display,LCDCreateChar)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -28,6 +31,7 @@ through 7 are usually used to store custom characters. +
 `_chardata()_` is an array containing the data for the character.
 
 *Example:*
+[source,gcbasic]
 ----
     'This program draws a smiling face character
 
@@ -57,12 +61,16 @@ through 7 are usually used to store custom characters. +
     CharArray(8) = b'00001110'
 
     'Copy the character from the array to the LCD
-    LCDCreateChar 0, CharArray()
+    LCDCreateChar 0, CharArray()          ' <<< the LCDCreateChar instruction
 
     'Draw the custom character
     LCDWriteChar 0
 ----
-*For more help, see* <<_lcdcreatechar,LCDWriteChar>>,
-<<_lcd_overview,LCD Overview>>
+*Key line:* `LCDCreateChar 0, CharArray()` -- copies the 8-row pixel pattern held in `CharArray()` into the LCD's custom-character slot 0, so that a later `LCDWriteChar 0` draws the smiling face rather than a standard ASCII character.
+
+**See Also:**
+
+* <<_lcdwritechar,LCDWriteChar>> -- displaying the custom character defined here
+* <<_lcd_overview,LCD Overview>> -- category overview
 
 *Supported in <LCD.H>*

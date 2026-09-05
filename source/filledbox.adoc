@@ -1,12 +1,30 @@
 ==== FilledBox
 
+(((Graphical LCD,FilledBox)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     FilledBox(LineX1,LineY1, LineX2, LineY2, Optional LineColour = 1)
 ----
 *Explanation:*
 
-Draws a filled box on a graphic LCD from the upper corner of pixel X1, Y1
-location to pixel X2,Y2 location. +
+Draws a filled box on a graphic LCD from the upper corner of pixel `LineX1`, `LineY1`
+to pixel `LineX2`, `LineY2`. +
 
-*See also* <<_box,Box>>
+`LineColour` can be specified. Typically the value is 0 or 1, corresponding to `GLCDBackground` and `GLCDForeground` respectively; it defaults to 1 (foreground) if omitted.
+
+*Example:*
+[source,gcbasic]
+----
+    #include <glcd.h>
+
+    FilledBox(10, 10, 100, 50)          ' <<< the FilledBox instruction
+----
+*Key line:* `FilledBox(10, 10, 100, 50)` -- draws a solid rectangle from pixel (10,10) to pixel (100,50), filled with the current foreground colour.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_box,Box>> -- the unfilled equivalent of this command

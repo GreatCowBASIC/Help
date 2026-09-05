@@ -1,5 +1,8 @@
 ==== UC1601 Controllers
 
+(((Graphical LCD,UC1601 Controllers)))
+
+
 
 This section covers GLCD devices that use the UC1601 graphics controller.
 
@@ -21,11 +24,12 @@ The GCBASIC constants shown below control the configuration of the UC1601 contro
 To use the UC1601 drivers simply include one of the following configuration.
 
 
+[source,gcbasic]
 ----
     'An I2C configuration
     #include <glcd.h>
 
-    #define GLCD_TYPE GLCD_TYPE_UC1601
+    #define GLCD_TYPE GLCD_TYPE_UC1601          ' <<< the constant that selects this controller driver
     #define GLCD_I2C_Address      0x70                   'I2C address
     #define GLCD_RESET            portc.0                'Hard Reset pin connection
     #define GLCD_PROTECTOVERRUN
@@ -39,6 +43,7 @@ To use the UC1601 drivers simply include one of the following configuration.
     #define I2C_DISABLE_INTERRUPTS ON
 
 ----
+*Key line:* `#define GLCD_TYPE GLCD_TYPE_UC1601` -- tells `<glcd.h>` to compile in the UC1601 driver; the `GLCD_I2C_Address` value must match the device's hardware address strap, which the datasheet allows to be 0x70 through 0x73, not only 0x70.
 
 The GCBASIC constants for control display characteristics are shown in the table below.
 
@@ -55,7 +60,7 @@ The GCBASIC constants for control display characteristics are shown in the table
 
 |`GLCD_I2C_Address`
 |I2C address of the GLCD.
-|Fixed at 0x70.
+|Required. Datasheet-defined, typically 0x70 through 0x73 depending on the hardware address strap.
 |===
 
 
@@ -234,6 +239,7 @@ Parameter is contrast value
 For a UC1601 datasheet, please refer http://gcbasic.sourceforge.net/library/DISPLAY/UC1601.pdf[here].
 
 This example shows how to drive a UC1601 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode GLCD
+[source,gcbasic]
 ----
 
         ; ----- Configuration
@@ -276,6 +282,7 @@ This example shows how to drive a UC1601 based Graphic I2C LCD module with the b
 {empty} +
 Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to support the Low Memory Mode of operation and the contraining of all GLCD commands with the transaction commands.  The use Low Memory Mode GLCD the two defines `GLCD_TYPE_UC1601_LOWMEMORY_GLCD_MODE` and `GLCD_TYPE_UC1601_CHARACTER_MODE_ONLY` are included in the user program.
 {empty} +
+[source,gcbasic]
 ----
 
     #chip mega328p,16
@@ -307,10 +314,17 @@ Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to 
 
     end
 ----
+*Key line:* `GLCD_Open_PageTransaction 0,3` ... `GLCD_Close_PageTransaction` -- in Low Memory mode, GLCD drawing commands must be wrapped between these two calls so the driver flushes only the affected text lines (pages 0 to 3 cover this 22-pixel-high display) instead of buffering the whole frame.
+
 {empty} +
 
 
-*For more help, see*
-<<_glcdcls,GLCDCLS>>, <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
+**See Also:**
+
+* <<_glcdcls,GLCDCLS>> -- clearing the display, as used above
+* <<_glcddrawchar,GLCDDrawChar>> -- drawing a single character
+* <<_glcdprint,GLCDPrint>> -- printing a value at a specific location, as used above
+* <<_glcdreadbyte,GLCDReadByte>> / <<_glcdwritebyte,GLCDWriteByte>> -- low-level byte access, for expert use
+* <<_pset,Pset>> -- setting a single pixel
 
 Supported in <GLCD.H>

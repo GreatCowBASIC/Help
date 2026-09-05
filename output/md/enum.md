@@ -17,7 +17,7 @@
 <span class="strong">**Overview**</span>
 
 Enums in GCBASIC provide a convenient way to define named constants,
-improving code readability and maintainability.    Instead of using raw
+improving code readability and maintainability. Instead of using raw
 numeric values, users can define meaningful names for states, modes, or
 categories.
 
@@ -32,22 +32,28 @@ Enum ModbusState [Reset]
     MODBUS_SYNC           ' Sync with Modbus device address
     MODBUS_FUNCTION_CODE  ' Identify function code
     MODBUS_PROCESS_DATA   ' Read incoming data bytes
-    MODBUS_COMPLETE       ' Packet processing finished
+    MODBUS_COMPLETE       ' Packet processing finished          ' <<< the last member of an auto-numbered Enum
 End Enum
 ```
 
-The optional `Reset` parameter will start this specific enum at
-zero.  If `Reset` is not specified then every enum element will be
-sequentially/uniquely numbered.
+<span class="strong">**Key line:**</span> `MODBUS_COMPLETE` — since
+`Reset` was specified, `MODBUS_IDLE` starts at 0 and each following
+member is numbered sequentially, so `MODBUS_COMPLETE` ends up equal to
+4.
+
+The optional `Reset` parameter will start this specific enum at zero. If
+`Reset` is not specified, then every enum element will be
+sequentially/uniquely numbered, continuing on from any previously
+declared enums.
 
 <span class="strong">**Enhanced Compatibility with External
 Systems**</span>
 
 Many protocols, such as Modbus, require specific numeric values for
-states or function codes.    By letting users define their own values,
-they can align their enums with standardised protocols.   The `Enum`
-keyword also allows users to declare an enumeration with named
-constants:
+states or function codes. By letting users define their own values, they
+can align their enums with standardised protocols. The `Enum` keyword
+also allows users to declare an enumeration with explicitly assigned
+values:
 
 ``` programlisting
 Enum ModbusState
@@ -60,7 +66,7 @@ End Enum
 ```
 
 Users can manually assign enumeration values using constants and
-expressions.    <span class="strong">**Calculations must use the equals
+expressions. <span class="strong">**Calculations must use the equals
 sign (`=`), following `#DEFINE` rules.**</span>
 
 <span class="strong">**Usage**</span>
@@ -92,8 +98,8 @@ End If
 <span class="strong">**Conversion Support**</span>
 
 Enums in GCBASIC can be used in mathematical operations and references
-to other constants.    This allows developers to integrate enums
-seamlessly into calculations and logical expressions.
+to other constants. This allows developers to integrate enums seamlessly
+into calculations and logical expressions.
 
 <span class="strong">**Math Operations**</span>
 
@@ -140,6 +146,17 @@ End If
 -   Enums improve readability and eliminate the need for magic numbers.
 -   Enums can be used in mathematical operations and references to
     constants.
+
+</div>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="_define" class="link" title="#DEFINE">#DEFINE</a> — the
+    constant-assignment rules Enum expressions must follow
+-   <a href="constants" class="link" title="Constants">Constants</a> — general
+    background on constants in GCBASIC
 
 </div>
 

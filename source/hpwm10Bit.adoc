@@ -3,6 +3,9 @@
 
 ==== HPWM 10 Bit
 
+(((Pulse width modulation,HPWM 10 Bit)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -47,6 +50,7 @@ PWM channels 1 and 2 are disable by default.&#160;&#160;You must enable using th
 
 On some microcontrollers you may need to set the port.pin as an output for PWM to operated as desired.
 {empty} +
+[source,gcbasic]
 ----
         #define USE_HPWM1 TRUE
         #define USE_HPWM2 TRUE
@@ -54,6 +58,7 @@ On some microcontrollers you may need to set the port.pin as an output for PWM t
 {empty} +
 {empty} +
 *Example 1:*
+[source,gcbasic]
 ----
     'This program will alter the brightness of an LED using
     'hardware PWM.
@@ -85,7 +90,7 @@ On some microcontrollers you may need to set the port.pin as an output for PWM t
     do
         'Turn up brightness over the range
         For Bright = 0 to 1023
-            HPWM 6, 40, Bright, 2
+            HPWM 6, 40, Bright, 2          ' <<< the HPWM instruction
             wait 10 ms
         next
         'Turn down brightness over the range
@@ -95,8 +100,10 @@ On some microcontrollers you may need to set the port.pin as an output for PWM t
         next
     loop
 ----
+*Key line:* `HPWM 6, 40, Bright, 2` -- drives 10-bit PWM channel 6 at 40 KHz clocked from Timer 2, with `Bright` (a word, so resolution is 1023) as the duty cycle; because `Bright` is a word the optional resolution parameter can be omitted.
 
 *Example 2:*
+[source,gcbasic]
 ----
     'This program will alter the brightness of an LED using
     'hardware PWM.
@@ -128,7 +135,7 @@ On some microcontrollers you may need to set the port.pin as an output for PWM t
     do
         'Turn up brightness over the range
         For Bright = 0 to 1023
-            HPWM 3, 40, Bright, 2
+            HPWM 3, 40, Bright, 2          ' <<< the HPWM instruction, on a different chip and channel
             wait 10 ms
         next
         'Turn down brightness over the range
@@ -138,6 +145,11 @@ On some microcontrollers you may need to set the port.pin as an output for PWM t
         next
     loop
 ----
+*Key line:* `HPWM 3, 40, Bright, 2` -- the same 40 KHz, Timer-2-clocked setup as Example 1, but on channel 3 of a 16F1705, showing that the channel number (not the timer or frequency) is what changes between chips with a different PPS-mapped PWM output.
 
 
-*For more help, see* <<_pwmoff,PWMOff>>
+**See Also:**
+
+* <<_hpwm_ccp,HPWM CCP>> -- the CCP-module equivalent of this command
+* <<_hpwmupdate_for_pwm_module_s,HPWMUpdate for PWM Module(s)>> -- updating only the duty cycle without a full re-initialisation
+* <<_hpwmoff_2,HPWMOff>> -- stopping the PWM channel

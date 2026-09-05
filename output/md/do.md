@@ -45,7 +45,7 @@ immediately.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     'This code will flash a light until the button is pressed
     #chip 12F629, 4
 
@@ -55,11 +55,15 @@ immediately.
     Dir BUTTON In
     Dir LIGHT Out
 
-    Do Until BUTTON = 1
+    Do Until BUTTON = 1          ' <<< the Do...Loop this page documents
       PulseOut LIGHT, 1 s
       Wait 1 s
     Loop
 ```
+
+<span class="strong">**Key line:**</span> `Do Until BUTTON = 1` — the
+loop body repeats until `BUTTON` becomes true; with `Until` the test
+happens <span class="strong">**before**</span> each pass.
 
 <span class="strong">**Example 2:**</span>
 
@@ -82,7 +86,21 @@ example uses `EXIT DO` within a continuous loop.
     Loop
 ```
 
-<span class="strong">**For more help, see
-<a href="conditions" class="link" title="Conditions">Conditions</a>**</span>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="conditions" class="link" title="Conditions">Conditions</a> — background
+    on how conditions are evaluated
+-   <a href="for" class="link" title="For">For</a> — fixed-count
+    loop alternative when the number of iterations is known
+-   <a href="if" class="link" title="If">If</a> — conditional
+    execution without looping
+-   <a href="pulseout" class="link" title="PulseOut">PulseOut</a> — generating
+    a timed pulse, as used in the example above
+-   <a href="wait" class="link" title="Wait">Wait</a> — introducing
+    a fixed delay, as used in the example above
+
+</div>
 
 </div>

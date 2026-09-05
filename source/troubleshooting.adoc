@@ -1,4 +1,7 @@
-== Troubleshooting
+=== Troubleshooting
+
+(((Introduction,Troubleshooting)))
+
 
 [cols=3, options="header,autowidth"]
 |===
@@ -14,10 +17,15 @@ particular line of code?
 |GCBASIC has not been installed correctly - reinstall it.
 |GCBASIC Forums
 
-|There is a bug in GCBASIC
+|There is a bug in GCBASIC.
 |Post on the GCBASIC Forums. Ensure you state the version of your compiler and attach your code as a ZIP.
 
 |A program compiles and downloads fine, but will not run
 |Oscillator not selected.
 |<<_configuration,Configuration>>
 |===
+
+**See Also:**
+
+* <<_frequently_asked_questions,Frequently Asked Questions>> -- more solutions to common problems
+* <<_configuration,Configuration>> -- setting the oscillator and other chip configuration options

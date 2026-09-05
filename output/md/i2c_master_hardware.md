@@ -17,11 +17,11 @@
 <span class="strong">**Explanation:**</span>
 
 This program demonstrates how to read and write data from an EEPROM
-device using the serial protocal called I2C.  
+device using the serial protocol called I2C.  
 
 This program uses the hardware I2C module within the microcontroller. If
-your microcontroller does not have a hardware I2C module then please use
-the software I2C GCBASIC ibrary.
+your microcontroller does not have a hardware I2C module, then please
+use the software I2C GCBASIC library.
 
 This program has three sections.
 
@@ -33,12 +33,12 @@ This program has three sections.
 
 </div>
 
-This program has an interrupt driven serial handler to capture and
+This program has an interrupt-driven serial handler to capture and
 manage input from a serial terminal.
 
 <span class="strong">**Demonstration program:**</span>
 
-``` screen
+``` programlisting
     'Change the microcontroller, frequency and config to suit your needs.
     #chip 16F1937, 32
     #config MCLRE_ON
@@ -99,7 +99,7 @@ manage input from a serial terminal.
         next
 
         'Library write call is: eeprom_wr_array(device_number, page_size, address, array_name, number_of_bytes)
-        eeprom_wr_array(EEpromDevice, 64, location, outarray, 64)
+        eeprom_wr_array(EEpromDevice, 64, location, outarray, 64)          ' <<< writing a 64-byte page to the I2C EEPROM
 
 
         'Library read call is: eeprom_rd_array(device_number, address, array_name, number_of_bytes)
@@ -131,7 +131,7 @@ manage input from a serial terminal.
         location++
         HSerPrintCRLF 2
 
-        'Show the connnected I2C devices on the Serial terminal.
+        'Show the connected I2C devices on the Serial terminal.
         HI2CDeviceSearch
         HSerPrint "Commence Dump of the EEPROM"
         validateEEPROM
@@ -161,21 +161,21 @@ manage input from a serial terminal.
                  Case 73
                        Hserprint "Serial_Expander_Device"
                  case 161
-                      Hserprint "EEProm_Device_Device"
+                      Hserprint "EEProm_Device"
                  case 163
-                      Hserprint "EEProm_Device_Device"
+                      Hserprint "EEProm_Device"
                  case 165
-                      Hserprint "EEProm_Device_Device"
+                      Hserprint "EEProm_Device"
                  case 167
-                      Hserprint "EEProm_Device_Device"
+                      Hserprint "EEProm_Device"
                  case 169
-                      Hserprint "EEProm_Device_Device"
+                      Hserprint "EEProm_Device"
                  case 171
-                      Hserprint "EEProm_Device_Device"
+                      Hserprint "EEProm_Device"
                  case 173
-                      Hserprint "EEProm_Device_Device"
+                      Hserprint "EEProm_Device"
                  case 175
-                      Hserprint "EEProm_Device_Device"
+                      Hserprint "EEProm_Device"
                  case 209
                       Hserprint "DS1307_RTC_Device"
                  case 249
@@ -192,7 +192,7 @@ manage input from a serial terminal.
         HSerPrintCRLF 2
     end sub
 
-    'Validation EEPROOM code
+    'Validation EEPROM code
     sub validateEEPROM
         EepromAddress = 0
         HSerPrintCRLF 2
@@ -253,5 +253,22 @@ manage input from a serial terminal.
         next_out=(next_out+1) % BUFFER_SIZE
     end Function
 ```
+
+<span class="strong">**Key line:**</span>
+`eeprom_wr_array(EEpromDevice, 64, location, outarray, 64)` — writes all
+64 bytes of `outarray` to the I2C EEPROM in one call, using the
+library’s page-write function; the matching `eeprom_rd_array` call just
+below reads them back so the two arrays can be compared byte-for-byte.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="i2c_slave_hardware" class="link" title="I2C Slave Hardware">I2C Slave Hardware</a> — the
+    corresponding slave-side example
+-   <a href="hi2c_overview" class="link" title="HI2C Overview">HI2C Overview</a> — the
+    hardware I2C command reference
+
+</div>
 
 </div>

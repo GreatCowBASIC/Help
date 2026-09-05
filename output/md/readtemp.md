@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     byte_var = ReadTemp
 ```
 
@@ -29,7 +29,7 @@ Available on all microcontrollers.
 `ReadTemp` is a function that returns the raw value of the sensor. The
 following two lines must be included in the GCBASIC source file.
 
-``` screen
+``` programlisting
     #include <DS18B20.h>
     #define DQ PortC.3 ; change port configuration as required
 ```
@@ -54,7 +54,7 @@ not designed to be used with parasitically powered DS18B20 sensors, the
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Chip Settings. Assumes the development board with with a 16F877A
     #chip 16F877A,1
 
@@ -79,7 +79,7 @@ not designed to be used with parasitically powered DS18B20 sensors, the
 
     do forever
        ' The function readtemp returns the integer value of the sensor
-       DSdata = readtemp
+       DSdata = readtemp          ' <<< the ReadTemp instruction
 
        ' Display the integer value of the sensor on the LCD
        locate 0,0
@@ -94,5 +94,23 @@ not designed to be used with parasitically powered DS18B20 sensors, the
 
     loop
 ```
+
+<span class="strong">**Key line:**</span> `DSdata = readtemp` — reads
+the sensor on the `DQ` pin, performing a full internal 12-bit conversion
+but rounding the returned byte to the nearest whole degree Celsius; bit
+7 of the result is set for negative temperatures.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="ds18b20" class="link" title="DS18B20">DS18B20</a> — category
+    overview
+-   <a href="readtemp12" class="link" title="ReadTemp12">ReadTemp12</a> — returns
+    the unrounded raw 12-bit reading instead
+-   <a href="readdigitaltemp" class="link" title="ReadDigitalTemp">ReadDigitalTemp</a> — returns
+    ready-to-print integer and decimal parts instead of a raw value
+
+</div>
 
 </div>

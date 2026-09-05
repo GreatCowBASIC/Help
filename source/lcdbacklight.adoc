@@ -1,6 +1,10 @@
 ==== LCDBacklight
 
+(((Liquid Crystal Display,LCDBacklight)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     LCDBacklight ( On | Off )
 ----
@@ -16,6 +20,7 @@ Do not connect the LCD backlight directly to the microcontroller! Always refer t
 the datasheet for the correct method to drive the LCD backlight.
 
 For 0, 4, 8, 404 LCD types you *must* define the controlling port.pin for the LCD backlight. 
+[source,gcbasic]
 ----
 
         'this port.pin is connected to the LCD backlight via a suitable circuit
@@ -24,18 +29,20 @@ For 0, 4, 8, 404 LCD types you *must* define the controlling port.pin for the LC
         ...
         ...
         ...
-        LCDBacklight ( On )
+        LCDBacklight ( On )          ' <<< the LCDBacklight instruction
 
         .... more user code...
         LCDBacklight ( Off )
     
 ----
+*Key line:* `LCDBacklight ( On )` -- drives the `LCD_Backlight` pin defined above to switch the backlight circuit on; `LCDBacklight ( Off )` later switches it off again.
 {empty} +
 {empty} +
 *Inverting the State of the LCD*
 
 You may need to invert the state of the LCD backlight control port.  This can be achieved by setting the following constants.
 
+[source,gcbasic]
 ----
         'Invert the LCD Backlight States to suit the circuit board
         #define LCD_Backlight_On_State  0    'the default constant value is 1
@@ -51,3 +58,7 @@ The diagram above was provided by William Roth, January 2015.
 
 *Supported in <LCD.H>*
 
+**See Also:**
+
+* <<_lcd_overview,LCD Overview>> -- related command in the same category
+* <<_cls,CLS>> -- related command in the same category

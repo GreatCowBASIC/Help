@@ -1,6 +1,10 @@
 ===== ST7920LineHs
 
+(((Graphical LCD,st7920linehs)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     ST7920LineHs ( Xpos, Ypos, XLength, Style)
 ----
@@ -11,6 +15,14 @@ This command draws a line with a specific style. The style is based on
 the bits value of the byte passed to the routine.
 
 *Example usage:*
+[source,gcbasic]
 ----
-    ST7920LineHs ( 0, 31,128 , 0x55) ‘will draw a dashed line
+    ST7920LineHs ( 0, 31,128 , 0x55) 'will draw a dashed line          ' <<< the ST7920LineHs instruction
 ----
+*Key line:* `ST7920LineHs ( 0, 31,128 , 0x55)` -- draws a 128-pixel-long horizontal line starting at (0, 31); the style byte `0x55` (binary 01010101) alternates one pixel on, one pixel off, producing a dashed line.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920lineh,ST7920LineH>> -- a solid horizontal line, without a style byte
+* <<_st7920linev,ST7920LineV>> -- the vertical-line equivalent

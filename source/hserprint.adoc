@@ -1,7 +1,10 @@
 ==== HSerPrint
 
+(((Serial Communications,HSerPrint)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     HSerPrint _user_value_ [,1|2|3|4]  'Choose comport with optional parameter
                                        'Default comport is 1
@@ -25,6 +28,7 @@ Atmel AVR supports USART 1,2,3 and 4.
 
 To enable the use of the USART these are the enabling constants. &#160;&#160;These constants are required.&#160;&#160;You can change the `USART_BAUD_RATE` and to meet your needs.&#160;&#160;For addition USART ports use `#define USART**n**_BAUD_RATE 9600` where `**n**`` is the required port number.
 
+[source,gcbasic]
 ----
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
@@ -40,13 +44,14 @@ to `Print`. The data will be sent out the hardware serial module.
 
 `HSerPrint` will not send any new line characters. If the chip is sending
 to a terminal, these commands should follow every `HSerPrint` :
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   HSerPrint 13
   HSerPrint 10
 ----
 
 *Example:*
+[source,gcbasic]
 ----
   'This program will display any values received over the serial
   'connection. If "pot" is received, the value of the analog sensor
@@ -61,7 +66,7 @@ to a terminal, these commands should follow every `HSerPrint` :
   #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
   #define LCD_RS PORTC.7
   #define LCD_RW PORTC.6
-  #define LCD_Enable PORTC.5
+  #define LCD_ENABLE PORTC.5
   #define LCD_DB4 PORTC.4
   #define LCD_DB5 PORTC.3
   #define LCD_DB6 PORTC.2
@@ -127,8 +132,8 @@ to a terminal, these commands should follow every `HSerPrint` :
 
   'Takes a sensor reading and sends it to terminal
   Sub SendSensorReading
-    HSerPrint "Sensor Reading: "
-    HSerPrint ReadAD10(POT_AN)
+    HSerPrint "Sensor Reading: "        ' <<< HSerPrint sending a string
+    HSerPrint ReadAD10(POT_AN)          ' <<< HSerPrint sending a numeric (word) value
     HSerSend 13
     HSerSend 10
   End Sub
@@ -146,6 +151,13 @@ to a terminal, these commands should follow every `HSerPrint` :
   End Function
 
 ----
-*For more help, see also*
-<<_hserprintbytecrlf,HserPrintByteCRLF>>, <<_hserprintstringcrlf,HserPrintStringCRLF>>
-*and* <<_hserprintcrlf,HserPrintCRLF>>
+*Key lines:* the two marked `<<<` lines above show `HSerPrint` sending a string and then a numeric value -- both accepted directly, with no manual conversion required.
+
+**See Also:**
+
+* <<_hserprintbytecrlf,HserPrintByteCRLF>> -- sends a byte then a CRLF terminator
+* <<_hserprintstringcrlf,HserPrintStringCRLF>> -- sends a string then a CRLF terminator
+* <<_hserprintcrlf,HserPrintCRLF>> -- sends just a CRLF terminator
+* <<_hserreceive,HSerReceive>> -- the receiving counterpart used earlier in this example
+* <<_hsersend,HSerSend>> -- sending a single raw byte, as used to send the trailing CR/LF above
+* <<_hsergetstring,HSerGetString>> -- reading a whole string from the serial connection in one call

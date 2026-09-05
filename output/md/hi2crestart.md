@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     HI2CRestart
 ```
 
@@ -34,15 +34,15 @@ send a start and restart condition in a single command.
 This command is also available on microcontrollers with a second
 hardware I2C port.
 
-``` screen
+``` programlisting
     HI2C2Restart
 ```
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     do
-        HI2CReStart                           ;generate a start signal
+        HI2CReStart                           ;generate a start signal          ' <<< the HI2CRestart instruction
         HI2CSend(eepDev)                      ;inidcate a write
     loop While HI2CAckPollState
 
@@ -64,64 +64,23 @@ hardware I2C port.
     HI2CStop
 ```
 
-Supported in &lt;HI2C.H&gt;
+<span class="strong">**Key line:**</span> `HI2CReStart` — issues a start
+condition without first sending a stop, letting the loop retry
+addressing the same device (via `HI2CAckPollState`) or, on its second
+use below, switch the transaction from writing to reading.
 
-``` literallayout
-==== HI2CSend
-```
+<span class="strong">**See Also:**</span>
 
-<span class="strong">**Syntax:**</span>
+<div class="itemizedlist">
 
-``` screen
-    HI2CSend data
-```
+-   <a href="hi2c_overview" class="link" title="HI2C Overview">HI2C Overview</a> — category
+    overview
+-   <a href="hi2creceive" class="link" title="HI2CReceive">HI2CReceive</a> — related
+    command in the same category
+-   <a href="hi2cackpollstate" class="link" title="HI2CAckPollState">HI2CAckPollState</a> — related
+    command in the same category
 
-<span class="strong">**Command Availability:**</span>
-
-Only available for microcontrollers with the hardware I2C or TWI module.
-
-<span class="strong">**Explanation:**</span>
-
-The HI2CSend command will send `data` through the I2C connection. If in
-master mode, HI2CSend will send the data immediately. If in slave mode,
-HI2CSend will wait for the master to request the data before sending.
-
-<span class="strong">**Note:**</span>
-
-This command is also available on microcontrollers with a second
-hardware I2C port.
-
-``` screen
-    HI2C2Send  data
-```
-
-<span class="strong">**Example:**</span>
-
-This example code retrieves multiple bytes from an EEPROM memory device.
-
-``` screen
- do
-      HI2CReStart                         ;generate a start signal
-      HI2CSend(eepDev)                    ;indicate a write
-    loop While HI2CAckPollState
-
-    HI2CSend(eepAddr_H)                   ;as two bytes
-    HI2CSend(eepAddr)
-    HI2CReStart
-    HI2CSend(eepDev + 1)                  ;indicate a read
-
-    eep_i = 0                             ;loop consecutively
-    do while (eep_i < eepLen)             ;these many bytes
-      eep_j = eep_i + 1                   ;arrays begin at 1 not 0
-      if (eep_i  < (eepLen - 1)) then
-        HI2CReceive(eepArray(eep_j), ACK)  ;more data to get
-      else
-        HI2CReceive(eepArray(eep_j), NACK ) ;send NACK on last byte
-      end if
-      eep_i++                             ;get set for next
-    loop
-    HI2CStop
-```
+</div>
 
 Supported in &lt;HI2C.H&gt;
 

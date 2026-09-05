@@ -22,14 +22,14 @@
 
 <span class="strong">**Explanation:**</span>
 
-`#option removeAVRvectors` reduces the AVR interrupt vector table (IVR)
+`#option removeAVRvectors` reduces the AVR interrupt vector table (IVT)
 in the compiled output to the smallest possible size, saving flash
 memory.
 
-Normally, AVR flash memory begins with the full interrupt vector table —
+Normally, AVR flash memory begins with the full interrupt vector table -
 a fixed block of addresses, one per interrupt source, that the processor
 jumps to when an interrupt occurs. The actual user code is placed in
-memory after this entire table. On devices with many interrupt sources
+memory after this entire table. On devices with many interrupt sources,
 this table can occupy a significant amount of flash, much of which is
 typically unused.
 
@@ -37,7 +37,7 @@ When `#option removeAVRvectors` is used, the compiler determines which
 interrupt vectors are actually used in the program and writes only those
 entries, up to and including the highest used vector address. User code
 is then placed immediately after the last required vector entry. If no
-interrupts are used at all, the vector table is omitted entirely and
+interrupts are used at all, the vector table is omitted entirely, and
 user code starts at address 1, immediately after the reset vector.
 
 `ON INTERRUPT` can be used with `#option removeAVRvectors`. The compiler
@@ -52,8 +52,17 @@ not be present in the compiled output.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     #option removeAVRvectors
 ```
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="on_interrupt" class="link" title="On Interrupt">On Interrupt</a> — defining
+    the interrupts whose vectors are preserved
+
+</div>
 
 </div>

@@ -1,5 +1,8 @@
 ==== SH1106 Controllers
 
+(((Graphical LCD,SH1106 Controllers)))
+
+
 This section covers GLCD devices that use the SH1106 graphics controller.  THe SH1106 is a single-chip CMOS OLED/PLED driver with controller for organic/polymer light emitting diode dot-matrix graphic display system.  SH1106 consists of 132 segments, 64 commons that can support a maximum display resolution of 132 X 64. It is designed for Common Cathode type OLED panel.
 
 The GCBASIC constants shown below control the configuration of the SH1106 controller. &#160;&#160;&#160;GCBASIC supports i2C hardware and software connectivity  - this is shown in the tables below.
@@ -10,11 +13,12 @@ To use the SH1106 driver simply include the following in your user code.  This w
 
 Specific to the Rajguru Electronics 13002-Series display you can can specify a GLCD_SubType 13002 to enable support.
 
+[source,gcbasic]
 ----
     #include <glcd.h>
 
     ; ----- Define GLCD Hardware settings
-    #define GLCD_TYPE GLCD_TYPE_SH1106
+    #define GLCD_TYPE GLCD_TYPE_SH1106          ' <<< the constant that selects this controller driver
     #define GLCD_I2C_Address 0x78
     '#define GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE        'select Low Memory mode of operation
     '#define GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY        'select Text mode of operation
@@ -27,6 +31,7 @@ Specific to the Rajguru Electronics 13002-Series display you can can specify a G
     #define HI2C_DATA
     HI2CMode Master
 ----
+*Key line:* `#define GLCD_TYPE GLCD_TYPE_SH1106` -- tells `<glcd.h>` to compile in the SH1106 driver, which talks to the display over I2C using the standard `HI2C_*` constants; the commented-out `GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE` and `GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY` lines trade GLCD buffer size against available functionality on RAM-constrained microcontrollers.
 
 The GCBASIC constants for control display characteristics are shown in the table below.
 
@@ -178,6 +183,7 @@ Parameter is dim value
 For a SH1106 datasheet, please refer http://gcbasic.sourceforge.net/library/DISPLAY/SH1106.pdf[here].
 
 This example shows how to drive a SH1106 based Graphic LCD module with the built in commands of GCBASIC.
+[source,gcbasic]
 ----
 ; ----- Configuration
     #chip mega328p,16
@@ -244,6 +250,7 @@ This example shows how to drive a SH1106 based Graphic LCD module with the built
 This example shows how to drive a SH1106 based Graphic I2C LCD module with the built in commands of GCBASIC using Low Memory Mode GLCD.
 
 Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to support the Low Memory Mode of operation and the contraining of all GLCD commands with the transaction commands.  The use Low Memory Mode GLCD the two defines `GLCD_TYPE_SH1106_LOWMEMORY_GLCD_MODE` and `GLCD_TYPE_SH1106_CHARACTER_MODE_ONLY` are included in the user program.
+[source,gcbasic]
 ----
 
     #chip mega328p,16
@@ -318,10 +325,14 @@ Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to 
     LOOP
     end
 ----
+*Key line:* `GLCD_Open_PageTransaction 0,7` ... `GLCD_Close_PageTransaction` -- in Low Memory mode, every GLCD drawing command must be wrapped between these two calls so the driver can flush only the affected display pages (0 to 7) instead of buffering the entire frame.
 
+**See Also:**
 
-
-*For more help, see*
-<<_glcdcls,GLCDCLS>>, <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
+* <<_glcdcls,GLCDCLS>> -- clearing the display, as used above
+* <<_glcddrawchar,GLCDDrawChar>> -- drawing a single character, as used above
+* <<_glcdprint,GLCDPrint>> -- printing a value at a specific location, as used above
+* <<_glcdreadbyte,GLCDReadByte>> / <<_glcdwritebyte,GLCDWriteByte>> -- low-level byte access, for expert use
+* <<_pset,Pset>> -- setting a single pixel
 
 Supported in <GLCD.H>

@@ -44,7 +44,7 @@ through 7 are usually used to store custom characters.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program draws a smiling face character
 
     'General hardware configuration
@@ -73,15 +73,28 @@ through 7 are usually used to store custom characters.
     CharArray(8) = b'00001110'
 
     'Copy the character from the array to the LCD
-    LCDCreateChar 0, CharArray()
+    LCDCreateChar 0, CharArray()          ' <<< the LCDCreateChar instruction
 
     'Draw the custom character
     LCDWriteChar 0
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="lcdcreatechar" class="link" title="LCDCreateChar">LCDWriteChar</a>,
-<a href="lcd_overview" class="link" title="LCD Overview">LCD Overview</a>
+<span class="strong">**Key line:**</span>
+`LCDCreateChar 0, CharArray()` — copies the 8-row pixel pattern held in
+`CharArray()` into the LCD’s custom-character slot 0, so that a later
+`LCDWriteChar 0` draws the smiling face rather than a standard ASCII
+character.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcdwritechar" class="link" title="LCDWriteChar">LCDWriteChar</a> — displaying
+    the custom character defined here
+-   <a href="lcd_overview" class="link" title="LCD Overview">LCD Overview</a> — category
+    overview
+
+</div>
 
 <span class="strong">**Supported in &lt;LCD.H&gt;**</span>
 

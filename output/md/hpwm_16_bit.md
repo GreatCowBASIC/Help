@@ -70,7 +70,7 @@ be a WORD value.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     ' This program will enable dynamic mode PWM signals
     '
     ' All the 12 PWM16 channels can configured at separate dynamic frequencies  dynamic duty, the syntax is:
@@ -86,7 +86,7 @@ be a WORD value.
 
         Dir PORTA Out
 
-        HPWM16(1, 30, 16384)   '30 kHz, 25% duty cycle (16384/65535)
+        HPWM16(1, 30, 16384)   '30 kHz, 25% duty cycle (16384/65535)          ' <<< the HPWM16 instruction
         HPWM16(2, 30, 16384)   '30 kHz, 25% duty cycle (16384/65535)
         HPWM16(3, 30, 16384)   '30 kHz, 25% duty cycle (16384/65535)
 
@@ -109,7 +109,11 @@ be a WORD value.
         #define USE_HPWM16_12 FALSE
 ```
 
-  
+<span class="strong">**Key line:**</span>
+`HPWM16(1, 30, 16384)` — starts 16-bit PWM channel 1 at 30 KHz with a
+duty cycle of 16384 out of 65535 (25%); this dynamic-mode form takes
+frequency and duty cycle directly as arguments, rather than reading them
+from `#define` constants as the fixed-mode form below does.  
   
 The 16-bit library also supports fixed mode PWM operations. The
 following two examples show the constants and the commands to control
@@ -117,7 +121,7 @@ following two examples show the constants and the commands to control
   
 <span class="strong">**Example 2:**</span>
 
-``` screen
+``` programlisting
     ' This program will enable fix mode PWM signals
     '
     ' All the 12 PWM16 channels can configured at separate fixed frequencies and fixed duty, the syntax is:
@@ -141,17 +145,20 @@ following two examples show the constants and the commands to control
 
         #define HPWM16_1_Freq 400         '800Hz to greater than 1mhz... greater than 1mhz at a clock speed of 32hz provides a clipped square wave.
         #define HPWM16_1_Duty 50
-        HPWM16On ( 1 )
+        HPWM16On ( 1 )          ' <<< the HPWM16On instruction
 
         do Forever
         loop
 ```
 
-  
+<span class="strong">**Key line:**</span> `HPWM16On ( 1 )` — starts
+channel 1 using the frequency and duty cycle already fixed by the
+`HPWM16_1_Freq` and `HPWM16_1_Duty` constants above, rather than passing
+them as arguments as `HPWM16` does.  
   
 <span class="strong">**Example 3:**</span>
 
-``` screen
+``` programlisting
     ' This program will enable fix mode PWM signals
     '
     ' All the 12 PWM16 channels can configured at separate fixed frequencies and fixed duty, the syntax is:
@@ -174,7 +181,7 @@ following two examples show the constants and the commands to control
 
         #define HPWM16_2_Freq 200         '200khz
         #define HPWM16_2_Duty 50          '50% duty
-        HPWM16On ( 2 )
+        HPWM16On ( 2 )          ' <<< HPWM16On starting a second, independently-configured channel
 
         #define HPWM16_3_Freq 300         '300khz
         #define HPWM16_3_Duty 60          '60% duty
@@ -184,7 +191,21 @@ following two examples show the constants and the commands to control
         loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="pwmoff" class="link" title="PWMOff">PWMOff</a>
+<span class="strong">**Key line:**</span> `HPWM16On ( 2 )` — each
+channel’s
+`` #define`s must be set immediately before that channel’s own `HPWM16On ``
+call, since channels 1, 2, and 3 here each run at a completely different
+frequency and duty cycle.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hpwm_ccp" class="link" title="HPWM CCP">HPWM CCP</a> — the
+    8-bit CCP-module equivalent
+-   <a href="hpwm_10_bit" class="link" title="HPWM 10 Bit">HPWM 10 Bit</a> — the
+    10-bit PWM module equivalent
+
+</div>
 
 </div>

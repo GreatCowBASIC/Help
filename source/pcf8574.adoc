@@ -1,34 +1,46 @@
-=== PCF8574
+==== PCF8574
 
+(((I2C Software,PCF8574)))
 
-The PCF8574 library supports the 8-bit quasi-bidirectional port on the PCG8574 via an I2C-bus interface.
+*Command Availability:*
 
-The PCF8574 has a low current consumption and includes latched outputs with high current drive capability for directly driving LEDs.
+Available on all microcontrollers, using either hardware or software I2C. I2C2 is not currently supported (as of January 2023).
 
-It also possesses an interrupt line (INT) which can be connected to the interrupt logic of the microcontroller. By sending an interrupt signal on this line to the microcontroller, the remote I/O can inform the microcontroller if there is incoming data on its ports without having to communicate via the I2C-bus.
+*Explanation:*
 
-This means that the PCF8574 can remain a simple slave device.
+The PCF8574 library supports the 8-bit quasi-bidirectional port on the PCF8574 via an I2C-bus interface.
 
-The driver support two commands via I2C - this supports hardware and software I2C
-PCF8574_sendbyte( PCF8574_device, [out_byte] ) where PCF8574_device is the 8bit I2C address and out_byte is the byte variable data to be sent
-PCF8574_readbyte( PCF8574_device, [in_byte] ) where PCF8574_device is the 8bit I2C address and in_byte is the byte variable data to be received
+The PCF8574 has low current consumption, and includes latched outputs with high current drive capability for directly driving LEDs.
 
-To address a specific slave. Use the constant #DEFINE PCF8574_DEVICE_1 0X4E where 0x4E is the correct address identified by I2C Discovery.
+It also has an interrupt line (INT) that can be connected to the microcontroller's interrupt logic. By signalling on this line, the remote I/O can tell the microcontroller that data is waiting on its ports, without the microcontroller having to poll it over the I2C bus -- letting the PCF8574 remain a simple slave device.
 
-I2C must be defined prior to calling the methods shown above. Either Software or Hardware I2C is supported.&#160;&#160;Hardware I2C is supported, I2C2 is not currently supported ( @ Jan 2023 ).
+The driver supports two commands over I2C:
 
-*Example*
+* `PCF8574_sendbyte( PCF8574_device, out_byte )` -- `PCF8574_device` is the 8-bit I2C address, `out_byte` is the byte variable to send.
+* `PCF8574_readbyte( PCF8574_device, in_byte )` -- `PCF8574_device` is the 8-bit I2C address, `in_byte` is the byte variable to receive into.
 
+To address a specific slave, define a constant for it, e.g. `#DEFINE PCF8574_DEVICE_1 0x4E`, where `0x4E` is the address identified by I2C discovery.
+
+I2C must be configured (as either software or hardware I2C) before calling either method above.
+
+*Example:*
+
+[source,gcbasic]
 ----
-// you must define software I2C or hardware I2C.  I2C2 is not currenly supported ( @ Jan 2023 )
-// Include this specific library.  This is mandated
- #INCLUDE <PCF8574.H>
+    // you must define software I2C or hardware I2C. I2C2 is not currently supported (as of January 2023)
+    // Include this specific library. This is mandated
+    #INCLUDE <PCF8574.H>
 
     //! send a variable to the I2C device that sets the device ports
-    PCF8574_sendbyte(PCF8574_DEVICE_1, LEDStatus )
+    PCF8574_sendbyte(PCF8574_DEVICE_1, LEDStatus )          ' <<< the PCF8574_sendbyte instruction this page documents
 
     //! read the status of the port into the variable Portstatus
     PCF8574_readbyte(PCF8574_DEVICE_1, PortStatus )
-
-
 ----
+*Key line:* `PCF8574_sendbyte(PCF8574_DEVICE_1, LEDStatus)` -- writes `LEDStatus` to every pin of the PCF8574 addressed as `PCF8574_DEVICE_1` in one call, rather than driving each output pin individually.
+
+**See Also:**
+
+* <<_i2c_software,I2C Software>> -- the software I2C commands this library is built on
+* <<_hi2c_overview,HI2C Overview>> -- the hardware I2C alternative
+* <<_libraries_overview,Libraries Overview>> -- other device-specific libraries shipped with GCBASIC

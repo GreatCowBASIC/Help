@@ -1,59 +1,64 @@
 //erv 04110218
 ==== SAFWrite
 
+(((SAFM,SAFWrite)))
+
+
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     SAFWrite ( location, data )
 ----
 *Command Availability:*
 
-Available on all PIC micro-controllers with SAFM memory
+Available on all PIC microcontrollers with SAFM memory.
 
 *Explanation:*
 {empty} +
 {empty} +
-SAFWrite is used to write information, byte values, to SAFM so that it can be accessed later for use in a user program. 
+`SAFWrite` is used to write information, byte values, to SAFM, so it can be accessed later for use in a user program. 
 {empty} +
 {empty} +
-`location` represents the location or relative address to write. The location will range from location 0 to SAF_BYTES - 1, or for all practical purposes 0-255 since all PIC Microcontrollers with SAFM support 256 bytes of SAF Memory.&#160;&#160;&#160;
-HEF_BYTES is a GCBASIC constant that represents the number of bytes of SAF Memory.    
+`location` represents the location or relative address to write. The location ranges from location 0 to `SAF_BYTES - 1`, or for all practical purposes 0-255, since all PIC microcontrollers with SAFM support 256 bytes of SAF memory.&#160;&#160;&#160;
+`SAF_BYTES` is a GCBASIC constant that represents the number of bytes of SAF memory.    
 {empty} +
 {empty} +
-`data` is the data that is to be written to the SAFM location.&#160;&#160;&#160;
+`data` is the data to be written to the SAFM location.&#160;&#160;&#160;
 This can be a byte value or a byte variable.
 {empty} +
 This method writes information to SAFM given the specific location.
-This method is similar to the EPWrite method for EEPROM.
+This method is similar to the `EPWrite` method for EEPROM.
 {empty} +
 {empty} +
 *Example 1:*
+[source,gcbasic]
 ----
      #chip 18F24K42, 16
     '... code to setup PPS
     '... code to setup serial
 
-    'The following example writes a byte value of 126 into HEFM location 34 
+    'The following example writes a byte value of 126 into SAFM location 34 
     
-    SAFWrite( 34,126 )
+    SAFWrite( 34,126 )          ' <<< the SAFWrite instruction
 ----
-{empty} +
-{empty} +
+*Key line:* `SAFWrite( 34,126 )` -- writes the byte value `126` to SAFM location 34.
+
 *Example 2:*
+[source,gcbasic]
 ----
     #chip 18F24K42, 16
     '... code to setup PPS
     '... code to setup serial
 
-    'This example will populate the 256 bytes of SAF memory with a value that is same as the SAFM location
+    'This example will populate the 256 bytes of SAF memory with a value that is the same as the SAFM location
     
      Dim Rel_Address, DataByte as Byte
      Dim NVM_Address as Long  
      Dim  DataWord, as Word
          
-    For Rel_Aaddress = 0 to 255
-        SAFWrite ( Rel_Address, Rel_Address )
+    For Rel_Address = 0 to 255
+        SAFWrite ( Rel_Address, Rel_Address )          ' <<< the SAFWrite instruction
     Next
     
     SAFM_Dump
@@ -94,12 +99,13 @@ This method is similar to the EPWrite method for EEPROM.
 
         NVM_Address+=2 ' Next "WORD"
     End Repeat
-End sub
+    End sub
 ----
-{empty} +
-{empty} +
-If example 2 were displayed on a serial terminal.&#160;&#160;&#160;The result would show:
+*Key line:* `SAFWrite ( Rel_Address, Rel_Address )` -- writes each of the 256 SAFM locations with its own relative address as the data, which is what the terminal dump below reads back out.
 
+If example 2 were displayed on a serial terminal, the result would show:
+
+[source,gcbasic]
 ----
 Block0  1 0   3 2   5 4   7 6   9 8   B A   D C   F E
 7F00    0100  0302  0504  0706  0908  0B0A  0D0C  0F0E  
@@ -125,14 +131,13 @@ Block3  1 0   3 2   5 4   7 6   9 8   B A   D C   F E
 7FE0    E1E0  E3E2  E5E4  E7E6  E9E8  EBEA  EDEC  EFEE  
 7FF0    F1F0  F3F2  F5F4  F7F6  F9F8  FBFA  FDFC  FFFE  
 ----
-{empty} +
-{empty} +
-See also
-<<_safm_overview,SAFM Overview>>,
-<<_safread,SAFRead>>,
-<<_safreadword,SAFReadWord>>,
-<<_safwrite,SAFWrite>>,
-<<_safwriteword,SAFWriteWord>>,
-<<_safreadblock,SAFReadBlock>>,
-<<_safwriteblock,SAFWriteBlock>>,
-<<_saferaseblock,SAFEraseBlock>>
+
+**See Also:**
+
+* <<_safm_overview,SAFM Overview>>
+* <<_safread,SAFRead>>
+* <<_safreadword,SAFReadWord>>
+* <<_safwriteword,SAFWriteWord>>
+* <<_safreadblock,SAFReadBlock>>
+* <<_safwriteblock,SAFWriteBlock>>
+* <<_saferaseblock,SAFEraseBlock>>

@@ -1,6 +1,10 @@
 ===== ST7920cTile
 
+(((Graphical LCD,st7920ctile)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
   ST7920cTile ( word variable )
 ----
@@ -12,8 +16,16 @@ This required 2 bytes of data into DDRAM to display one 16x16 font from
 memory location A140H~D75FH are BIG5 code, A1A0H~F7FFH are GB code.
 
 *Example usage:*
+[source,gcbasic]
 ----
     Dim CTileValue as word
-    cTileValue = (0xA140H * 256 ) + 0xA140H
-    ST7920Tile (CTileValue) ‘tile the screen with a nice cross hatch
+    cTileValue = (0xA140 * 256 ) + 0xA140
+    ST7920cTile (CTileValue) 'tile the screen with a BIG5 character          ' <<< the ST7920cTile instruction
 ----
+*Key line:* `ST7920cTile (CTileValue)` -- repeats the 16-bit BIG5 character code 0xA140 across the entire screen; `CTileValue` must fall in the BIG5 range (0xA140-0xD75F) or the GB range (0xA1A0-0xF7FF) to select a valid Chinese character.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920tile,ST7920Tile>> -- tiling with a raw 16-bit pattern instead of a character
+* <<_st7920gtile,ST7920gTile>> -- the graphic-mode two-byte tiling equivalent

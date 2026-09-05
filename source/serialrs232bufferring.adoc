@@ -1,30 +1,31 @@
 === Serial/RS232 Buffer Ring
 
-// Edit EvanV 01092016 to show buffer element 0 can be part of the buffer.
-// Edit EVanV added mega4809 example
+(((Example Programs,Serial/RS232 Buffer Ring)))
+
 
 *Explanation:*
 
 This program demonstrates how to create a serial input buffer ring.
 
-The program receives a character into the buffer and sends back.  Try sending large volumes of characters.....
+The program receives a character into the buffer and sends it back. Try sending large volumes of characters.
 
-This program program uses an interrupt event to capture the incoming byte value and place in the buffer ring. When a byte is received the buffer ring is incremented to ensuer the next byte is handled correctly.
+This program uses an interrupt event to capture the incoming byte value and place it in the buffer ring. When a byte is received, the buffer ring is incremented to ensure the next byte is handled correctly.
 
-Testing `bkbhit` will set to True when a byte has been received. Reading the function `bgetc` will return the last byte received.
+Testing `bkbhit` will be True when a byte has been received. Reading the function `bgetc` will return the last byte received.
 
 *Demonstration program:*
 
-This demonstration program will support up to 256 bytes. For a larger buffer change the variables to words.  
+This demonstration program will support up to 256 bytes. For a larger buffer, change the variables to words.
 
+[source,gcbasic]
 ----
 
-    #chip 16F1937   
+    #chip 16F1937
     // #chip mega4809
     // #chip mega328p, 16
 
 
-    // Add PPS if appropiate for your chip
+    // Add PPS if appropriate for your chip
     // [change to your config] This is the config for a serial terminal
 
     // assumes USART1 ( or USART0 on AVRDx ), if you select USART1/2/3/4 then you MUST add the comport parameter to all HSerxxxxx functions.
@@ -33,7 +34,7 @@ This demonstration program will support up to 256 bytes. For a larger buffer cha
     #DEFINE USART_BAUD_RATE 9600
     #DEFINE USART_BLOCKING  // Required, could use #define USART_TX_BLOCKING as the RX is interrupt driven.
 
-    // This assumes you are using an ANSI compatible terminal.  Use PUTTY.EXE it is very easy to use.
+    // This assumes you are using an ANSI compatible terminal.  Use PUTTY.EXE, it is very easy to use.
 
     //   Main program
 
@@ -51,7 +52,7 @@ This demonstration program will support up to 256 bytes. For a larger buffer cha
     #DEFINE bkbhit (next_in <> next_out)
 
     // Define the Buffer
-    Dim buffer( BUFFER_SIZE - 1 ) // we will use element 0 in the array as part of out buffer
+    Dim buffer( BUFFER_SIZE - 1 ) // we will use element 0 in the array as part of our buffer
 
     // Call init the buffer
     InitBufferRing
@@ -66,14 +67,13 @@ This demonstration program will support up to 256 bytes. For a larger buffer cha
 
 
     // Get character(s) and send back
-    // Get character(s) and send back
     Do
 
         //  Do we have data in the buffer?
         if bkbhit then
 
-            // Send the next character in the buffer to the terminal, exposed via the function `bgetc` back the terminal
-            HSerSend bgetc    
+            // Send the next character in the buffer to the terminal, exposed via the function `bgetc`          ' <<< draining the buffer ring one character at a time
+            HSerSend bgetc
 
         end if
     Loop
@@ -120,17 +120,23 @@ This demonstration program will support up to 256 bytes. For a larger buffer cha
         #IFDEF BIT( U1RXIE )
             On Interrupt UART1ReceiveInterrupt Call readUSART
         #ENDIF
-        
+
         #IFDEF AVR
             #IFNDEF CHIPAVRDX
-                //~ Support for legacy AVR 
-                On Interrupt UsartRX1Ready Call readUSART  
+                //~ Support for legacy AVR
+                On Interrupt UsartRX1Ready Call readUSART
             #ELSE
-                //~ Support for AVRDx - AVRDx chips are USART0,USART1,USART2,USART3 and USART4 not USART. 
+                //~ Support for AVRDx - AVRDx chips are USART0,USART1,USART2,USART3 and USART4 not USART.
                 On Interrupt Usart0RXReady Call readUSART
-            #ENDIF 
+            #ENDIF
         #ENDIF
 
     End Sub
 
 ----
+*Key line:* `HSerSend bgetc` -- calls the function `bgetc`, which pulls the oldest byte out of the ring buffer and advances the read pointer, then immediately transmits that byte back to the terminal; this only runs when `bkbhit` reports the buffer is non-empty.
+
+**See Also:**
+
+* <<_hserreceive,HSerReceive>> -- receiving a byte directly, called from the interrupt handler above
+* <<_hsersend,HSerSend>> -- sending a byte, used above to echo the buffered character

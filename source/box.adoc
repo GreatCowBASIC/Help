@@ -1,14 +1,30 @@
 ==== Box
 
+(((Graphical LCD,Box)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     Box(LineX1,LineY1, LineX2, LineY2 [, LineColour ] )
 ----
 *Explanation:*
 
-Draws a box on a graphic LCD from the upper corner of pixel position X1, Y1 location to
-pixel position X2,Y2 location.
+Draws a box (unfilled rectangle) on a graphic LCD from the upper corner at pixel position `LineX1`, `LineY1` to
+pixel position `LineX2`, `LineY2`.
 
-`LineColour` can be specified.  Typical the value is 0 or 1 for GLCDForeGround and GLCDBackGround respectively.
+`LineColour` can be specified. Typically the value is 0 or 1, corresponding to `GLCDBackground` and `GLCDForeground` respectively.
 
-*See also* <<_filledbox,FilledBox>>
+*Example:*
+[source,gcbasic]
+----
+    #include <glcd.h>
+
+    Box(10, 10, 100, 50)          ' <<< the Box instruction
+----
+*Key line:* `Box(10, 10, 100, 50)` -- draws an unfilled rectangle from pixel (10,10) to pixel (100,50) using the current foreground colour.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_filledbox,FilledBox>> -- the filled equivalent of this command

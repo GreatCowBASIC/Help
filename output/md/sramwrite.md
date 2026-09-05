@@ -27,18 +27,19 @@ data memory attached.
 
 <span class="strong">**Explanation:**</span>
 
-`SRAMWrite` is the method used to write information to the SRAM data
-storage, so that it can be accessed by the `SRAMRead` command.
+`SRAMWrite` is the method used to write information to the attached
+serial SRAM chip, so that it can be accessed later with the `SRAMRead`
+command.
 
-`location` represents the location to read data from, and this location
-will vary from one application/solution to another.
+`location` represents the address to write to, and this will vary from
+one application/solution to another.
 
-`data` is the data that is to be written to the SRAM, a byte value or a
-byte variable.
+`data` is the data to be written to the SRAM: a byte value or a byte
+variable.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     #include <uno_mega328p.h>
     #option explicit
 
@@ -56,14 +57,23 @@ byte variable.
   'Main program
 
   dim out_byte as byte
+  out_byte = 0x55
 
-  'A subroutine:  Weite to SRAM location 0x10 and the variable out_byte
-  SRAMRead ( 0x10, out_byte )
+  'Write out_byte to SRAM location 0x10
+  SRAMWrite ( 0x10, out_byte )          ' <<< the SRAMWrite instruction
 ```
 
-<span class="strong">**For more help, see
-<a href="sram_overview" class="link" title="SRAM Overview">SRAMOverview</a>
-or
-<a href="sramread" class="link" title="SRAMRead">SRAMRead</a>**</span>
+<span class="strong">**Key line:**</span>
+`SRAMWrite ( 0x10, out_byte )` — writes the value in `out_byte` to SRAM
+address `0x10`, ready to be read back with `SRAMRead ( 0x10, in_byte )`.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="sram_overview" class="link" title="SRAM Overview">SRAM Overview</a>
+-   <a href="sramread" class="link" title="SRAMRead">SRAMRead</a>
+
+</div>
 
 </div>

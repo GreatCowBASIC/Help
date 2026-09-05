@@ -1,5 +1,8 @@
 ==== LCDWriteChar
 
+(((Liquid Crystal Display,LCDWriteChar)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -19,6 +22,7 @@ characters 0 through 7 are user defined, and can be set using the
 `LCDCreateChar` command.
 
 *Example :*
+[source,gcbasic]
 ----
     'This program draws a smiling face character
 
@@ -39,9 +43,13 @@ characters 0 through 7 are user defined, and can be set using the
     LCDCreateChar 0, CharArray()
 
     'Draw the custom character
-    LCDWriteChar 0
+    LCDWriteChar 0          ' <<< the LCDWriteChar instruction
 ----
-*For more help, see* <<_lcdcreatechar,LCDCreateChar>>,
-<<_lcd_overview,LCD Overview>>
+*Key line:* `LCDWriteChar 0` -- displays the custom character stored at index 0 (the smiling face defined by `CharArray` and copied in with `LCDCreateChar`) at the current cursor position; passing a value of 32 or higher instead would print a standard ASCII character.
+
+**See Also:**
+
+* <<_lcdcreatechar,LCDCreateChar>> -- defining the custom character shown above
+* <<_lcd_overview,LCD Overview>> -- category overview
 
 *Supported in <LCD.H>*

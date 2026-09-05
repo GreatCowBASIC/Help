@@ -6,7 +6,7 @@
 
 <div>
 
-### <span id="strings"></span>Strings
+##### <span id="strings"></span>Strings
 
 </div>
 
@@ -18,7 +18,7 @@
 
 Declared as:
 
-``` screen
+``` programlisting
     Dim <Name> As String
 ```
 
@@ -29,7 +29,7 @@ Fixed strings are not null-terminated and do not resize automatically.
 
 Declared as:
 
-``` screen
+``` programlisting
     Dim <Name> As String [* <Length>]
     Dim <Name> * <Length>
 ```
@@ -75,14 +75,14 @@ expensive in terms of RAM. From build 1603.
 
 <span class="strong">**Example**</span>
 
-``` screen
+``` programlisting
     tmpstring = "\223C\\"
 ```
 
 Produces a 3-byte string: `Chr(223)`, `C`, `\` — stored in the string
 table as:
 
-``` screen
+``` programlisting
     StringTable2:
     .DB  3, 223, 67, 92
 ```

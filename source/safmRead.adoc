@@ -1,9 +1,12 @@
 //erv 04110218
 ==== SAFRead
 
+(((SAFM,SAFRead)))
+
+
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     'as a subroutine
     SAFRead ( location, data )
@@ -13,76 +16,79 @@
 ----
 *Command Availability:*
 
-Available on all PIC micro-controllers with SAFM memory
+Available on all PIC microcontrollers with SAFM memory.
 
 *Explanation:*
 {empty} +
 {empty} +
-SAFRead is used to read information, byte values, from SAFM, so that it can be accessed for use in a user program.
+`SAFRead` is used to read information, byte values, from SAFM, so that it can be accessed for use in a user program.
 {empty} +
 {empty} +
-`location` represents the location or relative address to read.  The location will range from location 0 to SAF_BYTES - 1. This cab be from 0-127 or 0-255m depending upon the specific device. HEF_BYTES is a GCBASIC constant that represents the number of bytes of SAF Memory.&#160;&#160;&#160;
+`location` represents the location or relative address to read. The location ranges from location 0 to `SAF_BYTES - 1`. This can be 0-127 or 0-255, depending on the specific device. `SAF_BYTES` is a GCBASIC constant that represents the number of bytes of SAF memory.&#160;&#160;&#160;
 {empty} +
 {empty} +
-`data` is the data that is to be read from the SAFM data storage area.&#160;&#160;&#160;
+`data` is the data to be read from the SAFM data storage area.&#160;&#160;&#160;
 This can be a byte value or a byte variable.
 {empty} +
 {empty} +
 This method reads data from SAFM given the specific relative location.&#160;&#160;&#160;
-This method is similar to the EPRead method for EEPROM.
+This method is similar to the `EPRead` method for EEPROM.
 {empty} +
 {empty} +
 *Example 1:*
+[source,gcbasic]
 ----
     '... code preamble to select part
     '... code to setup serial
     '... code to setup PPS
 
-    'The following example reads the SAFM data value into the byte variable “byte_value” using a subroutine.
+    'The following example reads the SAFM data value into the byte variable byte_value using a subroutine.
     
     Dim data_byte as byte
+    Dim byte_value as byte
     
     ;Write a byte of data to SAF Location 34
     SAFWrite( 34, 144)
     
     ;Read the byte back from SAF location 34   
-    byte_value = SAFread( 34 )
+    SAFRead( 34, byte_value )          ' <<< the subroutine form of SAFRead this page documents
     
     ;Display the data on a terminal
     HserPrint "byte_value = "
     Hserprint byte_value
 
 ----
-{empty} +
-{empty} +
+*Key line:* `SAFRead( 34, byte_value )` -- reads the byte stored at SAFM location 34 into `byte_value` using the subroutine form.
+
 *Example 2:*
+[source,gcbasic]
 ----
     '... code preamble to select part
     '... code to setup serial
     '... code to setup PPS
 
-    'The following example reads the SAFM data value into the byte variable “byte_value” using a function.
+    'The following example reads the SAFM data value into the byte variable byte_value using a function.
     
-    Dim data_byte as byte
+    Dim byte_value as byte
     
-    ;Write a byte of Data to SAF Location 34
+    ;Write a byte of data to SAF Location 34
     SAFWrite( 34, 144)
     
     ;Read the byte back from SAF location 34   
-    byte_value = SAFread( 34 )
+    byte_value = SAFread( 34 )          ' <<< the function form of SAFRead this page documents
     
     ;Display the data on a terminal
     HserPrint "byte_value = "
     Hserprint byte_value
 ----
-{empty} +
-{empty} +
-See also
-<<_safm_overview,SAFM Overview>>,
-<<_safread,SAFRead>>,
-<<_safreadword,SAFReadWord>>,
-<<_safwrite,SAFWrite>>,
-<<_safwriteword,SAFWriteWord>>,
-<<_safreadblock,SAFReadBlock>>,
-<<_safwriteblock,SAFWriteBlock>>,
-<<_saferaseblock,SAFEraseBlock>>
+*Key line:* `byte_value = SAFread( 34 )` -- the function form of the same read, returning the value directly instead of writing it into an output parameter.
+
+**See Also:**
+
+* <<_safm_overview,SAFM Overview>>
+* <<_safreadword,SAFReadWord>>
+* <<_safwrite,SAFWrite>>
+* <<_safwriteword,SAFWriteWord>>
+* <<_safreadblock,SAFReadBlock>>
+* <<_safwriteblock,SAFWriteBlock>>
+* <<_saferaseblock,SAFEraseBlock>>

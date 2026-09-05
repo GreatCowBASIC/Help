@@ -24,29 +24,29 @@
 
 `#option bootloader` prevents the overwriting of any pre-loaded
 bootloader code, vectors, etc. below the specified address. The GCBASIC
-code will start at specified `address`.
+code will start at the specified `address`.
 
 A bootloader is a program that stays in the microcontroller and
-communicates with the PC, typically through the serial interface. The
-bootloader receives a user program from the PC and writes it in the
-flash memory, then launches this program in execution. Bootloaders can
-only be used with those microcontrollers that can write their flash
-memory through software.
+communicates with the PC, typically through a serial interface. The
+bootloader receives a user program from the PC and writes it to the
+flash memory, then launches this program for execution. Bootloaders can
+only be used with microcontrollers that can write to their flash memory
+through software.
 
 The bootloader itself must be written into the flash memory with an
 external programmer.
 
 In order for the bootloader to be launched after each reset, a
 `goto bootloader` instruction must exist somewhere in the first 4
-instructions; There are two types of bootloaders, some that require that
-the user reallocate the code and others that by themselves reallocate
-the first 4 instructions of the user program to another location and
-execute them when the bootloader exits.
+instructions. There are two types of bootloaders: some that require the
+user to reallocate the code, and others that themselves reallocate the
+first 4 instructions of the user program to another location and execute
+them when the bootloader exits.
 
-The diagram below shows the architecture of a bootloader. The left hand
-is the operation of the instructions without a bootloader. The right
-hand shows the initial instruction of goto the bootoader, then, when the
-bootloader has initialised the execution of the start code.
+The diagram below shows the architecture of a bootloader. The left-hand
+side shows the operation of the instructions without a bootloader. The
+right-hand side shows the initial instruction jumping to the bootloader,
+then, once the bootloader has initialised, execution of the start code.
 
 <div class="informalfigure">
 
@@ -63,8 +63,17 @@ See
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     #option bootloader 0x800
 ```
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="_option_noconfig" class="link" title="#Option NoConfig">#Option NoConfig</a> — another
+    option commonly used alongside a bootloader
+
+</div>
 
 </div>

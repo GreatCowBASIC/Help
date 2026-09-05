@@ -1,5 +1,8 @@
 ===== LCD_IO 8
 
+(((Liquid Crystal Display,lcd_io8)))
+
+
 *Using connection mode 8:*
 
 Using connection mode will require `R/W`, `RS`, `Enable` and all 8 data
@@ -59,17 +62,31 @@ is done, there is no need for the `R/W` to be connected to the chip, and
 no need for the `LCD_RW` constant to be set. Ensure that the R/W line on
 the LCD is connected to ground if not used.
 
-For a code example download http://gcbasic.sourceforge.net/library/DEMO%20CODE/Demo%20code%20for%20lcd/Demo%20mode%208.gcb[Eight Wire LCD example].
+*Example:*
 
+[source,gcbasic]
+----
+include::lcd_io8_code1.gcb[]
+----
+*Key line:* `Print "Hello World."` -- writes each character to `LCD_DATA_PORT` as a full 8-bit parallel value, strobed by `LCD_Enable`, in a single write per character rather than the two nibble-writes that 4-bit mode requires.
 
-For code examples see http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions[Eight Wire Examples].
+For further code examples see http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions[Eight Wire Examples].
 
 
 See the separate sections of the Help file for the specifics of each
 Connection Mode.
 
-*For more help, see*
-<<_lcd_io_0,LCD_IO 0>>, <<_lcd_io_1,LCD_IO 1>>, <<_lcd_io_2,LCD_IO 2>>,
-<<_lcd_io_2_74xx164,LCD_IO 2_74xx164>>, <<_lcd_io_2_74xx174,LCD_IO 2_74xx174>>,
-<<_lcd_io_4,LCD_IO 4>>,
-<<_lcd_io_10,LCD_IO 10>> or <<_lcd_io_12,LCD_IO 12>>
+**See Also:**
+
+* <<_lcd_io_0,LCD_IO 0>> -- single subroutine, software-driven mode
+* <<_lcd_io_1,LCD_IO 1>> -- 1-wire, via a 74HC595 shift register
+* <<_lcd_io_2,LCD_IO 2>> -- 2-wire shift register, deprecated
+* <<_lcd_io_2_74xx164,LCD_IO 2_74xx164>> -- 2-wire via 74HC164/74LS164, the preferred 2-wire method
+* <<_lcd_io_2_74xx174,LCD_IO 2_74xx174>> -- 2-wire via 74LS174, deprecated
+* <<_lcd_io_3,LCD_IO 3>> -- 3-wire shift register with an added Enable line
+* <<_lcd_io_4,LCD_IO 4>> -- 4-bit parallel connection
+* <<_lcd_io_10,LCD_IO 10>> -- I2C via a PCF8574/PCF8574A I/O expander
+* <<_lcd_io_12,LCD_IO 12>> -- I2C via a Ywmjkdz-layout adapter
+* <<_lcd_io_14,LCD_IO 14>> -- SPI expander
+* <<_lcd_io_16,LCD_IO 16>> -- PIC16LF72 SPI expander
+* <<_lcd_io_107,LCD_IO 107>> -- K107 serial adapter

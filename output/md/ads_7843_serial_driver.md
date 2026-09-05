@@ -29,7 +29,7 @@
 Available on all microcontrollers. Requires the inclusion of the
 following:
 
-``` screen
+``` programlisting
     #include <ADS7843.h>
 ```
 
@@ -39,7 +39,7 @@ The ADS7843 device is a 12-bit sampling Analog-to-Digital Converter
 (ADC) with a synchronous serial interface and low on resistance switches
 for driving touch screens.
 
-The GCBASIC driver is integrated with the SDD1289 GLCD driver. To use
+The GCBASIC driver is integrated with the SSD1289 GLCD driver. To use
 the ADS7843 driver the following is required to added to the GCBASIC
 source file.
 
@@ -118,10 +118,10 @@ a parameter of ADS7843\_SetPrecision changes the precision controls.
 
 For more information see <http://www.ti.com/product/ads7843>.
 
-This example shows how to drive a SDD1289 based Graphic LCD module with
+This example shows how to drive a SSD1289 based Graphic LCD module with
 ADS7843 touch controller.
 
-``` screen
+``` programlisting
     'Chip Settings
     #chip mega2560, 16
 
@@ -178,7 +178,7 @@ ADS7843 touch controller.
          GLCDPrint  10, 15,  str(num),SSD1289_YELLOW, 2
 
          'Libary sub routine - returns two variables
-         ADS7843_GetXY ( TP_X , TP_Y )
+         ADS7843_GetXY ( TP_X , TP_Y )          ' <<< the ADS7843_GetXY instruction
 
          if TP_X>=100 then GLCDPrint  100, 50, Str(TP_X),SSD1289_YELLOW, 2
          if TP_X>=10 and TP_X<100 then GLCDPrint  100, 50, Str(TP_X)+" ",SSD1289_YELLOW, 2
@@ -195,5 +195,27 @@ ADS7843 touch controller.
 
     Loop
 ```
+
+<span class="strong">**Key line:**</span>
+`ADS7843_GetXY ( TP_X , TP_Y )` — reads the touch controller and fills
+`TP_X`/`TP_Y` with the touched coordinates, only entered when
+`ADS7843_IRQ` reports a touch is in progress; note that `ADS7843_BUSY`
+is defined here for reference but is not actually used by the
+driver — only `ADS7843_DOUT`, `ADS7843_IRQ`, `ADS7843_CS`,
+`ADS7843_CLK`, and `ADS7843_DIN` are required, matching the constants
+table above.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview
+-   <a href="pset" class="link" title="Pset">Pset</a> — setting a
+    single pixel, as used above
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — printing
+    a value at a specific location, as used above
+
+</div>
 
 </div>

@@ -6,8 +6,7 @@
 
 <div>
 
-<span id="troubleshooting"></span>Troubleshooting
---------------------------------------------------
+### <span id="troubleshooting"></span>Troubleshooting
 
 </div>
 
@@ -38,7 +37,7 @@ GCBASIC has not been installed correctly - reinstall it.
 
 GCBASIC Forums
 
-There is a bug in GCBASIC
+There is a bug in GCBASIC.
 
 Post on the GCBASIC Forums. Ensure you state the version of your
 compiler and attach your code as a ZIP.
@@ -48,3 +47,14 @@ A program compiles and downloads fine, but will not run
 Oscillator not selected.
 
 <a href="configuration" class="link" title="Configuration">Configuration</a>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="frequently_asked_questions" class="link" title="Frequently Asked Questions">Frequently Asked Questions</a> — more
+    solutions to common problems
+-   <a href="configuration" class="link" title="Configuration">Configuration</a> — setting
+    the oscillator and other chip configuration options
+
+</div>

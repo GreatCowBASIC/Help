@@ -1,10 +1,13 @@
 ==== InitTimer1
+
+(((Timers,InitTimer1)))
+
 // Reveiwed EvanV for Billl  011317 adding new OSC sources
 // BillR 021416
 // Reveiwed EvanV 021316
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     InitTimer1 _source, prescaler_
 ----
@@ -233,23 +236,24 @@ to value*
 
 This example will measure that time that a switch is depressed (or on) and will write the results to the EEPROM.
 
+[source,gcbasic]
 ----
     #chip 16F819, 20
-    #define Switch PORTA.0
+    #define SWITCH PORTA.0
 
-    Dir Switch In
+    Dir SWITCH In
     DataCount = 0
 
     'Initilise Timer 1
-    InitTimer1 Osc, PS1_8
+    InitTimer1 Osc, PS1_8          ' <<< the InitTimer1 instruction
 
     Dim TimerValue As Word
 
     Do
         ClearTimer 1
-        Wait Until Switch = On
+        Wait Until SWITCH = On
         StartTimer 1
-        Wait Until Switch = Off
+        Wait Until SWITCH = Off
         StopTimer 1
 
         'Read the timer
@@ -261,18 +265,21 @@ This example will measure that time that a switch is depressed (or on) and will 
         DataCount += 2
     Loop
 ----
+*Key line:* `InitTimer1 Osc, PS1_8` -- selects the internal oscillator as the clock source with a 1:8 prescaler; the timer is not counting yet until `StartTimer` is called.
 {empty} +
 {empty} +
 *Example 2 (Atmel AVR):*
 
 This example will flash the yellow LED on an Arduino Uno (R3) once every second.
 
+[source,gcbasic]
+----
     #Chip mega328p, 16  'Using Arduino Uno R3
 
     #define LED PORTB.5
     Dir LED OUT
 
-    Inittimer1  OSC, PS_256
+    Inittimer1  OSC, PS_256          ' <<< the InitTimer1 instruction (AVR-style prescaler constant)
     Starttimer 1
     Settimer 1, 3200  ;Preload Timer
 
@@ -286,6 +293,15 @@ This example will flash the yellow LED on an Arduino Uno (R3) once every second.
        Settimer 1, 3200   'Preload timer
        pulseout LED, 100 ms
     End Sub
+----
+*Key line:* `Inittimer1  OSC, PS_256` -- on Atmel AVR, prescaler constants use the `PS_n` form rather than the Microchip PIC `PSn_n` form shown in Example 1.
 
+**See Also:**
+
+* <<_starttimer,StartTimer>> / <<_stoptimer,StopTimer>> -- starting and stopping the timer configured here
+* <<_settimer,Settimer>> -- preloading the timer's count value, as used above
+* <<_on_interrupt,On Interrupt>> -- attaching an interrupt handler to the timer overflow, as used above
+* <<_cleartimer,ClearTimer>> -- resetting the timer's count to zero
+* <<_pulseout,PulseOut>> -- generating the LED pulse in Example 2
 
 *Supported in <TIMER.H>*

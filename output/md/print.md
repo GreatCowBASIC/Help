@@ -35,12 +35,12 @@ can display string, word, byte, long or integer variables.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'A Light Meter program.
 
     'General hardware configuration
     #chip 16F877A, 20
-    #define LightSensor AN0
+    #define LIGHTSENSOR AN0
 
     'LCD connection settings
     #define LCD_IO 8
@@ -48,7 +48,7 @@ can display string, word, byte, long or integer variables.
     #define LCD_DATA_PORT PORTC
     #define LCD_RS PORTD.0
     #define LCD_RW PORTD.1
-    #define LCD_Enable PORTD.2
+    #define LCD_ENABLE PORTD.2
 
     CLS
     Print "Light Meter"
@@ -59,13 +59,31 @@ can display string, word, byte, long or integer variables.
     Do
         CLS
         Print "Light Level: "
-        Print ReadAD(LightSensor)
+        Print ReadAD(LIGHTSENSOR)          ' <<< Print with a numeric expression -- the syntax variant this page documents
         Wait 250 ms
     Loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="lcd_overview" class="link" title="LCD Overview">LCD Overview</a>
+<span class="strong">**Key line:**</span>
+`Print ReadAD(LIGHTSENSOR)` — `Print` accepts the numeric result of
+`ReadAD` directly; no string conversion is needed.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcd_overview" class="link" title="LCD Overview">LCD Overview</a> — LCD
+    wiring and configuration background
+-   <a href="locate" class="link" title="Locate">Locate</a> — positioning
+    the cursor before printing, as used above
+-   <a href="cls" class="link" title="CLS">CLS</a> — clearing the
+    display before printing, as used above
+-   <a href="readad" class="link" title="ReadAD">ReadAD</a> — reading
+    the light level printed in the example above
+-   <a href="wait" class="link" title="Wait">Wait</a> — pausing
+    between readings, as used above
+
+</div>
 
 <span class="strong">**Supported in &lt;LCD.H&gt;**</span>
 

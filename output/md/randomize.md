@@ -59,12 +59,12 @@ runs.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Set chip model
     #chip tiny2313, 1
 
     'Use randomize, with the value on PORTD as the seed
-    Randomize PORTD
+    Randomize PORTD          ' <<< the Randomize instruction
 
     'Generate random numbers, and output on PORTB
     Do
@@ -72,5 +72,21 @@ runs.
         Wait 1 s
     Loop
 ```
+
+<span class="strong">**Key line:**</span> `Randomize PORTD` — seeds the
+generator with whatever value happens to be present on `PORTD` at that
+moment, so the sequence `Random` produces afterward differs from run to
+run.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="overview" class="link" title="Overview">Overview</a> — category
+    overview
+-   <a href="random" class="link" title="Random">Random</a> — related
+    command in the same category
+
+</div>
 
 </div>

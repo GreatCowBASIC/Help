@@ -1,10 +1,13 @@
 ==== SMT Timers
 
+(((Timers,SMT Timers)))
+
+
 The Signal Measurement Timer (SMT) capability is a 24-bit counter with advanced clocking and gating logic, which can be configured for measuring a variety of digital signal parameters such as pulse width, frequency and duty cycle, and the time difference between edges on two signals.&#160;&#160;
 
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
 
     SETSMT1PERIOD ( 4045000 )        ' 1.000s period
@@ -145,6 +148,7 @@ Prescaler can be one of the following:{empty} +
 
 This example will ..
 
+[source,gcbasic]
 ----
     #Chip 16F18855, 32
 
@@ -171,7 +175,7 @@ This example will ..
       DIR     Potentiometer In
 
 
-     SETSMT1PERIOD ( 4045000 )        ' 1.000s periodwith the parameters of SMT_FOSC and SMTPres_1 within the clock variance of the interclock
+     SETSMT1PERIOD ( 4045000 )          ' <<< the SetSMT1Period instruction, 1.000s period with the parameters of SMT_FOSC and SMTPres_1 within the clock variance of the interclock
                                       ' a perfect internal clock would be 4000000
 
      SETSMT2PERIOD ( 9322401 )        ' 4.600s period with the parameters of SMT_FOSC4 and SMTPres_8
@@ -205,8 +209,15 @@ This example will ..
 
 
 ----
+*Key line:* `SETSMT1PERIOD ( 4045000 )` -- sets the 24-bit match value that determines SMT1's overflow period; combined with the `SMT_FOSC`/`SMTPres_1` clock settings below, 4,045,000 ticks works out to approximately 1.000 second.
 {empty} +
 {empty} +
 
 
 *Supported in <SMT_Timers.h>*
+
+**See Also:**
+
+* <<_timer_overview,Timer Overview>> -- category overview
+* <<_cleartimer,ClearTimer>> -- related command in the same category
+* <<_inittimer0,InitTimer0>> -- related command in the same category

@@ -1,5 +1,8 @@
 ==== LCDSpace
 
+(((Liquid Crystal Display,LCDSpace)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -17,6 +20,7 @@ display
 `value` is a byte value from 1 to 255. Where the `value` is the number of spaces required.
 
 *Example :*
+[source,gcbasic]
 ----
     Locate 0,0
     Print "Reset"
@@ -27,8 +31,15 @@ display
 
     lcdcursor flash
 
-    lcdspace 12
+    lcdspace 12          ' <<< the LCDSpace instruction
 
     print "*"
 ----
+*Key line:* `lcdspace 12` -- writes 12 blank characters starting at the current cursor position, advancing the cursor 12 columns so the following `print "*"` lands after the gap.
+
+**See Also:**
+
+* <<_lcd_overview,LCD Overview>> -- category overview
+* <<_cls,CLS>> -- clearing the whole display rather than writing spaces
+
 *Supported in <LCD.H>*

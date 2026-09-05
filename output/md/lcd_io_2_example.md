@@ -22,10 +22,10 @@ A 2 by 16 LCD is assumed.
 
 Based on the works by Thomas Henry and then revised Evan R. Venn
 
-``` screen
+``` programlisting
     #chip 16F877A,20
 
-    #define LCD_IO 2
+    #define LCD_IO 2          ' <<< the constant that selects 2-wire shift register connection mode
     #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_DB portb.2
     #define LCD_CB portb.0
@@ -90,21 +90,21 @@ Based on the works by Thomas Henry and then revised Evan R. Venn
           doHome                  ;home cursor
           LCDCmd(under)          ;choose underline cursor
           for ii = 0 to 15         ;move cursor across first line
-            LCDCmd(line1+i)
+            LCDCmd(line1+ii)
             wait 200 mS
-          next i
+          next ii
           for ii = 0 to 15         ;move cursor across second line
-            LCDCmd(line2+i)
+            LCDCmd(line2+ii)
             wait 200 mS
-          next i
+          next ii
           for ii = 15 to 0 step -1 ;move cursor back over second line
-            LCDCmd(line2+i)
+            LCDCmd(line2+ii)
             wait 200 mS
-          next i
+          next ii
           for ii = 15 to 0 step -1 ;move cursor back over first line
-            LCDCmd(line1+i)
+            LCDCmd(line1+ii)
             wait 200 mS
-          next i
+          next ii
           wait 3 S
           ;demonstrate blinking block cursor
           printMsg(8)             ;print next message
@@ -120,7 +120,7 @@ Based on the works by Thomas Henry and then revised Evan R. Venn
           for ii = 0xd0 to 0xff    ;print next message - the remaining EEPROM
             EPread ii, char        ;fetch directly from eeprom
             print chr(char)
-          next i
+          next ii
           wait 1 S
           doHome                  ;home cursor once more
           repeat 141              ;scroll message twice
@@ -136,12 +136,12 @@ Based on the works by Thomas Henry and then revised Evan R. Venn
             LCDCmd(line1+12)     ;overwrite each character displayed
             print chr(ii)            ;this is the ASCII code
             wait 500 mS
-          next i
+          next ii
           for ii = 161 to 255      ;print next batch of ASCII characters
             LCDCmd(line1+12)
             print chr(ii)
             wait 500 mS
-          next i
+          next ii
           ;say good-bye
           LCDCmd(line2)
           printMsg(11)             ;print next message
@@ -212,5 +212,26 @@ Based on the works by Thomas Henry and then revised Evan R. Venn
 
     end sub
 ```
+
+<span class="strong">**Key line:**</span> `#define LCD_IO 2` — selects
+the deprecated 2-wire shift register connection mode; the
+cursor-movement loops further down use the loop variable `ii`
+consistently after correcting the `next i`/\` line+i\` typos (leftovers
+from an undeclared variable) to `ii`.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcd_io_2" class="link" title="LCD_IO 2">LCD_IO 2</a> — full
+    reference for this connection mode
+-   <a href="lcd_io_2_74xx164" class="link" title="LCD_IO 2_74xx164">LCD_IO 2_74xx164</a> — the
+    preferred 2-wire shift register method
+-   <a href="lcd_io_4_example" class="link" title="LCD_IO 4 Example">LCD_IO 4 Example</a> — the
+    4-bit parallel equivalent
+-   <a href="lcdcmd" class="link" title="LCDCmd">LCDCmd</a> — sending
+    raw HD44780 commands, as used throughout this example
+
+</div>
 
 </div>

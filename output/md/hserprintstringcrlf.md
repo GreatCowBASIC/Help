@@ -36,7 +36,7 @@ meet your needs.  For addition USART ports use
 `#define USARTn_BAUD_RATE 9600` where `` n` `` is the required port
 number.
 
-``` screen
+``` programlisting
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
     #define USART_TX_BLOCKING
@@ -56,7 +56,7 @@ The data will be sent out the hardware serial module.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
   'This program will display string over the serial connection.
 
   'Chip settings
@@ -67,14 +67,26 @@ The data will be sent out the hardware serial module.
   #define USART_TX_BLOCKING
 
   'Show string message
-  HSerPrintStringCRLF "GCBASIC RS232 Test"
+  HSerPrintStringCRLF "GCBASIC RS232 Test"          ' <<< the HSerPrintStringCRLF instruction
   Wait 1 s
 ```
 
-<span class="strong">**For more help, see also**</span>
-<a href="hserprint" class="link" title="HSerPrint">HserPrint</a>,
-<a href="hserprintbytecrlf" class="link" title="HserPrintByteCRLF">HserPrintByteCRLF</a>
-<span class="strong">**and**</span>
-<a href="hserprintcrlf" class="link" title="HserPrintCRLF">HserPrintCRLF</a>
+<span class="strong">**Key line:**</span>
+`HSerPrintStringCRLF "GCBASIC RS232 Test"` — sends the string followed
+automatically by a carriage return and line feed, unlike `HSerPrint`,
+which requires the CR/LF bytes to be sent separately.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hserprint" class="link" title="HSerPrint">HSerPrint</a> — sends
+    any variable type, but with no automatic CR/LF
+-   <a href="hserprintbytecrlf" class="link" title="HserPrintByteCRLF">HserPrintByteCRLF</a> — the
+    byte equivalent of this command
+-   <a href="hserprintcrlf" class="link" title="HserPrintCRLF">HserPrintCRLF</a> — sends
+    only the CR/LF terminator, with no data
+
+</div>
 
 </div>

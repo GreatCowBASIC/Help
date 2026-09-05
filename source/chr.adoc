@@ -1,26 +1,33 @@
 ==== Chr
 
+(((String Manipulation,Chr)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     _stringvar_ = CHR(_bytevar_)
 ----
 
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The `CHR` function creates a string of a ANSI (1-byte) character.
+The `CHR` function creates a one-character string from an ANSI (1-byte) character code.
 
-`ASC` is the natural complement of `CHR`.
+`ASC` is the natural complement of `CHR` -- it converts a character back into its byte code.
 
 *Example:*
-[subs="quotes"]
+[source,gcbasic]
 ----
-    _string_ = CHR( 65 )   ' Returns "A"
+    _string_ = CHR( 65 )   ' Returns "A"          ' <<< the CHR instruction
 
     _string_ = CHR( 66 )   ' Returns "B"
 ----
-*For more help, see* <<_asc,Asc>>
+*Key line:* `CHR( 65 )` -- converts the ASCII code 65 into the one-character string `"A"`.
+
+**See Also:**
+
+* <<_asc,Asc>> -- the inverse operation, converting a character back to its byte code

@@ -1,7 +1,10 @@
 ==== SerSend
 
+(((Serial Communications,SerSend)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   SerSend _channel_, _data_
 ----
@@ -15,6 +18,7 @@ This command will send a byte given by `_data_` using the RS232 channel
 referred to as `_channel_` according to the rules set using `InitSer`.
 
 *Example:*
+[source,gcbasic]
 ----
   'This program will send a byte using PORTB.2, the value of which
   'depends on whether a button is pressed. This can be used with the example for SerReceive.
@@ -39,9 +43,14 @@ referred to as `_channel_` according to the rules set using `InitSer`.
   Do
     If Button = On Then Temp = 100
     If Button = Off Then Temp = 0
-    SerSend 1, Temp
+    SerSend 1, Temp          ' <<< the SerSend instruction
     Wait 100 ms
   Loop
 ----
-*For more help, see* <<_rs232_software_overview,RS232 Software Overview>>,
-<<_initser,InitSer>>
+*Key line:* `SerSend 1, Temp` -- writes the byte held in `Temp` out on software-UART channel 1, using the bit rate, start/stop bits and parity previously configured by `InitSer` on that same channel.
+
+**See Also:**
+
+* <<_rs232_software_overview,RS232 Software Overview>> -- category overview
+* <<_initser,InitSer>> -- configures the channel before SerSend can be used
+* <<_serreceive,SerReceive>> -- the counterpart command for reading a byte back

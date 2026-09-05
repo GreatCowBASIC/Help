@@ -1,5 +1,8 @@
 ==== Overview
 
+(((Random Numbers,Overview)))
+
+
 *Introduction:*
 
 These routines allow GCBASIC to generate pseudo-random numbers.
@@ -35,6 +38,13 @@ To set them, place a line in the main program file that uses
 
 *Example:*
 
+[source,gcbasic]
 ----
-    #define RANDOMIZE_SEED Timer2
+    #define RANDOMIZE_SEED Timer2          ' <<< the constant this page documents
 ----
+*Key line:* `#define RANDOMIZE_SEED Timer2` -- overrides the default seed source (`Timer0`) with `Timer2`; this only changes which timer's current count feeds `Randomize` when it is called with no argument, so the timer chosen must actually be running and free-counting, or the sequence will still start from the same seed on every run.
+
+**See Also:**
+
+* <<_random,Random>> -- related command in the same category
+* <<_randomize,Randomize>> -- related command in the same category

@@ -1,7 +1,11 @@
 //
 ==== HPWMUpdate for PWM Module(s)
 
+(((Pulse width modulation,HPWMUpdate for PWM Module(s))))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     HPWMUpdate ( channel, duty_cycle )
 ----
@@ -29,6 +33,7 @@ ranges from 0 to 1023 where 1023 is 100% duty cycle.
 
 
 *Example for Hardware PWM:*
+[source,gcbasic]
 ----
     'This program will alter the brightness of an LED using
     'hardware PWM.
@@ -61,7 +66,7 @@ ranges from 0 to 1023 where 1023 is 100% duty cycle.
     do
         'Turn up brightness over 2.5 seconds
         For Bright = 0 to 1023
-            HPWMUpdate 6, Bright
+            HPWMUpdate 6, Bright          ' <<< the HPWMUpdate instruction
             wait 10 ms
         next
         'Turn down brightness over 2.5 seconds
@@ -71,6 +76,10 @@ ranges from 0 to 1023 where 1023 is 100% duty cycle.
         next
     loop
 ----
+*Key line:* `HPWMUpdate 6, Bright` -- changes only channel 6's duty cycle, leaving the frequency, timer, and PPS pin mapping set by the earlier `HPWM 6, 40, [word]0, 2` call untouched; `Bright` must be the same variable type (word) that the initial `HPWM` call used.
 
 
-*For more help, see* <<_pwmoff,PWMOff>>, <<_hpwm_10_bit,HPWM 10 Bit>>
+**See Also:**
+
+* <<_hpwm_10_bit,HPWM 10 Bit>> -- sets the initial frequency, timer, and duty cycle that HPWMUpdate then adjusts
+* <<_hpwmoff_2,HPWMOff>> -- stopping the PWM signal entirely

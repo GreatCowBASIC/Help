@@ -56,7 +56,7 @@ To change the performance (communications speed) of the LCD use
 
 <span class="strong">**Example**</span>
 
-``` screen
+``` programlisting
   #DEFINE LCD_SPEED  FAST
 ```
 
@@ -74,7 +74,10 @@ to receive the data.
 
 With most displays this equates to a speed of about 30,000 characters
 per second. For comparision about 10 times faster than I2C using a
-PC8574 Expander (See LCD\_IO 10 or See LCD\_IO 112)
+PC8574 Expander (See
+<a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a>
+or
+<a href="lcd_io_12" class="link" title="LCD_IO 12">LCD_IO 12</a>)
 
 `OPTIMAL` is only supported in LCD\_IO 4,8 and only when LCD\_NO\_RW is
 not defined (RW Mode)
@@ -99,18 +102,40 @@ command the following criteria must be true.
 
 Example:
 
-``` screen
+``` programlisting
   #DEFINE LCD_IO 4
-  #DEFINE LCD_SPEED OPTIMAL
+  #DEFINE LCD_SPEED OPTIMAL          ' <<< the constant this page documents
   #DEFINE LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
   #DEFINE LCD_DB7 PORTB.5
   #DEFINE LCD_DB6 PORTB.4
-  #DEFINE LCD_DB7 PORTB.3
-  #DEFINE LCD_DB6 PORTB.2
+  #DEFINE LCD_DB5 PORTB.3
+  #DEFINE LCD_DB4 PORTB.2
 
   #DEFINE LCD_RW PORTA.3    'Must be defined for RW Mode
   #DEFINE LCD_RS PORTA.2
   #DEFINE LCD_ENABLE PORTA.1
 ```
+
+<span class="strong">**Key line:**</span>
+`#DEFINE LCD_SPEED OPTIMAL` — enables busy-flag polling instead of fixed
+delays, so each byte is sent as soon as the HD44780 controller reports
+it is ready; this requires `LCD_RW` to be wired and defined (RW Mode),
+and only works in 4-bit (`LCD_DB4` through `LCD_DB7`) or 8-bit
+connection modes.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcd_io_4" class="link" title="LCD_IO 4">LCD_IO 4</a> — 4-bit
+    connection mode, required for OPTIMAL speed
+-   <a href="lcd_io_8" class="link" title="LCD_IO 8">LCD_IO 8</a> — 8-bit
+    connection mode, required for OPTIMAL speed
+-   <a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a> — I2C
+    connection mode, compared for speed above
+-   <a href="get" class="link" title="Get">Get</a> — reading a
+    byte from the LCD, requires busy-flag checking to be available
+
+</div>
 
 </div>

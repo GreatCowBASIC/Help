@@ -1,5 +1,8 @@
 ==== ILI9340 Controllers
 
+(((Graphical LCD,ILI9340 Controllers)))
+
+
 This section covers GLCD devices that use the ILI9340 graphics controller.  The ILI9340 is a TFT LCD Single Chip Driver with 240RGBx320 Resolution and 262K colors.
 
 GCBASIC supports 65K-color mode operations.
@@ -9,6 +12,7 @@ The GCBASIC constants shown below control the configuration of the ILI9340 contr
 
 To use the ILI9340 driver simply include the following in your user code.  This will initialise the driver.
 
+[source,gcbasic]
 ----
     #include <glcd.h>
     #DEFINE GLCD_TYPE GLCD_TYPE_ILI9340
@@ -160,6 +164,7 @@ The GCBASIC commands supported for this GLCD are shown in the table below.&#160;
 |===
 
 
+[source,gcbasic]
 ----
     ILI9340_BLACK   'hexidecimal value 0x0000
     ILI9340_RED     'hexidecimal value 0xF800
@@ -190,6 +195,7 @@ This example shows how to drive a ILI9340 based Graphic LCD module with the buil
 
 
 *Example:*
+[source,gcbasic]
 ----
     ;Chip Settings
     #chip 16F1937,32
@@ -206,14 +212,22 @@ This example shows how to drive a ILI9340 based Graphic LCD module with the buil
     #define GLCD_RESET porta.2
     #define GLCD_DI porta.3
     #define GLCD_DO porta.4
-    #define GLCD_SCK porta.5
+    #define GLCD_SCK porta.5          ' <<< the last of the 5 required SPI pin definitions for this driver
 
     GLCDPrint(0, 0, "Test of the ILI9340 Device")
     end
 ----
+*Key line:* `#define GLCD_SCK porta.5` -- completes the 5 SPI pin definitions (`GLCD_DC`, `GLCD_CS`, `GLCD_RESET`, `GLCD_DI`, `GLCD_DO`, `GLCD_SCK`) the ILI9340 driver requires before any drawing command will work.
 
 
-*For more help, see*
-<<_glcdcls,GLCDCLS>>, <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview and the full supported-display comparison table
+* <<_glcdcls,GLCDCLS>>
+* <<_glcddrawchar,GLCDDrawChar>>
+* <<_glcdprint,GLCDPrint>>
+* <<_glcdreadbyte,GLCDReadByte>>
+* <<_glcdwritebyte,GLCDWriteByte>>
+* <<_pset,Pset>>
 
 Supported in <GLCD.H>

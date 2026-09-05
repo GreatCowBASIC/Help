@@ -1,44 +1,43 @@
-// Edit EvanV 230917 - added samever and samebit directives
-// Edit EvanV 15116 - added new known directives
-// ERV - add output usage
-// ERV corrected the Allof and Oneof sections
 === Other directives
 
-The built-in `#defines` are used to support the `#IFDEF` command set are as follows. The table also shows which `#defines` are supported as string in HSerPrint, SerPrint and other string related commands.
+(((Compiler Directives,Other directives)))
+
+
+The built-in `#defines` used to support the `#IFDEF` command set are as follows. The table also shows which `#defines` are supported as strings in HSerPrint, SerPrint, and other string-related commands.
 
 [cols=4, options="header,autowidth"]
 |===
 |*Constants*
 |*Type*
 |*Usage*
-|*Decription*
+|*Description*
 
 |`CHIPADC`
 |Constant
-|Conditional compilation  or output commands
+|Conditional compilation or output commands
 |The number of A/D inputs on the current chip
 
 
 |`CHIPASSEMBLER`
 |Constant
-|Conditional compilation  or output commands
-|The select assemble GCASM/MPASM/PICAS etc
+|Conditional compilation or output commands
+|The selected assembler: GCASM/MPASM/PICAS etc.
 
 
 |`CHIPEEPROM`
 |Constant
-|Conditional compilation  or output commands
-|The number of Bytes in EEPROM memmory
+|Conditional compilation or output commands
+|The number of bytes in EEPROM memory
 
 |`CHIPIO`
 |Constant
-|Conditional compilation  or output commands
+|Conditional compilation or output commands
 |The number of general purpose IO pins
 
 
 |`CHIPMHZ`
 |Constant
-|Conditional compilation  or output commands
+|Conditional compilation or output commands
 |The microcontroller clock speed
 
 |`CHIPNAME`
@@ -48,30 +47,30 @@ The built-in `#defines` are used to support the `#IFDEF` command set are as foll
 
 |`CHIPNAMESTR`
 |Constant
-|Conditional compilation  or output commands
+|Conditional compilation or output commands
 |The microcontroller name
 
 |`CHIPPINS`
 |Constant
-|Conditional compilation  or output commands
+|Conditional compilation or output commands
 |The number of microcontroller pins.
 
 |`CHIPRESERVEHIGHPROG`
 |Constant
-|Scripts, Conditional compilation, and  output commands
+|Scripts, Conditional compilation, and output commands
 |The value of the words reserved
 
 
 |`CHIPOSC`
 |Constant
-|Scripts, Conditional compilation, and  output commands
+|Scripts, Conditional compilation, and output commands
 |The frequency selected
 
 
 |`CHIPUSINGINTOSC`
 |Constant
-|Scripts, Conditional compilation, and  output commands
-|The constant exists if the compiler has deternined the program is using the internal oscillator
+|Scripts, Conditional compilation, and output commands
+|The constant exists if the compiler has determined the program is using the internal oscillator
 
 
 
@@ -80,33 +79,33 @@ The built-in `#defines` are used to support the `#IFDEF` command set are as foll
 |`CHIPPROGRAMMERNAMESTR`
 |String constant
 |Name of the chip type to be used by a programmer
-|The psuedo microcontroller type
+|The pseudo microcontroller type
 
 |`CHIPRAM`
 |Constant
-|Conditional compilation  or output commands
+|Conditional compilation or output commands
 |The RAM size
 
 |`CHIPSHAREDRAM`
 |Constant
-|Conditional compilation  or output commands
+|Conditional compilation or output commands
 |The first RAM location
 
 |`CHIPFAMILY`
 |Constant
-|Conditional compilation  or output commands
+|Conditional compilation or output commands
 |See the table below
 
 |`CHIPWORDS`
 |Constant
-|Conditional compilation  or output commands
-|The number of WORDS in Flash memmory
+|Conditional compilation or output commands
+|The number of WORDS in Flash memory
 
 
 |`SOURCEFILE`
 |Constant string
-|Conditional compilation  or output commands
-|The name of the source GCB file 
+|Conditional compilation or output commands
+|The name of the source GCB file
 
 |
 |
@@ -122,28 +121,28 @@ The built-in `#defines` are used to support the `#IFDEF` command set are as foll
 |`Var()`
 |Function
 |Conditional compilation only
-|True if a register is declared (or false if not declared) in the currently specficied microcontroller's .dat file.
+|True if a register is declared (or false if not declared) in the currently specified microcontroller's .dat file.
 
 Var(register_name)
 
 |`NoVar()`
 |Function
 |Conditional compilation only
-|True if a register is NOT declared (or false if declared) in the currently specficied microcontroller's .dat file.
+|True if a register is NOT declared (or false if declared) in the currently specified microcontroller's .dat file.
 
 NoVar(register_name)
 
 |`Bit()`
 |Function
 |Conditional compilation only
-|True if a bit is declared (or false if not declared) in the currently specficied microcontroller's .dat file.
+|True if a bit is declared (or false if not declared) in the currently specified microcontroller's .dat file.
 
 Bit(bit_name)
 
 |`NoBit()`
 |Function
 |Conditional compilation only
-|True if a bit is NOT declared (or false if declared) in the currently specficied microcontroller's .dat file.
+|True if a bit is NOT declared (or false if declared) in the currently specified microcontroller's .dat file.
 
 NoBit(bit_name)
 
@@ -152,24 +151,24 @@ NoBit(bit_name)
 |Conditional compilation only
 |True if all defines are declared:
 
-`AllOf(define1, define2, …)`
+`AllOf(define1, define2, ...)`
 
 |`OneOf()`
 |Function
 |Conditional compilation only
 |True if one of the defines is declared:
 
-`OneOf(define1, define2, …)`
+`OneOf(define1, define2, ...)`
 
 |===
 {empty} +
 {empty} +
-The table below shows two special directives that support the mapping for one variable or bit to anoher variable or bit.  This is useful when creating portable code or libraries to ensure GCBASIC
+The table below shows two special directives that support mapping one variable or bit to another variable or bit. This is useful when creating portable code or libraries, to ensure GCBASIC can find an equivalent register or bit even when its exact name differs between microcontrollers.
 {empty} +
 {empty} +
 {empty} +
 {empty} +
-[width="100%",cols="<10%,<45%,<45%"],options="header"]
+[width="100%",cols="<10%,<45%,<45%",options="header"]
 |===
 |*Directive*
 |*Explanation*
@@ -178,8 +177,8 @@ The table below shows two special directives that support the mapping for one va
 |#samebit
 |The compiler checks each item in the list to see which ones are implemented on the current microcontroller.
 {empty} +
-If any of the bits do not exist, the compiler will create a constant mapping to the  name of the first parameter in the list of parameters that does exist.
-{empty} + If none of the bits exist the no constant is created.
+If any of the bits do not exist, the compiler will create a constant mapping to the name of the first parameter in the list of parameters that does exist.
+{empty} + If none of the bits exist, no constant is created.
 |&#160;&#160;#samebit PLLEN, SPLLEN, SPLLMULT
 {empty} +
 &#160;&#160;&#160;&#160;Set SPLLEN On
@@ -188,8 +187,8 @@ If any of the bits do not exist, the compiler will create a constant mapping to 
 |#samevar
 |The compiler checks each item in the list to see which ones are implemented on the current microcontroller.
 {empty} +
-If any of the variables do not exist, the compiler will create a constant mapping to the  name of the first parameter in the list of parameters that does exist.
-{empty} + If none of the variables exist the no constant is created.
+If any of the variables do not exist, the compiler will create a constant mapping to the name of the first parameter in the list of parameters that does exist.
+{empty} + If none of the variables exist, no constant is created.
 |&#160;&#160;#samevar CMCON, CMCON0, CMCONbob +
 &#160;&#160;#ifdef Var(CMCONbob) +
 &#160;&#160;&#160;&#160;&#160;&#160;CMCONbob = 7 +
@@ -221,31 +220,31 @@ This table shows the ChipFamily constants mapped to the microcontroller architec
 |120
 |AVR core version V2E class microcontrollers
 |-120 Subtype: 121
-|AVR core version AVR8L, also called AVRrc, reduced core class microcontrollers.  ATTiny4-5-9-10 and ATTiny102-104 with only 16 GPR's from r16-r31 and only 54 instructions.
+|AVR core version AVR8L, also called AVRrc, reduced core class microcontrollers. ATtiny4-5-9-10 and ATtiny102-104 with only 16 GPRs from r16-r31 and only 54 instructions.
 |-120 Subtype: 122
 |LGT microcontrollers.
 |-120 Subtype: 123
-|AVR core version V2E class microcontrollers with one USART like the mega32u4, mega16u4 - they have different registers for the usart.
+|AVR core version V2E class microcontrollers with one USART, like the mega32u4, mega16u4 - they have different registers for the USART.
 |121
-|Tiny4-5-9-10 and tiny102-104. Only 16 GPR's from r16-r31 and only 54 instructions.
+|Tiny4-5-9-10 and tiny102-104. Only 16 GPRs from r16-r31 and only 54 instructions.
 |130
-|AVR core version V3E class microcontrollers but essentially the mega32u6 only
+|AVR core version V3E class microcontrollers, but essentially the mega32u6 only
 |140
-|AVRDX microcontrollers. Series 0, series1, series2, DA series and DB series.
+|AVRDX microcontrollers. Series 0, series 1, series 2, DA series, and DB series.
 |
 |
 |*PIC*
 |*Microcontroller Characteristics*
 |12
-|Baseline devices. 12 Bit instruction set
+|Baseline devices. 12-bit instruction set
 |15
-|Mid-range core devices. 14 Bit instruction set with enhanced instruction set class
+|Mid-range core devices. 14-bit instruction set with enhanced instruction set class
 |15 plus familyVariant=1
-|Mid-range core devices. 14 Bit instruction set with enhanced instruction set  and with large memory capability class
+|Mid-range core devices. 14-bit instruction set with enhanced instruction set and with large memory capability class
 |16
-|High end core devices. 16 Bit instruction set, memory addressing architecture and an extended instruction set.
+|High end core devices. 16-bit instruction set, memory addressing architecture, and an extended instruction set.
 
-Chip family 16 also have a sub chip family Constant.&#160;&#160; These constants are shown below:
+Chip family 16 also has sub chip family constants. These constants are shown below:
 
     &#160;&#160;&#160;&#160;ChipFamily18FxxQ10 = 16100
 
@@ -274,3 +273,8 @@ Chip family 16 also have a sub chip family Constant.&#160;&#160; These constants
 |===
 {empty} +
 {empty} +
+
+**See Also:**
+
+* <<__ifdef,#ifdef>> -- the directive these Var/NoVar/Bit/NoBit/AllOf/OneOf functions are used inside
+* <<__chip,#chip>> -- selecting the target chip these constants describe

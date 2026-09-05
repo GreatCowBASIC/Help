@@ -43,7 +43,7 @@ code. This will initialise the driver.
   
 <span class="strong">**Setup for Hardware Serial**</span>
 
-``` screen
+``` programlisting
 ' ----- Configuration
     'Chip Settings.
     #chip 16f18855,32
@@ -51,7 +51,7 @@ code. This will initialise the driver.
 
 ' ----- Set up the Nextion GLCD
     #include <glcd.h>
-    #define GLCD_TYPE GLCD_TYPE_Nextion
+    #define GLCD_TYPE GLCD_TYPE_Nextion          ' <<< the constant that selects this controller driver
 
 
     ;VERY IMPORTANT!!
@@ -110,11 +110,17 @@ code. This will initialise the driver.
 ....
 ```
 
-  
+<span class="strong">**Key line:**</span>
+`#define GLCD_TYPE GLCD_TYPE_Nextion` — tells `<glcd.h>` to compile in
+the Nextion driver, which talks to the display over a single serial link
+(hardware or software) rather than a parallel or SPI bus; `GLCD_WIDTH`
+and `GLCD_HEIGHT` have no built-in default and must always be set to
+match the Nextion Editor’s rotation, or the library raises a runtime
+error.  
   
 <span class="strong">**Setup for Software Serial**</span>
 
-``` screen
+``` programlisting
 ' ----- Configuration
     'Chip Settings.
     #chip 16f18855,32
@@ -188,10 +194,10 @@ the table below.
 
 <div class="informaltable">
 
-| Constants     | Controls                                   | Default |
-|:--------------|:-------------------------------------------|:--------|
-| `GLCD_WIDTH`  | Mandated. The width parameter of the GLCD  | `320`   |
-| `GLCD_HEIGHT` | Mandated. The height parameter of the GLCD | `480`   |
+| Constants     | Controls                                                                                      | Default                                                                                                                         |
+|:--------------|:----------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------|
+| `GLCD_WIDTH`  | Mandatory. The width parameter of the GLCD, matching the rotation set in the Nextion Editor.  | No built-in default. Must always be set by the user; the driver raises a runtime error if left at the generic library fallback. |
+| `GLCD_HEIGHT` | Mandatory. The height parameter of the GLCD, matching the rotation set in the Nextion Editor. | No built-in default. Must always be set by the user; the driver raises a runtime error if left at the generic library fallback. |
 
 </div>
 
@@ -248,7 +254,8 @@ latest full set of supported commands.
 <td style="text-align: left;"><p><code class="literal">myReturnedWordValue  = GLCDGetTouch_Nextion( "nextion_command_string" )</code></p></td>
 <td style="text-align: left;"><p>A function that returns a long, that can be treated as word variable, value of the Touch event..  As follows:<br />
 <br />
-"tch0" for current x co-ordinate touched</p>
+</p>
+<p>"tch0" for current x co-ordinate touched</p>
 <p>"tch1" for current y co-ordinate touched</p>
 <p>"tch2" for last x co-ordinate touched</p>
 <p>"tch3" for last y co-ordinate touched<br />
@@ -293,8 +300,14 @@ set of supported commands.
 
   
   
+The library predefines the named colors below as 16-bit RGB565 values (5
+bits red, 6 bits green, 5 bits blue). Pass any of these constants, or
+your own custom 0x0000-0xFFFF value, as the optional colour parameter to
+`GLCDCLS`, `Box`, `FilledBox`, `Line`, `GLCDDrawChar`, or
+`GLCDDrawString`.  
+  
 
-``` screen
+``` programlisting
     TFT_BLACK   'hexidecimal value 0x0000
     TFT_RED     'hexidecimal value 0xF800
     TFT_GREEN   'hexidecimal value 0x0400
@@ -321,9 +334,14 @@ set of supported commands.
   
   
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>  
-  
-Supported in &lt;GLCD.H&gt;
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>  
+      
+    Supported in &lt;GLCD.H&gt;
+
+</div>
 
 </div>

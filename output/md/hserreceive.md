@@ -26,7 +26,7 @@ subroutine:*</span>**</span>
 or, if other multiple comports are in use, set the comport before using
 HSerReceive.
 
-``` screen
+``` programlisting
     comport = 1   '(1|2|3|4|5)Not needed unless using multiple comports in use
     HSerReceive (_user_byte_variable_)
 ```
@@ -43,7 +43,7 @@ or, used to support assigning of received byte to word (or other
 multi-byte variables).  Note the use of casting to ensure the
 `HSerReceive` uses byte addressing.
 
-``` screen
+``` programlisting
   Dim dbAdr as Word
 
   HSerReceive [byte]dbAdr_H
@@ -67,7 +67,7 @@ meet your needs.  For addition USART ports use
 `#define USARTn_BAUD_RATE 9600` where `` n` `` is the required port
 number.
 
-``` screen
+``` programlisting
     'USART settings for USART1
     #define USART_BAUD_RATE 9600       'Set the baud rate
     #define USART_TX_BLOCKING          'Ensure the transmit buffer is empty
@@ -83,17 +83,17 @@ variable must be supplied to store the received value in. If used as a
 function, it will return the received value.
 
 The subroutine HSerReceive can get a byte from any comport but must set
-the comport number immediately before the call. If ”\#define
-USART\_BLOCKING” is defined then the HserReceive waits in a loop until
-it receives a byte. If” \#define USART\_BLOCKING” is NOT defined then
-HserReceive returns the new byte that was received OR returns 255
-because of “DefaultUsartReturnValue = 255” was defined. This is good
-because it don’t hold up your program from executing other commands and
-your can check it for new data priodically.
+the comport number immediately before the call. If
+`#define USART_BLOCKING` is defined, then HSerReceive waits in a loop
+until it receives a byte. If `#define USART_BLOCKING` is not defined,
+then HSerReceive returns the new byte that was received, or returns 255
+because `DefaultUsartReturnValue = 255` was defined. This is useful
+because it does not hold up your program from executing other commands,
+and you can check it for new data periodically.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
   'This program will read a value from the USART, and send it to PORTB.
 
   #chip 16F877A, 20
@@ -109,7 +109,7 @@ your can check it for new data priodically.
   'Main loop
   Do
     'Get serial data and output value to PortB as 8 bit binary
-    HSerReceive(InChar)  'Receive data as Subroutine from comport 1
+    HSerReceive(InChar)  'Receive data as Subroutine from comport 1          ' <<< the HSerReceive instruction
     'InChar = HSerReceive  'Could also be written as Function
     If InChar <> 255 Then   'If value is 255 then it is old data
       PortB = InChar    'If new data then it goes to PortB
@@ -117,10 +117,14 @@ your can check it for new data priodically.
   Loop
 ```
 
+<span class="strong">**Key line:**</span> `HSerReceive(InChar)` — reads
+a byte from comport 1 into `InChar`; without `USART_BLOCKING` defined, a
+value of 255 means no new byte has arrived yet.
+
 <span class="strong">**Example 2:**</span>
 
-``` screen
-  'If you choose no “Blocking” and comment both of them out.
+``` programlisting
+  'If you choose no "Blocking" and comment both of them out.
   'USART settings
   #define USART_BAUD_RATE 9600
   '#define USART_BLOCKING        ' just none OR one of the blocking
@@ -131,25 +135,29 @@ your can check it for new data priodically.
     'Get and display value
     'If there is no new data, HSerReceive will return default value.
     comport = 1
-    HSerReceive tempvalue
-    If tempvalue <> 255    Then    ‘ don’t change PortB if it is default
+    HSerReceive tempvalue          ' <<< HSerReceive used as a subroutine with an explicit comport
+    If tempvalue <> 255    Then    ' do not change PortB if it is the default value
       PortB = tempvalue
     End If
 
   Loop
 ```
 
+<span class="strong">**Key line:**</span>
+`HSerReceive tempvalue` — setting `comport` immediately before the call
+directs this read to a specific USART port.
+
 <span class="strong">**Example 3:**</span>
 
-``` screen
-  'If you choose no “Blocking” and comment both of them out.
+``` programlisting
+  'If you choose no "Blocking" and comment both of them out.
   #chip mega328p, 16
 
   #define USART_BAUD_RATE 9600
   '#define USART_BLOCKING
   '#define USART_TX_BLOCKING
 
-  'Don't forget to Set usart pin directions
+  'Do not forget to set USART pin directions
   Dir PortD.1 Out    'com1   USART0
   Dir PortD.0 In
 
@@ -171,7 +179,20 @@ your can check it for new data priodically.
   Goto Start
 ```
 
-<span class="strong">**See also**</span>
-<a href="rs232_hardware_overview" class="link" title="RS232 Hardware Overview">RS232 Hardware Overview</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="rs232_hardware_overview" class="link" title="RS232 Hardware Overview">RS232 Hardware Overview</a> — hardware
+    USART wiring and configuration background
+-   <a href="hsersend" class="link" title="HSerSend">HSerSend</a> — the
+    sending counterpart to HSerReceive, as used above
+-   <a href="hserprint" class="link" title="HSerPrint">HSerPrint</a> — sending
+    a whole string, integer, word or long, rather than a single raw byte
+-   <a href="hserreceivefrom" class="link" title="HSerReceiveFrom">HSerReceiveFrom</a> — receiving
+    from a specific comport without setting the global `comport`
+    variable first
+
+</div>
 
 </div>

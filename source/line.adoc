@@ -1,22 +1,34 @@
 ==== Line
 
+(((Graphical LCD,Line)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     Line(LineX1,LineY1, LineX2, LineY2, Optional LineColour = 1)
 ----
 *Explanation:*
 
-Draws a line on a GLCD from pixel X1, Y1 location to pixel X2,Y2 location.
+Draws a line on a GLCD from pixel `LineX1`, `LineY1` to pixel `LineX2`, `LineY2`.
+
+`LineColour` can be specified. Typically the value is 0 or 1, corresponding to `GLCDBackground` and `GLCDForeground` respectively; it defaults to 1 (foreground) if omitted.
 
 *Example:*
+[source,gcbasic]
 ----
     #include <glcd.h>
 
-    line 0,0,127,63
+    line 0,0,127,63          ' <<< the Line instruction
     line 0,63,127,0
     line 40,0,87,63
     line 40,63,87,0
 ----
+*Key line:* `line 0,0,127,63` -- draws a diagonal line from the top-left corner to the bottom-right corner of a 128x64 display.
 image::lineb1.PNG[graphic,align="center"]
 
+**See Also:**
 
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_pset,PSet>> -- setting a single pixel rather than a line
+* <<_box,Box>> -- drawing a rectangle from two corner points

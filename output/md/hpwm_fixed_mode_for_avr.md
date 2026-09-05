@@ -54,7 +54,7 @@ These constants are required for PWMOn.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program demonstrates the PWMOn and PWMOff commands
     'of the fixed mode HPWM on OC0B pin.
 
@@ -72,7 +72,7 @@ These constants are required for PWMOn.
     do
 
       'turn on/off single channel 40 KHz PWM on OC0B pin
-      PWMON
+      PWMON          ' <<< the PWMOn instruction
       wait 5 s
       PWMOFF
       wait 5 s
@@ -80,13 +80,22 @@ These constants are required for PWMOn.
     loop
 ```
 
-  
-  
-<span class="strong">**For more help, see**</span>
-<a href="pwmon_for_avr" class="link" title="PWMOn for AVR">PWMOn</a>
-and
-<a href="pwmoff_for_avr" class="link" title="PWMOff for AVR">PWMOff</a>
-<span class="strong">**or, for Microchip microcontrollers see**</span>
-<a href="hpwm_fixed_mode" class="link" title="HPWM Fixed Mode">Fixed Mode PWM for Microchip</a>
+<span class="strong">**Key line:**</span> `PWMON` — starts the OC0B PWM
+output using the fixed frequency and duty cycle already set by the
+`PWM_Freq` and `PWM_Duty` constants above; unlike `HPWM`, this
+fixed-mode form takes no arguments.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="pwmon_for_avr" class="link" title="PWMOn for AVR">PWMOn</a> — full
+    reference for this command
+-   <a href="pwmoff_for_avr" class="link" title="PWMOff for AVR">PWMOff</a> — stopping
+    the PWM output
+-   <a href="hpwm_ccp" class="link" title="HPWM CCP">HPWM CCP</a> — the
+    dynamic-mode equivalent for Microchip PIC microcontrollers
+
+</div>
 
 </div>

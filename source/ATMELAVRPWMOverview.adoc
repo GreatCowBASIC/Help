@@ -1,5 +1,8 @@
 ==== ATMEL AVR PWM Overview
 
+(((Pulse width modulation,ATMEL AVR PWM Overview)))
+
+
 *Introduction:*
 
 The methods described in this section allow the generation of Pulse
@@ -18,8 +21,12 @@ Hardware PWM is available through the OCnx pin.
 
 The method uses three parameters to setup the HPWM.
 
+[source,gcbasic]
+----
     'HPWM channel, frequency, duty cycle
-    HPWM  2, 100, 50
+    HPWM  2, 100, 50          ' <<< the HPWM instruction
+----
+*Key line:* `HPWM 2, 100, 50` -- starts hardware PWM on channel 2 at a 100 Hz frequency with a 50% duty cycle, using the AVR's Timer/Counter and OCRnx module rather than a software-timed loop.
 
 *Relevant Constants:*
 
@@ -30,4 +37,6 @@ To set them, place a line in the main program file that uses #define to assign a
 &#160; +
 &#160; +
 
-*See* <<_hpwm_avr_ocrnx,HPWM AVR OCRnx>>
+**See Also:**
+
+* <<_hpwm_avr_ocrnx,HPWM AVR OCRnx>> -- full reference for the HPWM command and its relevant constants

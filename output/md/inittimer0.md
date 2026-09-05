@@ -203,7 +203,7 @@ This code uses Timer 0 and On Interrupt to generate a Pulse Width
 Modulation signal, that will allow the speed of a motor to be easily
 controlled.
 
-``` screen
+``` programlisting
     #chip 16F88, 8
 
     #define MOTOR PORTB.0
@@ -240,7 +240,7 @@ controlled.
 
         'Set up the timer using the internal oscillator with a prescaler of 1/2 (Equates to 0)
         'Timer 0 starts automatically on a Microchip PIC microcontroller, therefore, StartTimer is not required.
-        InitTimer0 Osc, PS0_2
+        InitTimer0 Osc, PS0_2          ' <<< the InitTimer0 instruction
 
     End Sub
 
@@ -257,12 +257,17 @@ controlled.
     End Sub
 ```
 
+<span class="strong">**Key line:**</span> `InitTimer0 Osc, PS0_2` — sets
+Timer 0’s clock source to the internal oscillator with a 1:2 prescaler;
+Timer 0 free-runs on a Microchip PIC microcontroller once initialised,
+so `StartTimer` is not needed.
+
 <span class="strong">**Example 1 for 18-bit timer 0 operating an 8-bit
 timer:**</span>
 
 The same example for a 16-bit timer 0 operating as an 8-bit timer.
 
-``` screen
+``` programlisting
 #chip 16f18855,32
 #option Explicit
 'timer test Program
@@ -302,7 +307,7 @@ Sub InitMotorControl
     'Add a handler for the interrupt
     On Interrupt Timer0Overflow Call PWMHandler
 
-    InitTimer0(Osc, TMR0_FOSC4 + PRE0_1 , POST0_1)
+    InitTimer0(Osc, TMR0_FOSC4 + PRE0_1 , POST0_1)          ' <<< the InitTimer0 instruction (16-bit timer in 8-bit mode)
     StartTimer 0
 
 End Sub
@@ -321,6 +326,27 @@ Sub PWMHandler
 
 End Sub
 ```
+
+<span class="strong">**Key line:**</span>
+`InitTimer0(Osc, TMR0_FOSC4 + PRE0_1 , POST0_1)` — on this
+16-bit-capable Timer 0, explicitly selects the FOSC/4 clock source with
+a 1:1 prescale and postscale, then calls `StartTimer` since this variant
+does not start automatically.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="inittimer0_8bit_16bit" class="link" title="InitTimer0 8bit/16bit">InitTimer0 8bit/16bit</a> — for
+    microcontrollers whose Timer 0 supports 8-bit or 16-bit operation
+-   <a href="on_interrupt" class="link" title="On Interrupt">On Interrupt</a> — attaching
+    the Timer0Overflow handler, as used above
+-   <a href="settimer" class="link" title="Settimer">Settimer</a>
+    /
+    <a href="starttimer" class="link" title="StartTimer">StartTimer</a> — setting
+    a start value and starting a timer explicitly
+
+</div>
 
 <span class="strong">**Supported in &lt;TIMER.H&gt;**</span>
 

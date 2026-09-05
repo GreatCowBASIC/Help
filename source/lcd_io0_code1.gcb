@@ -1,0 +1,33 @@
+    #chip 16F877A, 20
+
+    ' Connection mode 0: every byte written to the LCD is handled by a custom
+    ' subroutine instead of GCBASIC's built-in LCD_IO wiring. This example's
+    ' subroutine sends the byte over I2C to a remote LCD driver.
+    #define LCD_IO 0
+    #define LCD_NO_RW
+    #define LCDWriteByte MySendToLCD
+
+    cls
+    print "Hello World."          ' <<< the print instruction this page documents
+
+    end
+
+    Sub MySendToLCD(In MyLCDByte)
+
+        'Uses I2C.
+        'Sends an address byte (128), then a control byte where bit 4 is the
+        'state of the RS pin, then a data byte, which is sent to the LCD.
+
+        ControlByte = 0
+        If LCD_RS = On Then ControlByte.4 = On
+
+        I2CStart
+        I2CSend 128
+        I2CSend ControlByte
+        I2CSend MyLCDByte
+        I2CStop
+
+        'Allow time for the receiver to update the LCD.
+        Wait 5 ms
+
+    End Sub

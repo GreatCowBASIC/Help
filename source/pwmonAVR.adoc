@@ -1,7 +1,11 @@
 //
 ==== PWMOn for AVR
 
+(((Pulse width modulation,PWMOn for AVR)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
 
   PWMOn
@@ -21,6 +25,7 @@ The PWMOn command will only enable the output of the OC0B/PWM module of the Atme
 This command is not available for any other OCnx/PWM modules.
 
 *Example:*
+[source,gcbasic]
 ----
     'This program demonstrates the PWMOn and PWMOff commands
     'of the fixed mode HPWM on OC0B pin.
@@ -39,14 +44,17 @@ This command is not available for any other OCnx/PWM modules.
     do
 
       'turn on/off single channel 40 KHz PWM on OC0B pin
-      PWMON
+      PWMON          ' <<< the PWMOn instruction
       wait 5 s
       PWMOFF
       wait 5 s
 
     loop
 ----
+*Key line:* `PWMON` -- enables the OC0B PWM output using the frequency and duty cycle set by the `PWM_Freq`/`PWM_Duty` constants above; unlike the Microchip PIC version, this command only ever controls the OC0B channel.
 {empty} +
 {empty} +
 
-*For more help, see* <<_pwmoff_for_avr,PWMOff>>
+**See Also:**
+
+* <<_pwmoff_for_avr,PWMOff>> -- the counterpart command that disables the OC0B PWM output

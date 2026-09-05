@@ -28,7 +28,7 @@ centered at pixel positions (x, y) with axis a and b.
 The hyperbole can be aligned either along the x axis or along the y
 axis.
 
-Both cases a\_axis&gt;=b:axis and a\_axis&lt;b\_axis are accepted.
+Both cases a\_axis&gt;=b\_axis and a\_axis&lt;b\_axis are accepted.
 
 The hyperbole is an unbounded curve made by four branches
 
@@ -88,12 +88,12 @@ modestop=2 drawing stops when all the reachable display borders are encountered 
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Example for a 240x320 pixels GLCD
 
     #include <glcd.h>
 
-    Hyperbole(120, 160, 40,20, 1, 2, GLCDForeground)   ; centered, a=40, b=20, x_axis alined, stops when all branches have reached a a border
+    Hyperbole(120, 160, 40,20, 1, 2, GLCDForeground)   ; centered, a=40, b=20, x_axis alined, stops when all branches have reached a a border          ' <<< the Hyperbole instruction
     Hyperbole(120, 160, 40,20, 1, 1, GLCDForeground)   ; centered, a=40, b=20, x_axis alined, stops when a border is reached
     Hyperbole(120, 160, 40,20, 2, 1, GLCDForeground)   ; centered, a=40, b=20, y_axis alined, stops when a border is reached,
 
@@ -103,5 +103,25 @@ modestop=2 drawing stops when all the reachable display borders are encountered 
     Hyperbole(180, 80, 40,20, 2, 1, GLCDForeground)   ; upper right, a=40, b=20, y_axis alined, stops when a border is reached,
     Hyperbole(60, 240, 40,20, 2, 2, GLCDForeground)   ; lower left, a=40, b=20, y_axis alined, stops when all branches have reached a border
 ```
+
+<span class="strong">**Key line:**</span>
+`Hyperbole(120, 160, 40,20, 1, 2, GLCDForeground)` — draws a hyperbola
+centered at (120, 160) with `a_axis`=40 and `b_axis`=20, aligned along
+the x axis (`type`=1), stopping only once every reachable branch has hit
+a display border (`ModeStop`=2); the remaining calls in this example
+vary the center, axis, and `ModeStop` to show the other combinations.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview
+-   <a href="fonts_and_characters" class="link" title="Fonts and Characters">Fonts and Characters</a> — related
+    command in the same category
+-   <a href="e_paper_controllers" class="link" title="e-Paper Controllers">e-Paper Controllers</a> — related
+    command in the same category
+
+</div>
 
 </div>

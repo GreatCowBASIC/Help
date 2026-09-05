@@ -64,7 +64,7 @@ There are two examples shown below.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     'Program to read a value from a potentiometer, and display a
     'different word based on the result
 
@@ -79,13 +79,13 @@ There are two examples shown below.
     #define LCD_DB7 PORTD.7
     #define LCD_RS PORTD.0
     #define LCD_NO_RW
-    #define LCD_Enable PORTD.2
+    #define LCD_ENABLE PORTD.2
 
     DIR PORTA.0 IN
     Do
       Temp = ReadAD(AN0) / 20
       CLS
-      Select Case Temp
+      Select Case Temp          ' <<< the Select Case this page documents
         Case 0
           Print "None!"
         Case 1
@@ -101,6 +101,10 @@ There are two examples shown below.
       Wait 250 ms
     Loop
 ```
+
+<span class="strong">**Key line:**</span> `Select Case Temp` — only the
+single `Case` branch matching `Temp` runs, then execution continues
+after `End Select`.
 
 <span class="strong">**Example 2:**</span>
 
@@ -126,7 +130,7 @@ The circuit for the IR receiver and the chip is shown below.
     #define LCD_IO      4             '4-bit mode
     #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS      PortB.2       'pin 8 is Register Select
-    #define LCD_Enable  PortB.3       'pin 9 is Enable
+    #define LCD_ENABLE  PortB.3       'pin 9 is Enable
     #define LCD_DB4     PortB.4       'DB4 on pin 10
     #define LCD_DB5     PortB.5       'DB5 on pin 11
     #define LCD_DB6     PortB.6       'DB6 on pin 12
@@ -272,6 +276,23 @@ The circuit for the IR receiver and the chip is shown below.
 ![graphic](./images/selectb1.PNG)
 
 </div>
+
+</div>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="if" class="link" title="If">If</a> — two-way branch
+    alternative for simpler conditions
+-   <a href="conditions" class="link" title="Conditions">Conditions</a> — background
+    on how conditions are evaluated
+-   <a href="readad" class="link" title="ReadAD">ReadAD</a> — reading
+    the potentiometer value tested in Example 1
+-   <a href="cls" class="link" title="CLS">CLS</a> — clearing the
+    LCD before printing a result, as used in Example 1
+-   <a href="print" class="link" title="Print">Print</a> — displaying
+    the selected branch’s text, as used in Example 1
 
 </div>
 

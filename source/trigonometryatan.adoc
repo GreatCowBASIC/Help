@@ -4,9 +4,13 @@
 //"funcdesc": "GCBASIC supports the following functions ATan( x, y) where x and y are the vectors. The function returns an Integer representing the angle measured in a whole number of degrees.\n\nThe function also returns a global variable NegFlag with returns the quadrant of the angle.\n\nRequires #include <maths.h> to enable this function."
 ==== Trigonometry ATAN
 
+(((Maths,Trigonometry ATAN)))
+
+
 
 *Syntax*:
 
+[source,gcbasic]
 ----
     #include <maths.h>
 
@@ -36,3 +40,8 @@ The function converts any XY vectors including 0 to a degree value that should b
 At least one of the X or Y values must be non-zero.&#160;&#160;
 This is the full version, for all 4 quadrants and will generate the angle in integer degrees from 0-360.&#160;&#160;
 Any values of X and Y are usable including negative values provided they are between -1456 and 1456 so the 16bit multiply does not overflow.
+
+**See Also:**
+
+* <<_trigonometry_sine_cosine_and_tangent,Trigonometry Sine, Cosine and Tangent>> -- related command in the same category
+* <<_abs,Abs>> -- related command in the same category

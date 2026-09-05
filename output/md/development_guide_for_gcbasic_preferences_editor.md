@@ -14,31 +14,31 @@
 
 </div>
 
-This section deals with the GCBASIC Preferences Editor (Pref Editor).  
-The Prefs Editor is the software enables the user to select programmers,
-select the options when compiling, select the assembler and other
-settings.   The Prefs Editor uses an ini to read and store the compiler
-settings.   The INI structure is explained the first section, then, the
-Prefs Editor in detail.
+This section deals with the GCBASIC Preferences Editor (Prefs Editor).
+The Prefs Editor is the software that enables the user to select
+programmers, select the options when compiling, select the assembler,
+and other settings. The Prefs Editor uses an INI file to read and store
+the compiler settings. The INI structure is explained in the first
+section, then the Prefs Editor in detail.
 
   
 
 <span class="strong">**ABOUT THE INI FILES**</span>
 
-You can provide the compiler an INI file with a number of settings and
-programmers.  
+You can provide the compiler with an INI file with a number of settings
+and programmers.
 
-The following section provide details of the specifics within an example
-INI file.   The comments are NOT part of an INI file.  
+The following section provides details of the specifics within an
+example INI file. The comments are NOT part of an INI file.
 
-The settings are in the INI section called \[gcbasic\].  
+The settings are in the INI section called `[gcbasic]`.
 
-``` screen
+``` programlisting
     [gcbasic]
     programmer = arduinouno, pickitpluscmd1, lgt8f328p-1, xpress, pickit2cmdline, nsprog            - the currently selected available programmers
     showprogresscounters = n                                                                        - show percent values as compiler runs. requires Verbose = y
     verbose = y                                                                                     - show verbose compiler information
-    preserve = n                                                                                    - preservice source program in ASM
+    preserve = n                                                                                    - preserve source program in ASM
     warningsaserrors = n                                                                            - treat Warnings from scripts as errors. Errors will cause the compiler to cease on an Error(s)
     pauseaftercompile = n                                                                           - pause after compiler. Do not do this with IDEs
     flashonly = n                                                                                   - Flash the chip is source older that hex file
@@ -47,7 +47,7 @@ The settings are in the INI section called \[gcbasic\].  
     laxsyntax = n                                                                                   - use lax syntax when Y, the compiler will not check that reserved words are being used
     mutebanners = n                                                                                 - mutes the post compilation messages
     evbs = n                                                                                        - show extra verbose compiler information, requires Verbose = y
-    nosummary = n                                                                                   - mutes almost all messages psot compilation
+    nosummary = n                                                                                   - mutes almost all messages post compilation
     extendedverbosemessages = n                                                                     - show even more verbose compiler information, requires Verbose = y
     conditionaldebugfile =                                                                          - creates CDF file
     columnwidth = 180                                                                               - ASM width before wrapping
@@ -69,42 +69,42 @@ compilerdebug = 0                                                               
                                                                                                    - 256 = COMPILEUPDATESUBMAP
 ```
 
-The section shows an example \[tool\] assembler section.  
+The section below shows an example `[tool]` assembler section.
 
-``` screen
+``` programlisting
     [tool=pic-as]
-    'An assember
+    'An assembler
     type = assembler
-    'Location of the assember using a parameter substitution.
+    'Location of the assembler using a parameter substitution.
     command = %picaslocation%\pic-as.exe
     'Parameters
     params = -mcpu=%ChipModel%  "%Fn_NoExt%.S" -msummary=-mem,+psect,-class,-hex,-file,-sha1,-sha256,-xml,-xmlfull  -Wl -mcallgraph=std -mno-download-hex -o"%Fn_NoExt%.hex"  -Wl,-Map="%Fn_NoExt%.map" -Wa,-a
 
     [tool=mpasm]
-    'An assember
+    'An assembler
     type = assembler
-    'Location of the assember using a parameter substitution.
+    'Location of the assembler using a parameter substitution.
     command = %mpasmlocation%\mpasmx.exe
-    'Paramters
+    'Parameters
     params = /c- /o- /q+ /l+ /x- /w1 "%FileName%"
 ```
 
-The section shows an example \[patch\] section.
+The section below shows an example `[patch]` section.
 
-This section shows and explicit set of patches applied to PIC-AS
+This section shows an explicit set of patches applied to the PIC-AS
 assembler.
 
-``` screen
+``` programlisting
     [patch=asm2picas]
-    desc = PICAS correction entries.  Format is STRICT as follows:  Must have quotes and the equal sign as the delimeter. PartName +COLON+"BadConfig"="GoodConfig"    Where BadConfig is from .s file and GoodConfig is from .cfgmap file
+    desc = PICAS correction entries.  Format is STRICT as follows:  Must have quotes and the equal sign as the delimiter. PartName +COLON+"BadConfig"="GoodConfig"    Where BadConfig is from .s file and GoodConfig is from .cfgmap file
     16f88x:"intoscio = "="FOSC=INTRC_NOCLKOUT"
     16f8x:"intrc = IO"="FOSC=INTOSCIO"
     12f67x:"intrc = OSC_NOCLKOUT"="FOSC=INTRCIO"
 ```
 
-The section shows an example \[programmer\] section.  
+The section below shows an example `[programmer]` section.
 
-``` screen
+``` programlisting
     [tool = pk4_pic_ipecmd_program_release_from_reset]
     'Description
     desc = MPLAB-IPE PK4 CLI for PIC 5v0
@@ -114,7 +114,7 @@ The section shows an example \[programmer\] section.  
     command = %mplabxipedirectory%\ipecmd.exe
     'Parameters using a parameter substitution.
     params = -TPPK4 -P%chipmodel%  -F"%filename%" -M  -E -OL -W5
-    'Worting direcroty using a parameter substitution.
+    'Working directory using a parameter substitution.
     workingdir = %mplabxipedirectory%
     'Useif constraints - this shows none
     useif =

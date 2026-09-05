@@ -33,7 +33,7 @@ CPOL=0, CPHA=0
 
 <div class="mediaobject" align="center">
 
-![\[graphic](./images/spi-cpol-0-cpha-0.png)
+![graphic](./images/spi-cpol-0-cpha-0.png)
 
 </div>
 
@@ -51,7 +51,7 @@ CPOL=0, CPHA=1
 
 <div class="mediaobject" align="center">
 
-![\[graphic](./images/spi-cpol-0-cpha-1.png)
+![graphic](./images/spi-cpol-0-cpha-1.png)
 
 </div>
 
@@ -69,7 +69,7 @@ CPOL=1, CPHA=0
 
 <div class="mediaobject" align="center">
 
-![\[graphic](./images/spi-cpol-1-cpha-0.png)
+![graphic](./images/spi-cpol-1-cpha-0.png)
 
 </div>
 
@@ -87,7 +87,7 @@ CPOL=1, CPHA=1
 
 <div class="mediaobject" align="center">
 
-![\[graphic](./images/spi-cpol-1-cpha-1.png)
+![graphic](./images/spi-cpol-1-cpha-1.png)
 
 </div>
 
@@ -101,7 +101,7 @@ high-to-low clock transition.
 
 <span class="strong">**Key Commands**</span>
 
-``` screen
+``` programlisting
     // Set the mode
     SPIMode  ( _Mode_ [, SPIClockMode]) //Legacy SPI
     SPIMode  ( _Mode_ , SPIClockMode)   //18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers
@@ -127,7 +127,7 @@ the SPI operations.
 
 To use a second SPI hardware module use the suffix 2, as follows:
 
-``` screen
+``` programlisting
     // Set the mode
     SPIMode2  ( _Mode_ [, SPIClockMode]) //Legacy SPI
     SPIMode2  ( _Mode_ , SPIClockMode)   //18FxxQxx, 18FxxK42 and 18xxFK83 microcontrollers
@@ -181,7 +181,7 @@ In this example InitSPIMode calls SPIMode. If needed, when hardware mode, and se
 The sub SendByteviaSPI is called to handle whether to call the Hardware or use Software (bit-banging) SPI.
 ```
 
-``` screen
+``` programlisting
         #chip mega328p, 16
         #option explicit
         #include <UNO_mega328p.h >
@@ -265,7 +265,7 @@ The sub SendByteviaSPI is called to handle whether to call the Hardware or use S
       set SPI_DC OFF;
 
       #ifdef SPI_HardwareSPI
-         FastHWSPITransfer  SPISendByte
+         FastHWSPITransfer  SPISendByte          ' <<< the FastHWSPITransfer instruction, used only when hardware SPI is selected
          set SPI_CS ON;
          exit sub
       #endif
@@ -290,7 +290,21 @@ The sub SendByteviaSPI is called to handle whether to call the Hardware or use S
     end Sub
 ```
 
-<span class="strong">**See also**</span>
-<a href="spimode" class="link" title="SPIMode">SPIMode</a>,<a href="spitransfer" class="link" title="SPITransfer">SPITransfer</a>,<a href="fasthwspitransfer" class="link" title="FastHWSPITransfer">FastHWSPITransfer</a>
+<span class="strong">**Key line:**</span>
+`FastHWSPITransfer SPISendByte` — sends a byte using the
+microcontroller’s hardware SPI module in a single instruction; the
+software fallback below it (inside \` \#ifndef SPI\_HardwareSPI \`)
+bit-bangs the same byte one bit at a time using \` rotate \` and manual
+clock/data pin toggling, which is far slower but works on any port pins.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="spimode" class="link" title="SPIMode">SPIMode</a>
+-   <a href="spitransfer" class="link" title="SPITransfer">SPITransfer</a>
+-   <a href="fasthwspitransfer" class="link" title="FastHWSPITransfer">FastHWSPITransfer</a>
+
+</div>
 
 </div>

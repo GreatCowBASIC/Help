@@ -1,9 +1,19 @@
 ==== GLCDWriteByte
 
+(((Graphical LCD,GLCDWriteByte)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     GLCDWriteByte (LCDByte)
 ----
 *Explanation:*
 
 Writes a byte of data to the Graphic LCD memory
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_glcdcls,GLCDCLS>> -- related command in the same category
+* <<_glcddisplay,GLCDDisplay>> -- related command in the same category

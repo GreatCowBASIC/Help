@@ -44,9 +44,9 @@ CGRAM and provide 4 sets software programmable 16x16 fonts.
 To use the ST7920 driver simply include the following in your user code.
 This will initialise the driver.  
 
-``` screen
+``` programlisting
     #include <glcd.h>
-    #DEFINE GLCD_TYPE GLCD_TYPE_ST7920
+    #DEFINE GLCD_TYPE GLCD_TYPE_ST7920          ' <<< the constant that selects this controller driver
 
     #define GLCD_Enable     PORTA.1           'example port setting
     #define GLCD_RS         PORTa.0           'example port setting
@@ -54,6 +54,12 @@ This will initialise the driver.
     #define GLCD_RESET      PORTA.3           'example port setting
     #define GLCD_DATA_PORT  PORTD             'example port setting
 ```
+
+<span class="strong">**Key line:**</span>
+`#DEFINE GLCD_TYPE GLCD_TYPE_ST7920` — tells `<glcd.h>` to compile in
+the ST7920 driver rather than any of the library’s other supported
+controllers; every other `GLCD_*` constant below only takes effect once
+this line selects the ST7920.
 
 The GCBASIC constants for the interface to the controller are shown in
 the table below.
@@ -241,7 +247,7 @@ for details, this is an external web site.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     ;Chip Settings
     #CHIP 16F1937,32
     #CONFIG  MCLRE_ON
@@ -250,7 +256,7 @@ for details, this is an external web site.
     #DEFINE GLCD_TYPE GLCD_TYPE_ST7920
     #DEFINE GLCD_IO 8
     #DEFINE GLCD_WIDTH 128
-    #DEFINE GLCD_HEIGHT 160
+    #DEFINE GLCD_HEIGHT 64
     ' read delay of 25 is required at 32mhz, this can be reduced to 0 for slower clock speeds
     #DEFINE ST7920READDELAY 25
     ' write delay of 2 is required at 32mhz.  this can be reduced to 1 for slower clock speeds
@@ -264,7 +270,7 @@ for details, this is an external web site.
 
     ST7920GLCDEnableGraphics
     GLCDClearGraphics_ST7920
-    GLCDPrint 0, 1, "GCBASIC "
+    GLCDPrint 0, 1, "GCBASIC "          ' <<< the GLCDPrint instruction
     wait 1 s
 
     GLCDCLS
@@ -298,9 +304,16 @@ for details, this is an external web site.
     loop
 ```
 
+<span class="strong">**Key line:**</span>
+`GLCDPrint 0, 1, "GCBASIC "` — draws the string in text mode after
+enabling graphics with `ST7920GLCDEnableGraphics`; note the corrected
+`#DEFINE GLCD_HEIGHT 64` above — the ST7920’s height is fixed by the
+library at 128x64 regardless of what a program defines, so the panel is
+not 128x160.
+
 <span class="strong">**Example 2:**</span>
 
-``` screen
+``` programlisting
     ;Chip Settings
     #CHIP 16F1937,32
     #CONFIG MCLRE_ON
@@ -309,7 +322,7 @@ for details, this is an external web site.
     #DEFINE GLCD_TYPE GLCD_TYPE_ST7920
     #DEFINE GLCD_IO 8
     #DEFINE GLCD_WIDTH 128
-    #DEFINE GLCD_HEIGHT 160
+    #DEFINE GLCD_HEIGHT 64
 
     ' read delay of 25 is required at 32mhz, this can be reduced to 0 for slower clock speeds
     #DEFINE ST7920READDELAY 25
@@ -341,7 +354,7 @@ for details, this is an external web site.
     wait 1 s
 
     GLCDClearGraphics_ST7920
-    Lineh_ST7920(0, 0, GLCD_WIDTH)
+    Lineh_ST7920(0, 0, GLCD_WIDTH)          ' <<< the Lineh_ST7920 instruction, using the library's fixed GLCD_WIDTH/GLCD_HEIGHT
     Lineh_ST7920(0, GLCD_HEIGHT - 1, GLCD_WIDTH)
     Linev_ST7920(0, 0, GLCD_HEIGHT)
     Linev_ST7920(GLCD_WIDTH - 1, 0, GLCD_HEIGHT)
@@ -537,12 +550,30 @@ for details, this is an external web site.
     end sub
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**Key line:**</span>
+`Lineh_ST7920(0, 0, GLCD_WIDTH)` — draws using the library’s own
+`GLCD_WIDTH`/`GLCD_HEIGHT` constants rather than hardcoded numbers, so
+the same code automatically adapts if the compiled dimensions ever
+change; the corrected `#DEFINE GLCD_HEIGHT 64` above matches the fixed
+128x64 panel size confirmed in the constants table.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — clearing
+    the display
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a> — drawing
+    a single character
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — printing
+    a value at a specific location
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+    /
+    <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a> — low-level
+    byte access, for expert use
+-   <a href="pset" class="link" title="Pset">Pset</a> — setting a
+    single pixel
+
+</div>
 
 Supported in &lt;GLCD.H&gt;

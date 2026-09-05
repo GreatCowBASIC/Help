@@ -100,4 +100,15 @@ For this to work, the keypad must be connected as follows:
 Note: To use a 3 x 3 keypad in this mode, the pins on the
 microcontroller for any unused columns must be pulled up.
 
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="keypaddata" class="link" title="KeypadData">KeypadData</a> — related
+    command in the same category
+-   <a href="keypadraw" class="link" title="KeypadRaw">KeypadRaw</a> — related
+    command in the same category
+
+</div>
+
 </div>

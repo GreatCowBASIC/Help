@@ -19,31 +19,32 @@
 ``` screen
     var = Val(string)   'Supports decimal byte and word strings only.
 
-    'use the following for strings that represent Long numbers
-    var = Val32(string)   'Supports decimal long number strings only.
+    'For strings that represent Long numbers, use StringToLong instead -- see <<_stringtolong,StringToLong>>.
 ```
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `Val` function will extract a number from a string variable, and
-store it in a word variable. One potential use is reading numbers that
-are sent in ASCII format over a serial connection.  
+The `Val` function extracts a number from a string variable and stores
+it in a word variable. One potential use is reading numbers that are
+sent in ASCII format over a serial connection.  
   
-The `Val32` function will extract a long number from a string variable,
-and store it in a long variable.
+`Val` will not extract a value from a hexadecimal string.  
+  
+<span class="strong">**Note:**</span> The function for parsing a string
+into a Long variable is now named `StringToLong`; see
+<a href="stringtolong" class="link" title="StringToLong">StringToLong</a>.
+The older name `Val32` still compiles, as it is kept as a
+backward-compatible alias for `StringToLong`, but new code should call
+`StringToLong` directly.  
+  
 
-  
-  
-The `Val` function will not extract a value from a hexadecimal string.  
-  
+<span class="strong">**Example 1:**</span>
 
-<span class="strong">**Example1:**</span>
-
-``` screen
+``` programlisting
     'Program for an RS232 controlled dimmer
     'Set chip model
     #chip 16F1936
@@ -72,7 +73,7 @@ The `Val` function will not extract a value from a hexadecimal string.
         'Enter key?
         If InByte = 13 Then
             'Convert output level to numeric variable
-            OutputLevel = Val(DataIn)
+            OutputLevel = Val(DataIn)          ' <<< the Val instruction
 
             'Output
             HPWM 1, 32, OutputLevel
@@ -92,24 +93,20 @@ The `Val` function will not extract a value from a hexadecimal string.
     Loop
 ```
 
-  
-  
+<span class="strong">**Key line:**</span>
+`OutputLevel = Val(DataIn)` — parses the digits accumulated in `DataIn`
+from incoming serial bytes and converts them into the numeric
+`OutputLevel` used to drive the PWM output.
 
-<span class="strong">**Example2:**</span>
+<span class="strong">**Example 2:**</span>
 
-``` screen
+``` programlisting
     ' ----- Configuration
     'Chip Settings.
     #chip 16f18855,32
     #Config MCLRE_ON
 
     ; ----- Define Hardware settings
-
-    '' -------------------LATA-----------------
-    '' Bit#:  -7---6---5---4---3---2---1---0---
-    '' LED:   ---------------|D5 |D4 |D3 |D2 |-
-    ''-----------------------------------------
-    ''
 
     'Set the PPS of the RS232 ports.
     UNLOCKPPS
@@ -121,32 +118,12 @@ The `Val` function will not extract a value from a hexadecimal string.
     #define USART_BAUD_RATE 19200
     #define USART_TX_BLOCKING
 
-    #define LEDD2 PORTA.0
-    #define LEDD3 PORTA.1
-    #define LEDD4 PORTA.2
-    #define LEDD5 PORTA.3
-    Dir     LEDD2 OUT
-    Dir     LEDD3 OUT
-    Dir     LEDD4 OUT
-    Dir     LEDD5 OUT
-
-
-    #define Potentiometer       PORTA.4
-    DIR     Potentiometer In
-
-    #define SWITCH_DOWN         0
-    #define SWITCH_UP           1
-    #define SWITCH              PORTA.5
-    Dir SWITCH                  In
-
     ; ----- Variables
     dim bytevar as Byte
     dim wordvar as Word
-    dim longvar as long
 
     bytevar = 0
     wordvar = 0
-    longvar = 0
 
 
 
@@ -157,27 +134,35 @@ The `Val` function will not extract a value from a hexadecimal string.
      do
          wait 100 ms
 
-         bytevar = Val( "255" )
+         bytevar = Val( "255" )          ' <<< the Val instruction
          HSerPrint bytevar
          HSerPrintCRLF
 
          wordvar = Val( "65535" )
          HSerPrint wordvar
-         HSerPrintCRLF
-
-         longvar = Val32( "65536" )
-         HSerPrint longvar
          HSerPrintCRLF 2
 
          wait 1 s
       loop
     end
-
-  ; ----- Support methods.  Subroutines and Functions
 ```
 
-<span class="strong">**See Also**</span>
-<a href="hex" class="link" title="Hex">Hex</a>,
-<a href="str" class="link" title="Str">Str</a>
+<span class="strong">**Key line:**</span>
+`bytevar = Val( "255" )` — parses the decimal digit string "255" into
+the byte value 255; the same loop also demonstrates the `Val` form for
+Word values. For Long values, use `StringToLong` instead of the legacy
+`Val32` alias — see
+<a href="stringtolong" class="link" title="StringToLong">StringToLong</a>.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hex" class="link" title="Hex">Hex</a>
+-   <a href="str" class="link" title="Str">Str</a>
+-   <a href="stringtolong" class="link" title="StringToLong">StringToLong</a> — parses
+    a string into a Long variable, replacing the former `Val32` function
+
+</div>
 
 </div>

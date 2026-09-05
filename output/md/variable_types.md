@@ -22,7 +22,7 @@ purposes, such as taking a sensor reading and acting on it, or counting
 the number of times the microcontroller has performed a particular task.
 
 Each variable must be given a name, such as "MyVariable" or
-"PieCounter". Choosing a name for a variable is easy - just don’t
+"PieCounter". Choosing a name for a variable is easy - just do not
 include spaces or any symbols (other than \_), and make sure that the
 name is at least 2 characters (letters and/or numbers) long.
 
@@ -49,10 +49,10 @@ can currently use:
 <span class="strong">**Using Variables**</span>
 
 Byte variables do not need any special commands to set them up - just
-put the name of the variable in to the command where the variable is
+put the name of the variable into the command where the variable is
 needed. However, it is good practice to "dimension" all byte variables
-and to use `#OPTION EXPLICIT`.   `#OPTION EXPLICIT` mandates the
-"dimensioning" of all variables in the user program.  Using
+and to use `#OPTION EXPLICIT`. `#OPTION EXPLICIT` mandates the
+"dimensioning" of all variables in the user program. Using
 `#OPTION EXPLICIT` will improve the quality of the program.
 
 Other types of variable can be used in a very similar way, except that
@@ -60,41 +60,43 @@ they must be "dimensioned" first. This involves using the DIM command,
 to tell GCBASIC that it is dealing with something other than a byte
 variable.
 
-A key feature of variables is that it is possible the have the
+A key feature of variables is that it is possible to have the
 microcontroller check a variable, and only run a section of code if it
 is a given value. This can be done with the IF command.
 
 <span class="strong">**Number Variables**</span>
 
-You can assign values to number variables using &\#160\`=\`.  
+You can assign values to number variables using `=`.
 
-A simple, but typical example follows.  This is the typical for numeric
+A simple, but typical, example follows. This is typical for numeric
 variable assignment.
 
-``` screen
+``` programlisting
     #OPTION EXPLICIT
 
     dim myByteVarible as Byte
     myByteVarible = 127       'assign the value of 127
 ```
 
-GCBASIC support bitwise assignments s follows:
+GCBASIC supports bitwise assignments, as follows:
 
-``` screen
+``` programlisting
     portc.0 = !porta.1  'set a single bit to the value of another bit
 ```
 
 The function `FnLSL` performs the shift operation found in other
 languages. Here is an example:
 
-``` screen
-    MyVar = FnLSL( 1, BitNum)`  is Equivalent to `MyVar = 1<<BitNum`
+``` programlisting
+    MyVar = FnLSL( 1, BitNum)
 ```
 
-To set a bit of a port and to prevent glitches during operations, use
-`#option volatile` as folllows:
+`MyVar = FnLSL( 1, BitNum)` is equivalent to `MyVar = 1 << BitNum`.
 
-``` screen
+To set a bit of a port and to prevent glitches during operations, use
+`#option volatile` as follows:
+
+``` programlisting
     'add this option for a specific port.
     #option volatile portc.0
 
@@ -106,25 +108,25 @@ To set a bit of a port or variable, encapsulate it in the `SetWith`
 method. Using this method also eliminates any glitches during the
 update.
 
-``` screen
+``` programlisting
     SetWith(MyPORT, MyPORT OR FnLSL( 1, BitNum))
 ```
 
 To clear a bit of a port, use this method:
 
-``` screen
+``` programlisting
     MyPORT = MyPORT AND NOT FnLSL( 1, BitNum))
 ```
 
 To set a bit within an array, use this method:
 
-``` screen
+``` programlisting
     video_buffer_A1(video_adress) = video_buffer_A1(video_adress) OR FnLSL( 1, BitNum)
 ```
 
 To set a bit within a variable, use this method:
 
-``` screen
+``` programlisting
     Dim my_variable as byte
     Dim my_bit_address_variable as byte
 
@@ -141,7 +143,7 @@ To set a bit within a variable, use this method:
 
 Strings are defined as follows:
 
-``` screen
+``` programlisting
     'Create buffer variables to store received messages
 
     Dim Buffer As String
@@ -154,10 +156,10 @@ of a specific chip.
 
 -   10 bytes for chips with less than 16 bytes of RAM.
 -   20 bytes for chips with 16 to 367 bytes of RAM.
--   40 bytes for devices with more RAM than 367 bytes.
--   For chips that have less RAM then the required RAM to support the
-    user define strings the strings (and therefore the RAM) will be NOT
-    be allocated. Please reduce string size.
+-   40 bytes for devices with more than 367 bytes of RAM.
+-   For chips that have less RAM than is required to support the
+    user-defined strings, the strings (and therefore the RAM) will NOT
+    be allocated. Please reduce the string size.
 
 </div>
 
@@ -167,27 +169,27 @@ RAM.
 You can change the default string size handled internally by the GCBASIC
 compiler by changing the `STRINGSIZE` constant:
 
-``` screen
+``` programlisting
     'set the default string to 24 bytes
     #define STRINGSIZE 24
 ```
 
 Defining a length for the string is the best way to limit memory usage.
-It is good practice if you need a string of a certain size to set the
-length of a strings, since the default length for a string variable
+If you need a string of a certain size, it is good practice to set the
+length of the string, since the default length for a string variable
 changes depending on the amount of memory in the microcontroller (see
 above).
 
 To set the length of a string, see the example below:
 
-``` screen
+``` programlisting
     'Create buffer variables to store received messages as 16 bytes long
     Dim OutBuffer As String * 16
 ```
 
 To place quotation marks (" ") in a string of text. For example:
 
-``` screen
+``` programlisting
     She said, "You deserve a treat!"
 ```
 
@@ -196,13 +198,19 @@ marks in a row instead of one for each quote mark. The following example
 shows two ways of printing `She said, "You deserve a treat!"`. This
 technique works for all output methods (HSerPrint, Print, etc.)
 
-``` screen
+``` programlisting
     HSerPrint "She said, ""You deserve a treat!"" "
 
     Dim myString As String * 39
     myString = "She said, ""You deserve another treat!"" "
-    HSerPrint myString
+    HSerPrint myString          ' <<< printing a string containing embedded quote marks
 ```
+
+<span class="strong">**Key line:**</span> `HSerPrint myString` — prints
+`myString`, which was built with doubled quotation marks (`""`) standing
+in for each literal quote character; GCBASIC collapses each `""` pair
+back to a single `"` when the string is compiled, so the printed output
+reads with normal single quote marks.
 
 <span class="strong">**Variable Aliases**</span>
 
@@ -211,17 +219,17 @@ used by other variables. These are useful for joining predefined byte
 variables together to form a word variable.
 
 Aliases are not like pointers in many languages - they must always refer
-to the same variable or variables and cannot be changed.
+to the same variable or variables, and cannot be changed.
 
-When setting a register/variable bit ( i.e
-my\_variable.my\_bit\_address\_variable ) and using a alias for the
-variable then you must ensure the bytes that construct the variable are
-consective.
+When setting a register/variable bit (i.e.
+`my_variable.my_bit_address_variable`) and using an alias for the
+variable, then you must ensure the bytes that construct the variable are
+consecutive.
 
 The coding approach should be to DIMension the variable (word, integer,
 or long) first, then create the byte aliases:
 
-``` screen
+``` programlisting
     Dim my_variable as LONG
     Dim ByteOne   as Byte alias my_variable_E
     Dim ByteTwo   as Byte alias my_variable_U
@@ -238,9 +246,9 @@ or long) first, then create the byte aliases:
 ```
 
 To set a series of registers that are not consecutive, it is recommended
-to use a mask variable then apply it to the registers:
+to use a mask variable and then apply it to the registers:
 
-``` screen
+``` programlisting
     Dim my_variable as LONG
     Dim my_bit_address_variable as Byte
     my_bit_address_variable = 23
@@ -258,13 +266,19 @@ to use a mask variable then apply it to the registers:
 
 Casting changes the type of a variable or value. To tell the compiler to
 perform a type conversion, put the desired type in square brackets
-before the variable. The following example will cause two byte variables
+before the variable. The following example causes two byte variables
 added together to be treated as a word variable.
 
-``` screen
+``` programlisting
     Dim MyWord As Word
-    MyWord = [word]ByteVar + AnotherByteVar
+    MyWord = [word]ByteVar + AnotherByteVar          ' <<< the [word] cast preventing an 8-bit overflow
 ```
+
+<span class="strong">**Key line:**</span>
+`MyWord = [word]ByteVar + AnotherByteVar` — forces GCBASIC to add
+`ByteVar` and `AnotherByteVar` using word-width arithmetic; without the
+cast, the addition would be done as a byte operation and silently
+overflow whenever the true sum exceeds 255.
 
 Why do this? Suppose that `ByteVar` is 150, and `AnotherByteVar` is 231.
 When added, this will come to 381 - which will overflow, leaving 125 in
@@ -274,32 +288,41 @@ This will cause the correct result to be calculated.
 
 It is good practice to cast when calculating an average:
 
-``` screen
+``` programlisting
     MyAverage = ([word]Value1 + Value2) / 2
 ```
 
-It’s also possible to cast the second value instead of the first:
+It is also possible to cast the second value instead of the first:
 
-``` screen
+``` programlisting
     MyAverage = (Value1 + [word]Value2) / 2
 ```
 
 The result will be exactly the same.
 
   
-To apply operations to individual bits of variables see,
-<a href="set" class="link" title="Set">Set</a>,
-<a href="rotate" class="link" title="Rotate">Rotate</a>  
-  
 
-To check variables and apply logic based on their value, see
-<a href="if" class="link" title="If">If</a>,
-<a href="do" class="link" title="Do">Do</a>,
-<a href="for" class="link" title="For">For</a>,
-<a href="conditions" class="link" title="Conditions">Conditions</a>  
+<span class="strong">**See Also:**</span>
 
-<span class="strong">**For more help, see:**</span>
-<a href="dim" class="link" title="Dim">Declaring variables with DIM</a>,
-<a href="setting_variables" class="link" title="Setting Variables">Setting Variables</a>
+<div class="itemizedlist">
+
+-   <a href="set" class="link" title="Set">Set</a> — applying
+    operations to individual bits of variables
+-   <a href="rotate" class="link" title="Rotate">Rotate</a> — rotating
+    bits within a variable
+-   <a href="if" class="link" title="If">If</a> — checking
+    variables and applying logic based on their value
+-   <a href="do" class="link" title="Do">Do</a> — looping while a
+    variable-based condition holds
+-   <a href="for" class="link" title="For">For</a> — looping a
+    counted number of times
+-   <a href="conditions" class="link" title="Conditions">Conditions</a> — the
+    comparison operators used in If and Do
+-   <a href="dim" class="link" title="Dim">Dim</a> — declaring
+    variables
+-   <a href="setting_variables" class="link" title="Setting Variables">Setting Variables</a> — more
+    on assigning values to variables
+
+</div>
 
 </div>

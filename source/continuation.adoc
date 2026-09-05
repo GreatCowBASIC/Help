@@ -1,13 +1,17 @@
 === Line Continuation
 
+(((Syntax,Line Continuation)))
+
+
 *About Line Continuation*
 
-A single _ (underscore) character at the end of a line of code tells the compiler that the line continues in the next line.  This allows a single statement (line of code) to be spread across multiple lines in the input file, which can provide nice formatting.
+A single _ (underscore) character at the end of a line of code tells the compiler that the line continues on the next line. This allows a single statement (line of code) to be spread across multiple lines in the input file, which can provide nicer formatting.
 
 Be careful when adding the _ line continuation character right behind an identifier or keyword. It MUST be separated with at least *one space* character, otherwise it would be treated as part of the identifier or keyword.
 
 
 *Example 1:*
+[source,gcbasic]
 ----
     #CHIP 18f27k42
 
@@ -38,14 +42,15 @@ Be careful when adding the _ line continuation character right behind an identif
                    twentyFour _
                    twentyFive"
 
-    HSerPrint sMyString
+    HSerPrint sMyString          ' <<< printing a string that was assembled from many continued lines
 ----
+*Key line:* `HSerPrint sMyString` -- prints the full string that was built across 25 continuation lines; to the compiler this is a single, ordinary string assignment, exactly as if it had been written on one very long line.
 
-
-This example will print on the serial terminal the string "one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twentyOne twentyTwo twentyThree twentyFour twentyFive"
+This example will print, on the serial terminal, the string "one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twentyOne twentyTwo twentyThree twentyFour twentyFive".
 
 
 *Example 2:*
+[source,gcbasic]
 ----
     Sub Aiguillages (In voie_principale As Byte, _
                      In voie_marchandises As Byte, _
@@ -58,11 +63,12 @@ This example will print on the serial terminal the string "one two three four fi
     End Sub
 ----
 
-This example improves the layout of definition of the sub-routine.
+This example improves the layout of the subroutine's definition.
 
 
 
 *Example 3:*
+[source,gcbasic]
 ----
 
  #DEFINE Ouvrir_voie_marchandises Aiguillages _
@@ -70,5 +76,9 @@ This example improves the layout of definition of the sub-routine.
 
 ----
 
-This example creates a constants over two lines.  This improves readability.
+This example creates a constant across two lines. This improves readability.
 
+**See Also:**
+
+* <<_subroutines,Subroutines>> -- declaring a Sub, as split across lines in Example 2
+* <<__define,#DEFINE>> -- creating a constant, as split across lines in Example 3

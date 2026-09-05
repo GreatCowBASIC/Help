@@ -1,13 +1,17 @@
 ==== HSerReceive
 
+(((Serial Communications,HSerReceive)))
+
+
 *Syntax:*
 
 *_Used as subroutine:_*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     HSerReceive (_user_byte_variable_)
 ----
 or, if other multiple comports are in use, set the comport before using HSerReceive.
+[source,gcbasic]
 ----
 
     comport = 1   '(1|2|3|4|5)Not needed unless using multiple comports in use
@@ -15,7 +19,7 @@ or, if other multiple comports are in use, set the comport before using HSerRece
 
 ----
 or, used as function.
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   _user_byte_variable_ = `HSerReceive`  'Supports only USART1
   _user_byte_variable_ = `HSerReceive1` 'Supports only USART1
@@ -24,6 +28,7 @@ or, used as function.
 ----
 
 or, used to support assigning of received byte to word (or other multi-byte variables).&#160;&#160;Note the use of casting to ensure the `HSerReceive` uses byte addressing.
+[source,gcbasic]
 ----
 
   Dim dbAdr as Word
@@ -48,6 +53,7 @@ Atmel AVR supports USART 1,2,3 and 4.
 
 To enable the use of the USART these are the enabling constants. &#160;&#160;These constants are required.&#160;&#160;You can change the `USART_BAUD_RATE` and to meet your needs.&#160;&#160;For addition USART ports use `#define USART**n**_BAUD_RATE 9600` where `**n**`` is the required port number.
 
+[source,gcbasic]
 ----
     'USART settings for USART1
     #define USART_BAUD_RATE 9600       'Set the baud rate
@@ -63,9 +69,10 @@ used either as a subroutine or as a function. If used as a subroutine, a
 variable must be supplied to store the received value in. If used as a
 function, it will return the received value.
 
-The subroutine HSerReceive can get a byte from any comport but must set the comport number immediately before the call.  If ”#define USART_BLOCKING” is defined then the HserReceive waits in a loop until it receives a byte.   If” #define USART_BLOCKING” is NOT defined then HserReceive returns the new byte that was received OR returns 255 because of “DefaultUsartReturnValue = 255”  was defined.  This is good because it don’t hold up your program from executing other  commands and your can check it for new data priodically.
+The subroutine HSerReceive can get a byte from any comport but must set the comport number immediately before the call. If `#define USART_BLOCKING` is defined, then HSerReceive waits in a loop until it receives a byte. If `#define USART_BLOCKING` is not defined, then HSerReceive returns the new byte that was received, or returns 255 because `DefaultUsartReturnValue = 255` was defined. This is useful because it does not hold up your program from executing other commands, and you can check it for new data periodically.
 
 *Example:*
+[source,gcbasic]
 ----
   'This program will read a value from the USART, and send it to PORTB.
 
@@ -82,17 +89,19 @@ The subroutine HSerReceive can get a byte from any comport but must set the comp
   'Main loop
   Do
     'Get serial data and output value to PortB as 8 bit binary
-    HSerReceive(InChar)  'Receive data as Subroutine from comport 1
+    HSerReceive(InChar)  'Receive data as Subroutine from comport 1          ' <<< the HSerReceive instruction
     'InChar = HSerReceive  'Could also be written as Function
     If InChar <> 255 Then   'If value is 255 then it is old data
       PortB = InChar    'If new data then it goes to PortB
     End If
   Loop
 ----
+*Key line:* `HSerReceive(InChar)` -- reads a byte from comport 1 into `InChar`; without `USART_BLOCKING` defined, a value of 255 means no new byte has arrived yet.
 
 *Example 2:*
+[source,gcbasic]
 ----
-  'If you choose no “Blocking” and comment both of them out.
+  'If you choose no "Blocking" and comment both of them out.
   'USART settings
   #define USART_BAUD_RATE 9600
   '#define USART_BLOCKING        ' just none OR one of the blocking
@@ -103,25 +112,26 @@ The subroutine HSerReceive can get a byte from any comport but must set the comp
     'Get and display value
     'If there is no new data, HSerReceive will return default value.
     comport = 1
-    HSerReceive tempvalue
-    If tempvalue <> 255    Then    ‘ don’t change PortB if it is default
+    HSerReceive tempvalue          ' <<< HSerReceive used as a subroutine with an explicit comport
+    If tempvalue <> 255    Then    ' do not change PortB if it is the default value
       PortB = tempvalue
     End If
 
   Loop
 ----
-
+*Key line:* `HSerReceive tempvalue` -- setting `comport` immediately before the call directs this read to a specific USART port.
 
 *Example 3:*
+[source,gcbasic]
 ----
-  'If you choose no “Blocking” and comment both of them out.
+  'If you choose no "Blocking" and comment both of them out.
   #chip mega328p, 16
 
   #define USART_BAUD_RATE 9600
   '#define USART_BLOCKING
   '#define USART_TX_BLOCKING
 
-  'Don't forget to Set usart pin directions
+  'Do not forget to set USART pin directions
   Dir PortD.1 Out    'com1   USART0
   Dir PortD.0 In
 
@@ -141,6 +151,11 @@ The subroutine HSerReceive can get a byte from any comport but must set the comp
         HSerSend InChar    'send back char to UART
       End If
   Goto Start
-
 ----
-*See also* <<_rs232_hardware_overview,RS232 Hardware Overview>>
+
+**See Also:**
+
+* <<_rs232_hardware_overview,RS232 Hardware Overview>> -- hardware USART wiring and configuration background
+* <<_hsersend,HSerSend>> -- the sending counterpart to HSerReceive, as used above
+* <<_hserprint,HSerPrint>> -- sending a whole string, integer, word or long, rather than a single raw byte
+* <<_hserreceivefrom,HSerReceiveFrom>> -- receiving from a specific comport without setting the global `comport` variable first

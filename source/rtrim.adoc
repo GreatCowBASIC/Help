@@ -1,19 +1,36 @@
 ==== Rtrim
 
+(((String Manipulation,Rtrim)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __stringvar__ = Rtrim(__stringvar__)
 ----
 
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The `Rtrim` function will trim the 7-bit ASCII space character (value 32) from the RIGHT hand side of a string.
+The `Rtrim` function trims the 7-bit ASCII space character (value 32) from the right-hand side of a string.
 
-Use `Rtrim` on text that you have received from another source that may have irregular spacing at the right hand end of the string.
+Use `Rtrim` on text you have received from another source that may have irregular spacing at the right-hand end of the string.
 
-*See Also* <<_trim,Trim>>, <<_ltrim,Ltrim>>
+*Example:*
+[source,gcbasic]
+----
+    Dim TestData As String
+    TestData = "Hello   "
+
+    TestData = RTRIM(TestData)          ' <<< the RTRIM instruction
+    ' TestData now holds "Hello", with the trailing spaces removed
+----
+*Key line:* `RTRIM(TestData)` -- removes only the trailing spaces from `TestData`, leaving any spaces at the start untouched.
+
+**See Also:**
+
+* <<_trim,Trim>> -- trimming both ends at once
+* <<_ltrim,Ltrim>> -- trimming only the left-hand side

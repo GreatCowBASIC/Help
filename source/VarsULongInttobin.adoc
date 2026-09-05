@@ -1,7 +1,10 @@
 ==== ULongIntToBin
 
+(((String Manipulation,ULongIntToBin)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __stringvar__ = ULongIntToBin(__ULongIntvar__)
 ----
@@ -19,9 +22,16 @@ The function converts a number to a string consisting of ones and zeros that rep
 Supports ULongInt variables only.  For BYTE variables use `VarToBin`, for WORD variables use `VarWToBinand` for INTEGER variables use `VarIntegerToBin`
 
 *Example:*
+[source,gcbasic]
 ----
-    string = ULongIntToBin( 1 )   ' Returns "00000000000000000000000000000001"
+    string = ULongIntToBin( 1 )   ' Returns "00000000000000000000000000000001"          ' <<< the ULongIntToBin instruction
 
     string = ULongIntToBin( 254 ) ' Returns "00000000000000000000000011111110"
 ----
-*For more help, see* <<_vartobin,ByteToBin>>, <<_varWtobin,WordToBin>>, <<_varintegertobin,IntegerToBin>>
+*Key line:* `string = ULongIntToBin( 1 )` -- converts the ULongInt value 1 into a full 32-character string of ones and zeros; unlike `VarToBin`, `VarWToBin`, and `VarIntegerToBin`, this variant always produces exactly 32 binary digits, matching the width of a ULongInt.
+
+**See Also:**
+
+* <<_bytetobin,ByteToBin>>
+* <<_wordtobin,WordToBin>>
+* <<_integertobin,IntegerToBin>>

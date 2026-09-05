@@ -17,7 +17,7 @@
 GCBASIC has the following macros to read a specific timer value. They
 are:
 
-``` screen
+``` programlisting
     Timer0
     Timer1
     Timer2
@@ -40,5 +40,18 @@ example, if a microcontrollers has three timers, then typically only
 
 Please refer to the datasheet for your microcontroller to determine the
 supported timer numbers, and if a specific timer is 8-bit or 16-bit.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="timer_overview" class="link" title="Timer Overview">Timer Overview</a> — category
+    overview
+-   <a href="cleartimer" class="link" title="ClearTimer">ClearTimer</a> — related
+    command in the same category
+-   <a href="inittimer0" class="link" title="InitTimer0">InitTimer0</a> — related
+    command in the same category
+
+</div>
 
 </div>

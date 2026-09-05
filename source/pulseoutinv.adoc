@@ -1,7 +1,10 @@
 ==== PulseOutInv
 
+(((Miscellaneous Commands,PulseOutInv)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     PulseOutInv _pin,_ _time units_
 ----
@@ -14,13 +17,20 @@ Available on all microcontrollers.
 The `PulseOutInv` command will set the specified pin low, wait for the specified amount of time, and then set the pin high. The pin is specified in the same way as it is for the `Set` command, and the time is the same as for the `Wait` command.
 
 *Example:*
+[source,gcbasic]
 ----
     'This program flashes an LED on GPIO.0 using PulseOutInv
     #chip 12F629, 4
 
     Dir GPIO.0 Out
     Do
-        PulseOutInv GPIO.0, 1 sec     'Turn LED off for 1 sec
+        PulseOutInv GPIO.0, 1 sec     'Turn LED off for 1 sec          ' <<< the PulseOutInv instruction
         Wait 1 sec                    'Wait 1 sec with LED on
     Loop
 ----
+*Key line:* `PulseOutInv GPIO.0, 1 sec` -- sets `GPIO.0` low, waits 1 second, then sets it high again -- the opposite polarity to `PulseOut`.
+
+**See Also:**
+
+* <<_pulseout,PulseOut>> -- related command in the same category
+* <<_pulsein,PulseIn>> -- related command in the same category

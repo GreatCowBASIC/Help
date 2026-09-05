@@ -38,7 +38,7 @@ code unless it is told otherwise.    If you wish to store data here, you
 should reserve the HEF memory by using the compiler option, as shown
 below to reserve 128 words of HEF memory:
 
-``` screen
+``` programlisting
     #option ReserveHighProg 128
 ```
 
@@ -49,7 +49,7 @@ Sevices memory architecture is 14-bits wide.     Therefore, for a single
 14-bit memory location it is only practical to store an 8-bit byte
 value, and two 14-bit memory locations to hold one 16-bit word value.
     This is because the memory architecture only allows the use of the
-the lower 8-bits of each 14-bit flash memory location for HEF usage  
+lower 8-bits of each 14-bit flash memory location for HEF usage  
   
 The main difference between HEF memory and EEPROM is that EEPROM allows
 byte-by-byte erase whereas the HEF memory does not.    With HEF memory,
@@ -95,7 +95,7 @@ HEF memory.
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><p><code class="literal">HEFRead</code></p></td>
-<td style="text-align: left;"><p>a subroutine with the paramers: location, byte_value</p></td>
+<td style="text-align: left;"><p>a subroutine with the parameters: location, byte_value</p></td>
 <td style="text-align: left;"><p>HEFRead ( location , out_byte_variable )</p></td>
 </tr>
 <tr class="even">
@@ -120,7 +120,7 @@ A value of 0,1,2,3 etc.</p></td>
 <td style="text-align: left;"><p>a subroutine with the parameters: block_number, buffer() [, HEF_ROWSIZE_BYTES ]</p></td>
 <td style="text-align: left;"><p>HEFWriteBlock( 0, myMemoryBuffer ) 'where myMemoryBuffer is an Array or a String<br />
 <br />
-The Array or a String will contain the values to be wrttin to the HEFM.</p></td>
+The Array or a String will contain the values to be written to the HEFM.</p></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p><code class="literal">HEFReadBlock</code></p></td>
@@ -174,13 +174,18 @@ IPE (Go to
 of your HEFM).   Or, simply use the PICkitPlus suite of software to
 preserve HEF memory during programming.  
   
-See also
-<a href="hefread" class="link" title="HEFRead">HEFRead</a>,
-<a href="hefreadword" class="link" title="HEFReadWord">HEFReadWord</a>,
-<a href="hefwrite" class="link" title="HEFWrite">HEFWrite</a>,
-<a href="hefwriteword" class="link" title="HEFWriteWord">HEFWriteWord</a>,
-<a href="hefreadblock" class="link" title="HEFReadBlock">HEFReadBlock</a>,
-<a href="hefwriteblock" class="link" title="HEFWriteBlock">HEFWriteBlock</a>,
-<a href="heferaseblock" class="link" title="HEFEraseBlock">HEFEraseBlock</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hefread" class="link" title="HEFRead">HEFRead</a>
+-   <a href="hefreadword" class="link" title="HEFReadWord">HEFReadWord</a>
+-   <a href="hefwrite" class="link" title="HEFWrite">HEFWrite</a>
+-   <a href="hefwriteword" class="link" title="HEFWriteWord">HEFWriteWord</a>
+-   <a href="hefreadblock" class="link" title="HEFReadBlock">HEFReadBlock</a>
+-   <a href="hefwriteblock" class="link" title="HEFWriteBlock">HEFWriteBlock</a>
+-   <a href="heferaseblock" class="link" title="HEFEraseBlock">HEFEraseBlock</a>
+
+</div>
 
 </div>

@@ -36,7 +36,7 @@ pulses.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     #chip 12F629, 4
 
     Dir GPIO.0 In
@@ -45,7 +45,23 @@ pulses.
     Do while GPIO.0 = On        'Wait for next negative edge to start measuring
     Loop
 
-    PulseinInv GPIO.0, TimeResult, ms
+    PulseinInv GPIO.0, TimeResult, ms          ' <<< the PulseInInv instruction
 ```
+
+<span class="strong">**Key line:**</span>
+`PulseinInv GPIO.0, TimeResult, ms` — waits for `GPIO.0` to go high
+again, then stores how long it was low, in milliseconds, into
+`TimeResult`.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="pulsein" class="link" title="PulseIn">PulseIn</a> — related
+    command in the same category
+-   <a href="pulseout" class="link" title="PulseOut">PulseOut</a> — related
+    command in the same category
+
+</div>
 
 </div>

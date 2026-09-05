@@ -45,12 +45,12 @@ This example shows how to use the LCD\_VARIANT constant.   This example
 shows the use of software I2C - any LCD mode can be used not just
 software I2C.  
 
-``` screen
+``` programlisting
     #chip tiny84,1
 
     'Set up LCD
     #define LCD_IO 10
-    #define LCD_VARIANT 1601a
+    #define LCD_VARIANT 1601a          ' <<< the constant this page documents
     #define LCD_WIDTH 16
 
     'You may need to use SLOW or MEDIUM if your LCD is a slower device.
@@ -77,20 +77,31 @@ software I2C.  
     Loop
 ```
 
+<span class="strong">**Key line:**</span>
+`#define LCD_VARIANT 1601a` — selects the non-standard memory-map
+adaptation for this specific LCD sub-type; it is layered on top of the
+chosen `LCD_IO` connection mode (here `LCD_IO 10`, I2C via a PCF8574
+expander), not a replacement for it.
+
 For code examples see
 <a href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions/Variant1601a_LCD_Solutions" class="link">I2C Variants LCD Solutions</a>.
 
 See the separate sections of the Help file for the specifics of each
 Connection Mode.
 
-<span class="strong">**For more help, see**</span>
-<a href="lcd_io_0" class="link" title="LCD_IO 0">LCD_IO 0</a>,
-<a href="lcd_io_1" class="link" title="LCD_IO 1">LCD_IO 1</a>,
-<a href="lcd_io_2" class="link" title="LCD_IO 2">LCD_IO 2</a>
-<a href="lcd_io_2_74xx164" class="link" title="LCD_IO 2_74xx164">LCD_IO 2_74xx164</a>,
-<a href="lcd_io_2_74xx174" class="link" title="LCD_IO 2_74xx174">LCD_IO 2_74xx174</a>,
-<a href="lcd_io_4" class="link" title="LCD_IO 4">LCD_IO 4</a>,
-<a href="lcd_io_8" class="link" title="LCD_IO 8">LCD_IO 8</a>,
-<a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcd_io_0" class="link" title="LCD_IO 0">LCD_IO 0</a>
+-   <a href="lcd_io_1" class="link" title="LCD_IO 1">LCD_IO 1</a>
+-   <a href="lcd_io_2" class="link" title="LCD_IO 2">LCD_IO 2</a>
+-   <a href="lcd_io_2_74xx164" class="link" title="LCD_IO 2_74xx164">LCD_IO 2_74xx164</a>
+-   <a href="lcd_io_2_74xx174" class="link" title="LCD_IO 2_74xx174">LCD_IO 2_74xx174</a>
+-   <a href="lcd_io_4" class="link" title="LCD_IO 4">LCD_IO 4</a>
+-   <a href="lcd_io_8" class="link" title="LCD_IO 8">LCD_IO 8</a>
+-   <a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a>
+
+</div>
 
 </div>

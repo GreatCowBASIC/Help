@@ -54,7 +54,7 @@ default is set to the GCBASIC constant `HEF_ROWSIZE_BYTES`.
   
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     '... code preamble to select part
     '... code to setup serial
 
@@ -76,7 +76,7 @@ If example 1 were displayed on a serial terminal using HEFM\_Dump.   
 The result would show. Note the value display at the start of block 2 @
 0x3F80.
 
-``` screen
+``` programlisting
 Block0  1 0   3 2   5 4   7 6   9 8   B A   D C   F E
 7F00    FFFF  FFFF  FFFF  FFFF  FFFF  FFFF  FFFF  FFFF
 7F10    FFFF  FFFF  FFFF  FFFF  FFFF  FFFF  FFFF  FFFF
@@ -104,14 +104,19 @@ Block3  1 0   3 2   5 4   7 6   9 8   B A   D C   F E
 
   
   
-See also
-<a href="hefm_overview" class="link" title="HEFM Overview">HEFM Overview</a>,
-<a href="hefread" class="link" title="HEFRead">HEFRead</a>,
-<a href="hefreadword" class="link" title="HEFReadWord">HEFReadWord</a>,
-<a href="hefwrite" class="link" title="HEFWrite">HEFWrite</a>,
-<a href="hefwriteword" class="link" title="HEFWriteWord">HEFWriteWord</a>,
-<a href="hefreadblock" class="link" title="HEFReadBlock">HEFReadBlock</a>,
-<a href="hefwriteblock" class="link" title="HEFWriteBlock">HEFWriteBlock</a>,
-<a href="heferaseblock" class="link" title="HEFEraseBlock">HEFEraseBlock</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hefm_overview" class="link" title="HEFM Overview">HEFM Overview</a>
+-   <a href="hefread" class="link" title="HEFRead">HEFRead</a>
+-   <a href="hefreadword" class="link" title="HEFReadWord">HEFReadWord</a>
+-   <a href="hefwrite" class="link" title="HEFWrite">HEFWrite</a>
+-   <a href="hefwriteword" class="link" title="HEFWriteWord">HEFWriteWord</a>
+-   <a href="hefreadblock" class="link" title="HEFReadBlock">HEFReadBlock</a>
+-   <a href="hefwriteblock" class="link" title="HEFWriteBlock">HEFWriteBlock</a>
+-   <a href="heferaseblock" class="link" title="HEFEraseBlock">HEFEraseBlock</a>
+
+</div>
 
 </div>

@@ -17,33 +17,35 @@
 <span class="strong">**About Analog/Digital Conversion Code
 Optimisation**</span>
 
-The analog to digital converter (ADC or A/D) module support is
-implemented by GCBASIC to provide 8-bit, 10-bit and 12-bit Single
-channel measurement mode and Differential Channel Measurement with
-support up to 34 channels. For compatibility all channels are supported.
+The analog-to-digital converter (ADC or A/D) module support is
+implemented by GCBASIC to provide 8-bit, 10-bit, and 12-bit
+single-channel measurement mode and differential-channel measurement
+mode, with support for up to 34 channels. For compatibility, all
+channels are supported by default.
 
-There are two methods to optimise the code.
+There are two methods to optimise the code:
 
 <div class="orderedlist">
 
-1.  To mimise the code, use the contstants to disable support for a
-    specfic channels
-2.  To adapt the ADC configuration by inserting specfic commands to set
+1.  Minimise the code by using constants to disable support for specific
+    channels.
+2.  Adapt the ADC configuration by inserting specific commands to set
     registers or register bits.
 
 </div>
 
-<span class="strong">**1. Minimise the code**</span>
+<span class="strong">**1. Minimise the Code**</span>
 
-The example below would disable support for ADC port 0 (AD0).
+The example below disables support for ADC port 0 (AD0).
 
-``` screen
+``` programlisting
     #define USE_AD0 FALSE
 ```
 
-The following tables show the \#defines that can be used to reduce the
-code size - these are the defines for the standard microcontrollers. For
-16f1688x and similar microcontrollers please see the second table.
+The following tables show the `#define` constants that can be used to
+reduce code size — these are the defines for the standard
+microcontrollers. For 16F1688x and similar microcontrollers, see the
+second table.
 
 <div class="informaltable">
 
@@ -87,7 +89,7 @@ code size - these are the defines for the standard microcontrollers. For
 
 </div>
 
-For 16f1688x devices see the table below.
+For 16F1688x devices, see the table below.
 
 <div class="informaltable">
 
@@ -123,12 +125,13 @@ For 16f1688x devices see the table below.
 
 </div>
 
-This is a example - disables every channel except the specified channel
-by defining every channel except USE\_AD0 as FALSE.
+The following is an example that disables every channel except the
+specified channel, by defining every channel except `USE_AD0` as
+`FALSE`.
 
-This will save 146 bytes of program memory.
+This saves 146 bytes of program memory.
 
-``` screen
+``` programlisting
     #chip 16F1939
 
     'USART settings
@@ -186,10 +189,10 @@ This will save 146 bytes of program memory.
     #define USE_AD34 FALSE
 ```
 
-For 16f18855 family of microcontrollers this is a example. This will
-save 149 bytes of program memory.
+For the 16F18855 family of microcontrollers, the following is an
+example. This saves 149 bytes of program memory.
 
-``` screen
+``` programlisting
     '''  PIC: 16F18855
     '''  Compiler: GCB
     '''  IDE: GCode
@@ -300,26 +303,26 @@ save 149 bytes of program memory.
     #define USE_ADE2 FALSE
 ```
 
-<span class="strong">**2. Adapt the ADC configuration**</span>
+<span class="strong">**2. Adapt the ADC Configuration**</span>
 
 Example 1:
 
-The following example will set the specific register bits. The
-instruction will be added to the compiled code.
+The following example sets specific register bits. The instruction is
+added to the compiled code.
 
-``` screen
+``` programlisting
     #define ADReadPreReadCommand  ADCON.2=0:ANSELA.0=1
 ```
 
-The constant <span class="strong">**ADReadPreReadCommand**</span> can be
-used to adapt the ADC methods. The constant can enable registers or
-register bit(s) that are required to managed for a specfic solution.
+The constant `ADReadPreReadCommand` can be used to adapt the ADC
+methods. The constant can enable registers or register bit(s) that need
+to be managed for a specific solution.
 
-In the example above the following ASM will be added to your code. This
-WILL be added just before the ADC is enabled and the setting of the
-acquisition delay.
+In the example above, the following assembly is added to your code. This
+is added just before the ADC is enabled and the acquisition delay is
+set.
 
-``` screen
+``` programlisting
   ;ADReadPreReadCommand
   banksel ADCON
   bcf ADCON,2
@@ -329,43 +332,48 @@ acquisition delay.
 
 Example 2:
 
-The following example can be used to change the ADMUX to support a
-sensor on ADC4.
+The following example can be used to change the ADMUX register to
+support a sensor on ADC4.
 
-This supports reading the internal temperature sensor on the ATTINY85. 
-  This method will work on other similar chips.    Please refer the chip
-specific datasheet.
+This supports reading the internal temperature sensor on the ATtiny85.
+This method also works on other similar chips — refer to the
+chip-specific datasheet.
 
-This will call a macro to change the ADMUX to read the ATTINY85 internal
-temperature sensor, set the reference voltage to 1v1 and then wait 100
-ms.
+This calls a macro that changes the ADMUX register to read the ATtiny85
+internal temperature sensor, sets the reference voltage to 1.1 V, and
+then waits 100 ms.
 
-``` screen
+``` programlisting
     #define ADREADPREREADCOMMAND ATTINY85ReadInternalTemperatureSensor
 
     Macro ATTINY85ReadInternalTemperatureSensor
     /*
     17.12 of the datasheet
     The temperature measurement is based on an on-chip temperature sensor that is coupled to a single ended ADC4
-    channel. Selecting the ADC4 channel by writing the MUX[3:0] bits in ADMUX register to 1111 enables the temperature sensor. The internal 1.1V reference must also be selected for the ADC reference source in the
+    channel. Selecting the ADC4 channel by writing the MUX[3:0] bits in ADMUX register to 1111 enables the temperature sensor. The internal 1.1V reference must also be selected for the ADC reference source in the
     temperature sensor measurement. When the temperature sensor is enabled, the ADC converter can be used in
     single conversion mode to measure the voltage over the temperature sensor.
     The measured voltage has a linear relationship to the temperature as described in Table 17-2 The sensitivity is
     approximately 1 LSB / ?C and the accuracy depends on the method of user calibration. Typically, the measurement
-    accuracy after a single temperature calibration is ±10?C, assuming calibration at room temperature. Better
+    accuracy after a single temperature calibration is +/-10?C, assuming calibration at room temperature. Better
     accuracies are achieved by using two temperature points for calibration.
     */
       IF ADReadPort=4 then
-          ADMUX = ( ADMUX and 0X20 ) or 0X8F
+          ADMUX = ( ADMUX and 0X20 ) or 0X8F          ' <<< the register rewrite this page documents
           wait 100 ms
       End if
 
     End Macro
 ```
 
-This will generate the following ASM.
+<span class="strong">**Key line:**</span>
+`ADMUX = ( ADMUX and 0X20 ) or 0X8F` — masks out the existing
+channel-select bits while preserving the rest of ADMUX, then ORs in the
+ADC4-plus-1.1V-reference pattern this note describes.
 
-``` screen
+This generates the following assembly.
+
+``` programlisting
     ;ADREADPREREADCOMMAND  'adds user code below
       lds SysCalcTempA,ADREADPORT
       cpi SysCalcTempA,4
@@ -382,5 +390,18 @@ This will generate the following ASM.
       rcall Delay_MS
     ENDIF2:
 ```
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="analog_digital_conversion_overview" class="link" title="Analog/Digital Conversion Overview">Analog/Digital Conversion Overview</a> — category
+    overview
+-   <a href="adformat_deprecated_do_not_use" class="link" title="ADFormat (Deprecated - Do not use)">ADFormat (Deprecated - Do not use)</a> — related
+    command in the same category
+-   <a href="adoff" class="link" title="ADOff">ADOff</a> — related
+    command in the same category
+
+</div>
 
 </div>

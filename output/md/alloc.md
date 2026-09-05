@@ -25,7 +25,7 @@ given layout that can be used as a RAM buffer or as an array variant.
 
 Layout:
 
-``` screen
+``` programlisting
   Dim variable_name as ALLOC * memory_size at memory_location
 ```
 
@@ -33,7 +33,7 @@ The allocated block of memory will not be initialized.
 
 Example Usage:
 
-``` screen
+``` programlisting
   Dim my256bytebuffer as alloc * 256 at 0x2400
 ```
 
@@ -41,7 +41,7 @@ There is a pointer to allocated memory. Use @variable\_name.
 
 Example Pointer
 
-``` screen
+``` programlisting
     HSerPrint @my256bytebuffer
 ```
 
@@ -53,7 +53,7 @@ extents are 0 (zero) to the memory\_size - 1
 
 Example Extents:
 
-``` screen
+``` programlisting
     my256bytebuffer(0)    = some_variable.  Will address location 0x2400
     my256bytebuffer(255)  = some_variable.  Will address location 0x24FF ' the 256th byte of the allocated memory
 ```
@@ -69,7 +69,7 @@ have adverse impact on the operation of the microcontroller.
 
 Examples of unsafe usage:
 
-``` screen
+``` programlisting
     my256bytebuffer(256) = some_variable.  Will address location 0x2500  ' this is the first byte of BUFFER RAM on the 18FxxQ43 chips... bad things may happen
     my256bytebuffer(65535) = some_variable.  Will address location 0x123FF  ' this is the beyond the memory limit and the operation will write an SFR.
 ```
@@ -80,7 +80,7 @@ The following example program shows the ALLOCation of a 256 byte buffer
 at a specific address.   The array variant is then populated with data
 and then shown on a serial terminal.
 
-``` screen
+``` programlisting
         ' Chip Settings and preamble
         #CHIP  18F27Q43
         #OPTION EXPLICIT
@@ -114,7 +114,7 @@ and then shown on a serial terminal.
         'This array is created at memory location 0x2400.
         'This memory location is specific to this chip ( you must ensure other microcontrollers address are valid).
 
-        Dim mybuffer1 as ALLOC * BUFFERSIZE at 0x2400
+        Dim mybuffer1 as ALLOC * BUFFERSIZE at 0x2400          ' <<< the Alloc declaration
 
         'A data table
         Table myDataTable
@@ -183,7 +183,30 @@ and then shown on a serial terminal.
         Wait 100 ms
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="dim" class="link" title="Dim">Declaring arrays with DIM</a>
+<span class="strong">**Key line:**</span>
+`Dim mybuffer1 as ALLOC * BUFFERSIZE at 0x2400` — reserves a 256-byte
+unstructured buffer at a fixed address, usable both as
+`mybuffer1(index)` and via the `@mybuffer1` pointer; the rest of the
+example fills it from a data table and then reads it back two ways, with
+`mybuffer1(iLoop)` and with `PEEK(@myBuffer1+iLoop)`, to demonstrate
+that both access methods reach the same memory.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="dim" class="link" title="Dim">Declaring arrays with DIM</a> — the
+    typed-variable/array alternative to Alloc
+-   <a href="peek" class="link" title="Peek">Peek</a> — reading a
+    raw memory byte by address, as used in the example above
+-   <a href="hserprint" class="link" title="HSerPrint">HSerPrint</a> — sending
+    the buffer’s contents to a serial terminal, as used in the example
+    above
+-   <a href="readtable" class="link" title="ReadTable">ReadTable</a> — reading
+    the data table used to populate the buffer in the example above
+-   <a href="poke" class="link" title="Poke">Poke</a> — writing a
+    raw memory byte by address, the counterpart to Peek
+
+</div>
 
 </div>

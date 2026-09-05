@@ -87,7 +87,7 @@ command to clear the flag.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program will use Rotate to show a chasing LED.
     '8 LEDs should be connected to PORTB, one on each pin.
 
@@ -102,9 +102,28 @@ command to clear the flag.
     'Chase
     C = 0
     Do
-        Rotate PORTB Right Simple
+        Rotate PORTB Right Simple          ' <<< the Rotate instruction
         Wait 250 ms
     Loop
 ```
+
+<span class="strong">**Key line:**</span>
+`Rotate PORTB Right Simple` — shifts every bit of PORTB one place right,
+with the `Simple` option wrapping the bit that falls off the LSB back
+around to the MSB, so the two lit LEDs appear to chase around the port
+continuously.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="using_variables" class="link" title="Using Variables">Using Variables</a> — related
+    command in the same category
+-   <a href="more_on_setting_variables_and_constants" class="link" title="More on setting Variables and Constants">More on setting Variables and Constants</a> — related
+    command in the same category
+-   <a href="set" class="link" title="Set">Set</a> — clearing the
+    STATUS.C / carry flag before rotating, as recommended above
+
+</div>
 
 </div>

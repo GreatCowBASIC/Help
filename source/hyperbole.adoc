@@ -1,7 +1,10 @@
 ==== Hyperbole
 
+(((Graphical LCD,Hyperbole)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     Hyperbole (x,  y,  a_axis,  b_axis,  type, ModeStop, optional LineColour=GLCDForeground)
 ----
@@ -12,7 +15,7 @@ Draws on a GLCD an hyperbole with equation (x/(a)^2-(y/(b)^2=1, centered at  pix
 
 The hyperbole can be aligned either along the x axis or along the y axis.
 
-Both cases a_axis>=b:axis and a_axis<b_axis are accepted.
+Both cases a_axis>=b_axis and a_axis<b_axis are accepted.
 
 The hyperbole is an unbounded curve made by four branches
 
@@ -65,12 +68,13 @@ modestop=2 drawing stops when all the reachable display borders are encountered 
 
 
 *Example:*
+[source,gcbasic]
 ----
     'Example for a 240x320 pixels GLCD
 
     #include <glcd.h>
 
-    Hyperbole(120, 160, 40,20, 1, 2, GLCDForeground)   ; centered, a=40, b=20, x_axis alined, stops when all branches have reached a a border
+    Hyperbole(120, 160, 40,20, 1, 2, GLCDForeground)   ; centered, a=40, b=20, x_axis alined, stops when all branches have reached a a border          ' <<< the Hyperbole instruction
     Hyperbole(120, 160, 40,20, 1, 1, GLCDForeground)   ; centered, a=40, b=20, x_axis alined, stops when a border is reached
     Hyperbole(120, 160, 40,20, 2, 1, GLCDForeground)   ; centered, a=40, b=20, y_axis alined, stops when a border is reached,
 
@@ -80,3 +84,10 @@ modestop=2 drawing stops when all the reachable display borders are encountered 
     Hyperbole(180, 80, 40,20, 2, 1, GLCDForeground)   ; upper right, a=40, b=20, y_axis alined, stops when a border is reached,
     Hyperbole(60, 240, 40,20, 2, 2, GLCDForeground)   ; lower left, a=40, b=20, y_axis alined, stops when all branches have reached a border
 ----
+*Key line:* `Hyperbole(120, 160, 40,20, 1, 2, GLCDForeground)` -- draws a hyperbola centered at (120, 160) with `a_axis`=40 and `b_axis`=20, aligned along the x axis (`type`=1), stopping only once every reachable branch has hit a display border (`ModeStop`=2); the remaining calls in this example vary the center, axis, and `ModeStop` to show the other combinations.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_fonts_and_characters,Fonts and Characters>> -- related command in the same category
+* <<_e_paper_controllers,e-Paper Controllers>> -- related command in the same category

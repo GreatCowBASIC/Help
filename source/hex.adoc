@@ -1,19 +1,25 @@
 ==== Hex
 
+(((Deprecated string functions.,Hex)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __stringvar__ = Hex(__number__)
 ----
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The `Hex` function will convert a number into hexadecimal format. The input `_number_` should be a byte variable, or a fixed number between 0 and 255 inclusive. After running the function, the string variable `_stringvar_` will contain a 2 digit hexadecimal number.
+The `Hex` function converts a number into hexadecimal format. The input `_number_` should be a byte variable, or a fixed number between 0 and 255 inclusive. After running the function, the string variable `_stringvar_` contains a 2-digit hexadecimal number.
+
+For other variable types, use the type-specific variant instead: `WordToHex`, `LongToHex`, `IntegerToHex`, or `SingleToHex`.
 
 *Example:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16F1936
@@ -27,7 +33,7 @@ The `Hex` function will convert a number into hexadecimal format. The input `_nu
     'Uses Hex to display as hexadecimal
     For CurrentLocation = 0 to 255
         'Send location
-        HSerPrint Hex(CurrentLocation)
+        HSerPrint Hex(CurrentLocation)          ' <<< the Hex instruction
         HSerPrint ":"
         'Read byte and send
         EPRead CurrentLocation, CurrByte
@@ -36,5 +42,10 @@ The `Hex` function will convert a number into hexadecimal format. The input `_nu
         HSerPrintCRLF
     Next
 ----
+*Key line:* `Hex(CurrentLocation)` -- formats the current byte address as a fixed 2-digit hex string, so addresses line up neatly in the terminal output regardless of their value.
 
-*See Also* <<_str,Str>>, <<_val,Val>>
+**See Also:**
+
+* <<_str,Str>>
+* <<_val,Val>>
+* <<_wordtohex,WordToHex>> -- the equivalent conversion for Word variables

@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     On Interrupt event Call handler
     On Interrupt event Ignore
 ```
@@ -68,7 +68,7 @@ supported by some Microchip PIC microcontrollers, and events in <span
 class="red"><span class="strong">**red**</span></span> are only
 supported by Atmel AVR microcontrollers.
 
-Note that GCBASIC doesn’t fully support all of the hardware which can
+Note that GCBASIC does not fully support all of the hardware which can
 generate interrupts - some work may be required with various system
 variables to control the unsupported peripherals.
 
@@ -764,7 +764,7 @@ Within the Interrupt handling sub routine ensure the timer reset and cleartimer 
   
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     'This program increments a counter every time Timer1 overflows
     #chip 16F877A, 20
 
@@ -786,7 +786,7 @@ Within the Interrupt handling sub routine ensure the timer reset and cleartimer 
     Wait 100 ms
     Print "Int Test"
 
-    On Interrupt Timer1Overflow Call IncCounter
+    On Interrupt Timer1Overflow Call IncCounter          ' <<< the On Interrupt instruction
 
     Do
         CLS
@@ -799,11 +799,16 @@ Within the Interrupt handling sub routine ensure the timer reset and cleartimer 
     End Sub
 ```
 
+<span class="strong">**Key line:**</span>
+`On Interrupt Timer1Overflow Call IncCounter` — enables the Timer1
+overflow interrupt and registers `IncCounter` as its handler, so it runs
+automatically each time Timer1 overflows.
+
   
   
 <span class="strong">**Example 2:**</span>
 
-``` screen
+``` programlisting
     'This example reflects the input signal on the output port.
     #chip mega328p, 16
     #option explicit
@@ -819,7 +824,7 @@ Within the Interrupt handling sub routine ensure the timer reset and cleartimer 
     dir portB.5 out
 
     'setup the On Interrupt method
-    On Interrupt PinChange0 Call TogglePin
+    On Interrupt PinChange0 Call TogglePin          ' <<< the On Interrupt instruction
 
     'maintain a loop
     do
@@ -834,11 +839,15 @@ Within the Interrupt handling sub routine ensure the timer reset and cleartimer 
     end sub
 ```
 
+<span class="strong">**Key line:**</span>
+`On Interrupt PinChange0 Call TogglePin` — registers `TogglePin` to run
+whenever the pin-change interrupt for the masked pin fires.
+
   
   
 <span class="strong">**Example 3:**</span>
 
-``` screen
+``` programlisting
     'This example reflects the input signal on the output port from the external interrupt port.
     #Chip mega328p, 16
     #option explicit
@@ -862,7 +871,7 @@ Within the Interrupt handling sub routine ensure the timer reset and cleartimer 
     dir portB.5 out
 
     'setup the On Interrupt method on external interrupt 0
-    On Interrupt EXTINT0 Call togglePin
+    On Interrupt EXTINT0 Call togglePin          ' <<< the On Interrupt instruction
 
     'maintain a loop
     do
@@ -877,13 +886,26 @@ Within the Interrupt handling sub routine ensure the timer reset and cleartimer 
     end sub
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="inittimer0" class="link" title="InitTimer0">InitTimer0</a>
-article contains an example of using Timer 0 and On Interrupt to
-generate a Pulse Width Modulation signal to control a motor.
+<span class="strong">**Key line:**</span>
+`On Interrupt EXTINT0 Call togglePin` — registers `togglePin` to run
+whenever the external interrupt 0 pin detects the configured edge.
 
-<span class="strong">**See also**</span>
-<a href="intoff" class="link" title="IntOff">IntOff</a>,
-<a href="inton" class="link" title="IntOn">IntOn</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="on_interrupt_the_default_handler" class="link" title="On Interrupt: The default handler">On Interrupt: The default handler</a> — what
+    happens to events not claimed by an `On Interrupt` line
+-   <a href="intoff" class="link" title="IntOff">IntOff</a> — globally
+    disabling interrupts
+-   <a href="inton" class="link" title="IntOn">IntOn</a> — globally
+    re-enabling interrupts
+-   <a href="inittimer0" class="link" title="InitTimer0">InitTimer0</a> — an
+    example using Timer 0 and On Interrupt to generate a PWM signal to
+    control a motor
+-   <a href="inittimer1" class="link" title="InitTimer1">InitTimer1</a> — configuring
+    Timer1, as used in Example 1 above
+
+</div>
 
 </div>

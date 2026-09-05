@@ -1,5 +1,8 @@
 ==== NEXTION Controllers
 
+(((Graphical LCD,NEXTION Controllers)))
+
+
 This section covers GLCD devices that use the serially attached Nextion graphics displays.
 
 Nextion includes hardware part (a series of TFT boards) and software part (the Nextion
@@ -22,6 +25,7 @@ To use the Nextion driver simply include the following in your user code.  This 
 {empty} +
 {empty} +
 *Setup for Hardware Serial*
+[source,gcbasic]
 ----
 ' ----- Configuration
     'Chip Settings.
@@ -30,7 +34,7 @@ To use the Nextion driver simply include the following in your user code.  This 
 
 ' ----- Set up the Nextion GLCD
     #include <glcd.h>
-    #define GLCD_TYPE GLCD_TYPE_Nextion
+    #define GLCD_TYPE GLCD_TYPE_Nextion          ' <<< the constant that selects this controller driver
 
 
     ;VERY IMPORTANT!!
@@ -88,9 +92,11 @@ To use the Nextion driver simply include the following in your user code.  This 
 ' ----- Main program starts
 ....
 ----
+*Key line:* `#define GLCD_TYPE GLCD_TYPE_Nextion` -- tells `<glcd.h>` to compile in the Nextion driver, which talks to the display over a single serial link (hardware or software) rather than a parallel or SPI bus; `GLCD_WIDTH` and `GLCD_HEIGHT` have no built-in default and must always be set to match the Nextion Editor's rotation, or the library raises a runtime error.
 {empty} +
 {empty} +
 *Setup for Software Serial*
+[source,gcbasic]
 ----
 ' ----- Configuration
     'Chip Settings.
@@ -182,12 +188,12 @@ The GCBASIC constants for control display characteristics are shown in the table
 |Default
 
 |`GLCD_WIDTH`
-|Mandated. The width parameter of the GLCD
-|`320`
+|Mandatory. The width parameter of the GLCD, matching the rotation set in the Nextion Editor.
+|No built-in default. Must always be set by the user; the driver raises a runtime error if left at the generic library fallback.
 
 |`GLCD_HEIGHT`
-|Mandated. The height parameter of the GLCD
-|`480`
+|Mandatory. The height parameter of the GLCD, matching the rotation set in the Nextion Editor.
+|No built-in default. Must always be set by the user; the driver raises a runtime error if left at the generic library fallback.
 
 |===
 {empty} +
@@ -235,6 +241,7 @@ The GCBASIC Nextion specific commands supported for this GLCD are shown in the t
 |A function that returns a long, that can be treated as word variable, value of the Touch event..&#160;&#160;As follows:
 {empty} +
 {empty} +
+
 "tch0" for current x co-ordinate touched
 
 "tch1" for current y co-ordinate touched
@@ -311,6 +318,10 @@ The GCBASIC commonn commands supported for this GLCD are shown in the table belo
 
 {empty} +
 {empty} +
+The library predefines the named colors below as 16-bit RGB565 values (5 bits red, 6 bits green, 5 bits blue). Pass any of these constants, or your own custom 0x0000-0xFFFF value, as the optional colour parameter to `GLCDCLS`, `Box`, `FilledBox`, `Line`, `GLCDDrawChar`, or `GLCDDrawString`.
+{empty} +
+{empty} +
+[source,gcbasic]
 ----
     TFT_BLACK   'hexidecimal value 0x0000
     TFT_RED     'hexidecimal value 0xF800
@@ -339,8 +350,9 @@ The GCBASIC commonn commands supported for this GLCD are shown in the table belo
 {empty} +
 {empty} +
 
-*For more help, see*
-<<_glcdcls,GLCDCLS>>
+**See Also:**
+
+* <<_glcdcls,GLCDCLS>>
 {empty} +
 {empty} +
 Supported in <GLCD.H>

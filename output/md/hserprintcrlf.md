@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     HserPrintCRLF [optional BYTE] [, 1 | 2  | 3 | 4 ]
 ```
 
@@ -35,7 +35,7 @@ meet your needs.  For addition USART ports use
 `#define USARTn_BAUD_RATE 9600` where `` n` `` is the required port
 number.
 
-``` screen
+``` programlisting
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
     #define USART_TX_BLOCKING
@@ -58,7 +58,7 @@ parameter.
 
 <span class="strong">**Examples:**</span>
 
-``` screen
+``` programlisting
   'This Line will send 1  CR and LF
   HserPrintCRLF    ' Will send a CR & LF to the terminal
 
@@ -67,11 +67,21 @@ parameter.
             'out of comport 1
 
   'This Line will send 1  CR and LF
-  HserPrintCRLF 1,2    ' Will send a CR & LF out of
+  HserPrintCRLF 1,2    ' Will send a CR & LF out of          ' <<< the HserPrintCRLF instruction
             'comport 2 to the terminal
 ```
 
-<span class="strong">**See also**</span>
-<a href="hserprintbytecrlf" class="link" title="HserPrintByteCRLF">HserPrintByteCRLF</a>
+<span class="strong">**Key line:**</span> `HserPrintCRLF 1,2` — the
+first parameter (1) sets how many CR/LF pairs to send, and the second
+parameter (2) selects USART port 2 instead of the default port 1.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hserprintbytecrlf" class="link" title="HserPrintByteCRLF">HserPrintByteCRLF</a> — sending
+    a data byte before the CR/LF
+
+</div>
 
 </div>

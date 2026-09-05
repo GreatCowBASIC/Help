@@ -1,6 +1,10 @@
 ===== ST7920GLCDReadByte
 
+(((Graphical LCD,st7920glcdreadbyte)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     byte_variable = ST7920GLCDReadByte
 ----
@@ -15,13 +19,21 @@ This is called by the GLCD common routines.
 See the data sheet for more information.
 
 *Example usage:*
+[source,gcbasic]
 ----
     SET GLCD_RS OFF
 
     ST7920WriteByte( SysCalcPositionY )
     ST7920WriteByte( SysCalcPositionX )
     ' read data
-    GLCDDataTempWord = ST7920GLCDReadByte
+    GLCDDataTempWord = ST7920GLCDReadByte          ' <<< the ST7920GLCDReadByte instruction
     GLCDDataTempWord = ST7920GLCDReadByte
     GLCDDataTempWord = (GLCDDataTempWord*256) + ST7920GLCDReadByte
 ----
+*Key line:* `GLCDDataTempWord = ST7920GLCDReadByte` -- reads one byte from the display's DDRAM at the position set by the two `ST7920WriteByte` calls above; a full word is assembled by calling it twice and combining the results, as shown on the final line.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920writebyte,ST7920WriteByte>> -- positioning the read/write address before reading
+* <<_st7920greaddata,ST7920gReaddata>> -- reading a full word in a single call

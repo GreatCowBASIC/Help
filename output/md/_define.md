@@ -26,42 +26,43 @@
 
 <span class="strong">**Explanation:**</span>  
   
-`#DEFINE` allows to declare string-based preprocessor constants.  
+`#DEFINE` allows you to declare string-based preprocessor constants.
 
 This directive defines a text substitution string. Wherever `name` is
 encountered in the program or assembly code, `string` will be
 substituted.
 
 The expansion is done recursively, until there is nothing more to expand
-and the compiler can continue analyzing the resulting code.
+and the compiler can continue analysing the resulting code.
 
-The use of an existing constant is supported.  The order of constants
-when using an existing constant is strict.  The constant must exist
-prior to use.
+The use of an existing constant is supported. The order of constants
+when using an existing constant is strict. The constant must exist prior
+to use.
 
-To ensure evaluation of a calculation.   A \`=\` must be used.   This is
+To ensure evaluation of a calculation, a `=` must be used. This is
 strict.
 
-\#UNDEFINE can be used to make the compiler delete an existing constant.
+`#UNDEFINE` can be used to make the compiler delete an existing
+constant.
 
 Using the directive with no `string` causes a definition of `name` to be
-noted internally and may be tested for using the ifdef
-directive/conditional processing.  See the examples below.
+noted internally, and it may be tested for using the `#ifdef`
+directive/conditional processing. See the examples below.
 
 Constants defined with this method are available for viewing in the CDF
-file. Creation of the CDF file is controlled with the Programmer
-Preferences Utility.
+file. Creation of the CDF file is controlled with the Preferences
+Editor.
 
-GCBASIC does not support creation of SUBroutine or FUNCTION with this
+GCBASIC does not support creating a SUBroutine or FUNCTION with this
 directive.
 
 <span class="strong">**Examples:**</span>
 
-This progress shows the creation of constants, the processing and
-showing of constants within a script, creation of specific constants
-within a script and use of constants within a program.
+This program shows the creation of constants, the processing and showing
+of constants within a script, creation of specific constants within a
+script, and use of constants within a program.
 
-``` screen
+``` programlisting
     #chip MEGA4809
     #option Explicit
 
@@ -69,17 +70,17 @@ within a script and use of constants within a program.
    // Numeric constants
         #define LENGTH 20
         #define CONTROL 0x19,7
-        #define SINGLEPI = 22/7                                         // evaluated numberic string
-        #define INTPI = INT(22/7)                                       // evaluated numberic string
-        #define FACTOREDPI = INT((22/7 - INT(22/7))*1000)               // evaluated numberic string
-        #define LENGTHSQUARED = LENGTH * LENGTH                         // evaluated numberic string
+        #define SINGLEPI = 22/7                                         // evaluated numeric string
+        #define INTPI = INT(22/7)                                       // evaluated numeric string
+        #define FACTOREDPI = INT((22/7 - INT(22/7))*1000)               // evaluated numeric string
+        #define LENGTHSQUARED = LENGTH * LENGTH                         // evaluated numeric string
         #define PI 3.142
         #define RADIUS 10
-        #define CIRCUMFERENCECALC = PI * RADIUS                         // evaluated numberic string, with constant substitution
-        #define FACTORISEDCIRCUMFERENCE = INT(CIRCUMFERENCECALC*100)    // evaluated numberic string, with constant substitution
+        #define CIRCUMFERENCECALC = PI * RADIUS                         // evaluated numeric string, with constant substitution
+        #define FACTORISEDCIRCUMFERENCE = INT(CIRCUMFERENCECALC*100)    // evaluated numeric string, with constant substitution
 
 
-    //String(s) required double quotes and NO `=` assignment
+    //String(s) require double quotes and NO `=` assignment
         #define MYSTRING "This is a string"
     //  A string assignment is not required
         #define ACONSTANTTHATEXISTS
@@ -87,7 +88,7 @@ within a script and use of constants within a program.
     // Macros are not supported.. just define the sub!
         // #define BADPOSITION(XX,YY,ZZ) (YY-(2 * ZZ +XX))
 
-    // Unused Constants that are invalid may not report an error until try to use within your program- as in this example
+    // Unused constants that are invalid may not report an error until you try to use them within your program - as in this example
         // String assignment with an equal sign will fail. Do not use `=`
         #define BADMYSTRING = "This is a string"
 
@@ -114,8 +115,8 @@ within a script and use of constants within a program.
 
         // Good practice constant testing, see the code below for BAD and GOOD practice
 
-            // Set the constant to 0 we can use this to test for validity
-            // Use prefix of SCRIPT as this is clear in the program
+            // Set the constant to 0 so we can use this to test for validity
+            // Use the prefix SCRIPT as this is clear in the program
             SCRIPTAN1CONSTANT = 0
             If DEF(AVRDX) Then
                 // Is this an AVRDx chip
@@ -124,19 +125,19 @@ within a script and use of constants within a program.
                 End If
             End If
             If NODEF(AVRDX) Then
-                // This is NOT an Avrdx chip
+                // This is NOT an AVRDx chip
                 If DEF(AVR) Then
                     // This is an AVR
                     SCRIPTAN1CONSTANT =  AN1
                 End If
                 If DEF(PIC) Then
-                    // This is an AVR
+                    // This is a PIC
                     SCRIPTAN1CONSTANT =  ANA1
                 End If
             End If
-            // Now test for validate result
+            // Now validate the result
             If SCRIPTAN1CONSTANT = 0 Then
-                WARNING Script has determined that no valid ADC port exists, or, some other message
+                WARNING Script has determined that no valid ADC port exists, or some other message
             End If
 
     #endscript
@@ -144,9 +145,9 @@ within a script and use of constants within a program.
     // Some conditional examples
 
     #IF DEF( CONSTANTTHATEXISTS )
-        //! Cause a compiler error - as the constant exits. Remove comment to test
+        //! Cause a compiler error - as the constant exists. Remove comment to test
     #ELSE
-        //! Cause a compiler error - as the constant does not exits. Remove comment to test
+        //! Cause a compiler error - as the constant does not exist. Remove comment to test
     #ENDIF
 
     #IFDEF Oneof(CHIP_18F24K40,CHIP_18F25K40,CHIP_18F26K40,CHIP_18F27K40,CHIP_18F45K40,CHIP_18F46K40,CHIP_18F47K40,CHIP_18F65K40,CHIP_18F66K40,CHIP_18LF24K40, CHIP_18LF25K40, CHIP_18LF26K40, CHIP_18LF27K40, CHIP_18LF45K40, CHIP_18LF46K40, CHIP_18LF47K40, CHIP_18F65K40, CHIP_18LF65K40, CHIP_18F66K40, CHIP_18LF66K40, CHIP_18F67K40, CHIP_18LF67K40 )
@@ -154,10 +155,10 @@ within a script and use of constants within a program.
     #ENDIF
 
     dim myStringVar as String
-    myStringVar = MYSTRING
+    myStringVar = MYSTRING          ' <<< assigning a string-type #define to a String variable
 
-    // BAD PRACTICE = code is hard to understand
-        // Use constant test to determine correct ADC to read.  Bad practice, see the #SCRIPT section
+    // BAD PRACTICE - code is hard to understand
+        // Use constant testing to determine the correct ADC to read. Bad practice, see the #SCRIPT section
         dim mybyteVar as Byte
         #IF DEF(AIN1)
             mybyteVar = readAD( AIN1 )
@@ -177,10 +178,30 @@ within a script and use of constants within a program.
     myArray = CONTROL
 ```
 
+<span class="strong">**Key line:**</span>
+`myStringVar = MYSTRING` — assigns the text substituted from the
+`#define MYSTRING "This is a string"` constant into a real runtime
+`String` variable; unlike the numeric
+`` #define`s above it, a string constant is used without an `= `` in its
+own definition, and here it is consumed exactly like any other string
+value.
+
   
   
 
-<span class="strong">**See Also**</span>
-<a href="constants" class="link" title="Constants">DEFINEs</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="constants" class="link" title="Constants">Constants</a> — the
+    general constants/precedence reference
+-   <a href="_undefine" class="link" title="#UNDEFINE">#UNDEFINE</a> — deleting
+    an existing constant
+-   <a href="_ifdef" class="link" title="#ifdef">#ifdef</a> — testing
+    whether a constant is defined
+-   <a href="_script" class="link" title="#script">#script</a> — reading
+    and setting constants at compile time, as used above
+
+</div>
 
 </div>

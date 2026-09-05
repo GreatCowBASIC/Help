@@ -1,7 +1,7 @@
 ==== FnNotBit
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     BitOut = FnNotBit(BitIn)
 ----

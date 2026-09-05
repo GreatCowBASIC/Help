@@ -1,5 +1,8 @@
 ====== LCD_IO 10 Port Configuration
 
+(((Liquid Crystal Display,lcd_io10portconfiguration)))
+
+
 LCD_IO 10 provides support for character LCD modules that use an I2C/TWI interface based on the **PCF8574 or PCF8574A I/O expander**.&#160;&#160;These expanders are commonly found on low‑cost LCD “I2C backpacks” sold under many brand names (YwRobot, Sainsmart, Joy‑It, generic blue/black adapters, and others).&#160;&#160;
 
 *Using mode 10*
@@ -28,8 +31,9 @@ These overrides should be placed in your main program.&#160;&#160;
 
 To apply an alternative configuration, define the following eight constants.&#160;&#160;Doing so replaces the default mappings shown in the table above.&#160;&#160;
 
-```
-    #DEFINE I2C_LCD_E   I2C_LCD_BYTE.1
+[source,gcbasic]
+----
+    #DEFINE I2C_LCD_E   I2C_LCD_BYTE.1          ' <<< overriding the default Enable bit mapping
     #DEFINE I2C_LCD_RW  I2C_LCD_BYTE.2
     #DEFINE I2C_LCD_RS  I2C_LCD_BYTE.0
     #DEFINE I2C_LCD_BL  I2C_LCD_BYTE.3
@@ -37,4 +41,11 @@ To apply an alternative configuration, define the following eight constants.&#16
     #DEFINE I2C_LCD_D5  I2C_LCD_BYTE.6
     #DEFINE I2C_LCD_D6  I2C_LCD_BYTE.5
     #DEFINE I2C_LCD_D7  I2C_LCD_BYTE.4
-```
+----
+*Key line:* `#DEFINE I2C_LCD_E I2C_LCD_BYTE.1` -- redefining any of the eight `I2C_LCD_*` constants overrides that single bit mapping from its default; because the constants are independent, you only need to override the bits that differ on your specific I2C backpack, not all eight.
+
+**See Also:**
+
+* <<_lcd_io_10,LCD_IO 10>> -- full reference for the LCD_IO 10 connection mode and I2C address constants
+* <<_lcd_io_10_example,LCD_IO 10 Example>> -- worked examples using this connection mode
+* <<_lcd_io_12,LCD_IO 12>> -- the alternate Ywmjkdz I2C expander layout

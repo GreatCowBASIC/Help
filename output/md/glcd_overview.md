@@ -15,29 +15,29 @@
 </div>
 
 The GLCD commands are used to control a Graphical Liquid Crystal Display
-(GLCD) based on the a number of GLCD chipsets. These are often 128x64
-pixel displays but the size can vary. GLCD devices draw graphical
-elements by enabling or disabling pixels.
+(GLCD) based on a number of GLCD chipsets. These are often 128x64 pixel
+displays, but the size can vary. GLCD devices draw graphical elements by
+enabling or disabling pixels.
 
 A GLCD is an upgrade from the popular 16x2 LCDs (see
-<a href="lcd_overview" class="link" title="LCD Overview">Liquid Crystal Display Overview</a>
-) but the GLCD allows full graphical control of the display.
+<a href="lcd_overview" class="link" title="LCD Overview">Liquid Crystal Display Overview</a>),
+but the GLCD allows full graphical control of the display.
 
-Typical displays are
+Typical displays are:
 
 <div class="itemizedlist">
 
 -   Color or mono displays
 -   Low power white LED, OLED with or without back-light
 -   e-Paper with low power consumption
--   Driven by on-board interface chipsets amd/or interface controllers
+-   Driven by on-board interface chipsets and/or interface controllers
 -   The GLCDs are very common and well documented
 -   Small to large view areas
--   Typically requires from 3-pin to 36-pin header connections and 10K
+-   Typically require from 3-pin to 36-pin header connections and a 10K
     contrast pot
 -   Typically have back-lit pixels
--   Require memory in the microcontroller to support graphial operations
-    or can be used in text and picture mode
+-   Require memory in the microcontroller to support graphical
+    operations, or can be used in text and picture mode
 
 </div>
 
@@ -46,14 +46,14 @@ for the GLCD.
 
 <span class="strong">**Microcontroller Requirements:**</span> Specific
 GLCDs require different configurations of a microcontroller. Parameters
-include
+include:
 
 <div class="itemizedlist">
 
--   Communications protocol: These incldue 8 wire bus, I2C, SPI etc
--   Operating votlage: These are typically 3.3v or 5.v
--   Memory required: For full GLCD capabilites you will require 1k or
-    more, for text only and JPG mode low memory devices are supported
+-   Communications protocol: these include 8-wire bus, I2C, SPI, etc.
+-   Operating voltage: typically 3.3V or 5.0V
+-   Memory required: full GLCD capabilities require 1K or more; for
+    text-only and JPG mode, low-memory devices are supported
 
 </div>
 
@@ -90,7 +90,7 @@ commencing your project.
 <td style="text-align: left;"><p>LCD typically with backlight</p></td>
 <td style="text-align: left;"><p>8-bit parallel PIC and AVR: Software device specific protocol</p></td>
 <td style="text-align: left;"><p>Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.</p></td>
-<td style="text-align: left;"><p>Bit 7 of the bus is read/write – this could cause potential lockup – this is low risk.   Uses the KS0107B (or NT7107C) a 64-channel common driver which generates the timing signal to control the two KS0108B segment drivers.</p></td>
+<td style="text-align: left;"><p>Bit 7 of the bus is read/write — this could cause potential lockup — this is low risk.   Uses the KS0107B (or NT7107C) a 64-channel common driver which generates the timing signal to control the two KS0108B segment drivers.</p></td>
 <td style="text-align: left;"><p>Requires 12 ports/connections.</p></td>
 <td style="text-align: left;"><p>These are low cost mono devices.</p></td>
 </tr>
@@ -215,21 +215,21 @@ commencing your project.
 <td style="text-align: left;"><p>Color</p></td>
 <td style="text-align: left;"><p>TFT LCD</p></td>
 <td style="text-align: left;"><p>SPI and 8Bit Bus</p></td>
-<td style="text-align: left;"><p>PIC and AVR: Hardware and software SPI AVR: 8Bit Bus using an UNO Shield. PIC: 8bit port suppported.</p></td>
+<td style="text-align: left;"><p>PIC and AVR: Hardware and software SPI AVR: 8Bit Bus using an UNO Shield. PIC: 8bit port supported.</p></td>
 <td style="text-align: left;"><p>Typically operates at VCC 5. Always check voltage specifications Great pixel display.</p></td>
 <td style="text-align: left;"><p>SPI requires 4 ports plus 2 ports. Typically 6 in total. 8Bit Bus requires 8 ports plus 4 control ports. Typically 13 in total using an 8bit bus solution.</p></td>
 <td style="text-align: left;"><p>An expensive option</p></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><p>11</p></td>
-<td style="text-align: left;"><p>Nexion</p></td>
-<td style="text-align: left;"><p>ITEAD Nexion</p></td>
+<td style="text-align: left;"><p>Nextion</p></td>
+<td style="text-align: left;"><p>ITEAD Nextion</p></td>
 <td style="text-align: left;"><p>240 * 320 to 800 * 480</p></td>
 <td style="text-align: left;"><p>Large - 2.4 to 7inches</p></td>
 <td style="text-align: left;"><p>Color</p></td>
 <td style="text-align: left;"><p>TFT LCD</p></td>
 <td style="text-align: left;"><p>Serial - hardware or software serial is supported.</p></td>
-<td style="text-align: left;"><p>Nextion specfic and GLCD command set</p></td>
+<td style="text-align: left;"><p>Nextion specific and GLCD command set</p></td>
 <td style="text-align: left;"><p>Typically operates at VCC 5 with external power supply. Always check voltage specifications Great command set, you need to learn the GUI and then interface to GCBASIC.</p></td>
 <td style="text-align: left;"><p>2 ports for the read/write serial operations.</p></td>
 <td style="text-align: left;"><p>A very nice option but if you need flexibility then the best!</p></td>
@@ -250,7 +250,7 @@ commencing your project.
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><p>13</p></td>
-<td style="text-align: left;"><p>SDD1306</p></td>
+<td style="text-align: left;"><p>SSD1306</p></td>
 <td style="text-align: left;"><p>0.96inch</p></td>
 <td style="text-align: left;"><p>128 * 64</p></td>
 <td style="text-align: left;"><p>Small</p></td>
@@ -266,7 +266,7 @@ commencing your project.
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p>14</p></td>
-<td style="text-align: left;"><p>SDD1306 Twin Screen</p></td>
+<td style="text-align: left;"><p>SSD1306 Twin Screen</p></td>
 <td style="text-align: left;"><p>0.96inch * 2</p></td>
 <td style="text-align: left;"><p>128 * 128</p></td>
 <td style="text-align: left;"><p>Small</p></td>
@@ -282,7 +282,7 @@ commencing your project.
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><p>15</p></td>
-<td style="text-align: left;"><p>SDD1306_32</p></td>
+<td style="text-align: left;"><p>SSD1306_32</p></td>
 <td style="text-align: left;"><p>0.96inch</p></td>
 <td style="text-align: left;"><p>128 * 32</p></td>
 <td style="text-align: left;"><p>Very small</p></td>
@@ -305,7 +305,7 @@ commencing your project.
 <td style="text-align: left;"><p>LCD typically with backlight 8-bit parallel</p></td>
 <td style="text-align: left;"><p>PIC and AVR: Software device specific protocol.</p></td>
 <td style="text-align: left;"><p>Typically operates at VCC 5. Always check voltage specifications</p></td>
-<td style="text-align: left;"><p>8-bit bus required. Bit 7 of the bus is read/write – this could cause potential lockup – this is low risk.</p>
+<td style="text-align: left;"><p>8-bit bus required. Bit 7 of the bus is read/write — this could cause potential lockup — this is low risk.</p>
 <p>This looks like a KS0108 but it is NOT! Supports Chinese font set.</p></td>
 <td style="text-align: left;"><p>Requires 12 ports.</p></td>
 <td style="text-align: left;"><p>A very slow device.</p></td>
@@ -322,11 +322,11 @@ commencing your project.
 <td style="text-align: left;"><p>AVR 8 bit bus</p></td>
 <td style="text-align: left;"><p>Typically operates at VCC 5. Always check voltage specifications Great pixel display.</p></td>
 <td style="text-align: left;"><p>Controller requires 8 ports plus 5 control ports. Typically 13 in total with an UNO shield.</p></td>
-<td style="text-align: left;"><p>An very nice display</p></td>
+<td style="text-align: left;"><p>A very nice display</p></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p>18</p></td>
-<td style="text-align: left;"><p>SDD1331</p></td>
+<td style="text-align: left;"><p>SSD1331</p></td>
 <td style="text-align: left;"><p>0.96inch</p></td>
 <td style="text-align: left;"><p>96 * 48</p></td>
 <td style="text-align: left;"><p>Small</p></td>
@@ -352,7 +352,7 @@ commencing your project.
 <td style="text-align: left;"><p>Requires typically 13 in total plus 0v, VCC and LED.</p></td>
 <td style="text-align: left;"><p>Good color OLED display, good value for money as it is fast. But, the rotate is all executed in software and this does slow down processing.</p>
 <p><br />
-The LED connected is typically to ground. You can solder the GND connect to make the backlite permanently on.</p></td>
+The LED connected is typically to ground. You can solder the GND connect to make the backlight permanently on.</p></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p>20</p></td>
@@ -364,9 +364,9 @@ The LED connected is typically to ground. You can solder the GND connect to make
 <td style="text-align: left;"><p>LCD typically with backlight</p></td>
 <td style="text-align: left;"><p>8-bit parallel PIC and AVR: Software device specific protocol</p></td>
 <td style="text-align: left;"><p>Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.</p></td>
-<td style="text-align: left;"><p>Look similar to KS0108, but, it is NOT the same, hence this driver.   Uses the Winstar’s WDG0151-TMI module, which is a 128×64 pixel monochromatic display.   This uses two Neotic display controller chips: NT7108C and NT7107C. The WDG0151 module contains two sets of it to drive 128 segments.   On the other hand, the KS0107B (or NT7107C) is a 64-channel common driver which generates the timing signal to control the two KS0108B segment drivers.<br />
+<td style="text-align: left;"><p>Looks similar to KS0108, but it is NOT the same, hence this driver.   Uses the Winstar WDG0151-TMI module, which is a 128x64 pixel monochromatic display.   This uses two Novatek display controller chips: NT7108C and NT7107C. The WDG0151 module contains two sets of these to drive 128 segments.   On the other hand, the KS0107B (or NT7107C) is a 64-channel common driver which generates the timing signal to control the two KS0108B segment drivers.<br />
 <br />
-The NT7108C is very sensitive with respect to clock timing.   You may have to adjust to ensure the display operates as correctly.</p></td>
+The NT7108C is very sensitive with respect to clock timing.   You may have to adjust it to ensure the display operates correctly.</p></td>
 <td style="text-align: left;"><p>Requires 12 ports/connections.</p></td>
 <td style="text-align: left;"><p>These are medium cost mono devices.</p></td>
 </tr>
@@ -380,7 +380,7 @@ The NT7108C is very sensitive with respect to clock timing.   You may have to
 <td style="text-align: left;"><p>LCD typically with backlight</p></td>
 <td style="text-align: left;"><p>8-bit parallel PIC and AVR: Software device specific protocol</p></td>
 <td style="text-align: left;"><p>Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.</p></td>
-<td style="text-align: left;"><p>Operating similar to KS0108 and an LCD. segment drivers.<br />
+<td style="text-align: left;"><p>Operates similarly to a KS0108 and an LCD segment driver.<br />
 <br />
 </p></td>
 <td style="text-align: left;"><p>Requires 12 ports/connections.</p></td>
@@ -396,7 +396,7 @@ The NT7108C is very sensitive with respect to clock timing.   You may have to
 <td style="text-align: left;"><p>LCD typically with backlight</p></td>
 <td style="text-align: left;"><p>8-bit parallel PIC and AVR: Software device specific protocol</p></td>
 <td style="text-align: left;"><p>Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.</p></td>
-<td style="text-align: left;"><p>Operating similar to KS0108 and an LCD. segment drivers.<br />
+<td style="text-align: left;"><p>Operates similarly to a KS0108 and an LCD segment driver.<br />
 <br />
 </p></td>
 <td style="text-align: left;"><p>Requires 12 ports/connections.</p></td>
@@ -418,7 +418,7 @@ The NT7108C is very sensitive with respect to clock timing.   You may have to
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p>24</p></td>
-<td style="text-align: left;"><p>SDD1351</p></td>
+<td style="text-align: left;"><p>SSD1351</p></td>
 <td style="text-align: left;"><p>1.50inch</p></td>
 <td style="text-align: left;"><p>128 * 128</p></td>
 <td style="text-align: left;"><p>Small</p></td>
@@ -460,20 +460,6 @@ The NT7108C is very sensitive with respect to clock timing.   You may have to
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><p>27</p></td>
-<td style="text-align: left;"><p>ST7735R_160_80</p></td>
-<td style="text-align: left;"><p>1.8 Inch</p></td>
-<td style="text-align: left;"><p>160 * 80</p></td>
-<td style="text-align: left;"><p>Large</p></td>
-<td style="text-align: left;"><p>Color</p></td>
-<td style="text-align: left;"><p>TFT LCD</p></td>
-<td style="text-align: left;"><p>SPI</p></td>
-<td style="text-align: left;"><p>PIC and AVR: Hardware and software SPI</p></td>
-<td style="text-align: left;"><p>Typically operates only at VCC 3.3. Always check voltage specifications Very nice display.</p></td>
-<td style="text-align: left;"><p>SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
-<td style="text-align: left;"><p>Good for cost and performance</p></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><p>28</p></td>
 <td style="text-align: left;"><p>ILI9488</p></td>
 <td style="text-align: left;"><p>3.2inch</p></td>
 <td style="text-align: left;"><p>320 * 240</p></td>
@@ -486,8 +472,8 @@ The NT7108C is very sensitive with respect to clock timing.   You may have to
 <td style="text-align: left;"><p>SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
 <td style="text-align: left;"><p>Acceptable GLCD performance.</p></td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;"><p>29</p></td>
+<tr class="even">
+<td style="text-align: left;"><p>28</p></td>
 <td style="text-align: left;"><p>ST7567</p></td>
 <td style="text-align: left;"><p>1.9inch</p></td>
 <td style="text-align: left;"><p>128 * 64</p></td>
@@ -495,11 +481,153 @@ The NT7108C is very sensitive with respect to clock timing.   You may have to
 <td style="text-align: left;"><p>Mono</p></td>
 <td style="text-align: left;"><p>LCD</p></td>
 <td style="text-align: left;"><p>I2C and SPI</p></td>
-<td style="text-align: left;"><p>PIC and AVR: Software I2C, and, hardware software SPI. Harware IC2 fails as the ST7567 does not comply witht the I2C standard.</p></td>
+<td style="text-align: left;"><p>PIC and AVR: Software I2C, and hardware/software SPI. Hardware I2C fails, as the ST7567 does not comply with the I2C standard.</p></td>
 <td style="text-align: left;"><p>+VCC from 3v3 to 5. GLCD I/O is ONLY 3v3. Always check voltage specifications.</p></td>
 <td style="text-align: left;"><p>SPI requires 4 ports plus 2 ports. Typically 6 in total.</p>
 <p>I2C requires 2 ports.</p></td>
 <td style="text-align: left;"><p>Typically operates at VCC 3v3 but may support 5v0. Always check voltage specifications Very good LCD display. Driver supports gaming. Minimum RAM required is 1024 bytes then add user variables for graphics mode.</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p>29</p></td>
+<td style="text-align: left;"><p>SSD1309</p></td>
+<td style="text-align: left;"><p>0.96inch</p></td>
+<td style="text-align: left;"><p>128 * 64</p></td>
+<td style="text-align: left;"><p>Small</p></td>
+<td style="text-align: left;"><p>Mono</p></td>
+<td style="text-align: left;"><p>OLED</p></td>
+<td style="text-align: left;"><p>I2C and SPI</p></td>
+<td style="text-align: left;"><p>PIC and AVR: Hardware and software I2C, and software SPI</p></td>
+<td style="text-align: left;"><p>RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode. Typically operates at VCC 3.3. Always check voltage specifications Command-compatible and pin-compatible replacement for the SSD1306 (row 13) — the same connections and code work, just using GLCD_TYPE_SSD1309 in place of GLCD_TYPE_SSD1306. All three SSD1306 panel sizes are supported: 128 x 64 (GLCD_TYPE_SSD1309, default), 128 x 32 (GLCD_TYPE_SSD1309_32), and 64 x 32 (GLCD_TYPE_SSD1309_64x32).</p></td>
+<td style="text-align: left;"><p>SPI requires 4 ports plus 2 ports. Typically 6 in total.</p>
+<p>I2C requires 2 ports.</p></td>
+<td style="text-align: left;"><p>Good OLED display, excellent value for money; use where a SSD1306 panel is unavailable or has been substituted with a SSD1309-based module.</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p>30</p></td>
+<td style="text-align: left;"><p>SSD1306_64x32</p></td>
+<td style="text-align: left;"><p>0.96inch</p></td>
+<td style="text-align: left;"><p>64 * 32</p></td>
+<td style="text-align: left;"><p>Very small</p></td>
+<td style="text-align: left;"><p>Mono</p></td>
+<td style="text-align: left;"><p>OLED</p></td>
+<td style="text-align: left;"><p>I2C and SPI</p></td>
+<td style="text-align: left;"><p>PIC and AVR: Hardware and software I2C, and software SPI</p></td>
+<td style="text-align: left;"><p>RAM usage is smaller again than the 128x32 variant, since the panel has fewer pixels. Typically operates at VCC 5. Always check voltage specifications</p></td>
+<td style="text-align: left;"><p>SPI requires 4 ports plus 2 ports. Typically 6 in total.</p>
+<p>I2C requires 2 ports.</p></td>
+<td style="text-align: left;"><p>Good OLED display for the smallest panel size in the SSD1306 family.</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p>31</p></td>
+<td style="text-align: left;"><p>T6963</p></td>
+<td style="text-align: left;"><p>4inches by 2inches</p></td>
+<td style="text-align: left;"><p>Varies by panel</p></td>
+<td style="text-align: left;"><p>Large</p></td>
+<td style="text-align: left;"><p>Mono</p></td>
+<td style="text-align: left;"><p>LCD typically with backlight</p></td>
+<td style="text-align: left;"><p>8-bit parallel PIC and AVR: Software device specific protocol</p></td>
+<td style="text-align: left;"><p>Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.</p></td>
+<td style="text-align: left;"><p>The base GLCD_TYPE_T6963 constant; use GLCD_TYPE_T6963_64 or GLCD_TYPE_T6963_128 (rows 21-22) instead when the panel’s exact pixel height is known, since those variants set the correct dimensions automatically.</p></td>
+<td style="text-align: left;"><p>Requires 12 ports/connections.</p></td>
+<td style="text-align: left;"><p>These are medium cost mono devices.</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p>32</p></td>
+<td style="text-align: left;"><p>UC8230</p></td>
+<td style="text-align: left;"><p>Varies by panel</p></td>
+<td style="text-align: left;"><p>Varies by panel</p></td>
+<td style="text-align: left;"><p>Medium to Large</p></td>
+<td style="text-align: left;"><p>Mono</p></td>
+<td style="text-align: left;"><p>LCD</p></td>
+<td style="text-align: left;"><p>8-bit parallel or serial, device specific</p></td>
+<td style="text-align: left;"><p>PIC and AVR: Software device specific protocol</p></td>
+<td style="text-align: left;"><p>Typically operates at VCC 5. Always check voltage specifications</p></td>
+<td style="text-align: left;"><p>A less common controller; check the datasheet for your specific module against the glcd_uc8230.h driver before wiring.</p></td>
+<td style="text-align: left;"><p>Requires connections specific to the panel; see the driver source for pin requirements. A niche option, useful when a KS0108/T6963-style panel uses this specific controller.</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p>33</p></td>
+<td style="text-align: left;"><p>ILI9320</p></td>
+<td style="text-align: left;"><p>Varies by panel</p></td>
+<td style="text-align: left;"><p>Varies by panel</p></td>
+<td style="text-align: left;"><p>Large</p></td>
+<td style="text-align: left;"><p>Color</p></td>
+<td style="text-align: left;"><p>TFT LCD</p></td>
+<td style="text-align: left;"><p>8-bit parallel or SPI, device specific</p></td>
+<td style="text-align: left;"><p>PIC and AVR: Software device specific protocol</p></td>
+<td style="text-align: left;"><p>Typically operates at VCC 3.3 to 5. Always check voltage specifications</p></td>
+<td style="text-align: left;"><p>Shares its driver file with UC8230 (glcd_uc8230.h handles both GLCD_TYPE_ILI9320 and GLCD_TYPE_UC8230). Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
+<td style="text-align: left;"><p>A niche option for older 8-bit-bus TFT panels using this specific controller.</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p>34</p></td>
+<td style="text-align: left;"><p>LT7686 (800x480, blue-backlight variant)</p></td>
+<td style="text-align: left;"><p>Large, typically 5 inch or larger</p></td>
+<td style="text-align: left;"><p>800 * 480</p></td>
+<td style="text-align: left;"><p>Large</p></td>
+<td style="text-align: left;"><p>Color</p></td>
+<td style="text-align: left;"><p>TFT LCD</p></td>
+<td style="text-align: left;"><p>Device specific, see glcd_lt7686.h</p></td>
+<td style="text-align: left;"><p>PIC and AVR: Software device specific protocol</p></td>
+<td style="text-align: left;"><p>Typically operates at VCC 3.3 to 5. Always check voltage specifications</p></td>
+<td style="text-align: left;"><p>Selected using the constant LT7686_800_480_BLUE (note: this family uses plain LT7686_…​ constant names, not the usual GLCD_TYPE_LT7686…​ pattern used elsewhere in this table). Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
+<td style="text-align: left;"><p>A large, higher-resolution panel option for projects with more available RAM and I/O.</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p>35</p></td>
+<td style="text-align: left;"><p>LT7686 (1024x600, blue-backlight variant)</p></td>
+<td style="text-align: left;"><p>Large, typically 7 inch or larger</p></td>
+<td style="text-align: left;"><p>1024 * 600</p></td>
+<td style="text-align: left;"><p>Large</p></td>
+<td style="text-align: left;"><p>Color</p></td>
+<td style="text-align: left;"><p>TFT LCD</p></td>
+<td style="text-align: left;"><p>Device specific, see glcd_lt7686.h</p></td>
+<td style="text-align: left;"><p>PIC and AVR: Software device specific protocol</p></td>
+<td style="text-align: left;"><p>Typically operates at VCC 3.3 to 5. Always check voltage specifications</p></td>
+<td style="text-align: left;"><p>Selected using the constant LT7686_1024_600_BLUE. Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
+<td style="text-align: left;"><p>A large, higher-resolution panel option for projects with more available RAM and I/O.</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p>36</p></td>
+<td style="text-align: left;"><p>LT7686 (1024x600, black-backlight variant)</p></td>
+<td style="text-align: left;"><p>Large, typically 7 inch or larger</p></td>
+<td style="text-align: left;"><p>1024 * 600</p></td>
+<td style="text-align: left;"><p>Large</p></td>
+<td style="text-align: left;"><p>Color</p></td>
+<td style="text-align: left;"><p>TFT LCD</p></td>
+<td style="text-align: left;"><p>Device specific, see glcd_lt7686.h</p></td>
+<td style="text-align: left;"><p>PIC and AVR: Software device specific protocol</p></td>
+<td style="text-align: left;"><p>Typically operates at VCC 3.3 to 5. Always check voltage specifications</p></td>
+<td style="text-align: left;"><p>Selected using the constant LT7686_1024_600_BLACK — identical to row 35 except for the backlight/panel variant selected. Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
+<td style="text-align: left;"><p>A large, higher-resolution panel option for projects with more available RAM and I/O.</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p>37</p></td>
+<td style="text-align: left;"><p>Waveshare e-Paper (EPD2in13D)</p></td>
+<td style="text-align: left;"><p>2.13 inches</p></td>
+<td style="text-align: left;"><p>122 * 250 (typical for this panel)</p></td>
+<td style="text-align: left;"><p>Small</p></td>
+<td style="text-align: left;"><p>Black and White</p></td>
+<td style="text-align: left;"><p>Microencapsulated Electrophoretic Display</p></td>
+<td style="text-align: left;"><p>SPI</p></td>
+<td style="text-align: left;"><p>PIC and AVR: Hardware and software SPI</p></td>
+<td style="text-align: left;"><p>Typically operates at VCC 3.3. Always check voltage specifications</p></td>
+<td style="text-align: left;"><p>Selected using the constant GLCD_TYPE_EPD_EPD2in13D. See <a href="e_paper_controllers" class="link" title="e-Paper Controllers">e-Paper Controllers</a> for the full set of e-Paper-specific constants and guidance. SPI requires typically 6 in total.</p></td>
+<td style="text-align: left;"><p>Very good e-Paper display, excellent value for money.</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p>38</p></td>
+<td style="text-align: left;"><p>Waveshare e-Paper (EPD7in5)</p></td>
+<td style="text-align: left;"><p>7.5 inches</p></td>
+<td style="text-align: left;"><p>800 * 480 (typical for this panel)</p></td>
+<td style="text-align: left;"><p>Large</p></td>
+<td style="text-align: left;"><p>Black and White</p></td>
+<td style="text-align: left;"><p>Microencapsulated Electrophoretic Display</p></td>
+<td style="text-align: left;"><p>SPI</p></td>
+<td style="text-align: left;"><p>PIC and AVR: Hardware and software SPI</p></td>
+<td style="text-align: left;"><p>Typically operates at VCC 3.3. Always check voltage specifications</p></td>
+<td style="text-align: left;"><p>Selected using the constant GLCD_TYPE_EPD_EPD7in5. See <a href="e_paper_controllers" class="link" title="e-Paper Controllers">e-Paper Controllers</a> for the full set of e-Paper-specific constants and guidance.</p></td>
+<td style="text-align: left;"><p>SPI requires typically 6 in total.</p></td>
 </tr>
 </tbody>
 </table>
@@ -508,11 +636,11 @@ The NT7108C is very sensitive with respect to clock timing.   You may have to
 
 <span class="strong">**Setup:**</span>
 
-You <span class="strong">**must**</span> include the `glcd.h` file at
-the top of your program. The file needs to be in brackets as shown
-below.
+You <span class="strong">**must**</span> include the `GLCD.h` file at
+the top of your program. The file name needs to be in angle brackets, as
+shown below.
 
-``` screen
+``` programlisting
     #include <GLCD.h>
 ```
 
@@ -526,24 +654,30 @@ LCD.
 
 <span class="strong">**Example: KS0108 connectivity**</span>
 
-``` screen
-    #define GLCD_RW   _I/O pin_ ‘Read/Write pin connection
-    #define GLCD_RESET  _I/O pin_ ‘Reset pin connection
-    #define GLCD_CS1  _I/O pin_ ‘CS1 pin connection
-    #define GLCD_CS2  _I/O pin_ ‘CS2 pin connection
-    #define GLCD_RS   _I/O pin_ ‘RS pin connection
-    #define GLCD_ENABLE _I/O pin_ ‘Enable pin Connection
-    #define GLCD_DB0  _I/O pin_ ‘Data pin 0 Connection
-    #define GLCD_DB1  _I/O pin_ ‘Data pin 1 Connection
-    #define GLCD_DB2  _I/O pin_ ‘Data pin 2 Connection
-    #define GLCD_DB3  _I/O pin_ ‘Data pin 3 Connection
-    #define GLCD_DB4  _I/O pin_ ‘Data pin 4 Connection
-    #define GLCD_DB5  _I/O pin_ ‘Data pin 5 Connection
-    #define GLCD_DB6  _I/O pin_ ‘Data pin 6 Connection
-    #define GLCD_DB7  _I/O pin_ ‘Data pin 7 Connection
+``` programlisting
+    #define GLCD_RW   _I/O pin_ 'Read/Write pin connection
+    #define GLCD_RESET  _I/O pin_ 'Reset pin connection
+    #define GLCD_CS1  _I/O pin_ 'CS1 pin connection
+    #define GLCD_CS2  _I/O pin_ 'CS2 pin connection
+    #define GLCD_RS   _I/O pin_ 'RS pin connection
+    #define GLCD_ENABLE _I/O pin_ 'Enable pin Connection
+    #define GLCD_DB0  _I/O pin_ 'Data pin 0 Connection
+    #define GLCD_DB1  _I/O pin_ 'Data pin 1 Connection
+    #define GLCD_DB2  _I/O pin_ 'Data pin 2 Connection
+    #define GLCD_DB3  _I/O pin_ 'Data pin 3 Connection
+    #define GLCD_DB4  _I/O pin_ 'Data pin 4 Connection
+    #define GLCD_DB5  _I/O pin_ 'Data pin 5 Connection
+    #define GLCD_DB6  _I/O pin_ 'Data pin 6 Connection
+    #define GLCD_DB7  _I/O pin_ 'Data pin 7 Connection
     #define GLCD_PROTECTOVERRUN 'prevent screen overdrawing     'SSD1306 GLCD only
     #define GLCDDirection       'Invert GLCD Y axis             'KS0108 GCD only
 ```
+
+Note: the connectivity example above previously showed curly/smart
+apostrophes (') before each comment; these have been corrected to the
+plain straight apostrophe (') that GCBASIC actually recognises as its
+comment leader — copying the smart-quote version directly into a program
+would fail to compile as a comment.
 
 Common commands supported across the range of supported GLCDs are:
 
@@ -552,7 +686,7 @@ Common commands supported across the range of supported GLCDs are:
 | <span class="strong">**Command**</span> | <span class="strong">**Purpose**</span>                                                  | <span class="strong">**Example**</span>                                                        |
 |:----------------------------------------|:-----------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------|
 | `GLCDCLS`                               | Clear screen of GLCD                                                                     | `GLCDCLS`                                                                                      |
-| `GLCDPrint`                             | Print string of characters on GLCD using GCB font set                                    | `GLCDPrint( Xposition, Yposition, Stringvariable` )                                            |
+| `GLCDPrint`                             | Print string of characters on GLCD using GCB font set                                    | `GLCDPrint( Xposition, Yposition, Stringvariable )`                                            |
 | `GLCDDrawChar`                          | Print character on GLCD using GCB font set                                               | `GLCDDrawChar( Xposition, Yposition, CharCode )`                                               |
 | `GLCDDrawString`                        | Print characters on GLCD using GCB font set                                              | `GLCDDrawString( Xposition, Yposition, Stringvariable )`                                       |
 | `Box`                                   | Draw a box on the GLCD to a specific size                                                | `Box ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour as 0 or 1] )`   |
@@ -565,8 +699,8 @@ Common commands supported across the range of supported GLCDs are:
   
   
 
-Public variable supported across the range of supported GLCDs are shown
-in the table below. These variables control the user definable
+Public variables supported across the range of supported GLCDs are shown
+in the table below. These variables control the user-definable
 parameters of a specific GLCD.
 
 <div class="informaltable">
@@ -605,21 +739,21 @@ For mono GLCDs the default is non-white or 0x0000. For color GLCDs the default i
 <tr class="odd">
 <td style="text-align: left;"><p><code class="literal">GLCDfntDefaultsize</code></p></td>
 <td style="text-align: left;"><p>Size of the current GLCD font.</p></td>
-<td style="text-align: left;"><p>Default is 1.+ This equates to the 8 pixel high.</p></td>
+<td style="text-align: left;"><p>Default is 1.+ This equates to 8 pixels high.</p></td>
 </tr>
 </tbody>
 </table>
 
 </div>
 
-For color TFT displays any color can be defined using a valid
-hexidecimal word value between 0x0000 to 0xFFFF., see
+For color TFT displays, any color can be defined using a valid
+hexadecimal word value between 0x0000 and 0xFFFF — see
 <http://www.barth-dev.de/online/rgb565-color-picker/> for a wider range
 of color parameters.
 
-The following color constants are prevent-defined.
+The following color constants are pre-defined.
 
-``` screen
+``` programlisting
     TFT_BLACK       0x0000
     TFT_NAVY        0x000F
     TFT_DARKGREEN   0x03E0
@@ -641,14 +775,14 @@ The following color constants are prevent-defined.
     TFT_PINK        0xF81F
 ```
 
-This example shows how to drive a KS0108 based Graphic LCD module with
-the built in commands of GCBASIC. See
+This example shows how to drive a KS0108-based Graphic LCD module with
+the built-in commands of GCBASIC. See
 <a href="http://www.greatcowbasic.com/sample-projects" class="link">Graphic LCD</a>
-for details, this is an external web site.
+for details (this is an external website).
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     ;Chip Settings
     #chip 16F886,16
     '#config MCLRE = on 'enable reset switch on CHIPINO
@@ -671,7 +805,7 @@ for details, this is an external web site.
     #define GLCD_DB7 PORTC.0 'D7 to pin 14 on LCD
 
     Start:
-    GLCDCLS
+    GLCDCLS          ' <<< clearing the display before each drawing pass
     GLCDPrint 0,10,"Hello"        'Print Hello
     wait 5 s
     GLCDPrint 0,10, "ASCII #:"    'Print ASCII #:
@@ -691,13 +825,22 @@ for details, this is an external web site.
     Goto Start
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="graphical_lcd_demonstration" class="link" title="Graphical LCD Demonstration">Graphical LCD Demonstration</a>,
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>,
-<a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**Key line:**</span> `GLCDCLS` — clears every pixel
+on the display before each pass through the demo, so text and shapes
+from the previous pass do not visually overlap with the new frame.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="graphical_lcd_demonstration" class="link" title="Graphical LCD Demonstration">Graphical LCD Demonstration</a>
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+-   <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
+-   <a href="pset" class="link" title="Pset">Pset</a>
+
+</div>
 
 </div>

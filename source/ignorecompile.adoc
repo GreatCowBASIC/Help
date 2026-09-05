@@ -1,7 +1,10 @@
 === #ignorecompile
 
+(((Compiler Directives,#ignorecompile)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     #ignorecompile
 
@@ -10,7 +13,10 @@
 
 The `#ignorecompile` directive is used to control whether a source file can be compiled.
 
-This is can be used to prevent libraries and other source file from being procecessed as a source file for compilation.
+This can be used to prevent libraries and other source files from being processed as a source file for compilation.
 
-This therefore will prevent creation all the GCBASIC outputs file in the folder.
+This will therefore prevent the creation of all the GCBASIC output files for that file.
 
+**See Also:**
+
+* <<__include,#include>> -- including a file's constants and subroutines instead of compiling it standalone

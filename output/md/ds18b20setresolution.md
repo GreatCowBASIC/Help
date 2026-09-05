@@ -19,8 +19,8 @@
 For Single Channel/Device only. The method assumes a single DS18B20
 device on the OneWire bus.
 
-``` screen
-    DS18B20SetResolution ( [DS18B20SetResolution_CONTSTANT] )
+``` programlisting
+    DS18B20SetResolution ( [DS18B20SetResolution_CONSTANT] )
 ```
 
 <span class="strong">**Command Availability:**</span>
@@ -56,18 +56,25 @@ of the DS18B20 to 12 bits.   See example 3 below.
 The follow example sets the operating resolution of the DS18B20 to 12
 bits.
 
-``` screen
+``` programlisting
     #include <DS18B20.h>
     #define DQ PortC.3 ; change port configuration as required
-    DS18B20SetResolution ( DS18B20_TEMP_12_BIT )
+    DS18B20SetResolution ( DS18B20_TEMP_12_BIT )          ' <<< the DS18B20SetResolution instruction
 ```
+
+<span class="strong">**Key line:**</span>
+`DS18B20SetResolution ( DS18B20_TEMP_12_BIT )` — sets the sensor’s
+conversion resolution to 12 bits (0.0625C per unit), the highest
+precision available; higher resolution also means a longer conversion
+time on the OneWire bus, so lower-bit constants trade precision for
+speed.
 
 <span class="strong">**Example Usage 2**</span>
 
 The follow example sets the operating resolution of the DS18B20 to 9
 bits.
 
-``` screen
+``` programlisting
     #include <DS18B20.h>
     #define DQ PortC.3 ; change port configuration as required
     DS18B20SetResolution ( DS18B20_TEMP_9_BIT )
@@ -78,7 +85,7 @@ bits.
 The follow example sets the operating resolution of the DS18B20 to the
 default value of 12 bits.
 
-``` screen
+``` programlisting
     #include <DS18B20.h>
     #define DQ PortC.3 ; change port configuration as required
     DS18B20SetResolution ( )
@@ -93,7 +100,7 @@ of a specific setting.
 You may need to change the chip, edit/remove PPS, and/or the change LCD
 settings to make this program work with your configuration.  
 
-``` screen
+``` programlisting
 #chip 16f18313
 #config MCLR=ON
 #option Explicit
@@ -199,5 +206,16 @@ settings to make this program work with your configuration.  
 
   
   
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="ds18b20" class="link" title="DS18B20">DS18B20</a> — related
+    command in the same category
+-   <a href="readdigitaltemp" class="link" title="ReadDigitalTemp">ReadDigitalTemp</a> — related
+    command in the same category
+
+</div>
 
 </div>

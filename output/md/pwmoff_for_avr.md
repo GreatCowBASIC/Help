@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
   PWMOff
 ```
 
@@ -34,7 +34,7 @@ This command is not available for any other OCnx/PWM modules.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program demonstrates the PWMOn and PWMOff commands
     'of the fixed mode HPWM on OC0B pin.
 
@@ -54,16 +54,24 @@ This command is not available for any other OCnx/PWM modules.
       'turn on/off single channel 40 KHz PWM on OC0B pin
       PWMON
       wait 5 s
-      PWMOFF
+      PWMOFF          ' <<< the PWMOff instruction
       wait 5 s
 
     loop
 ```
 
-  
+<span class="strong">**Key line:**</span> `PWMOFF` — immediately
+disables the OC0B PWM output; the pin stops toggling until `PWMON` is
+called again.  
   
 
-<span class="strong">**For more help, see**</span>
-<a href="pwmon_for_avr" class="link" title="PWMOn for AVR">PWMOn</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="pwmon_for_avr" class="link" title="PWMOn for AVR">PWMOn</a> — the
+    counterpart command that enables the OC0B PWM output
+
+</div>
 
 </div>

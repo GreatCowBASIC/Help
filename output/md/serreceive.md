@@ -32,7 +32,7 @@ in the variable `output`.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
   'This program will read a byte from PORTB.2, and set the LED on if
   'the byte is more than 50. This can be used with the SerSend
   'example program.
@@ -48,14 +48,28 @@ in the variable `output`.
 
   InitSer 1, r9600, 1 + WaitForStart, 8, 1, none, normal
   Do
-    SerReceive 1, Temp
+    SerReceive 1, Temp          ' <<< the SerReceive instruction
     If Temp <= 50 Then Set LED Off
     If Temp > 50 Then Set LED On
   Loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="rs232_software_overview" class="link" title="RS232 Software Overview">RS232 Software Overview</a>,
-<a href="initser" class="link" title="InitSer">InitSer</a>
+<span class="strong">**Key line:**</span> `SerReceive 1, Temp` — blocks
+until a byte arrives on software-UART channel 1, then stores it in
+`Temp`, using the bit rate, start/stop bits and parity previously
+configured by `InitSer` on that same channel.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="rs232_software_overview" class="link" title="RS232 Software Overview">RS232 Software Overview</a> — category
+    overview
+-   <a href="initser" class="link" title="InitSer">InitSer</a> — configures
+    the channel before SerReceive can be used
+-   <a href="sersend" class="link" title="SerSend">SerSend</a> — the
+    counterpart command for sending a byte
+
+</div>
 
 </div>

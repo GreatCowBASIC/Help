@@ -1,5 +1,8 @@
 ==== HI2C Overview
 
+(((I2C/TWI Hardware Module,HI2C Overview)))
+
+
 *Introduction:*
 
 These methods allow GCBASIC programs to send and receive Inter- Integrated Circuit (I2C™) messages via:
@@ -139,6 +142,7 @@ It is important to change the clock source from the default of 125KHz if you wan
 Obviously, you setup the clock source correctly for I2C to operate:
 {empty} +
 {empty} +
+[source,gcbasic]
 ----
         #define I2C1CLOCKSOURCE  I2C1CLOCK_MFINTOSC
 ----
@@ -216,6 +220,7 @@ You MUST ensure the clock source generates a within specification clock source. 
 {empty} +
 This an example of using a Clock Source.  This example uses the SMTClock source as the clock source, the following methods implement the SMT as the clock source.  The defintion of the constant, the include, setting of the SMT period, initialisation and starting of the clock source are ALL required.
 {empty} +
+[source,gcbasic]
 ----
 
     'Set the clock source constant
@@ -270,6 +275,7 @@ Shown below are two examples of using Hardware I2C with GCBASIC.
 This example examines the IC2 modules using the Microchip SSP/MSSP module and the AVR microcontrollers.  This will display the result on a serial terminal.
 This code will require adaption but the code shows an approach to
 discover the IC2 devices.
+[source,gcbasic]
 ----
     #chip mega328p, 16
     #config MCLRE_ON
@@ -298,7 +304,7 @@ discover the IC2 devices.
 
     for deviceID = 0 to 255
       HI2CStart
-      HI2CSend ( deviceID )
+      HI2CSend ( deviceID )          ' <<< the HI2CSend instruction
 
       if HI2CAckPollState = false then
 
@@ -323,6 +329,7 @@ discover the IC2 devices.
     HSerPrint   "End of Device Search"
     HSerPrintCRLF 2
 ----
+*Key line:* `HI2CSend ( deviceID )` -- addresses each possible 8-bit device ID in turn; `HI2CAckPollState` afterward reports whether that device acknowledged, which is how this sketch discovers what is present on the bus.
 {empty} +
 {empty} +
 This example examines the IC2 devices and displays on a serial terminal for the I2C module only.
@@ -332,6 +339,7 @@ This code will require adaption but the code shows an approach to discover the I
 This code will only operate on the Microchip I2C module.
 {empty} +
 
+[source,gcbasic]
 ----
     #chip 18f25k42, 16
     #option Explicit
@@ -439,3 +447,8 @@ This code will only operate on the Microchip I2C module.
 {empty} +
 
 Supported in <HI2C.H>
+
+**See Also:**
+
+* <<_hi2cackpollstate,HI2CAckPollState>> -- related command in the same category
+* <<_hi2creceive,HI2CReceive>> -- related command in the same category

@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
   PWMOn
 ```
 
@@ -34,7 +34,7 @@ This command is not available for any other OCnx/PWM modules.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program demonstrates the PWMOn and PWMOff commands
     'of the fixed mode HPWM on OC0B pin.
 
@@ -52,7 +52,7 @@ This command is not available for any other OCnx/PWM modules.
     do
 
       'turn on/off single channel 40 KHz PWM on OC0B pin
-      PWMON
+      PWMON          ' <<< the PWMOn instruction
       wait 5 s
       PWMOFF
       wait 5 s
@@ -60,10 +60,19 @@ This command is not available for any other OCnx/PWM modules.
     loop
 ```
 
-  
+<span class="strong">**Key line:**</span> `PWMON` — enables the OC0B PWM
+output using the frequency and duty cycle set by the
+`PWM_Freq`/`PWM_Duty` constants above; unlike the Microchip PIC version,
+this command only ever controls the OC0B channel.  
   
 
-<span class="strong">**For more help, see**</span>
-<a href="pwmoff_for_avr" class="link" title="PWMOff for AVR">PWMOff</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="pwmoff_for_avr" class="link" title="PWMOff for AVR">PWMOff</a> — the
+    counterpart command that disables the OC0B PWM output
+
+</div>
 
 </div>

@@ -44,14 +44,14 @@ To use the T6963 driver simply include the following in your user code.
    This will initialise the driver.  
   
 
-``` screen
+``` programlisting
     #chip 16f1939,32
     #option explicit
 
     '***********************************************************************************************
     'Specify this GLCD - a 240 x 64 pixels display
     #include <glcd.h>
-     #define GLCD_TYPE GLCD_TYPE_T6963_64
+     #define GLCD_TYPE GLCD_TYPE_T6963_64          ' <<< the constant that selects this controller driver and pixel size
 
     '***********************************************************************************************
     'define the connectivity - the 8bit port
@@ -92,6 +92,11 @@ To use the T6963 driver simply include the following in your user code.
     '***********************************************************************************************
 ```
 
+<span class="strong">**Key line:**</span>
+`#define GLCD_TYPE GLCD_TYPE_T6963_64` — tells `<glcd.h>` to compile in
+the T6963 driver sized for a 240x64 pixel panel; use
+`GLCD_TYPE_T6963_128` instead for a 240x128 panel.
+
   
   
 
@@ -102,7 +107,7 @@ the table below.
 
 | <span class="strong">**Constants**</span> | <span class="strong">**Controls**</span>                                                                                                   | <span class="strong">**Options**</span>        |
 |:------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------|
-| `GLCD_TYPE`                               | `GLCD_TYPE_TYPE_T6963_64` or `GLCD_TYPE_T6963_128`                                                                                         | Required                                       |
+| `GLCD_TYPE`                               | `GLCD_TYPE_T6963_64` or `GLCD_TYPE_T6963_128`                                                                                              | Required                                       |
 | `GLCD_DATA_PORT`                          | A full 8-bit port. 8 contigous input/outputs.                                                                                              | or use GLCD\_DB0..GLCD\_DB7                    |
 | `GLCD_DB0..7`                             | A 8-bit port using 8 input/outputs.                                                                                                        | or use GLCD\_DATA\_PORT                        |
 | `GLCD_CS`                                 | Specifies the output pin that is connected to Chip Select on the GLCD.                                                                     | Required                                       |
@@ -199,7 +204,7 @@ have are available to the user.
 
 For GLCD memory addressing
 
-``` screen
+``` programlisting
   GLCDPage0_T6963
   GLCDPage1_T6963
   GLCDPage2_T6963
@@ -212,7 +217,7 @@ constrained by the memory configuration.
   
 For LCD memory addressing
 
-``` screen
+``` programlisting
   LCDPage0_T6963
   LCDPage1_T6963
   LCDPage2_T6963
@@ -228,7 +233,7 @@ or `SelectLCDPage` methods all GLCD or LCD commands will be applied to
 the current GLCD or LCD page.  
   
 
-``` screen
+``` programlisting
     'Select the GLCD page 1 memory
     SelectGLCDPage ( GLCDPage1_T6963 )
 
@@ -261,7 +266,7 @@ variety of useful effects.
 
 Although, not tested, the LCD text screens can be scrolled 1 full text
 line at a time, while the GLCD screens can be scrolled 1 pixel row at a
-time, provided you’ve set up your memory map accordingly with adequate
+time, provided you have set up your memory map accordingly with adequate
 RAM for the graphic area.
 
   
@@ -269,7 +274,7 @@ RAM for the graphic area.
 <span class="strong">**Default Memory Map**</span>  
   
 
-``` screen
+``` programlisting
             '
             '*******************************************************
             '
@@ -314,11 +319,20 @@ private methods and constants support the overal solution for this
 library.  
   
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — clearing
+    the display
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a> — drawing
+    a single character
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — printing
+    a value at a specific location
+-   <a href="pset" class="link" title="Pset">Pset</a> — setting a
+    single pixel
+
+</div>
 
 Supported in &lt;GLCD.H&gt;
 

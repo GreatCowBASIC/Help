@@ -1,9 +1,12 @@
 ==== SerNPrint
 
+(((Serial Communications,SerNPrint)))
+
+
 *Ser1Print, Ser2Print, Ser3Print*
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     Ser1Print value
     Ser2Print value
@@ -21,6 +24,7 @@ value can be a string, integer, long, word or byte.
 
 
 *Example:*
+[source,gcbasic]
 ----
     'This program will send text and an icrementing value using PORTB.1
 
@@ -46,10 +50,16 @@ value can be a string, integer, long, word or byte.
       Wait 1 s       'time to enjoy the result
       Ser1Send  13   'new line in Terminal
       Ser1Send  10
-      Ser1Print "Software-UART: "  'send a text
+      Ser1Print "Software-UART: "  'send a text          ' <<< the Ser1Print instruction
       Ser1Print xx   'send the value of xx
       xx += 1
     Loop
 ----
+*Key line:* `Ser1Print "Software-UART: "` -- writes the string as ASCII text with no terminating newline, so the second call `Ser1Print xx` appends the numeric value of `xx` directly after it on the same line.
 
 Exposed in SoftSerial.h authored by Frank Steinberg
+
+**See Also:**
+
+* <<_sernsend,SerNSend>> -- sending a single raw byte on the same channel
+* <<_sernreceive,SerNReceive>> -- reading a byte back on the same channel

@@ -1,6 +1,10 @@
 ==== GLCDDisplay
 
+(((Graphical LCD,GLCDDisplay)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
 
     GLCDDisplay Off | On
@@ -12,8 +16,14 @@ Places the GLCD in sleep mode or enables the GLCD for normal operations.
 
 
 The options are:
+[source,gcbasic]
 ----
     OFF
     ON
 ----
 
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_glcddrawchar,GLCDDrawChar>> -- related command in the same category
+* <<_glcddrawstring,GLCDDrawString>> -- related command in the same category

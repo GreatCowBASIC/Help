@@ -1,8 +1,12 @@
 ===== ST7920linev
 
+(((Graphical LCD,st7920linev)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
-    ST7920lineh ( Xpos, Ypos, xUnitsStyle, )
+    ST7920linev ( Xpos, Ypos, yUnitsStyle, )
 ----
 *Explanation:*
 
@@ -12,6 +16,14 @@ can be ON or OFF. Default is ON
 This is called by the GLCD common routines.
 
 *Example usage:*
+[source,gcbasic]
 ----
-    ST7920lineh ( 0, 31,128 , ON) ‘will draw a line
+    ST7920linev ( 0, 0, 64 , ON) 'will draw a line          ' <<< the ST7920linev instruction
 ----
+*Key line:* `ST7920linev ( 0, 0, 64 , ON)` -- draws a solid vertical line 64 pixels long starting at (0, 0); passing `OFF` instead of `ON` erases a line at that position rather than drawing one.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920lineh,ST7920lineh>> -- the horizontal-line equivalent
+* <<_st7920linehs,ST7920LineHs>> -- drawing a horizontal line with a custom dash/dot style byte

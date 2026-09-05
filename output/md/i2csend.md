@@ -17,7 +17,7 @@
 <span class="strong">**Syntax:**</span>
 
 ``` screen
- I2CSend data
+  I2CSend data
     I2CSend data, ack
 ```
 
@@ -37,7 +37,7 @@ before sending.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
   ' I2CSend - using the ChipIno board, see here for information.
     ' This program send commands to a GCB Slave with three LEDs attached.
 
@@ -88,10 +88,15 @@ before sending.
     loop
 ```
 
+<span class="strong">**Key line:**</span>
+`I2CSend I2C_ADDRESS` — addresses the target device; `I2CSendState`
+afterward reports `ACK` if the device responded, so the following
+register/command bytes are only sent when a device is actually present.
+
 <span class="strong">**Example 2:**</span>
 
-``` screen
-    'This program will act as an I2C analog to digital converter
+``` programlisting
+  'This program will act as an I2C analog to digital converter
     'When data is requested from address 83, registers 0 through
     '3, it will return the value of AN0 through AN3.
 
@@ -117,7 +122,7 @@ before sending.
             I2CReceive Register
 
             OutValue = ReadAD(Register)
-            I2CSend OutValue
+            I2CSend OutValue          ' <<< the I2CSend instruction (slave mode)
         End If
 
         I2CStop
@@ -125,6 +130,11 @@ before sending.
         Wait 5 ms
     Loop
 ```
+
+<span class="strong">**Key line:**</span> `I2CSend OutValue` — in slave
+mode, this transmits the requested ADC reading back to the master once
+the master has requested it; `I2CSend` blocks until the master is ready
+to receive it.
 
 <span class="strong">**Specific control of I2CSend**</span>
 
@@ -140,15 +150,15 @@ delimiters are permitted.
 
 The following defined macros change the start and end behaviour.
 
-``` screen
-     #define I2CPreSendMacro if LabI2CState <> True then exit Sub  'I2CPreSendMacro to ensure GLCD operations only operate within specfic lab
+``` programlisting
+        #define I2CPreSendMacro if LabI2CState <> True then exit Sub  'I2CPreSendMacro to ensure GLCD operations only operate within specfic lab
         #define I2CPostSendMacro if LabI2CState = True then MSSP =1   'I2CPostSendMacro to ensure GLCD operations only operate within specfic lab setting a specific variable.
 ```
 
 The following defined macro changes- the start behaviour to call an
 alternative I2CSend method.
 
-``` screen
+``` programlisting
      #define I2CPreSendMacro     myI2CSend: exit sub
 
 
@@ -161,7 +171,7 @@ The following defined macros changes- the start behaviour to call an
 alternative I2CSend method, then jump to the I2CPostSendMacroLabel which
 is at the end of I2CSend method.
 
-``` screen
+``` programlisting
      #define I2CPreSendMacro         myI2CSend: goto I2CPostSendMacroLabel
         #define I2CPostSendMacro        NOP
 
@@ -174,7 +184,7 @@ This will generate the following ASM.  The I2CPreSendMacro calls the
 MYI2CSEND() methhod, then BRAnches to the label I2CPOSTSENDMACROLABEL as
 the end of the method.
 
-``` screen
+``` programlisting
       ;Source: i2c.h (339)
         I2CSEND
         ;I2CPreSendMacro
@@ -196,5 +206,18 @@ the end of the method.
 ```
 
 Supported in &lt;I2C.H&gt;
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="i2c_overview" class="link" title="I2C Overview">I2C Overview</a> — category
+    overview
+-   <a href="i2cstart" class="link" title="I2CStart">I2CStart</a> — related
+    command in the same category
+-   <a href="i2cstartoccurred" class="link" title="I2CStartoccurred">I2CStartoccurred</a> — related
+    command in the same category
+
+</div>
 
 </div>

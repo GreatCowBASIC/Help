@@ -1,5 +1,8 @@
 ==== Repeat
 
+(((Flow control,Repeat)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 
@@ -20,17 +23,18 @@ Available on all microcontrollers.
 *Explanation:*
 
 The `Repeat` command is ideal for situations where a piece of code needs
-to be run a set number of times. It uses less memory and runs faster
-than the `For` command, and should be used wherever it is not necessary to
+to run a set number of times. It uses less memory and runs faster
+than the `For` command, and should be used whenever it is not necessary to
 count how many times the code has run.
 
-Optionally, you can specify a condition to `Exit` the Repeat-Loop
+Optionally, you can specify a condition to `Exit Repeat`
 immediately.
 
-Repeat has a maximum repeat value of 65535.
+`Repeat` has a maximum repeat value of 65535.
 
 *Example:*
 
+[source,gcbasic]
 ----
     'This code will flash a green light 6 times.
 
@@ -39,10 +43,14 @@ Repeat has a maximum repeat value of 65535.
     #define LED PORTB.0
     dir LED out
 
-    Repeat 6
+    Repeat 6          ' <<< the Repeat instruction
     PulseOut LED, 1 s
     Wait 1 s
     End Repeat
 ----
+*Key line:* `Repeat 6` -- runs the two lines between it and `End Repeat` exactly six times, without needing a loop-counter variable the way `For` would.
 
-*See Also <<_for,For>>*
+**See Also:**
+
+* <<_for,For>> -- a counted loop that also exposes the current iteration number
+* <<_do,Do>> -- an unbounded loop, for when the iteration count is not known in advance

@@ -1,6 +1,10 @@
 ===== ST7920Locate
 
+(((Graphical LCD,st7920locate)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     ST7920Locate ( Xpos, Ypos)
 ----
@@ -13,6 +17,7 @@ the GLCD controller on the specified row and column. Due to the design
 of the ST7920 controller (to accomodate Mandarin and Cyrillic), you must
 place the text on the column according to the numbers above the diagram
 below. The addressing is handle by the command.
+[source,gcbasic]
 ----
 |--0--|--1--|--2--|...      ...|--7--|
 
@@ -35,6 +40,7 @@ below. The addressing is handle by the command.
 +--+--+--+--+--+---------------------+
 ----
 Writing 'a' onto the 1st column, and 1st row:
+[source,gcbasic]
 ----
 |--0--|--1--|--2--|...      ...|--7--|
 
@@ -57,6 +63,14 @@ Writing 'a' onto the 1st column, and 1st row:
 +--+--+--+--+--+---------------------+
 ----
 *Example usage:*
+[source,gcbasic]
 ----
-    ST7920Locate ( 64, 31) ‘the pixel at the mid screen point
+    ST7920Locate ( 64, 31) 'the pixel at the mid screen point          ' <<< the ST7920Locate instruction
 ----
+*Key line:* `ST7920Locate ( 64, 31)` -- positions the text cursor at pixel column 64, row 31 (the middle of a 128x64 display); the ST7920 controller then maps this to the correct internal row/column address itself, as shown in the diagrams above.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920glcddisablegraphics,ST7920GLCDDisableGraphics>> -- switching to text mode before printing at this location
+* <<_st7920ctile,ST7920CTile>> -- placing a custom character tile at a specific location

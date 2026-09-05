@@ -1,0 +1,59 @@
+==== Command Name
+
+*Syntax:*
+[subs="specialcharacters,quotes"]
+----
+Command _var1_ = _var2_ To _var3_ [Step _var4_]
+----
+
+*Command Availability:*
+
+Available on all microcontrollers.
+
+*Explanation:*
+
+The `Command` command does .... Explain what the command is for, in plain language, before getting into parameter detail.
+
+`_var1_` is set to `_var2_` when `Command` first executes, then steps toward `_var3_` by `_var4_` (or by 1 if `_var4_` is omitted) each pass.
+
+This is *bold*, this is _italic_, and this is *_bold and italic_*. Use backticks for `code, constants, and parameter names` inline.
+
+Now we are going to create a 2 x 3 table:
+
+[cols="3", options="header,autowidth"]
+|===
+|*Label col 1*
+|*Label col 2*
+|*Label col 3*
+
+| li 1 col 1
+| li 1 col 2
+| li 1 col 3
+
+| li 2 col 1
+| li 2 col 2
+| li 2 col 3
+|===
+
+How to include an image:
+
+image:cow.jpg[]
+
+*Example:*
+
+[source,gcbasic]
+----
+    #chip 16F1825, 4
+
+    Dim Total As Byte
+
+    Command Total = 1 To 10          ' <<< the Command instruction this page documents
+        ' program code
+    Next
+----
+*Key line:* `Command Total = 1 To 10` -- explain here, in one sentence, what makes this exact line the one worth calling out: the specific value, parameter, or behaviour it demonstrates and why a reader would care.
+
+**See Also:**
+
+* <<_command_name,Command Name>> -- link to a related command, with a short phrase on why it is related
+* <<_command_name,Command Name>> -- a second related command, if one exists

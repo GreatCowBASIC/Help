@@ -22,21 +22,23 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `Pad` function is used to create string to a specific length that is
-extended with a specific character.
+The `Pad` function creates a string of a specific length, extended with
+a specific character.
 
 The length of the string is specified by the second parameter. The
 character used to pad the string is specified by the third parameter.
 
-A typical use is to pad a string to be displayed on a LCD display.
+A typical use is to pad a string to a fixed width before displaying it
+on an LCD, so that shorter strings do not leave stale characters from a
+previous, longer string on screen.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
  'Set chip model
     #chip 16f877a
 
@@ -76,12 +78,28 @@ A typical use is to pad a string to be displayed on a LCD display.
 
     'show results on LCD-Display
     cls
-    Print Pad ( TestData, 16, "*" )
+    Print Pad ( TestData, 16, "*" )          ' <<< the Pad instruction, padded with a visible character
     Locate 1,0
     Print Pad ( TestData, 16, )
 
 
     end
 ```
+
+<span class="strong">**Key line:**</span>
+`Pad ( TestData, 16, "*" )` — extends `"Location"` out to 16 characters
+with trailing asterisks, so the padded text always occupies the same
+width on the LCD regardless of the source string’s length.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="left" class="link" title="Left">Left</a> — extracting
+    a fixed-width prefix instead of padding out to one
+-   <a href="asc" class="link" title="Asc">Asc</a> — related
+    command in the same category
+
+</div>
 
 </div>

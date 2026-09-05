@@ -35,7 +35,7 @@ code. This will initialise the driver.
   
 <span class="strong">**SPI mode**</span>
 
-``` screen
+``` programlisting
     'Pin mappings for SPI
 
     #include <glcd.h>
@@ -170,7 +170,7 @@ supported commands.
   
   
 
-``` screen
+``` programlisting
     ILI9488_TFT_BLACK       //0x000000
     ILI9488_TFT_RED         //0xFC0000
     ILI9488_TFT_GREEN       //0x00FC00
@@ -203,7 +203,7 @@ the built in commands of GCBASIC.
   
 <span class="strong">**Examples - PPS Enabled**</span>
 
-``` screen
+``` programlisting
     #chip 18F26K83, 64
     #option Explicit
 
@@ -251,18 +251,21 @@ the built in commands of GCBASIC.
     #DEFINE DEFAULT_GLCDBACKGROUND TFT_WHITE
 
 
-    GLCDPrint 0, 0, "Test of the ILI9488 Device", TFT_BLACK
+    GLCDPrint 0, 0, "Test of the ILI9488 Device", TFT_BLACK          ' <<< draws text using an explicit foreground color argument
     end
 ```
 
-  
+<span class="strong">**Key line:**</span>
+`GLCDPrint 0, 0, "Test of the ILI9488 Device", TFT_BLACK` — the ILI9488
+driver’s 18-bit color scheme accepts a color as a trailing argument
+directly on drawing commands, in addition to setting `GLCDForeground`.  
   
   
   
 <span class="strong">**Examples - Legacy non PPS
 microcontroller**</span>
 
-``` screen
+``` programlisting
     #chip 16F1939
     #option Explicit
 
@@ -293,20 +296,27 @@ microcontroller**</span>
   
   
 
-``` screen
+``` programlisting
 ```
 
   
   
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>  
-  
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview and the full supported-display comparison table
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+-   <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
+-   <a href="pset" class="link" title="Pset">Pset</a>
+
+</div>
+
 Supported in &lt;GLCD.H&gt;
 
   

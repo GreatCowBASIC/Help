@@ -1,7 +1,10 @@
 ==== TMWrite4Dig
 
+(((7-Segment Displays,TMWrite4Dig)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     TMWrite4Dig (dig1, dig2, dig3, dig4  [, Brightness ],  Colon ]  ] )
 ----
@@ -31,7 +34,7 @@ _Colon_  turns the colon (only on  digit 2) to off (0) or on (1).
 
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     TM_Bright = Brightness
 ----
@@ -56,7 +59,7 @@ Default to 15.&#160;&#160;
 
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     TMDec  Value [, Options ]
 ----
@@ -90,7 +93,7 @@ _Options_ as follows:
 
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     TMHex  Value
 ----
@@ -116,7 +119,7 @@ Only values from from 0x0000 to 0xFFFF can be displayed. Non-hex values will be 
 
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     TMWriteChar ( TMaddr, TMchar )
 ----
@@ -140,3 +143,8 @@ image::TM1657a.png[graphic,align="center", 70%]
 {empty} +
 {empty} +
 {empty} +
+
+**See Also:**
+
+* <<_7_segment_displays_tm1637_4_digits,7 Segment Displays - TM1637 4 Digits>> -- category overview and a full worked example using TMWrite4Dig
+* <<_7_segment_displays_overview,7 Segment Displays Overview>> -- top-level category overview

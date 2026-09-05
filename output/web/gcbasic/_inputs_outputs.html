@@ -16,7 +16,7 @@
       <link rel="next" href="_configuration.html" title="Configuration" />
       <meta name="Section-title" content="Inputs/Outputs" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-61620";
+            var treeCookieId = "treeview-89895";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,41 +184,45 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
+            <p><a id="d0e3786" class="indexterm"></a>
+               <a id="d0e3792" class="indexterm"></a></p>
             <p><span class="strong"><strong>About Inputs and Outputs</strong></span></p>
             <p>Most general purpose pins on a microcontroller can function in one of
                two modes: input mode, or output mode.
             </p>
-            <p>When acting as an input, the general purpose input/output pin will be placed in a high impedance state.
+            <p>When acting as an input, the general purpose input/output pin will be placed in a high-impedance state.
                The microcontroller will then sense the general purpose input/output pin, and the program can read
-               the state of the general purpose input/output pin and make decisions based on it.
+               the state of the pin and make decisions based on it.
             </p>
             <p>When in output mode, the microcontroller will connect the general purpose input/output pin to either
                Vcc (the positive supply), or Vss (ground, or the negative supply). The
-               program can then set the state of the general purpose input/output pin to either high or low.
+               program can then set the state of the pin to either high or low.
             </p>
             <p>GCBASIC will attempt to determine the direction of each general purpose input/output pin, and set it
-               appropriately, when possible. GCBASIC will try to set the direction of the general purpose input/output pin.
-               However, if the general purpose input/output pin is read from and written to in your program, then
-               the general purpose input/output pin must be configured to input or output mode by the program, using
+               appropriately, when possible. However, if the pin is both read from and written to in your program, then
+               it must be configured to input or output mode by the program, using
                the appropriate <a class="link" href="_dir.html" title="Dir">Dir</a> commands.
             </p>
             <p>Example of <code class="literal">dir</code> commands.
-            </p><pre class="screen">    'The port address is microcontroller specific.  Portx.x is a general case for PICs and AVRs
-    dir portb.0 in
-    dir portb.1 out
+            </p><pre class="programlisting">    'The port address is microcontroller specific.  Portx.x is a general case for PICs and AVRs
+    dir PORTB.0 in          ' &lt;&lt;&lt; the Dir instruction setting a single pin's direction
+    dir PORTB.1 out
 
-    'The port address is microcontroller specific.  gpiox.x is a general case for some PICs
-    dir gpio.0 in
-    dir gpio.1 Out
+    'The port address is microcontroller specific.  GPIOx.x is a general case for some PICs
+    dir GPIO.0 in
+    dir GPIO.1 Out
 
     'Set the whole port as an output
-    dir portb out
-    dir gpio out
+    dir PORTB out
+    dir GPIO out
 
     'Set the whole port as an input
-    dir portc in
-    dir gpio in</pre><p><span class="strong"><strong>Microchip specifics for read/write operations</strong></span></p>
-            <p>For the specific ports and general purpose input/output pins available for a specific microcontroller please refer to the
+    dir PORTC in
+    dir GPIO in</pre><p><span class="strong"><strong>Key line:</strong></span> <code class="literal">dir PORTB.0 in</code> — configures a single pin (bit 0 of PORTB) as a digital input; the remaining lines show the same command used on a whole
+               port and on the alternate GPIO naming some PIC families use.
+            </p>
+            <p><span class="strong"><strong>Microchip specifics for read/write operations</strong></span></p>
+            <p>For the specific ports and general purpose input/output pins available for a specific microcontroller, please refer to the
                datasheet.
             </p>
             <div class="informaltable">
@@ -238,13 +242,13 @@ border: none; background: none; font-weight: none; color: none; }
                   <tbody>
                      <tr>
                         <td align="left" valign="top">
-                           <p>PORTx maps to the microcontrollers digital pins 0 to 7. Where x can be a,b,c,d,e,f or g</p>
+                           <p>PORTx maps to the microcontroller’s digital pins 0 to 7, where x can be A, B, C, D, E, F, or G</p>
                         </td>
                         <td align="left" valign="top">
                            <p>Read:
                               
                            </p>
-                           <p>PORTx the port data register for a  read operation.</p>
+                           <p>PORTx is the port data register for a read operation.</p>
                         </td>
                         <td align="left" valign="top">
                            <p>uservar=PORTA
@@ -255,16 +259,16 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p>PORTx maps to microcontrollers digital pins 0 to 7. Where x can be a,b,c,d,e,f or g</p>
+                           <p>PORTx maps to the microcontroller’s digital pins 0 to 7, where x can be A, B, C, D, E, F, or G</p>
                         </td>
                         <td align="left" valign="top">
                            <p>Write:
                               
                            </p>
-                           <p>PORTx the port data register for a  write operation, and, where LATx is not required as GCBASIC will implement LATx when needed.
+                           <p>PORTx is the port data register for a write operation; LATx is not required, as GCBASIC will implement LATx when needed.
                               
                            </p>
-                           <p>See <a class="link" href="__option_nolatch.html" title="#Option NoLatch">Option NoLatch</a> for more information on LAT registers and how to disable this automatic function.
+                           <p>See <a class="link" href="__option_nolatch.html" title="#Option NoLatch">#Option NoLatch</a> for more information on LAT registers and how to disable this automatic function.
                            </p>
                         </td>
                         <td align="left" valign="top">
@@ -277,17 +281,17 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p>To read a general purpose input/output pin, you need to ensure the direction is correct <code class="literal">DIR Portx IN</code> is set (default is IN) or a specific set of port bits.
-               Where <code class="literal">uservar = PORTx.n</code> can be used.
+            <p>To read a general purpose input/output pin, you need to ensure the direction is correct: <code class="literal">DIR Portx IN</code> (default is IN), or a specific set of port bits.
+               <code class="literal">uservar = PORTx.n</code> can be used.
             </p>
-            <p>Examples:</p><pre class="screen">    uservar = PORTb.0
-    uservar = PORTb</pre><p>To write to a general purpose input/output pin, you need to ensure the direction is correct <code class="literal">DIR Portx OUT</code> for port or a specific set of port bits.
-               Where  <code class="literal">PORTx.n = uservar</code> can be used.
+            <p>Examples:</p><pre class="programlisting">    uservar = PORTb.0
+    uservar = PORTb</pre><p>To write to a general purpose input/output pin, you need to ensure the direction is correct: <code class="literal">DIR Portx OUT</code> for the port, or a specific set of port bits.
+               <code class="literal">PORTx.n = uservar</code> can be used.
             </p>
-            <p>Examples:</p><pre class="screen">    PORTb.0 = uservar
+            <p>Examples:</p><pre class="programlisting">    PORTb.0 = uservar
     PORTb = uservar</pre><p><span class="strong"><strong>ATMEL specifics for read/write operations</strong></span></p>
-            <p>Using a Mega328p as a general the following provides insights for the AVR devices.  For the specific ports and general purpose
-               input/output pins available for a specific microcontroller please refer to the datasheet.
+            <p>Using a Mega328p as a general example, the following provides insights for AVR devices. For the specific ports and general
+               purpose input/output pins available for a specific microcontroller, please refer to the datasheet.
             </p>
             <div class="informaltable">
                <table border="1">
@@ -306,10 +310,10 @@ border: none; background: none; font-weight: none; color: none; }
                   <tbody>
                      <tr>
                         <td align="left" valign="top">
-                           <p>PORTD maps to Mega328p (and, the AVR microcontrollers) digital pins 0 to 7</p>
+                           <p>PORTD maps to the Mega328p (and other AVR microcontrollers) digital pins 0 to 7</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>PORTD - The Port D Data Register - write operation  (a read operation to a port will provide the pull-up status)</p>
+                           <p>PORTD - The Port D Data Register - write operation (a read operation on a port will provide the pull-up status)</p>
                         </td>
                         <td align="left" valign="top">
                            <p>PIND - The Port D Input Pins Register - read only</p>
@@ -317,12 +321,12 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p>PORTB maps to Mega328p (and, the AVR microcontrollers) digital pins 8 to 13. The two high bits (6 &amp; 7) map to the crystal
+                           <p>PORTB maps to the Mega328p (and other AVR microcontrollers) digital pins 8 to 13. The two high bits (6 &amp; 7) map to the crystal
                               pins and are not usable
                            </p>
                         </td>
                         <td align="left" valign="top">
-                           <p>PORTB - The Port B Data Register - write operation  (a read operation to a port will provide the pull-up status)</p>
+                           <p>PORTB - The Port B Data Register - write operation (a read operation on a port will provide the pull-up status)</p>
                         </td>
                         <td align="left" valign="top">
                            <p>PINB - The Port B Input Pins Register - read only</p>
@@ -330,12 +334,12 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
-                           <p>PORTC maps to Mega328p (and, the AVR microcontrollers) analog pins 0 to 5. Pins 6 &amp; 7 are only accessible on the Mega328p
-                              (and, the AVR microcontrollers) Mini
+                           <p>PORTC maps to the Mega328p (and other AVR microcontrollers) analog pins 0 to 5. Pins 6 &amp; 7 are only accessible on the Mega328p
+                              Mini
                            </p>
                         </td>
                         <td align="left" valign="top">
-                           <p>PORTC - The Port C Data Register - write operation (a read operation to a port will provide the pull-up status)</p>
+                           <p>PORTC - The Port C Data Register - write operation (a read operation on a port will provide the pull-up status)</p>
                         </td>
                         <td align="left" valign="top">
                            <p>PINC - The Port C Input Pins Register - read only</p>
@@ -344,29 +348,29 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p>To read a general purpose input/output pin, you need to ensure the direction is correct <code class="literal">DIR Portx IN</code> is set (default is IN) or a specific set of port bits.
-               Where <code class="literal">uservar = PINx.n</code> can be used and therefore to read data port use <code class="literal">uservar = PINx</code>.
+            <p>To read a general purpose input/output pin, you need to ensure the direction is correct: <code class="literal">DIR Portx IN</code> (default is IN), or a specific set of port bits.
+               <code class="literal">uservar = PINx.n</code> can be used, and to read a whole data port use <code class="literal">uservar = PINx</code>.
             </p>
-            <p>Examples:</p><pre class="screen">    uservar = PINb.0
-    uservar = PINb</pre><p>To write to a general purpose input/output pin you need to ensure the direction is correct <code class="literal">DIR Portx OUT</code> for port or a specific set of port bits.
-               Where <code class="literal">PORTx.n = uservar</code> can be used and therefore to write to a data port use <code class="literal">PORTx = uservar</code>.
+            <p>Examples:</p><pre class="programlisting">    uservar = PINb.0
+    uservar = PINb</pre><p>To write to a general purpose input/output pin, you need to ensure the direction is correct: <code class="literal">DIR Portx OUT</code> for the port, or a specific set of port bits.
+               <code class="literal">PORTx.n = uservar</code> can be used, and to write to a whole data port use <code class="literal">PORTx = uservar</code>.
             </p>
-            <p>Examples:</p><pre class="screen">    PORTb.0 = uservar
+            <p>Examples:</p><pre class="programlisting">    PORTb.0 = uservar
     PORTb = uservar</pre><p><br />
                <br />
                <span class="strong"><strong>Setting Ports and Port.bit</strong></span></p>
-            <p>You can set a port as shown above with a variable, or, you can set with a constant or any combination using the bitwise and
-               logical operators.
-            </p><pre class="screen">    #define InitStateofPort 0b11110000
+            <p>You can set a port as shown above with a variable, or you can set it with a constant, or any combination using the bitwise
+               and logical operators.
+            </p><pre class="programlisting">    #define InitStateofPort 0b11110000
     PORTb = InitStateofPort               'will unconditionally set bits 4:7
 
     PORTb = 0b11110000                    'will unconditionally set bits 4:7
 
-    PORTb = uservar OR 0b11110000         'will OR bits 4:7 to ensure bits 4:7 are set</pre><p>The following is also valid - read a port.bit and then set port.bit with a variable or port value. As shown below.</p><pre class="screen">    dir portb out
+    PORTb = uservar OR 0b11110000         'will OR bits 4:7 to ensure bits 4:7 are set</pre><p>The following is also valid - read a port.bit and then set port.bit with a variable or port value, as shown below.</p><pre class="programlisting">    dir PORTB out
 
-    portb.0 = NOT  portb.0</pre><p>The user code above may cause issues with glitches when the read and write operations occurs.  Let us look at the generated
+    PORTB.0 = NOT  PORTB.0</pre><p>The user code above may cause issues with glitches when the read and write operations occur. Let us look at the generated
                assembler.
-            </p><pre class="screen">    ;portb.0 = NOT  portb.0
+            </p><pre class="programlisting">    ;portb.0 = NOT  portb.0
       banksel SYSTEMP1
       clrf  SysTemp1
       btfsc PORTB,0
@@ -374,12 +378,15 @@ border: none; background: none; font-weight: none; color: none; }
       comf  SysTemp1,F
       bcf PORTB,0
       btfsc SysTemp1,0
-      bsf PORTB,0</pre><p>To resolve any glitches add <code class="literal">#option Volatile</code> to your user code.
-            </p><pre class="screen">    #option Volatile portb.0
+      bsf PORTB,0</pre><p>To resolve any glitches, add <code class="literal">#option Volatile</code> to your user code.
+            </p><pre class="programlisting">    #option Volatile PORTB.0          ' &lt;&lt;&lt; the #option Volatile directive resolving the read-modify-write glitch
 
-    dir portb out
+    dir PORTB out
 
-    portb.0 = NOT  portb.0</pre><p>This option provides the following assembler resolving the glitch issue.</p><pre class="screen">    ;portb.0 = NOT  portb.0
+    PORTB.0 = NOT  PORTB.0</pre><p><span class="strong"><strong>Key line:</strong></span> <code class="literal">#option Volatile PORTB.0</code> — forces the compiler to generate a glitch-free read-modify-write sequence for bit 0 of PORTB (compare the two ASM listings
+               below), at the cost of slightly larger generated code.
+            </p>
+            <p>This option produces the following assembler, resolving the glitch issue.</p><pre class="programlisting">    ;portb.0 = NOT  portb.0
       banksel SYSTEMP1
       clrf  SysTemp1
       btfsc PORTB,0
@@ -390,9 +397,17 @@ border: none; background: none; font-weight: none; color: none; }
       btfss SysTemp1,0
       bcf PORTB,0</pre><p><br />
                <br /></p>
-            <p><span class="strong"><strong>See also</strong></span>  <a class="link" href="_dir.html" title="Dir">Dir</a>, <a class="link" href="__option_volatile.html" title="#Option Volatile">#Option Volatile</a></p>
-            <p><br />
-               <br /></p>
+            <p><span class="strong"><strong>See Also:</strong></span></p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem"><a class="link" href="_dir.html" title="Dir">Dir</a> — setting a pin or port’s direction
+                  </li>
+                  <li class="listitem"><a class="link" href="__option_volatile.html" title="#Option Volatile">#Option Volatile</a> — forcing glitch-free read-modify-write operations, as used above
+                  </li>
+                  <li class="listitem"><a class="link" href="__option_nolatch.html" title="#Option NoLatch">#Option NoLatch</a> — disabling the automatic LATx substitution on writes
+                  </li>
+               </ul>
+            </div>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -422,22 +437,22 @@ border: none; background: none; font-weight: none; color: none; }
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
                         <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
-                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
-                        <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
-                        <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
-                        <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
-                        <li><span class="file"><a href="_frequent_errors.html" tabindex="1">Frequent errors</a></span></li>
-                        <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
-                        <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
-                        <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
+                        <li><span class="file"><a href="_primer.html" tabindex="1">Primer</a></span><ul>
+                              <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
+                              <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
+                              <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
+                              <li><span class="file"><a href="_frequent_errors.html" tabindex="1">Frequent errors</a></span></li>
+                              <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
+                              <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
+                              <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
+                              <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_gcbasic_compiler_insights.html" tabindex="1">GCBASIC Compiler Insights</a></span><ul>
                               <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
                               <li><span class="file"><a href="_compiler_control.html" tabindex="1">Compiler Control</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
-                        <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
-                        <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span><ul>
+                              <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
+                              <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span></li>
                               <li><span class="file"><a href="_gcbasic_hxl_memory_map_output.html" tabindex="1">GCBASIC HXL- Memory Map Output</a></span></li>
                               <li><span class="file"><a href="_uno_as_isp_programmer.html" tabindex="1">UNO as ISP programmer</a></span></li>
                            </ul>
@@ -452,9 +467,13 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_data_types.html" tabindex="1">Data Types</a></span></li>
                               <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
                               <li><span class="file"><a href="_variables_and_data_types.html" tabindex="1">Variables and Data Types</a></span></li>
+                              <li><span class="file"><a href="_the_positives_and_negatives_of_variable_types.html" tabindex="1">The Positives and Negatives of Variable Types</a></span></li>
                               <li><span class="file"><a href="_advanced_variabletypes.html" tabindex="1">Advanced VariableTypes</a></span></li>
                               <li><span class="file"><a href="_variable_memory_allocation_addressing_control.html" tabindex="1">Variable Memory Allocation, Addressing &amp; Control</a></span></li>
                               <li><span class="file"><a href="_avr_r_register_usage.html" tabindex="1">AVR R Register Usage</a></span></li>
+                              <li><span class="file"><a href="_new_example_1_basic_variables_with_initial_values.html" tabindex="1">New Example 1: Basic Variables with Initial Values</a></span></li>
+                              <li><span class="file"><a href="_new_example_2_arrays_and_initialisation.html" tabindex="1">New Example 2: Arrays and Initialisation</a></span></li>
+                              <li><span class="file"><a href="_new_example_3_bit_level_access_using_constants.html" tabindex="1">New Example 3: Bit-Level Access Using Constants</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_reference_data.html" tabindex="1">Reference Data</a></span><ul>
@@ -477,6 +496,12 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_converters.html" tabindex="1">Converters</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_commands_quick_reference.html" tabindex="1">Commands Quick Reference</a></span><ul>
+                              <li><span class="file"><a href="_alphabetical_index.html" tabindex="1">Alphabetical Index</a></span></li>
+                              <li><span class="file"><a href="_by_category.html" tabindex="1">By Category</a></span></li>
+                              <li><span class="file"><a href="_commands_not_yet_documented.html" tabindex="1">Commands Not Yet Documented</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_command_references.html" tabindex="1">Command References</a></span><ul>
                               <li><span class="file"><a href="_analog_digital_conversion.html" tabindex="1">Analog/Digital conversion</a></span><ul>
                                     <li><span class="file"><a href="_analog_digital_conversion_overview.html" tabindex="1">Analog/Digital Conversion Overview</a></span></li>
@@ -486,6 +511,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_readad10.html" tabindex="1">ReadAD10</a></span></li>
                                     <li><span class="file"><a href="_readad12.html" tabindex="1">ReadAD12</a></span></li>
                                     <li><span class="file"><a href="_analog_digital_conversion_code_optimisation.html" tabindex="1">Analog/Digital Conversion Code Optimisation</a></span></li>
+                                    <li><span class="file"><a href="_pot.html" tabindex="1">Pot</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_bitwise.html" tabindex="1">Bitwise</a></span><ul>
@@ -493,6 +519,11 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_fnlsl.html" tabindex="1">FnLSL</a></span></li>
                                     <li><span class="file"><a href="_fnlsr.html" tabindex="1">FnLSR</a></span></li>
                                     <li><span class="file"><a href="_setwith.html" tabindex="1">SetWith</a></span></li>
+                                    <li><span class="file"><a href="_deprecated_bitwise_functions.html" tabindex="1">Deprecated bitwise functions.</a></span><ul>
+                                          <li><span class="file"><a href="_fnequbit.html" tabindex="1">FnEquBit</a></span></li>
+                                          <li><span class="file"><a href="_fnnotbit.html" tabindex="1">FnNotBit</a></span></li>
+                                       </ul>
+                                    </li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_memory.html" tabindex="1">Memory</a></span><ul>
@@ -538,7 +569,7 @@ border: none; background: none; font-weight: none; color: none; }
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_eeram_device.html" tabindex="1">EERAM ( Device )</a></span><ul>
-                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
+                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERAM Devices</a></span></li>
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_sram_device.html" tabindex="1">SRAM  ( Device )</a></span><ul>
@@ -570,7 +601,7 @@ border: none; background: none; font-weight: none; color: none; }
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_interrupts.html" tabindex="1">Interrupts</a></span><ul>
-                                    <li><span class="file"><a href="_interrupts_overview.html" tabindex="1">Interrupts overview</a></span></li>
+                                    <li><span class="file"><a href="_interrupts_overview.html" tabindex="1">Interrupts Overview</a></span></li>
                                     <li><span class="file"><a href="_intoff.html" tabindex="1">IntOff</a></span></li>
                                     <li><span class="file"><a href="_inton.html" tabindex="1">IntOn</a></span></li>
                                     <li><span class="file"><a href="_on_interrupt.html" tabindex="1">On Interrupt</a></span></li>
@@ -598,9 +629,10 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_nextion_controllers.html" tabindex="1">NEXTION Controllers</a></span></li>
                                           <li><span class="file"><a href="_nt7108c_controllers.html" tabindex="1">NT7108C Controllers</a></span></li>
                                           <li><span class="file"><a href="_pcd8544_controllers.html" tabindex="1">PCD8544 Controllers</a></span></li>
-                                          <li><span class="file"><a href="_sdd1289_controllers.html" tabindex="1">SDD1289 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1289_controllers.html" tabindex="1">SSD1289 Controllers</a></span></li>
                                           <li><span class="file"><a href="_sh1106_controllers.html" tabindex="1">SH1106 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1309_controllers.html" tabindex="1">SSD1309 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1351_controllers.html" tabindex="1">SSD1351 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7567_controllers.html" tabindex="1">ST7567 Controllers</a></span></li>
@@ -630,6 +662,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_uc1601_controllers.html" tabindex="1">UC1601 Controllers</a></span></li>
                                        </ul>
                                     </li>
+                                    <li><span class="file"><a href="_initglcd.html" tabindex="1">InitGLCD</a></span></li>
                                     <li><span class="file"><a href="_box.html" tabindex="1">Box</a></span></li>
                                     <li><span class="file"><a href="_circle.html" tabindex="1">Circle</a></span></li>
                                     <li><span class="file"><a href="_ellipse.html" tabindex="1">Ellipse</a></span></li>
@@ -681,6 +714,9 @@ border: none; background: none; font-weight: none; color: none; }
                                                 <li><span class="file"><a href="_lcd_io_12_port_configuration.html" tabindex="1">LCD_IO 12 Port Configuration</a></span></li>
                                              </ul>
                                           </li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_multiple_i2c_adapters_lcd_io_12.html" tabindex="1">Multiple I2C Adapters (LCD_IO 12)</a></span><ul>
                                           <li><span class="file"><a href="_lcd_io_14.html" tabindex="1">LCD_IO 14</a></span><ul>
                                                 <li><span class="file"><a href="_lcd_io_14_port_configuration.html" tabindex="1">LCD_IO 14 Port Configuration</a></span></li>
                                              </ul>
@@ -718,6 +754,10 @@ border: none; background: none; font-weight: none; color: none; }
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_pulse_width_modulation.html" tabindex="1">Pulse width modulation</a></span><ul>
+                                    <li><span class="file"><a href="_pulseout.html" tabindex="1">PulseOut</a></span></li>
+                                    <li><span class="file"><a href="_pulseoutinv.html" tabindex="1">PulseOutInv</a></span></li>
+                                    <li><span class="file"><a href="_pulsein.html" tabindex="1">PulseIn</a></span></li>
+                                    <li><span class="file"><a href="_pulseininv.html" tabindex="1">PulseInInv</a></span></li>
                                     <li><span class="file"><a href="_microchip_pic_pwm_overview.html" tabindex="1">Microchip PIC PWM Overview</a></span><ul>
                                           <li><span class="file"><a href="_pwm_software_mode.html" tabindex="1">PWM Software Mode</a></span><ul>
                                                 <li><span class="file"><a href="_pwmout.html" tabindex="1">PWMOut</a></span></li>
@@ -862,6 +902,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_i2cstart.html" tabindex="1">I2CStart</a></span></li>
                                     <li><span class="file"><a href="_i2cstartoccurred.html" tabindex="1">I2CStartoccurred</a></span></li>
                                     <li><span class="file"><a href="_i2cstop.html" tabindex="1">I2CStop</a></span></li>
+                                    <li><span class="file"><a href="_pcf8574.html" tabindex="1">PCF8574</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_i2c_twi_hardware_module.html" tabindex="1">I2C/TWI Hardware Module</a></span><ul>
@@ -869,6 +910,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
+                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -908,6 +950,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_stoptimer.html" tabindex="1">StopTimer</a></span></li>
                                     <li><span class="file"><a href="_reading_timers.html" tabindex="1">Reading Timers</a></span></li>
                                     <li><span class="file"><a href="_smt_timers.html" tabindex="1">SMT Timers</a></span></li>
+                                    <li><span class="file"><a href="_millis_timer_based_functions.html" tabindex="1">Millis - Timer based functions</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_variables_operations.html" tabindex="1">Variables Operations</a></span><ul>
@@ -915,17 +958,14 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_more_on_setting_variables_and_constants.html" tabindex="1">More on setting Variables and Constants</a></span></li>
                                     <li><span class="file"><a href="_setting_variables.html" tabindex="1">Setting Variables</a></span></li>
                                     <li><span class="file"><a href="_variable_lifecycle.html" tabindex="1">Variable Lifecycle</a></span></li>
-                                    <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span></li>
-                                 </ul>
-                              </li>
-                              <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
-                              <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
-                              <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
-                              <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
-                              <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
-                              <li><span class="file"><a href="_new_example_1_basic_variables_with_initial_values.html" tabindex="1">New Example 1: Basic Variables with Initial Values</a></span></li>
-                              <li><span class="file"><a href="_new_example_2_arrays_and_initialisation.html" tabindex="1">New Example 2: Arrays and Initialisation</a></span></li>
-                              <li><span class="file"><a href="_new_example_3_bit_level_access_using_constants.html" tabindex="1">New Example 3: Bit‑Level Access Using Constants</a></span><ul>
+                                    <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span><ul>
+                                          <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
+                                          <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
+                                          <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
+                                          <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
+                                          <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
+                                       </ul>
+                                    </li>
                                     <li><span class="file"><a href="_alloc.html" tabindex="1">Alloc</a></span></li>
                                     <li><span class="file"><a href="_bcdtodec_gcb.html" tabindex="1">BcdToDec_GCB</a></span></li>
                                     <li><span class="file"><a href="_dectobcd_gcb.html" tabindex="1">DecToBcd_GCB</a></span></li>
@@ -933,6 +973,8 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_set.html" tabindex="1">Set</a></span></li>
                                     <li><span class="file"><a href="_swap4.html" tabindex="1">SWAP4</a></span></li>
                                     <li><span class="file"><a href="_swap.html" tabindex="1">SWAP</a></span></li>
+                                    <li><span class="file"><a href="_peek.html" tabindex="1">Peek</a></span></li>
+                                    <li><span class="file"><a href="_poke.html" tabindex="1">Poke</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_string_manipulation.html" tabindex="1">String Manipulation</a></span><ul>
@@ -981,16 +1023,7 @@ border: none; background: none; font-weight: none; color: none; }
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_miscellaneous_commands.html" tabindex="1">Miscellaneous Commands</a></span><ul>
-                                    <li><span class="file"><a href="_dir.html" tabindex="1">Dir</a></span></li>
                                     <li><span class="file"><a href="_getuserid.html" tabindex="1">GetUserID</a></span></li>
-                                    <li><span class="file"><a href="_pot.html" tabindex="1">Pot</a></span></li>
-                                    <li><span class="file"><a href="_pulseout.html" tabindex="1">PulseOut</a></span></li>
-                                    <li><span class="file"><a href="_pulseoutinv.html" tabindex="1">PulseOutInv</a></span></li>
-                                    <li><span class="file"><a href="_pulsein.html" tabindex="1">PulseIn</a></span></li>
-                                    <li><span class="file"><a href="_pulseininv.html" tabindex="1">PulseInInv</a></span></li>
-                                    <li><span class="file"><a href="_peek.html" tabindex="1">Peek</a></span></li>
-                                    <li><span class="file"><a href="_poke.html" tabindex="1">Poke</a></span></li>
-                                    <li><span class="file"><a href="_weak_pullups.html" tabindex="1">Weak Pullups</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_maths.html" tabindex="1">Maths</a></span><ul>
@@ -1012,7 +1045,9 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_trigonometry_atan.html" tabindex="1">Trigonometry ATAN</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="_peripheral_pin_select.html" tabindex="1">Peripheral Pin Select</a></span><ul>
+                              <li><span class="file"><a href="_port_control.html" tabindex="1">Port control</a></span><ul>
+                                    <li><span class="file"><a href="_dir.html" tabindex="1">Dir</a></span></li>
+                                    <li><span class="file"><a href="_weak_pullups.html" tabindex="1">Weak Pullups</a></span></li>
                                     <li><span class="file"><a href="_peripheral_pin_select_for_microchip_microcontrollers.html" tabindex="1">Peripheral Pin Select for Microchip microcontrollers.</a></span></li>
                                     <li><span class="file"><a href="_unlockpps.html" tabindex="1">UnLockPPS</a></span></li>
                                     <li><span class="file"><a href="_lockpps.html" tabindex="1">LockPPS</a></span></li>
@@ -1040,10 +1075,10 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_other_directives.html" tabindex="1">Other directives</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_compiler_options.html" tabindex="1">Compiler Options</a></span><ul>
+                        <li><span class="file"><a href="_compiler_preprocessor_options.html" tabindex="1">Compiler Preprocessor Options</a></span><ul>
                               <li><span class="file"><a href="__option_explicit.html" tabindex="1">#Option Explicit</a></span></li>
                               <li><span class="file"><a href="__option_noconfig.html" tabindex="1">#Option NoConfig</a></span></li>
-                              <li><span class="file"><a href="__option_startupmethodsdisabled.html" tabindex="1">#Option STARTUPMETHODSDISABLED</a></span></li>
+                              <li><span class="file"><a href="__option_startupmethoddisabled.html" tabindex="1">#Option StartupMethodDisabled</a></span></li>
                               <li><span class="file"><a href="__option_bootloader.html" tabindex="1">#Option Bootloader</a></span></li>
                               <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
                               <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
@@ -1085,42 +1120,34 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
-                              <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
-                              <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_operating_systems_support.html" tabindex="1">Operating Systems Support</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                               <li><span class="file"><a href="_make_asm_make_hex_and_programming_operations_using_the_provided_linux_scripts.html" tabindex="1">Make ASM, Make HEX and Programming Operations using the provided Linux scripts</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
                               <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
                               <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
+                              <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
                               <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">COMPILER SOURCE INSIGHTS</a></span></li>
+                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">Compiler Source Insights</a></span></li>
                               <li><span class="file"><a href="_about_glcd_library_support.html" tabindex="1">ABOUT GLCD Library Support</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span><ul>
+                                    <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">About the Preferences Editor</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
+                              <li><span class="file"><a href="_gcbasic_documentation_toolchain.html" tabindex="1">GCBASIC Documentation Toolchain</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">ABOUT THE PREFERENCES EDITOR</a></span></li>
                         <li><span class="file"><a href="_gcbasic_with_the_avrisp_or_mkii_programmer.html" tabindex="1">GCBASIC with the AVRISP or MKII Programmer</a></span><ul>
                               <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                      </ul>
                   </div>
                </div>

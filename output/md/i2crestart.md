@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     I2CRestart
 ```
 
@@ -32,12 +32,35 @@ a start and restart condition in a single command.
 
 <span class="strong">**Example:**</span>
 
-``` screen
- ...
-    I2CRESTART
- ....
+``` programlisting
+    'Switch from writing to reading within the same transaction, without a full stop/start
+    I2CStart
+    I2CSend 0xA0
+    I2CSend 0x00
+    I2CRestart          ' <<< the I2CRestart instruction
+    I2CSend 0xA1
+    I2CReceive DataByte
+    I2CStop
 ```
 
+<span class="strong">**Key line:**</span> `I2CRestart` — issues a stop
+and a new start in a single command, letting the transaction switch
+direction, such as from writing to reading, without releasing the bus in
+between.
+
 Supported in &lt;I2C.H&gt;
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="i2c_overview" class="link" title="I2C Overview">I2C Overview</a> — category
+    overview
+-   <a href="i2creset" class="link" title="I2CReset">I2CReset</a> — related
+    command in the same category
+-   <a href="i2creceive" class="link" title="I2CReceive">I2CReceive</a> — related
+    command in the same category
+
+</div>
 
 </div>

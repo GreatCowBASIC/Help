@@ -41,7 +41,7 @@ meet your needs.  For addition USART ports use
 `#define USARTn_BAUD_RATE 9600` where `` n` `` is the required port
 number.
 
-``` screen
+``` programlisting
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
     #define USART_TX_BLOCKING
@@ -57,7 +57,7 @@ the routine checks for numbers,letters, and puctuation.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
   'This program receives char string and CR from a PC terminal, sends back the string on the serial port, and turns Led’s on off by command
 
   #chip 18f26k22, 16
@@ -99,7 +99,7 @@ the routine checks for numbers,letters, and puctuation.
 
   Do Forever
 
-    HSerGetString MyString
+    HSerGetString MyString          ' <<< the HSerGetString instruction
     HSerPrint MyString
     HSerSend(13)
      If MyString = "LED1 ON" Then
@@ -118,9 +118,21 @@ the routine checks for numbers,letters, and puctuation.
   Loop
 ```
 
-<span class="strong">**See also**</span>
-<a href="hserreceive" class="link" title="HSerReceive">HSerReceive</a>
-and
-<a href="hsergetnum" class="link" title="HSerGetNum">HSerGetNum</a>
+<span class="strong">**Key line:**</span>
+`HSerGetString MyString` — blocks while reading letters, digits, and
+punctuation from the default USART, until it sees the terminating
+carriage return, then stores the assembled text in `MyString`, which the
+program then compares against expected commands such as `"LED1 ON"`.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hserreceive" class="link" title="HSerReceive">HSerReceive</a> — reading
+    a single raw byte instead of a whole string
+-   <a href="hsergetnum" class="link" title="HSerGetNum">HSerGetNum</a> — reading
+    a whole number instead of a text string
+
+</div>
 
 </div>

@@ -1,7 +1,10 @@
 ==== Select
 
+(((Flow control,Select)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 
 ----
     Select Case _var_
@@ -51,6 +54,7 @@ There are two examples shown below.
 
 *Example 1:*
 
+[source,gcbasic]
 ----
     'Program to read a value from a potentiometer, and display a
     'different word based on the result
@@ -66,13 +70,13 @@ There are two examples shown below.
     #define LCD_DB7 PORTD.7
     #define LCD_RS PORTD.0
     #define LCD_NO_RW
-    #define LCD_Enable PORTD.2
+    #define LCD_ENABLE PORTD.2
 
     DIR PORTA.0 IN
     Do
       Temp = ReadAD(AN0) / 20
       CLS
-      Select Case Temp
+      Select Case Temp          ' <<< the Select Case this page documents
         Case 0
           Print "None!"
         Case 1
@@ -88,6 +92,7 @@ There are two examples shown below.
       Wait 250 ms
     Loop
 ----
+*Key line:* `Select Case Temp` -- only the single `Case` branch matching `Temp` runs, then execution continues after `End Select`.
 
 *Example 2:*
 
@@ -113,7 +118,7 @@ The circuit for the IR receiver and the chip is shown below.
     #define LCD_IO      4             '4-bit mode
     #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
     #define LCD_RS      PortB.2       'pin 8 is Register Select
-    #define LCD_Enable  PortB.3       'pin 9 is Enable
+    #define LCD_ENABLE  PortB.3       'pin 9 is Enable
     #define LCD_DB4     PortB.4       'DB4 on pin 10
     #define LCD_DB5     PortB.5       'DB5 on pin 11
     #define LCD_DB6     PortB.6       'DB6 on pin 12
@@ -253,3 +258,11 @@ The circuit for the IR receiver and the chip is shown below.
 ----
 
 image::selectb1.PNG[graphic,align="center"]
+
+**See Also:**
+
+* <<_if,If>> -- two-way branch alternative for simpler conditions
+* <<_conditions,Conditions>> -- background on how conditions are evaluated
+* <<_readad,ReadAD>> -- reading the potentiometer value tested in Example 1
+* <<_cls,CLS>> -- clearing the LCD before printing a result, as used in Example 1
+* <<_print,Print>> -- displaying the selected branch's text, as used in Example 1

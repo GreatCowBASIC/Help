@@ -1,21 +1,34 @@
 ==== FilledEllipse
 
+(((Graphical LCD,FilledEllipse)))
+
+
 *FilledEllipse:*
+[source,gcbasic]
 ----
     FilledEllipse(XPixelPosition, YPixelPosition, XRadius, YRadius [,Optional LineColour] )
 ----
 *Explanation:*
 
-Draws a FilledEllipse on a GLCD at `XPixelPosition`, `YPixelPosition` with a specific vertex of `XRadius` and `YRadius`.
+Draws a filled ellipse on a GLCD centred at `XPixelPosition`, `YPixelPosition` with the given `XRadius` and `YRadius`.
 
-The constant `GLCD_PROTECTOVERRUN` can be added to prevent FilledEllipses from
-re-drawing at the screen edges. Ensure the `GLCD_Width` and `GLCD_HEIGHT`
+The constant `GLCD_PROTECTOVERRUN` can be added to prevent filled ellipses from
+re-drawing at the screen edges. Ensure the `GLCD_WIDTH` and `GLCD_HEIGHT`
 constants are set correctly when using this additional constant.
 
 *Example:*
+[source,gcbasic]
 ----
     #include <glcd.h>
 
-    FilledEllipse(63, 31, 20, 10)
+    FilledEllipse(63, 31, 20, 10)          ' <<< the FilledEllipse instruction
 
 ----
+*Key line:* `FilledEllipse(63, 31, 20, 10)` -- draws a solid ellipse centred at the middle of a 128x64 display, 40 pixels wide and 20 pixels tall.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_ellipse,Ellipse>> -- the unfilled equivalent of this command
+* <<_filledbox,FilledBox>> -- related command in the same category
+* <<_filledcircle,FilledCircle>> -- related command in the same category

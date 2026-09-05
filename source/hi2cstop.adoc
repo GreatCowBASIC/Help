@@ -1,7 +1,11 @@
 ==== HI2CStop
 
+(((I2C/TWI Hardware Module,HI2CStop)))
+
+
 *Syntax:*
 
+[source,gcbasic]
 ----
     HI2CStop
 ----
@@ -17,14 +21,27 @@ Only available for microcontrollers with the hardware I2C or TWI module.
 
 This command is also available on microcontrollers with a second hardware I2C port.
 
+[source,gcbasic]
 ----
     HI2C2Stop
 ----
 
 *Example:*
+[source,gcbasic]
+----
+    'Writes a single byte to a hardware I2C EEPROM at device address 0xA0, memory address 0x00
+    HI2CStart
+    HI2CSend 0xA0
+    HI2CSend 0x00
+    HI2CSend 0x55
+    HI2CStop          ' <<< the HI2CStop instruction
+----
+*Key line:* `HI2CStop` -- sends the stop condition that ends the hardware I2C transmission.
 
-Please see <<_hi2csend,HI2CSend>> and <<_hi2creceive,HI2CReceive>> for an
-example.
+**See Also:**
 
+* <<_hi2csend,HI2CSend>> / <<_hi2creceive,HI2CReceive>> -- sending and receiving data before ending a transaction
+* <<_hi2cstart,HI2CStart>> / <<_hi2crestart,HI2CRestart>> -- starting the transaction that HI2CStop ends
+* <<_hi2cmode,HI2CMode>> -- selecting master or slave mode
 
 Supported in <HI2C.H>

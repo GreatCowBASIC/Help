@@ -48,11 +48,11 @@ On Microchip PIC baseline and midrange microcontrollers `starttimer`
 This example will measure that time that a switch is depressed (or on)
 and will write the results to the EEPROM.
 
-``` screen
+``` programlisting
     #chip 16F819, 20
-    #define Switch PORTA.0
+    #define SWITCH PORTA.0
 
-    Dir Switch In
+    Dir SWITCH In
     DataCount = 0
 
     'Initilise Timer 1
@@ -62,9 +62,9 @@ and will write the results to the EEPROM.
 
     Do
         ClearTimer 1
-        Wait Until Switch = On
-        StartTimer 1
-        Wait Until Switch = Off
+        Wait Until SWITCH = On
+        StartTimer 1          ' <<< the StartTimer instruction
+        Wait Until SWITCH = Off
         StopTimer 1
 
         'Read the timer
@@ -76,6 +76,29 @@ and will write the results to the EEPROM.
         DataCount += 2
     Loop
 ```
+
+<span class="strong">**Key line:**</span> `StartTimer 1` — starts Timer
+1 counting from wherever `ClearTimer` left it, right when the switch is
+pressed.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="inittimer1" class="link" title="InitTimer1">InitTimer1</a> — configuring
+    the timer’s clock source/prescaler before starting it
+-   <a href="stoptimer" class="link" title="StopTimer">StopTimer</a>
+    /
+    <a href="cleartimer" class="link" title="ClearTimer">ClearTimer</a> — stopping
+    and resetting the timer, as used above
+-   <a href="settimer" class="link" title="Settimer">Settimer</a> — preloading
+    a timer’s count value
+-   <a href="reading_timers" class="link" title="Reading Timers">Reading Timers</a> — reading
+    a running timer’s current count
+-   <a href="epwrite" class="link" title="EPWrite">EPWrite</a> — logging
+    the measured timer value, as used above
+
+</div>
 
 <span class="strong">**Supported in &lt;TIMER.H&gt;**</span>
 

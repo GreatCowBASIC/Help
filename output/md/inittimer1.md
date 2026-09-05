@@ -306,23 +306,23 @@ to value</strong></span></th>
 This example will measure that time that a switch is depressed (or on)
 and will write the results to the EEPROM.
 
-``` screen
+``` programlisting
     #chip 16F819, 20
-    #define Switch PORTA.0
+    #define SWITCH PORTA.0
 
-    Dir Switch In
+    Dir SWITCH In
     DataCount = 0
 
     'Initilise Timer 1
-    InitTimer1 Osc, PS1_8
+    InitTimer1 Osc, PS1_8          ' <<< the InitTimer1 instruction
 
     Dim TimerValue As Word
 
     Do
         ClearTimer 1
-        Wait Until Switch = On
+        Wait Until SWITCH = On
         StartTimer 1
-        Wait Until Switch = Off
+        Wait Until SWITCH = Off
         StopTimer 1
 
         'Read the timer
@@ -335,44 +335,60 @@ and will write the results to the EEPROM.
     Loop
 ```
 
-  
+<span class="strong">**Key line:**</span>
+`InitTimer1 Osc, PS1_8` — selects the internal oscillator as the clock
+source with a 1:8 prescaler; the timer is not counting yet until
+`StartTimer` is called.  
   
 <span class="strong">**Example 2 (Atmel AVR):**</span>
 
 This example will flash the yellow LED on an Arduino Uno (R3) once every
 second.
 
-``` literallayout
-#Chip mega328p, 16  'Using Arduino Uno R3
+``` programlisting
+    #Chip mega328p, 16  'Using Arduino Uno R3
+
+    #define LED PORTB.5
+    Dir LED OUT
+
+    Inittimer1  OSC, PS_256          ' <<< the InitTimer1 instruction (AVR-style prescaler constant)
+    Starttimer 1
+    Settimer 1, 3200  ;Preload Timer
+
+    On Interrupt Timer1Overflow Call Flash_LED
+
+    Do
+        'Wait for interrupt
+    loop
+
+    Sub Flash_LED
+       Settimer 1, 3200   'Preload timer
+       pulseout LED, 100 ms
+    End Sub
 ```
 
-``` literallayout
-#define LED PORTB.5
-Dir LED OUT
-```
+<span class="strong">**Key line:**</span> `Inittimer1  OSC, PS_256` — on
+Atmel AVR, prescaler constants use the `PS_n` form rather than the
+Microchip PIC `PSn_n` form shown in Example 1.
 
-``` literallayout
-Inittimer1  OSC, PS_256
-Starttimer 1
-Settimer 1, 3200  ;Preload Timer
-```
+<span class="strong">**See Also:**</span>
 
-``` literallayout
-On Interrupt Timer1Overflow Call Flash_LED
-```
+<div class="itemizedlist">
 
-``` literallayout
-Do
-    'Wait for interrupt
-loop
-```
+-   <a href="starttimer" class="link" title="StartTimer">StartTimer</a>
+    /
+    <a href="stoptimer" class="link" title="StopTimer">StopTimer</a> — starting
+    and stopping the timer configured here
+-   <a href="settimer" class="link" title="Settimer">Settimer</a> — preloading
+    the timer’s count value, as used above
+-   <a href="on_interrupt" class="link" title="On Interrupt">On Interrupt</a> — attaching
+    an interrupt handler to the timer overflow, as used above
+-   <a href="cleartimer" class="link" title="ClearTimer">ClearTimer</a> — resetting
+    the timer’s count to zero
+-   <a href="pulseout" class="link" title="PulseOut">PulseOut</a> — generating
+    the LED pulse in Example 2
 
-``` literallayout
-Sub Flash_LED
-   Settimer 1, 3200   'Preload timer
-   pulseout LED, 100 ms
-End Sub
-```
+</div>
 
 <span class="strong">**Supported in &lt;TIMER.H&gt;**</span>
 

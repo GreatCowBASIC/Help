@@ -1,7 +1,10 @@
 ==== Difference
 
+(((Maths,Difference)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     `Difference ( word_variable1 , word_variable2 )` or
     `Difference ( byte_variable1 , byte_variable2 )`
@@ -12,10 +15,17 @@ Available on all microcontrollers.
 
 *Explanation:*
 
-A function that returns the difference between of two numbers. This only supports byte or word variables.
+A function that returns the difference between two numbers. This only supports byte or word variables.
 
 *Example:*
+[source,gcbasic]
 ----
-    Difference( 8 ,4 ) ' Will return 4
+    Difference( 8 ,4 ) ' Will return 4          ' <<< the Difference instruction
     Difference( 0xff01 , 0xfffa ) ' Will return 0xf9 or 249d
 ----
+*Key line:* `Difference( 8 ,4 )` -- returns the unsigned distance between the two values (`4`), regardless of which argument is larger.
+
+**See Also:**
+
+* <<_abs,Abs>> -- related command in the same category
+* <<_average,Average>> -- related command in the same category

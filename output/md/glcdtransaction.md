@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     GLCD_Open_PageTransaction
       ....
         additional number of other GLCD methods
@@ -42,7 +42,7 @@ buffer and then close out the update to the display.
 
 To use GLCDTransaction use the followng methods.
 
-``` screen
+``` programlisting
     GLCD_Open_PageTransaction
       ....
       additional number of other GLCD methods
@@ -87,7 +87,7 @@ parameters**</span>
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     GLCD_Open_PageTransaction ( low_page, high_page )
 ```
 
@@ -99,5 +99,18 @@ specific pages.
 
 This can be used when only updating a potion of the screen to improve
 performance.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview
+-   <a href="glcdtimedelay" class="link" title="GLCDTimeDelay">GLCDTimeDelay</a> — related
+    command in the same category
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — related
+    command in the same category
+
+</div>
 
 </div>

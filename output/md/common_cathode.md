@@ -16,14 +16,14 @@
 
 This is a Common Cathode 7 Segment display example.
 
-No additional configuration is required when using Common Cathnode.
+No additional configuration is required when using Common Cathode.
 
 <div class="informaltable">
 
-| <span class="strong">**Constant Name**</span> | <span class="strong">**Controls**</span>             | <span class="strong">**Comment**</span>                              |
-|:----------------------------------------------|:-----------------------------------------------------|:---------------------------------------------------------------------|
-| `7Seg_CommonAnode`                            | Inverts controls for Common Anode displays           | Required for Common Cathode displays                                 |
-| `7Seg_HighSide`                               | Support PFET or PNP high side driving of the display | Inverts Common Cathode addressing pin logic for multiplexed displays |
+| <span class="strong">**Constant Name**</span> | <span class="strong">**Controls**</span>             | <span class="strong">**Comment**</span>                                             |
+|:----------------------------------------------|:-----------------------------------------------------|:------------------------------------------------------------------------------------|
+| `7Seg_CommonAnode`                            | Inverts controls for Common Anode displays           | Required for Common Anode displays — omit this constant for Common Cathode displays |
+| `7Seg_HighSide`                               | Support PFET or PNP high side driving of the display | Inverts Common Cathode addressing pin logic for multiplexed displays                |
 
 </div>
 
@@ -31,7 +31,7 @@ This is a Common Cathode 7 Segment display example.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Chip model
     #chip 16f1783,8
 
@@ -73,7 +73,7 @@ This is a Common Cathode 7 Segment display example.
             end if
             Num1 = number
             Repeat 10
-              DisplayValue 1, Num1,1  'Optional third parameter turns on the dp dot on that digit
+              DisplayValue 1, Num1,1  'Optional third parameter turns on the dp dot on that digit          ' <<< the DisplayValue instruction
               wait 5 ms
               DisplayValue 2, Num2
               wait 5 ms
@@ -85,8 +85,25 @@ This is a Common Cathode 7 Segment display example.
     Loop
 ```
 
-<span class="strong">**Also, see**</span>
-<a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Degment Display Overview</a>,<a href="displaychar" class="link" title="DisplayChar">DisplayChar</a>,
-<a href="displayvalue" class="link" title="DisplayValue">DisplayValue</a>
+<span class="strong">**Key line:**</span>
+`DisplayValue 1, Num1,1` — writes `Num1` to digit 1 of the display, with
+the optional third parameter of 1 also lighting that digit’s decimal
+point; no `7Seg_CommonAnode` define is needed here because this is a
+Common Cathode display.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Segment Display Overview</a> — category
+    overview
+-   <a href="displaychar" class="link" title="DisplayChar">DisplayChar</a> — displaying
+    a single character instead of a full multi-digit value
+-   <a href="displayvalue" class="link" title="DisplayValue">DisplayValue</a> — full
+    reference for the command used above
+-   <a href="common_anode" class="link" title="Common Anode">Common Anode</a> — the
+    counterpart wiring, which requires the `7Seg_CommonAnode` constant
+
+</div>
 
 </div>

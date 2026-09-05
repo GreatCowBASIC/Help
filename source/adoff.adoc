@@ -1,9 +1,21 @@
 ==== ADOff
 
-*This command is obsolete*. There should be no need to call it. GCBASIC
-will automatically disable the A/D converter and set all pins to digital
-mode when starting the program, and after every use of the ReadAD
-function.
+(((Analog/Digital conversion,ADOff)))
 
-It is recommended that this command be removed from all programs.
 
+*This command is obsolete.* There should be no need to call it in a modern GCBASIC program.
+
+GCBASIC automatically disables the A/D converter and returns every analog-capable pin to digital mode:
+
+* when the program starts, and
+* immediately after every call to `ReadAD`, `ReadAD10`, or `ReadAD12`.
+
+Because of this automatic behaviour, calling `ADOff` yourself has no effect on current versions of the compiler. It is kept only so that older programs that still call it continue to compile.
+
+It is recommended that this command be removed from all new and existing programs.
+
+**See Also:**
+
+* <<_analog_digital_conversion_overview,Analog/Digital Conversion Overview>> -- category overview
+* <<_readad,ReadAD>> -- the single-channel read that triggers the automatic pin cleanup this page describes
+* <<_adformat_deprecated_do_not_use,ADFormat (Deprecated - Do not use)>> -- another obsolete command from the same era

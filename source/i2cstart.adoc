@@ -1,6 +1,10 @@
 ==== I2CStart
 
+(((I2C Software,I2CStart)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     I2CStart
 ----
@@ -19,8 +23,23 @@ placed at the start of every I2C transmission.
 If interrupt handling is enabled, this command will disable it.
 
 *Example:*
+[source,gcbasic]
+----
+    'Writes a single byte to an I2C EEPROM at device address 0xA0, memory address 0x00
+    I2CStart          ' <<< the I2CStart instruction
+    I2CSend 0xA0
+    I2CSend 0x00
+    I2CSend 0x55
+    I2CStop
+----
+*Key line:* `I2CStart` -- sends the start condition that every I2C transmission must begin with, and disables interrupt handling for the duration of the transaction if interrupts were enabled.
 
-Please see <<_i2csend,I2CSend>> and <<_i2creceive,I2CReceive>>
-for an example.
+**See Also:**
+
+* <<_i2c_overview,I2C Overview>> -- category overview
+* <<_i2cstop,I2CStop>> -- the matching command that ends the transmission
+* <<_i2csend,I2CSend>> -- sending bytes between I2CStart and I2CStop
+* <<_i2creceive,I2CReceive>> -- receiving bytes between I2CStart and I2CStop
+* <<_i2crestart,I2CRestart>> -- combining a stop and a new start in one command
 
 Supported in <I2C.H>

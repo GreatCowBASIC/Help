@@ -1,5 +1,8 @@
 ==== Peripheral Pin Select for Microchip microcontrollers.
 
+(((Peripheral Pin Select,Peripheral Pin Select for Microchip microcontrollers.)))
+
+
 *Introduction:*
 
 Peripheral Pin Select (PPS) enables the digital peripheral I/O pins to be changed to support mapping of external pins to different pins.
@@ -10,16 +13,29 @@ PPS allows you to choose from a number of output and input pins to connect to th
 
 This can be extremely useful for routing circuit boards.
 
-There are cases where a change of I/O position can make a circuit board easier to route Sometimes mistakes are found too late to fix so having the option to change a pinout mapping in software rather than creating a new printed circuit board can be very helpful.
+There are cases where a change of I/O position can make a circuit board easier to route. Sometimes mistakes are found too late to fix, so having the option to change a pinout mapping in software rather than creating a new printed circuit board can be very helpful.
 
-You *must* use the command `UnLockPPS` to enable setting of the PPS if the PPS have been previously locked, and, you can, optionally,  use `LockPPS` to prevent unintentional change to PPS settings.
+You *must* use the command `UnLockPPS` to enable setting of the PPS if the PPS have been previously locked, and, you can, optionally, use `LockPPS` to prevent unintentional change to PPS settings afterward.
 
 GCBASIC includes these two macros to ensure this process is handled correctly.
 
 Also, see http://microchip.wikidot.com/8bit:pps for more information.
 
+*Why the priority value of 85 is important:*
+
+`InitPPS` is registered with `<<__startup,#startup>>` using an explicit priority, for example `#startup InitPPS, 85`. This priority number is not arbitrary.
+
+GCBASIC's own system initialisation, `InitSys`, always runs first, at priority 80. Low-level hardware communication libraries -- the hardware USART used by `<<_hserprint,HSerPrint>>` and friends, and the hardware I2C module -- register their own startup initialisation at priority 90. Any subroutine that does not specify a priority defaults to 100.
+
+Startup subroutines run in order from the smallest priority number to the largest, so a priority of 85 places `InitPPS` after `InitSys` (80) but before any hardware communication library's own startup code (90).
+
+This ordering matters because the hardware USART and hardware I2C modules are physically tied to whichever pins the PPS registers currently point at. If a project uses the serial library and its startup routine were to run before the PPS pins are remapped, the USART would still be wired to its default pins rather than the ones the program actually uses -- so `HSerPrint` output would go to the wrong physical pin, or nowhere at all, with no error raised anywhere. Keeping `InitPPS` at priority 85 guarantees the correct pin mapping is already in place before the serial or I2C library's own startup code runs.
+
+If you copy this pattern into your own code, always keep the priority between 80 and 90 (85 is the conventional value), and never remove it -- without an explicit priority, `InitPPS` would default to 100 and run *after* the communication libraries have already initialised on the wrong pins.
+
 *Example:*
 
+[source,gcbasic]
 ----
     'Please check configuration before using on an alternative microcontroller.
 
@@ -29,7 +45,7 @@ Also, see http://microchip.wikidot.com/8bit:pps for more information.
     'Set the PPS of the I2C and the RS232 ports.
     #startup InitPPS, 85
     Sub InitPPS
-      LOCKPPS
+      UNLOCKPPS          ' <<< the UnLockPPS instruction
         RC0PPS = 0x0010       'RC0->EUSART:TX;
         RXPPS  = 0x0011       'RC1->EUSART:RX;
 
@@ -37,8 +53,14 @@ Also, see http://microchip.wikidot.com/8bit:pps for more information.
         SSP1DATPPS = 0x13     'RC4->MSSP1:SDA1;
         RC3PPS = 0x15         'RC3->MSSP1:SCL1;
         RC4PPS = 0x14         'RC4->MSSP1:SDA1;
-      UnLockPPS
+      LOCKPPS
     End Sub
 ----
+*Key line:* `#startup InitPPS, 85` -- the priority value of 85 is what guarantees this routine runs after `InitSys` (priority 80) but before the hardware serial and I2C libraries initialise (priority 90), so the USART and MSSP pins are already remapped by the time those libraries start using them.
 
-*For more help, see: <<_unlockpps,UnlockPPS>> and <<_lockpps,LockPPS>>.*
+**See Also:**
+
+* <<__startup,#startup>> -- the directive that schedules InitPPS, and the source of the priority ordering explained above
+* <<_unlockpps,UnLockPPS>> -- unlocking the PPS registers before making changes
+* <<_lockpps,LockPPS>> -- re-locking the PPS registers after making changes
+* <<_hserprint,HSerPrint>> -- a hardware serial command whose own startup routine depends on PPS having already run

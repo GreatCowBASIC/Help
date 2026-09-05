@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax**</span>:
 
-``` screen
+``` programlisting
     #include <maths.h>
 
     integer_variable = ATan (_x_vector_,_y_vector_)
@@ -55,5 +55,16 @@ version, for all 4 quadrants and will generate the angle in integer
 degrees from 0-360.   Any values of X and Y are usable including
 negative values provided they are between -1456 and 1456 so the 16bit
 multiply does not overflow.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="trigonometry_sine_cosine_and_tangent" class="link" title="Trigonometry Sine, Cosine and Tangent">Trigonometry Sine, Cosine and Tangent</a> — related
+    command in the same category
+-   <a href="abs" class="link" title="Abs">Abs</a> — related
+    command in the same category
+
+</div>
 
 </div>

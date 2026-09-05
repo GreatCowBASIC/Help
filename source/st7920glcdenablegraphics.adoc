@@ -1,14 +1,26 @@
 ===== ST7920GLCDEnableGraphics
 
+(((Graphical LCD,st7920glcdenablegraphics)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     ST7920GLCDEnableGraphics
 ----
 *Explanation:*
 
-This command sets the GCLD display controller to text mode.
+This command sets the GCLD display controller to graphics mode.
 
 *Example usage:*
+[source,gcbasic]
 ----
-    ST7920GLCDEnableGraphics 'Set to text mode
+    ST7920GLCDEnableGraphics 'Set to graphics mode          ' <<< the ST7920GLCDEnableGraphics instruction
 ----
+*Key line:* `ST7920GLCDEnableGraphics` -- switches the ST7920 controller into graphics mode, required before using pixel-level commands such as `ST7920LineHs` or `ST7920GLCDClearGraphics`.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920glcddisablegraphics,ST7920GLCDDisableGraphics>> -- switching back to text mode
+* <<_st7920glcdcleargraphics,ST7920GLCDClearGraphics>> -- clearing the display once in graphics mode

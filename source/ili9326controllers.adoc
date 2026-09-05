@@ -1,5 +1,8 @@
 ==== ILI9326 Controllers
 
+(((Graphical LCD,ILI9326 Controllers)))
+
+
 This section covers GLCD devices that use the ILI9326 graphics controller.  The ILI9326 is a TFT LCD Single Chip Driver with 400RGBx320 Resolution and 262K colors.
 
 GCBASIC supports 65K-color mode operations.
@@ -9,6 +12,7 @@ The GCBASIC constants shown below control the configuration of the ILI9326 contr
 
 To use the ILI9326 driver simply include the following in your user code.  This will initialise the driver.
 
+[source,gcbasic]
 ----
     #include <glcd.h>
     #DEFINE GLCD_TYPE GLCD_TYPE_ILI9326
@@ -161,6 +165,7 @@ The GCBASIC commands supported for this GLCD are shown in the table below.&#160;
 |===
 
 
+[source,gcbasic]
 ----
     ILI9326_BLACK   'hexidecimal value 0x0000
     ILI9326_RED     'hexidecimal value 0xF800
@@ -191,6 +196,7 @@ This example shows how to drive a ILI9326 based Graphic LCD module with the buil
 
 
 *Example #1*
+[source,gcbasic]
 ----
     ;Chip Settings
     #chip 16F1789,32
@@ -205,16 +211,18 @@ This example shows how to drive a ILI9326 based Graphic LCD module with the buil
     #define GLCD_RS       porta.1         ' Command/Data line
     #define GLCD_CS       porta.0         ' Chip select line
     #define GLCD_RST      porta.5         ' Reset line
-    #define GLCD_DataPort portD
+    #define GLCD_DataPort portD          ' <<< selects the ILI9326 driver and the 8-bit data port it uses
 
     GLCDPrint(0, 0, "Test of the ILI9326 Device")
     end
 ----
+*Key line:* `#define GLCD_DataPort portD` -- the ILI9326 driver moves its 8 data bits over a single contiguous port rather than 8 individually-defined pins, so this one line wires up the whole data bus.
 {empty} +
 
 *Example #2*
 This example shows how to drive a ILI3941 with the OLED fonts.  Note the use of the `GLCDfntDefaultSize` to select the size of the OLED font in use.
 {empty} +
+[source,gcbasic]
 ----
 
 
@@ -248,7 +256,14 @@ This example shows how to drive a ILI3941 with the OLED fonts.  Note the use of 
 {empty} +
 
 
-*For more help, see*
-<<_glcdcls,GLCDCLS>>, <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview and the full supported-display comparison table
+* <<_glcdcls,GLCDCLS>>
+* <<_glcddrawchar,GLCDDrawChar>>
+* <<_glcdprint,GLCDPrint>>
+* <<_glcdreadbyte,GLCDReadByte>>
+* <<_glcdwritebyte,GLCDWriteByte>>
+* <<_pset,Pset>>
 
 Supported in <GLCD.H>

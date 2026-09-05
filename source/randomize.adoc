@@ -1,7 +1,10 @@
 ==== Randomize
 
+(((Random Numbers,Randomize)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     Randomize
     Randomize _seed_
@@ -37,12 +40,13 @@ will normally provide a different value each time the program runs.
 
 
 *Example:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip tiny2313, 1
 
     'Use randomize, with the value on PORTD as the seed
-    Randomize PORTD
+    Randomize PORTD          ' <<< the Randomize instruction
 
     'Generate random numbers, and output on PORTB
     Do
@@ -50,3 +54,9 @@ will normally provide a different value each time the program runs.
         Wait 1 s
     Loop
 ----
+*Key line:* `Randomize PORTD` -- seeds the generator with whatever value happens to be present on `PORTD` at that moment, so the sequence `Random` produces afterward differs from run to run.
+
+**See Also:**
+
+* <<_overview,Overview>> -- category overview
+* <<_random,Random>> -- related command in the same category

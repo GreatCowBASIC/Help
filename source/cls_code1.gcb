@@ -8,7 +8,7 @@
         #define LCD_DATA_PORT PORTC
         #define LCD_RS PORTD.0
         #define LCD_RW PORTD.1
-        #define LCD_Enable PORTD.2
+        #define LCD_ENABLE PORTD.2
         #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
 
 
@@ -16,6 +16,6 @@
         Do
             Print "Hello World"
             Wait 1 sec
-            CLS
+            CLS          ' <<< the CLS call this page documents
             Wait 1 sec
         Loop

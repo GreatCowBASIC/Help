@@ -1,10 +1,29 @@
 ==== Pset
 
+(((Graphical LCD,Pset)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     PSet(XPosition, YPosition, GLCDState)
 ----
 *Explanation:*
 
-Sets or Clears a Pixel at the specified XPosition, YPosition.  Use
-GLCDState set to 1 to set the pixel and a 0 clears the pixel.
+Sets or clears a single pixel at the specified `XPosition`, `YPosition`. Set
+`GLCDState` to 1 to set the pixel (draw it in the foreground colour), or to 0 to clear it (return it to the background colour).
+
+*Example:*
+[source,gcbasic]
+----
+    #include <glcd.h>
+
+    PSet(64, 32, 1)          ' <<< the PSet instruction
+----
+*Key line:* `PSet(64, 32, 1)` -- sets the single pixel at the centre of a 128x64 display to the foreground colour.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_line,Line>> -- drawing a straight run of pixels rather than one at a time
+* <<_fonts_and_characters,Fonts and Characters>> -- related command in the same category

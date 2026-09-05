@@ -1,19 +1,36 @@
 ==== Ltrim
 
+(((String Manipulation,Ltrim)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __stringvar__ = LTRIM(__stringvar__)
 ----
 
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The `Ltrim` function will trim the 7-bit ASCII space character (value 32) from the LEFT hand side of a string.
+The `Ltrim` function trims the 7-bit ASCII space character (value 32) from the left-hand side of a string.
 
-Use `Ltrim` on text that you have received from another source that may have irregular spacing at the left hand end of the string.
+Use `Ltrim` on text you have received from another source that may have irregular spacing at the left-hand end of the string.
 
-*See Also* <<_trim,Trim>>, <<_rtrim,Rtrim>>
+*Example:*
+[source,gcbasic]
+----
+    Dim TestData As String
+    TestData = "   Hello"
+
+    TestData = LTRIM(TestData)          ' <<< the LTRIM instruction
+    ' TestData now holds "Hello", with the leading spaces removed
+----
+*Key line:* `LTRIM(TestData)` -- removes only the leading spaces from `TestData`, leaving any spaces at the end untouched.
+
+**See Also:**
+
+* <<_trim,Trim>> -- trimming both ends at once
+* <<_rtrim,Rtrim>> -- trimming only the right-hand side

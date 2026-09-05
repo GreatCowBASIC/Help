@@ -1,8 +1,11 @@
 ==== InitTimer7
+
+(((Timers,InitTimer7)))
+
 // Reveiwed EvanV for Billl  011317 adding new OSC sources
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
 InitTimer7 _source_, _prescaler_
 ----
@@ -102,3 +105,9 @@ clock input.
 
 
 *Supported in <TIMER.H>*
+
+**See Also:**
+
+* <<_timer_overview,Timer Overview>> -- category overview
+* <<_inittimer0,InitTimer0>> -- related command in the same category
+* <<_inittimer1,InitTimer1>> -- related command in the same category

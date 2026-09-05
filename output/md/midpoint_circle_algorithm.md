@@ -20,11 +20,11 @@ GCBASIC can draw circles using the midpoint circle algorithm. The
 midpoint circle algorithm determines the points needed for drawing a
 circle. The algorithm is a variant of
 <a href="https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm" class="link">Bresenham’s line algorithm</a>,
-and is thus sometimes known as Bresenham’s circle algorithm, although
-not actually invented by
+and is thus sometimes known as Bresenham’s circle algorithm, although it
+was not actually invented by
 <a href="https://en.wikipedia.org/wiki/Jack_Elton_Bresenham" class="link">Jack E. Bresenham</a>.
 
-The example program below show the midpoint circle algorithm within
+The example program below shows the midpoint circle algorithm within
 GCBASIC.
 
 <span class="strong">**Example Output on GLCD Device:**</span>
@@ -39,7 +39,7 @@ GCBASIC.
 
 </div>
 
-``` screen
+``` programlisting
     'Midpoint Circle algorithm
     'Chip model
     #chip 16F886, 8             ;PIC16F88 running at 8 MHz
@@ -83,7 +83,7 @@ GCBASIC.
 
         GLCDDrawString 30,0,"ChipMhz@"
         GLCDDrawString 78,0, str(ChipMhz)
-        Circle(10,10,10,0)            ;upper left
+        Circle(10,10,10,0)            ;upper left          ' <<< drawing a circle via the midpoint circle algorithm
         Circle(117,10,10,0)           ;upper right
         Circle(63,31,10,0)            ;center
         Circle(63,31,20,0)            ;center
@@ -93,5 +93,22 @@ GCBASIC.
 
     loop
 ```
+
+<span class="strong">**Key line:**</span> `Circle(10,10,10,0)` — draws a
+circle of radius 10 centred at pixel (10,10) with colour/mode 0;
+internally GCBASIC computes the outline using the midpoint circle
+algorithm described above rather than plotting each point
+trigonometrically, which is much cheaper on an 8-bit microcontroller.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="circle" class="link" title="Circle">Circle</a> — the
+    command reference for drawing circles
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview
+
+</div>
 
 </div>

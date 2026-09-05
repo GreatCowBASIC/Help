@@ -1,8 +1,11 @@
 //14122016 ERV reverted Setwith
 ==== Bitwise Operations Overview
 
+(((Bitwise,Bitwise Operations Overview)))
+
+
 *About Bitwise Operations*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 GCBASIC (as with most other microcontroller programming languages) supports bitwise operations.
 
 Bitwise operations are performed on one or more bit patterns at the level of their individual bits.

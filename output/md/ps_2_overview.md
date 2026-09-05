@@ -48,4 +48,15 @@ typically 4.7k for a 5v system.
 
 </div>
 
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="inkey" class="link" title="InKey">InKey</a> — related
+    command in the same category
+-   <a href="ps2setkbleds" class="link" title="PS2SetKBLeds">PS2SetKBLeds</a> — related
+    command in the same category
+
+</div>
+
 </div>

@@ -24,23 +24,23 @@ targets to avoid RAM access overhead where possible.
 
 The mapping is determined by the GCBASIC source code function
 `GetRegisterLoc(RegName As String)`, which returns the register number
-(0–31) or -1 if not found (falling back to RAM).
+(0-31) or -1 if not found (falling back to RAM).
 
 Key points:
 
 <div class="itemizedlist">
 
 -   On chips with <span class="strong">**only 16 GPRs**</span>
-    (`ChipGPR = 16`, e.g., ATtiny4/5/9/10 — physically mapped as
-    R16–R31), system variables are placed in R16–R31.
+    (`ChipGPR = 16`, e.g., ATtiny4/5/9/10 - physically mapped as
+    R16-R31), system variables are placed in R16-R31.
 -   On chips with <span class="strong">**full 32 GPRs**</span>
     (`ChipGPR != 16`, most AVRs), system variables use a mix of low
-    (R0–R5) and high (R21–R31) registers.
--   <span class="strong">**R6–R20**</span> are typically unused for
+    (R0-R5) and high (R21-R31) registers.
+-   <span class="strong">**R6-R20**</span> are typically unused for
     system variables in full mode (available for user code).
 -   <span class="strong">**X, Y, Z**</span> pointers (R26:R27, R28:R29,
     R30:R31) are <span class="strong">**not**</span> allocated as system
-    variables — reserved for addressing.
+    variables - reserved for addressing.
 -   If DestLoc = -1 (e.g., SysSignByte on 16-GPR chips), the variable
     uses SRAM (RAM) instead of GPR.
 
@@ -48,7 +48,7 @@ Key points:
 
 <span class="strong">**GPR16 Allocation (ChipGPR = 16)**</span>
 
-Allocation for low-GPR chips (only R16–R31 available).
+Allocation for low-GPR chips (only R16-R31 available).
 
 <div class="informaltable">
 
@@ -76,7 +76,7 @@ Allocation for low-GPR chips (only R16–R31 available).
 <span class="strong">**Full Register Set Allocation (ChipGPR !=
 16)**</span>
 
-Allocation for full 32-GPR chips (R0–R31 available).
+Allocation for full 32-GPR chips (R0-R31 available).
 
 <div class="informaltable">
 
@@ -88,7 +88,7 @@ Allocation for full 32-GPR chips (R0–R31 available).
 | R3          | SysCalcTempX\_E, SysLongTempX\_E, SysDivMultX\_H                             | R19                          | Extra byte                                     |
 | R4          | SysSignByte                                                                  | RAM                          | Sign byte for signed operations                |
 | R5          | SysDivLoop, SysBitTest                                                       | R20                          | Loop / bit temp                                |
-| R6–R20      | (unused for system vars)                                                     | \-                           | Available for user variables or scratch        |
+| R6-R20      | (unused for system vars)                                                     | \-                           | Available for user variables or scratch        |
 | R21         | SysValueCopy                                                                 | R21                          | Value copy register (used in stack init, etc.) |
 | R22         | SysCalcTempA, SysByteTempA, SysWordTempA, SysIntegerTempA, SysLongTempA      | R22                          | Primary calculation temp A (low)               |
 | R23         | SysCalcTempA\_H, SysWordTempA\_H, SysIntegerTempA\_H, SysLongTempA\_H        | R23                          | High byte                                      |
@@ -269,28 +269,40 @@ Variables sorted alphabetically, with their assigned register.
 
 <div class="itemizedlist">
 
--   <span class="strong">**SysValueCopy (R21)**</span> — Frequently used
+-   <span class="strong">**SysValueCopy (R21)**</span> - Frequently used
     for temporary value transfers, especially during stack pointer setup
     (`out SPH/SPL`) or register copies.
--   <span class="strong">**Delay registers**</span> — `DelayTemp`,
+-   <span class="strong">**Delay registers**</span> - `DelayTemp`,
     `DelayTemp2`, and wait temps (`SysWaitTempUS`, `SysWaitTempMS`,
     etc.) are reused across delay routines.
--   <span class="strong">**Division/Multiplication**</span> — Remainder
+-   <span class="strong">**Division/Multiplication**</span> - Remainder
     and intermediate results use `SysDivMultX`, `SysDivMultA`, etc.
--   <span class="strong">**String handling**</span> — `SysStringA`,
+-   <span class="strong">**String handling**</span> - `SysStringA`,
     `SysStringB`, `SysStringLength` for string operations.
--   <span class="strong">**No overlap with X/Y/Z**</span> — GCBASIC
+-   <span class="strong">**No overlap with X/Y/Z**</span> - GCBASIC
     preserves these for `ld`, `st`, `lpm`, `elpm`, `ijmp`, etc.
--   <span class="strong">**UserCodeOnlyEnabled mode**</span> — May
+-   <span class="strong">**UserCodeOnlyEnabled mode**</span> - May
     reduce usage of some temps if init code is skipped, but mappings
     remain the same.
--   <span class="strong">**ChipGPR detection**</span> — Determined from
+-   <span class="strong">**ChipGPR detection**</span> - Determined from
     chip definition files; affects only low-GPR chips (e.g.,
     ATtiny4/5/9/10 series).
 
 </div>
 
 This mapping is derived directly from the `GetRegisterLoc` function in
-GCBASIC source code.
+the GCBASIC compiler source code.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="advanced_variabletypes" class="link" title="Advanced VariableTypes">Advanced VariableTypes</a> — the
+    byte/word/long aliasing conventions (`_H`, `_U`, `_E` suffixes)
+    referenced throughout these tables
+-   <a href="data_types" class="link" title="Data Types">Data Types</a> — an
+    introduction to GCBASIC’s Byte, Word, Integer, and Long types
+
+</div>
 
 </div>

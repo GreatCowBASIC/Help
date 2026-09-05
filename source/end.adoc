@@ -1,7 +1,10 @@
 ==== End
 
+(((Flow control,End)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 
 ----
     End
@@ -14,14 +17,21 @@ Available on all microcontrollers.
 *Explanation:*
 
 When the `End` command is used, the program will immediately stop running.
-There are very few cases where this command is needed - generally, the
+There are very few cases where this command is needed -- generally, the
 program should be an endless loop.
 
 *Example:*
 
+[source,gcbasic]
 ----
     'This program will turn on the red light, but not the green light
     Set RED On
-    End
+    End          ' <<< the End instruction
     Set GREEN On
 ----
+*Key line:* `End` -- halts the program immediately after `RED` is switched on, so the following `Set GREEN On` line is never reached.
+
+**See Also:**
+
+* <<_do,Do>> -- the endless-loop pattern most GCBASIC programs use instead of ending
+* <<_exit,Exit>> -- exiting the current routine without stopping the whole program

@@ -19,7 +19,7 @@ microcontroller timers.
 
 GCBASIC supports the following timers.
 
-``` screen
+``` programlisting
     Timer 0
     Timer 1
     Timer 2
@@ -127,7 +127,7 @@ If the microcontroller DOES NOT have a T2CLKCON register then ALL Timer
 2/4/6/8 timers on that chip are the first type, and are configured
 using:
 
-``` screen
+``` programlisting
     _InitTimer2 (PreScale, PostScale)_   'Timer2 is example for timer 2/4/6 or 8
 ```
 
@@ -135,7 +135,7 @@ If the microcontroller DOES have a T2CLKCON register then ALL Timer
 2/4/6/8 timers on that chip are the second type and are configured
 using:
 
-``` screen
+``` programlisting
     _InitTimer2 (Source, PreScale, PostScale)_   'Timer2 is example for timer 2/4/6 or 8
 ```
 
@@ -168,5 +168,16 @@ conditions.
   
   
   
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="cleartimer" class="link" title="ClearTimer">ClearTimer</a> — related
+    command in the same category
+-   <a href="inittimer0" class="link" title="InitTimer0">InitTimer0</a> — related
+    command in the same category
+
+</div>
 
 </div>

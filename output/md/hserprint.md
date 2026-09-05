@@ -43,7 +43,7 @@ meet your needs.  For addition USART ports use
 `#define USARTn_BAUD_RATE 9600` where `` n` `` is the required port
 number.
 
-``` screen
+``` programlisting
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
     #define USART_TX_BLOCKING
@@ -67,7 +67,7 @@ sending to a terminal, these commands should follow every `HSerPrint` :
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
   'This program will display any values received over the serial
   'connection. If "pot" is received, the value of the analog sensor
   'will be sent.
@@ -81,7 +81,7 @@ sending to a terminal, these commands should follow every `HSerPrint` :
   #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
   #define LCD_RS PORTC.7
   #define LCD_RW PORTC.6
-  #define LCD_Enable PORTC.5
+  #define LCD_ENABLE PORTC.5
   #define LCD_DB4 PORTC.4
   #define LCD_DB5 PORTC.3
   #define LCD_DB6 PORTC.2
@@ -147,8 +147,8 @@ sending to a terminal, these commands should follow every `HSerPrint` :
 
   'Takes a sensor reading and sends it to terminal
   Sub SendSensorReading
-    HSerPrint "Sensor Reading: "
-    HSerPrint ReadAD10(POT_AN)
+    HSerPrint "Sensor Reading: "        ' <<< HSerPrint sending a string
+    HSerPrint ReadAD10(POT_AN)          ' <<< HSerPrint sending a numeric (word) value
     HSerSend 13
     HSerSend 10
   End Sub
@@ -166,10 +166,27 @@ sending to a terminal, these commands should follow every `HSerPrint` :
   End Function
 ```
 
-<span class="strong">**For more help, see also**</span>
-<a href="hserprintbytecrlf" class="link" title="HserPrintByteCRLF">HserPrintByteCRLF</a>,
-<a href="hserprintstringcrlf" class="link" title="HSerPrintStringCRLF">HserPrintStringCRLF</a>
-<span class="strong">**and**</span>
-<a href="hserprintcrlf" class="link" title="HserPrintCRLF">HserPrintCRLF</a>
+<span class="strong">**Key lines:**</span> the two marked `<<<` lines
+above show `HSerPrint` sending a string and then a numeric value — both
+accepted directly, with no manual conversion required.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hserprintbytecrlf" class="link" title="HserPrintByteCRLF">HserPrintByteCRLF</a> — sends
+    a byte then a CRLF terminator
+-   <a href="hserprintstringcrlf" class="link" title="HSerPrintStringCRLF">HserPrintStringCRLF</a> — sends
+    a string then a CRLF terminator
+-   <a href="hserprintcrlf" class="link" title="HserPrintCRLF">HserPrintCRLF</a> — sends
+    just a CRLF terminator
+-   <a href="hserreceive" class="link" title="HSerReceive">HSerReceive</a> — the
+    receiving counterpart used earlier in this example
+-   <a href="hsersend" class="link" title="HSerSend">HSerSend</a> — sending
+    a single raw byte, as used to send the trailing CR/LF above
+-   <a href="hsergetstring" class="link" title="HSerGetString">HSerGetString</a> — reading
+    a whole string from the serial connection in one call
+
+</div>
 
 </div>

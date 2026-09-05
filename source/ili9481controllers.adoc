@@ -1,5 +1,8 @@
 ==== ILI9481 Controllers
 
+(((Graphical LCD,ILI9481 Controllers)))
+
+
 This section covers GLCD devices that use the ILI9481 graphics controller.
 
 ILI9481 is a 262k-color single-chip SoC driver for a-TFT liquid crystal display with resolution of 320&#160;RGB&#160;x&#160;480&#160;
@@ -21,6 +24,7 @@ To use the ILI9481 driver simply include the following in your user code.  This 
 {empty} +
 {empty} +
 **8-bit mode**
+[source,gcbasic]
 ----
     'Pin mappings for Data Bus Interface (DBI)
     'this GLCD driver supports 8 bit and 16 bit parallel data lines
@@ -49,6 +53,7 @@ To use the ILI9481 driver simply include the following in your user code.  This 
 {empty} +
 
 **16-bit mode**
+[source,gcbasic]
 ----
     '16 bit DBI
     #include <glcd.h>
@@ -211,6 +216,7 @@ The GCBASIC commands supported for this GLCD are shown in the table below.&#160;
 
 {empty} +
 {empty} +
+[source,gcbasic]
 ----
     ILI9481_BLACK   'hexidecimal value 0x0000
     ILI9481_RED     'hexidecimal value 0xF800
@@ -241,6 +247,7 @@ example uses a Mega2560 board.
 {empty} +
 {empty} +
 *Examples:*
+[source,gcbasic]
 ----
     '8 bit DBI
     #include <glcd.h>
@@ -262,15 +269,17 @@ example uses a Mega2560 board.
     #define GLCD_DB4       DIGITAL_4
     #define GLCD_DB5       DIGITAL_5
     #define GLCD_DB6       DIGITAL_6
-    #define GLCD_DB7       DIGITAL_7
+    #define GLCD_DB7       DIGITAL_7          ' <<< the last of the 8 data-bus pins for the 8-bit DBI mode
 
     GLCDPrint(0, 0, "Test of the ILI9481 Device")
     end
 ----
+*Key line:* `#define GLCD_DB7       DIGITAL_7` -- completes the 8 data pins (`GLCD_DB0`..`GLCD_DB7`) that the 8-bit DBI mode of this driver requires, alongside the 5 control pins.
 {empty} +
 {empty} +
 {empty} +
 {empty} +
+[source,gcbasic]
 ----
     '16 bit DBI
     #chip mega2560, 16
@@ -333,8 +342,14 @@ example uses a Mega2560 board.
 {empty} +
 {empty} +
 
-*For more help, see*
-<<_glcdcls,GLCDCLS>>,  <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
-{empty} +
-{empty} +
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview and the full supported-display comparison table
+* <<_glcdcls,GLCDCLS>>
+* <<_glcddrawchar,GLCDDrawChar>>
+* <<_glcdprint,GLCDPrint>>
+* <<_glcdreadbyte,GLCDReadByte>>
+* <<_glcdwritebyte,GLCDWriteByte>>
+* <<_pset,Pset>>
+
 Supported in <GLCD.H>

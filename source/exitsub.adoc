@@ -1,7 +1,10 @@
 ==== Exit
 
+(((Flow control,Exit)))
+
+
 *Syntax options:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 
 ----
     Exit Sub | Exit Function | Exit Do | Exit For | Exit Repeat
@@ -13,14 +16,13 @@ Available on all microcontrollers.
 
 *Explanation:*
 
-This command will make the program exit the routine it is currently in,
-as it would if it came to the end of the routine.
+This command makes the program exit the routine or loop it is currently in, as if it had reached the end of that routine or loop.
 
-Applies to Subroutines, Functions, For-Next loops, Do-Loop loops and
-Repeat loops.
+It applies to subroutines, functions, `For`-`Next` loops, `Do`-`Loop` loops, and `Repeat` loops -- use the form matching what you want to exit (`Exit Sub`, `Exit Function`, `Exit Do`, `Exit For`, or `Exit Repeat`).
 
 *Example:*
 
+[source,gcbasic]
 ----
     #chip tiny13, 1
 
@@ -40,12 +42,18 @@ Repeat loops.
       If SENSOR = 0 Then
         Set BUZZER Off
         Set LIGHT Off
-        Exit Sub
+        Exit Sub          ' <<< the Exit instruction
       End If
       Set BUZZER On
       Set LIGHT On
     End Sub
 ----
+*Key line:* `Exit Sub` -- leaves `Burglar` immediately once the sensor reads clear, so the two lines that would otherwise switch the buzzer and light on are skipped.
 
-*For more help, see <<_do,Do >>, <<_for,For>>, <<_subroutines,Sub >>,
-<<_functions,Functions >>* and *<<_repeat,Repeat>>*
+**See Also:**
+
+* <<_do,Do>> -- the loop form exited with `Exit Do`
+* <<_for,For>> -- the loop form exited with `Exit For`
+* <<_repeat,Repeat>> -- the loop form exited with `Exit Repeat`
+* <<_subroutines,Sub>> -- the routine form exited with `Exit Sub`, as used above
+* <<_functions,Functions>> -- the routine form exited with `Exit Function`

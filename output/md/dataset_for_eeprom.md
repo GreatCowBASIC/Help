@@ -46,8 +46,8 @@ EEPROM datasets are defined as follows:
 1.  Byte values,
 2.  EEPROM addresses and EEPROM datasets CANNOT overlap,
 3.  EEPROM addresses must not overlap TABLE data,
-4.  TABLE data has precedence from address 0x00 until the the end of
-    TABLE all data,
+4.  TABLE data has precedence from address 0x00 until the end of TABLE
+    all data,
 5.  Strings must be expressed as ASCII byte value(s),
 6.  Multiple elements on a single line separated by commas,
 7.  Constants and calculations within the single line dataset entries
@@ -56,7 +56,7 @@ EEPROM datasets are defined as follows:
 9.  Access is via EPRread(), not supported by READTABLE().
 10. 18F devices must use even address for EEPROM location, and, 18F will
     pad (with 0x00) datasets to even number length.  This is MPASM
-    constraint and therefore the compiler and assembler will isssue
+    constraint and therefore the compiler and assembler will issue
     specific error messages for odd EEPROM locations.  
       
 
@@ -72,7 +72,7 @@ shown below, has the data on different line in within the set.
 Simple example: This creates an EEPROM dataset at the first EEPROM
 location, then, the values of 12, 24, …​ 72 are the consecutive values.
 
-``` screen
+``` programlisting
         EEPROM EEDataSet
             12
             24
@@ -92,7 +92,7 @@ Multiple elements on a single line separated by commas.  The example
 dataset, shown below, has the data separated by `,` and on different
 line in within the dataset.
 
-``` screen
+``` programlisting
         EEPROM EEDataSource  0x10
             12,  24, 36
             48,  60, 72
@@ -103,10 +103,10 @@ line in within the dataset.
 transformation*</span>
 
 Constants and calculations within the single line.   The example
-dataset, shown below, uses a defined constant to multiple the data with
+dataset, shown below, uses a defined constant to multiply the data with
 the dataset.
 
-``` screen
+``` programlisting
         #define calculation_constant 2
 
         EEPROM EEDataSource  0x20
@@ -134,7 +134,7 @@ therefore, on the same line.
 
 Example:
 
-``` screen
+``` programlisting
     EEPROM Test_1
      "ABCDEFGHIJ"
     End EEPROM
@@ -168,7 +168,7 @@ This example creates several EEPROM datasets.  The example also create a
 lookup table.  The EEPROM dataset are addressed with the additional
 parameter to ensure there is no EEPROM dataset overlap.  
 
-``` screen
+``` programlisting
         #chip 16F886
         #option explicit
 
@@ -191,7 +191,7 @@ parameter to ensure there is no EEPROM dataset overlap.  
 
                     Addresses and datasets CANNOT overlap.
                     Addresses must not overlap TABLE data.
-                    TABLE data has precendence from address 0x00 until the the end of TABLE data
+                    TABLE data has precendence from address 0x00 until the end of TABLE data
         */
 
 

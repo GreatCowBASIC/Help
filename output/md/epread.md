@@ -27,21 +27,19 @@ EEPROM data memory.
 
 <span class="strong">**Explanation:**</span>
 
-`EPRead` is used to read information from the EEPROM data storage that
-many microcontroller chips are equipped with. `location` represents the
-location to read data from, and varies from one chip to another. `store`
-is the variable in which to store the data after it has been read from
-EEPROM.
+`EPRead` reads a byte from the EEPROM data storage built into many
+microcontroller chips. `location` is the address to read from, and its
+valid range depends on the chip in use. `store` is the variable that
+receives the value once it has been read.
 
-Note Do not exceed the location ( also known as the EEProm address ) of
-the physical EEProm. If the EEProm size is 256 ensure location is in the
-range of 0 to 255; If the EEProm size is 512 ensure location is in the
-range of 0 to 511 and use a Word variable as the location parameter.
-Example:
+<span class="strong">**Note:**</span> Do not read past the end of the
+chip’s physical EEPROM. If the EEPROM is 256 bytes, `location` must stay
+within 0 to 255; if it is 512 bytes, `location` must stay within 0 to
+511 and should be a Word variable rather than a Byte.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Program to turn a light on and off
     'Will remember the last status
 
@@ -53,7 +51,7 @@ Example:
     Dir Light Out
 
     'Load saved status
-    EPRead 0, LightStatus
+    EPRead 0, LightStatus          ' <<< the EPRead instruction
 
     If LightStatus = 0 Then
       Set Light Off
@@ -78,7 +76,20 @@ Example:
     Loop
 ```
 
-<span class="strong">**For more help, see
-<a href="epwrite" class="link" title="EPWrite">EPWrite</a>**</span>
+<span class="strong">**Key line:**</span>
+`EPRead 0, LightStatus` — reads the byte stored at EEPROM address 0 back
+into `LightStatus` when the chip powers up, so the light remembers
+whatever state it was last left in.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="epwrite" class="link" title="EPWrite">EPWrite</a> — writing
+    the value this page reads back
+-   <a href="dir" class="link" title="Dir">Dir</a> — setting the
+    button and light pin directions, as used above
+
+</div>
 
 </div>

@@ -1,7 +1,10 @@
 ==== Gosub
 
+(((Flow control,Gosub)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 
 ----
     Gosub _label_
@@ -15,19 +18,20 @@ Available on all microcontrollers.
 
 The `Gosub` command is used to jump to a label as a subroutine, in a
 similar way to `Goto`. The difference is that `Return` can then be used to
-return to the line of code after the `Goto`.
+return to the line of code after the `Gosub`.
 
-*NOTE*
+*Note:*
 
 `Gosub` should NOT be used if it can be avoided. It is not
 required to call a subroutine that has been defined using
-<<_subroutines,Sub>>, just write the name of the subroutine.
+<<_subroutines,Sub>> -- just write the name of the subroutine.
 
 *Example:*
 
+[source,gcbasic]
 ----
     'This program will flash an LED on portb bit 0 and play a beep on
-    'porta bit 4. until the microcontroller is turned off.
+    'porta bit 4, until the microcontroller is turned off.
 
     #chip 16F628A, 4 'Change this to suit your circuit
 
@@ -40,7 +44,7 @@ required to call a subroutine that has been defined using
     	PulseOut LIGHT, 1 s
     	Wait 1 s
     	'Beep
-    	Gosub PlayBeep
+    	Gosub PlayBeep          ' <<< the Gosub instruction
     Loop
 
     PlayBeep:
@@ -48,5 +52,10 @@ required to call a subroutine that has been defined using
     Tone 100, 10
     Return
 ----
+*Key line:* `Gosub PlayBeep` -- jumps to the `PlayBeep:` label and, once `Return` is reached there, resumes execution on the line immediately after this `Gosub` call.
 
-*For more help, see <<_goto,Goto>>* and *<<_labels,Labels>>*
+**See Also:**
+
+* <<_goto,Goto>> -- an unconditional jump with no way back
+* <<_labels,Labels>> -- defining the target a `Gosub` jumps to
+* <<_subroutines,Sub>> -- the preferred, name-based alternative to `Gosub`

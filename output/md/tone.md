@@ -36,18 +36,27 @@ highly precise frequency.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
 'Sample program to produce a constant A note (440 Hz)
 'on PORTB bit 1.
 #chip 16F877A, 20
 #define SoundOut PORTB.1
 
 Do
-    Tone 440, 1000
+    Tone 440, 1000          ' <<< the Tone instruction
 Loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="sound_overview" class="link" title="Sound Overview">Sound Overview</a>
+<span class="strong">**Key line:**</span> `Tone 440, 1000` — plays a 440
+Hz tone (concert pitch A) for 1000 x 10 ms, or 10 seconds, then the loop
+repeats it.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="sound_overview" class="link" title="Sound Overview">Sound Overview</a>
+
+</div>
 
 </div>

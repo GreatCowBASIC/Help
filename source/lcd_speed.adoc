@@ -1,5 +1,8 @@
 ===== LCD_SPEED
 
+(((Liquid Crystal Display,lcd_speed)))
+
+
 *Using LCD_SPEED:*
 
 The communication performance of a LCD display can be controlled via a `#DEFINE`.
@@ -29,6 +32,7 @@ To change the performance (communications speed) of the LCD use `#DEFINE LCD_SPE
 
 *Example*
 
+[source,gcbasic]
 ----
   #DEFINE LCD_SPEED  FAST
 ----
@@ -40,7 +44,7 @@ WHEN LCD_NO_RW is not defined,  OPTIMAL disables fixed delays and allows the LCD
 
 In this mode, The the busy flag is polled before each byte is sent to the HD44780 controller. &#160;&#160;This not only optimizes speed, but also assures that data is not sent to the diplay controler until it is ready to receive the data.
 
-With most displays this equates to a speed of about 30,000 characters per second.  For comparision about 10 times faster than I2C using a PC8574 Expander (See LCD_IO 10 or  See LCD_IO 112)
+With most displays this equates to a speed of about 30,000 characters per second.  For comparision about 10 times faster than I2C using a PC8574 Expander (See <<_lcd_io_10,LCD_IO 10>> or <<_lcd_io_12,LCD_IO 12>>)
 
 `OPTIMAL` is only supported in LCD_IO 4,8 and only when LCD_NO_RW is not defined  (RW Mode) 
 
@@ -55,18 +59,25 @@ In order to enable busy flag checking, and, therefore to use the `GET` command t
 
 
 Example:
+[source,gcbasic]
 ----
   #DEFINE LCD_IO 4
-  #DEFINE LCD_SPEED OPTIMAL
+  #DEFINE LCD_SPEED OPTIMAL          ' <<< the constant this page documents
   #DEFINE LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
   #DEFINE LCD_DB7 PORTB.5
   #DEFINE LCD_DB6 PORTB.4
-  #DEFINE LCD_DB7 PORTB.3
-  #DEFINE LCD_DB6 PORTB.2  
+  #DEFINE LCD_DB5 PORTB.3
+  #DEFINE LCD_DB4 PORTB.2
 
   #DEFINE LCD_RW PORTA.3    'Must be defined for RW Mode
   #DEFINE LCD_RS PORTA.2
   #DEFINE LCD_ENABLE PORTA.1
 ----
+*Key line:* `#DEFINE LCD_SPEED OPTIMAL` -- enables busy-flag polling instead of fixed delays, so each byte is sent as soon as the HD44780 controller reports it is ready; this requires `LCD_RW` to be wired and defined (RW Mode), and only works in 4-bit (`LCD_DB4` through `LCD_DB7`) or 8-bit connection modes.
 
+**See Also:**
 
+* <<_lcd_io_4,LCD_IO 4>> -- 4-bit connection mode, required for OPTIMAL speed
+* <<_lcd_io_8,LCD_IO 8>> -- 8-bit connection mode, required for OPTIMAL speed
+* <<_lcd_io_10,LCD_IO 10>> -- I2C connection mode, compared for speed above
+* <<_get,Get>> -- reading a byte from the LCD, requires busy-flag checking to be available

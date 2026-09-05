@@ -1,7 +1,10 @@
 ==== SerPrint
 
+(((Serial Communications,SerPrint)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   SerPrint _channel, value_
 ----
@@ -18,13 +21,14 @@ be a string, integer, long, word or byte.
 
 `SerPrint` will not send any new line characters. If the chip is sending
 to a terminal, these commands should follow `SerPrint`.
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     SerSend channel, 13
     SerSend channel, 10
 ----
 
 *Example:*
+[source,gcbasic]
 ----
     'This program will display any values received over the serial
     'connection. If "pot" is received, the value of the analog sensor
@@ -78,7 +82,7 @@ to a terminal, these commands should follow `SerPrint`.
       'Show test messages
       Print "Serial Tester"
       Wait 1 s
-      SerPrint 1, "GCBASIC RS232 Test"
+      SerPrint 1, "GCBASIC RS232 Test"          ' <<< the SerPrint instruction
       SerSend 1, 13
       SerSend 1, 10
       Wait 1 s
@@ -135,4 +139,10 @@ to a terminal, these commands should follow `SerPrint`.
       End If
     End Function
 ----
-*For more help, see* <<_rs232_software_overview,RS232 Software Overview>>
+*Key line:* `SerPrint 1, "GCBASIC RS232 Test"` -- writes the string out on channel 1 with no terminating newline, so the two `SerSend` calls that follow it explicitly append a carriage return and line feed for the terminal.
+
+**See Also:**
+
+* <<_rs232_software_overview,RS232 Software Overview>> -- category overview
+* <<_initser,InitSer>> -- configures the channel before SerPrint can be used
+* <<_sersend,SerSend>> -- sending the raw CR/LF bytes SerPrint omits

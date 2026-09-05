@@ -1,9 +1,13 @@
 ==== Timer Overview
 
+(((Timers,Timer Overview)))
+
+
 GCBASIC supports methods to set, clear, read, start and stop the microcontroller timers.
 
 GCBASIC supports the following timers.
 
+[source,gcbasic]
 ----
     Timer 0
     Timer 1
@@ -78,10 +82,12 @@ The second type is much more flexible and can have many different clock sources 
 The timer type for a Microchip PIC microcontroller can be determined by checking for the existence of a T2CLKCON register, either in the Datasheet or in the GCBASIC "dat file" for the specific microcontroller.
 
 If the microcontroller DOES NOT have a T2CLKCON register then ALL Timer 2/4/6/8 timers on that chip are the first type, and are configured using:
+[source,gcbasic]
 ----
     _InitTimer2 (PreScale, PostScale)_   'Timer2 is example for timer 2/4/6 or 8
 ----
 If the microcontroller DOES have a T2CLKCON register then ALL Timer 2/4/6/8 timers on that chip are the second type and are configured using:
+[source,gcbasic]
 ----
     _InitTimer2 (Source, PreScale, PostScale)_   'Timer2 is example for timer 2/4/6 or 8
 ----
@@ -98,3 +104,8 @@ The timer interrupt flag (TMRxIF) is set based upon the number of match conditio
 {empty} +
 {empty} +
 {empty} +
+
+**See Also:**
+
+* <<_cleartimer,ClearTimer>> -- related command in the same category
+* <<_inittimer0,InitTimer0>> -- related command in the same category

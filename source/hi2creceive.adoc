@@ -1,5 +1,8 @@
 ==== HI2CReceive
 
+(((I2C/TWI Hardware Module,HI2CReceive)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -26,6 +29,7 @@ reading.
 
 This command is also available on microcontrollers with a second hardware I2C port.
 
+[source,gcbasic]
 ----
     HI2C2Receive  _data_
 
@@ -34,6 +38,7 @@ This command is also available on microcontrollers with a second hardware I2C po
 ----
 
 *Example 1:*
+[source,gcbasic]
 ----
     'This program reads an I2C register and sets an LED if it is over 100.
 
@@ -69,7 +74,7 @@ This command is also available on microcontrollers with a second hardware I2C po
       HI2CSend 1
 
       'Read value
-      HI2CReceive ValueIn
+      HI2CReceive ValueIn          ' <<< the HI2CReceive instruction
 
       'Send stop
       HI2CStop
@@ -83,12 +88,22 @@ This command is also available on microcontrollers with a second hardware I2C po
 
     Loop
 ----
+*Key line:* `HI2CReceive ValueIn` -- reads one byte from the I2C bus into `ValueIn`, automatically ACKing since no `ACK`/`NACK` argument was given.
+
+**See Also:**
+
+* <<_hi2csend,HI2CSend>> -- sending the register request read back here
+* <<_hi2cstart,HI2CStart>> / <<_hi2cstop,HI2CStop>> -- framing the transaction used above
+* <<_hi2cmode,HI2CMode>> -- selecting master mode, as used above
+* <<_on_interrupt,On Interrupt>> -- handling I2C activity from an interrupt, as used in Example 2
+* <<_dir,Dir>> -- setting the I2C pin directions before use, as used above
 
 *Example 2:*
 
 See the <<_i2c_overview,I2C Overview>> for the Master mode
 device to control this Slave mode device.
 
+[source,gcbasic]
 ----
     ' I2CHardwareReceive_Slave.gcb - using a 16F88.
     ' This program receives commands from a GCB Master. This Slave has three LEDs attached.
@@ -112,14 +127,14 @@ device to control this Slave mode device.
 
 
     'Serial settings
-    #define SerInPort PORTB.6
-    #define SerOutPort PORTB.7
+    #define SERINPORT PORTB.6
+    #define SEROUTPORT PORTB.7
 
-    #define SendAHigh Set SerOutPort OFF
-    #define SendALow Set SerOutPort On
+    #define SENDAHIGH Set SEROUTPORT OFF
+    #define SENDALOW Set SEROUTPORT On
     'Set pin directions
-    Dir SerOutPort Out
-    Dir SerInPort In
+    Dir SEROUTPORT Out
+    Dir SERINPORT In
 
     'Set up serial connection
     InitSer 1, r2400, 1 + WaitForStart, 8, 1, none, INVERT
@@ -148,8 +163,8 @@ device to control this Slave mode device.
     set LED1 off
     set LED2 off
 
-    #define SerialControlPort portb.3
-    dir SerialControlPort in
+    #define SERIALCONTROLPORT portb.3
+    dir SERIALCONTROLPORT in
 
     'Set up interrupt to process I2C
 
@@ -192,7 +207,7 @@ device to control this Slave mode device.
        UpdateLEDS                  ; Update date LEDs
 
                      ; update serial terminal
-       if show = 1  and SerialControlPort = 1 then
+       if show = 1  and SERIALCONTROLPORT = 1 then
 
         SerPrint 1, "0x"+hex(addr)
         SerSend 1,9

@@ -13,10 +13,10 @@
       <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_syntax.html" title="Syntax" />
       <link rel="prev" href="_subroutines.html" title="Subroutines" />
-      <link rel="next" href="_command_references.html" title="Command References" />
+      <link rel="next" href="_commands_quick_reference.html" title="Commands Quick Reference" />
       <meta name="Section-title" content="Converters" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-61620";
+            var treeCookieId = "treeview-89895";
             var language = "en";
             var w = new Object();
             //Localization
@@ -168,7 +168,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="_syntax.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_command_references.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_commands_quick_reference.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -184,53 +184,56 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
+            <p><a id="d0e10764" class="indexterm"></a>
+               <a id="d0e10770" class="indexterm"></a></p>
             <p><span class="strong"><strong>About Converters</strong></span></p>
             <p>Converters allow GCBASIC to read files that have been created by other programs.
-               A converter can convert these files into GCBASIC libraries or any GCBASIC instruction or a GCBASIC dataset.
+               A converter can convert these files into GCBASIC libraries, or any GCBASIC instruction, or a GCBASIC dataset.
             </p>
             <p>A typical use case is when you have a data source file from another computer system and you want to consume the data within
                your GCBASIC program.
-               The data source file could be database, graphic, reference data or music file.
+               The data source file could be a database, graphic, reference data, or music file.
                The converter will read these source files and convert them into a format that can be processed by GCBASIC.
-               The conversion process is completed by external application which can be written by the developer or you can use
+               The conversion process is completed by an external application, which can be written by the developer, or you can use
                one of the converters provided with the GCBASIC release.
             </p>
-            <p>The GCBASIC release includes the converter for BMP files and standard Text files.</p>
-            <p>With an appropriate Converter installed, and an associated <code class="literal">#include</code> to these non-GCBASIC files,
-               GCBASIC will detect that the file extension and hand the processing to the external converting program.
-               When the external converting program had complete, GCBASIC will then continue with the converted source file as a GCBASIC
+            <p>The GCBASIC release includes converters for BMP files and standard text files.</p>
+            <p>With an appropriate converter installed, and an associated <code class="literal">#include</code> to these non-GCBASIC files,
+               GCBASIC will detect the file extension and hand the processing to the external converting program.
+               When the external converting program has completed, GCBASIC will then continue with the converted source file as a GCBASIC
                source file.
             </p>
-            <p>An example of a converter is to read an existing picture file, convert the picture file to a GCB table and then refer to the
-               picture
-               file table to display the picture file on a GLCD.
+            <p>An example of a converter is one that reads an existing picture file, converts the picture file to a GCB table, and then refers
+               to the picture
+               file’s table to display the picture on a GLCD.
             </p>
             <p>Conversion is achieved by including a command within the source program to transform external data.
-               The command used is the instruction <code class="literal">#include</code> followed by the data source.  An example:
-            </p><pre class="screen">    'Convert ManLooking.BMP to a GCBASIC usable format.
+               The command used is the <code class="literal">#include</code> instruction, followed by the data source. An example:
+            </p><pre class="programlisting">    'Convert ManLooking.BMP to a GCBASIC usable format.
 
-    #include &lt;..\converters\ManLooking.BMP&gt;</pre><p>The inclusion of the #include line within a GCBASIC  program will enable the commencement of the following process:</p>
+    #include &lt;..\converters\ManLooking.BMP&gt;</pre><p>The inclusion of the #include line within a GCBASIC program will trigger the following process:</p>
             <div class="orderedlist">
                <ol class="orderedlist" type="1">
-                  <li class="listitem">GCBASIC  will examine the <code class="literal">..\converters</code> folder structure for a configuration file that will handle the file extension specified in the include statement.
+                  <li class="listitem">GCBASIC will examine the <code class="literal">..\converters</code> folder structure for a configuration file that will handle the file extension specified in the include statement.
                   </li>
-                  <li class="listitem">GCBASIC  will examine the configuration file(s) <code class="literal">*.INI</code> for command line instructions.
+                  <li class="listitem">GCBASIC will examine the configuration file(s) <code class="literal">*.INI</code> for command line instructions.
                   </li>
-                  <li class="listitem">GCBASIC  will at stage examine the folder structure for the source file and the target transformed file.
-                     If the source file is older than the transformed file the next step will not be executed, goto step 6.
+                  <li class="listitem">GCBASIC will then examine the folder structure for the source file and the target transformed file.
+                     If the source file is older than the transformed file, the next step will not be executed; go to step 6.
                   </li>
                   <li class="listitem">
-                     <p class="simpara">GCBASIC  will execute the command as specified within the configuration file to transform the source file to the target file.</p>
-                     <p class="simpara">The Conversion program must create the output file extension as specified in the configuration file.  If the include statement
-                        as an extension
-                        of <code class="literal">.TXT</code> and the configuration files states the input file extension as <code class="literal">.TXT</code> and the output as <code class="literal">.GCB</code> the converted file must have the extension of <code class="literal">.GCB</code>.
-                     </p><pre class="literallayout">#include &lt;..\converters\ManLooking.BMP&gt;</pre><p class="simpara">Init file is input file as BMP and output as GCB, then the file expected is <code class="literal">..\converters\ManLooking.GCB</code></p>
+                     <p class="simpara">GCBASIC will execute the command as specified within the configuration file to transform the source file to the target file.</p>
+                     <p class="simpara">The conversion program must create the output file with the extension specified in the configuration file. If the include
+                        statement has an extension
+                        of <code class="literal">.TXT</code>, and the configuration file states the input file extension as <code class="literal">.TXT</code> and the output as <code class="literal">.GCB</code>, the converted file must have the extension <code class="literal">.GCB</code>.
+                     </p><pre class="literallayout">#include &lt;..\converters\ManLooking.BMP&gt;</pre><p class="simpara">If the ini file specifies the input as BMP and the output as GCB, then the expected file is <code class="literal">..\converters\ManLooking.GCB</code>.
+                     </p>
                   </li>
-                  <li class="listitem">GCBASIC  will attempt to include the transformed target file (with the file extension as specified in the configuration file)
-                     within the GCBASIC  program.
+                  <li class="listitem">GCBASIC will attempt to include the transformed target file (with the file extension as specified in the configuration file)
+                     within the GCBASIC program.
                   </li>
-                  <li class="listitem">GCBASIC  will resume normal processing of the GCBASIC program including the transformed target file, therefore, with normal
-                     compiling and errors handling.
+                  <li class="listitem">GCBASIC will resume normal processing of the GCBASIC program, including the transformed target file, and therefore normal
+                     compiling and error handling.
                   </li>
                </ol>
             </div>
@@ -241,36 +244,36 @@ border: none; background: none; font-weight: none; color: none; }
                <ol class="orderedlist" type="1">
                   <li class="listitem">
                      <p class="simpara">The configuration file</p>
-                     <p class="simpara">The configuration file MUST have the extension of <code class="literal">.INI</code>.  No leading spaces are permitted in the configuration file.
+                     <p class="simpara">The configuration file MUST have the extension <code class="literal">.INI</code>. No leading spaces are permitted in the configuration file.
                         Specification of the configuration file.
-                        The file has four items: <code class="literal">desc</code>, <code class="literal">in</code>, <code class="literal">out</code> and <code class="literal">exe</code>. Where:
+                        The file has these items: <code class="literal">desc</code>, <code class="literal">in</code>, <code class="literal">out</code>, and <code class="literal">exe</code>. Where:
                      </p><pre class="literallayout">desc         : Is the description shown in GCGB
 in           : Is the source file extension to be transformed
 out          : Is the target transformed file extension.
 exe          : Is the executable to be run for this specific configuration file.
-params       : Optional, is the required parameter to be passed from the compiler.  Example:  params = %filename% %chipmodel%
-deletetarget : Optional, will always recreate the target transformed file. The default is to retain the target transformed file unless source has changed. Options are Y or N</pre><p class="simpara">You can have multiple configuration files within the <code class="literal">..\converters folder structure</code>.
+params       : Optional, the required parameters to be passed from the compiler. Example:  params = %filename% %chipmodel%
+deletetarget : Optional, will always recreate the target transformed file. The default is to retain the target transformed file unless the source has changed. Options are Y or N</pre><p class="simpara">You can have multiple configuration files within the <code class="literal">..\converters</code> folder structure.
                      </p>
-                     <p class="simpara">GCBASIC will examine all configuration file to match the extension as specified in the <code class="literal">#include</code> command.
+                     <p class="simpara">GCBASIC will examine all configuration files to match the extension specified in the <code class="literal">#include</code> command.
                      </p>
-                     <p class="simpara"><span class="strong"><strong>Example 1 :</strong></span></p>
+                     <p class="simpara"><span class="strong"><strong>Example 1:</strong></span></p>
                      <div class="informalexample">
-                        <p>BMP (Black and White) conversion configuration file is called <code class="literal">BMP2GCBasic.ini</code>.  The source extension is <code class="literal">.bmp</code>,
+                        <p>The BMP (Black and White) conversion configuration file is called <code class="literal">BMP2GCBasic.ini</code>. The source extension is <code class="literal">.bmp</code>,
                            the transformed file extension is <code class="literal">.GCB</code>, and the executable is called <code class="literal">BMP2GCBASIC.exe</code>.
                         </p><pre class="literallayout">desc = BMP file (*.bmp)
 in = bmp
 out = GCB
-exe = BMP2GCBASIC .exe</pre><p>An example :</p><pre class="literallayout">#include &lt;..\converters\ManLooking.BMP&gt;</pre><p>Will be converted by the <code class="literal">BMP2GCBASIC .EXE</code> to <code class="literal">..\converters\ManLooking.GCB</code></p>
+exe = BMP2GCBASIC .exe</pre><p>An example:</p><pre class="literallayout">#include &lt;..\converters\ManLooking.BMP&gt;</pre><p>Will be converted by <code class="literal">BMP2GCBASIC.EXE</code> to <code class="literal">..\converters\ManLooking.GCB</code></p>
                      </div>
-                     <p class="simpara"><span class="strong"><strong>Example 2 :</strong></span></p>
+                     <p class="simpara"><span class="strong"><strong>Example 2:</strong></span></p>
                      <div class="informalexample">
-                        <p>Data file conversion configuration file is called <code class="literal">TXT2GCB.ini</code>.  The source extension is <code class="literal">.TXT</code>, the transformed
-                           file extension is <code class="literal">.GCB</code>, and the command line called <code class="literal">AWKRUN.BAT</code> .
+                        <p>The data file conversion configuration file is called <code class="literal">TXT2GCB.ini</code>. The source extension is <code class="literal">.TXT</code>, the transformed
+                           file extension is <code class="literal">.GCB</code>, and the command line called is <code class="literal">AWKRUN.BAT</code>.
                         </p><pre class="literallayout">desc = Infrared Patterns (*.txt)
 in = txt
 out = GCB
-exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt;..\converters\InfraRedPatterns.TXT&gt;</pre><p>Will be converted by the <code class="literal">AWKRUN.BAT</code> to <code class="literal">..\converters\ InfraRedPatterns.GCB</code></p>
-                        <p>The example would require a supporting batch file and a script process to complete the transformation.</p>
+exe = awkrun.bat</pre><p>An example:</p><pre class="literallayout">#include &lt;..\converters\InfraRedPatterns.TXT&gt;</pre><p>Will be converted by <code class="literal">AWKRUN.BAT</code> to <code class="literal">..\converters\InfraRedPatterns.GCB</code></p>
+                        <p>This example would require a supporting batch file and a script process to complete the transformation.</p>
                      </div>
                   </li>
                   <li class="listitem">
@@ -280,34 +283,35 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                         file.
                      </p>
                      <p class="simpara">The conversion executable will be passed one parameter - the source file name.
-                        Using example #1 the conversion executable would be passed   <code class="literal">..\converters\ManLooking.BMP</code></p>
-                     <p class="simpara">The conversion executable MUST create a GCBASIC compatible source file.  Any valid commands/instruction are permitted.</p>
+                        Using example 1, the conversion executable would be passed <code class="literal">..\converters\ManLooking.BMP</code>.
+                     </p>
+                     <p class="simpara">The conversion executable MUST create a GCBASIC-compatible source file. Any valid commands/instructions are permitted.</p>
                   </li>
                   <li class="listitem">
                      <p class="simpara">Installation</p>
-                     <p class="simpara">The <code class="literal">INI</code> file, the source file and the conversion executable MUST be located in the <code class="literal">..\converters folder</code>.
+                     <p class="simpara">The <code class="literal">INI</code> file, the source file, and the conversion executable MUST be located in the <code class="literal">..\converters</code> folder.
                         The converters folder is relative to the <code class="literal">GCBASIC.EXE</code> compiler folder.
                      </p>
                   </li>
                </ol>
             </div>
-            <p><a id="XX0"></a><span class="strong"><strong>Example 3 : Converter Program</strong></span></p>
+            <p><a id="XX0"></a><span class="strong"><strong>Example 3: Converter Program</strong></span></p>
             <div class="informalexample">
-               <p>This program converts the <code class="literal">InfraRedPatterns.TXT</code> into <code class="literal">InfraRedPatterns.GCB</code> that will have a GCBASIC table called <code class="literal">DataSource</code>.
+               <p>This program converts <code class="literal">InfraRedPatterns.TXT</code> into <code class="literal">InfraRedPatterns.GCB</code>, which will have a GCBASIC table called <code class="literal">DataSource</code>.
                   This example is located in the converter folder of the GCBASIC installation.
-               </p><pre class="screen">  #chip16f877a, 16
+               </p><pre class="programlisting">  #chip 16f877a, 16
   #include &lt;..\converters\InfraRedPatterns.TXT&gt;
 
   dir portb out
 
-  ' These must be WORDs as this could be large table.
+  ' These must be WORDs as this could be a large table.
   dim TableReadPosition, TableLen as word
 
   dir portb out
 
   ' Read the table length
   TableReadPosition = 0
-  ReadTable DataSource, TableReadPosition, TableLen
+  ReadTable DataSource, TableReadPosition, TableLen          ' &lt;&lt;&lt; reading the table length stored at position 0
 
 
   Do Forever
@@ -317,39 +321,50 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
           portb = TransmissionPattern
           wait PulseDelay ms
       next
-  Loop</pre></div>
-            <p><span class="strong"><strong>Example 4 : Dynamic Import</strong></span></p>
+  Loop</pre><p><span class="strong"><strong>Key line:</strong></span> <code class="literal">ReadTable DataSource, TableReadPosition, TableLen</code> — the converter stores the pattern count as the first entry of the generated <code class="literal">DataSource</code> table, so the program reads it once at position 0 before looping over the actual transmission/delay pairs that follow.
+               </p>
+            </div>
+            <p><span class="strong"><strong>Example 4: Dynamic Import</strong></span></p>
             <div class="informalexample">
-               <p>This program converts a chip specific configuration file into <code class="literal">manifest.GCB</code> that will have a GCBASIC functions called <code class="literal">DataIn</code> and <code class="literal">DataOut</code>.
+               <p>This program converts a chip-specific configuration file into <code class="literal">manifest.GCB</code>, which will have GCBASIC functions called <code class="literal">DataIn</code> and <code class="literal">DataOut</code>.
                   This example is located in the converter folder of the GCBASIC installation.
-               </p><pre class="screen">    #chip 16f18326
+               </p><pre class="programlisting">    #chip 16f18326
 
     #include &lt;..\converters\manifest.mcc&gt;
 
-    DataOut ( TX, RA0 )  'this method is created during the convert process. They do not exist withiut the converter.
-    DataIn  ( Rx, RC6 )  'this method is created during the convert process. They do not exist withiut the converter.</pre><p>This example would use the optional parameters of <code class="literal">params</code> and <code class="literal">deletetarget</code> in the converter configuration file as follows:
-               </p><pre class="screen">    desc = PPS file (*.PPS)
+    DataOut ( TX, RA0 )  'this method is created during the convert process. It does not exist without the converter.
+    DataIn  ( Rx, RC6 )  'this method is created during the convert process. It does not exist without the converter.</pre><p>This example would use the optional parameters <code class="literal">params</code> and <code class="literal">deletetarget</code> in the converter configuration file, as follows:
+               </p><pre class="programlisting">    desc = PPS file (*.PPS)
     params = %filename% %chipmodel%
     in = mcc
     out = GCB
     exe = DataHandler.exe
     deletetarget= y</pre></div>
-            <p><span class="strong"><strong>Example 5 : Add build numbers and time/date details to your programs</strong></span></p>
-            <p>This converter is used to expose two string variables as follows:</p><pre class="screen">    GCBBuildStr
-    GCBBuildTimeStr</pre><p>The user code is simple. Using the #include statement specify any filename with an extension must be <code class="literal">cnt</code>. As follows:
-            </p><pre class="screen">    #include "GCBVersionNumber.cnt"</pre><p>Complete code would like this - this not optimised - this shows the use of the exposed strings.</p><pre class="screen">    #include "GCBVersionNumber.cnt"
+            <p><span class="strong"><strong>Example 5: Add Build Numbers and Time/Date Details to Your Programs</strong></span></p>
+            <p>This converter is used to expose two string variables, as follows:</p><pre class="programlisting">    GCBBuildStr
+    GCBBuildTimeStr</pre><p>The user code is simple. Using the #include statement, specify any filename with the extension <code class="literal">.cnt</code>. As follows:
+            </p><pre class="programlisting">    #include "GCBVersionNumber.cnt"</pre><p>Complete code would look like this - this is not optimised, and simply shows the use of the exposed strings.</p><pre class="programlisting">    #include "GCBVersionNumber.cnt"
 
     dim versionString as string * 40
     versionString = "Max7219 build"+GCBBuildStr
     versionString = versionString + "@"+GCBBuildTimeStr
-    Print versionString</pre><p>This outputs the following - where #20 is the current build and the date/time is correct for build time.</p><pre class="screen">    Max7219 build20@01-06-2021 08:00:21
-    Commence main program</pre><p>This works as the support INI file instructs the compiler to call a utility that automatically creates a build number tracker
-               file and the supportting string functions.
-               The utility creates a tracker file and the methods files in the same folder as your source program - so, each tracker is specific
+    Print versionString</pre><p>This outputs the following, where 20 is the current build number and the date/time is correct for the build time.</p><pre class="programlisting">    Max7219 build20@01-06-2021 08:00:21
+    Commence main program</pre><p>This works because the supporting INI file instructs the compiler to call a utility that automatically creates a build number
+               tracker file and the supporting string functions.
+               The utility creates a tracker file and the method files in the same folder as your source program, so each tracker is specific
                to each project.
-               The converter requires the following files - these are included within your Installation.
-            </p><pre class="screen">    GCBVersionStamp.exe - the utility called by the converter capability.
-    cnt2gcb.ini - the supporting ini file used by the compiler to handle this converter.</pre></div><script type="text/javascript" src="common/main.js">
+               The converter requires the following files - these are included with your installation.
+            </p><pre class="programlisting">    GCBVersionStamp.exe - the utility called by the converter capability.
+    cnt2gcb.ini - the supporting ini file used by the compiler to handle this converter.</pre><p><span class="strong"><strong>See Also:</strong></span></p>
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem"><a class="link" href="__include.html" title="#include">#include</a> — the directive that triggers conversion
+                  </li>
+                  <li class="listitem"><a class="link" href="_readtable.html" title="ReadTable">ReadTable</a> — reading a converted table, as used above
+                  </li>
+               </ul>
+            </div>
+         </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
@@ -358,7 +373,7 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                   <td width="40%" align="left"><a accesskey="p" href="_subroutines.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="_syntax.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="_command_references.html">Next</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="_commands_quick_reference.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -378,22 +393,22 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                <div id="treeDiv"><img src="common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;" /><div id="ulTreeDiv" style="display:none">
                      <ul id="tree" class="filetree">
                         <li><span class="file"><a href="_introducing_gcbasic.html" tabindex="1">Introducing GCBASIC</a></span></li>
-                        <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
-                        <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
-                        <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
-                        <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
-                        <li><span class="file"><a href="_frequent_errors.html" tabindex="1">Frequent errors</a></span></li>
-                        <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
-                        <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
-                        <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
+                        <li><span class="file"><a href="_primer.html" tabindex="1">Primer</a></span><ul>
+                              <li><span class="file"><a href="_using_gcbasic.html" tabindex="1">Using GCBASIC</a></span></li>
+                              <li><span class="file"><a href="_pic_users_and_beginners_start_here.html" tabindex="1">PIC users and Beginners: Start Here</a></span></li>
+                              <li><span class="file"><a href="_command_line_parameters.html" tabindex="1">Command Line Parameters</a></span></li>
+                              <li><span class="file"><a href="_frequent_errors.html" tabindex="1">Frequent errors</a></span></li>
+                              <li><span class="file"><a href="_a_glossary.html" tabindex="1">A Glossary</a></span></li>
+                              <li><span class="file"><a href="_frequently_asked_questions.html" tabindex="1">Frequently Asked Questions</a></span></li>
+                              <li><span class="file"><a href="_troubleshooting.html" tabindex="1">Troubleshooting</a></span></li>
+                              <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_gcbasic_compiler_insights.html" tabindex="1">GCBASIC Compiler Insights</a></span><ul>
                               <li><span class="file"><a href="_compiler_insights.html" tabindex="1">Compiler Insights</a></span></li>
                               <li><span class="file"><a href="_compiler_control.html" tabindex="1">Compiler Control</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
-                        <li><span class="file"><a href="_acknowledgements.html" tabindex="1">Acknowledgements</a></span></li>
-                        <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span><ul>
+                              <li><span class="file"><a href="_libraries_overview.html" tabindex="1">Libraries Overview</a></span></li>
+                              <li><span class="file"><a href="_tricks_and_tips.html" tabindex="1">Tricks and Tips</a></span></li>
                               <li><span class="file"><a href="_gcbasic_hxl_memory_map_output.html" tabindex="1">GCBASIC HXL- Memory Map Output</a></span></li>
                               <li><span class="file"><a href="_uno_as_isp_programmer.html" tabindex="1">UNO as ISP programmer</a></span></li>
                            </ul>
@@ -408,9 +423,13 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                               <li><span class="file"><a href="_data_types.html" tabindex="1">Data Types</a></span></li>
                               <li><span class="file"><a href="_variable_types.html" tabindex="1">Variable Types</a></span></li>
                               <li><span class="file"><a href="_variables_and_data_types.html" tabindex="1">Variables and Data Types</a></span></li>
+                              <li><span class="file"><a href="_the_positives_and_negatives_of_variable_types.html" tabindex="1">The Positives and Negatives of Variable Types</a></span></li>
                               <li><span class="file"><a href="_advanced_variabletypes.html" tabindex="1">Advanced VariableTypes</a></span></li>
                               <li><span class="file"><a href="_variable_memory_allocation_addressing_control.html" tabindex="1">Variable Memory Allocation, Addressing &amp; Control</a></span></li>
                               <li><span class="file"><a href="_avr_r_register_usage.html" tabindex="1">AVR R Register Usage</a></span></li>
+                              <li><span class="file"><a href="_new_example_1_basic_variables_with_initial_values.html" tabindex="1">New Example 1: Basic Variables with Initial Values</a></span></li>
+                              <li><span class="file"><a href="_new_example_2_arrays_and_initialisation.html" tabindex="1">New Example 2: Arrays and Initialisation</a></span></li>
+                              <li><span class="file"><a href="_new_example_3_bit_level_access_using_constants.html" tabindex="1">New Example 3: Bit-Level Access Using Constants</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_reference_data.html" tabindex="1">Reference Data</a></span><ul>
@@ -433,6 +452,12 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                               <li id="webhelp-currentid"><span class="file"><a href="_converters.html" tabindex="1">Converters</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_commands_quick_reference.html" tabindex="1">Commands Quick Reference</a></span><ul>
+                              <li><span class="file"><a href="_alphabetical_index.html" tabindex="1">Alphabetical Index</a></span></li>
+                              <li><span class="file"><a href="_by_category.html" tabindex="1">By Category</a></span></li>
+                              <li><span class="file"><a href="_commands_not_yet_documented.html" tabindex="1">Commands Not Yet Documented</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_command_references.html" tabindex="1">Command References</a></span><ul>
                               <li><span class="file"><a href="_analog_digital_conversion.html" tabindex="1">Analog/Digital conversion</a></span><ul>
                                     <li><span class="file"><a href="_analog_digital_conversion_overview.html" tabindex="1">Analog/Digital Conversion Overview</a></span></li>
@@ -442,6 +467,7 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                     <li><span class="file"><a href="_readad10.html" tabindex="1">ReadAD10</a></span></li>
                                     <li><span class="file"><a href="_readad12.html" tabindex="1">ReadAD12</a></span></li>
                                     <li><span class="file"><a href="_analog_digital_conversion_code_optimisation.html" tabindex="1">Analog/Digital Conversion Code Optimisation</a></span></li>
+                                    <li><span class="file"><a href="_pot.html" tabindex="1">Pot</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_bitwise.html" tabindex="1">Bitwise</a></span><ul>
@@ -449,6 +475,11 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                     <li><span class="file"><a href="_fnlsl.html" tabindex="1">FnLSL</a></span></li>
                                     <li><span class="file"><a href="_fnlsr.html" tabindex="1">FnLSR</a></span></li>
                                     <li><span class="file"><a href="_setwith.html" tabindex="1">SetWith</a></span></li>
+                                    <li><span class="file"><a href="_deprecated_bitwise_functions.html" tabindex="1">Deprecated bitwise functions.</a></span><ul>
+                                          <li><span class="file"><a href="_fnequbit.html" tabindex="1">FnEquBit</a></span></li>
+                                          <li><span class="file"><a href="_fnnotbit.html" tabindex="1">FnNotBit</a></span></li>
+                                       </ul>
+                                    </li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_memory.html" tabindex="1">Memory</a></span><ul>
@@ -494,7 +525,7 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_eeram_device.html" tabindex="1">EERAM ( Device )</a></span><ul>
-                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERam Devices</a></span></li>
+                                          <li><span class="file"><a href="_47xxx_eeram_devices.html" tabindex="1">47xxx EERAM Devices</a></span></li>
                                        </ul>
                                     </li>
                                     <li><span class="file"><a href="_sram_device.html" tabindex="1">SRAM  ( Device )</a></span><ul>
@@ -526,7 +557,7 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_interrupts.html" tabindex="1">Interrupts</a></span><ul>
-                                    <li><span class="file"><a href="_interrupts_overview.html" tabindex="1">Interrupts overview</a></span></li>
+                                    <li><span class="file"><a href="_interrupts_overview.html" tabindex="1">Interrupts Overview</a></span></li>
                                     <li><span class="file"><a href="_intoff.html" tabindex="1">IntOff</a></span></li>
                                     <li><span class="file"><a href="_inton.html" tabindex="1">IntOn</a></span></li>
                                     <li><span class="file"><a href="_on_interrupt.html" tabindex="1">On Interrupt</a></span></li>
@@ -554,9 +585,10 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                           <li><span class="file"><a href="_nextion_controllers.html" tabindex="1">NEXTION Controllers</a></span></li>
                                           <li><span class="file"><a href="_nt7108c_controllers.html" tabindex="1">NT7108C Controllers</a></span></li>
                                           <li><span class="file"><a href="_pcd8544_controllers.html" tabindex="1">PCD8544 Controllers</a></span></li>
-                                          <li><span class="file"><a href="_sdd1289_controllers.html" tabindex="1">SDD1289 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1289_controllers.html" tabindex="1">SSD1289 Controllers</a></span></li>
                                           <li><span class="file"><a href="_sh1106_controllers.html" tabindex="1">SH1106 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_ssd1309_controllers.html" tabindex="1">SSD1309 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1351_controllers.html" tabindex="1">SSD1351 Controllers</a></span></li>
                                           <li><span class="file"><a href="_st7567_controllers.html" tabindex="1">ST7567 Controllers</a></span></li>
@@ -586,6 +618,7 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                           <li><span class="file"><a href="_uc1601_controllers.html" tabindex="1">UC1601 Controllers</a></span></li>
                                        </ul>
                                     </li>
+                                    <li><span class="file"><a href="_initglcd.html" tabindex="1">InitGLCD</a></span></li>
                                     <li><span class="file"><a href="_box.html" tabindex="1">Box</a></span></li>
                                     <li><span class="file"><a href="_circle.html" tabindex="1">Circle</a></span></li>
                                     <li><span class="file"><a href="_ellipse.html" tabindex="1">Ellipse</a></span></li>
@@ -637,6 +670,9 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                                 <li><span class="file"><a href="_lcd_io_12_port_configuration.html" tabindex="1">LCD_IO 12 Port Configuration</a></span></li>
                                              </ul>
                                           </li>
+                                       </ul>
+                                    </li>
+                                    <li><span class="file"><a href="_multiple_i2c_adapters_lcd_io_12.html" tabindex="1">Multiple I2C Adapters (LCD_IO 12)</a></span><ul>
                                           <li><span class="file"><a href="_lcd_io_14.html" tabindex="1">LCD_IO 14</a></span><ul>
                                                 <li><span class="file"><a href="_lcd_io_14_port_configuration.html" tabindex="1">LCD_IO 14 Port Configuration</a></span></li>
                                              </ul>
@@ -674,6 +710,10 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_pulse_width_modulation.html" tabindex="1">Pulse width modulation</a></span><ul>
+                                    <li><span class="file"><a href="_pulseout.html" tabindex="1">PulseOut</a></span></li>
+                                    <li><span class="file"><a href="_pulseoutinv.html" tabindex="1">PulseOutInv</a></span></li>
+                                    <li><span class="file"><a href="_pulsein.html" tabindex="1">PulseIn</a></span></li>
+                                    <li><span class="file"><a href="_pulseininv.html" tabindex="1">PulseInInv</a></span></li>
                                     <li><span class="file"><a href="_microchip_pic_pwm_overview.html" tabindex="1">Microchip PIC PWM Overview</a></span><ul>
                                           <li><span class="file"><a href="_pwm_software_mode.html" tabindex="1">PWM Software Mode</a></span><ul>
                                                 <li><span class="file"><a href="_pwmout.html" tabindex="1">PWMOut</a></span></li>
@@ -818,6 +858,7 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                     <li><span class="file"><a href="_i2cstart.html" tabindex="1">I2CStart</a></span></li>
                                     <li><span class="file"><a href="_i2cstartoccurred.html" tabindex="1">I2CStartoccurred</a></span></li>
                                     <li><span class="file"><a href="_i2cstop.html" tabindex="1">I2CStop</a></span></li>
+                                    <li><span class="file"><a href="_pcf8574.html" tabindex="1">PCF8574</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_i2c_twi_hardware_module.html" tabindex="1">I2C/TWI Hardware Module</a></span><ul>
@@ -825,6 +866,7 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                     <li><span class="file"><a href="_hi2cackpollstate.html" tabindex="1">HI2CAckPollState</a></span></li>
                                     <li><span class="file"><a href="_hi2creceive.html" tabindex="1">HI2CReceive</a></span></li>
                                     <li><span class="file"><a href="_hi2crestart.html" tabindex="1">HI2CRestart</a></span></li>
+                                    <li><span class="file"><a href="_hi2csend.html" tabindex="1">HI2CSend</a></span></li>
                                     <li><span class="file"><a href="_hi2cstart.html" tabindex="1">HI2CStart</a></span></li>
                                     <li><span class="file"><a href="_hi2cstartoccurred.html" tabindex="1">HI2CStartOccurred</a></span></li>
                                     <li><span class="file"><a href="_hi2cmode.html" tabindex="1">HI2CMode</a></span></li>
@@ -864,6 +906,7 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                     <li><span class="file"><a href="_stoptimer.html" tabindex="1">StopTimer</a></span></li>
                                     <li><span class="file"><a href="_reading_timers.html" tabindex="1">Reading Timers</a></span></li>
                                     <li><span class="file"><a href="_smt_timers.html" tabindex="1">SMT Timers</a></span></li>
+                                    <li><span class="file"><a href="_millis_timer_based_functions.html" tabindex="1">Millis - Timer based functions</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_variables_operations.html" tabindex="1">Variables Operations</a></span><ul>
@@ -871,17 +914,14 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                     <li><span class="file"><a href="_more_on_setting_variables_and_constants.html" tabindex="1">More on setting Variables and Constants</a></span></li>
                                     <li><span class="file"><a href="_setting_variables.html" tabindex="1">Setting Variables</a></span></li>
                                     <li><span class="file"><a href="_variable_lifecycle.html" tabindex="1">Variable Lifecycle</a></span></li>
-                                    <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span></li>
-                                 </ul>
-                              </li>
-                              <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
-                              <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
-                              <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
-                              <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
-                              <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
-                              <li><span class="file"><a href="_new_example_1_basic_variables_with_initial_values.html" tabindex="1">New Example 1: Basic Variables with Initial Values</a></span></li>
-                              <li><span class="file"><a href="_new_example_2_arrays_and_initialisation.html" tabindex="1">New Example 2: Arrays and Initialisation</a></span></li>
-                              <li><span class="file"><a href="_new_example_3_bit_level_access_using_constants.html" tabindex="1">New Example 3: Bit‑Level Access Using Constants</a></span><ul>
+                                    <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span><ul>
+                                          <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
+                                          <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
+                                          <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
+                                          <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
+                                          <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
+                                       </ul>
+                                    </li>
                                     <li><span class="file"><a href="_alloc.html" tabindex="1">Alloc</a></span></li>
                                     <li><span class="file"><a href="_bcdtodec_gcb.html" tabindex="1">BcdToDec_GCB</a></span></li>
                                     <li><span class="file"><a href="_dectobcd_gcb.html" tabindex="1">DecToBcd_GCB</a></span></li>
@@ -889,6 +929,8 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                     <li><span class="file"><a href="_set.html" tabindex="1">Set</a></span></li>
                                     <li><span class="file"><a href="_swap4.html" tabindex="1">SWAP4</a></span></li>
                                     <li><span class="file"><a href="_swap.html" tabindex="1">SWAP</a></span></li>
+                                    <li><span class="file"><a href="_peek.html" tabindex="1">Peek</a></span></li>
+                                    <li><span class="file"><a href="_poke.html" tabindex="1">Poke</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_string_manipulation.html" tabindex="1">String Manipulation</a></span><ul>
@@ -937,16 +979,7 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_miscellaneous_commands.html" tabindex="1">Miscellaneous Commands</a></span><ul>
-                                    <li><span class="file"><a href="_dir.html" tabindex="1">Dir</a></span></li>
                                     <li><span class="file"><a href="_getuserid.html" tabindex="1">GetUserID</a></span></li>
-                                    <li><span class="file"><a href="_pot.html" tabindex="1">Pot</a></span></li>
-                                    <li><span class="file"><a href="_pulseout.html" tabindex="1">PulseOut</a></span></li>
-                                    <li><span class="file"><a href="_pulseoutinv.html" tabindex="1">PulseOutInv</a></span></li>
-                                    <li><span class="file"><a href="_pulsein.html" tabindex="1">PulseIn</a></span></li>
-                                    <li><span class="file"><a href="_pulseininv.html" tabindex="1">PulseInInv</a></span></li>
-                                    <li><span class="file"><a href="_peek.html" tabindex="1">Peek</a></span></li>
-                                    <li><span class="file"><a href="_poke.html" tabindex="1">Poke</a></span></li>
-                                    <li><span class="file"><a href="_weak_pullups.html" tabindex="1">Weak Pullups</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_maths.html" tabindex="1">Maths</a></span><ul>
@@ -968,7 +1001,9 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                                     <li><span class="file"><a href="_trigonometry_atan.html" tabindex="1">Trigonometry ATAN</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="_peripheral_pin_select.html" tabindex="1">Peripheral Pin Select</a></span><ul>
+                              <li><span class="file"><a href="_port_control.html" tabindex="1">Port control</a></span><ul>
+                                    <li><span class="file"><a href="_dir.html" tabindex="1">Dir</a></span></li>
+                                    <li><span class="file"><a href="_weak_pullups.html" tabindex="1">Weak Pullups</a></span></li>
                                     <li><span class="file"><a href="_peripheral_pin_select_for_microchip_microcontrollers.html" tabindex="1">Peripheral Pin Select for Microchip microcontrollers.</a></span></li>
                                     <li><span class="file"><a href="_unlockpps.html" tabindex="1">UnLockPPS</a></span></li>
                                     <li><span class="file"><a href="_lockpps.html" tabindex="1">LockPPS</a></span></li>
@@ -996,10 +1031,10 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                               <li><span class="file"><a href="_other_directives.html" tabindex="1">Other directives</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_compiler_options.html" tabindex="1">Compiler Options</a></span><ul>
+                        <li><span class="file"><a href="_compiler_preprocessor_options.html" tabindex="1">Compiler Preprocessor Options</a></span><ul>
                               <li><span class="file"><a href="__option_explicit.html" tabindex="1">#Option Explicit</a></span></li>
                               <li><span class="file"><a href="__option_noconfig.html" tabindex="1">#Option NoConfig</a></span></li>
-                              <li><span class="file"><a href="__option_startupmethodsdisabled.html" tabindex="1">#Option STARTUPMETHODSDISABLED</a></span></li>
+                              <li><span class="file"><a href="__option_startupmethoddisabled.html" tabindex="1">#Option StartupMethodDisabled</a></span></li>
                               <li><span class="file"><a href="__option_bootloader.html" tabindex="1">#Option Bootloader</a></span></li>
                               <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
                               <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
@@ -1041,42 +1076,34 @@ exe = awkrun.bat</pre><p>An example :</p><pre class="literallayout">#include &lt
                               <li><span class="file"><a href="_trigonometry_circle.html" tabindex="1">Trigonometry Circle</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_graphical_gcbasic.html" tabindex="1">Graphical GCBASIC</a></span><ul>
-                              <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
-                              <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_linux.html" tabindex="1">GCBASIC for Linux</a></span><ul>
+                        <li><span class="file"><a href="_operating_systems_support.html" tabindex="1">Operating Systems Support</a></span><ul>
                               <li><span class="file"><a href="_overview_linux_operating_system.html" tabindex="1">Overview - Linux Operating System</a></span></li>
                               <li><span class="file"><a href="_make_asm_make_hex_and_programming_operations_using_the_provided_linux_scripts.html" tabindex="1">Make ASM, Make HEX and Programming Operations using the provided Linux scripts</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_arm_pi.html" tabindex="1">GCBASIC for ARM &amp; Pi</a></span><ul>
                               <li><span class="file"><a href="_overview_raspberry_pi.html" tabindex="1">Overview - Raspberry Pi</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_apple_macos.html" tabindex="1">GCBASIC for Apple macOS</a></span><ul>
                               <li><span class="file"><a href="_overview_apple_macos_gcbasic.html" tabindex="1">Overview - Apple macOS GCBASIC</a></span></li>
-                           </ul>
-                        </li>
-                        <li><span class="file"><a href="_gcbasic_for_freebsd.html" tabindex="1">GCBASIC for FreeBSD</a></span><ul>
                               <li><span class="file"><a href="_overview_freebsd_gcbasic.html" tabindex="1">Overview - FreeBSD GCBASIC</a></span></li>
+                              <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
                               <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
-                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">COMPILER SOURCE INSIGHTS</a></span></li>
+                              <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">Compiler Source Insights</a></span></li>
                               <li><span class="file"><a href="_about_glcd_library_support.html" tabindex="1">ABOUT GLCD Library Support</a></span></li>
-                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span></li>
+                              <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span><ul>
+                                    <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">About the Preferences Editor</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
+                              <li><span class="file"><a href="_gcbasic_documentation_toolchain.html" tabindex="1">GCBASIC Documentation Toolchain</a></span></li>
                            </ul>
                         </li>
-                        <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">ABOUT THE PREFERENCES EDITOR</a></span></li>
                         <li><span class="file"><a href="_gcbasic_with_the_avrisp_or_mkii_programmer.html" tabindex="1">GCBASIC with the AVRISP or MKII Programmer</a></span><ul>
                               <li><span class="file"><a href="_setup_an_avrisp_mkii_or_usbtinyisp_for_attiny10_chip_under_windows.html" tabindex="1">Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_changes.html" tabindex="1">Changes</a></span></li>
                      </ul>
                   </div>
                </div>

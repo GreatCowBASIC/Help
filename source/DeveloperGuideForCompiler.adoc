@@ -1,106 +1,108 @@
 === Development Guide for GCBASIC.EXE compiler
 
+(((GCBASIC Maintenance and Development,Development Guide for GCBASIC.EXE compiler)))
+
+
 There are lots of ways to contribute to the GCBASIC project: coding, testing, improving the build process and tools, or contributing to the documentation.
-This guide provides information that will not only help you get started as a GCBASIC contributor, but that you will inform you as an experienced contributor wanting to help.
+This guide provides information that will not only help you get started as a GCBASIC contributor, but that will also be useful to you as an experienced contributor wanting to help.
 
 {empty} +
 
 *Need Help?*
 
-The GCBASIC community prides itself on being an open, accessible, and friendly community for new participants.&#160;&#160;
+The GCBASIC community prides itself on being an open, accessible, and friendly community for new participants.
 If you have difficulties getting involved or finding answers to your questions, please bring those questions to the forum via the discussion boards, where we can help you get started.
 
-We know EVEN before you start contributing that getting can be a challenge.&#160;&#160;
-This guide is intended to help.&#160;&#160;
-We are always looking for ways to improve the software: making GCBASIC more open, accessible, and easier to participate with.&#160;&#160;
-If you are having any trouble following this guide, or hit a barrier you cannot get around, please contact us via the discussion forum.&#160;&#160;
-We will solve hurdles for new contributors and make GCBASIC better.&#160;&#160;
+We know that, even before you start contributing, getting started can be a challenge.
+This guide is intended to help.
+We are always looking for ways to improve the software: making GCBASIC more open, accessible, and easier to participate in.
+If you are having any trouble following this guide, or hit a barrier you cannot get around, please contact us via the discussion forum.
+We will solve hurdles for new contributors and make GCBASIC better.
 
-This addresses the changes and updates to the GCBASIC compiler.&#160;&#160;
+This addresses the changes and updates to the GCBASIC compiler.
 
 {empty} +
 {empty} +
 
 *BACKGROUND*
 
-The compiler was created by Dr. Hugh Considine when he was 12 years old.&#160;&#160;That was in 2005.&#160;&#160;Hugh came up with the idea for a new compiler - of the then available compilers - they were hard to use and not free. &#160;&#160;And, he had some spare time.
+The compiler was created by Dr. Hugh Considine when he was 12 years old. That was in 2005. Hugh came up with the idea for a new compiler because the then-available compilers were hard to use and not free. And he had some spare time.
 
-Hugh believes that GCBASIC should be free to all - forever.&#160;&#160;
+Hugh believes that GCBASIC should be free to all - forever.
 
 
-The original software was called Great Cow BASIC, but, he had some resistance in getting high schools in Australia to use and agree to the use of text based programming.&#160;&#160;
-Graphical GCBASIC was created to address the need for a graphical user interface.&#160;&#160;Graphical GCBASIC acts like a set of training wheels. &#160;&#160;
-The concept of Graphical GCBASIC is that the icons make it less scary, and since they all share names with the BASIC commands it is then easy to remember what command corresponds to each icon..&#160;&#160;
-Using Graphical GCBASIC users can then switch to text mode whenever they want to, go backwards and forwards a few times if they want, and finally end up using just the text programming.&#160;&#160;
-It is a journey from a graphical user interface to text based programming.&#160;&#160;
+The original software was called Great Cow BASIC, but he had some resistance in getting high schools in Australia to agree to the use of text-based programming.
+Graphical GCBASIC was created to address the need for a graphical user interface. Graphical GCBASIC acts like a set of training wheels.
+The concept of Graphical GCBASIC is that the icons make it less intimidating, and since they all share names with the BASIC commands, it is easy to remember which command corresponds to each icon.
+Using Graphical GCBASIC, users can then switch to text mode whenever they want to, go backwards and forwards a few times if they want, and finally end up using just the text programming.
+It is a journey from a graphical user interface to text-based programming.
 {empty} +
 {empty} +
-Those who already have programming experience can go straight to GCBASIC, while those who would prefer a lighter learning curve can take the Graphical GCBASIC option. &#160;&#160;
-The two approaches targets two different sets of users who ultimately want to do the same thing.
+Those who already have programming experience can go straight to GCBASIC, while those who would prefer a lighter learning curve can take the Graphical GCBASIC option.
+The two approaches target two different sets of users who ultimately want to do the same thing.
 {empty} +
 {empty} +
-As for the *name*, it was the fourth name Hugh tried. &#160;&#160;First name was BASPIC, but it did not seem memorable enough.&#160;&#160;
-Then, he considered some animal names - first thought was Chipmunk BASIC, but someone already used that!&#160;&#160;
-Then, Bear BASIC, but decided against it on finding out the slang meaning of bear.&#160;&#160;
-Final  name was GCBASIC, which is named after something his sister and he came up with (when aged 12 and 15!!).&#160;&#160;
-No-one else had that name, it had no meanings that could offend, and it was something odd enough to be memorable, so Great CoW CBASIC it was.
+As for the *name*, it was the fourth name Hugh tried. The first name was BASPIC, but it did not seem memorable enough.
+Then he considered some animal names - the first thought was Chipmunk BASIC, but someone already used that.
+Then Bear BASIC, but he decided against it on finding out the slang meaning of "bear".
+The final name was GCBASIC, named after something his sister and he came up with (when aged 12 and 15).
+No one else had that name, it had no meanings that could offend, and it was something odd enough to be memorable, so Great Cow BASIC it was.
 
-In 2013 Evan Venn joined the team as a compiler developer, with others joining in Bernd Dau, Trevor Roydhouse, Pete Everett, Theo Loermans, Giuseppe D'Elia, Derek Gore,  Ian Smith, Bernd Dau, Theo Loermans, Urs Hopp, Kent Schafer, and Frank Steinberg.&#160;&#160;
-Some those that joined in drove changes to the compiler, some changed the source code, some built tools and some built libraries.&#160;&#160;
+In 2013 Evan Venn joined the team as a compiler developer, with others joining including Bernd Dau, Trevor Roydhouse, Pete Everett, Theo Loermans, Giuseppe D'Elia, Derek Gore, Ian Smith, Urs Hopp, Kent Schafer, and Frank Steinberg.
+Some of those who joined drove changes to the compiler, some changed the source code, some built tools, and some built libraries.
 They all had one thing in common - improvements to the GCBASIC compiler.
 
-In 2021 we are still having new developers join the project like ToniG adding a new capability for handling Tables.
+In 2021 we were still having new developers join the project, like ToniG adding a new capability for handling Tables.
 
-In 2023 we renamed to GCBASIC.&#160;&#160;The Cow is now deadbeef ... a hex number .. :-).
+In 2023 we renamed to GCBASIC. The Cow is now deadbeef ... a hex number.
 
 {empty} +
 {empty} +
 
 *THE COMPILER*
 
-The compiler executable is called GCBASIC.EXE. &#160;&#160;
-The compiler source is written in FreeBASIC.&#160;&#160;
-FreeBASIC is a multiplatform, free/open source (GPL) BASIC programming language and a compiler for Microsoft Windows, protected-mode MS-DOS (DOS extender), Linux and FreeBSD.
-&#160;&#160;
+The compiler executable is called GCBASIC.EXE.
+The compiler source is written in FreeBASIC.
+FreeBASIC is a multiplatform, free/open source (GPL) BASIC programming language and a compiler for Microsoft Windows, protected-mode MS-DOS (DOS extender), Linux, and FreeBSD.
 {empty} +
 {empty} +
 The official website is https://www.freebasic.net/[https://www.freebasic.net/]
 {empty} +
 {empty} +
-FreeBASIC provides syntax compatibility with programs originally written in Microsoft QuickBASIC (QB).&#160;&#160;
-FreeBASIC is a command line only compiler, unless users manually install an external integrated development environment (IDE) of their choice.&#160;&#160;
-IDEs specifically made for FreeBASIC include FBide and FbEdit, while more graphical options include WinFBE Suite and VisualFBEditor.&#160;&#160;
+FreeBASIC provides syntax compatibility with programs originally written in Microsoft QuickBASIC (QB).
+FreeBASIC is a command-line-only compiler, unless users manually install an external integrated development environment (IDE) of their choice.
+IDEs specifically made for FreeBASIC include FBide and FbEdit, while more graphical options include WinFBE Suite and VisualFBEditor.
 {empty} +
 {empty} +
-The source code is Open Source.&#160;&#160;
-And, has a GNU GENERAL PUBLIC LICENSE.&#160;&#160;
+The source code is Open Source, and has a GNU GENERAL PUBLIC LICENSE.
 {empty} +
 {empty} +
 The source code for the compiler can be found on https://sourceforge.net/p/gcbasic/code/HEAD/tree/GCBASIC/trunk/[SourceForge]
 {empty} +
 {empty} +
-Use SVN to UPDATE and COMMIT code changes.&#160;&#160;
-You require developer access to SourceForge but if you have got this far then you already know this.&#160;&#160;
-You are therefore  required to use SVN for source code management.
+Use SVN to update and commit code changes.
+You require developer access to SourceForge, but if you have got this far then you already know this.
+You are therefore required to use SVN for source code management.
 
-When COMMITting you MUST update the change log, then, when you commit an update use the change log with the SourceForge commit number.&#160;&#160;
-Then, add the new change at the end of the change log.&#160;&#160;
-The COMMIT message should be the same as the description in the change log.&#160;&#160;
-Add the [_COMMIT NUMBER]_ to the description in the change log to show the COMMIT number.&#160;&#160;
+When committing, you MUST update the change log; when you commit an update, use the change log entry with the SourceForge commit number.
+Then add the new change at the end of the change log.
+The commit message should be the same as the description in the change log.
+Add the `[COMMIT NUMBER]` to the description in the change log to show the commit number.
 
 
-You will find the changelog https://onedrive.live.com/Edit.aspx?resid=2F87FFE77F3DBEC7!67634&wd=cpe&authkey=!ADmkT3exl5l4Pkc[here].&#160;&#160;
-The change log is an EXCEL spreadsheet.&#160;&#160;
+You will find the changelog https://onedrive.live.com/Edit.aspx?resid=2F87FFE77F3DBEC7!67634&wd=cpe&authkey=!ADmkT3exl5l4Pkc[here].
+The change log is an Excel spreadsheet.
 
 {empty} +
 {empty} +
 
 *COMPILER ARCHITECTURE*
 
-The compiler is relatively simple in terms of the architecture.&#160;&#160;
-There is a main source program with a set of header files that contain other methods or declarations.&#160;&#160;
+The compiler is relatively simple in terms of the architecture.
+There is a main source program with a set of header files that contain other methods or declarations.
 The GCBASIC header files are the following:
 
+[source,gcbasic]
 ----
     1. preprocessor.bi -  methods, statements, defines, declarations, prototypes, constants, enumerations, or similar types of statements
     2. utils.bi - methods that are shared across the architecture
@@ -111,28 +113,30 @@ The GCBASIC header files are the following:
 ----
 The supporting files are:
 
+[source,gcbasic]
 ----
     1. messages.dat - the English messages source file.  All user messages from the compiler are sourced from this file.
     2. reservedwords.dat - the list of system reserved words
 ----
 {empty} +
 {empty} +
-The compiler process is simple.&#160;&#160;
+The compiler process is simple.
 The process, shown below, generates the ASM source and the HEX file from the user source program.
 
+[source,gcbasic]
 ----
     1. Create the indexes
     2. Declare the methods, arrays and variables
     3. Process the user source programs using PreProcessor method. This includes
-        i.     Loading of all source files including including files
+        i.     Loading of all source files including include files
         ii.    Translate files, if needed
         iii.   Examine source for comments, tables, asm, rawasm, functions;subs;macros, set origin of valid code
                     Origin = ";?F" + Str(RF) + "L" + Str(LC) + "S" + Str(SBC) + "?"
-                    RF = File number 
+                    RF = File number
                     L  = Line number in source file
                     S  = Sub Routine number
-        iv.    Find compiler directives, except SCRIPT, ENDSCRIPT, IFDEF and ENDIF - including all the #DEFINEs outside of condiontal statements
-        v.     If GLCD_TYPE in user source program is found, then, determine the library and load that library with all dependent libraries. This method improves compiler performance by only loading the required libraries
+        iv.    Find compiler directives, except SCRIPT, ENDSCRIPT, IFDEF and ENDIF - including all the #DEFINEs outside of conditional statements
+        v.     If GLCD_TYPE in user source program is found, then determine the library and load that library with all dependent libraries. This method improves compiler performance by only loading the required libraries
         vi.    ReadChipData
         vii.   CheckClockSpeed
         viii.  ReadOptions
@@ -141,7 +145,7 @@ The process, shown below, generates the ASM source and the HEX file from the use
         xi.    RunScripts
         xii.   BuildMemoryMap
         xiii.  Process samevar and samebit
-        xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program. 
+        xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program.
         xv.    Prepare programmer, need to know chip model and need to do this before checking config
         xvi.   Replace Constants
         xvii.  Replace table value.  Replace constants and calculations in tables with actual values
@@ -170,22 +174,23 @@ The process, shown below, generates the ASM source and the HEX file from the use
     7. Combine and locate the subroutines and functions for the selected chip using the MergeSubroutines method
     8. Complete the final optimisation using the FinalOptimise method
     9. Write the assembly using the WriteAssembly method
-    10. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other define Assembler
+    10. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other defined Assembler
     11. Optionally, pass programming operations to the programmer
     12. Write compilation report using the WriteCompilationReport method
     13. If needed, write the error and warning log using the WriteErrorLog method
     14. Exit, setting the ERRORLEVEL
 ----
 
-Note #1:  Constants are can be created in many places and the order is critical when trying to understant the process.
+Note #1: Constants can be created in many places, and the order is critical when trying to understand the process.
 
-Step 3.iv; Step 3.xi, 3.xiv and xvi. These are Find compiler directives; Runscripts, process IFDEFs and replace Constants values respectively.&#160;&#160;
-This means constants that are not created by the Find compiler directives step are clearly not available in the RunScripts step, and the same applies to the process IFDEFs step.&#160;&#160;So, please consider the order of constant creation in terms of these steps.&#160;&#160;Always think about the precendence of constant creation.&#160;&#160;
+Step 3.iv; Step 3.xi, 3.xiv and xvi. These are Find compiler directives; RunScripts, process IFDEFs, and replace Constants values, respectively.
+This means constants that are not created by the Find compiler directives step are clearly not available in the RunScripts step, and the same applies to the process IFDEFs step. So, please consider the order of constant creation in terms of these steps. Always think about the precedence of constant creation.
 
-Note #2:  When using IFDEFs Conditional statements you should #UNDEFINE all constants prior to #DEFINE.&#160;&#160;Whilst the will be cases where the constant does not exist, or where the Preprocessor can determine the outcome of the Conditional statements there will be cases, specifically nested IFDEFs Conditional statements, where you will be required to use #UNDEFINE to remove all warnings.
+Note #2: When using IFDEFs conditional statements, you should `#UNDEFINE` all constants prior to `#DEFINE`. Whilst there will be cases where the constant does not exist, or where the preprocessor can determine the outcome of the conditional statements, there will be cases, specifically nested IFDEFs conditional statements, where you will be required to use `#UNDEFINE` to remove all warnings.
 
-Note #3:  Good practice is NOT to create constants in a library where the user can overwrite the value of the same constant.&#160;&#160;You must determine if the user has created the constant and then create a default value if the user has not defined a value.&#160;&#160;  An example:
+Note #3: Good practice is NOT to create constants in a library where the user can overwrite the value of the same constant. You must determine if the user has created the constant, and then create a default value if the user has not defined one. An example:
 
+[source,gcbasic]
 ----
   IF NODEF(AD_DELAY) THEN
      'Acquisition time. Can be reduced in some circumstances - see PIC manual for details
@@ -198,69 +203,74 @@ This will create the constant AD_DELAY only when the user program does not defin
 
 *FreeBASIC COMPILATION OF GCBASIC SOURCE CODE*
 
-The compiler is relatively simple in terms of the compilation.&#160;&#160;
+The compiler is relatively simple in terms of the compilation.
 
 Use the following versions of the FreeBASIC compiler to compile the GCBASIC source code.
 
 For Windows 32 bit
+[source,gcbasic]
 ----
     FreeBASIC Compiler - Version 1.07.1 (2019-09-27), built for win32 (32bit)
     Copyright (C) 2004-2019 The FreeBASIC development team.
 ----
 
 For Windows 64 bit
+[source,gcbasic]
 ----
     FreeBASIC Compiler - Version 1.07.1 (2019-09-27), built for win64 (64bit)
     Copyright (C) 2004-2019 The FreeBASIC development team.
 ----
 
-Using other version of Windows FREEBASIC compiler are NOT tested and may fail.&#160;&#160;
+Using other versions of the Windows FreeBASIC compiler is NOT tested and may fail.
 Use the specific versions shown above.
 
-The compile use the following command lines.
-Where "%ProgramFiles% is the root location of the FreeBASIC installation, and
-$SF is the location of the source files and the destination of the compiled executable.
+The compiler uses the following command lines.
+Where `%ProgramFiles%` is the root location of the FreeBASIC installation, and
+`$SF` is the location of the source files and the destination of the compiled executable.
 
 For Windows 32 bit
+[source,gcbasic]
 ----
     "%ProgramFiles%\FreeBASIC\win32\fbc.exe"  $SF\gcbasic.bas   -exx -arch 586 -x $SF\gcbasic32.exe
 ----
 
 For Windows 64 bit
+[source,gcbasic]
 ----
     "%ProgramFiles%\FreeBASIC\win64\fbc.exe"  $SF\gcbasic.bas   -x $SF\gcbasic64.exe -ex
 
 ----
 
-Linux, FreeBSD and Pi OS are also supported.&#160;&#160;
-Please see http://gcbasic.sourceforge.net/help/[Online Help] and search for the specific operating system.&#160;&#160;
+Linux, FreeBSD, and Pi OS are also supported.
+Please see http://gcbasic.sourceforge.net/help/[Online Help] and search for the specific operating system.
 
 {empty} +
 {empty} +
 
 *FreeBASIC COMPILER TOOLCHAIN*
 
-To simplify the establishment of  development enviroment download a complete installation from https://sourceforge.net/projects/gcbasic/files/Support%20Files/GCBASICWindowsToolchain/FreeBASIC.zip/download[here].&#160;&#160;
-This includes the correct version of FreeBASIC and the libraries - all ready for use.&#160;&#160;
-Simply unzip the ZIP to a folder and the toolchain is ready for use.&#160;&#160;
-For an IDE please see the information above.&#160;&#160;
+To simplify the establishment of a development environment, download a complete installation from https://sourceforge.net/projects/gcbasic/files/Support%20Files/GCBASICWindowsToolchain/FreeBASIC.zip/download[here].
+This includes the correct version of FreeBASIC and the libraries - all ready for use.
+Simply unzip the ZIP to a folder, and the toolchain is ready for use.
+For an IDE, please see the information above.
 
 {empty} +
 {empty} +
 
 *BUILDING THE GCBASIC EXECUTABLE USING THE FBEDIT IDE*
 
-To build GCBASIC from the source files.&#160;&#160;
+To build GCBASIC from the source files.
 The list shows the installation of the FBEdit IDE.
 
 
 Complete the following:
 
+[source,gcbasic]
 ----
-        1. Download and install FreeBASIC from  url shown above.
+        1. Download and install FreeBASIC from the url shown above.
         2. Download and install fbedit from https://sourceforge.net/projects/fbedit/?source=dlp
         3. Download the GCBASIC source using SVN into a gcbasic source folder.
-        4. Run fbedit (installed at step #2).  Load project  GCBASIC.fbp  from GBASIC source folder.
+        4. Run fbedit (installed at step #2).  Load project  GCBASIC.fbp  from the GCBASIC source folder.
         5. Hit <f5> to compile.
 ----
 
@@ -269,15 +279,16 @@ Complete the following:
 
 *CODING STYLES*
 
-Remember, Hugh was 12 when he started this project.&#160;&#160;
-You must forgive him for being a genius, but, he did not implement many programming styles and conventions that are common place today.&#160;&#160;
+Remember, Hugh was 12 when he started this project.
+You must forgive him for being a genius, but he did not implement many programming styles and conventions that are commonplace today.
 
-There is a general lack of documentation.&#160;&#160;
-We are adding documentation as we progress.&#160;&#160;
-This can make the source frustrating initially but can find the code segments as they are clearly within method blocks.&#160;&#160;
+There is a general lack of documentation.
+We are adding documentation as we progress.
+This can make the source frustrating initially, but you can find the code segments, as they are clearly within method blocks.
 
 The following rules are recommended.
 
+[source,gcbasic]
 ----
     1. All CONSTANTS are capitalized
     2. Do not use TAB - use two spaces
@@ -290,32 +301,33 @@ The following rules are recommended.
 {empty} +
 
 
-=== COMPILER SOURCE INSIGHTS
+=== Compiler Source Insights
 
-_There are many very useful methods_, a lot of methods, look at existing code before adding any new method.&#160;&#160;
-The compiler is mature from a functionality standpoint.&#160;&#160;
-Just immature in terms of documentation.&#160;&#160;
+_There are many very useful methods_ - a lot of methods - look at existing code before adding any new method.
+The compiler is mature from a functionality standpoint.
+Just immature in terms of documentation.
 
 *COMPILER DEBUGGING*
 
-_To debug or isolate a specific issue_ use lots of messages using PRINT or HSERPRINT&#160;&#160;Both of these methods are easy to setup and use.
+_To debug or isolate a specific issue_, use lots of messages using PRINT or HSERPRINT. Both of these methods are easy to set up and use.
 
-_Specific to #SCRIPT_ you can use WARNING messages to display results of calculations or assignments.
+_Specific to #SCRIPT_, you can use WARNING messages to display results of calculations or assignments.
 
-_Specific to CONDITIONAL Compilation_ use `conditionaldebugfile` (se above) to display conditional statement debug for the specified file. &#160;&#160; Options are any valid source file or nothing. &#160;&#160;
-Nested conditions are evaluated sequentially, therefor the first, second, third etc etc.  &#160;&#160; 
-The compiler does not at this point rationalised the hierarchy of nested conditions.&#160;&#160;  It simply finds a condition and then matches to an #ENDIF.&#160;&#160;
-So, the compiler walks through the nested conditions as the outer nested, then the next nest, the next nest etc. etc.&#160;&#160;
-This compiler is completing the following actions:&#160;&#160;
+_Specific to conditional compilation_, use `conditionaldebugfile` (see above) to display conditional statement debug information for the specified file. Options are any valid source file or nothing.
+Nested conditions are evaluated sequentially, therefore the first, second, third, etc.
+At this point, the compiler does not rationalise the hierarchy of nested conditions. It simply finds a condition and then matches it to an `#ENDIF`.
+So, the compiler walks through the nested conditions, from the outer nest, to the next nest, to the next nest, etc.
+The compiler completes the following actions:
 
-1. If the conditional is not valid.&#160;&#160;  Remove the code segment include the #IF and the #ENDIF
-2. If the conditional is valid.&#160;&#160;  Remove the just the #IF and the #ENDIF
+1. If the conditional is not valid, remove the code segment including the `#IF` and the `#ENDIF`.
+2. If the conditional is valid, remove just the `#IF` and the `#ENDIF`.
 
-So, is this context the compiler walks the code many time (as these are lists not arrrays this is blindly fast) removing code segments.&#160;&#160;
+So, in this context the compiler walks the code many times (as these are lists, not arrays, this is blindingly fast) removing code segments.
 
-The following program shows the impact of nested conditions..&#160;&#160;Each nest is evaluated until all conditions have been assessed..&#160;&#160;See the comment section of the listing to see the output from the debugging.
+The following program shows the impact of nested conditions. Each nest is evaluated until all conditions have been assessed. See the comment section of the listing to see the output from the debugging.
 
 
+[source,gcbasic]
 ----
         #CHIP 18F16Q41
         #OPTION EXPLICIT
@@ -347,7 +359,7 @@ The following program shows the impact of nested conditions..&#160;&#160;Each ne
                             #IFDEF VAR(OSCCON2)  'TRUE
                                 #IFDEF  VAR(NVMCON0)  'TRUE   = set var1 to 0
                                     DIM _VAR1
-                                    _VAR1 = 0
+                                    _VAR1 = 0          ' <<< the assignment the debug trace below confirms actually executes
                                 #ENDIF
                             #ENDIF
                         #ENDIF
@@ -436,13 +448,15 @@ The following program shows the impact of nested conditions..&#160;&#160;Each ne
         // Program assembled successfully (Assembly time: 0.125 seconds)
         // Done
 ----
+*Key line:* `_VAR1 = 0` -- of the two nested `#IF CHIPRAM` branches (2048 and 4096), the debug trace shows only the `CHIPRAM = 4096` branch's assignments actually executing last for this chip, which is why the resulting ASM below sets `_VAR1` to 0, not 1.
 
 {empty} +
 {empty} +
 
 
-The resulting ASM from the about code is as expected.&#160;&#160;The assignment of `VAR1 = 0`.&#160;&#160; 
+The resulting ASM from the above code is as expected. The assignment of `VAR1 = 0`.
 
+[source,gcbasic]
 ----
         ;DIM _VAR1
         ;_VAR1 = 0
@@ -458,58 +472,61 @@ The resulting ASM from the about code is as expected.&#160;&#160;The assignment 
 
 *COMPILERDEBUG*
 
-The COMPILERDEBUG setting in the USE.INI file for GCBASIC is used to enable or disable debugging features for the compiler.&#160;&#160;When the bits of the setting COMPILERDEBUG are set to 1, it activates additional debug information during compilation, which can be helpful for developers to diagnose and fix issues.
+The COMPILERDEBUG setting in the USE.INI file for GCBASIC is used to enable or disable debugging features for the compiler. When the bits of the COMPILERDEBUG setting are set to 1, it activates additional debug information during compilation, which can be helpful for developers to diagnose and fix issues.
 
-To see the permissible bits for COMPILERDEBUG first opening and closing the PREFERENCES editor ( this does imply that the PREFERENCES EDITOR is maintained to show the Header in the USE.INI), and then edit USE.INI.&#160;&#160;The help section will display the following:
+To see the permissible bits for COMPILERDEBUG, first open and close the <<_about_the_preferences_editor,Preferences Editor>> (this does imply that the Preferences Editor is maintained to show the header in USE.INI), and then edit USE.INI. The help section will display the following:
 
+[source,gcbasic]
 ----
     'Preferences file for GCBASIC Preferences 3.14
 
     ... lots of help, then
 
-    '   compilerdebug =  0  - 1 = COMPILECALCADD 
+    '   compilerdebug =  0  - 1 = COMPILECALCADD
     '                       - 2 = VAR SET
-    '                       - 4 = CALCOPS 
+    '                       - 4 = CALCOPS
     '                       - 8 = COMPILECALCMULT
-    '                       - 16 = AUTOPINDIR 
+    '                       - 16 = AUTOPINDIR
     '                       - 32 = ADRDX
     '                       - 64 = GCASM
     '                       - 128 = COMPILESUBCALLS
     '                       - 256 = COMPILEUPDATESUBMAP
 ----
 
-To see the debug add or edit the [gcbasic] section of USE.INI.
+To see the debug output, add or edit the `[gcbasic]` section of USE.INI.
 
+[source,gcbasic]
 ----
     [gcbasic]
     'change to a bitwise value
-    compilerdebug = 0   
+    compilerdebug = 0
 ----
 
-As previously stated.  This setting can be helpful for developers to diagnose and fix issues within the compiler.
+As previously stated, this setting can be helpful for developers to diagnose and fix issues within the compiler.
 
 === ABOUT GLCD Library Support
 
-The GLCD capability supports over 40 GLCDs.&#160;&#160;GCBASIC loads automatically the specific library required.&#160;&#160;The loading of the specific library(ies) by the compiler improves performance and significantly reduces the compilation time.
+The GLCD capability supports over 40 GLCDs. GCBASIC automatically loads the specific library required. The loading of the specific library(ies) by the compiler improves performance and significantly reduces compilation time.
 
-The GLCD libraries, that are automatically loaded, are controlled by the use of an incude statement in the use program `#include <glcd.h>` with a constant to define the specific GLCD driver to be loaded `#define GLCD_TYPE GLCD_TYPE_SSD1289`.
+The GLCD libraries that are automatically loaded are controlled by the use of an include statement in the user program, `#include <glcd.h>`, with a constant to define the specific GLCD driver to be loaded, `#define GLCD_TYPE GLCD_TYPE_SSD1289`.
 
-The process the compiler uses the file `include\glcd.dat`.&#160;&#160;The `glcd.dat` has a strict format where the row index has parameters as shown below.
+The compiler uses the file `include\glcd.dat` for this process. `glcd.dat` has a strict format, where the row index has parameters as shown below.
 
 
+[source,gcbasic]
 ----
-    
-    Format. This is strict. 
-    
-    Usea comma delimiter; single quote to a comment line; amperand to group libraries. No other format controls permitted.
-    
+
+    Format. This is strict.
+
+    Use a comma delimiter; single quote for a comment line; ampersand to group libraries. No other format controls permitted.
+
     For each row.
 
-        Index, glcd type, library[[&library]&library] 
-        
+        Index, glcd type, library[[&library]&library]
+
         Index =   the reference number from GLCD.H. There is a unique reference number per type of glcd.
         Type  =   the type. per type of glcd. must match those definition in GLCD.H
-                    this is use as the search/match in the constant `GLCD_TYPE` in user source program 
+                    this is used as the search/match in the constant `GLCD_TYPE` in user source program
                     this is not case sensitive
         Library = library to be loaded, or, group of dependent libraries
                     delimiter must be '&'
@@ -520,29 +537,30 @@ The process the compiler uses the file `include\glcd.dat`.&#160;&#160;The `glcd.
 
 === Development Guide for GCBASIC Preferences Editor
 
-This section deals with the GCBASIC Preferences Editor (Pref Editor).&#160;&#160;
-The Prefs Editor is the software enables the user to select programmers, select the options when compiling, select the assembler and other settings.&#160;&#160;
-The Prefs Editor uses an ini to read and store the compiler settings.&#160;&#160;
-The INI structure is explained the first section, then, the Prefs Editor in detail.
+This section deals with the GCBASIC Preferences Editor (Prefs Editor).
+The Prefs Editor is the software that enables the user to select programmers, select the options when compiling, select the assembler, and other settings.
+The Prefs Editor uses an INI file to read and store the compiler settings.
+The INI structure is explained in the first section, then the Prefs Editor in detail.
 
 {empty} +
 
 *ABOUT THE INI FILES*
 
-You can provide the compiler an INI file with a number of settings and programmers.&#160;&#160;
+You can provide the compiler with an INI file with a number of settings and programmers.
 
-The following section provide details of the specifics within an example INI file.&#160;&#160;
-The comments are NOT part of an INI file.&#160;&#160;
+The following section provides details of the specifics within an example INI file.
+The comments are NOT part of an INI file.
 
-The settings are in the INI section called [gcbasic].&#160;&#160;
+The settings are in the INI section called `[gcbasic]`.
 
 
+[source,gcbasic]
 ----
     [gcbasic]
     programmer = arduinouno, pickitpluscmd1, lgt8f328p-1, xpress, pickit2cmdline, nsprog            - the currently selected available programmers
     showprogresscounters = n                                                                        - show percent values as compiler runs. requires Verbose = y
     verbose = y                                                                                     - show verbose compiler information
-    preserve = n                                                                                    - preservice source program in ASM
+    preserve = n                                                                                    - preserve source program in ASM
     warningsaserrors = n                                                                            - treat Warnings from scripts as errors. Errors will cause the compiler to cease on an Error(s)
     pauseaftercompile = n                                                                           - pause after compiler. Do not do this with IDEs
     flashonly = n                                                                                   - Flash the chip is source older that hex file
@@ -551,65 +569,68 @@ The settings are in the INI section called [gcbasic].&#160;&#160;
     laxsyntax = n                                                                                   - use lax syntax when Y, the compiler will not check that reserved words are being used
     mutebanners = n                                                                                 - mutes the post compilation messages
     evbs = n                                                                                        - show extra verbose compiler information, requires Verbose = y
-    nosummary = n                                                                                   - mutes almost all messages psot compilation   
-    extendedverbosemessages = n                                                                     - show even more verbose compiler information, requires Verbose = y                
+    nosummary = n                                                                                   - mutes almost all messages post compilation
+    extendedverbosemessages = n                                                                     - show even more verbose compiler information, requires Verbose = y
     conditionaldebugfile =                                                                          - creates CDF file
     columnwidth = 180                                                                               - ASM width before wrapping
-    picasdebug = n                                                                                  - adds PIC-AS preprocessor message to .S file    
+    picasdebug = n                                                                                  - adds PIC-AS preprocessor message to .S file
     datfileinspection = y                                                                           - inspects DAT for memory validation
     methodstructuredebug  = n                                                                       - show method structure start & end for validation
     floatcapability =  1                                                                            - 1 = singles
                                                                                                     - 2 = doubles
                                                                                                     - 4 = longint
                                                                                                     - 8 = uLongINT
-compilerdebug = 0                                                                              - 1 = COMPILECALCADD 
+compilerdebug = 0                                                                              - 1 = COMPILECALCADD
                                                                                                    - 2 = VAR SET
-                                                                                                   - 4 = CALCOPS 
+                                                                                                   - 4 = CALCOPS
                                                                                                    - 8 = COMPILECALCMULT
-                                                                                                   - 16 = AUTOPINDIR 
+                                                                                                   - 16 = AUTOPINDIR
                                                                                                    - 32 = ADRDX
                                                                                                    - 64 = GCASM
                                                                                                    - 128 = COMPILESUBCALLS
                                                                                                    - 256 = COMPILEUPDATESUBMAP
 ----
 
-The section shows an example [tool] assembler section.&#160;&#160;
+The section below shows an example `[tool]` assembler section.
 
+[source,gcbasic]
 ----
     [tool=pic-as]
-    'An assember
+    'An assembler
     type = assembler
-    'Location of the assember using a parameter substitution.
+    'Location of the assembler using a parameter substitution.
     command = %picaslocation%\pic-as.exe
     'Parameters
     params = -mcpu=%ChipModel%  "%Fn_NoExt%.S" -msummary=-mem,+psect,-class,-hex,-file,-sha1,-sha256,-xml,-xmlfull  -Wl -mcallgraph=std -mno-download-hex -o"%Fn_NoExt%.hex"  -Wl,-Map="%Fn_NoExt%.map" -Wa,-a
 
     [tool=mpasm]
-    'An assember
+    'An assembler
     type = assembler
-    'Location of the assember using a parameter substitution.
+    'Location of the assembler using a parameter substitution.
     command = %mpasmlocation%\mpasmx.exe
-    'Paramters
+    'Parameters
     params = /c- /o- /q+ /l+ /x- /w1 "%FileName%"
 
 ----
 
 
 
-The section shows an example [patch] section.
+The section below shows an example `[patch]` section.
 
-This section shows and explicit set of patches applied to PIC-AS assembler.
+This section shows an explicit set of patches applied to the PIC-AS assembler.
 
+[source,gcbasic]
 ----
     [patch=asm2picas]
-    desc = PICAS correction entries.  Format is STRICT as follows:  Must have quotes and the equal sign as the delimeter. PartName +COLON+"BadConfig"="GoodConfig"    Where BadConfig is from .s file and GoodConfig is from .cfgmap file
+    desc = PICAS correction entries.  Format is STRICT as follows:  Must have quotes and the equal sign as the delimiter. PartName +COLON+"BadConfig"="GoodConfig"    Where BadConfig is from .s file and GoodConfig is from .cfgmap file
     16f88x:"intoscio = "="FOSC=INTRC_NOCLKOUT"
     16f8x:"intrc = IO"="FOSC=INTOSCIO"
     12f67x:"intrc = OSC_NOCLKOUT"="FOSC=INTRCIO"
 ----
 
-The section shows an example [programmer] section.&#160;&#160;
+The section below shows an example `[programmer]` section.
 
+[source,gcbasic]
 ----
     [tool = pk4_pic_ipecmd_program_release_from_reset]
     'Description
@@ -620,7 +641,7 @@ The section shows an example [programmer] section.&#160;&#160;
     command = %mplabxipedirectory%\ipecmd.exe
     'Parameters using a parameter substitution.
     params = -TPPK4 -P%chipmodel%  -F"%filename%" -M  -E -OL -W5
-    'Worting direcroty using a parameter substitution.
+    'Working directory using a parameter substitution.
     workingdir = %mplabxipedirectory%
     'Useif constraints - this shows none
     useif =
@@ -629,21 +650,21 @@ The section shows an example [programmer] section.&#160;&#160;
 ----
 
 
-== ABOUT THE PREFERENCES EDITOR
+==== About the Preferences Editor
 
-This is a utility for editing GCBASIC ini files.&#160;&#160;
-It is derived from the Graphical GCBASIC utilities, and requires some files from Graphical GCBASIC to compile.&#160;&#160;
+This is a utility for editing GCBASIC ini files.
+It is derived from the Graphical GCBASIC utilities, and requires some files from Graphical GCBASIC to compile.
 
-The software is developed using Sharp Develop v.3.2.1 ( not Visual Studio ).&#160;&#160;
+The software is developed using SharpDevelop v.3.2.1 (not Visual Studio).
 
-The latest source is in Sourceforge.
+The latest source is on SourceForge.
 
 
 {empty} +
 
 *COMPILING*
 
-Ensure that the "Programmer Editor" folder is in the same folder as a "Graphical GCBASIC" folder.&#160;&#160;
+Ensure that the "Programmer Editor" folder is in the same folder as a "Graphical GCBASIC" folder.
 The "Graphical GCBASIC" folder must contain the following files from GCGB:
  - Preferences.vb
  - PreferencesWindow.vb
@@ -657,39 +678,41 @@ Once these files are in place, it should be possible to compile the Programmer E
 
 *USING PREFS EDITOR*
 
-If run without any parameters, this program will create an ini file in whatever directory it is located in.&#160;&#160;
-If it is given the name of an ini file as a command line parameter, it will use that file.&#160;&#160;
+If run without any parameters, this program will create an ini file in whatever directory it is located in.
+If it is given the name of an ini file as a command line parameter, it will use that file.
 
-As well as the ini file it is told to load, this program will also read any files that are included from that file..&#160;&#160;
-This makes it possible to keep the settings file in the Application Data folder if GCBASIC is installed in the Program Files directory..&#160;&#160;
+As well as the ini file it is told to load, this program will also read any files that are included from that file.
+This makes it possible to keep the settings file in the Application Data folder if GCBASIC is installed in the Program Files directory.
 To put the settings file into the Application Data folder, create a small ini file containing the following 3 lines and place it in the same directory as this program:
 
+[source,gcbasic]
 ----
     include %appdata%\gcgb.ini
     [gcgb]
     useappdata = true
 ----
 
-The include line tells the program (and GCBASIC) to read from the Application Data folder.&#160;&#160;
-The useappdata=true line in the [gcgb] section will cause this program to write any output to a file in Application Data called gcgb.ini.&#160;&#160;
-The hard coding of GCGB is required this program is based on GCGB.&#160;&#160;
+The include line tells the program (and GCBASIC) to read from the Application Data folder.
+The `useappdata=true` line in the `[gcgb]` section will cause this program to write any output to a file in Application Data called gcgb.ini.
+The hard coding of GCGB is required, as this program is based on GCGB.
 It will result in programmer definitions being shared between GCGB and any other environment using this editor, which may be a positive side effect.
 
 
 {empty} +
 
-*BUILDING THE PROGRAMMER EDITOR EXECUTABLE USING SHARP DEVELOP*
+*BUILDING THE PROGRAMMER EDITOR EXECUTABLE USING SHARPDEVELOP*
 
-To build Prefs Editor from the source files.&#160;&#160;
-The list shows the installation of the Sharp Develop IDE.
+To build Prefs Editor from the source files.
+The list shows the installation of the SharpDevelop IDE.
 
 
 Complete the following:
 
+[source,gcbasic]
 ----
-        1. Download and install Sharp Develop from  https://sourceforge.net/projects/sharpdevelop/files/SharpDevelop%203.x/3.2/[SourceForge]
+        1. Download and install SharpDevelop from  https://sourceforge.net/projects/sharpdevelop/files/SharpDevelop%203.x/3.2/[SourceForge]
         2. Download the Prefs Editor source using SVN into a source folder.  This is the folder ..\utils\Programmer Editor
-        4. Run Sharp Develop (installed at step #1).  Load project  "Programmer Editor.sln"  from source source folder.
+        4. Run SharpDevelop (installed at step #1).  Load project  "Programmer Editor.sln"  from the source folder.
         5. Hit <f8> to compile.
 ----
 
@@ -698,3 +721,9 @@ Complete the following:
 {empty} +
 {empty} +
 {empty} +
+
+**See Also:**
+
+* <<_development_guide,Development Guide>> -- the equivalent contributor guide for GCBASIC libraries
+* <<_gcbasic_maintenance,GCBASIC Maintenance>> -- the release/build/DAT-file maintenance process
+* <<_command_line_parameters,Command Line Parameters>> -- the use.ini settings this compiler reads

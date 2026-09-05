@@ -22,28 +22,43 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `Len` function returns an byte value which is the length of a phrase
-or a sentence, including the empty spaces. The format is:
+The `Len` function returns a byte value that is the length of a phrase
+or sentence, including spaces. The format is:
 
-``` screen
+``` programlisting
     target_byte_variable = Len("Phrase")
 ```
 
-or another example. This code will loop through the for-next loop 12
-times as determined by the length of the string:  
+Another example: this code loops through the `For`-`Next` loop 12 times,
+as determined by the length of the string.  
 
-``` screen
+``` programlisting
     ' create a test string of 12 characters
     dim teststring as string * 12
 
     teststring = "0123456789AB"
-    for loopthrustring = 1 to len(teststring)
+    for loopthrustring = 1 to len(teststring)          ' <<< the Len instruction
        hserprint mid(teststring, loopthrustring , 1)
     next
 ```
+
+<span class="strong">**Key line:**</span> `len(teststring)` — returns
+`12`, the number of characters in `teststring`, so the loop runs exactly
+once per character regardless of how the string’s declared size changes.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="mid" class="link" title="Mid">Mid</a> — extracting
+    characters using a position derived from `Len`
+-   <a href="asc" class="link" title="Asc">Asc</a> — related
+    command in the same category
+
+</div>
 
 </div>

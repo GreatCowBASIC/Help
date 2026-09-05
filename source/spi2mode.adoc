@@ -1,10 +1,14 @@
 ==== SPI2Mode
 
+(((SPI,SPI2Mode)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 
 *Legacy SPI Module*
 
+[source,gcbasic]
 ----
     SPI2Mode ( _Mode_ [, _SPIClockMode_])
 
@@ -18,6 +22,7 @@
 *Modern SPI Module*
 
 
+[source,gcbasic]
 ----
     SPI2Mode ( _Mode_ , _SPIClockMode_ )
 
@@ -116,6 +121,7 @@ For the _SPIClockMode_range, see the tables below:
 
 
 You can use a constant value or alternatively you can use constants to set the SPIClockMode as follows:
+[source,gcbasic]
 ----
     _Legacy SPI Module_
     SPI2Mode ( MasterFast, SPI_CPOL_n + SPI_CPHA_n )
@@ -145,12 +151,14 @@ Where the following parameters can be used as a calculation to set the SPIClockM
 
 You can explicitly change the SPI baud rate by defining the `SPI2_BAUD_RATE` constant as follows.&#160;&#160; This will change the default SPI baud from 4000 to the specified numeric value. 
 
+[source,gcbasic]
 ----
     #DEFINE SPI2_BAUD_RATE   8000
 ----
 
 You can explicitly set the SPI baud rate register by defining the `SPI2_BAUD_RATE_REGISTER` constant as follows.&#160;&#160; This will write the explicit numeric value to the SPI baud register.&#160;&#160; This overwrites any compiler calculated value. 
 
+[source,gcbasic]
 ----
     #DEFINE SPI2_BAUD_RATE_REGISTER  55
 ----
@@ -181,7 +189,7 @@ In other words, CPHA=0 means transmitting data on the active to idle state and C
 This adds more flexibility to the communication channel between the master and slave.
 
 
-image::spimode1.PNG[[graphic,align="center"]
+image::spimode1.PNG[graphic,align="center"]
 
 Legacy Example:
 
@@ -190,22 +198,23 @@ This example demonstrates the SPI capabilities for the mega328p.  The process is
 You must set the data line as inputs and outputs.
 
 
+[source,gcbasic]
 ----
 
         #chip mega328p, 16
         #option explicit
         #include <UNO_mega328p.h >
 
-        #define SPI2_HardwareSPI  'comment this out to make into Software SPI but, you may have to change clock lines
+        #DEFINE SPI2_HardwareSPI  'comment this out to make into Software SPI but, you may have to change clock lines
 
         'Pin mappings for SPI - this SPI driver supports Hardware SPI
-        #define SPI2_DC       DIGITAL_8          ' Data command line
-        #define SPI2_CS       DIGITAL_4          ' Chip select line
-        #define SPI2_RESET    DIGITAL_9          ' Reset line
+        #DEFINE SPI2_DC       DIGITAL_8          ' Data command line
+        #DEFINE SPI2_CS       DIGITAL_4          ' Chip select line
+        #DEFINE SPI2_RESET    DIGITAL_9          ' Reset line
 
-        #define SPI2_DI       DIGITAL_12          ' Data in | MISO
-        #define SPI2_DO       DIGITAL_11          ' Data out | MOSI
-        #define SPI2_SCK      DIGITAL_13          ' Clock Line
+        #DEFINE SPI2_DI       DIGITAL_12          ' Data in | MISO
+        #DEFINE SPI2_DO       DIGITAL_11          ' Data out | MOSI
+        #DEFINE SPI2_SCK      DIGITAL_13          ' Clock Line
 
         dir SPI2_DC    out
         dir SPI2_CS    out
@@ -233,13 +242,14 @@ You must set the data line as inputs and outputs.
        do
         set SPI2_CS OFF//  Select line
         set SPI2_DC OFF//  Send Data if off, or, Data if On
-        SPI2Transfer ( outbyte, inbyte )
+        SPI2Transfer ( outbyte, inbyte )          ' <<< the SPI2Transfer instruction
         set SPI2_CS ON//   Deselect Line
         set SPI2_DC ON
         wait 10 ms
        loop
 
 ----
+*Key line:* `SPI2Transfer ( outbyte, inbyte )` -- sends ` outbyte ` over MOSI and simultaneously receives the byte clocked in on MISO into ` inbyte ` using the second hardware SPI module, since SPI transfers data in both directions on every clock cycle.
 
 
 *Modern SPI Module Summary:*
@@ -250,8 +260,9 @@ The timing diagram is as shown in the prevsious section that impacts CPOL and CP
 
 If you have set the PPS for SPI2SSPPS then control of the SPI SS ( also know as CS / ChipSelect) is automatically controlled by the SPI transmission.
 
-* Example:*
+*Example:*
 
+[source,gcbasic]
 ----
     #CHIP 18F16Q41,64
 
@@ -290,28 +301,33 @@ If you have set the PPS for SPI2SSPPS then control of the SPI SS ( also know as 
 
     // Define the GCBASIC required SPI port constants.
     // Must match any PPS defined. 
-    #DEFINe SPI2_SCK   PORTB.6
-    #DEFINe SPI2_DO    PORTB.5
-    #DEFINe SPI2_DI    PORTB.4
-    #DEFINe SPI2_DC    PortC.1
-    #DEFINe SPI2_CS    PortC.6
-    #DEFINe SPI2_RESET PortC.2
+    #DEFINE SPI2_SCK   PORTB.6
+    #DEFINE SPI2_DO    PORTB.5
+    #DEFINE SPI2_DI    PORTB.4
+    #DEFINE SPI2_DC    PortC.1
+    #DEFINE SPI2_CS    PortC.6
+    #DEFINE SPI2_RESET PortC.2
 
     DO
         // Send 0x75 via SPI over and over again...
-        FastHWSPI2Transfer 0x75
+        FastHWSPI2Transfer 0x75          ' <<< the FastHWSPI2Transfer instruction
     LOOP
 
 ----
+*Key line:* `FastHWSPI2Transfer 0x75` -- sends the byte `0x75` using the second Modern SPI Module configured just above by `SPI2Mode (HWSPI2Mode, HWSPI2ClockMode)`; the SPI pins must match whatever was assigned through PPS in `InitPPS`.
 
 
 *Displaying SPI Configuration Information:*
 
 You can define `SHOWSPISCRIPTINFO` to have the compiler report diagnostic information while it evaluates the SPI configuration. This includes the chip name, whether the Legacy SPI Module or Modern SPI Module constants were defined, and the calculated SPI baud rate values.
 
+[source,gcbasic]
 ----
     #DEFINE SHOWSPISCRIPTINFO
 ----
 
 
-*See also* <<_spi2transfer,SPI2Transfer>>,<<_fasthwspi2transfer,FastHWSPI2Transfer>>
+**See Also:**
+
+* <<_spi2transfer,SPI2Transfer>>
+* <<_fasthwspi2transfer,FastHWSPI2Transfer>>

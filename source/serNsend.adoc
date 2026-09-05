@@ -1,9 +1,12 @@
 ==== SerNSend
 
+(((Serial Communications,SerNSend)))
+
+
 *Ser1Send, Ser2Send, Ser3Send*
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     Ser1Send data
     Ser2Send data
@@ -18,6 +21,7 @@ Available on all microcontrollers.
 This command will send a byte given by data using the channel referred to as Ser1.. , Ser2... , Ser3... according to the rules set by the related defines.
 
 *Example:*
+[source,gcbasic]
 ----
     'This program will send one byte using PORTA.5
 
@@ -33,7 +37,13 @@ This command will send a byte given by data using the channel referred to as Ser
     #define SER1_TXPIN 5       ; portbit  must be defined
 
     ; ----- Main body of program commences here.
-    Ser1Send 88   'send one byte (88 = X)
+    Ser1Send 88   'send one byte (88 = X)          ' <<< the Ser1Send instruction
 ----
+*Key line:* `Ser1Send 88` -- transmits the single byte 88 (ASCII `X`) on the software-UART channel configured by the `SER1_BAUD`/`SER1_TXPORT`/`SER1_TXPIN` defines above; unlike `SerSend`, no separate `InitSer` call is needed since `SoftSerial.h` configures the channel entirely from `#define`s.
 
 Exposed in SoftSerial.h authored by Frank Steinberg
+
+**See Also:**
+
+* <<_sernprint,SerNPrint>> -- sending a string or numeric value on the same channel
+* <<_sernreceive,SerNReceive>> -- the counterpart function for reading a byte back

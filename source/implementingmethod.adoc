@@ -1,17 +1,21 @@
 ==== Implementing a method with a Pin name as a parameter
 
+(((Example Macros,Implementing a method with a Pin name as a parameter)))
+
+
 *Introduction*
 
-A constant such as a Pin name cannot be passed to a sub routine or a function.  This is a constraint of GCBASIC.
+A constant, such as a pin name, cannot be passed to a subroutine or a function. This is a constraint of GCBASIC.
 
-A macro can be used to implement a method of passing a constant to reusable code section.
+A macro can be used to implement a method of passing a constant to a reusable code section.
 
-The example shown below implements a button press routine and takes an input port constant and prints the result on an LCD display.
+The example shown below implements a button-press routine that takes an input port constant and prints the result on a serial terminal.
 
 *Note:*
-A macro will use more program memory as the macro will be compiled as inline code. Therefore, for every use of the macro will use additional program memory - the same amount of program memory for each call to the macro.
+A macro will use more program memory, as the macro is compiled as inline code. Therefore, every use of the macro will use additional program memory - the same amount of program memory for each call to the macro.
 
 *Demonstration Program:*
+[source,gcbasic]
 ----
     #chip 16F877a, 16
     #define Button PORTC.1    ' Switch on PIN 14 via 10K pullup resistor
@@ -26,7 +30,7 @@ A macro will use more program memory as the macro will be compiled as inline cod
     HSerPrint "Button Test"
     HSerPrintCRLF 2
     Do
-       Test_button ( button )
+       Test_button ( button )          ' <<< passing a pin constant into a macro, not possible with a Sub or Function
     Loop
     ;==========================================
 
@@ -54,5 +58,8 @@ A macro will use more program memory as the macro will be compiled as inline cod
        end if
     End Macro
 ----
+*Key line:* `Test_button ( button )` -- passes the port.pin constant `Button` (defined as `PORTC.1`) directly into the macro; because macro parameters substitute like constants rather than copying into a variable, the macro body can compare `Button = ON` against the real pin, something a Sub or Function parameter could not do.
 
-Also see <<_macros_overview,Macros Overview>>
+**See Also:**
+
+* <<_macros_overview,Macros Overview>>

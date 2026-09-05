@@ -1,19 +1,23 @@
 ==== Right
 
+(((String Manipulation,Right)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __output__ = Right(__source__, __count__)
 ----
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The `Right` function will extract the rightmost `_count_` characters from the input string `_source_`, and return them in a new string.
+The `Right` function extracts the rightmost `_count_` characters from the input string `_source_`, and returns them in a new string.
 
 *Example:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16F1936
@@ -28,6 +32,12 @@ The `Right` function will extract the rightmost `_count_` characters from the in
 
     'Display the rightmost 6 characters
     'Will display "world!"
-    HSerPrint Right(TestData, 6)
+    HSerPrint Right(TestData, 6)          ' <<< the Right instruction
     HSerPrintCRLF
 ----
+*Key line:* `Right(TestData, 6)` -- returns the last 6 characters of `TestData`, giving `"world!"`.
+
+**See Also:**
+
+* <<_left,Left>> -- extracting characters from the start of a string instead
+* <<_mid,Mid>> -- extracting characters from an arbitrary position

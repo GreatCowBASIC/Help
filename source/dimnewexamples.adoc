@@ -1,0 +1,62 @@
+=== New Example 1: Basic Variables with Initial Values
+
+[source,gcbasic]
+----
+    ' Demonstrates variable declarations with and without initial values
+
+    Dim Count As Byte = 5          ' <<< Dim with a type and an initial value -- the syntax this page documents
+    Dim Threshold As Word = 300
+    Dim Mode As Byte
+    Dim Ready As Bit = 1
+
+    Mode = 2
+----
+*Key line:* `Dim Count As Byte = 5` -- declares `Count` as a `Byte` and sets its starting value in one statement, guaranteeing it (unlike `Mode`, which is undefined until set) even on chip families that do not zero-initialise RAM.
+
+---
+
+=== New Example 2: Arrays and Initialisation
+
+[source,gcbasic]
+----
+    ' Create an array of 10 bytes, all initialised to zero
+    Dim DataList(10) As Byte = 0          ' <<< Dim on an array, with an initial value applied to every element
+
+    ' Create a word array with no initial values
+    Dim WordList(4) As Word
+
+    DataList(1) = 15
+    WordList(0) = 1024
+----
+*Key line:* `Dim DataList(10) As Byte = 0` -- declares a 10-element `Byte` array and initialises every element to `0`, guaranteeing its starting contents even on chip families that do not zero-initialise RAM.
+
+Note: on chip families that do not zero-initialise by default (see the table under "Dim" above), `WordList` will contain unknown values until written to; only `DataList` is guaranteed zero here because it is explicitly initialised.
+
+---
+
+=== New Example 3: Bit-Level Access Using Constants
+
+[source,gcbasic]
+----
+    #Option Explicit
+    #Chip 16F1825, 32
+
+    Dim SerialByte As Byte = 0          ' <<< the Dim declaration this page documents
+
+    #Define STATUSREADY  SerialByte.0
+    #Define STATUSERROR  SerialByte.1
+    #Define STATUSMOTOR  SerialByte.2
+
+    Do
+        SerialByte = SerialByte + 1
+
+        If STATUSREADY = 1 Then
+            STATUSERROR = 0
+        End If
+
+        If STATUSERROR = 1 Then
+            STATUSMOTOR = 0
+        End If
+    Loop
+----
+*Key line:* `Dim SerialByte As Byte = 0` -- declares the single backing byte that the three `#Define` bit constants below then address individually, starting it at a known value of `0` rather than an undefined one.

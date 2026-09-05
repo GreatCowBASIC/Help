@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     GLCDPrintWithSize(PrintLocX, PrintLocY, PrintData_Byte , FontSize [, Color ] )    ',or
     GLCDPrintWithSize(PrintLocX, PrintLocY, PrintData_Word , FontSize [, Color ] )    ',or
     GLCDPrintWithSize(PrintLocX, PrintLocY, PrintData_Long , FontSize [, Color ] )    ',or
@@ -41,11 +41,27 @@ on the GLCD screen with a specific font size.
 To display a string using font size two use:  
   
 
-``` screen
-    GLCDPrintWithSize(PrintLocX, PrintLocY, "Using font size #2", 2 )
+``` programlisting
+    GLCDPrintWithSize(PrintLocX, PrintLocY, "Using font size #2", 2 )          ' <<< the GLCDPrintWithSize instruction
 ```
 
+<span class="strong">**Key line:**</span>
+`GLCDPrintWithSize(PrintLocX, PrintLocY, "Using font size #2", 2 )` — the
+fourth parameter (2) selects the font size, letting the same string be
+drawn larger or smaller than \`GLCDPrint’s single fixed size.  
   
-  
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — the
+    fixed-size equivalent of this command
+-   <a href="glcdprintlargefont" class="link" title="GLCDPrintLargeFont">GLCDPrintLargeFont</a> — a
+    dedicated large fixed font, string-only
+
+</div>
 
 </div>

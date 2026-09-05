@@ -41,7 +41,7 @@ is equal to the constant `I2C_ADDRESS`.
 
 <span class="strong">**Example 1 - Master Mode:**</span>
 
-``` screen
+``` programlisting
   ' I2C Receive - using the ChipIno board, see here for information. ' This program reads an I2C register and LED is set to on if the value  is over 100.
   ' This program will read from address 83, register 1.
 
@@ -67,7 +67,7 @@ is equal to the constant `I2C_ADDRESS`.
     I2CSend 1
 
     'Read value
-    I2CReceive ValueIn
+    I2CReceive ValueIn          ' <<< the I2CReceive instruction
 
     'Send stop
     I2CStop
@@ -82,13 +82,17 @@ is equal to the constant `I2C_ADDRESS`.
   Loop
 ```
 
+<span class="strong">**Key line:**</span> `I2CReceive ValueIn` — reads
+one byte from the I2C bus into `ValueIn`, automatically ACKing since no
+`ack` argument was given.
+
 <span class="strong">**Example 2 - Slave Mode:**</span>
 
 See the
 <a href="i2c_overview" class="link" title="I2C Overview">I2C Overview</a>
 for the Master mode device to control this Slave mode device.
 
-``` screen
+``` programlisting
   ' I2CReceive_Slave.gcb - using a 16F88.
   ' This program receives commands from a GCB Master. This Slave has three LEDs attached.
 
@@ -118,7 +122,7 @@ for the Master mode device to control this Slave mode device.
 
   do
     I2CStart                 ;wait for Start signal
-    I2CReceive( addr )         ;then wait for an address
+    I2CReceive( addr )         ' <<< the I2CReceive instruction (slave mode)
 
     if I2CMatch  = true then    ;if it matches, proceed
 
@@ -156,6 +160,27 @@ for the Master mode device to control this Slave mode device.
 
   loop
 ```
+
+<span class="strong">**Key line:**</span> `I2CReceive( addr )` — in
+slave mode, this blocks until the master sends the address byte, then
+sets `I2CMatch` to true if it equals this device’s own `I2C_ADDRESS`.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="i2c_overview" class="link" title="I2C Overview">I2C Overview</a> — category
+    overview
+-   <a href="i2csend" class="link" title="I2CSend">I2CSend</a> — the
+    counterpart command for transmitting data
+-   <a href="i2cstart" class="link" title="I2CStart">I2CStart</a>
+    /
+    <a href="i2cstop" class="link" title="I2CStop">I2CStop</a> — framing
+    the transaction used above
+-   <a href="i2crestart" class="link" title="I2CRestart">I2CRestart</a> — switching
+    direction within a transaction
+
+</div>
 
 Supported in &lt;I2C.H&gt;
 

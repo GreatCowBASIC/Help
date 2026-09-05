@@ -1,27 +1,36 @@
 ==== LongToBin
 
+(((String Manipulation,LongToBin)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __stringvar__ = LongToBin(__longvar__)
 ----
 
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The `LongToBin` function creates a string of a ANSI (32) characters.
-The function converts a number to a string consisting of ones and zeros that represents the binary value.
+The `LongToBin` function creates a string of ANSI characters representing a Long's binary value. It converts a number into a 32-character string consisting of ones and zeros.
 
 *Note:*
-Supports LONG variables only.  For BYTE variables use `VarToBin`, for WORD variables use `VarWToBinand` for INTEGER variables use `VarIntegerToBin`
+Supports `Long` variables only. For `Byte` variables use `ByteToBin`, for `Word` variables use `WordToBin`, and for `Integer` variables use `IntegerToBin`.
 
 *Example:*
+[source,gcbasic]
 ----
-    string = LongToBin( 1 )   ' Returns "0000000000000001"
+    string = LongToBin( 1 )   ' Returns "00000000000000000000000000000001"          ' <<< the LongToBin instruction
 
-    string = LongToBin( 254 ) ' Returns "0000000011111110"
+    string = LongToBin( 254 ) ' Returns "00000000000000000000000011111110"
 ----
-*For more help, see* <<_vartobin,VarToBin>>, <<_varWtobin,VarWToBin>>, <<_varintegertobin,VarIntegerToBin>>
+*Key line:* `LongToBin( 1 )` -- returns a fixed 32-character binary string, since a `Long` occupies 4 bytes (32 bits) of storage.
+
+**See Also:**
+
+* <<_bytetobin,ByteToBin>>
+* <<_wordtobin,WordToBin>>
+* <<_integertobin,IntegerToBin>>

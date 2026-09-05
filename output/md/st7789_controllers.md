@@ -27,9 +27,9 @@ connectivity - this is shown in the tables below.
 To use the ST7789 driver simply include the following in your user code.
 This will initialise the driver.
 
-``` screen
+``` programlisting
     #include <glcd.h>
-    #DEFINE GLCD_TYPE       GLCD_TYPE_ST7789_240_240
+    #DEFINE GLCD_TYPE       GLCD_TYPE_ST7789_240_240          ' <<< the constant that selects this controller driver and geometry
     //  #DEFINE GLCD_TYPE   GLCD_TYPE_ST7789_320_240
 
     'Pin mappings for ST7789 - these MUST be specified
@@ -42,6 +42,13 @@ This will initialise the driver.
     #define GLCD_CS     porta.1           'example port setting
     #define GLCD_DI     porta.3           'example port setting
 ```
+
+<span class="strong">**Key line:**</span>
+`#DEFINE GLCD_TYPE GLCD_TYPE_ST7789_240_240` — tells `<glcd.h>` to
+compile in the ST7789 driver for the 240x240 panel geometry; swap in
+`GLCD_TYPE_ST7789_320_240` for the 320x240 variant, and note that
+`GLCD_CS` and `GLCD_DI` are optional on this controller while `GLCD_DC`,
+`GLCD_RESET`, `GLCD_DO`, and `GLCD_SCK` are always required.
 
 The GCBASIC constants for the interface to the controller are shown in
 the table below.
@@ -239,7 +246,13 @@ supported commands.
 
 </div>
 
-``` screen
+The library predefines the named colors below as 16-bit RGB565 values (5
+bits red, 6 bits green, 5 bits blue). Pass any of these constants, or
+your own custom 0x0000-0xFFFF value, as the colour parameter to
+`GLCDCLS`, `Box`, `FilledBox`, `Line`, `GLCDDrawChar`, or
+`GLCDDrawString`.
+
+``` programlisting
     TFT_BLACK       0x0000
     TFT_NAVY        0x000F
     TFT_DARKGREEN   0x03E0
@@ -269,7 +282,7 @@ configuration.
 
 <span class="strong">**Example \#1**</span>
 
-``` screen
+``` programlisting
     #chip LGT8F328P
     #include <LGT8F328P.h>
     #option explicit
@@ -298,7 +311,7 @@ configuration.
     GLCDfntDefaultsize = 2
 
     GLCDRotate Portrait_Rev
-    GLCDPrint (0,0,"Hello World",TFT_GREEN)
+    GLCDPrint (0,0,"Hello World",TFT_GREEN)          ' <<< the GLCDPrint instruction
 
     GLCDRotate Portrait
     GLCDPrint (0,0,"Hello World",TFT_GREEN)
@@ -310,11 +323,17 @@ configuration.
     GLCDPrint (0,0,"Hello World",TFT_GREEN)
 ```
 
+<span class="strong">**Key line:**</span>
+`GLCDPrint (0,0,"Hello World",TFT_GREEN)` — draws the string in green at
+the top-left corner; the four calls together demonstrate that
+`GLCDRotate` (`Portrait`, `Portrait_Rev`, `Landscape`, `Landscape_Rev`)
+changes where "top-left" points to on the physical panel.
+
 <span class="strong">**Example \#2**</span>
 
 This example shows how to drive a ST7789 using a PIC with PPS.
 
-``` screen
+``` programlisting
     #chip 16F15376
     #option Explicit
 
@@ -336,8 +355,8 @@ This example shows how to drive a ST7789 using a PIC with PPS.
     ' ********************** Setup the GLCD ************************************************
 
         #INCLUDE <glcd.h>
-        #define GLCD_TYPE        GLCD__TYPE_ST7789_240_240
-        // #define GLCD_TYPE     GLCD__TYPE_ST7789_320_240
+        #define GLCD_TYPE        GLCD_TYPE_ST7789_240_240
+        // #define GLCD_TYPE     GLCD_TYPE_ST7789_320_240
 
 
         'This is a PPS chip, so, need to make the DO/SDO & SCK match the PPS assignments
@@ -366,7 +385,7 @@ This example shows how to drive a ILI3941 with the OLED fonts. Note the
 use of the `GLCDfntDefaultSize` to select the size of the OLED font in
 use.  
 
-``` screen
+``` programlisting
     #define GLCD_OLED_FONT                'The constant is required to support OLED fonts
 
     GLCDfntDefaultSize = 2
@@ -389,7 +408,7 @@ the font to reduce memory usage.
 When the extended OLED fontset is disabled every character will be shown
 as a block character.
 
-``` screen
+``` programlisting
     #define GLCD_OLED_FONT                'The constant is required to support OLED fonts
     #define GLCD_Disable_OLED_FONT2       'The constant to disable the extended OLED fontset.
 
@@ -405,13 +424,24 @@ as a block character.
 
   
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — clearing
+    the display
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a> — drawing
+    a single character
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — printing
+    a value at a specific location, as used above
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+    /
+    <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a> — low-level
+    byte access, for expert use
+-   <a href="pset" class="link" title="Pset">Pset</a> — setting a
+    single pixel
+
+</div>
 
 Supported in &lt;GLCD.H&gt;
 

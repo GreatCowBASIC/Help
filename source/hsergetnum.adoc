@@ -1,7 +1,10 @@
 ==== HSerGetNum
 
+(((Serial Communications,HSerGetNum)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   `HSerGetNum` _myNum_    ‘Gets a multi digit number  from USART 1
   `HSerGetNum` _myNum_,1  ‘Get a multi digit number from USART 1
@@ -21,6 +24,7 @@ Atmel AVR supports USART 1,2,3 and 4.
 
 To enable the use of the USART these are the enabling constants. &#160;&#160;These constants are required.&#160;&#160;You can change the `USART_BAUD_RATE` and to meet your needs.&#160;&#160;For addition USART ports use `#define USART**n**_BAUD_RATE 9600` where `**n**`` is the required port number.
 
+[source,gcbasic]
 ----
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
@@ -35,6 +39,7 @@ This command will read a multi digit number received as ascii chars followed by 
 
 
 *Example:*
+[source,gcbasic]
 ----
   'This program receives a number and CR from a PC terminal and sends it back on both usarts
   #chip 18f26k22, 16
@@ -68,20 +73,21 @@ This command will read a multi digit number received as ascii chars followed by 
   Do forever
     'wait for char from UART
     'HSerReceive InChar
-    HSerGetNum myNum,2    'from usart 2
+    HSerGetNum myNum,2    'from usart 2          ' <<< the HSerGetNum instruction
     HSerPrint myNum,1            ' send out usart 1
     HSerPrint myNum,2        'send out usart 2
     HSerPrintCRLF 1,2        'send one CRLF out usart 2
     HserPrintCRLF 1,1        ‘send one CRLF out usart 1
   loop
 ----
-
+*Key line:* `HSerGetNum myNum,2` -- blocks while reading ASCII digit characters from USART 2, ignoring any non-digit input, until it sees the terminating carriage return, then stores the assembled number in the word variable `myNum`.
 
 *Example:*
 This program receives number on serial port 1 and displays.  This example shows using a Long as the input variable.
 
 Therefore, the result is in the range of 0-99999.  The example also shows how to detect a buffer overrun by testing the HSerInByte variable.
 
+[source,gcbasic]
 ----
     #chip mega328p, 16
 
@@ -105,4 +111,7 @@ Therefore, the result is in the range of 0-99999.  The example also shows how to
     End
 ----
 
-*See also* <<_hserreceive,HSerReceive>> and <<_hsergetstring,HSerGetString>>
+**See Also:**
+
+* <<_hserreceive,HSerReceive>> -- reading a single raw byte instead of a whole number
+* <<_hsergetstring,HSerGetString>> -- reading a whole text string instead of a number

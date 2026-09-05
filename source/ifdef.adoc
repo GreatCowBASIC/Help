@@ -1,7 +1,10 @@
 === #ifdef
 
+(((Compiler Directives,#ifdef)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     #ifdef __Constant__ | __Constant Value__ | Var(__VariableName__)
       ...
@@ -20,7 +23,7 @@ There are several ways in which it can be used:
  - Checking if a system variable exists +
  - Checking if a system bit has been defined
 
-The advantage of using `#ifdef` rather than an equivalent series of `IF` statements is the amount of code that is downloaded to the chip. `#ifdef` controls what code is compiled and downloaded, `IF` controls what is run once on the chip. `#ifdef` should be used whenever the value of a constant is to be checked.
+The advantage of using `#ifdef` rather than an equivalent series of `IF` statements is the amount of code that is downloaded to the chip. `#ifdef` controls what code is compiled and downloaded; `IF` controls what is run, once, on the chip. `#ifdef` should be used whenever the value of a constant is to be checked.
 
 GCBASIC also supports the `#ifndef` directive - this is the opposite of the `#ifdef` directive - it will remove code that `#ifdef` leaves, and vice versa.
 
@@ -28,6 +31,7 @@ GCBASIC also supports the `#ifndef` directive - this is the opposite of the `#if
 The code in the following sections will not compile, as it is missing `#chip` directives and `Dir` commands. It is intended to act as an example only.
 
 *Example 1: _Enabling code if a constant is defined_*
+[source,gcbasic]
 ----
     #define Blink1
 
@@ -41,8 +45,9 @@ The code in the following sections will not compile, as it is missing `#chip` di
     #endif
 ----
 
-This code will pulse `PORTB.0`, but not `PORTB.1`. This is because `Blink1` has been defined, but `Blink2` has not. If the line was added at the start of the program, then both pins would be pulsed.
+This code will pulse `PORTB.0`, but not `PORTB.1`. This is because `Blink1` has been defined, but `Blink2` has not. If the line below was added at the start of the program, then both pins would be pulsed.
 
+[source,gcbasic]
 ----
     #define Blink2
 ----
@@ -51,11 +56,12 @@ This code will pulse `PORTB.0`, but not `PORTB.1`. This is because `Blink1` has 
 The value of the constant defined is not important and can be left off of the `#define`.
 
 *Example 2: _Enabling code if a constant is defined and has a given value_*
+[source,gcbasic]
 ----
     #define PinsToFlash 2
 
     #ifdef PinsToFlash 1,2,3
-      PulseOut PORTB.0, 1 sec
+      PulseOut PORTB.0, 1 sec          ' <<< compiled in because PinsToFlash matches one of the listed values
     #endif
     #ifdef PinsToFlash 2,3
       PulseOut PORTB.1, 1 sec
@@ -64,9 +70,12 @@ The value of the constant defined is not important and can be left off of the `#
       PulseOut PORTB.2, 1 sec
     #endif
 ----
-This program uses a constant called PinsToFlash that controls how many lights are pulsed. `PORTB.0` is pulsed when `PinsToFlash` is equal to 1, 2 or 3, `PORTB.1` is pulsed when `PinsToFlash` equals 2 or 3, and `PORTB.2` is flashed when `PinsToFlash` is 3.
+*Key line:* `#ifdef PinsToFlash 1,2,3` -- with `PinsToFlash` set to 2, this line matches (2 is in the list `1,2,3`) so `PulseOut PORTB.0` is compiled in; the third block (`PinsToFlash 3`) does not match, so its `PulseOut PORTB.2` line is removed entirely and never reaches the chip.
+
+This program uses a constant called `PinsToFlash` that controls how many lights are pulsed. `PORTB.0` is pulsed when `PinsToFlash` is equal to 1, 2, or 3; `PORTB.1` is pulsed when `PinsToFlash` equals 2 or 3; and `PORTB.2` is pulsed when `PinsToFlash` is 3.
 
 *Example 3: _Enabling code if a system variable is defined_*
+[source,gcbasic]
 ----
     #ifdef NoVar(ANSEL)
       SET ADCON1.PCFG3 OFF
@@ -79,10 +88,14 @@ This program uses a constant called PinsToFlash that controls how many lights ar
     #endif
 ----
 
-The above section of code has been copied directly from a-d.h. It is used to disable the A/D function of pins, so that they can be used as standard digital I/O ports. If `ANSEL` is not declared as a system variable for a particular chip, then the program uses `ADCON1` to control the port modes. If `ANSEL` is defined, then the chip is newer and its ports can be set to digital by clearing `ANSEL`.
+The above section of code has been copied directly from a-d.h. It is used to disable the A/D function of pins, so that they can be used as standard digital I/O ports. If `ANSEL` is not declared as a system variable for a particular chip, then the program uses `ADCON1` to control the port modes. If `ANSEL` is defined, then the chip is newer, and its ports can be set to digital by clearing `ANSEL`.
 
 *Example 4: _Enabling code if a system bit is defined_*
 
-Similar to above, except with `Bit` and `NoBit` in the place of `Var` and `NoVar` respectively.
+Similar to above, except with `Bit` and `NoBit` in place of `Var` and `NoVar` respectively.
 
-*See Also* <<_constants,Defines>>, <<__define,#define>>
+**See Also:**
+
+* <<_constants,Constants>> -- the general constants/precedence reference
+* <<__define,#DEFINE>> -- creating the constants tested here
+* <<__ifndef,#ifndef>> -- the opposite test

@@ -37,7 +37,7 @@ later.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Blink LED sample program for GCBASIC
     'Controls an LED on PORTB bit 0.
 
@@ -52,11 +52,29 @@ later.
 
     'Main routine
     Do
-        Set LED On
+        Set LED On          ' <<< the Set instruction
         Wait 1 sec
         Set LED OFF
         Wait 1 sec
     Loop
 ```
+
+<span class="strong">**Key line:**</span> `Set LED On` — drives the
+`LED` bit (aliased to `PORTB.0`) high; using the `LED` constant instead
+of writing `PORTB.0` directly means only the `#define` line needs to
+change if the circuit moves to a different pin.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="using_variables" class="link" title="Using Variables">Using Variables</a> — related
+    command in the same category
+-   <a href="more_on_setting_variables_and_constants" class="link" title="More on setting Variables and Constants">More on setting Variables and Constants</a> — related
+    command in the same category
+-   <a href="dir" class="link" title="Dir">Dir</a> — setting the
+    pin direction before using Set, as used above
+
+</div>
 
 </div>

@@ -1,7 +1,10 @@
 ==== HSerPrintStringCRLF
 
+(((Serial Communications,HSerPrintStringCRLF)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     HSerPrintStringCRLF _user_string_ [,1|2|3|4]  'Choose comport with optional parameter
                                                 'Default comport is 1
@@ -17,6 +20,7 @@ Atmel AVR supports USART 1,2,3 and 4.
 
 To enable the use of the USART these are the enabling constants. &#160;&#160;These constants are required.&#160;&#160;You can change the `USART_BAUD_RATE` and to meet your needs.&#160;&#160;For addition USART ports use `#define USART**n**_BAUD_RATE 9600` where `**n**`` is the required port number.
 
+[source,gcbasic]
 ----
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
@@ -33,9 +37,10 @@ The data will be sent out the hardware serial module.
 
 `HSerPrintStringCRLF` will send new line characters:
 
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 
 *Example:*
+[source,gcbasic]
 ----
   'This program will display string over the serial connection.
 
@@ -47,10 +52,15 @@ The data will be sent out the hardware serial module.
   #define USART_TX_BLOCKING
 
   'Show string message
-  HSerPrintStringCRLF "GCBASIC RS232 Test"
+  HSerPrintStringCRLF "GCBASIC RS232 Test"          ' <<< the HSerPrintStringCRLF instruction
   Wait 1 s
 
 
 ----
-*For more help, see also*
-<<_hserprint,HserPrint>>, <<_hserprintbytecrlf,HserPrintByteCRLF>> *and* <<_hserprintcrlf,HserPrintCRLF>>
+*Key line:* `HSerPrintStringCRLF "GCBASIC RS232 Test"` -- sends the string followed automatically by a carriage return and line feed, unlike `HSerPrint`, which requires the CR/LF bytes to be sent separately.
+
+**See Also:**
+
+* <<_hserprint,HSerPrint>> -- sends any variable type, but with no automatic CR/LF
+* <<_hserprintbytecrlf,HserPrintByteCRLF>> -- the byte equivalent of this command
+* <<_hserprintcrlf,HserPrintCRLF>> -- sends only the CR/LF terminator, with no data

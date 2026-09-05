@@ -1,5 +1,8 @@
 ==== PWMOut
 
+(((Pulse width modulation,PWMOut)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -20,9 +23,9 @@ by moving onto the next command, the PWM signal will stop.
 
 
 `_channel_` sets the channel that the PWM is to be generated on. This must
-have been defined previously by setting the constants `PWM_Out1` +
+have been defined previously by setting the constants `PWM_OUT1` +
 
-`PWM_Out2`, `PWM_Out3` or `PWM_Out4`. The maximum number of channels available
+`PWM_OUT2`, `PWM_OUT3` or `PWM_OUT4`. The maximum number of channels available
 is 4. +
 
 `_duty cycle_` specifies the PWM duty cycle, and ranges from 0 to 255. 255
@@ -36,7 +39,7 @@ The formula for calculating the time taken for one cycle is: +
 
 [subs="specialcharacters,quotes"]
 ----
-    T~CYCLE~ = (28 + 10C)T~OSC~+ (255 * PWM_Delay)
+    T~CYCLE~ = (28 + 10C)T~OSC~+ (255 * PWM_DELAY)
 ----
 
 where:  +
@@ -44,9 +47,10 @@ where:  +
 &#160;&#160;&#160;-C is the number of channels used +
 &#160;&#160;&#160;-T~OSC~ is the length of time taken to execute 1 instruction on the chip (0.2 us on a 20 MHz chip, 1
 us on a 4 Mhz chip) +
-&#160;&#160;&#160;-PWM_Delay is a length of time specified using the `PWM_Delay` constant +
+&#160;&#160;&#160;-PWM_DELAY is a length of time specified using the `PWM_DELAY` constant +
 
 *Example 1 :*
+[source,gcbasic]
 ----
     'This program controls the brightness of an LED on PORTB.0
     'using the software PWM routine and a potentiometer.
@@ -54,17 +58,17 @@ us on a 4 Mhz chip) +
 
     ; ----- Constants
     'PWM constant. This is a required constant.
-    #define PWM_Out1 portb.0
+    #define PWM_OUT1 portb.0
 
     ; ---- Optional Constant to add an delay after PWM pulse
-    ''#Define PWM_Delay 1 us
+    ''#Define PWM_DELAY 1 us
 
 
     ; ----- Define Hardware settings
     'PWM port out.  This is not required but good practice.
-    dir PWM_Out1 out
+    dir PWM_OUT1 out
 
-    'A potentiometer is attached to ANO
+    'A potentiometer is attached to AN0
 
     ; ----- Variables
     ' No Variables specified in this example.
@@ -72,12 +76,15 @@ us on a 4 Mhz chip) +
     ; ----- Main body of program commences here.
       do
           '100 cycles is a purely arbitrary value as the loop will maintain a relatively constant PWM
-          PWMOut 1, ReadAD(AN0), 100
+          PWMOut 1, ReadAD(AN0), 100          ' <<< the PWMOut instruction
       loop
 
 end
 ----
+*Key line:* `PWMOut 1, ReadAD(AN0), 100` -- drives channel 1 with a duty cycle read live from the potentiometer on `AN0`, repeating for 100 cycles per call; because the loop calls `PWMOut` again immediately, the pulse train continues without a visible gap.
+
 *Example 2 :*
+[source,gcbasic]
 ----
     'This program controls the brightness of an LED on gpio.1
     'using the software PWM routine and a potentiometer.
@@ -85,13 +92,13 @@ end
 
     ; ----- Constants
       'PWM constant. This is a required constant.
-      #define PWM_Out1 gpio.1
+      #define PWM_OUT1 gpio.1
 
     ; ----- Define Hardware settings
       'PWM port out.  This is not required but good practice.
-      dir PWM_Out1 out
+      dir PWM_OUT1 out
 
-      'A potentiometer is attached to ANO
+      'A potentiometer is attached to AN0
 
     ; ----- Variables
       ' No Variables specified in this example.
@@ -99,7 +106,17 @@ end
     ; ----- Main body of program commences here.
         do
           '100 cycles is a purely arbitrary value
-            PWMOut 1, ReadAD(AN0), 100
+            PWMOut 1, ReadAD(AN0), 100          ' <<< the PWMOut instruction, on a smaller 8-pin part
         loop
     end
 ----
+*Key line:* `PWMOut 1, ReadAD(AN0), 100` -- identical call to Example 1, but on the 8-pin 12F675 using `gpio.1` instead of `portb.0`; the command itself does not change with the chip, only the pin assigned to `PWM_OUT1`.
+
+**See Also:**
+
+* <<_pwmon,PWMOn>> -- hardware PWM alternative that does not need to be re-triggered in a loop
+* <<_hpwm_ccp,HPWM CCP>> -- higher-resolution hardware PWM using a CCP module
+* <<_dir,Dir>> -- setting the pin direction before driving it with PWM
+* <<_readad,ReadAD>> -- reading the potentiometer value used as the duty cycle in the example above
+* <<_wait,Wait>> -- introducing a fixed delay, as contrasted with a PWM pulse train
+

@@ -1,7 +1,10 @@
 ==== PS2ReadByte
 
+(((PS/2,PS2ReadByte)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     output = PS2ReadByte
 ----

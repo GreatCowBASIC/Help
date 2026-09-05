@@ -36,7 +36,7 @@ defines.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program will send one byte using PORTA.5
 
     ; ----- Configuration
@@ -51,9 +51,26 @@ defines.
     #define SER1_TXPIN 5       ; portbit  must be defined
 
     ; ----- Main body of program commences here.
-    Ser1Send 88   'send one byte (88 = X)
+    Ser1Send 88   'send one byte (88 = X)          ' <<< the Ser1Send instruction
 ```
 
+<span class="strong">**Key line:**</span> `Ser1Send 88` — transmits the
+single byte 88 (ASCII `X`) on the software-UART channel configured by
+the `SER1_BAUD`/`SER1_TXPORT`/`SER1_TXPIN` defines above; unlike
+`SerSend`, no separate `InitSer` call is needed since `SoftSerial.h`
+configures the channel entirely from \`\#define\`s.
+
 Exposed in SoftSerial.h authored by Frank Steinberg
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="sernprint" class="link" title="SerNPrint">SerNPrint</a> — sending
+    a string or numeric value on the same channel
+-   <a href="sernreceive" class="link" title="SerNReceive">SerNReceive</a> — the
+    counterpart function for reading a byte back
+
+</div>
 
 </div>

@@ -1,9 +1,12 @@
 // Edit EvanV 171016
 ==== Common Cathode
 
+(((7-Segment Displays,Common Cathode)))
+
+
 This is a Common Cathode 7 Segment display example.
 
-No additional configuration is required when using Common Cathnode.
+No additional configuration is required when using Common Cathode.
 
 [cols=3, options="header,autowidth"]
 |===
@@ -12,7 +15,7 @@ No additional configuration is required when using Common Cathnode.
 |*Comment*
 |`7Seg_CommonAnode`
 |Inverts controls for Common Anode displays
-|Required for Common Cathode displays
+|Required for Common Anode displays -- omit this constant for Common Cathode displays
 |`7Seg_HighSide`
 |Support PFET or PNP high side driving of the display
 |Inverts Common Cathode addressing pin logic for multiplexed displays
@@ -22,6 +25,7 @@ This is a Common Cathode 7 Segment display example.
 
 
 *Example:*
+[source,gcbasic]
 ----
     'Chip model
     #chip 16f1783,8
@@ -64,7 +68,7 @@ This is a Common Cathode 7 Segment display example.
             end if
             Num1 = number
             Repeat 10
-              DisplayValue 1, Num1,1  'Optional third parameter turns on the dp dot on that digit
+              DisplayValue 1, Num1,1  'Optional third parameter turns on the dp dot on that digit          ' <<< the DisplayValue instruction
               wait 5 ms
               DisplayValue 2, Num2
               wait 5 ms
@@ -75,5 +79,11 @@ This is a Common Cathode 7 Segment display example.
         Next
     Loop
 ----
-*Also, see*
-<<_7_segment_displays_overview,7 Degment Display Overview>>,<<_displaychar,DisplayChar>>, <<_displayvalue,DisplayValue>>
+*Key line:* `DisplayValue 1, Num1,1` -- writes `Num1` to digit 1 of the display, with the optional third parameter of 1 also lighting that digit's decimal point; no `7Seg_CommonAnode` define is needed here because this is a Common Cathode display.
+
+**See Also:**
+
+* <<_7_segment_displays_overview,7 Segment Display Overview>> -- category overview
+* <<_displaychar,DisplayChar>> -- displaying a single character instead of a full multi-digit value
+* <<_displayvalue,DisplayValue>> -- full reference for the command used above
+* <<_common_anode,Common Anode>> -- the counterpart wiring, which requires the `7Seg_CommonAnode` constant

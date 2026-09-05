@@ -1,5 +1,8 @@
 ==== SSD1306 Controllers
 
+(((Graphical LCD,SSD1306 Controllers)))
+
+
 
 This section covers GLCD devices that use the SSD1306 graphics controller.
 
@@ -23,15 +26,16 @@ To use the SSD1306 drivers simply include one of the following configuration.  Y
 
 Performance of the SSD1306 has been validated at 16Mhz and 400Hz I2C baud.&#160;&#160;Using other frequencies should be fully tested. 
 
+[source,gcbasic]
 ----
     'An I2C configuration
     #include <glcd.h>
 
     ; ----- Define GLCD Hardware settings
-    #define GLCD_TYPE GLCD_TYPE_SSD1306
+    #define GLCD_TYPE GLCD_TYPE_SSD1306          ' <<< the constant that selects this controller driver
     #define GLCD_I2C_Address 0x78
-    '#define GLCD_TYPE_SH1306_LOWMEMORY_GLCD_MODE       'select Low Memory mode of operation
-    '#define GLCD_TYPE_SH1306_CHARACTER_MODE_ONLY       'select Text mode of operation
+    '#define GLCD_TYPE_SSD1306_LOWMEMORY_GLCD_MODE       'select Low Memory mode of operation
+    '#define GLCD_TYPE_SSD1306_CHARACTER_MODE_ONLY       'select Text mode of operation
 
 
     ; ----- Define Hardware settings
@@ -40,9 +44,11 @@ Performance of the SSD1306 has been validated at 16Mhz and 400Hz I2C baud.&#160;
     #define HI2C_DATA
     HI2CMode Master
 ----
+*Key line:* `#define GLCD_TYPE GLCD_TYPE_SSD1306` -- tells `<glcd.h>` to compile in the SSD1306 driver; the commented-out `GLCD_TYPE_SSD1306_LOWMEMORY_GLCD_MODE` and `GLCD_TYPE_SSD1306_CHARACTER_MODE_ONLY` lines trade GLCD buffer size against available functionality on RAM-constrained microcontrollers.
 
 or,
 
+[source,gcbasic]
 ----
     'An SPI configuration'
     #include <glcd.h>
@@ -331,6 +337,7 @@ Parameter is dim value
 For a SSD1306 datasheet, please refer http://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf[here].
 
 This example shows how to drive a SSD1306 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode GLCD
+[source,gcbasic]
 ----
 
     #chip mega328p,16
@@ -349,7 +356,7 @@ This example shows how to drive a SSD1306 based Graphic I2C LCD module with the 
     dim outString as string * 21
 
     GLCDCLS
-    GLCDPrint 0, 0, "GCBASIC"
+    GLCDPrint 0, 0, "GCBASIC"          ' <<< the GLCDPrint instruction
     GLCDPrint (0, 16, "Anobium 2021")
 
     wait 3 s
@@ -394,12 +401,14 @@ This example shows how to drive a SSD1306 based Graphic I2C LCD module with the 
     LOOP
     end
 ----
+*Key line:* `GLCDPrint 0, 0, "GCBASIC"` -- draws the string at pixel column 0, row 0 using the standard GCBASIC font set; the loop that follows demonstrates numeric formatting helpers such as `hex()` and `pad()` alongside Box, Circle, and Line.
 {empty} +
 {empty} +
 This example shows how to drive a SSD1306 based Graphic I2C LCD module with the built in commands of GCBASIC using Low Memory Mode GLCD.
 {empty} +
 Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to support the Low Memory Mode of operation and the contraining of all GLCD commands with the transaction commands.  The use Low Memory Mode GLCD the two defines `GLCD_TYPE_SSD1306_LOWMEMORY_GLCD_MODE` and `GLCD_TYPE_SSD1306_CHARACTER_MODE_ONLY` are included in the user program.
 {empty} +
+[source,gcbasic]
 ----
 
     #chip mega328p,16
@@ -480,6 +489,7 @@ Note the use of `GLCD_Open_PageTransaction` and `GLCD_Close_PageTransaction` to 
 {empty} +
 This example shows how to drive a SSD1306 based Graphic SPI LCD module with the built in commands of GCBASIC.
 {empty} +
+[source,gcbasic]
 ----
     'Chip model
     #chip mega328p, 16
@@ -513,7 +523,7 @@ This example shows how to drive a SSD1306 based Graphic SPI LCD module with the 
          SET led OFF
 
         GLCDCLS
-        GLCDPrint (30, 0, "Hello World!")
+        GLCDPrint (30, 0, "Hello World!")          ' <<< the GLCDPrint instruction, over the SPI (S4Wire) interface
         Circle (18,24,10)
         FilledCircle (48,24,10)
         Box (70,14,90,34)
@@ -528,9 +538,11 @@ This example shows how to drive a SSD1306 based Graphic SPI LCD module with the 
 
     Loop
 ----
+*Key line:* `GLCDPrint (30, 0, "Hello World!")` -- identical usage to the I2C examples above; only the interface constants (`MOSI_SSD1306`, `SCK_SSD1306`, etc.) and ` S4Wire_DATA ` change to select SPI instead of I2C.
 {empty} +
 This example shows how to drive a SSD1306 based Graphic I2C LCD module with 128 * 32 pixel support.
 {empty} +
+[source,gcbasic]
 ----
 
     #chip mega328p,16
@@ -554,6 +566,7 @@ This example shows how to drive a SSD1306 based Graphic I2C LCD module with 128 
 {empty} +
 This example shows how to drive a SSD1306 with the OLED fonts.  Note the use of the `GLCDfntDefaultSize` to select the size of the OLED font in use.
 {empty} +
+[source,gcbasic]
 ----
 
     #define GLCD_OLED_FONT
@@ -571,6 +584,7 @@ This example shows how to drive a SSD1306 with the OLED fonts.  Note the use of 
 {empty} +
 This example shows how to set the SSD1306 OLED the lowest constrast level by using a OLED chip specific command.
 {empty} +
+[source,gcbasic]
 ----
 
     'Use the GCB command to set the lowest constrast
@@ -596,6 +610,7 @@ This example shows how to disable the large OLED Fontset.  This disables the fon
 
 When the large OLED fontset is disabled every character will be shown as a block character.
 {empty} +
+[source,gcbasic]
 ----
 
 
@@ -614,8 +629,13 @@ When the large OLED fontset is disabled every character will be shown as a block
 ----
 {empty} +
 
+**See Also:**
 
-*For more help, see*
-<<_glcdcls,GLCDCLS>>, <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
+* <<_ssd1309_controllers,SSD1309 Controllers>> -- the command-compatible, pin-compatible replacement for this controller
+* <<_glcdcls,GLCDCLS>> -- clearing the display, as used above
+* <<_glcddrawchar,GLCDDrawChar>> -- drawing a single character
+* <<_glcdprint,GLCDPrint>> -- printing a value at a specific location, as used above
+* <<_glcdreadbyte,GLCDReadByte>> / <<_glcdwritebyte,GLCDWriteByte>> -- low-level byte access, for expert use
+* <<_pset,Pset>> -- setting a single pixel
 
 Supported in <GLCD.H>

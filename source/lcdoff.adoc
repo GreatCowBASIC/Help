@@ -1,7 +1,11 @@
 ==== LCDDisplayOff
 
+(((Liquid Crystal Display,LCDDisplayOff)))
+
+
 [subs="specialcharacters,quotes"]
 *Syntax*:
+[source,gcbasic]
 ----
     LCDDisplayOff
 ----
@@ -11,6 +15,7 @@
 
 Will turn off (hide) the LCD display.
 
-*See also* <<_lcdcursor,LCDCursor>>
+**See Also:**
 
+* <<_lcdcursor,LCDCursor>>
 *Supported in <LCD.H>*

@@ -31,7 +31,7 @@
         'This array is created at memory location 0x2400. 
         'This memory location is specific to this chip ( you must ensure other microcontrollers address are valid).
 
-        Dim mybuffer1 as ALLOC * BUFFERSIZE at 0x2400
+        Dim mybuffer1 as ALLOC * BUFFERSIZE at 0x2400          ' <<< the Alloc declaration this page documents
 
         'A data table
         Table myDataTable

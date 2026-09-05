@@ -1,5 +1,8 @@
 ==== Do
 
+(((Flow control,Do)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 
@@ -31,6 +34,7 @@ Optionally, you can specify a condition to `EXIT` the `Do-Loop` immediately.
 
 *Example 1:*
 
+[source,gcbasic]
 ----
     'This code will flash a light until the button is pressed
     #chip 12F629, 4
@@ -41,11 +45,12 @@ Optionally, you can specify a condition to `EXIT` the `Do-Loop` immediately.
     Dir BUTTON In
     Dir LIGHT Out
 
-    Do Until BUTTON = 1
+    Do Until BUTTON = 1          ' <<< the Do...Loop this page documents
       PulseOut LIGHT, 1 s
       Wait 1 s
     Loop
 ----
+*Key line:* `Do Until BUTTON = 1` -- the loop body repeats until `BUTTON` becomes true; with `Until` the test happens *before* each pass.
 
 *Example 2:*
 
@@ -68,4 +73,10 @@ example uses `EXIT DO` within a continuous loop.
     Loop
 ----
 
-*For more help, see <<_conditions,Conditions>>*
+**See Also:**
+
+* <<_conditions,Conditions>> -- background on how conditions are evaluated
+* <<_for,For>> -- fixed-count loop alternative when the number of iterations is known
+* <<_if,If>> -- conditional execution without looping
+* <<_pulseout,PulseOut>> -- generating a timed pulse, as used in the example above
+* <<_wait,Wait>> -- introducing a fixed delay, as used in the example above

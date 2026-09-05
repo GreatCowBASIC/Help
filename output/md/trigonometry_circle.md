@@ -31,7 +31,7 @@ functions.
 
 <span class="strong">**Demonstration program:**</span>
 
-``` screen
+``` programlisting
     ;Circle and filled circle commands on a graphic LCD.
     ;This uses the 2-place trigonometric routines found in the include file.
 
@@ -77,8 +77,8 @@ functions.
 
     ;----- Variables
 
-    dim cx, cy, edge, jj as byte
-    dim ii as word
+    dim cx, cy, edge, xPixel as byte
+    dim angle as word
 
     ;----- Program
 
@@ -95,37 +95,48 @@ functions.
     sub myCircle(cenX, cenY, rad)
         ;Center of circle = (cenX,cenY), radius = rad
 
-        for ii = 0 to 358 step 2                 ;every two degrees
-            cx = cenX -((10*rad*cos(ii))/100+5)/10  ;properly rounded x value
-            cy = cenY -((10*rad*sin(ii))/100+5)/10  ;properly rounded y value
+        for angle = 0 to 358 step 2                 ;every two degrees
+            cx = cenX -((10*rad*cos(angle))/100+5)/10  ;properly rounded x value          ' <<< using the 2-place trig lookup table to compute a point on the circle
+            cy = cenY -((10*rad*sin(angle))/100+5)/10  ;properly rounded y value
 
             ;the following ignores the pixel if off the screen
             if (cx>=0 and cx<=GLCD_WIDTH and cy>=0 and cy<=GLCD_HEIGHT) then
             Pset(cx, cy, on)
             end if
-        next ii
+        next angle
     end sub
 
     sub myCircleFilled(cenX, cenY, rad)
         ;Center of circle = (cenX,cenY), radius = rad
 
-        for ii = 0 to 358 step 2
-            cx = cenX -((10*rad*cos(ii))/100+5)/10
-            cy = cenY -((10*rad*sin(ii))/100+5)/10
+        for angle = 0 to 358 step 2
+            cx = cenX -((10*rad*cos(angle))/100+5)/10
+            cy = cenY -((10*rad*sin(angle))/100+5)/10
             edge = 2 * cenX - cx                  ;compute right edge
 
-            for jj = cx to edge                    ;fill entire line, uses legacy for next permitting CX to be less than edge
-                if (jj>=0 and jj<=GLCD_WIDTH and cy>=0 and cy<=GLCD_HEIGHT) then
-                    Pset(jj,cy,on)
+            for xPixel = cx to edge                    ;fill entire line, uses legacy for next permitting cx to be less than edge
+                if (xPixel>=0 and xPixel<=GLCD_WIDTH and cy>=0 and cy<=GLCD_HEIGHT) then
+                    Pset(xPixel,cy,on)
                 end if
-            next jj
-        next ii
+            next xPixel
+        next angle
     end sub
 ```
 
-<span class="strong">**See also**</span>
-<a href="trigonometry_sine_cosine_and_tangent" class="link" title="Trigonometry Sine, Cosine and Tangent">Trigonometry</a>,
-<a href="circle" class="link" title="Circle">Circle</a>,
-<a href="filledcircle" class="link" title="FilledCircle">FilledCircle</a>,
+<span class="strong">**Key line:**</span>
+`cx = cenX -10*rad*cos(angle/100+5)/10` — uses the 2-decimal-place
+`cos()` from `TRIG2PLACES.H` (scaled by 100) to compute the x-offset for
+a point on the circle at the given `angle` in degrees; the `+5)/10`
+performs rounding to the nearest whole pixel rather than truncating.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="trigonometry_sine_cosine_and_tangent" class="link" title="Trigonometry Sine, Cosine and Tangent">Trigonometry Sine, Cosine and Tangent</a>
+-   <a href="circle" class="link" title="Circle">Circle</a>
+-   <a href="filledcircle" class="link" title="FilledCircle">FilledCircle</a>
+
+</div>
 
 </div>

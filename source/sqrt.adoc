@@ -1,21 +1,25 @@
 ==== Sqrt
 
+(((Maths,Sqrt)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     word_variable = sqrt ( __word__ )
 ----
 *Explanation:*
 
-A square root routine for GCBASIC. The function only involves bit shifting, addition and subtraction, which makes it fast and efficient.
+A square root routine for GCBASIC. The function only involves bit shifting, addition, and subtraction, which makes it fast and efficient.
 
-This method required a word variable as the input and a word variable as the output. The method will handle arguments of up to 4294.
+This method requires a word variable as the input and a word variable as the output. The method handles arguments of up to 4294.
 
 *Command Availability:*
 
-Available on all microcontrollers, required MATHS.H include file.
+Available on all microcontrollers; requires the `MATHS.H` include file.
 
 *Example:*
+[source,gcbasic]
 ----
     ;Demo: Show the first 100 square roots to 2 decimal places.
     ;This uses the maths.h include file.
@@ -55,7 +59,7 @@ Available on all microcontrollers, required MATHS.H include file.
       print i
       print ")="
 
-      valStr = str(sqrt(i))         ;format decimal nicely
+      valStr = str(sqrt(i))         ;format decimal nicely          ' <<< the Sqrt instruction
       length = len(valStr)
 
       select case length
@@ -73,4 +77,10 @@ Available on all microcontrollers, required MATHS.H include file.
       wait 2 S
     next i
 ----
+*Key line:* `sqrt(i)` -- computes the integer square root of the loop counter `i`, scaled as a fixed-point value that the surrounding `select case` block then reformats with a decimal point.
 *Supported in <MATHS.H>*
+
+**See Also:**
+
+* <<_power,Power>> -- the inverse-square relationship to Sqrt
+* <<_abs,Abs>> -- related command in the same category

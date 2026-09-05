@@ -1,7 +1,10 @@
 ==== ClearTimer
 
+(((Timers,ClearTimer)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     ClearTimer _TimerNo_
 ----
@@ -17,11 +20,17 @@ Available on all Microchip PIC and Atmel AVR microcontrollers with built in time
 stop the timer first.  
 
 *Example:*
+[source,gcbasic]
 ----
     .....
     'Clear timer 1
-    ClearTimer 1
+    ClearTimer 1          ' <<< the ClearTimer instruction
     .....
 ----
+*Key line:* `ClearTimer 1` -- resets Timer 1's count to 0 immediately, whether or not the timer is currently running.
 
-*See also, <<_inittimer1,InitTimer1>>* article for an example.
+**See Also:**
+
+* <<_inittimer1,InitTimer1>> -- a full worked example that uses ClearTimer before timing an event
+* <<_starttimer,StartTimer>> / <<_stoptimer,StopTimer>> -- starting and stopping the timer being cleared
+* <<_settimer,Settimer>> -- setting a timer to a specific value instead of clearing it to 0

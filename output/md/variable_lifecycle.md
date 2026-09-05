@@ -58,7 +58,7 @@ Byte variables do not need to be defined using the DIM statement. See
 \#Option Explicit above. Just to clarify byte is default type, this
 means:
 
-``` screen
+``` programlisting
     Dim MainVar As Byte is unnecessary.
     MainVar = 128    automatic defines the MainVar variable
 ```
@@ -70,7 +70,7 @@ subroutine then their type is not, see the example below:
 
 Example code:
 
-``` screen
+``` programlisting
     Dim MainVar As Byte
     Dim OtherVar As Word
 
@@ -85,13 +85,20 @@ Example code:
     '(Byte is default type, but location shared with that of Counter in DemoSub. High byte ignored)
 
     Sub DemoSub
-        Dim Counter As Word
+        Dim Counter As Word          ' <<< a Word-typed alias for the same memory the caller sees as a Byte named Counter
         Counter = 2050
         'At this point:
         'MainVar and OtherVar as byte and word, as in main routine
         'Counter is a word, value 2050
     End Sub
 ```
+
+<span class="strong">**Key line:**</span>
+`Dim Counter As Word` — because every variable in GCBASIC is global by
+name and address, this local `Dim` does not create separate storage; it
+only changes how the <span class="strong">**same**</span> memory is
+interpreted inside `DemoSub`. Outside the sub, that memory is read as a
+`Byte`, so `2050` (`0x0802`) is truncated to its low byte, `2`.
 
 In DemoSub, Counter is a word. But anywhere else in the program it is a
 byte unless otherwise specified. If the variable is used/read in the
@@ -112,7 +119,17 @@ to the addition of the second one.
 The handling of variable types using this method minimises the size of
 the generated assembly code.
 
-<span class="strong">**For more help, see**</span>
-<a href="_option_explicit" class="link" title="#Option Explicit">Option Explicit</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="_option_explicit" class="link" title="#Option Explicit">Option Explicit</a>
+-   <a href="dim" class="link" title="Dim">Dim</a> — declaring
+    variables, as used throughout this page
+-   <a href="using_variables" class="link" title="Using Variables">Using Variables</a> — accessing
+    individual bytes of a wider variable directly, without aliasing by
+    name
+
+</div>
 
 </div>

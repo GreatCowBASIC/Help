@@ -194,4 +194,17 @@ to value</strong></span></th>
 
 <span class="strong">**Supported in &lt;TIMER.H&gt;**</span>
 
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="timer_overview" class="link" title="Timer Overview">Timer Overview</a> — category
+    overview
+-   <a href="inittimer0" class="link" title="InitTimer0">InitTimer0</a> — related
+    command in the same category
+-   <a href="inittimer1" class="link" title="InitTimer1">InitTimer1</a> — related
+    command in the same category
+
+</div>
+
 </div>

@@ -1,5 +1,8 @@
 ==== ILI9486(L) Controllers
 
+(((Graphical LCD,ILI9486(L) Controllers)))
+
+
 
 This section covers GLCD devices that use the ILI9486(L) graphics controller.
 
@@ -13,6 +16,7 @@ GCBASIC supports 65K-color mode operations.
 
 To use the ILI9486(L) driver simply include the following in your user code.  This will initialise the driver.
 
+[source,gcbasic]
 ----
     #include <glcd.h>
     #DEFINE GLCD_TYPE GLCD_TYPE_ILI9486L
@@ -193,6 +197,7 @@ The GCBASIC commands supported for this GLCD are shown in the table below.&#160;
 |===
 
 
+[source,gcbasic]
 ----
     TFT_BLACK   'hexidecimal value 0x0000
     TFT_RED     'hexidecimal value 0xF800
@@ -221,6 +226,7 @@ This example shows how to drive a ILI9486L based Graphic LCD module with the bui
 
 
 *Example:*
+[source,gcbasic]
 ----
     #chip mega328p, 16
     #option explicit
@@ -239,15 +245,23 @@ This example shows how to drive a ILI9486L based Graphic LCD module with the bui
     #define GLCD_DO       DIGITAL_11          ' Data out | MOSI
     #define GLCD_SCK      DIGITAL_13          ' Clock Line
 
-    #define ILI9486L_HardwareSPI              ' Remove/comment out if you want to use software SPI.
+    #define ILI9486L_HardwareSPI              ' <<< selects hardware SPI over software SPI for this driver
 
 
     GLCDPrint(0, 0, "Test of the ILI9486L Device")
     end
 ----
+*Key line:* `#define ILI9486L_HardwareSPI` -- routes the driver's SPI traffic through the microcontroller's hardware SPI module instead of a bit-banged software implementation; remove this line to fall back to software SPI.
 
 
-*For more help, see*
-<<_glcdcls,GLCDCLS>>, <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview and the full supported-display comparison table
+* <<_glcdcls,GLCDCLS>>
+* <<_glcddrawchar,GLCDDrawChar>>
+* <<_glcdprint,GLCDPrint>>
+* <<_glcdreadbyte,GLCDReadByte>>
+* <<_glcdwritebyte,GLCDWriteByte>>
+* <<_pset,Pset>>
 
 Supported in <GLCD.H>

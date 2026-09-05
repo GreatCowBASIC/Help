@@ -42,16 +42,16 @@ Refer to the datasheet for timer specific information.
   
 <span class="strong">**Example:**</span>
 
-This example shows the operation of setting two timers - is not intended
-as a meaningful solution.
+This example shows the operation of setting two timers — it is not
+intended as a meaningful solution.
 
-``` screen
+``` programlisting
     #chip 16f877a, 4
     On Interrupt Timer1Overflow call Overflowed
     Set PORTB.0 On
 
     InitTimer1 Osc, PS1_8
-    SetTimer 1, 1
+    SetTimer 1, 1          ' <<< the Settimer instruction (byte value)
     StartTimer 1
 
     InitTimer2 PS2_16, PS2_16
@@ -73,6 +73,23 @@ as a meaningful solution.
       TMR1IF = 0
     End Sub
 ```
+
+<span class="strong">**Key line:**</span> `SetTimer 1, 1` — preloads
+Timer 1 with the value 1 immediately before starting it, so its very
+first overflow happens sooner than a fresh, cleared timer would produce.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="starttimer" class="link" title="StartTimer">StartTimer</a> — starting
+    the timer after preloading it, as used above
+-   <a href="cleartimer" class="link" title="ClearTimer">ClearTimer</a> — resetting
+    a timer’s count to 0 instead of a specific value
+-   <a href="on_interrupt" class="link" title="On Interrupt">On Interrupt</a> — handling
+    the overflow event, as used above
+
+</div>
 
 <span class="strong">**Supported in &lt;TIMER.H&gt;**</span>
 

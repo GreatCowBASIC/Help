@@ -1,14 +1,17 @@
 === Labels
 
+(((Syntax,Labels)))
+
+
 *About Labels*
 
 Labels are used as markers throughout the program. Labels are used to
-mark a position in the program to ‘jump to’ from another position using
-a goto, gosub or other command.
+mark a position in the program to 'jump to' from another position using
+a goto, gosub, or other command.
 
 Labels can be any word (that is not already a reserved keyword) and may
 contain digits and the underscore character. Labels must start with a
-letter or underscore (not digit), and are followed directly by a colon
+letter or underscore (not a digit), and are followed directly by a colon
 (:) at the marker position. The colon is not required within the actual
 commands.
 
@@ -16,6 +19,7 @@ The compiler is not case sensitive. Lower and/or upper case may be used
 at any time.
 
 *Example:*
+[source,gcbasic]
 ----
     'This program will flash the light until the button is pressed
     'off. Notice the label named SWITCH_OFF.
@@ -29,7 +33,7 @@ at any time.
 
     Do
     PulseOut LIGHT, 500 ms
-    If BUTTON = 1 Then Goto SWITCH_OFF
+    If BUTTON = 1 Then Goto SWITCH_OFF          ' <<< jumping to a label
     Wait 500 ms
     If BUTTON = 1 Then Goto SWITCH_OFF
     Loop
@@ -38,5 +42,9 @@ at any time.
     Set LIGHT Off
     'Chip will enter low power mode when program ends
 ----
+*Key line:* `If BUTTON = 1 Then Goto SWITCH_OFF` -- as soon as the button is read as pressed, execution jumps straight to the `SWITCH_OFF:` label below, skipping the rest of the loop body and turning the light off.
 
-*For more help, see* <<_goto,Goto>>, <<_gosub,Gosub>>
+**See Also:**
+
+* <<_goto,Goto>> -- unconditional jump to a label
+* <<_gosub,Gosub>> -- calling a label as a subroutine

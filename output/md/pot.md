@@ -52,7 +52,7 @@ will be dealt with by the `Pot` command.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     'This program will beep whenever a shadow is detected
     'A potentiometer is used to adjust the threshold
 
@@ -65,13 +65,19 @@ will be dealt with by the `Pot` command.
     Dir SoundOut Out
 
     Do
-        Pot ADJUST, Threshold
+        Pot ADJUST, Threshold          ' <<< the Pot instruction
         Pot LDR, LightLevel
         If LightLevel > Threshold Then
             Tone 1000, 100
         End If
     Loop
 ```
+
+<span class="strong">**Key line:**</span>
+`Pot ADJUST, Threshold` — measures the charge time on the `ADJUST` pin
+(set by the `Pot` command’s own timing, no `Dir` call needed) and stores
+the result in `Threshold`; the same technique is reused on the `LDR` pin
+below to read the light sensor.
 
 <span class="strong">**Example 2:**</span>
 
@@ -88,7 +94,7 @@ GPIO.3 automatically. And, this solution is specific to the 12F509 and
 therefore the 12F509 register called `NOT_GPPU` may be different on
 another chip.
 
-``` screen
+``` programlisting
     #chip 12F509
     #option Explicit
 
@@ -121,11 +127,17 @@ another chip.
       Loop
 ```
 
-<span class="strong">**See also**</span>
-<a href="http://ladyada.net/library/rccalc" class="link">ladyada.net/library/rccalc</a>
-or
-<a href="http://web.archive.org/web/20100818230450/http://www.cvs1.uklinux.net/cgi-bin/calculators/time_const.cgi" class="link">cvs1.uklinux.net/cgi-bin/calculators/time_const.cgi</a>
-for calculating capacitor value. These sites are not associated with
-GCBASIC.
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="dir" class="link" title="Dir">Dir</a> — related
+    command in the same category
+-   <a href="getuserid" class="link" title="GetUserID">GetUserID</a> — related
+    command in the same category
+-   <a href="http://ladyada.net/library/rccalc" class="link">ladyada.net/library/rccalc</a> — calculating
+    the capacitor value (not associated with GCBASIC)
+
+</div>
 
 </div>

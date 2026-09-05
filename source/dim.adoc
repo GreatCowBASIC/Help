@@ -1,5 +1,8 @@
 ==== Dim
 
+(((Variables Operations,Dim)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -23,6 +26,7 @@ The `Dim` command is used to declare variables, arrays, and strings. It can also
 
 GCBASIC supports **optional initialisation** at the point of declaration:
 
+[source,gcbasic]
 ----
     Dim byte_var As Byte = 1
 ----
@@ -30,6 +34,7 @@ GCBASIC supports **optional initialisation** at the point of declaration:
 This sets the variable to the specified value at program start.
 The traditional form remains fully valid:
 
+[source,gcbasic]
 ----
     Dim byte_var As Byte
 ----
@@ -53,12 +58,22 @@ If no initial value is provided, the starting state of the variable depends on t
 *Command Availability:*
 Available on all microcontrollers.
 
+**See Also:**
+
+* <<_alloc,Alloc>> -- reserving an unstructured RAM buffer/array variant instead of a typed variable
+* <<_serprint,SerPrint>> -- string handling examples
+* <<_variable_types,Variable Types>> -- more information on variable types
+* <<_set,Set>> -- setting a bit variable's state after declaring it
+* <<_constants,Constants>> -- fixed, named values as an alternative to a variable
+* <<_rotate,Rotate>> -- bit-rotating a declared variable's value
+
 ---
 
-=== Variable Declaration
+===== Variable Declaration
 
 `Dim` can declare one or more variables on a single line. When multiple variables are declared together, the type at the end of the line applies to all variables:
 
+[source,gcbasic]
 ----
     Dim A, B, C As Word = 100
 ----
@@ -67,10 +82,11 @@ If no type is specified, the variable defaults to `Byte`.
 
 ---
 
-=== Initial Values
+===== Initial Values
 
 You may optionally assign an initial value using `= value`:
 
+[source,gcbasic]
 ----
     Dim Counter As Byte = 10
     Dim Temperature As Integer = -5
@@ -88,13 +104,14 @@ Initialisation is supported for:
 
 Example:
 
+[source,gcbasic]
 ----
     Dim Buffer(8) As Byte = 0
 ----
 
 ---
 
-=== Alias
+===== Alias
 
 Alias creates a variable that shares the same memory location as another variable:
 These are useful for joining predefined byte variables together to form a word/long variable.
@@ -112,6 +129,7 @@ The coding approach should be to DIMension the variable (word, integer, or long)
 
 Example 1:
 
+[source,gcbasic]
 ----
 
     Dim my_variable as LONG
@@ -133,6 +151,7 @@ To set a series of registers that are not consecutive, it is recommended to use 
 
 Example 2:
 
+[source,gcbasic]
 ----
     Dim my_variable as LONG
     Dim my_bit_address_variable as Byte
@@ -150,6 +169,7 @@ Example 2:
 
 Example 3:
 
+[source,gcbasic]
 ----
 
         Dim MyADResult As Word Alias ADRESH, ADRESL
@@ -159,6 +179,7 @@ Example 3:
 
 Example4:
 
+[source,gcbasic]
 ----
     dim Myhibyte, Mylobyte as Byte
     dim Myvariable As Word Alias Myhibyte, Mylobyte
@@ -169,10 +190,11 @@ Example4:
 
 ---
 
-=== At (Fixed Memory Location)
+===== At (Fixed Memory Location)
 
 `At` places a variable at a specific RAM location:
 
+[source,gcbasic]
 ----
     Dim SerialBuffer As Byte At 0x20
 ----
@@ -183,12 +205,13 @@ If the location is already used or invalid, a warning is generated.
 
 ---
 
-=== Strings
+===== Strings
 
 *String*
 
 Declared as:
 
+[source,gcbasic]
 ----
     Dim <Name> As String 
 ----
@@ -201,6 +224,7 @@ Fixed strings are not null-terminated and do not resize automatically.
 
 Declared as:
 
+[source,gcbasic]
 ----
     Dim <Name> As String [* <Length>]
     Dim <Name> * <Length>
@@ -239,77 +263,15 @@ From build 1603.
 
 *Example*
 
+[source,gcbasic]
 ----
     tmpstring = "\223C\\"
 ----
 
 Produces a 3-byte string: `Chr(223)`, `C`, `\` -- stored in the string table as:
 
+[source,gcbasic]
 ----
     StringTable2:
     .DB  3, 223, 67, 92
 ----
-
----
-
-=== New Example 1: Basic Variables with Initial Values
-
-----
-    ' Demonstrates variable declarations with and without initial values
-
-    Dim Count As Byte = 5
-    Dim Threshold As Word = 300
-    Dim Mode As Byte
-    Dim Ready As Bit = 1
-
-    Mode = 2
-----
-
----
-
-=== New Example 2: Arrays and Initialisation
-
-----
-    ' Create an array of 10 bytes, all initialised to zero
-    Dim DataList(10) As Byte = 0
-
-    ' Create a word array with no initial values
-    Dim WordList(4) As Word
-
-    DataList(1) = 15
-    WordList(0) = 1024
-----
-
-Note: on chip families that do not zero-initialise by default (see the table under "Dim" above), `WordList` will contain unknown values until written to; only `DataList` is guaranteed zero here because it is explicitly initialised.
-
----
-
-=== New Example 3: Bit‑Level Access Using Constants
-
-----
-    #Option Explicit
-    #Chip 16F1825, 32
-
-    Dim SerialByte As Byte = 0
-
-    #Define StatusReady  SerialByte.0
-    #Define StatusError  SerialByte.1
-    #Define StatusMotor  SerialByte.2
-
-    Do
-        SerialByte = SerialByte + 1
-
-        If StatusReady = 1 Then
-            StatusError = 0
-        End If
-
-        If StatusError = 1 Then
-            StatusMotor = 0
-        End If
-    Loop
-----
-
----
-
-*For more help, see:*
-<<_serprint,SerPrint>> for string handling examples and <<_variables,Variables Types>> for more information on variable types.

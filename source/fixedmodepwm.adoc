@@ -1,5 +1,8 @@
 ==== HPWM Fixed Mode
 
+(((Pulse width modulation,HPWM Fixed Mode)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -94,6 +97,7 @@ For CCP/PWM modules are also supported using a call to a method or a macro, as f
 To set the Fixed Mode PWM for PWM Modules you need to set a timer frequency, a PWM module cycle and the PWM model source clock.
 
 The options for source clock are shown below.    These are the PWM timers supported by the PWM modules, where `nn` is the frequency.
+[source,gcbasic]
 ----
     PWM_Timer2_Freq `nn` or
     PWM_Timer4_Freq `nn` or
@@ -101,11 +105,13 @@ The options for source clock are shown below.    These are the PWM timers suppor
 ----
 
 The PWM module duty is set using PWM_`yy`_Duty `xx' where `yy` is between 1 and 9 and is a valid PWM module, and, `xx` is the Duty cycle for specific channels
+[source,gcbasic]
 ----
     #define PWM_yy_Duty xx
 ----
 
 The PMW module clock source us PWM_`zz`_Clock_Source `tt`.  Where `zz` is channel and `tt` is the PWM clock source.
+[source,gcbasic]
 ----
     #define PMW_zz_Clock_Source tt
 ----
@@ -119,6 +125,7 @@ The minimum is
 
 Example: For PWM channel 6 with a frequency of 38Khz with a duty of 50% with a clock source of timer 2, use
 
+[source,gcbasic]
 ----
         #define PWM_Timer2_Freq 38
         #define PWM_7_Duty 50
@@ -127,12 +134,17 @@ Example: For PWM channel 6 with a frequency of 38Khz with a duty of 50% with a c
 
 Details of the constants with  example parameters.
 
+[source,gcbasic]
+----
         #define PWM_Timer2_Freq 20        'Set frequency in KHz, just change the number
         #define PWM_Timer4_Freq 40        'Set frequency in KHz, just change the number
         #define PWM_Timer6_Freq 60        'Set frequency in KHz, just change the number
+----
 
 Supported PWM modules, with example parameters.
 
+[source,gcbasic]
+----
         #define PWM_1_Duty 10            'Set duty cycle as percentage 0-100%, just change the number
         #define PMW_1_Clock_Source 2
 
@@ -159,6 +171,7 @@ Supported PWM modules, with example parameters.
 
         #define PWM_9_Duty 90
         #define PMW_9_Clock_Source 6
+----
 
 {empty} +
 {empty} +
@@ -166,6 +179,7 @@ Supported PWM modules, with example parameters.
 
 Enable CCP1/PWM channel only.  This is the legacy command.
 
+[source,gcbasic]
 ----
     #chip 16f877a,20
 
@@ -177,7 +191,7 @@ Enable CCP1/PWM channel only.  This is the legacy command.
     #define PWM_Freq 38      'Frequency of PWM in KHz
     #define PWM_Duty 50      'Duty cycle of PWM (%)
 
-    PWMOn    'Will enable CCP1/PWM Only
+    PWMOn    'Will enable CCP1/PWM Only          ' <<< the PWMOn instruction (legacy, channel 1 only)
 
     wait 10 s                'Wait 10 s
 
@@ -187,11 +201,14 @@ Enable CCP1/PWM channel only.  This is the legacy command.
     loop
 
 ----
+*Key line:* `PWMOn` -- with no parameter this enables only CCP1/PWM, using the frequency and duty cycle set by `PWM_Freq`/`PWM_Duty`; this is the original, channel-1-only form of the command.
+
 {empty} +
 *Example #2:*
 
 Enable any CCP/PWM channel using a call to a method.
 
+[source,gcbasic]
 ----
     #chip 16f877a,20
 
@@ -203,7 +220,7 @@ Enable any CCP/PWM channel using a call to a method.
     #define PWM_Freq 38      'Frequency of PWM in KHz
     #define PWM_Duty 50      'Duty cycle of PWM (%)
 
-    PWMOn (2)    'Will enable any valid CCP/PWM channel
+    PWMOn (2)    'Will enable any valid CCP/PWM channel          ' <<< the PWMOn instruction with an explicit channel
 
     wait 10 s                'Wait 10 s
 
@@ -213,11 +230,14 @@ Enable any CCP/PWM channel using a call to a method.
     loop
 
 ----
+*Key line:* `PWMOn (2)` -- the parameterised form extends the same fixed-frequency, fixed-duty behaviour to any CCP/PWM channel (1 through 5), not just channel 1.
+
 {empty} +
-Example #3:*
+*Example #3:*
 
 Enable any PWM module using a PWM specific method.
 
+[source,gcbasic]
 ----
     'A real simple and easy PWM setup for 8 and 10 bit PWM channels
         #chip 18f25k42, 16
@@ -295,7 +315,7 @@ Enable any PWM module using a PWM specific method.
 
 
         '   Enable module 7
-        HPWMOn ( 7, PWMModule )
+        HPWMOn ( 7, PWMModule )          ' <<< the HPWMOn instruction, PWM-module form
         wait 2 s
         '   Disable channel 7
         HPWMOff ( 7, PWMModule)
@@ -318,9 +338,16 @@ Enable any PWM module using a PWM specific method.
     End
 
 ----
+*Key line:* `HPWMOn ( 7, PWMModule )` -- starts PWM module 7 using the frequency, duty, and clock-source constants (`PWM_Timer2_Freq`, `PWM_7_Duty`, `PMW_7_Clock_Source`) defined above; `PWMModule` tells `HPWMOn` this is a PWM-module channel rather than a CCP channel.
+
 {empty} +
 {empty} +
 
 {empty} +
 
-*For more help, see* <<_pwmon,PWMOn>> and <<_pwmoff,PWMOff>> *or, for AVR see* <<_hpwm_fixed_mode_for_avr,Fixed Mode PWM for AVR>>
+**See Also:**
+
+* <<_pwmon,PWMOn>> -- full reference for the legacy channel-1 form
+* <<_pwmoff,PWMOff>> -- stopping the PWM output
+* <<_hpwm_fixed_mode_for_avr,HPWM Fixed Mode for AVR>> -- the Atmel AVR equivalent
+* <<_hpwm_ccp,HPWM CCP>> -- the dynamic-mode alternative for changing frequency and duty cycle at runtime

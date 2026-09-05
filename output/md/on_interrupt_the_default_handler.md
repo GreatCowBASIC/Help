@@ -47,7 +47,7 @@ code is not intended as a meaningful solution and intended to show the
 functionality only. An LED is attached to PORTB.1 via a suitable
 resistor. It will light up when the Interrupt event has occurred.
 
-``` screen
+``` programlisting
     #chip 16f877a, 4
     dir PORTB.1 out
     Set PORTB.1 Off
@@ -58,7 +58,7 @@ resistor. It will light up when the Interrupt event has occurred.
     StartTimer 1
     'Manually set Timer1Overflow to the overflow event
     'this will event will be handled by the Interrupt sub routine
-    TMR1IE = 1
+    TMR1IE = 1          ' <<< enables the interrupt with no On Interrupt handler registered
     end
 
     Sub Interrupt
@@ -67,7 +67,10 @@ resistor. It will light up when the Interrupt event has occurred.
     End Sub
 ```
 
-<span class="strong">**Example 2**</span>
+<span class="strong">**Key line:**</span> `TMR1IE = 1` — enables the
+Timer1 overflow interrupt directly, with no matching `On Interrupt`
+line, so every occurrence of the event falls through to the default
+`Interrupt` subroutine. <span class="strong">**Example 2**</span>
 
 Any events that are not dealt with by On Interrupt will result in the
 code in the Interrupt subroutine executing. This example shows the
@@ -77,7 +80,7 @@ solution.
 LEDs are attached to PORTB.1 and PORTB.2 via suitable resistors. They
 will light up when the Interrupt events occur.
 
-``` screen
+``` programlisting
     #chip 16f877a, 4
     On Interrupt Timer1Overflow call Overflowed
 
@@ -97,7 +100,7 @@ will light up when the Interrupt events occur.
 
     'Manually set Timer2Overflow to create a second event
     'this will event will be handled by the Interrupt sub routine
-    TMR2IE = 1
+    TMR2IE = 1          ' <<< enables a second interrupt with no On Interrupt handler registered
     end
 
     Sub Interrupt
@@ -110,5 +113,26 @@ will light up when the Interrupt events occur.
       TMR1IF = 0
     End Sub
 ```
+
+<span class="strong">**Key line:**</span> `TMR2IE = 1` — enables the
+Timer2 overflow interrupt with no matching `On Interrupt` line, so it
+falls through to the default `Interrupt` subroutine, while the
+explicitly-registered Timer1 overflow event still runs `Overflowed`
+instead.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="on_interrupt" class="link" title="On Interrupt">On Interrupt</a> — registering
+    a handler for a specific interrupt event
+-   <a href="intoff" class="link" title="IntOff">IntOff</a> — globally
+    disabling interrupts
+-   <a href="inton" class="link" title="IntOn">IntOn</a> — globally
+    re-enabling interrupts
+-   <a href="inittimer1" class="link" title="InitTimer1">InitTimer1</a> — configuring
+    Timer1, as used in both examples above
+
+</div>
 
 </div>

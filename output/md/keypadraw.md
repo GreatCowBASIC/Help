@@ -26,9 +26,11 @@ Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-This function will return a 16 bit value, in which each bit corresponds
-to a key on the keypad. If the key is pressed its bit will hold 1, and
-if it is released its bit will contain a 0.
+This function returns a 16-bit value, in which each bit corresponds to a
+key on the keypad. If a key is pressed, its bit holds 1; if it is
+released, its bit holds 0. Because every key gets its own bit,
+`KeypadRaw` can detect multiple keys pressed at the same time — unlike
+`KeypadData`, which only ever reports one.
 
 This table shows the key that each bit corresponds to:
 
@@ -57,7 +59,7 @@ This table shows the key that each bit corresponds to:
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Program to show the keypad status using LEDs
     #chip 16F877A, 20
 
@@ -76,7 +78,7 @@ This table shows the key that each bit corresponds to:
     'Main loop
     Do
         'Get key
-        KeyStatus = KeypadRaw
+        KeyStatus = KeypadRaw          ' <<< the KeypadRaw instruction
 
         'Display
         LED1 = KeyStatus_H 'High Byte
@@ -84,7 +86,19 @@ This table shows the key that each bit corresponds to:
     Loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="keypad_overview" class="link" title="Keypad Overview">Keypad Overview</a>
+<span class="strong">**Key line:**</span>
+`KeyStatus = KeypadRaw` — reads all 16 key states at once into a single
+word, so any combination of simultaneously pressed keys can be recovered
+by testing individual bits.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="keypad_overview" class="link" title="Keypad Overview">Keypad Overview</a>
+-   <a href="keypaddata" class="link" title="KeypadData">KeypadData</a> — the
+    simpler single-key-value form
+
+</div>
 
 </div>

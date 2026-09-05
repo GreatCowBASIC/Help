@@ -1,4 +1,7 @@
 == Changes
+
+(((GCBASIC with the AVRISP or MKII Programmer,Changes)))
+
 *Formal Release of GCBASIC Compiler v1.xx.xx*
 
 {empty} +

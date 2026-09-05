@@ -23,10 +23,20 @@
 <span class="strong">**Explanation:**</span>
 
 The `#config` directive is used to specify configuration options for the
-chip. There is a detailed explanation of `#config` in the Configuration
-section of help.
-
-<span class="strong">**See Also**</span>
+chip. There is a detailed explanation of `#config` in the
 <a href="configuration" class="link" title="Configuration">Configuration</a>
+section of the help.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="configuration" class="link" title="Configuration">Configuration</a> — the
+    full explanation of PIC CONFIG words, AVR fuses, and GCBASIC’s
+    automatic defaults
+-   <a href="_chip" class="link" title="#chip">#chip</a> — selecting
+    the target chip and clock frequency
+
+</div>
 
 </div>

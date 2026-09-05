@@ -1,77 +1,59 @@
 ==== Millis - Timer based functions
 
-*Introduction*
+(((Timers,Millis - Timer based functions)))
 
-Intended to provide a simple timing method to applications and libraries.&#160;&#160;
-These timer based functions are supported on AVR and PIC.&#160;&#160;
-This is achieved by exposing three user interrupt "Hooks" that allow user code to be run as part of the millis() library implementation.&#160;&#160;
+*Introduction:*
 
-These "Hooks" are:
+The `millis()` library provides a simple, portable timing method for applications and libraries. It is supported on both AVR and PIC microcontrollers, and works by exposing three user-interrupt "hooks" that let user code run as part of the library's own timer interrupt handler.
 
-1. `User_Int_sec` - which generates a user interrupt every second
+The three hooks are:
 
-2. `User_Int_ms`  - which generates a user interrupt every millisecond
+[start=1]
+. `User_Int_sec` -- generates a user interrupt every second.
+. `User_Int_ms` -- generates a user interrupt every millisecond.
+. `User_Int_XmS` -- generates a user interrupt every user-specified period, expressed in milliseconds.
 
-3. `User_Int_XmS` - which generates a user interrupt every user specified time period expressed in milliseconds.
+Each is covered below, with a worked example.
 
-See each numbered section below shows how to use each type of "hook".
+*Command Availability:*
 
-*1. Usage - User_Int_sec*
+Available on all AVR and PIC microcontrollers, via `#include "millis.h"`.
 
-To define an interrupt every second use: `#Define  User_Int_sec    MyTimerInterrupt` where `User_Int_sec` is mandated.
+*1. Usage -- User_Int_sec*
 
-As follows:
+Define `User_Int_sec` to name the method called once a second:
+
+[source,gcbasic]
 ----
     #Define  User_Int_Sec  MyTimerInterrupt
     Init_Millis()
 ----
 
-Where MyTimerInterrupt, shown above, is called every second and `Init_Millis()` starts the millis library timer.
+`MyTimerInterrupt` is called every second once `Init_Millis()` starts the library's timer.
 
+*2. Usage -- User_Int_ms*
 
-*2. Usage - User_Int_ms*
+Define `User_Int_ms` to name the method called every millisecond:
 
-To define an interrupt every millisecond use: `#Define  User_Int_ms    MyTimerInterrupt` where `User_Int_ms` is mandated.
-
-As follows:
-
+[source,gcbasic]
 ----
     #Define  User_Int_ms    MyTimerInterrupt
     Init_Millis()
-
 ----
 
-Where MyTimerInterrupt, shown above, can be a Subroutine, Function, Macro or Inline Code but the code MUST be short as it is executed within the millis() library interrupt handler.
-
+`MyTimerInterrupt` can be a subroutine, function, macro, or inline code, but it must be short, since it runs inside the `millis()` library's own interrupt handler.
 
 *Example for PIC:*
 
+A "Blink" example, using a macro as the hook target (the hook name does not have to be `MyTimerInterrupt`):
 
-A "Blink" example could is written as follows:
-
-----
-    #Define  User_Int_mS    Blink(MyLED, 250)
-    *Note that  the User_Interrupt can be any name and not only MyTimerInterrupt
-    where Blink is:
-    Macro Blink(Pin, Period)
-      dim  BlinkX as word
-      BlinkX += 1
-      if BlinkX >= Period then
-         BlinkX = 0
-         Pin = !Pin
-      end if
-    end macro
-----
-
-
-PIC “Blink.gcb” example is.
-
+[source,gcbasic]
 ----
     #chip 16f18855
     #option Explicit
     #include "millis.h"
 
-    #Define  User_Int_mS    Blink(MyLED, 250)
+    #Define  User_Int_mS    Blink(MyLED, 250)          ' <<< the hook this page documents
     Init_Millis()
 
     #define MyLED porta.2
@@ -93,16 +75,15 @@ PIC “Blink.gcb” example is.
       end if
     end macro
 ----
-The above code was written and tested on the Microchip Xpress Demo Board but, unlike when using the millis() library this is fully portable.
+*Key line:* `#Define User_Int_mS Blink(MyLED, 250)` -- registers `Blink(MyLED, 250)` as the code the `millis()` library runs from inside its own millisecond interrupt, without the user program managing a timer interrupt directly.
 
-AVR “Blink.gcb” example is.
+Tested on the Microchip Xpress Demo Board; unlike GCBASIC's hardware `millis()` support on other libraries, this hook-based approach is fully portable.
 
-To change the PIC example to an ARDUINO UNO Board.
+*Porting to AVR:*
 
-Change `#chip 16f18855` to `#chip mega328p,16` and `#define MyLED porta.2` to `#define MyLED portb.5`
+To move the same example to an Arduino UNO board, change `#chip 16f18855` to `#chip mega328p,16`, and `#define MyLED porta.2` to `#define MyLED portb.5`:
 
-The “Blink.gcb” example is.
-
+[source,gcbasic]
 ----
     #chip mega328p,16
     #option Explicit
@@ -131,38 +112,35 @@ The “Blink.gcb” example is.
     end macro
 ----
 
+*3. Usage -- User_Int_XmS*
 
-*3. Usage - User_Int_Xms*
+Define `User_Int_XmS` to call a task at a specified period: `type`, `period`, `task`.
 
-To define an interrupt at a specified period use: `#Define User_Int_XmS   type, period, task` where `User_Int_XmS` is mandated.
+`type` is Byte, Word, Long, or any valid variable; `period` is the number of milliseconds between calls to the hook; `task` is the macro, sub, or inline code run when the hook fires:
 
-Where `type` is Byte, Word, Long or any valid variable, `period` is the number of mS between the call to the hook, `task` is the Macro, Sub or Inline code to be run when the hook is called.
-
-As follows:
-
+[source,gcbasic]
 ----
-    #Define  User_Int_XmS    Word, 500, MyLED = !MyLED
+    #chip 16f18855
+    #option Explicit
+    #include "millis.h"
+
+    #define MyLED porta.2
+    dir MyLED out
+
+    #Define  User_Int_XmS    Word, 500, MyLED = !MyLED          ' <<< calls the hook every 500 ms
     Init_Millis()
 
+    do
+      ' main loop is empty as everything happens within
+      ' the user hook. It is required, however, to
+      ' prevent the device going to Sleep.
+    loop
+
+    end
 ----
+*Key line:* `#Define User_Int_XmS Word, 500, MyLED = !MyLED` -- toggles `MyLED` every 500 ms directly from the hook, with no code needed in the main loop at all.
 
-The  “Blink.gcb” example using User_Int_XmS is.&#160;&#160;This example calls the hook every 500ms to toggle MyLED.
-----
-        #chip 16f18855
-        #option Explicit
-        #include "millis.h"
+**See Also:**
 
-        #define MyLED porta.2
-        dir MyLED out
-
-        #Define  User_Int_XmS    Word, 500, MyLED = !MyLED
-        Init_Millis()
-
-        do
-          ' main loop is empty as everything happens within
-          ' the user hook. It is required, however, to
-          ' prevent the device going to Sleep.
-        loop
-
-        end
-----
+* <<_timer_overview,Timer Overview>> -- the underlying hardware timers this library is built on
+* <<_inittimer0,InitTimer0>> -- setting up a hardware timer manually, as an alternative to the `millis()` hooks

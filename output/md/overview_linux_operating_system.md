@@ -14,10 +14,10 @@
 
 </div>
 
-<span class="strong">**Introduction:**</span> GCBASIC can be used when
-using the Linux Operating System.
+<span class="strong">**Introduction:**</span> GCBASIC can be used with
+the Linux operating system.
 
-This instructions are not distribution specific, but are for Linux only
+These instructions are not distribution-specific, but are for Linux only
 (not Windows).
 
 <span class="strong">**Instructions:**</span> Complete the following
@@ -25,7 +25,7 @@ steps to compile and install GCBASIC for Linux:
 
 <div class="orderedlist">
 
-1.  Install FreeBasic from your distributions repository or
+1.  Install FreeBasic from your distribution’s repository or
     <http://www.freebasic.net/wiki/CompilerInstalling>
 2.  Download the "GCBASIC - Linux Distribution" from SourceForge at
     <https://sourceforge.net/projects/gcbasic/files/>
@@ -44,7 +44,7 @@ steps to compile and install GCBASIC for Linux:
 <div class="orderedlist">
 
 1.  Make sure that `install.sh` is set as executable (ie.
-    `chmod +x install.sh`), and then execute: ./install.sh build
+    `chmod +x install.sh`), and then execute: `./install.sh build`
 2.  You will need root privileges for this step. You can switch user
     (su) to root, or optionally use `sudo`.
 
@@ -60,7 +60,7 @@ steps to compile and install GCBASIC for Linux:
     Then, be sure to follow the instructions given by the script for
     updating your path.
 2.  Confirm proper execution, and the version, of GCBASIC by executing:
-    gcbasic /version
+    `gcbasic /version`
 
 </div>
 
@@ -68,15 +68,15 @@ Now you can create and compile GCBASIC source files.
 
 <span class="strong">**Programming microcontrollers:**</span>
 
-To program your microcontroller with your GCBASIC created hex file, you
+To program your microcontroller with your GCBASIC-created hex file, you
 will need additional programming and programmer software.
 
 For Microchip PIC microcontroller programming, you might find what you
-need at: www.pickitplus.co.uk The PICKitPlus Team provide programmers
+need at: www.pickitplus.co.uk. The PICkitPlus Team provide programmers
 and Linux software.
 
 For Atmel AVR microcontroller programming, you will need `avrdude`. It
-should be available in your distributions repository. If not, check
+should be available in your distribution’s repository. If not, check
 here: <http://www.nongnu.org/avrdude/>
 
   

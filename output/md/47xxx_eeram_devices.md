@@ -6,7 +6,7 @@
 
 <div>
 
-##### <span id="47xxx_eeram_devices"></span>47xxx EERam Devices
+##### <span id="47xxx_eeram_devices"></span>47xxx EERAM Devices
 
 </div>
 
@@ -14,29 +14,29 @@
 
 </div>
 
-This section covers the 47xxx EERam devices.
+This section covers the 47xxx EERAM devices.
 
-The 47xxx EERam device is a memory device is organized as 512 x 8 bits
-or 2,048 x 8 bits of memory and utilizes the I2C serial interface.
+The 47xxx EERAM device is a memory device organized as 512 x 8 bits or
+2,048 x 8 bits of memory, and it uses the I2C serial interface.
 
-The 47xxx provides infinite read and write cycles to the SRAM while
-EEPROM cells provide high-endurance nonvolatile storage of data with
-more than one million store cycles to EEPROM & a Data retention of &gt;
-200 years.
+The 47xxx provides infinite read and write cycles to the SRAM, while its
+EEPROM cells provide high-endurance non-volatile storage of data with
+more than one million store cycles to EEPROM and a data retention of
+more than 200 years.
 
 With an external capacitor (\~10uF), SRAM data is automatically
 transferred to the EEPROM upon loss of power, giving the advantages of
-NVRAM whilst eliminating the need for backup batteries.
+NVRAM while eliminating the need for backup batteries.
 
-Data can also be backed up manually by using either the Hardware Store
-pin (HS) or software control.
+Data can also be backed up manually using either the hardware store pin
+(HS) or software control.
 
 On power-up, the EEPROM data is automatically recalled to the SRAM.
-EEPROM data Recall can also be initiated through software control.
+EEPROM data recall can also be initiated through software control.
 
 Connectivity is shown below:
 
-``` screen
+``` programlisting
             __ __
     Vcap-->|  U  |<-- Vcc
      A1 -->|     |<-- HS
@@ -52,41 +52,43 @@ often as desired.
 
 To preserve the SRAM image, the AutoStore function copies the entire
 SRAM image to an EEPROM array whenever it detects that the voltage drops
-below a predetermined level. The power for the AutoStore process is
-provided by the externally connected VCAP capacitor. Upon power-up, the
-entire memory contents are restored by copying the EEPROM image to the
-SRAM. This automatic restore operation is completed in milliseconds
-after power-up, at the same time as when other devices would be
-initializing.
+below a predetermined level. Power for the AutoStore process is provided
+by the externally connected VCAP capacitor. Upon power-up, the entire
+memory contents are restored by copying the EEPROM image to the SRAM.
+This automatic restore operation completes in milliseconds after
+power-up, at the same time other device peripherals are initialising.
 
 There is no latency in writing to the SRAM. The SRAM can be written to
 starting at any random address, and can be written continuously
 throughout the array, wrapping back to the beginning after the end is
-reached. There is a small delay, specified as TWC in the data sheet,
-when writing to the nonvolatile configuration bits of the STATUS
-Register (SR).
+reached. There is a small delay, specified as TWC in the datasheet, when
+writing to the non-volatile configuration bits of the STATUS Register
+(SR).
 
 Besides the AutoStore function, there are two other methods to store the
 SRAM data to EEPROM:
 
-• One method is the Hardware Store, initiated by a rising edge on the HS
-pin.
+<div class="itemizedlist">
 
-• The other method is the Software Store, initiated by writing the
-correct instruction to the command register via I2C.
+-   One method is the hardware store, initiated by a rising edge on the
+    HS pin.
+-   The other method is the software store, initiated by writing the
+    correct instruction to the command register via I2C.
+
+</div>
 
 <sub>The\_paragraph\_above\_is\_copyright\_Microchip:\_AN2047</sub>  
 
 <span class="strong">**Explanation**</span>
 
 The GCBASIC constants and commands shown below control the configuration
-of the 47xxx EE-RAM device.    GCBASIC supports I2C hardware and
-software connectivity - this is shown in the tables below.
+of the 47xxx EERAM device. GCBASIC supports both I2C hardware and
+software connectivity — this is shown in the tables below.
 
-To use the 47xxx driver simply include the following in your user code.
-This will initialise the driver.
+To use the 47xxx driver, simply include the following in your user code.
+This initialises the driver.
 
-``` screen
+``` programlisting
     #include <47xxx_EERAM.H>
 
     ; ----- Define Hardware settings for EERAM Module
@@ -95,13 +97,18 @@ This will initialise the driver.
 
     Dir EERAM_HS Out                ; Rising edge initiates Backup
 
-    EERAM_AutoStore(ON)             ; Enable Automatic Storage on power loss
+    EERAM_AutoStore(ON)             ; Enable Automatic Storage on power loss          ' <<< the initialisation instruction
 
 
     'EERAM_AutoStore(OFF)           ; Disable Automatic Storage on power loss
 ```
 
-The device parameters for the device are shown in the table below.
+<span class="strong">**Key line:**</span>
+`EERAM_AutoStore(ON)` — enables the device’s own AutoStore feature, so a
+power failure alone (with the VCAP capacitor fitted) is enough to
+preserve the SRAM contents into EEPROM without any further code.
+
+The device parameters are shown in the table below.
 
 <div class="informaltable">
 
@@ -118,12 +125,12 @@ The GCBASIC constants for control of the device are:
 
 <div class="informaltable">
 
-| <span class="strong">**Constant**</span> | <span class="strong">**Context**</span> | <span class="strong">**Example**</span> | <span class="strong">**Default**</span> |
-|:-----------------------------------------|:----------------------------------------|:----------------------------------------|:----------------------------------------|
-| EERAM\_I2C\_Adr                          | 8-bit I2C Address of device             | \#define I2C\_Adr\_EERAM 0x30           | Default is 0x30. This is mandated       |
-| EERAM\_HS                                | Optional hardware Store Pin             | \#define EERAM\_HS portb.1              | No default - this is not mandated       |
-| EERAM\_Tstore                            | Delay period for write to device        | \#define EERAM\_Tstore 25               | 25 (ms)                                 |
-| EERAM\_Trecall                           | Delay period to read from device        | \#define EERAM\_Trecall 5               | 5 (ms)                                  |
+| <span class="strong">**Constant**</span> | <span class="strong">**Context**</span>  | <span class="strong">**Example**</span> | <span class="strong">**Default**</span> |
+|:-----------------------------------------|:-----------------------------------------|:----------------------------------------|:----------------------------------------|
+| EERAM\_I2C\_Adr                          | 8-bit I2C address of the device          | \#define I2C\_Adr\_EERAM 0x30           | Default is 0x30. This is mandated.      |
+| EERAM\_HS                                | Optional hardware store pin              | \#define EERAM\_HS portb.1              | No default — this is not mandated.      |
+| EERAM\_Tstore                            | Delay period for writing to the device   | \#define EERAM\_Tstore 25               | 25 (ms)                                 |
+| EERAM\_Trecall                           | Delay period for reading from the device | \#define EERAM\_Trecall 5               | 5 (ms)                                  |
 
 </div>
 
@@ -131,15 +138,15 @@ The GCBASIC commands for control of the device are:
 
 <div class="informaltable">
 
-| <span class="strong">**Command**</span> | <span class="strong">**Context**</span>                                                                                | <span class="strong">**Example**</span>                  |
-|:----------------------------------------|:-----------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------|
-| EERAM\_AutoStore                        | Enable Automatic Storage on power loss or Disable Automatic Storage on power loss                                      | EERAM\_AutoStore(ON), or EERAM\_AutoStore(OFF)           |
-| EERAM\_Status                           | Read the Status Register                                                                                               | User\_byte\_variable = EERAM\_Status()                   |
-| EERAM\_Backup                           | Backup / Store Now                                                                                                     | EERAM\_Backup()                                          |
-| EERAM\_Recall                           | Restore Now                                                                                                            | EERAM\_Recall()                                          |
-| EERAM\_HWStore                          | Force Backup with HS Pin                                                                                               | EERAM\_HWStore()                                         |
-| EERAM\_Write                            | Write a Byte of Data to address at the specified address. The address must be a word value and the data is byte value. | ERAM\_Write( EERAM\_Address\_word, EERAM\_Data\_byte)    |
-| EERAM\_Read                             | Read a Byte of Data from address. The address must be a word value and returned data is byte value.                    | User\_byte\_variable = EERAM\_Read(EERAM\_Address\_word) |
+| <span class="strong">**Command**</span> | <span class="strong">**Context**</span>                                                                            | <span class="strong">**Example**</span>                  |
+|:----------------------------------------|:-------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------|
+| EERAM\_AutoStore                        | Enable or disable automatic storage on power loss                                                                  | EERAM\_AutoStore(ON), or EERAM\_AutoStore(OFF)           |
+| EERAM\_Status                           | Read the status register                                                                                           | User\_byte\_variable = EERAM\_Status()                   |
+| EERAM\_Backup                           | Backup / store now                                                                                                 | EERAM\_Backup()                                          |
+| EERAM\_Recall                           | Restore now                                                                                                        | EERAM\_Recall()                                          |
+| EERAM\_HWStore                          | Force backup with the HS pin                                                                                       | EERAM\_HWStore()                                         |
+| EERAM\_Write                            | Write a byte of data to the specified address. The address must be a word value and the data must be a byte value. | EERAM\_Write( EERAM\_Address\_word, EERAM\_Data\_byte)   |
+| EERAM\_Read                             | Read a byte of data from an address. The address must be a word value and the returned data is a byte value.       | User\_byte\_variable = EERAM\_Read(EERAM\_Address\_word) |
 
 </div>
 
@@ -147,7 +154,7 @@ This example shows how to use the device.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     #CHIP 16F18855,32
     #OPTION EXPLICIT
 
@@ -224,9 +231,15 @@ This example shows how to use the device.
     end
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="i2c_overview" class="link" title="I2C Overview">Software I2C</a>
-or
-<a href="hi2c_overview" class="link" title="HI2C Overview">Hardware I2C</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="i2c_overview" class="link" title="I2C Overview">Software I2C</a>
+-   <a href="hi2c_overview" class="link" title="HI2C Overview">Hardware I2C</a>
+-   <a href="dataset_for_eeprom" class="link" title="Dataset for EEPROM">Dataset for EEPROM</a> — the
+    microcontroller’s own on-chip EEPROM, for comparison
+
+</div>
 
 </div>

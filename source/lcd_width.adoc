@@ -1,5 +1,8 @@
 ===== LCD_WIDTH
 
+(((Liquid Crystal Display,lcd_width)))
+
+
 
 *Using LCD_WIDTH:*
 
@@ -9,7 +12,18 @@ This constant allows the width to be optimised for specific LCD chipsets.
 
 *Example*
 
- #DEFINE LCD_WIDTH  16
+[source,gcbasic]
+----
+    #DEFINE LCD_WIDTH  16          ' <<< the constant this page documents
+
+    Do
+      CLS
+      Locate 0, 0
+      Print "1234567890123456"          'fills all 16 columns of a 16-character-wide LCD
+      Wait 2 s
+    Loop
+----
+*Key line:* `#DEFINE LCD_WIDTH 16` -- tells the LCD driver the display is 16 characters wide instead of the default 20, so commands such as `Locate` and word-wrap behaviour in `Print` stay within the physical bounds of the panel.
 
 [cols=2, options="header,autowidth"]
 |===
@@ -22,3 +36,9 @@ This constant allows the width to be optimised for specific LCD chipsets.
 |===
 
 If `LCD_WIDTH` is not defined, the WIDTH defaults to `20`
+
+**See Also:**
+
+* <<_lcd_io_4,LCD_IO 4>> -- setting up a 4-bit character LCD connection
+* <<_locate,Locate>> -- positioning the cursor within the display width set here
+* <<_print,Print>> -- printing text that wraps within the display width

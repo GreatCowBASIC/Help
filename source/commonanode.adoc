@@ -1,6 +1,9 @@
 // Edit EvanV 171016
 ==== Common Anode
 
+(((7-Segment Displays,Common Anode)))
+
+
 This is a Common Anode 7 Segment display example.
 
 
@@ -19,19 +22,20 @@ displays as follows:
 |*Comment*
 |`7Seg_CommonAnode`
 |Inverts controls for Common Anode displays
-|Required for Common Cathode displays
+|Required for Common Anode displays -- omit this constant for Common Cathode displays
 |`7Seg_HighSide`
 |Support PFET or PNP high side driving of the display
 |Inverts Common Cathode addressing pin logic for multiplexed displays
 |===
 *Example:*
+[source,gcbasic]
 ----
     'A Common Anode 7 Segment display example using bs250p pfets
     'Chip model
     #chip 16f1783,8
 
     'support for Common Cathode
-    #define 7Seg_CommonAnode
+    #define 7Seg_CommonAnode          ' <<< the 7Seg_CommonAnode define required for this wiring
 
     'support for pfet or pnp high side drivers
     #define 7Seg_HighSide
@@ -78,6 +82,11 @@ displays as follows:
       Next
     Loop
 ----
-*Also, see*
-<<_7_segment_displays_overview,7 Degment Display Overview>>,
-<<_displaychar,DisplayChar>>, <<_displayvalue,DisplayValue>>
+*Key line:* `#define 7Seg_CommonAnode` -- inverts the segment and digit-select drive logic so the display's shared anode wiring lights the correct segments; omitting this define on a Common Anode display would light every segment except the intended ones.
+
+**See Also:**
+
+* <<_7_segment_displays_overview,7 Segment Display Overview>> -- category overview
+* <<_displaychar,DisplayChar>> -- displaying a single character instead of a full multi-digit value
+* <<_displayvalue,DisplayValue>> -- full reference for the command used above
+* <<_common_cathode,Common Cathode>> -- the counterpart wiring, which needs no extra constants

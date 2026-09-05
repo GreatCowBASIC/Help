@@ -6,7 +6,7 @@
 
 <div>
 
-### <span id="alias"></span>Alias
+##### <span id="alias"></span>Alias
 
 </div>
 
@@ -43,7 +43,7 @@ or long) first, then create the byte aliases:
 
 Example 1:
 
-``` screen
+``` programlisting
     Dim my_variable as LONG
     Dim ByteOne   as Byte alias my_variable_E
     Dim ByteTwo   as Byte alias my_variable_U
@@ -64,7 +64,7 @@ to use a mask variable then apply it to the registers:
 
 Example 2:
 
-``` screen
+``` programlisting
     Dim my_variable as LONG
     Dim my_bit_address_variable as Byte
     my_bit_address_variable = 23
@@ -80,14 +80,14 @@ Example 2:
 
 Example 3:
 
-``` screen
+``` programlisting
         Dim MyADResult As Word Alias ADRESH, ADRESL
         //MyADResult reads the A/D values stored in registers ADRESH, ADRESL
 ```
 
 Example4:
 
-``` screen
+``` programlisting
     dim Myhibyte, Mylobyte as Byte
     dim Myvariable As Word Alias Myhibyte, Mylobyte
     Myvariable=294

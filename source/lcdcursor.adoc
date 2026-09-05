@@ -1,6 +1,10 @@
 ==== LCDCursor
 
+(((Liquid Crystal Display,LCDCursor)))
+
+
 *Syntax*:
+[source,gcbasic]
 ----
     LCDCursor value
 ----
@@ -24,7 +28,8 @@ older releases of GCB.
 `FLASHON`  will flash the cursor. +
 `FLASHOFF`  will stop flashing the cursor.
 
-*Example :*																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												#config osc = intrc
+*Example :*
+[source,gcbasic]
 ----
     #chip 16f877a, 8
 
@@ -52,7 +57,7 @@ older releases of GCB.
     Locate 0,0
     Print "Cursor ON"
     Locate 1,0
-    LCDcursor CursorOn
+    LCDcursor CursorOn          ' <<< the LCDCursor instruction
     wait 3 S
 
     CLS
@@ -118,4 +123,11 @@ older releases of GCB.
     wait 3 s
     goto start
 ----
+*Key line:* `LCDcursor CursorOn` -- turns on the underline cursor at the current position; the parameter can be any of `LCDON`, `LCDOFF`, `CURSORON`, `CURSOROFF`, `FLASHON`, or `FLASHOFF`, as demonstrated throughout the rest of this example.
+
 *Supported in <LCD.H>*
+
+**See Also:**
+
+* <<_lcdcreatechar,LCDCreateChar>> -- related command in the same category
+* <<_lcdcreategraph,LCDCreateGraph>> -- related command in the same category

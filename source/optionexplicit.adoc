@@ -1,20 +1,21 @@
-// Edit EvanV 171016 0,95.010.RC4+
 === #Option Explicit
 
+(((Compiler Options,#Option Explicit)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     #option explicit
 ----
-This option ensures that all variables are dimensioned in the user program.  The scope is the user code only and no other code space like .h or include files.
+This option ensures that all variables are dimensioned in the user program. The scope is the user code only, and no other code space, like `.h` or include files.
 
-`#option explicit` requires all variables,including bytes, in the user program to be defined.
+`#option explicit` requires all variables, including bytes, in the user program to be defined.
 
-Variables can be defined and not used within your user program.  Unused variables will not allocate memory.
-
-*Introduction:*
-
+Variables can be defined and not used within your user program. Unused variables will not allocate memory.
 
 *Example:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16f877a
@@ -24,7 +25,11 @@ Variables can be defined and not used within your user program.  Unused variable
 
     dim myuserflag as byte
 
-    myuserflag = true
+    myuserflag = true          ' <<< a Dimensioned variable required by #option explicit
 ----
+*Key line:* `myuserflag = true` -- this assignment is only legal because `myuserflag` was explicitly Dimensioned above; with `#option explicit` in effect, assigning to an undeclared name anywhere in the user program raises a compile-time error instead of silently creating an implicit variable.
 
-*For more help, see* <<_variable_lifecycle,Variable Lifecycle>>
+**See Also:**
+
+* <<_variable_lifecycle,Variable Lifecycle>> -- how declared variables are allocated and used
+* <<_dim,Dim>> -- the command used to explicitly declare variables

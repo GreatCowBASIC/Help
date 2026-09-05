@@ -53,7 +53,7 @@ Tables**</span>
 <span id="single-values"></span><span class="emphasis">*Single
 Values*</span>
 
-``` screen
+``` programlisting
 Table TestDataSource
     12
     24
@@ -67,17 +67,17 @@ End Table
 <span id="multiple-values"></span><span class="emphasis">*Multiple
 Values*</span>
 
-``` screen
+``` programlisting
 Table TestDataSource
     12, 24, 36
     48, 60, 72
 End Table
 ```
 
-<span id="constants"></span><span class="emphasis">*Constants &
+<span id="constants"></span><span class="emphasis">*Constants \\&
 Calculations*</span>
 
-``` screen
+``` programlisting
 #define calculation_constant 2
 
 Table TestDataSource
@@ -95,13 +95,13 @@ End Table
 <span id="simple-strings"></span><span class="emphasis">*Simple
 Examples*</span>
 
-``` screen
+``` programlisting
 Table Test_1
     "ABCDEFGHIJ"
 End Table
 ```
 
-``` screen
+``` programlisting
 Table MnuTxt_1
     "  Display_1    Display_2    Display_3  "
 End Table
@@ -155,21 +155,27 @@ Tables**</span>
 <span id="basic-reading"></span><span class="emphasis">*Basic
 Reading*</span>
 
-``` screen
+``` programlisting
 Dim TableCounter, Invalue as byte
 
 CLS
 For TableCounter = 1 to 6
-  ReadTable TestDataSource, TableCounter, Invalue
+  ReadTable TestDataSource, TableCounter, Invalue          ' <<< reading one element by its 1-based position
   Print InValue
   Print ","
 Next
 ```
 
+<span class="strong">**Key line:**</span>
+`ReadTable TestDataSource, TableCounter, Invalue` — reads element number
+`TableCounter` (counting from 1) out of `TestDataSource` and stores it
+in `Invalue`; looping `TableCounter` from 1 to 6 walks the whole
+six-element table defined above.
+
 <span id="length-reading"></span><span class="emphasis">*Reading Table
 Length*</span>
 
-``` screen
+``` programlisting
 Dim lengthoftable as word
 ReadTable TestDataSource, 0, lengthoftable
 Print lengthoftable
@@ -188,7 +194,7 @@ External File**</span>
 
 </div>
 
-``` screen
+``` programlisting
 #chip 16f877a
 Table TestDataSource from "sourcefile.raw"
 
@@ -211,7 +217,7 @@ Next
 <span id="eeprom"></span><span class="strong">**EEPROM Table
 Storage**</span>
 
-``` screen
+``` programlisting
 #chip 16F628
 
 TableLoc = 2
@@ -241,6 +247,15 @@ Limitations*</span>
 
 <span id="reference"></span><span class="strong">**Reference**</span>
 
-See: `ReadTable`
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="readtable" class="link" title="ReadTable">ReadTable</a> — the
+    command used throughout this page to read table data
+-   <a href="epwrite" class="link" title="EPWrite">EPWrite</a> — writing
+    to EEPROM directly
+
+</div>
 
 </div>

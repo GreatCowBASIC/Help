@@ -1,8 +1,12 @@
 ===== ST7920WriteCommand
 
+(((Graphical LCD,st7920writecommand)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
-    ST7920GWriteCommand ( byte_variable)
+    ST7920WriteCommand ( byte_variable)
 ----
 *Explanation:*
 
@@ -11,9 +15,17 @@ This command writes a command to the controller.
 See the data sheet for more information.
 
 *Example usage:*
+[source,gcbasic]
 ----
     ...
-    ST7920WriteCommand(0x36) ' set the graphics mode on
+    ST7920WriteCommand(0x36) ' set the graphics mode on          ' <<< the ST7920WriteCommand instruction
     GLCD_TYPE_ST7920_GRAPHICS_MODE = true
     ...
 ----
+*Key line:* `ST7920WriteCommand(0x36)` -- sends the raw command byte 0x36 to the ST7920 controller to enable graphics mode; the following line updates the library's own `GLCD_TYPE_ST7920_GRAPHICS_MODE` flag to keep GCBASIC's internal state consistent with the controller.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920writedata,ST7920WriteData>> -- sending display data instead of a controller command
+* <<_st7920glcdenablegraphics,ST7920GLCDEnableGraphics>> -- the higher-level command that wraps this behaviour

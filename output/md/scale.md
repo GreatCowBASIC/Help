@@ -46,7 +46,7 @@ between -32767 and 32767.
 This is also an overloaded method. You can also use word variables to
 provide a returned result of 0-65535.  
 
-``` screen
+``` programlisting
     word_variable = Scale (value_word , fromLow_word , fromHigh_word , toLow_wordr , toHigh_word [, calibration_integer] )
 ```
 
@@ -79,17 +79,42 @@ Note that the "lower bounds" of either range may be larger or smaller
 than the "upper bounds" so the scale() method may be used to reverse a
 range of numbers, for example:
 
-``` screen
-    my_newvalue  = scale ( ReadAD10(An0) , 0, 1023, 135, 270)
+``` programlisting
+    my_newvalue  = scale ( ReadAD10(An0) , 0, 1023, 135, 270)          ' <<< the Scale instruction
 ```
+
+<span class="strong">**Key line:**</span>
+`my_newvalue = scale ( ReadAD10(An0) , 0, 1023, 135, 270)` — remaps a
+10-bit ADC reading (0-1023) onto the range 135-270, so the smallest ADC
+reading becomes 135 and the largest becomes 270, with everything in
+between scaled proportionally.
 
 The method also handles negative integer numbers well, so that this
 example:
 
-``` screen
-    my_newvalue = scale(ReadAD(An0), 0, 255, 50, -100);
+``` programlisting
+    my_newvalue = scale(ReadAD(An0), 0, 255, 50, -100)
 ```
 
+<span class="strong">**Key line:**</span>
+`my_newvalue = scale(ReadAD(An0), 0, 255, 50, -100)` — because `toLow`
+(50) is greater than `toHigh` (-100), the output range is reversed: a
+low ADC reading maps near 50 and a high reading maps near -100.
+
 This method is similar to the Ardunio Map() function.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="abs" class="link" title="Abs">Abs</a> — related
+    command in the same category
+-   <a href="average" class="link" title="Average">Average</a> — related
+    command in the same category
+-   <a href="readad" class="link" title="ReadAD">ReadAD</a> /
+    <a href="readad10" class="link" title="ReadAD10">ReadAD10</a> — reading
+    the raw sensor value scaled in the examples above
+
+</div>
 
 </div>

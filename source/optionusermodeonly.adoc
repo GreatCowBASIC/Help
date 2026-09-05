@@ -1,15 +1,19 @@
 === #Option UserCodeOnly
 
-*Syntax:*  
-----  
-    #option UserCodeOnly LABEL:  
-----  
+(((Compiler Options,#Option UserCodeOnly)))
 
-This option enables **minimal‑startup user mode**, allowing the developer to take full control of the program’s behaviour from the very first instruction.
+
+*Syntax:*
+[source,gcbasic]
+----
+    #option UserCodeOnly LABEL:
+----
+
+This option enables **minimal-startup user mode**, allowing the developer to take full control of the program's behaviour from the very first instruction.
 
 When enabled, the compiler omits all standard automatic startup routines normally inserted by GCBASIC. This directive is ideal for applications where the user requires absolute control over the execution environment.
 
-The label is mandated.  The label specified will be included in the ASM generated.
+The label is mandatory. The label specified will be included in the generated ASM.
 
 
 
@@ -17,62 +21,65 @@ The label is mandated.  The label specified will be included in the ASM generate
 
 Enabling **UserCodeOnly** removes or suppresses the following:
 
-- **No automatic stack initialisation**  
+- **No automatic stack initialisation**
   The compiler does not configure the hardware stack or related registers.
 
-- **No global interrupt enable (sei)**  
+- **No global interrupt enable (sei)**
   Interrupts remain disabled unless explicitly enabled by the user.
 
-- **Optional removal of the standard interrupt vector table**  
+- **Optional removal of the standard interrupt vector table**
   If the label provided replaces the default vector, the user must supply their own interrupt entry code.
 
-- **No GCBASIC runtime startup code**  
+- **No GCBASIC runtime startup code**
   No variable initialisation, no system setup, no runtime housekeeping.
 
-- **No automatic calls to INITSYS or other init routines**  
+- **No automatic calls to INITSYS or other init routines**
   All system configuration must be performed manually.
 
-- **Reduced .ORG directives at page boundaries**  
-  The compiler avoids inserting automatic page‑alignment directives, giving the user full control of memory layout.
+- **Reduced .ORG directives at page boundaries**
+  The compiler avoids inserting automatic page-alignment directives, giving the user full control of memory layout.
 
-This mode is intended for advanced users who require a bare‑metal environment.
+This mode is intended for advanced users who require a bare-metal environment.
 
 *Ideal for:*
 
-- **Bare‑metal applications**  
+- **Bare-metal applications**
   Where the user wants to define every instruction executed from reset.
 
-- **Custom bootloaders**  
+- **Custom bootloaders**
   Allows precise control over memory layout, vectors, and startup flow.
 
-- **Mixed GCBASIC + assembly projects**  
-  Ensures no hidden runtime code interferes with hand‑written assembly.
+- **Mixed GCBASIC + assembly projects**
+  Ensures no hidden runtime code interferes with hand-written assembly.
 
-- **Minimal firmware with full user control**  
-  Perfect for ultra‑small, deterministic, or timing‑critical applications.
+- **Minimal firmware with full user control**
+  Perfect for ultra-small, deterministic, or timing-critical applications.
 
 ---
 
-*Example 1:*  
-----  
-    'Set chip model  
-    #chip 16f877a  
+*Example 1:*
+[source,gcbasic]
+----
+    'Set chip model
+    #chip 16f877a
 
-    'Enable minimal user‑mode startup  
-    #option usercodeonly StartHere: 
+    'Enable minimal user-mode startup
+    #option usercodeonly StartHere:          ' <<< skipping all automatic startup code
 
-StartHere:  
-    'User-defined reset entry point  
+StartHere:
+    'User-defined reset entry point
     #asmraw[
-        nop  
-        nop  
-    #asmraw] 
+        nop
+        nop
+    #asmraw]
 
-    'Your program continues here  
-----  
+    'Your program continues here
+----
+*Key line:* `#option usercodeonly StartHere:` -- the very first instruction the chip executes after reset is at the `StartHere:` label below, with none of GCBASIC's usual stack setup, interrupt configuration, or INITSYS call run beforehand.
 
-*Example 2:*  
-----  
+*Example 2:*
+[source,gcbasic]
+----
     'Set chip model
     #chip 18f452
 
@@ -89,4 +96,10 @@ MyReset:
 MainLoop:
     goto MainLoop
 
-----  
+----
+
+**See Also:**
+
+* <<__option_noconfig,#Option NoConfig>> -- suppressing compiler-generated CONFIG statements, often used alongside this option
+* <<__option_nocontextsave,#Option NoContextSave>> -- disabling automatic interrupt context save/restore
+* <<__asmraw,#asmraw>> -- inserting raw assembly, as used in Example 1

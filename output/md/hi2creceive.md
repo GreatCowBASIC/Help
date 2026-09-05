@@ -42,7 +42,7 @@ before reading.
 This command is also available on microcontrollers with a second
 hardware I2C port.
 
-``` screen
+``` programlisting
     HI2C2Receive  _data_
 
     HI2C2Receive _data_, ACK
@@ -51,7 +51,7 @@ hardware I2C port.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     'This program reads an I2C register and sets an LED if it is over 100.
 
     'It will read from I2C device with an address of 83, register 1.
@@ -86,7 +86,7 @@ hardware I2C port.
       HI2CSend 1
 
       'Read value
-      HI2CReceive ValueIn
+      HI2CReceive ValueIn          ' <<< the HI2CReceive instruction
 
       'Send stop
       HI2CStop
@@ -101,13 +101,36 @@ hardware I2C port.
     Loop
 ```
 
+<span class="strong">**Key line:**</span> `HI2CReceive ValueIn` — reads
+one byte from the I2C bus into `ValueIn`, automatically ACKing since no
+`ACK`/`NACK` argument was given.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hi2csend" class="link" title="HI2CSend">HI2CSend</a> — sending
+    the register request read back here
+-   <a href="hi2cstart" class="link" title="HI2CStart">HI2CStart</a>
+    /
+    <a href="hi2cstop" class="link" title="HI2CStop">HI2CStop</a> — framing
+    the transaction used above
+-   <a href="hi2cmode" class="link" title="HI2CMode">HI2CMode</a> — selecting
+    master mode, as used above
+-   <a href="on_interrupt" class="link" title="On Interrupt">On Interrupt</a> — handling
+    I2C activity from an interrupt, as used in Example 2
+-   <a href="dir" class="link" title="Dir">Dir</a> — setting the
+    I2C pin directions before use, as used above
+
+</div>
+
 <span class="strong">**Example 2:**</span>
 
 See the
 <a href="i2c_overview" class="link" title="I2C Overview">I2C Overview</a>
 for the Master mode device to control this Slave mode device.
 
-``` screen
+``` programlisting
     ' I2CHardwareReceive_Slave.gcb - using a 16F88.
     ' This program receives commands from a GCB Master. This Slave has three LEDs attached.
 
@@ -130,14 +153,14 @@ for the Master mode device to control this Slave mode device.
 
 
     'Serial settings
-    #define SerInPort PORTB.6
-    #define SerOutPort PORTB.7
+    #define SERINPORT PORTB.6
+    #define SEROUTPORT PORTB.7
 
-    #define SendAHigh Set SerOutPort OFF
-    #define SendALow Set SerOutPort On
+    #define SENDAHIGH Set SEROUTPORT OFF
+    #define SENDALOW Set SEROUTPORT On
     'Set pin directions
-    Dir SerOutPort Out
-    Dir SerInPort In
+    Dir SEROUTPORT Out
+    Dir SERINPORT In
 
     'Set up serial connection
     InitSer 1, r2400, 1 + WaitForStart, 8, 1, none, INVERT
@@ -166,8 +189,8 @@ for the Master mode device to control this Slave mode device.
     set LED1 off
     set LED2 off
 
-    #define SerialControlPort portb.3
-    dir SerialControlPort in
+    #define SERIALCONTROLPORT portb.3
+    dir SERIALCONTROLPORT in
 
     'Set up interrupt to process I2C
 
@@ -210,7 +233,7 @@ for the Master mode device to control this Slave mode device.
        UpdateLEDS                  ; Update date LEDs
 
                      ; update serial terminal
-       if show = 1  and SerialControlPort = 1 then
+       if show = 1  and SERIALCONTROLPORT = 1 then
 
         SerPrint 1, "0x"+hex(addr)
         SerSend 1,9

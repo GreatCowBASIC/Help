@@ -1,7 +1,10 @@
 ==== SPI Overview
 
+(((SPI,SPI Overview)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 
 The SPI interface allows for the transmission and receiption of data simultaneously on two lines (MOSI and MISO).
 
@@ -9,20 +12,20 @@ The Clock polarity (CPOL) and clock phase (CPHA) are the main parameters that de
 
 CPOL=0, CPHA=0
 
-image::spi-cpol-0-cpha-0.png[[graphic,align="center"]
+image::spi-cpol-0-cpha-0.png[graphic,align="center"]
 
 The data must be available before the first clock signal rising.  The clock idle state is zero.  The data on MISO and MOSI lines must be stable while the clock is high and can be changed when the clock is low. The data is captured on the clock's low-to-high transition and propagated on high-to-low clock transition.
 
 CPOL=0, CPHA=1
 
-image::spi-cpol-0-cpha-1.png[[graphic,align="center"]
+image::spi-cpol-0-cpha-1.png[graphic,align="center"]
 
 
 The first clock signal rising can be used to prepare the data. The clock idle state is zero. The data on MISO and MOSI lines must be stable while the clock is low and can be changed when the clock is high. The data is captured on the clock's high-to-low transition and propagated on low-to-high clock transition.
 
 CPOL=1, CPHA=0
 
-image::spi-cpol-1-cpha-0.png[[graphic,align="center"]
+image::spi-cpol-1-cpha-0.png[graphic,align="center"]
 
 
 
@@ -30,7 +33,7 @@ The data must be available before the first clock signal falling. The clock idle
 
 CPOL=1, CPHA=1
 
-image::spi-cpol-1-cpha-1.png[[graphic,align="center"]
+image::spi-cpol-1-cpha-1.png[graphic,align="center"]
 
 
 The first clock signal falling can be used to prepare the data. The clock idle state is one. The data on MISO and MOSI lines must be stable while the clock is high and can be changed when the clock is low. The data is captured on the clock's low-to-high transition and propagated on high-to-low clock transition.
@@ -38,6 +41,7 @@ The first clock signal falling can be used to prepare the data. The clock idle s
 
 *Key Commands*
 
+[source,gcbasic]
 ----
 
     // Set the mode
@@ -64,6 +68,7 @@ The GCBASIC used the microcontrollers hardware module for SPI.  The example belo
 
 To use a second SPI hardware module use the suffix 2, as follows:
 
+[source,gcbasic]
 ----
 
     // Set the mode
@@ -106,6 +111,7 @@ Obviously, when all SPI devices use the same SPI lines, you must  select one dev
     The sub SendByteviaSPI is called to handle whether to call the Hardware or use Software (bit-banging) SPI.
 
 
+[source,gcbasic]
 ----
 
         #chip mega328p, 16
@@ -191,7 +197,7 @@ Obviously, when all SPI devices use the same SPI lines, you must  select one dev
       set SPI_DC OFF;
 
       #ifdef SPI_HardwareSPI
-         FastHWSPITransfer  SPISendByte
+         FastHWSPITransfer  SPISendByte          ' <<< the FastHWSPITransfer instruction, used only when hardware SPI is selected
          set SPI_CS ON;
          exit sub
       #endif
@@ -215,7 +221,12 @@ Obviously, when all SPI devices use the same SPI lines, you must  select one dev
 
     end Sub
 ----
+*Key line:* `FastHWSPITransfer SPISendByte` -- sends a byte using the microcontroller's hardware SPI module in a single instruction; the software fallback below it (inside ` #ifndef SPI_HardwareSPI `) bit-bangs the same byte one bit at a time using ` rotate ` and manual clock/data pin toggling, which is far slower but works on any port pins.
 
 
 
-*See also* <<_spimode,SPIMode>>,<<_spitransfer,SPITransfer>>,<<_fasthwspitransfer,FastHWSPITransfer>>
+**See Also:**
+
+* <<_spimode,SPIMode>>
+* <<_spitransfer,SPITransfer>>
+* <<_fasthwspitransfer,FastHWSPITransfer>>

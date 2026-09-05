@@ -1,6 +1,10 @@
 ==== GLCDDrawChar
 
+(((Graphical LCD,GLCDDrawChar)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     GLCDDrawChar(CharLocX, CharLocY, CharCode [, Optional Colour] )
 ----
@@ -19,3 +23,9 @@ On a 128x64 Graphic LCD:
 
 X = 1 to 128 +
 Y = 1 to 64 +
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_glcddrawstring,GLCDDrawString>> -- related command in the same category
+* <<_glcddisplay,GLCDDisplay>> -- related command in the same category

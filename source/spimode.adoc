@@ -1,10 +1,14 @@
 ==== SPIMode
 
+(((SPI,SPIMode)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 
 *Legacy SPI Module*
 
+[source,gcbasic]
 ----
     SPIMode ( _Mode_ [, _SPIClockMode_])
 
@@ -19,6 +23,7 @@
 
 
 For HWSPI channel 0
+[source,gcbasic]
 ----
     SPIMode ( _Mode_ , _SPIClockMode_ )
 
@@ -116,6 +121,7 @@ For the _SPIClockMode_range, see the tables below:
 
 
 You can use a constant value or alternatively you can use constants to set the SPIClockMode as follows:
+[source,gcbasic]
 ----
     _Legacy SPI Module_
     SPIMode ( MasterFast, SPI_CPOL_n + SPI_CPHA_n )
@@ -145,12 +151,14 @@ Where the following parameters can be used as a calculation to set the SPIClockM
 
 You can explicitly change the SPI baud rate by defining the `SPI_BAUD_RATE` constant as follows.&#160;&#160; This will change the default SPI baud from 4000 to the specified numeric value. 
 
+[source,gcbasic]
 ----
     #DEFINE SPI_BAUD_RATE   8000
 ----
 
 You can explicitly set the SPI baud rate register by defining the `SPI_BAUD_RATE_REGISTER` constant as follows.&#160;&#160; This will write the explicit numeric value to the SPI baud register.&#160;&#160; This overwrites any compiler calculated value. 
 
+[source,gcbasic]
 ----
     #DEFINE SPI_BAUD_RATE_REGISTER  55
 ----
@@ -181,7 +189,7 @@ In other words, CPHA=0 means transmitting data on the active to idle state and C
 This adds more flexibility to the communication channel between the master and slave.
 
 
-image::spimode1.PNG[[graphic,align="center"]
+image::spimode1.PNG[graphic,align="center"]
 
 Legacy Example:
 
@@ -190,6 +198,7 @@ This example demonstrates the SPI capabilities for the mega328p.  The process is
 You must set the data line as inputs and outputs.
 
 
+[source,gcbasic]
 ----
 
         #chip mega328p, 16
@@ -233,13 +242,15 @@ You must set the data line as inputs and outputs.
        do
         set SPI_CS OFF//  Select line
         set SPI_DC OFF//  Send Data if off, or, Data if On
-        SPITransfer ( outbyte, inbyte )
+        SPITransfer ( outbyte, inbyte )          ' <<< the SPITransfer instruction
+
         set SPI_CS ON//   Deselect Line
         set SPI_DC ON
         wait 10 ms
        loop
 
 ----
+*Key line:* `SPITransfer ( outbyte, inbyte )` -- sends ` outbyte ` over MOSI and simultaneously receives the byte clocked in on MISO into ` inbyte `, since SPI transfers data in both directions on every clock cycle.
 
 
 *Modern SPI Module Summary:*
@@ -250,8 +261,9 @@ The timing diagram is as shown in the prevsious section that impacts CPOL and CP
 
 If you have set the PPS for SPI1SSPPS then control of the SPI SS ( also know as CS / ChipSelect) is automatically controlled by the SPI transmission.
 
-* Example:*
+*Example:*
 
+[source,gcbasic]
 ----
     #CHIP 18F16Q41,64
 
@@ -297,19 +309,24 @@ If you have set the PPS for SPI1SSPPS then control of the SPI SS ( also know as 
 
     DO
         // Send 0x75 via SPI over and over again...
-        FastHWSPITransfer 0x75
+        FastHWSPITransfer 0x75          ' <<< the FastHWSPITransfer instruction
     LOOP
 
 ----
+*Key line:* `FastHWSPITransfer 0x75` -- sends the byte `0x75` using the Modern SPI Module configured just above by `SPIMode (HWSPIMode, HWSPIClockMode)`; the SPI pins must match whatever was assigned through PPS in `InitPPS`.
 
 
 *Displaying SPI Configuration Information:*
 
 You can define `SHOWSPISCRIPTINFO` to have the compiler report diagnostic information while it evaluates the SPI configuration. This includes the chip name, whether the Legacy SPI Module or Modern SPI Module constants were defined, and the calculated SPI baud rate values.
 
+[source,gcbasic]
 ----
     #DEFINE SHOWSPISCRIPTINFO
 ----
 
 
-*See also* <<_spitransfer,SPITransfer>>,<<_fasthwspitransfer,FastHWSPITransfer>>
+**See Also:**
+
+* <<_spitransfer,SPITransfer>>
+* <<_fasthwspitransfer,FastHWSPITransfer>>

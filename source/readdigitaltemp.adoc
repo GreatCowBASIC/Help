@@ -1,6 +1,10 @@
 ==== ReadDigitalTemp
 
+(((One Wire Devices,ReadDigitalTemp)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     ReadDigitalTemp
 ----
@@ -21,6 +25,7 @@ Return the value of the sensor in two global variables. The following two lines 
 This method returns whole part of the sensor value in the byte variable `DSint`, the method also returns decimal part of the sensor value in the byte variable `DSdec`.
 
 *Example:*
+[source,gcbasic]
 ----
     'Chip Settings. Assumes the development board with with a 16F877A
     #chip 16F877A,1
@@ -43,7 +48,7 @@ This method returns whole part of the sensor value in the byte variable `DSint`,
 
     do forever
 
-        ReadDigitalTemp
+        ReadDigitalTemp          ' <<< the ReadDigitalTemp instruction
 
         ' Display the integer value of the sensor on the LCD
         cls
@@ -58,3 +63,10 @@ This method returns whole part of the sensor value in the byte variable `DSint`,
     loop
 
 ----
+*Key line:* `ReadDigitalTemp` -- reads the sensor on the `DQ` pin and fills the two global variables `DSint` and `DSdec` with the whole and decimal parts of the temperature, ready to `Print` directly without any further conversion.
+
+**See Also:**
+
+* <<_ds18b20,DS18B20>> -- category overview
+* <<_readtemp,ReadTemp>> -- related command in the same category
+* <<_readtemp12,ReadTemp12>> -- related command in the same category

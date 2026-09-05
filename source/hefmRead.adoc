@@ -1,9 +1,12 @@
 //erv 04110218
 ==== HEFRead
 
+(((HEFM ( PFM ),HEFRead)))
+
+
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     'as a subroutine
     HEFRead ( location, data )
@@ -21,7 +24,7 @@ Available on all PIC micro-controllers with HEFM memory
 HEFRead is used to read information, byte values, from HEFM, so that it can be accessed for use in a user program.
 {empty} +
 {empty} +
-`location` represents the location or relative address to read.  The location will range from location 0 to HEF_BYTES - 1, or for all practical purposes 0-127 since all PIC Microcontrollers with HEF support 128 bytes of HEF Memory. HEF_BYTES is a GCBASIC constant that represents the number of bytes of HEF Memory.&#160;&#160;&#160;
+`location` rerepresents the location or relative address to read.  The location will range from location 0 to HEF_BYTES - 1, or for all practical purposes 0-127 since all PIC Microcontrollers with HEF support 128 bytes of HEF Memory. HEF_BYTES is a GCBASIC constant that represents the number of bytes of HEF Memory.&#160;&#160;&#160;
 {empty} +
 {empty} +
 `data` is the data that is to be read from the HEFM data storage area.&#160;&#160;&#160;
@@ -33,6 +36,7 @@ This method is similar to the EPRead method for EEPROM.
 {empty} +
 {empty} +
 *Example 1:*
+[source,gcbasic]
 ----
     '... code preamble to select part
     '... code to setup PPS
@@ -46,16 +50,19 @@ This method is similar to the EPRead method for EEPROM.
     HEFWrite( 34, 144)
 
     ;Read the byte back from HEFM location 34
-    HEFread( 34, byte_value )
+    HEFread( 34, byte_value )          ' <<< the HEFRead instruction (subroutine form)
 
     ;Display the data on a terminal
     HserPrint "byte_value = "
     Hserprint byte_value
     
 ----
+*Key line:* `HEFread( 34, byte_value )` -- reads the byte back from HEFM location 34 using the subroutine form, storing the result directly into `byte_value`.
+
 {empty} +
 {empty} +
 *Example 2:*
+[source,gcbasic]
 ----
     '... code preamble to select part '... code preamble to select part
     '... code to setup PPS
@@ -69,20 +76,23 @@ This method is similar to the EPRead method for EEPROM.
     HEFWrite( 34, 144)
 
     ;Read the byte back from HEF location 34
-    byte_value = HEFread( 34 )
+    byte_value = HEFread( 34 )          ' <<< the HEFRead instruction (function form)
 
     ;Display the data on a terminal
     HserPrint "byte_value = "
     Hserprint byte_value
 ----
+*Key line:* `byte_value = HEFread( 34 )` -- reads the byte back from HEFM location 34 using the function form, assigning the result to `byte_value`.
+
 {empty} +
 {empty} +
-See also
-<<_hefm_overview,HEFM Overview>>,
-<<_hefread,HEFRead>>,
-<<_hefreadword,HEFReadWord>>,
-<<_hefwrite,HEFWrite>>,
-<<_hefwriteword,HEFWriteWord>>,
-<<_hefreadblock,HEFReadBlock>>,
-<<_hefwriteblock,HEFWriteBlock>>,
-<<_heferaseblock,HEFEraseBlock>>
+**See Also:**
+
+* <<_hefm_overview,HEFM Overview>>
+* <<_hefread,HEFRead>>
+* <<_hefreadword,HEFReadWord>>
+* <<_hefwrite,HEFWrite>>
+* <<_hefwriteword,HEFWriteWord>>
+* <<_hefreadblock,HEFReadBlock>>
+* <<_hefwriteblock,HEFWriteBlock>>
+* <<_heferaseblock,HEFEraseBlock>>

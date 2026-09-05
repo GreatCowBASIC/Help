@@ -1,19 +1,23 @@
 ==== Left
 
+(((String Manipulation,Left)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __output__ = Left(__source__, __count__)
 ----
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The `Left` function will extract the leftmost `_count_` characters from the input string `_source_`, and return them in a new string.
+The `Left` function extracts the leftmost `_count_` characters from the input string `_source_`, and returns them in a new string.
 
 *Example:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16F1936
@@ -29,7 +33,12 @@ The `Left` function will extract the leftmost `_count_` characters from the inpu
 
     'Display the leftmost 5 characters
     'Will display "Hello"
-    HSerPrint Left(TestData, 5)
+    HSerPrint Left(TestData, 5)          ' <<< the Left instruction
     HSerPrintCRLF
 ----
-*See Also* <<_mid,Mid>>, <<_right,Right>>
+*Key line:* `Left(TestData, 5)` -- returns the first 5 characters of `TestData`, giving `"Hello"`.
+
+**See Also:**
+
+* <<_right,Right>> -- extracting characters from the end of a string instead
+* <<_mid,Mid>> -- extracting characters from an arbitrary position

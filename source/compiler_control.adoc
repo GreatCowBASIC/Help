@@ -1,31 +1,34 @@
-=== Compiler Control 
+=== Compiler Control
 
-The compiler can be controlled, in terms of the default startup library routines.&#160;&#160;This may be required to implement a specific control function, or, to disable a default startup behaviour.
-
-**Scenario #1**: 
-
-You have a new LCD.&#160;&#160;The GCBASIC LCD routines fail to initialise.&#160;&#160;You want to write your own LCD initialise routine, but you want to ensure the GCBASIC standard INITLCD() does not operate before your own LCD initialise routine.&#160;&#160;How to do this?
-
-**Scenerio #2**: 
-
-You want to write your own INITSYS routine.&#160;&#160;  You can add your own routine to initialise the microntroller but the default INITSYS would always be called in the ASM.
+(((GCBASIC Compiler Insights,Compiler Control)))
 
 
-In the first sceneria the approach would be to redirect the GCBASIC standard INITLCD() to myInitLCD using #define INITLCD myINITLCD.&#160;&#160;  However, prior to the latest build, this would fail to work.&#160;&#160;The reason for the failure to redirect to your new routine is the #startup INITLCD directive.&#160;&#160;The #startup directive was essentially hard coded and all the #startup(s) could not be changed.
+The compiler can be controlled, in terms of the default startup library routines. This may be required to implement a specific control function, or to disable a default startup behaviour.
 
-In the second scenerio the ASM call to INITSYS is also hard coded.&#160;&#160;And, you could trick the compiler to call your own initialisation routine but this was not easy and not intuitive.&#160;&#160;
+**Scenario #1**:
 
-The new build now supports the updating of the #startup(s) with your own routines, or even to cancel #startup(s).
+You have a new LCD. The GCBASIC LCD routines fail to initialise. You want to write your own LCD initialise routine, but you want to ensure the GCBASIC standard INITLCD() does not operate before your own LCD initialise routine. How do you do this?
+
+**Scenario #2**:
+
+You want to write your own INITSYS routine. You can add your own routine to initialise the microcontroller, but the default INITSYS would always be called in the ASM.
+
+
+In the first scenario, the approach would be to redirect the GCBASIC standard INITLCD() to myInitLCD using `#DEFINE INITLCD myINITLCD`. However, prior to the latest build, this would fail to work. The reason for the failure to redirect to your new routine is the `#STARTUP INITLCD` directive. The `#STARTUP` directive was essentially hard coded and none of the `#STARTUP`s could be changed.
+
+In the second scenario the ASM call to INITSYS is also hard coded. You could trick the compiler into calling your own initialisation routine, but this was not easy and not intuitive.
+
+The new build now supports the updating of the `#STARTUP`s with your own routines, or even cancelling `#STARTUP`s.
 
 
 **Examples:**
 
-The compiler will search for all #startup(s) and update across all sources (libraries and includes).&#160;&#160;LCD.H is just an example.
+The compiler will search for all `#STARTUP`s and update across all sources (libraries and includes). LCD.H is just an example.
 
 
 `#DEFINE INITLCD myINITLCD` // This will change any reference in the LCD.h #startup INITLCD to #startup myINITLCD.
 
-`#DEFINE INITLCD` // With no second parameter would cancel any #startup in LCD.h.
+`#DEFINE INITLCD` // With no second parameter, this would cancel any #startup in LCD.h.
 
 `#DEFINE INITSYS myINITSYS` // This will change the default INITSYS to myINITSYS.
 
@@ -34,16 +37,19 @@ The compiler will search for all #startup(s) and update across all sources (libr
 
 **Example to change LCD initialisation**
 
+[source,gcbasic]
 ----
-    #DEFINE INITLCD myINITLCD
+    #DEFINE INITLCD myINITLCD          ' <<< the #DEFINE instruction redirecting a #startup routine
 
     Sub myInitLCD
         // do stuff
     End Sub
 ----
+*Key line:* `#DEFINE INITLCD myINITLCD` -- redirects every library `#STARTUP INITLCD` call to `myInitLCD` instead, so a user-written LCD initialiser fully replaces the standard one rather than running alongside it.
 
 **Example to replace INITSYS**
 
+[source,gcbasic]
 ----
     #DEFINE INITSYS                      // Cancel call
     #STARTUP myInitSYS, 1               // New init routines, and set as highest priority
@@ -53,15 +59,17 @@ The compiler will search for all #startup(s) and update across all sources (libr
     End Sub
 ----
 
-Scripts can now change the #startup.&#160;&#160;  You can add a script to change the behaviour dependent on a specific condition ( the existant of another constant).
+Scripts can also change the `#STARTUP`. You can add a script to change the behaviour depending on a specific condition (the existence of another constant).
 
-In user program
+In the user program:
 
+[source,gcbasic]
 ----
     #DEFINE LCD_OCULAR_OM1614
 ----
 
-Supported within LCD.H
+Supported within LCD.H:
+[source,gcbasic]
 ----
     #SCRIPT
         If Def( LCD_OCULAR_OM1614 ) Then
@@ -77,8 +85,9 @@ Supported within LCD.H
     End Sub
 ----
 
-will generate ASM like this...
+will generate ASM like this:
 
+[source,gcbasic]
 ----
     ;Program_memory_page: 0
         ORG	5
@@ -90,8 +99,12 @@ will generate ASM like this...
     ;Start_of_the_main_program
 ----
 
-This new capability to give you more control of the compiler.
+This new capability gives you more control of the compiler.
 {empty} +
 {empty} +
 
-*For more help, see:* #define, #startup
+**See Also:**
+
+* <<__define,#DEFINE>> -- redefining constants and startup routine names, as used above
+* <<__startup,#startup>> -- registering a subroutine to run at initialisation
+* <<__script,#script>> -- compile-time scripting used above to switch the initialisation routine

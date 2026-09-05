@@ -47,8 +47,26 @@ generation. To set them, place a line in the main program file that uses
 
 <span class="strong">**Example:**</span>
 
-``` screen
-    #define RANDOMIZE_SEED Timer2
+``` programlisting
+    #define RANDOMIZE_SEED Timer2          ' <<< the constant this page documents
 ```
+
+<span class="strong">**Key line:**</span>
+`#define RANDOMIZE_SEED Timer2` — overrides the default seed source
+(`Timer0`) with `Timer2`; this only changes which timer’s current count
+feeds `Randomize` when it is called with no argument, so the timer
+chosen must actually be running and free-counting, or the sequence will
+still start from the same seed on every run.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="random" class="link" title="Random">Random</a> — related
+    command in the same category
+-   <a href="randomize" class="link" title="Randomize">Randomize</a> — related
+    command in the same category
+
+</div>
 
 </div>

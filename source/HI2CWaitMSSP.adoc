@@ -1,6 +1,10 @@
 ==== HI2CWaitMSSP
 
+(((I2C/TWI Hardware Module,HI2CWaitMSSP)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     HI2CWaitMSSP
 ----
@@ -18,8 +22,29 @@ _HI2CWaitMSSPTimeout_ can tested for the status of the I2C bus.
 
 This command is also available on microcontrollers with a second hardware I2C port.
 
+[source,gcbasic]
 ----
     HI2C2WaitMSSP
 ----
+
+*Example:*
+[source,gcbasic]
+----
+    HI2CStart
+    HI2CWaitMSSP          ' <<< the HI2CWaitMSSP instruction
+
+    if HI2CWaitMSSPTimeout <> True then
+        HI2CSend ( deviceID )
+    else
+        HSerPrint "Bus timeout!"
+    end if
+----
+*Key line:* `HI2CWaitMSSP` -- waits for the hardware MSSP module to become ready and sets `HI2CWaitMSSPTimeout` to true if it timed out instead, so the following code can check the bus status before sending.
+
+**See Also:**
+
+* <<_hi2c_overview,HI2C Overview>> -- category overview
+* <<_hi2cackpollstate,HI2CAckPollState>> -- related command in the same category
+* <<_hi2creceive,HI2CReceive>> -- related command in the same category
 
 Supported in <HI2C.H>

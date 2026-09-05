@@ -33,7 +33,12 @@ microcontroller. The PWM signal is generated only while the `PWMOut`
 command is executing - therefore, when the `PWMOut` is not executing by
 moving onto the next command, the PWM signal will stop.
 
-<span class="strong">**For more help, see**</span>
-<a href="pwmout" class="link" title="PWMOut">PWMOut</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="pwmout" class="link" title="PWMOut">PWMOut</a>
+
+</div>
 
 </div>

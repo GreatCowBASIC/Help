@@ -35,14 +35,14 @@ assembler is handled correctly.
 
 Available on all Microchip microcontrollers only.
 
-``` screen
-    #chip 16f18855,32
+``` programlisting
+    #chip 16f18855,85
     #option explicit
 
     'Set the PPS of the I2C and the RS232 ports.
     #startup InitPPS, 85
     Sub InitPPS
-      UNLOCKPPS
+      UNLOCKPPS          ' <<< the UnLockPPS instruction
         RC0PPS = 0x0010       'RC0->EUSART:TX;
         RXPPS  = 0x0011       'RC1->EUSART:RX;
 
@@ -54,7 +54,20 @@ Available on all Microchip microcontrollers only.
     End Sub
 ```
 
-<span class="strong">**For more help, see:
-<a href="lockpps" class="link" title="LockPPS">LockPPS</a>**</span>.
+<span class="strong">**Key line:**</span> `UNLOCKPPS` — temporarily
+unlocks the PPS registers so the pin-assignment lines that follow can
+take effect; `LockPPS` locks them again at the end of the same
+subroutine.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lockpps" class="link" title="LockPPS">LockPPS</a> — re-locking
+    the PPS registers after making changes
+-   <a href="peripheral_pin_select_for_microchip_microcontrollers" class="link" title="Peripheral Pin Select for Microchip microcontrollers.">Introduction to PPS</a> — background
+    on Peripheral Pin Select
+
+</div>
 
 </div>

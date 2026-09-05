@@ -1,14 +1,17 @@
 === ReadTable
 
+(((Syntax,ReadTable)))
+
+
 *About ReadTable*
 
 The `ReadTable` command is used to read information from lookup tables.
 `_TableName_` is the name of the table that is to be read, `_Item_` is the
 line of the table to read, and `_Output_` is the variable to write the
-retrieved value in to.
+retrieved value into.
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     ReadTable _TableName, Item, Output_
 ----
@@ -19,15 +22,16 @@ Available on all microcontrollers.
 *Explanation:*
 
 `_Item_` is 1 for the first line of the table, 2 for the second, and so on.
-If the Table is more than 256 elements then `_Item_` must be WORD variable.
-Care must be taken to ensure that the program is not instructed to read beyond the end of the table as Zero will be returned.
+If the table has more than 256 elements, then `_Item_` must be a WORD variable.
+Care must be taken to ensure that the program is not instructed to read beyond the end of the table, as zero will be returned.
 
 The type of `_Output_` should match the type of data stored in the table.
-For example, if the table contains Word values then `_Output_` should be a
+For example, if the table contains Word values, then `_Output_` should be a
 Word variable. If the type does not match, GCBASIC will attempt to
 convert the value.
 
 *Example:*
+[source,gcbasic]
 ----
     'Chip Settings
     #chip 16F88, 20
@@ -37,7 +41,7 @@ convert the value.
     Dir LED Out
 
     'Main Routine
-    ReadTable TimesTwelve, 4, Temp
+    ReadTable TimesTwelve, 4, Temp          ' <<< the ReadTable instruction
     Set LED Off
     If Temp = 48 Then Set LED On
 
@@ -57,4 +61,8 @@ convert the value.
     144
     End Table
 ----
-*For more help, see* <<_lookup_tables,Lookup Tables>>
+*Key line:* `ReadTable TimesTwelve, 4, Temp` -- reads the 4th element of the `TimesTwelve` table (the value 48) into `Temp`; the LED then lights because `Temp` is compared against 48 immediately afterward.
+
+**See Also:**
+
+* <<_lookup_tables,Lookup Tables>> -- the full table-definition reference

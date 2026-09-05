@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     ReadDigitalTemp
 ```
 
@@ -40,7 +40,7 @@ byte variable `DSdec`.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Chip Settings. Assumes the development board with with a 16F877A
     #chip 16F877A,1
 
@@ -62,7 +62,7 @@ byte variable `DSdec`.
 
     do forever
 
-        ReadDigitalTemp
+        ReadDigitalTemp          ' <<< the ReadDigitalTemp instruction
 
         ' Display the integer value of the sensor on the LCD
         cls
@@ -76,5 +76,23 @@ byte variable `DSdec`.
 
     loop
 ```
+
+<span class="strong">**Key line:**</span> `ReadDigitalTemp` — reads the
+sensor on the `DQ` pin and fills the two global variables `DSint` and
+`DSdec` with the whole and decimal parts of the temperature, ready to
+`Print` directly without any further conversion.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="ds18b20" class="link" title="DS18B20">DS18B20</a> — category
+    overview
+-   <a href="readtemp" class="link" title="ReadTemp">ReadTemp</a> — related
+    command in the same category
+-   <a href="readtemp12" class="link" title="ReadTemp12">ReadTemp12</a> — related
+    command in the same category
+
+</div>
 
 </div>

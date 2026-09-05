@@ -36,7 +36,7 @@ location.
 
 <span class="strong">**Example :**</span>
 
-``` screen
+``` programlisting
     'A Hello World program for GCBASIC.
     'Uses Locate to show "World" on the second line
 
@@ -49,16 +49,30 @@ location.
     #define LCD_DATA_PORT PORTC
     #define LCD_RS PORTD.0
     #define LCD_RW PORTD.1
-    #define LCD_Enable PORTD.2
+    #define LCD_ENABLE PORTD.2
 
     'Main routine
     Print "Hello"
-    Locate 1, 5
+    Locate 1, 5          ' <<< the Locate instruction
     Print "World"
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="lcd_overview" class="link" title="LCD Overview">LCD Overview</a>
+<span class="strong">**Key line:**</span> `Locate 1, 5` — moves the
+cursor to line 1, column 5 before the next `Print`, so "World" appears
+on the second line rather than overwriting "Hello".
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcd_overview" class="link" title="LCD Overview">LCD Overview</a> — LCD
+    wiring and configuration background
+-   <a href="print" class="link" title="Print">Print</a> — displaying
+    text at the located position, as used above
+-   <a href="cls" class="link" title="CLS">CLS</a> — clearing the
+    whole display instead of moving the cursor
+
+</div>
 
 <span class="strong">**Supported in &lt;LCD.H&gt;**</span>
 

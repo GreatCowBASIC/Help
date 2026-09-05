@@ -33,7 +33,7 @@ Available on all PIC micro-controllers with HEFM memory
 HEFRead is used to read information, byte values, from HEFM, so that it
 can be accessed for use in a user program.  
   
-`location` represents the location or relative address to read. The
+`location` rerepresents the location or relative address to read. The
 location will range from location 0 to HEF\_BYTES - 1, or for all
 practical purposes 0-127 since all PIC Microcontrollers with HEF support
 128 bytes of HEF Memory. HEF\_BYTES is a GCBASIC constant that
@@ -47,7 +47,7 @@ location.    This method is similar to the EPRead method for EEPROM.
   
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     '... code preamble to select part
     '... code to setup PPS
      '... code to setup serial
@@ -60,18 +60,23 @@ location.    This method is similar to the EPRead method for EEPROM.
     HEFWrite( 34, 144)
 
     ;Read the byte back from HEFM location 34
-    HEFread( 34, byte_value )
+    HEFread( 34, byte_value )          ' <<< the HEFRead instruction (subroutine form)
 
     ;Display the data on a terminal
     HserPrint "byte_value = "
     Hserprint byte_value
 ```
 
+<span class="strong">**Key line:**</span>
+`HEFread( 34, byte_value )` — reads the byte back from HEFM location 34
+using the subroutine form, storing the result directly into
+`byte_value`.
+
   
   
 <span class="strong">**Example 2:**</span>
 
-``` screen
+``` programlisting
     '... code preamble to select part '... code preamble to select part
     '... code to setup PPS
      '... code to setup serial
@@ -84,23 +89,32 @@ location.    This method is similar to the EPRead method for EEPROM.
     HEFWrite( 34, 144)
 
     ;Read the byte back from HEF location 34
-    byte_value = HEFread( 34 )
+    byte_value = HEFread( 34 )          ' <<< the HEFRead instruction (function form)
 
     ;Display the data on a terminal
     HserPrint "byte_value = "
     Hserprint byte_value
 ```
 
+<span class="strong">**Key line:**</span>
+`byte_value = HEFread( 34 )` — reads the byte back from HEFM location 34
+using the function form, assigning the result to `byte_value`.
+
   
   
-See also
-<a href="hefm_overview" class="link" title="HEFM Overview">HEFM Overview</a>,
-<a href="hefread" class="link" title="HEFRead">HEFRead</a>,
-<a href="hefreadword" class="link" title="HEFReadWord">HEFReadWord</a>,
-<a href="hefwrite" class="link" title="HEFWrite">HEFWrite</a>,
-<a href="hefwriteword" class="link" title="HEFWriteWord">HEFWriteWord</a>,
-<a href="hefreadblock" class="link" title="HEFReadBlock">HEFReadBlock</a>,
-<a href="hefwriteblock" class="link" title="HEFWriteBlock">HEFWriteBlock</a>,
-<a href="heferaseblock" class="link" title="HEFEraseBlock">HEFEraseBlock</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hefm_overview" class="link" title="HEFM Overview">HEFM Overview</a>
+-   <a href="hefread" class="link" title="HEFRead">HEFRead</a>
+-   <a href="hefreadword" class="link" title="HEFReadWord">HEFReadWord</a>
+-   <a href="hefwrite" class="link" title="HEFWrite">HEFWrite</a>
+-   <a href="hefwriteword" class="link" title="HEFWriteWord">HEFWriteWord</a>
+-   <a href="hefreadblock" class="link" title="HEFReadBlock">HEFReadBlock</a>
+-   <a href="hefwriteblock" class="link" title="HEFWriteBlock">HEFWriteBlock</a>
+-   <a href="heferaseblock" class="link" title="HEFEraseBlock">HEFEraseBlock</a>
+
+</div>
 
 </div>

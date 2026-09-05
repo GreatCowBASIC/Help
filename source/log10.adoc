@@ -1,7 +1,10 @@
 ==== Log10
 
+(((Maths,Log10)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     returned_word_variable = Log10 (__word_value__)
 ----
@@ -11,13 +14,21 @@ Available on all microcontrollers.
 
 *Explanation:*
 
-The `Log10` command will return the base-10 logarithm, to 2 decimal places.
+The `Log10` command returns the base-10 logarithm, to 2 decimal places.
 
-The values returned are fixed-point numbers, with two decimal places assumed on the right. or if you prefer, think of the values as being scaled up by 100.
+The values returned are fixed-point numbers, with two decimal places assumed on the right -- or, if you prefer, think of the values as being scaled up by 100.
 
 *Example:*
+[source,gcbasic]
 ----
     dim log_value as word
-    log_value = log10 ( 10 )      'return 230 equate to 2.30
+    log_value = log10 ( 10 )      ' <<< the Log10 instruction -- returns 230, equating to 2.30
 ----
+*Key line:* `log10 ( 10 )` -- returns `230`, representing 2.30, the base-10 logarithm of 10.
 *Supported in <MATHS.H>*
+
+**See Also:**
+
+* <<_logarithms,Logarithms>> -- overview of the log family of functions
+* <<_log2,Log2>> -- base-2 logarithm
+* <<_loge,Loge>> -- natural (base-e) logarithm

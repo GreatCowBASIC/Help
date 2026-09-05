@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     HPWMOff ( channel )   'selectively turn off the CCP channel
 
     HPWMOff               'turn off CCP channel 1 only
@@ -34,7 +34,7 @@ Microchip PIC chip.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Select chip model and speed
     #chip 16F877A, 20
 
@@ -50,12 +50,23 @@ Microchip PIC chip.
         next
 
         wait 1 s
-        HPWMOff ( 1 )' turn off the PWM channel
+        HPWMOff ( 1 )' turn off the PWM channel          ' <<< the HPWMOff instruction
 
     loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="hpwmoff" class="link" title="HPWMOff">HPWMOff</a>
+<span class="strong">**Key line:**</span> `HPWMOff ( 1 )` — disables CCP
+channel 1’s PWM output specifically; unlike the parameterless form,
+which always turns off channel 1, this explicit form lets a
+multi-channel program turn off one channel while leaving others running.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hpwm_ccp" class="link" title="HPWM CCP">HPWM CCP</a> — the
+    counterpart command that starts a PWM channel
+
+</div>
 
 </div>

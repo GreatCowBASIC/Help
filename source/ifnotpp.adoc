@@ -1,7 +1,10 @@
 === #ifnot
 
+(((Compiler Directives,#ifnot)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     #ifnot __Condition__
       ...
@@ -13,16 +16,23 @@
 
 The `#ifnot` directive is used to prevent a section of code from compiling unless `_Condition_` is false.
 
-`_Condition_` has the same syntax as the condition in a normal GCBASIC if command. The only difference is that it uses constants instead of variables and does not use "then".
+`_Condition_` has the same syntax as the condition in a normal GCBASIC If command. The only difference is that it uses constants instead of variables, and does not use "then".
 
 *Example:*
+[source,gcbasic]
 ----
     'This program will set the constant to true only if NOT a PIC family
     #chip 16F88, 8
 
-    #ifnot ChipFamily = 14
+    #ifnot ChipFamily = 14          ' <<< compiling the block only when the chip is NOT PIC family 14
 
       #define myConstant True
 
     #endif
 ----
+*Key line:* `#ifnot ChipFamily = 14` -- `ChipFamily = 14` identifies the mid-range PIC family the 16F88 belongs to, so on this chip the condition is true and the block is NOT compiled; `myConstant` would only be defined when compiling for a chip outside PIC family 14.
+
+**See Also:**
+
+* <<_if,#if>> -- the positive-condition counterpart to this directive
+* <<__ifdef,#ifdef>> -- testing whether a constant is defined, rather than its value

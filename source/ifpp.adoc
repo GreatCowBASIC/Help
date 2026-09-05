@@ -1,7 +1,10 @@
 === #if
 
+(((Compiler Directives,#if)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     #if __Condition__
       ...
@@ -13,9 +16,10 @@
 
 The `#if` directive is used to prevent a section of code from compiling unless `_Condition_` is true.
 
-`_Condition_` has the same syntax as the condition in a normal GCBASIC if command. The only difference is that it uses constants instead of variables and does not use "then".
+`_Condition_` has the same syntax as the condition in a normal GCBASIC If command. The only difference is that it uses constants instead of variables, and does not use "then".
 
 *Example:*
+[source,gcbasic]
 ----
     'This program will pulse an adjustable number of pins on PORTB
     'The number of pins is controlled by the FlashPins constant
@@ -30,7 +34,7 @@ The `#if` directive is used to prevent a section of code from compiling unless `
     'Main loop
     Do
         #if FlashPins >= 1
-            PulseOut PORTB.0, 250 ms
+            PulseOut PORTB.0, 250 ms          ' <<< compiled in only when FlashPins is 1 or more
         #endif
         #if FlashPins >= 2
             PulseOut PORTB.1, 250 ms
@@ -43,3 +47,9 @@ The `#if` directive is used to prevent a section of code from compiling unless `
         #endif
     Loop
 ----
+*Key line:* `#if FlashPins >= 1` -- because `FlashPins` is 2, this block and the `>= 2` block below it are compiled into the program, while the `>= 3` and `>= 4` blocks are removed entirely at compile time and never take up program memory on the chip.
+
+**See Also:**
+
+* <<__ifnot,#ifnot>> -- the inverse test, compiling code only when the condition is false
+* <<__ifdef,#ifdef>> -- testing whether a constant is defined, rather than its value

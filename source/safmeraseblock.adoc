@@ -1,20 +1,24 @@
 ==== SAFEraseBlock
 
+(((SAFM,SAFEraseBlock)))
+
+
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     SAFEraseBlock ( block_number )
 ----
 *Command Availability:*
 
-Available on all PIC micro-controllers with SAFM memory.
+Available on all PIC microcontrollers with SAFM memory.
+
 *Explanation:*
 {empty} +
 {empty} +
-SAFEraseBlock is used to erase all data locations within the SAFM block.&#160;&#160;&#160; HEFM data within the HEFM block to the erase state value of the device.&#160;&#160;&#160;
-This Value is 0xFF for each location and will read 0xFFFF if the program memory word is displayed. 
-Use Caution. Once the SAFM block is erased, the SAFEM data is gone forever and cannot be recovered unless it was previpusly saved. 
+`SAFEraseBlock` is used to erase all data locations within the SAFM block, setting SAFM data within the block to the erase-state value of the device.&#160;&#160;&#160;
+This value is 0xFF for each location, and will read 0xFFFF if the program memory word is displayed. 
+Use caution: once the SAFM block is erased, the SAFM data is gone forever and cannot be recovered unless it was previously saved. 
 {empty} +
 {empty} +
 The single parameter is as follows:
@@ -26,24 +30,25 @@ The block_number parameter is used to calculate the physical memory location(s) 
 
 *Example 1:*
 
-Erase a specific block of SAFEM.
+Erase a specific block of SAFM.
+[source,gcbasic]
 ----
     '... code preamble to select part
     '... code to setup PPS, if needed
     '... code to setup serial, if needed
 
-    'Erase block 2 of HEFM
-    HEFEraseBlock ( 2)
+    'Erase block 2 of SAFM
+    SAFEraseBlock ( 2 )          ' <<< the SAFEraseBlock instruction
 
 ----
-{empty} +
-{empty} +
-See also
-<<_safm_overview,SAFM Overview>>,
-<<_safread,SAFRead>>,
-<<_safreadword,SAFReadWord>>,
-<<_safwrite,SAFWrite>>,
-<<_safwriteword,SAFWriteWord>>,
-<<_safreadblock,SAFReadBlock>>,
-<<_safwriteblock,SAFWriteBlock>>,
-<<_saferaseblock,SAFEraseBlock>>
+*Key line:* `SAFEraseBlock ( 2 )` -- erases every location in SAFM block 2, resetting it to 0xFF before new data is written with `SAFWrite`, `SAFWriteWord`, or `SAFWriteBlock`.
+
+**See Also:**
+
+* <<_safm_overview,SAFM Overview>>
+* <<_safread,SAFRead>>
+* <<_safreadword,SAFReadWord>>
+* <<_safwrite,SAFWrite>>
+* <<_safwriteword,SAFWriteWord>>
+* <<_safreadblock,SAFReadBlock>>
+* <<_safwriteblock,SAFWriteBlock>>

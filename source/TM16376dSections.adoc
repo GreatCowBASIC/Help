@@ -1,7 +1,10 @@
 ==== TMWrite6Dig
 
+(((7-Segment Displays,TMWrite6Dig)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     TMWrite6Dig (dig1, dig2, dig3, dig4, dig5, dig6, Brightness,  Point)
 ----
@@ -31,7 +34,7 @@ _Colon_  turns the colon (only on  digit 2) to off (0) or on (1).
 
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     TM_Bright = Brightness
 ----
@@ -59,7 +62,7 @@ TM_Bright must be defined before the first use the commands: TMDec, TMHex or TMW
 
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     TMDec  Value [, Options ]
 ----
@@ -93,7 +96,7 @@ _Options_ as follows:
 
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     TMHex  Value
 ----
@@ -119,7 +122,7 @@ Only values from from 0x0000 to 0xFFFF can be displayed. Non-hex values will be 
 
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     TMWriteChar ( TMaddr, TMchar )
 ----
@@ -151,7 +154,7 @@ image::TM1657a.png[graphic,align="center", 70%]
 
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     TM_Point = (Point)
 ----
@@ -171,11 +174,16 @@ The state of the last two bits is ignored because it is only 6 digits.&#160;&#16
 
 Examples:
 
-• binary number 0B01010000 (decimal 80) switch on decimal point on digits 2 and 4.
-• number 0 switch off all digital points
-• 255 (0B11111111) switch all on.
+* binary number 0B01010000 (decimal 80) switch on decimal point on digits 2 and 4.
+* number 0 switch off all digital points
+* 255 (0B11111111) switch all on.
 
 {empty} +
 {empty} +
 {empty} +
 {empty} +
+
+**See Also:**
+
+* <<_7_segment_displays_tm1637_6_digits,7 Segment Displays - TM1637 6 Digits>> -- category overview and a full worked example using TMWrite6Dig
+* <<_7_segment_displays_overview,7 Segment Displays Overview>> -- top-level category overview

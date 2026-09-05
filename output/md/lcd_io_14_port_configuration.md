@@ -19,7 +19,7 @@
 When using LCD mode 14 this is an example program to show a working
 solution,
 
-``` screen
+``` programlisting
         #chip 18F67K40, 8
         #option explicit
 
@@ -41,7 +41,7 @@ solution,
                 End Sub
 
             //Constants - LCD connectivity type
-            #define LCD_IO 14
+            #define LCD_IO 14          ' <<< the constant that selects the SPI expander connection mode
 
             //Comment out to use software SPI
             #define LCD_HARDWARESPI
@@ -70,5 +70,22 @@ solution,
         ClS
         Print "Hello World"
 ```
+
+<span class="strong">**Key line:**</span> `#define LCD_IO 14` — selects
+the SPI expander connection mode; the `LCD_SPI_EXPD_ADDRESS` and related
+constants shown here are the library’s own defaults, listed only for
+reference, while `LCD_SPI_DO`, `LCD_SPI_SCK`, and `LCD_SPI_CS` are the
+pins you must actually wire and define yourself.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcd_io_14" class="link" title="LCD_IO 14">LCD_IO 14</a> — full
+    reference for the LCD\_IO 14 connection mode
+-   <a href="lcd_io_16" class="link" title="LCD_IO 16">LCD_IO 16</a> — the
+    related PIC16LF72 SPI expander mode
+
+</div>
 
 </div>

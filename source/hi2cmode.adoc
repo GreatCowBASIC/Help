@@ -1,7 +1,11 @@
 ==== HI2CMode
 
+(((I2C/TWI Hardware Module,HI2CMode)))
+
+
 *Syntax:*
 
+[source,gcbasic]
 ----
     HI2CMode Master | Slave
 ----
@@ -11,16 +15,38 @@ Only available for microcontrollers with the hardware I2C or TWI module.
 
 *Explanation:*
 
-Sets the microcontroller to either a Master device or a Slave device.
-
-Only used in slave mode
+`HI2CMode` sets the microcontroller to either a Master device or a Slave device. It is required before any other HI2C command is used, and is typically set once at the start of the program.
 
 *Note:*
 
 This command is also available on microcontrollers with a second hardware I2C port.
 
+[source,gcbasic]
 ----
     HI2C2Mode Master | Slave
 ----
+
+*Example:*
+[source,gcbasic]
+----
+    #chip 16F1937, 32
+    #define HI2C_DATA PORTC.4
+    #define HI2C_CLOCK PORTC.3
+    Dir HI2C_DATA in
+    Dir HI2C_CLOCK in
+
+    HI2CMode Master          ' <<< the HI2CMode instruction
+
+    HI2CStart
+    HI2CSend 0xA0
+    HI2CStop
+----
+*Key line:* `HI2CMode Master` -- configures the hardware I2C/TWI module to act as the bus master, before any `HI2CStart`, `HI2CSend`, or `HI2CReceive` calls are made.
+
+**See Also:**
+
+* <<_hi2cstart,HI2CStart>> -- starting a transaction after selecting the mode
+* <<_hi2csend,HI2CSend>> / <<_hi2creceive,HI2CReceive>> -- sending and receiving data in the selected mode
+* <<_hi2csetaddress,HI2CSetAddress>> -- setting the device's own address when in slave mode
 
 Supported in <HI2C.H>

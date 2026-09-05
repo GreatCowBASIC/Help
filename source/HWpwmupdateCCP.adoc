@@ -1,7 +1,11 @@
 //
 ==== HPWMUpdate for CCP/PWM Modules(s)
 
+(((Pulse width modulation,HPWMUpdate for CCP/PWM Modules(s))))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     HPWMUpdate ( channel, duty_cycle )
 ----
@@ -30,6 +34,7 @@ ranges from 0 to 255 where 255 is 100% duty cycle.
 
 
 *Example for CCP PWM:*
+[source,gcbasic]
 ----
     'This program will alter the brightness of an LED using
     'hardware PWM.
@@ -47,7 +52,7 @@ ranges from 0 to 255 where 255 is 100% duty cycle.
         'use for-loop to show the duty changing a 8bit value
         dim dutyvalue as byte
         for dutyvalue = 0 to 255
-            HPWMUpdate 1, dutyvalue
+            HPWMUpdate 1, dutyvalue          ' <<< the HPWMUpdate instruction
             wait 10 ms
         next
         for dutyvalue = 254 to 1
@@ -57,5 +62,9 @@ ranges from 0 to 255 where 255 is 100% duty cycle.
     loop
 
 ----
+*Key line:* `HPWMUpdate 1, dutyvalue` -- changes only channel 1's duty cycle, leaving the frequency and timer source set by the earlier `HPWM 1, 40, dutyvalue` call untouched; this is faster than calling `HPWM` again for every step of a brightness ramp, but requires `HPWM_FAST` to be defined.
 
-*For more help, see* <<_pwmoff,PWMOff>>
+**See Also:**
+
+* <<_hpwm_ccp,HPWM CCP>> -- sets the initial frequency, timer source, and duty cycle that HPWMUpdate then adjusts
+* <<_hpwmoff,HPWMOff>> -- stopping the PWM signal entirely

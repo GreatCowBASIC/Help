@@ -18,13 +18,13 @@
 
 <span class="strong">**For PICs**</span>
 
-This section applies to Microchip PIC microcontrollers.  For AVR and LGT
-microcontrollers see the sections below.
+This section applies to Microchip PIC microcontrollers. For AVR and LGT
+microcontrollers, see the sections below.
 
 Every Microchip PIC has a CONFIG word. This is an area of memory on the
 chip that stores settings which govern the operation of the chip.
 
-The following asects of the chip are governed by the CONFIG word:
+The following aspects of the chip are governed by the CONFIG word:
 
 <div class="itemizedlist">
 
@@ -58,7 +58,7 @@ some config settings, unless told otherwise:
     in GCBASIC.
 
 -   <span class="strong">**Master Clear (MCLR) is disabled where
-    possible.**</span> On many newer chips this allows the MCLR pin
+    possible.**</span> On many newer chips, this allows the MCLR pin
     (often PORTA.5) to be used as a standard input port. It also removes
     the need for a pull-up resistor on the MCLR pin.
 
@@ -70,8 +70,8 @@ some config settings, unless told otherwise:
     -   If the microcontroller has an internal oscillator, and the
         internal oscillator is capable of generating the speed specified
         in the \#chip line, then the internal oscillator will be used.
-    -   If the clock speed is over 4 Mhz, the external HS oscillator is
-        selected
+    -   If the clock speed is over 4 MHz, the external HS oscillator is
+        selected.
     -   If the clock speed is 4 MHz or less, then the external XT
         oscillator mode is selected.
 
@@ -82,22 +82,22 @@ some config settings, unless told otherwise:
 Note that these settings can easily be individually overridden whenever
 needed. For example, if the Watchdog Timer is needed, adding the line
 
-``` screen
+``` programlisting
     #config WDT = ON
 ```
 
-This will enable the watchdog timer, without affecting any other
+will enable the watchdog timer, without affecting any other
 configuration settings.
 
 <span class="strong">**For AVR**</span>
 
-This section applies to Atmel AVR microcontrollers.   Generally, Atmel
-AVR microcontrollers do have a similar configuration settings, but they
-are controlled through "Configuration Fuses". GCBASIC cannot set these -
-you MUST use the programmer software.
+This section applies to Atmel AVR microcontrollers. Generally, Atmel AVR
+microcontrollers do have similar configuration settings, but they are
+controlled through "Configuration Fuses". GCBASIC cannot set these - you
+must use the programmer software.
 
-The exception to the general case are the ATTiny4-5-9-10 and
-ATTiny102-104.   These microcontrollers have software selectable
+The exception to the general case is the ATtiny4-5-9-10 and
+ATtiny102-104. These microcontrollers have software-selectable
 frequencies for the following frequencies:
 
 ``` literallayout
@@ -112,9 +112,9 @@ ChipMHz 0.0625
 ChipMHz 0.03125
 ```
 
-Therefore, you can use ( an example )
+Therefore, you can use (an example):
 
-``` screen
+``` programlisting
     #chip tiny10, 0.25
 ```
 
@@ -124,7 +124,7 @@ Therefore, you can use ( an example )
 
 This section applies to LGT microcontrollers.
 
-All LGT microcontroller have software selectable frequencies for the
+All LGT microcontrollers have software-selectable frequencies for the
 following frequencies:
 
 ``` literallayout
@@ -139,10 +139,10 @@ ChipMHz 0.0625
 ChipMHz 0.03125
 ```
 
-Therefore, you can use ( an example )
+Therefore, you can use (an example):
 
-``` screen
-    #chip #chip LGT8F328P, 0.25
+``` programlisting
+    #chip LGT8F328P, 0.25
 ```
 
   
@@ -152,16 +152,16 @@ Therefore, you can use ( an example )
 For PICs only.
 
 Once the necessary CONFIG options have been determined, adding them to
-the program is easy. On a new line type "\#config" and then list the
+the program is easy. On a new line, type `#config` and then list the
 desired options separated by commas, such as in this line:
 
-``` screen
+``` programlisting
     #config OSC = RC, BODEN = OFF
 ```
 
 GCBASIC also supports this format on 10/12/16 series chips:
 
-``` screen
+``` programlisting
     #config INTOSC_OSC_NOCLKOUT, BODEN_OFF
 ```
 
@@ -173,7 +173,15 @@ instance, one in the main program, and one in each of several \#include
 files. However, care must then be taken to ensure that the settings in
 one file do not conflict with those in another.
 
-<span class="strong">**For more help, see**</span>
-<a href="_config" class="link" title="#config">#config Directive</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="_config" class="link" title="#config">#config</a> — the
+    full \#config directive reference
+-   <a href="_chip" class="link" title="#chip">#chip</a> — selecting
+    the target microcontroller and clock speed
+
+</div>
 
 </div>

@@ -2,6 +2,9 @@
 // Edited MLO 251016
 ==== 7 Segment Displays - Legacy
 
+(((7-Segment Displays,7 Segment Displays - Legacy)))
+
+
 *Introduction*
 
 The GCBASIC 7 segment display methods make it easier for GCBASIC programs to display numbers and letters on 7 segment LED displays.
@@ -235,6 +238,7 @@ Can be specified as `DISP_SEL_1` and/or `DISP_SEL_2` and/or `DISP_SEL_3` and/or 
 
 *Example 1:*
 
+[source,gcbasic]
 ----
 
 include::7segmentLegacy_code1.gcb[]
@@ -248,5 +252,10 @@ image::CC_4dig_7seg_16F886_Schem.jpg[graphic,align="center"]
 image::CA_2Dig_7seg_16F886_schem.jpg[graphic,align="center"]
 
 
-*Also, see* <<_displaychar,DisplayChar>>,
-<<_displayvalue,DisplayValue>>
+**See Also:**
+
+* <<_7_segment_displays_overview,7 Segment Displays Overview>> -- category overview
+* <<_common_cathode,Common Cathode>> -- wiring example for a Common Cathode display
+* <<_common_anode,Common Anode>> -- wiring example for a Common Anode display
+* <<_displaychar,DisplayChar>> -- displaying an ASCII character
+* <<_displayvalue,DisplayValue>> -- displaying a numeric digit

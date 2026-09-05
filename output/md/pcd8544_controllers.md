@@ -38,9 +38,9 @@ constant.
 To use the PCD844 driver simply include the following in your user code.
 This will initialise the driver.
 
-``` screen
+``` programlisting
     #include <glcd.h>
-    #define GLCD_TYPE GLCD_TYPE_PCD8544
+    #define GLCD_TYPE GLCD_TYPE_PCD8544          ' <<< the constant that selects this controller driver
 
     ' Pin mappings for software SPI for Nokia 3310 Device
     #define GLCD_DO     portc.5              'example port setting
@@ -49,6 +49,12 @@ This will initialise the driver.
     #define GLCD_CS     portc.1              'example port setting
     #define GLCD_RESET  portc.0              'example port setting
 ```
+
+<span class="strong">**Key line:**</span>
+`#define GLCD_TYPE GLCD_TYPE_PCD8544` — tells `<glcd.h>` to compile in
+the PCD8544 driver rather than any of the library’s other supported
+controllers; this display only supports software SPI, so no hardware-SPI
+constant is needed.
 
 The GCBASIC constants for the interface to the controller are shown in
 the table below.
@@ -99,13 +105,13 @@ For microcontrollers with less then 1kb of RAM this will be set be default.</p><
 <tr class="even">
 <td style="text-align: left;"><p><code class="literal">GLCD_WIDTH</code></p></td>
 <td style="text-align: left;"><p>The width parameter of the GLCD</p></td>
-<td style="text-align: center;"><p>160<br />
+<td style="text-align: center;"><p>84<br />
 This cannot be changed</p></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><p><code class="literal">GLCD_HEIGHT</code></p></td>
 <td style="text-align: left;"><p>The height parameter of the GLCD</p></td>
-<td style="text-align: center;"><p>128<br />
+<td style="text-align: center;"><p>48<br />
 This cannot be changed</p></td>
 </tr>
 <tr class="even">
@@ -139,15 +145,15 @@ supported commands.
 
 </div>
 
-\*For a PCD8544 datasheet, please refer
-<a href="https://www.google.co.uk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;cad=rja&amp;uact=8&amp;ved=0CCMQFjAA&amp;url=https%3A%2F%2Fwww.sparkfun.com%2Fdatasheets%2FLCD%2FMonochrome%2FNokia5110.pdf&amp;ei=bmjDVKePM83datDIgYgH&amp;usg=AFQjCNFa7N9WMhSg849oXejlfP3FRvQqpA&amp;sig2=ZFpG-ubTxvrBRAV4dRvhVw" class="link">here</a>  
+For a PCD8544 datasheet, please refer to the
+<a href="https://www.sparkfun.com/datasheets/LCD/Monochrome/Nokia5110.pdf" class="link">Nokia 5110 datasheet</a>.  
 
 This example shows how to drive a PCD8544 based Graphic LCD module with
 the built in commands of GCBASIC.
 
 Example:
 
-``` screen
+``` programlisting
       #chip 16lf1939,32
       #option Explicit
       #config MCLRE_ON
@@ -212,13 +218,24 @@ Example:
       end
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — clearing
+    the display, as used above
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a> — drawing
+    a single character, as used above
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — printing
+    a value at a specific location, as used above
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+    /
+    <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a> — low-level
+    byte access, for expert use
+-   <a href="pset" class="link" title="Pset">Pset</a> — setting a
+    single pixel
+
+</div>
 
 Supported in &lt;GLCD.H&gt; and &lt;glcd\_PCD8544.h&gt;
 

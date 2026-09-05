@@ -6,7 +6,7 @@
 
 <div>
 
-### <span id="variable_declaration"></span>Variable Declaration
+##### <span id="variable_declaration"></span>Variable Declaration
 
 </div>
 
@@ -18,7 +18,7 @@
 variables are declared together, the type at the end of the line applies
 to all variables:
 
-``` screen
+``` programlisting
     Dim A, B, C As Word = 100
 ```
 

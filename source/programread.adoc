@@ -1,43 +1,43 @@
 ==== ProgramRead
 
-*Syntax:*
-[subs="quotes"]
+(((PROGMEM ( PFM ),ProgramRead)))
 
+
+*Syntax:*
+[subs="specialcharacters,quotes"]
 ----
-    ProgramRead (_location, store_)
+    ProgramRead (_location_, _store_)
 
     or for the 18FxxQ41 family of chips use:
-    PFMRead (_location, store_)
+    PFMRead (_location_, _store_)
 ----
 
 *Command Availability:*
 
-Available on all Microchip PIC microcontrollers with self write capability. Not available on
-Atmel AVR at present.
+Available on all Microchip PIC microcontrollers with self-write capability. Not currently available on Atmel AVR.
 
 *Explanation:*
 
 `ProgramRead` reads information from the program memory on chips that support this feature. `_location_` and `_store_` are both word variables, meaning that they can store values over 255.
 
-The largest value possible for `_location_` depends on the amount of program memory on the Microchip PIC microcontroller, which is given on the datasheet. `_store_` range is explained in the next section.
- 
+The largest value possible for `_location_` depends on the amount of program memory on the Microchip PIC microcontroller, given in the datasheet. The range of `_store_` is explained in the next section.
 
- _Maximum Stored Value_
+_Maximum Stored Value_
 
-The **maximum value** that can be stored in a single program memory **word** location across the PIC families:
+The **maximum value** that can be stored in a single program-memory **word** location across the PIC families:
 
 |===
-| Family       | Instruction Word Size | Program Memory Word Width | Maximum Value per Word (unsigned decimal) | Hex Range          | Can store full 16-bit value (0–65535) in one word? 
-| **PIC10**   | 12-bit               | 12 bits                  | 4095                                       | 0x000 – 0xFFF     | No                                                  
-| **PIC12** (baseline) | 12-bit          | 12 bits                  | 4095                                       | 0x000 – 0xFFF     | No                                                  
-| **PIC12** (enhanced mid-range) | 14-bit | 14 bits                  | 16383                                      | 0x0000 – 0x3FFF   | No                                                  
-| **PIC14**   | 14-bit               | 14 bits                  | 16383                                      | 0x0000 – 0x3FFF   | No                                                  
-| **PIC16** (mid-range) | 14-bit         | 14 bits                  | 16383                                      | 0x0000 – 0x3FFF   | No                                                  
-| **PIC16** (enhanced mid-range) | 14-bit | 14 bits                  | 16383                                      | 0x0000 – 0x3FFF   | No                                                  
-| **PIC18**   | 16-bit               | 16 bits                  | 65535                                      | 0x0000 – 0xFFFF   | **Yes**                                             
+| Family       | Instruction Word Size | Program Memory Word Width | Maximum Value per Word (unsigned decimal) | Hex Range          | Can store full 16-bit value (0-65535) in one word? 
+| **PIC10**   | 12-bit               | 12 bits                  | 4095                                       | 0x000 - 0xFFF     | No                                                  
+| **PIC12** (baseline) | 12-bit          | 12 bits                  | 4095                                       | 0x000 - 0xFFF     | No                                                  
+| **PIC12** (enhanced mid-range) | 14-bit | 14 bits                  | 16383                                      | 0x0000 - 0x3FFF   | No                                                  
+| **PIC14**   | 14-bit               | 14 bits                  | 16383                                      | 0x0000 - 0x3FFF   | No                                                  
+| **PIC16** (mid-range) | 14-bit         | 14 bits                  | 16383                                      | 0x0000 - 0x3FFF   | No                                                  
+| **PIC16** (enhanced mid-range) | 14-bit | 14 bits                  | 16383                                      | 0x0000 - 0x3FFF   | No                                                  
+| **PIC18**   | 16-bit               | 16 bits                  | 65535                                      | 0x0000 - 0xFFFF   | **Yes**                                             
 |===
 
-_Quick Summary Table (most common cases)_
+_Quick Summary Table (Most Common Cases)_
 
 |===
 | Family group       | Typical word size | Max value you can store in one program memory word | Equivalent to storing a full 16-bit number? 
@@ -48,18 +48,39 @@ _Quick Summary Table (most common cases)_
 
 _Important Notes_
 
-- **PIC18** is the only 8-bit PIC family where you can directly store any 16-bit value (0–0xFFFF) in a single program memory word location.
+- **PIC18** is the only 8-bit PIC family where you can directly store any 16-bit value (0-0xFFFF) in a single program-memory word location.
 
-- On all earlier families (PIC10, PIC12 baseline, PIC14, PIC16, enhanced mid-range), you must split any value > 0x3FFF (16383) across **two words** if you need the full 16-bit range.
+- On all earlier families (PIC10, PIC12 baseline, PIC14, PIC16, enhanced mid-range), you must split any value greater than 0x3FFF (16383) across **two words** if you need the full 16-bit range.
 
-- The values above apply when storing constants, lookup table entries, `retlw` literals, `data`/`db` directives, etc. — i.e., the largest number that fits in one program memory **word**.
+- The values above apply when storing constants, lookup table entries, `retlw` literals, `data`/`db` directives, and so on -- that is, the largest number that fits in one program-memory **word**.
 
 _Addressing Notes_
 
-- **PIC18F family**: `location` is a **byte address** (TBLPTR is byte-oriented). For reading 16-bit **words**, `location` **must be even** (word starts on even byte boundary). Reading odd locations may return misaligned or garbage data.
-- **Non-18F families** (mid-range, baseline): `location` is a **word address** (consecutive integers indexing 12/14-bit words).
-- Special variant: On some newer chips (e.g., 18FxxQ41 family), use `PFMRead (_location, store_)` instead.
+- **PIC18F family**: `_location_` is a **byte address** (TBLPTR is byte-oriented). For reading 16-bit **words**, `_location_` **must be even** (the word starts on an even byte boundary). Reading odd locations may return misaligned or garbage data.
+- **Non-18F families** (mid-range, baseline): `_location_` is a **word address** (consecutive integers indexing 12/14-bit words).
+- Special variant: on some newer chips (e.g., 18FxxQ41 family), use `PFMRead (_location_, _store_)` instead.
 
-See <<_data,DATA command>> for examples of storing and reading byte/word values in program memory.
+See <<_data,DATA>> for examples of storing and reading byte/word values in program memory.
 
-*For more help, see <<_programerase,ProgramErase>>* and *<<_programwrite,ProgramWrite>>*
+*Example:*
+
+[source,gcbasic]
+----
+    #chip 18F26K22, 16
+
+    Dim ReadLocation As Word
+    Dim ReadValue As Word
+
+    ReadLocation = 0x1000
+
+    ProgramRead ( ReadLocation, ReadValue )          ' <<< the ProgramRead instruction
+    HSerPrint ReadValue
+----
+*Key line:* `ProgramRead ( ReadLocation, ReadValue )` -- reads the program-memory word at `ReadLocation` back into `ReadValue`.
+
+**See Also:**
+
+* <<_programerase,ProgramErase>> -- erasing a block before writing to it
+* <<_programwrite,ProgramWrite>> -- writing the value this page reads back
+* <<_pfmread,PFMRead>> -- the equivalent command on 18FxxQ41-family chips
+* <<_data,DATA>> -- defining fixed program-memory datasets

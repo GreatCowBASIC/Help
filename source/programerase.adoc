@@ -1,7 +1,10 @@
 ==== ProgramErase
 
+(((PROGMEM ( PFM ),ProgramErase)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 
 ----
     ProgramErase (_location_)
@@ -9,22 +12,39 @@
 
 *Command Availability:*
 
-Available on all Microchip PIC microcontrollers with self write capability. Not available on
-Atmel AVR at present.
+Available on all Microchip PIC microcontrollers with self-write capability. Not currently available on Atmel AVR.
 
 *Explanation:*
 
-`ProgramErase` erases information from the program memory on chips that support this feature. The largest value possible for `_location_` depends on the amount of program memory on the Microchip PIC microcontroller, which is given on the datasheet.
+`ProgramErase` erases information from the program memory on chips that support this feature. The largest value possible for `_location_` depends on the amount of program memory on the Microchip PIC microcontroller, given in the datasheet.
 
 This command must be called before writing to a block of memory. It is slow in comparison to other GCBASIC commands.
 
-**Note that it erases memory in blocks/pages — the size varies by device:**
+**Note that it erases memory in blocks/pages -- the size varies by device:**
 - Many classic **PIC18F** devices: typically 64 bytes (32 words) per erase row.
 - Newer **PIC18 Q-series** (e.g., PIC18FxxQ43, PIC18FxxQ84): typically **256 bytes (128 words)** per erase page.
 - Other sizes exist on some models (e.g., 512 bytes or larger on certain variants).
 
-**Always consult the relevant Microchip PIC microcontroller datasheet** for the exact erase page/row size, required alignment (usually multiples of the page size), and any restrictions on self-write/erase operations (e.g., unlock sequences, row vs. page erase).
+**Always consult the relevant Microchip PIC microcontroller datasheet** for the exact erase page/row size, the required alignment (usually a multiple of the page size), and any restrictions on self-write/erase operations (for example, unlock sequences, or row versus page erase).
 
-Care must be taken with this command, as it can easily erase the program that is running on the microcontroller.
+Care must be taken with this command, since it can easily erase the program that is running on the microcontroller.
 
-*For more help, see <<_programread,ProgramRead>>* and *<<_programwrite,ProgramWrite>>*
+*Example:*
+
+[source,gcbasic]
+----
+    #chip 18F26K22, 16
+
+    Dim EraseLocation As Word
+    EraseLocation = 0x1000
+
+    ProgramErase ( EraseLocation )          ' <<< the ProgramErase instruction
+    ProgramWrite ( EraseLocation, 1234 )
+----
+*Key line:* `ProgramErase ( EraseLocation )` -- erases the entire row containing `EraseLocation` before `ProgramWrite` stores a new value there; skipping this step on most PIC self-write hardware leaves the old bits un-overwritable.
+
+**See Also:**
+
+* <<_programread,ProgramRead>> -- reading program memory
+* <<_programwrite,ProgramWrite>> -- writing program memory after erasing it
+* <<_data,DATA>> -- defining fixed data instead of writing it at run time

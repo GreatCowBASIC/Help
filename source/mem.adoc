@@ -1,7 +1,14 @@
 === #mem
 
+(((Compiler Directives,#mem)))
+
+
 *This directive is obsolete*.
 
 GCBASIC determines the amount of memory on a chip automatically, and will ignore the `#mem` directive.
 
-It is recommended that this directive is removed from all programs.
+It is recommended that this directive be removed from all programs.
+
+**See Also:**
+
+* <<__chip,#chip>> -- selecting the target chip, from which GCBASIC automatically determines available memory

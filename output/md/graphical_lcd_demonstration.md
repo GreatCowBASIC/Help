@@ -20,7 +20,7 @@ This demonstration code shows the set of commands supported by GCBASIC.
 
 <span class="strong">**Demonstration program:**</span>
 
-``` screen
+``` programlisting
     ;Chip Settings
     #chip 16F877a,16
 
@@ -30,7 +30,7 @@ This demonstration code shows the set of commands supported by GCBASIC.
     #Define glcd_rw PORTD.3       'RW pin on LCD
     #Define glcd_reset PORTD.4    'Reset pin on LCD
     #Define glcd_cs1 PORTD.1      'CS1, CS2 can be reversed
-    #Define glcd_cs2 PORTD.2      'CS1, CS2 are be reversed
+    #Define glcd_cs2 PORTD.2      'CS1, CS2 can be reversed
     #Define glcd_rs PORTD.5       'D/I pin on LCD
     #Define glcd_enable PORTD.4   'E pin on LCD
     #Define glcd_db0 PORTB.0  'D0
@@ -50,7 +50,7 @@ This demonstration code shows the set of commands supported by GCBASIC.
 
     wait 1 s
     GLCDCLS
-    GLCDPrint 0, 1, "GCBASIC "
+    GLCDPrint 0, 1, "GCBASIC "          ' <<< printing text at a pixel location on the GLCD
     wait 1 s
     GLCDCLS
 
@@ -150,13 +150,23 @@ This demonstration code shows the set of commands supported by GCBASIC.
     loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="graphical_lcd_demonstration" class="link" title="Graphical LCD Demonstration">Graphical LCD Demonstration</a>,
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>,
-<a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**Key line:**</span>
+`GLCDPrint 0, 1, "GCBASIC "` — prints the string at pixel position (0,
+1) on the GLCD, the first of many drawing commands this demonstration
+cycles through (Box, Line, Circle, FilledCircle, GLCDDrawString,
+GLCDDrawChar, Pset) to showcase the library’s capabilities.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+-   <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
+-   <a href="pset" class="link" title="Pset">Pset</a>
+
+</div>
 
 </div>

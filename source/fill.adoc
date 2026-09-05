@@ -1,7 +1,10 @@
 ==== Fill
 
+(((String Manipulation,Fill)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     _stringvar_ =  Fill ( byte_value_of_the_new_length , pad_character )
 
@@ -22,7 +25,7 @@ A typical use is to fill a string to be displayed on an LCD or serial terminal.
 
 
 *Example:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     'Set chip model
     #chip 16F886
@@ -34,7 +37,11 @@ A typical use is to fill a string to be displayed on an LCD or serial terminal.
 
 
 
-    HserPrint Fill ( 16, "*" ) ;will print a string of '****************'
+    HserPrint Fill ( 16, "*" )          ' <<< the Fill instruction
     HSerPrintCRLF
 ----
-*For more help, see* <<_asc,Asc>>
+*Key line:* `HserPrint Fill ( 16, "{asterisk}" )` -- builds a 16-character string made entirely of the pad character (`{asterisk}`) and prints it, useful for drawing a separator line on an LCD or terminal.
+
+**See Also:**
+
+* <<_asc,Asc>>

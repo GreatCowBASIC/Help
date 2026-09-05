@@ -1,5 +1,8 @@
 ==== For
 
+(((Flow control,For)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 
@@ -48,6 +51,7 @@ The use of `#DEFINE USELEGACYFORNEXT` is NOT recommended.
 
 *Example 1:*
 
+[source,gcbasic]
 ----
     'This code will flash a green light 6 times.
 
@@ -56,13 +60,14 @@ The use of `#DEFINE USELEGACYFORNEXT` is NOT recommended.
     #define LED PORTB.0
     Dir LED Out
 
-    For LoopCounter = 1 to 6
+    For LoopCounter = 1 to 6          ' <<< the For...Next loop this page documents
 
       PulseOut Led, 1 s
       Wait 1 s
 
     Next
 ----
+*Key line:* `For LoopCounter = 1 to 6` -- counts `LoopCounter` from 1 to 6 inclusive, running the body once per value, then continues after `Next`.
 
 *Example 2:*
 
@@ -114,4 +119,10 @@ This example show casting the step value as an integer.&#160;&#160;The step valu
 
 ----
 
-*For more help, see <<_repeat,Repeat>>*
+**See Also:**
+
+* <<_repeat,Repeat>> -- fixed-count loop that does not need a counter variable
+* <<_do,Do>> -- condition-driven loop for when the number of iterations is not known in advance
+* <<_dim,Dim>> -- declaring the loop counter/variable types used above
+* <<_pulseout,PulseOut>> -- generating a timed pulse, as used in the example above
+* <<_if,If>> -- conditionally exiting the loop with `Exit For`

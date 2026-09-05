@@ -1,5 +1,8 @@
 ==== KS0108 Controllers
 
+(((Graphical LCD,KS0108 Controllers)))
+
+
 This section covers GLCD devices that use the KS0108 graphics controller.
 
 The KS0108 is an LCD is driven by on-board 5V parallel interface chipset KS0108 and KS0107. They are extremely common and well documented
@@ -12,9 +15,10 @@ The KS0108 is a monochrome device.
 To use the KS0108 driver simply include the following in your user code.  This will initialise the driver.
 
 
+[source,gcbasic]
 ----
     #include <glcd.h>
-    #DEFINE GLCD_TYPE GLCD_TYPE_KS0108
+    #DEFINE GLCD_TYPE GLCD_TYPE_KS0108          ' <<< the constant that selects this controller driver
 
 
     #define GLCD_RW       PORTB.1            'chip specific configuration
@@ -33,6 +37,7 @@ To use the KS0108 driver simply include the following in your user code.  This w
     #define GLCD_DB7      PORTC.0            'chip specific configuration
 
 ----
+*Key line:* `#DEFINE GLCD_TYPE GLCD_TYPE_KS0108` -- tells `<glcd.h>` to compile in the KS0108 driver rather than any of the library's other supported controllers; every `GLCD_*` pin constant below only takes effect once this line selects the KS0108.
 
 The GCBASIC constants for the interface to the controller are shown in the table below.
 
@@ -143,17 +148,11 @@ This constant cannot be changed
 |Not defined
 
 
-|`KS0108ReadDelay`
-|Read delay
-|Default is   9
-
-Can be set to improve overall performance.
-
 |`KS0108WriteDelay`
-|Write delay
-|Default is   1
+|Write delay, in microseconds, applied after each byte written to the controller.
+|Default is 2 (use 3 at 32 MHz).
 
-Can be set to improve performance.
+Can be reduced to improve performance on slower clock speeds.
 
 |`KS0108ClockDelay`
 |Clock Delay
@@ -231,13 +230,13 @@ specific attribute.
 |`Line ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In
 LineColour 0 or 1] )`
 
-|`GLCDOn`
-|Turn the KS0108 On.  The GLCD is On by default
-|`GLCDOn`
+|`GLCD_KS0108_ON`
+|Turn the KS0108 display On.  The GLCD is On by default
+|`GLCD_KS0108_ON`
 
-|`GLCDOff`
-|Turn the KS0108 Off.  The GLCD is On by default
-|`GLCDOff`
+|`GLCD_KS0108_OFF`
+|Turn the KS0108 display Off.  The GLCD is On by default
+|`GLCD_KS0108_OFF`
 
 |*Private methods*
 |
@@ -265,6 +264,7 @@ http://www.greatcowbasic.com/sample-projects.html[Graphic LCD] for
 details, this is an external web site.
 
 
+[source,gcbasic]
 ----
     ;Chip Settings
     #chip 16F886,16
@@ -289,7 +289,7 @@ details, this is an external web site.
 
     Do forever
         GLCDCLS
-        GLCDPrint 0,10,"Hello" 'Print Hello
+        GLCDPrint 0,10,"Hello" 'Print Hello          ' <<< the GLCDPrint instruction
         wait 5 s
         GLCDPrint 0,10, "ASCII #:" 'Print ASCII #:
         Box 18,30,28,40                    'Draw Box Around ASCII Character
@@ -307,10 +307,14 @@ details, this is an external web site.
         wait 1 s
     Loop
 ----
+*Key line:* `GLCDPrint 0,10,"Hello"` -- draws the string "Hello" at pixel column 0, row 10 using the standard GCBASIC font set; the loop that follows demonstrates `Box`, `GLCDDrawChar`, `Line`, and `PSet` on the same 128x64 monochrome panel.
 
+**See Also:**
 
-
-*For more help, see*
-<<_glcdcls,GLCDCLS>>, <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
+* <<_glcdcls,GLCDCLS>> -- clearing the display, as used above
+* <<_glcddrawchar,GLCDDrawChar>> -- drawing a single character, as used above
+* <<_glcdprint,GLCDPrint>> -- printing a value at a specific location, as used above
+* <<_glcdreadbyte,GLCDReadByte>> / <<_glcdwritebyte,GLCDWriteByte>> -- low-level byte access, for expert use
+* <<_pset,Pset>> -- setting a single pixel, as used above
 
 Supported in <GLCD.H>

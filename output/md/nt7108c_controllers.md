@@ -63,7 +63,7 @@ bus.:
 
 or
 
-``` screen
+``` programlisting
     ;Eight port.bits mode
     #include <glcd.h>
     #DEFINE GLCD_TYPE GLCD_TYPE_NT7108C
@@ -88,6 +88,12 @@ or
     #define GLCD_RW PORTC.4     'RW control line
     #define GLCD_RESET PORTC.3  'Reset control line
 ```
+
+<span class="strong">**Key line:**</span>
+`#DEFINE GLCD_TYPE GLCD_TYPE_NT7108C` — tells `<glcd.h>` to compile in
+the NT7108C driver; choose full-port mode (a single contiguous 8-bit
+`GLCD_DATA_PORT`) for speed, or eight-port.bits mode (`GLCD_DB0` through
+`GLCD_DB7` on any pins) for wiring flexibility, but not both at once.
 
 The GCBASIC constants for the interface to the controller are shown in
 the table below.
@@ -278,7 +284,7 @@ the built in commands of GCBASIC. See
 <a href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/" class="link">Graphic LCD</a>
 for details, this is an external web site.
 
-``` screen
+``` programlisting
   ;Chip Settings
   #chip 16F1939,32
   #option explicit
@@ -297,7 +303,7 @@ for details, this is an external web site.
    #define GLCD_RW PORTc.3
    #define GLCD_RESET PORTC.2
 
-   GLCDPrint ( 4,   1, "GCBASIC 2021")                                ; Print some text
+   GLCDPrint ( 4,   1, "GCBASIC 2021")                                ; Print some text          ' <<< the GLCDPrint instruction
 
    Box  0, 0, 127, 10
    Line 63, 10, 63, 63
@@ -307,13 +313,30 @@ for details, this is an external web site.
    End
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**Key line:**</span>
+`GLCDPrint ( 4, 1, "GCBASIC 2021")` — draws the string at pixel column
+4, row 1 using the standard GCBASIC font set; the calls that follow
+demonstrate `Box`, `Line`, and `Circle` on the same 128x64 monochrome
+panel.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — clearing
+    the display
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a> — drawing
+    a single character
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — printing
+    a value at a specific location, as used above
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+    /
+    <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a> — low-level
+    byte access, for expert use
+-   <a href="pset" class="link" title="Pset">Pset</a> — setting a
+    single pixel
+
+</div>
 
 Supported in &lt;GLCD.H&gt;
 

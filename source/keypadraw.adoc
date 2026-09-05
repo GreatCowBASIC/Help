@@ -1,7 +1,10 @@
 ==== KeypadRaw
 
+(((Keypad,KeypadRaw)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     _largevar_ = KeypadRaw
 ----
@@ -11,9 +14,10 @@ Available on all microcontrollers.
 
 *Explanation:*
 
-This function will return a 16 bit value, in which each bit corresponds
-to a key on the keypad. If the key is pressed its bit will hold 1, and
-if it is released its bit will contain a 0.
+This function returns a 16-bit value, in which each bit corresponds
+to a key on the keypad. If a key is pressed, its bit holds 1; if it is
+released, its bit holds 0. Because every key gets its own bit, `KeypadRaw` can
+detect multiple keys pressed at the same time -- unlike `KeypadData`, which only ever reports one.
 
 This table shows the key that each bit corresponds to:
 [cols="^1,^1,^1", options="header,autowidth"]
@@ -88,6 +92,7 @@ This table shows the key that each bit corresponds to:
 |===
 
 *Example:*
+[source,gcbasic]
 ----
     'Program to show the keypad status using LEDs
     #chip 16F877A, 20
@@ -107,11 +112,16 @@ This table shows the key that each bit corresponds to:
     'Main loop
     Do
         'Get key
-        KeyStatus = KeypadRaw
+        KeyStatus = KeypadRaw          ' <<< the KeypadRaw instruction
 
         'Display
         LED1 = KeyStatus_H 'High Byte
         LED2 = KeyStatus 'Low Byte
     Loop
 ----
-*For more help, see* <<_keypad_overview,Keypad Overview>>
+*Key line:* `KeyStatus = KeypadRaw` -- reads all 16 key states at once into a single word, so any combination of simultaneously pressed keys can be recovered by testing individual bits.
+
+**See Also:**
+
+* <<_keypad_overview,Keypad Overview>>
+* <<_keypaddata,KeypadData>> -- the simpler single-key-value form

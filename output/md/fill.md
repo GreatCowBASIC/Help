@@ -49,11 +49,21 @@ terminal.
 
 
 
-    HserPrint Fill ( 16, "" ) ;will print a string of '*'
+    HserPrint Fill ( 16, "*" )          ' <<< the Fill instruction
     HSerPrintCRLF
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="asc" class="link" title="Asc">Asc</a>
+<span class="strong">**Key line:**</span>
+`HserPrint Fill ( 16, "*" )` — builds a 16-character string made
+entirely of the pad character (`*`) and prints it, useful for drawing a
+separator line on an LCD or terminal.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="asc" class="link" title="Asc">Asc</a>
+
+</div>
 
 </div>

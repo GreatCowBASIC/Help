@@ -1,0 +1,15 @@
+    #chip mega8, 8
+
+    ' Connection mode 1: a single combined clock/data line drives a 74HC595
+    ' shift register, which in turn drives the LCD. LCDBacklight controls
+    ' pin 4 of the 74HC595 in this mode.
+    #define LCD_IO 1
+    #define LCD_CD PORTD.1
+    #define LCD_NO_RW
+
+    LCDBacklight On
+
+    CLS
+    Print "GCBASIC"
+    Locate 1,0
+    Print "  Hello World."          ' <<< the print instruction this page documents

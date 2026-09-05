@@ -28,20 +28,20 @@ Available on all microcontrollers.
 
 The `Gosub` command is used to jump to a label as a subroutine, in a
 similar way to `Goto`. The difference is that `Return` can then be used
-to return to the line of code after the `Goto`.
+to return to the line of code after the `Gosub`.
 
-<span class="strong">**NOTE**</span>
+<span class="strong">**Note:**</span>
 
 `Gosub` should NOT be used if it can be avoided. It is not required to
 call a subroutine that has been defined using
-<a href="subroutines" class="link" title="Subroutines">Sub</a>,
-just write the name of the subroutine.
+<a href="subroutines" class="link" title="Subroutines">Sub</a> — just
+write the name of the subroutine.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program will flash an LED on portb bit 0 and play a beep on
-    'porta bit 4. until the microcontroller is turned off.
+    'porta bit 4, until the microcontroller is turned off.
 
     #chip 16F628A, 4 'Change this to suit your circuit
 
@@ -54,7 +54,7 @@ just write the name of the subroutine.
         PulseOut LIGHT, 1 s
         Wait 1 s
         'Beep
-        Gosub PlayBeep
+        Gosub PlayBeep          ' <<< the Gosub instruction
     Loop
 
     PlayBeep:
@@ -63,9 +63,21 @@ just write the name of the subroutine.
     Return
 ```
 
-<span class="strong">**For more help, see
-<a href="goto" class="link" title="Goto">Goto</a>**</span> and
-<span
-class="strong">**<a href="labels" class="link" title="Labels">Labels</a>**</span>
+<span class="strong">**Key line:**</span> `Gosub PlayBeep` — jumps to
+the `PlayBeep:` label and, once `Return` is reached there, resumes
+execution on the line immediately after this `Gosub` call.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="goto" class="link" title="Goto">Goto</a> — an
+    unconditional jump with no way back
+-   <a href="labels" class="link" title="Labels">Labels</a> — defining
+    the target a `Gosub` jumps to
+-   <a href="subroutines" class="link" title="Subroutines">Sub</a> — the
+    preferred, name-based alternative to `Gosub`
+
+</div>
 
 </div>

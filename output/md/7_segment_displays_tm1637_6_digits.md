@@ -133,7 +133,7 @@ The following will set the display.
 
 <span class="strong">**Example program**</span>
 
-``` screen
+``` programlisting
   #chip mega328p,16
   #include <TM1637a.h>
 
@@ -142,12 +142,18 @@ The following will set the display.
 
   '---- main program --------
 
-    TMWrite6Dig (17, 16, 17, 16, 0) 'clear display
+    TMWrite6Dig (17, 16, 17, 16, 0) 'clear display          ' <<< the TMWrite6Dig instruction
       wait 2 s
     TMWrite6Dig (17, 16, 17, 16, 10,0) '- -
       wait 2 s
     TMchar_Bright = 10
 ```
+
+<span class="strong">**Key line:**</span>
+`TMWrite6Dig (17, 16, 17, 16, 0)` — writes digit codes 17 (minus sign)
+and 16 (blank) across the six positions, clearing the display;
+`TMWrite6Dig` accepts either decimal digits 0-9 or the special codes
+16-20 for blank, minus, degree, bracket, and question mark.
 
   
   
@@ -155,5 +161,18 @@ The following will set the display.
   
   
   
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Segment Displays Overview</a> — category
+    overview
+-   <a href="7_segment_displays_tm1637_4_digits" class="link" title="7 Segment Displays - TM1637 4 Digits">7 Segment Displays - TM1637 4 Digits</a> — related
+    command in the same category
+-   <a href="7_segment_displays_legacy" class="link" title="7 Segment Displays - Legacy">7 Segment Displays - Legacy</a> — related
+    command in the same category
+
+</div>
 
 </div>

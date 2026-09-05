@@ -35,11 +35,15 @@ Local variables consume 9 bytes, while the function parameters consume
 another 4 bytes, for a grand total of 13 bytes of RAM used. The lookup
 table takes 35 words of program memory.
 
-<span class="strong">**For more help, see**</span>
-<a href="log10" class="link" title="Log10">Log10</a>,
-<a href="log2" class="link" title="Log2">Log2</a>,
-<a href="loge" class="link" title="Loge">Loge</a>
+<span class="strong">**See Also:**</span>
 
-<span class="strong">**Supported in &lt;MATHS.H&gt;**</span>
+<div class="itemizedlist">
+
+-   <a href="log10" class="link" title="Log10">Log10</a>
+-   <a href="log2" class="link" title="Log2">Log2</a>
+-   <a href="loge" class="link" title="Loge">Loge</a> <span
+    class="strong">**Supported in &lt;MATHS.H&gt;**</span>
+
+</div>
 
 </div>

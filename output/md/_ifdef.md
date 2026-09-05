@@ -41,9 +41,9 @@ There are several ways in which it can be used:
 
 The advantage of using `#ifdef` rather than an equivalent series of `IF`
 statements is the amount of code that is downloaded to the chip.
-`#ifdef` controls what code is compiled and downloaded, `IF` controls
-what is run once on the chip. `#ifdef` should be used whenever the value
-of a constant is to be checked.
+`#ifdef` controls what code is compiled and downloaded; `IF` controls
+what is run, once, on the chip. `#ifdef` should be used whenever the
+value of a constant is to be checked.
 
 GCBASIC also supports the `#ifndef` directive - this is the opposite of
 the `#ifdef` directive - it will remove code that `#ifdef` leaves, and
@@ -56,7 +56,7 @@ commands. It is intended to act as an example only.
 <span class="strong">**Example 1: <span class="emphasis">*Enabling code
 if a constant is defined*</span>**</span>
 
-``` screen
+``` programlisting
     #define Blink1
 
     #ifdef Blink1
@@ -70,10 +70,10 @@ if a constant is defined*</span>**</span>
 ```
 
 This code will pulse `PORTB.0`, but not `PORTB.1`. This is because
-`Blink1` has been defined, but `Blink2` has not. If the line was added
-at the start of the program, then both pins would be pulsed.
+`Blink1` has been defined, but `Blink2` has not. If the line below was
+added at the start of the program, then both pins would be pulsed.
 
-``` screen
+``` programlisting
     #define Blink2
 ```
 
@@ -83,11 +83,11 @@ of the `#define`.
 <span class="strong">**Example 2: <span class="emphasis">*Enabling code
 if a constant is defined and has a given value*</span>**</span>
 
-``` screen
+``` programlisting
     #define PinsToFlash 2
 
     #ifdef PinsToFlash 1,2,3
-      PulseOut PORTB.0, 1 sec
+      PulseOut PORTB.0, 1 sec          ' <<< compiled in because PinsToFlash matches one of the listed values
     #endif
     #ifdef PinsToFlash 2,3
       PulseOut PORTB.1, 1 sec
@@ -97,15 +97,21 @@ if a constant is defined and has a given value*</span>**</span>
     #endif
 ```
 
-This program uses a constant called PinsToFlash that controls how many
+<span class="strong">**Key line:**</span>
+`#ifdef PinsToFlash 1,2,3` — with `PinsToFlash` set to 2, this line
+matches (2 is in the list `1,2,3`) so `PulseOut PORTB.0` is compiled in;
+the third block (`PinsToFlash 3`) does not match, so its
+`PulseOut PORTB.2` line is removed entirely and never reaches the chip.
+
+This program uses a constant called `PinsToFlash` that controls how many
 lights are pulsed. `PORTB.0` is pulsed when `PinsToFlash` is equal to 1,
-2 or 3, `PORTB.1` is pulsed when `PinsToFlash` equals 2 or 3, and
-`PORTB.2` is flashed when `PinsToFlash` is 3.
+2, or 3; `PORTB.1` is pulsed when `PinsToFlash` equals 2 or 3; and
+`PORTB.2` is pulsed when `PinsToFlash` is 3.
 
 <span class="strong">**Example 3: <span class="emphasis">*Enabling code
 if a system variable is defined*</span>**</span>
 
-``` screen
+``` programlisting
     #ifdef NoVar(ANSEL)
       SET ADCON1.PCFG3 OFF
       SET ADCON1.PCFG2 ON
@@ -121,17 +127,26 @@ The above section of code has been copied directly from a-d.h. It is
 used to disable the A/D function of pins, so that they can be used as
 standard digital I/O ports. If `ANSEL` is not declared as a system
 variable for a particular chip, then the program uses `ADCON1` to
-control the port modes. If `ANSEL` is defined, then the chip is newer
+control the port modes. If `ANSEL` is defined, then the chip is newer,
 and its ports can be set to digital by clearing `ANSEL`.
 
 <span class="strong">**Example 4: <span class="emphasis">*Enabling code
 if a system bit is defined*</span>**</span>
 
-Similar to above, except with `Bit` and `NoBit` in the place of `Var`
-and `NoVar` respectively.
+Similar to above, except with `Bit` and `NoBit` in place of `Var` and
+`NoVar` respectively.
 
-<span class="strong">**See Also**</span>
-<a href="constants" class="link" title="Constants">Defines</a>,
-<a href="_define" class="link" title="#DEFINE">#define</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="constants" class="link" title="Constants">Constants</a> — the
+    general constants/precedence reference
+-   <a href="_define" class="link" title="#DEFINE">#DEFINE</a> — creating
+    the constants tested here
+-   <a href="_ifndef" class="link" title="#ifndef">#ifndef</a> — the
+    opposite test
+
+</div>
 
 </div>

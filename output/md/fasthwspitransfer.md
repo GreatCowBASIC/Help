@@ -38,7 +38,7 @@ This is an example for this command.
 
 <span class="strong">**Master Program:**</span>
 
-``` screen
+``` programlisting
   'General hardware configuration
   #chip 16F877A, 20
 
@@ -54,12 +54,25 @@ This is an example for this command.
   do
 
       'Send the value of 0x55
-      FastHWSPITransfer 0x55
+      FastHWSPITransfer 0x55          ' <<< the FastHWSPITransfer instruction
 
   loop
 ```
 
-<span class="strong">**See also**</span>
-<a href="spitransfer" class="link" title="SPITransfer">SPITransfer</a>,<a href="spimode" class="link" title="SPIMode">SPIMode</a>
+<span class="strong">**Key line:**</span>
+`FastHWSPITransfer 0x55` — sends the byte 0x55 to the slave without
+waiting to receive a reply; because it discards any incoming byte, this
+is faster than `SPITransfer` when the slave’s response is not needed.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="spitransfer" class="link" title="SPITransfer">SPITransfer</a> — the
+    full send-and-receive equivalent of this command
+-   <a href="spimode" class="link" title="SPIMode">SPIMode</a> — selecting
+    master mode before transferring, as used above
+
+</div>
 
 </div>

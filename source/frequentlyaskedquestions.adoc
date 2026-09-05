@@ -1,66 +1,77 @@
-== Frequently Asked Questions
+=== Frequently Asked Questions
+
+(((Introduction,Frequently Asked Questions)))
+
 
 *Why doesn't anything come up when I run GCBASIC.exe?*
 
-GCBASIC IS a command line compiler. To compile a file, you can
-drag and drop it onto the GCBASIC.exe icon. 
+GCBASIC is a command line compiler. To compile a file, you can
+drag and drop it onto the GCBASIC.exe icon.
 
-If you use an Integrated Development Environment (IDE) you can edit your program and press an ICON  to send the program to the chip. Several are listed on the GCBASIC website.
+If you use an Integrated Development Environment (IDE), you can edit your program and press an icon to send the program to the chip. Several are listed on the GCBASIC website.
 
 The recommended IDE for Windows is GCCODE.
 
 {empty} +
 {empty} +
-*What Microchip PIC, Atmel AVR or LGT microcontrollers does GCBASIC support?*
+*What Microchip PIC, Atmel AVR, or LGT microcontrollers does GCBASIC support?*
 
-Hopefully, all 8 bit Microchip PIC, Atmel AVR and LGT microcontrollers and (those in the PIC10, PIC12, PIC16 and PIC18 families). If you find one that GCBASIC does not work with
+Hopefully, all 8-bit Microchip PIC, Atmel AVR, and LGT microcontrollers (those in the PIC10, PIC12, PIC16, and PIC18 families). If you find one that GCBASIC does not work with
 properly, please post about it in the Compiler Problems section of the
 GCBASIC forum.
 {empty} +
 {empty} +
 *Is GCBASIC case sensitive?*
 
-No! For example, `Set`, `SET`, `set`, `SeT`, etc are all treated exactly the
+No. For example, `Set`, `SET`, `set`, `SeT`, etc. are all treated exactly the
 same way by GCBASIC.
 {empty} +
 {empty} +
 *Can I specify the bit of a variable to alter using another variable?*
 
-GCBASIC support bitwise assignments. As follows:
+GCBASIC supports bitwise assignments, as follows:
 
+[source,gcbasic]
 ----
-    portc.0 = !porta.1
+    PORTC.0 = !PORTA.1
 ----
-You can also use a shift function.  As in other languages, by using the Shift Function FnLSL.  AN example is:
+You can also use a shift function. As in other languages, use the shift function `FnLSL`. An example is:
+[source,gcbasic]
 ----
-    MyVar = FnLSL( 1, BitNum)`  is Equivalent to `MyVar = 1<<BitNum`
+    MyVar = FnLSL( 1, BitNum)
 ----
+`MyVar = FnLSL( 1, BitNum)` is equivalent to `MyVar = 1 << BitNum`.
 
-To set a bit of a port and to prevent glitches during operations, use `#option volatile` as folllows.
+To set a bit of a port and to prevent glitches during operations, use `#OPTION VOLATILE` as follows.
+[source,gcbasic]
 ----
     'add this option for a specific port.
-    #option volatile portc.0
+    #OPTION VOLATILE PORTC.0
 
     'then in your code
-    portc.0 = !porta.1
+    PORTC.0 = !PORTA.1
 ----
 
-To set a bit of a port or variable. Encapsulate it in the SetWith method, this also eliminates any glitches during the update, use this method.
+To set a bit of a port or variable, encapsulate it in the `SetWith` method - this also eliminates any glitches during the update.
+[source,gcbasic]
 ----
     SetWith(MyPORT, MyPORT OR FnLSL( 1, BitNum))
 ----
 
 To clear a bit of a port, use this method.
+[source,gcbasic]
 ----
     MyPORT = MyPORT AND NOT FnLSL( 1, BitNum))
 ----
 
 To set a bit within an array, use this method.
+[source,gcbasic]
 ----
     video_buffer_A1(video_adress) = video_buffer_A1(video_adress) OR FnLSL( 1, BitNum)
 ----
 
 To set a bit within a variable, use this method.
+[source,gcbasic]
 ----
     Dim my_variable as byte
     Dim my_bit_address_variable as byte
@@ -75,26 +86,33 @@ To set a bit within a variable, use this method.
 ----
 
 
-See also  <<_set,Set >>, <<_fnlsl, FnLSL >>, <<_fnlsr, FnLSR >> and <<_rotate, Rotate >>
+**See Also:**
+
+* <<_set,Set>> -- setting a single bit or port pin
+* <<_fnlsl,FnLSL>> -- the shift-left function used above
+* <<_fnlsr,FnLSR>> -- the corresponding shift-right function
+* <<_rotate,Rotate>> -- rotating bits within a variable
+* <<_setwith,SetWith>> -- glitch-free bit setting used above
+
 {empty} +
 {empty} +
 *Why is x feature not implemented?*
 
-Because it has not been thought of, or no-one has been able to implement
-it! 
+Because it has not been thought of, or no one has been able to implement
+it.
 
-If there are any features that you would like to see in GCBASIC, please post them in the "Open Discussion" section of the GCBASIC forum. Or, if you can, have a go at adding the feature yourself!
+If there are any features that you would like to see in GCBASIC, please post them in the "Open Discussion" section of the GCBASIC forum. Or, if you can, have a go at adding the feature yourself.
 {empty} +
 {empty} +
 
-*When using an include file does this use lots of memory?*
+*When using an include file, does this use lots of memory?*
 
 When using include files, for instance the <ds3231.h> include, if
 you are not using all the functions of the include file, GCBASIC knows
-not to include the  unused functions within the user program when
-compiling. 
+not to include the unused functions within the user program when
+compiling.
 
-*If I am using the hardware I2C, does all the code related to hardware I2C still get compiled in the code?*
+*If I am using the hardware I2C, does all the code related to hardware I2C still get compiled into the program?*
 
 GCBASIC only compiles functions and subroutines if they are called.
 GCBASIC starts by compiling the main routine, then anything called from
@@ -105,7 +123,7 @@ not get compiled.
 {empty} +
 *My LCD will not operate as expected?*
 
-Try adding. `#define LCD_SPEED SLOW`
+Try adding `#DEFINE LCD_SPEED SLOW`.
 
 This will slow the writing to the LCD.
 {empty} +
@@ -115,26 +133,29 @@ This will slow the writing to the LCD.
 Atmel AVR memory values are specified in WORDS in GCBASIC. The GCBASIC compiler uses words, not bytes, for consistency between Microchip PIC and Atmel AVR microcontrollers. This keeps parts of the compiler simpler.
 {empty} +
 {empty} +
-*I cannot open the Window Help File?*
+*I cannot open the Windows Help File?*
 
 See http://digital.ni.com/public.nsf/allkb/B59D2B24D624B823862575FC0056F3D0
 {empty} +
 {empty} +
-*How do I revert the FOR-NEXT loop to the Legacy FOR-NEXT method ?*
+*How do I revert the FOR-NEXT loop to the legacy FOR-NEXT method?*
 
 Some background.&#160;&#160;
 In 2021 the GCBASIC compiler was updated to improve the operation of the FOR-NEXT loop.&#160;&#160;
-The improvement did increase the size of the ASM generated.&#160;&#160;
-The legacy FOR-NEXT loop had some major issues that included never ending loops, incorrect end loop and unexpected operations.&#160;&#160;
+The improvement did increase the size of the generated ASM.&#160;&#160;
+The legacy FOR-NEXT loop had some major issues, including never-ending loops, incorrect end-of-loop behaviour, and other unexpected operations.&#160;&#160;
 This was all caused by the compiler, not the user, and in 2021 the compiler was updated to resolve these issues.&#160;&#160;
 
-However, there is a risk that the new FOR-NEXT method causes 1) larger ASM that will not fit in small microcontrollers or 2) the new code does not operate as expected.&#160;&#160;
+However, there is a risk that the new FOR-NEXT method causes 1) larger ASM that will not fit in small microcontrollers, or 2) the new code does not operate as expected.&#160;&#160;
 In either case you can disable the new FOR-NEXT method by adding a constant as shown below.&#160;&#160;
-Adding this constant will revert the FOR-NEXT loop asm generated to the legacy method.&#160;&#160;
+Adding this constant will revert the FOR-NEXT loop ASM generated to the legacy method.&#160;&#160;
 
+[source,gcbasic]
 ----
     #DEFINE USELEGACYFORNEXT
 ----
+Note that whichever FOR-NEXT method is used, the identifier named after `NEXT` should always match the loop variable named on the matching `FOR` line -- a mismatch (for example, closing `For index = ...` with `Next i`) is a common source of the very never-ending or incorrect-end-loop symptoms this constant works around; see <<_for,For>>.
 
 {empty} +
 {empty} +
+

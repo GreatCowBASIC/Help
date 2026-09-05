@@ -59,4 +59,15 @@ Set `count` and `period` to the appropriate values as follows:
 `period` to 1000000 / desired frequency / 2  
 `count` to desired duration / <span class="emphasis">*period*</span>.
 
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="tone" class="link" title="Tone">Tone</a> — related
+    command in the same category
+-   <a href="shorttone" class="link" title="ShortTone">ShortTone</a> — related
+    command in the same category
+
+</div>
+
 </div>

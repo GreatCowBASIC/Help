@@ -1,0 +1,13 @@
+    #chip 16F877A, 20
+
+    ' Connection mode 12: I2C via a Ywmjkdz-layout adapter (the variant with
+    ' the contrast potentiometer bent over the top of the chip).
+    #define I2C_MODE Master
+    #define I2C_DATA PORTC.4
+    #define I2C_CLOCK PORTC.5
+
+    #define LCD_IO 12
+    #define LCD_I2C_Address_1 0x4E          ' <<< the I2C address this page's constant table documents
+
+    CLS
+    Print "Hello World."

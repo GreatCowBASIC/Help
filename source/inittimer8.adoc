@@ -1,7 +1,10 @@
 ==== InitTimer8
 
+(((Timers,InitTimer8)))
+
+
 *Syntax: (MicroChip PIC)*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     InitTimer8 _prescaler_, _postscaler_
 
@@ -12,7 +15,7 @@ or, where you required to state the clock source, use the following
 ----
 
 *Syntax: (Atmel AVR)*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     InitTimer8 _source_, _prescaler_
 ----
@@ -25,6 +28,7 @@ Available on all microcontrollers with a Timer 8 module.&#160;&#160;As shown abo
 {empty} +
 The first method is:
 {empty} +
+[source,gcbasic]
 ----
     InitTimer8 prescaler, postscaler
 ----
@@ -34,6 +38,7 @@ This the most common method to initialise a Microchip microcontroller timer.&#16
 {empty} +
 The second method is much more flexible in term of the clock source.&#160;&#160;Microcontrollers that support this second method enable you to select different clock sources and to select more prescale values.&#160;&#160;The method is shown below:
 {empty} +
+[source,gcbasic]
 ----
     InitTimer8 clocksource, prescaler, postscaler
 ----
@@ -45,10 +50,12 @@ The timer type for a Microchip microcontroller can be determined by checking for
 {empty} +
 If the Microchip microcontroller **DOES NOT** have a T2CLKCON register then timers 2/4/6/8 for that specific microcontroller chip use the first method, and are configured using:
 {empty} +
+[source,gcbasic]
 ----
     InitTimer8 (PreScale, PostScale)
 ----
 If the microcontroller **DOES** have a T2CLKCON register then ALL timers 2/4/6/8 for that specific microcontroller chip use the second method, and are configured using:
+[source,gcbasic]
 ----
     InitTimer8 (Source,PreScale,PostScale)
 ----
@@ -207,3 +214,9 @@ On Microchip PIC microcontroller one of the following constants where the Postsc
 |15
 
 |===
+
+**See Also:**
+
+* <<_timer_overview,Timer Overview>> -- category overview
+* <<_inittimer0,InitTimer0>> -- related command in the same category
+* <<_inittimer1,InitTimer1>> -- related command in the same category

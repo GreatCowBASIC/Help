@@ -1,7 +1,10 @@
 ==== EPRead
 
+(((MCU EEPROM ( DFM ),EPRead)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     EPRead _location, store_
 ----
@@ -12,17 +15,13 @@ Available on all Microchip PIC and Atmel AVR microcontrollers with EEPROM data m
 
 *Explanation:*
 
-`EPRead` is used to read information from the EEPROM data storage that many microcontroller chips are equipped with. 
-`_location_` represents the location to read data from, and varies from one chip to another.
-`_store_` is the variable in which to store the data after it has been read from EEPROM.
+`EPRead` reads a byte from the EEPROM data storage built into many microcontroller chips. `_location_` is the address to read from, and its valid range depends on the chip in use. `_store_` is the variable that receives the value once it has been read.
 
-
-Note
-Do not exceed the location ( also known as the EEProm address ) of the physical EEProm.  If the EEProm size is 256 ensure location is in the range of 0 to 255;  If the EEProm size is 512 ensure location is in the range of 0 to 511 and use a Word variable as the location parameter.
-Example:
+*Note:* Do not read past the end of the chip's physical EEPROM. If the EEPROM is 256 bytes, `_location_` must stay within 0 to 255; if it is 512 bytes, `_location_` must stay within 0 to 511 and should be a Word variable rather than a Byte.
 
 *Example:*
 
+[source,gcbasic]
 ----
     'Program to turn a light on and off
     'Will remember the last status
@@ -35,7 +34,7 @@ Example:
     Dir Light Out
 
     'Load saved status
-    EPRead 0, LightStatus
+    EPRead 0, LightStatus          ' <<< the EPRead instruction
 
     If LightStatus = 0 Then
       Set Light Off
@@ -59,5 +58,9 @@ Example:
       End If
     Loop
 ----
+*Key line:* `EPRead 0, LightStatus` -- reads the byte stored at EEPROM address 0 back into `LightStatus` when the chip powers up, so the light remembers whatever state it was last left in.
 
-*For more help, see <<_epwrite,EPWrite>>*
+**See Also:**
+
+* <<_epwrite,EPWrite>> -- writing the value this page reads back
+* <<_dir,Dir>> -- setting the button and light pin directions, as used above

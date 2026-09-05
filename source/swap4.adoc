@@ -1,6 +1,10 @@
 ==== SWAP4
 
+(((Variables Operations,SWAP4)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     SWAP4( VariableA)
 ----
@@ -15,15 +19,22 @@ Support Bytes only.
 A function that swaps (or exchanges) nibbles (or the 8 bits of a byte in nibbles).
 
 *Example:*
+[source,gcbasic]
 ----
     dim ByteVariable as Byte
 
     ' Set variable to  0x12
     ByteVariable = 0x12
 
-    ByteVariable = Swap4( ByteVariable )
+    ByteVariable = Swap4( ByteVariable )          ' <<< the SWAP4 instruction
 
     HSerPrint hex(ByteVariable)
 
     ' Would return 0x21
 ----
+*Key line:* `ByteVariable = Swap4( ByteVariable )` -- swaps the high and low nibbles of the byte, turning `0x12` into `0x21`.
+
+**See Also:**
+
+* <<_swap,SWAP>> -- related command in the same category
+* <<_using_variables,Using Variables>> -- related command in the same category

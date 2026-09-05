@@ -28,9 +28,9 @@ is shown in the tables below.
 To use the ST7735 driver simply include the following in your user code.
 This will initialise the driver.
 
-``` screen
+``` programlisting
     #include <glcd.h>
-    #define GLCD_TYPE GLCD_TYPE_ST7735R
+    #define GLCD_TYPE GLCD_TYPE_ST7735R          ' <<< the constant that selects this controller driver
     #define ST7735TABCOLOR ST7735_BLACKTAB  ; can also be ST7735_GREENTAB or ST7735_REDTAB or GLCD_TYPE_ST7735R_160_80
 
     'Pin mappings for ST7735
@@ -41,6 +41,12 @@ This will initialise the driver.
     #define GLCD_DO     porta.4           'example port setting
     #define GLCD_SCK    porta.5           'example port setting
 ```
+
+<span class="strong">**Key line:**</span>
+`#define GLCD_TYPE GLCD_TYPE_ST7735R` — tells `<glcd.h>` to compile in
+the ST7735R driver; `ST7735TABCOLOR` then selects which physical tab
+variant of the chip is fitted, since different manufacturing batches
+need different internal offsets to display correctly.
 
 The GCBASIC constants for control display characteristics are shown in
 the table below.
@@ -92,12 +98,12 @@ the table below.
 <td style="text-align: left;"><p>Required</p></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><p><code class="literal">GLCD_D0</code></p></td>
+<td style="text-align: left;"><p><code class="literal">GLCD_DO</code></p></td>
 <td style="text-align: left;"><p>Specifies the output pin that is connected to Data Out (GLCD in) pin on the GLCD.</p></td>
 <td style="text-align: left;"><p>Required</p></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><p><code class="literal">GLCD_SLK</code></p></td>
+<td style="text-align: left;"><p><code class="literal">GLCD_SCK</code></p></td>
 <td style="text-align: left;"><p>Specifies the output pin that is connected to Clock (CLK) pin on the GLCD.</p></td>
 <td style="text-align: left;"><p>Required</p></td>
 </tr>
@@ -202,7 +208,7 @@ For a ST7735R datasheet, please refer
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     ;Chip Settings
     #chip 16F1937,32
     #config MCLRE_ON
@@ -210,26 +216,43 @@ For a ST7735R datasheet, please refer
     #include <glcd.h>
 
     'Defines for ST7735
-GLCD_TYPE GLCD_TYPE_ST7735R
+    #define GLCD_TYPE GLCD_TYPE_ST7735R
     'Pin mappings for ST7735
-GLCD_DC porta.0
-GLCD_CS porta.1
-GLCD_RESET porta.2
-GLCD_DI porta.3
-GLCD_DO porta.4
-GLCD_SCK porta.5
+    #define GLCD_DC porta.0
+    #define GLCD_CS porta.1
+    #define GLCD_RESET porta.2
+    #define GLCD_DI porta.3
+    #define GLCD_DO porta.4
+    #define GLCD_SCK porta.5
 
-    GLCDPrint(0, 0, "Test of the ST7735 Device")
+    GLCDPrint(0, 0, "Test of the ST7735 Device")          ' <<< the GLCDPrint instruction
     end
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**Key line:**</span>
+`GLCDPrint(0, 0, "Test of the ST7735 Device")` — once the SPI pins and
+`ST7735TABCOLOR` are correctly set for the fitted panel, drawing
+commands like `GLCDPrint` behave the same as on any other
+GCBASIC-supported GLCD.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a> — clearing
+    the display
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a> — drawing
+    a single character
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a> — printing
+    a value at a specific location, as used above
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+    /
+    <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a> — low-level
+    byte access, for expert use
+-   <a href="pset" class="link" title="Pset">Pset</a> — setting a
+    single pixel
+
+</div>
 
 Supported in &lt;GLCD.H&gt;
 

@@ -1,52 +1,61 @@
 ==== InitGLCD
 
+(((Graphical LCD,InitGLCD)))
+
 *Syntax:*
+[subs="specialcharacters,quotes"]
 ----
     InitGLCD
 ----
+
+*Command Availability:*
+
+Available on all microcontrollers with a Graphical LCD configured.
+
 *Explanation:*
 
-This initializes the Graphical LCD for operation. Here are the steps it
-takes:
+`InitGLCD` initializes the Graphical LCD for operation: it sets the required control pins to their correct direction, resets the display controller, selects both controller chips, and clears the screen so the display starts from a known state. Call it once, before any other GLCD command.
 
 *Example:*
+
+[source,gcbasic]
 ----
-'Set pin directions
+    'Set pin directions
+    Dir GLCD_RS Out
+    Dir GLCD_RW Out
+    Dir GLCD_ENABLE Out
+    Dir GLCD_CS1 Out
+    Dir GLCD_CS2 Out
+    Dir GLCD_RESET Out
 
-Dir GLCD_RS Out
-Dir GLCD_RW Out
-Dir GLCD_ENABLE Out
-Dir GLCD_CS1 Out
-Dir GLCD_CS2 Out
-Dir GLCD_RESET Out
+    'Reset
+    Set GLCD_RESET Off
+    Wait 1 ms
+    Set GLCD_RESET On
+    Wait 1 ms
 
-'Reset
+    'Select both chips
+    Set GLCD_CS1 On
+    Set GLCD_CS2 On
 
-Set GLCD_RESET Off
-Wait 1 ms
-Set GLCD_RESET On
-Wait 1 ms
+    'Set on
+    Set GLCD_RS Off
+    GLCDWriteByte 63          ' <<< turns the controller display on
 
-'Select both chips
+    'Set Z to 0
+    GLCDWriteByte 192
 
-Set GLCD_CS1 On
-Set GLCD_CS2 On
+    'Deselect chips
+    Set GLCD_CS1 Off
+    Set GLCD_CS2 Off
 
-'Set on
-
-Set GLCD_RS Off
-GLCDWriteByte 63
-
-'Set Z to 0
-
-GLCDWriteByte 192
-
-'Deselect chips
-
-Set GLCD_CS1 Off
-Set GLCD_CS2 Off
-
-'Clear screen
-
-GLCDCLS
+    'Clear screen
+    GLCDCLS
 ----
+*Key line:* `GLCDWriteByte 63` -- sends the controller's "display on" command directly, since this is the manual, pin-level setup sequence `InitGLCD` performs internally; a user program simply calls `InitGLCD` once instead of reproducing these steps.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- the GLCD command family this initialisation supports
+* <<_glcdcls,GLCDCLS>> -- clearing the screen, the last step InitGLCD performs
+* <<_glcdwritebyte,GLCDWriteByte>> -- the low-level command used internally to reach the controller

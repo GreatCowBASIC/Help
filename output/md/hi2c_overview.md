@@ -194,7 +194,7 @@ change the clock source. Obviously, you setup the clock source correctly
 for I2C to operate:  
   
 
-``` screen
+``` programlisting
         #define I2C1CLOCKSOURCE  I2C1CLOCK_MFINTOSC
 ```
 
@@ -284,7 +284,7 @@ the clock source. The defintion of the constant, the include, setting of
 the SMT period, initialisation and starting of the clock source are ALL
 required.  
 
-``` screen
+``` programlisting
     'Set the clock source constant
     #define I2C1CLOCKSOURCE I2C1CLOCK_SMT1
 
@@ -336,7 +336,7 @@ module and the AVR microcontrollers. This will display the result on a
 serial terminal. This code will require adaption but the code shows an
 approach to discover the IC2 devices.
 
-``` screen
+``` programlisting
     #chip mega328p, 16
     #config MCLRE_ON
 
@@ -364,7 +364,7 @@ approach to discover the IC2 devices.
 
     for deviceID = 0 to 255
       HI2CStart
-      HI2CSend ( deviceID )
+      HI2CSend ( deviceID )          ' <<< the HI2CSend instruction
 
       if HI2CAckPollState = false then
 
@@ -390,7 +390,11 @@ approach to discover the IC2 devices.
     HSerPrintCRLF 2
 ```
 
-  
+<span class="strong">**Key line:**</span>
+`HI2CSend ( deviceID )` — addresses each possible 8-bit device ID in
+turn; `HI2CAckPollState` afterward reports whether that device
+acknowledged, which is how this sketch discovers what is present on the
+bus.  
   
 This example examines the IC2 devices and displays on a serial terminal
 for the I2C module only.  
@@ -398,7 +402,7 @@ This code will require adaption but the code shows an approach to
 discover the IC2 devices.  
 This code will only operate on the Microchip I2C module.  
 
-``` screen
+``` programlisting
     #chip 18f25k42, 16
     #option Explicit
     #config MCLRE_ON
@@ -506,5 +510,16 @@ This code will only operate on the Microchip I2C module.
   
 
 Supported in &lt;HI2C.H&gt;
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hi2cackpollstate" class="link" title="HI2CAckPollState">HI2CAckPollState</a> — related
+    command in the same category
+-   <a href="hi2creceive" class="link" title="HI2CReceive">HI2CReceive</a> — related
+    command in the same category
+
+</div>
 
 </div>

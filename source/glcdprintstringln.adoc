@@ -1,6 +1,10 @@
 ==== GLCDPrintStringLn
 
+(((Graphical LCD,GLCDPrintStringLn)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
 
     GLCDPrintStringLn( String )
@@ -16,9 +20,10 @@ Where `String` is a String or String variable of the data to display
 This command will move to the start of the next line after the string has been displayed
 
 *Example:*
+[source,gcbasic]
 ----
 
-    GLCDPrintStringLn ( "1.First Ln" )
+    GLCDPrintStringLn ( "1.First Ln" )          ' <<< the GLCDPrintStringLn instruction
     GLCDPrintStringLn ( "2.Second Ln" )
     GLCDPrintStringLn ( "" )
     GLCDPrintStringLn ( "4.Forth Ln" )
@@ -33,3 +38,10 @@ This command will move to the start of the next line after the string has been d
     GLCDPrintStringLn ( str( val3 ) + ".Third Ln" )
 
 ----
+*Key line:* `GLCDPrintStringLn ( "1.First Ln" )` -- prints the string and then advances the string pointer to the start of the next line, so each successive call in this example lands on its own line without an explicit `GLCDLocateString` call.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_glcdprintstring,GLCDPrintString>> -- printing without advancing to the next line
+* <<_glcdlocatestring,GLCDLocateString>> -- explicitly positioning the string pointer, as used later in this example

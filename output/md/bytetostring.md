@@ -22,30 +22,42 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `ByteToString` function will convert a number into a string.
-`number` can be any byte variable, or a fixed number constant between 0
-and 255 inclusive.  For Word number use `WordToString()`, Long numbers
-use `LongToString()`, for Integer numbers use `IntegerToString()` and
-for Single numbers use `SingleToString()`
+The `ByteToString` function converts a number into a string. `number`
+can be any byte variable, or a fixed number constant between 0 and 255
+inclusive. For Word numbers use `WordToString()`, for Long numbers use
+`LongToString()`, for Integer numbers use `IntegerToString()`, and for
+Single numbers use `SingleToString()`.
 
-The string variable `stringvar` will contain the same number,
-represented as a string.  The length of the string returned is 5
-characters.
+The string variable `stringvar` contains the same number, represented as
+a string. The length of the string returned is 5 characters.
 
-This function is especially useful if a number needs to added to the end
-of a string, or if a custom data sending routine has been created but
-only supports the output of string variables.  
+This function is especially useful if a number needs to be added to the
+end of a string, or if a custom data-sending routine only supports the
+output of string variables.  
   
-These methods will not support conversion of hexadecimal number
+This function does not support conversion of hexadecimal number
 strings.  
   
-<span class="strong">**Example1:**</span>
+<span class="strong">**Note:**</span> When calling `ByteToString()`, do
+not leave a space between the function name and the opening
+parenthesis — doing so produces a compiler error that is not obvious to
+diagnose.
 
-``` screen
+``` programlisting
+    ' use this -- no space between ByteToString and the opening parenthesis
+    ByteToString(number_variable)
+
+    ' do not use this -- note the space before the parenthesis
+    ByteToString (number_variable)
+```
+
+<span class="strong">**Example 1:**</span>
+
+``` programlisting
     'Set chip model
     #chip 16F1936
 
@@ -62,40 +74,28 @@ strings.
     Dim OutVar As String
 
     'Fill string with sensor reading
-    OutVar = ByteToString(SensorReading)
+    OutVar = ByteToString(SensorReading)          ' <<< the ByteToString instruction
 
     'Send
     HSerPrint OutVar
     HSerPrintCRLF
-
-    When using the functions ByteToString() do not leave space between the function
-    call and the left brace. You will get a compiler error that is
-    meaningless.
-
-    ' use this, note this is no space between the ByteToString() and the left brace!
-    ByteToString(number_variable)
-    ' do not use, note the space!
-    ByteToString (number_variable)
 ```
 
-  
-  
-<span class="strong">**Example2:**</span>
+<span class="strong">**Key line:**</span>
+`OutVar = ByteToString(SensorReading)` — converts the byte-sized ADC
+reading into a decimal string, ready to be transmitted over the serial
+connection with `HSerPrint`.
 
-``` screen
-    '''
-    '''
-    '''
-    '''
+<span class="strong">**Example 2:**</span>
+
+``` programlisting
     '''************************************************************************
-    '''
     '''  PIC: 16F18855
     '''  Compiler: GCB
     '''  IDE: GCode
-    '''
     '''  Board: Xpress Evaluation Board
     '''  Date: June 2021
-    '''
+
     ' ----- Configuration
       'Chip Settings.
       #chip 16f18855,32
@@ -123,22 +123,29 @@ strings.
     do
        wait 100 ms
 
-       HSerPrint ByteToString( bytevar )
+       HSerPrint ByteToString( bytevar )          ' <<< the ByteToString instruction, using a hardware-PPS-configured USART
        HSerPrintCRLF
        wait 1 s
     loop
     end
-
-; ----- Support methods.  Subroutines and Functions
 ```
 
-  
-  
-<span class="strong">**See Also**</span>
-<a href="wordtohex" class="link" title="WordToHex">WordToString</a>,
-<a href="longtohex" class="link" title="LongToHex">LongToString</a>,
-<a href="integertohex" class="link" title="IntegerToHex">IntegerToString</a>,
-<a href="singletohex" class="link" title="SingleToHex">SingleToString</a>,
-<a href="bytetohex" class="link" title="ByteToHex">ByteToHex</a>
+<span class="strong">**Key line:**</span>
+`HSerPrint ByteToString( bytevar )` — converts `bytevar` (set to `0xff`,
+i.e. 255) directly inline within the `HSerPrint` call, showing that the
+function’s result does not need to be stored in an intermediate variable
+before use.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="wordtostring" class="link" title="WordToString">WordToString</a>
+-   <a href="longtostring" class="link" title="LongToString">LongToString</a>
+-   <a href="integertostring" class="link" title="IntegerToString">IntegerToString</a>
+-   <a href="singletostring" class="link" title="SingleToString">SingleToString</a>
+-   <a href="bytetohex" class="link" title="ByteToHex">ByteToHex</a>
+
+</div>
 
 </div>

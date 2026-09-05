@@ -1,5 +1,8 @@
 ==== Logarithms
 
+(((Maths,Logarithms)))
+
+
 *Explanation:*
 
 GCBASIC support logarithmic functions through the include file <maths.h>.
@@ -12,6 +15,9 @@ The input arguments are word-sized integers, 1 to 65535. Remember, logarithms ar
 
 Local variables consume 9 bytes, while the function parameters consume another 4 bytes, for a grand total of 13 bytes of RAM used. The lookup table takes 35 words of program memory.
 
-*For more help, see* <<_log10,Log10>>, <<_log2,Log2>>, <<_loge,Loge>>
+**See Also:**
 
+* <<_log10,Log10>>
+* <<_log2,Log2>>
+* <<_loge,Loge>>
 *Supported in <MATHS.H>*

@@ -1,6 +1,10 @@
 ===== ST7920GraphicTest
 
+(((Graphical LCD,st7920graphictest)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     ST7920GraphicTest
 ----
@@ -9,6 +13,14 @@
 This command tests the graphics functionality of the GLCD display.
 
 *Example usage:*
+[source,gcbasic]
 ----
-    ST7920GraphicTest ‘Test the display
+    ST7920GraphicTest 'Test the display          ' <<< the ST7920GraphicTest instruction
 ----
+*Key line:* `ST7920GraphicTest` -- runs a built-in self-test pattern on the display, useful for confirming the wiring and controller are working before writing your own graphics code.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920glcdenablegraphics,ST7920GLCDEnableGraphics>> -- switching to graphics mode
+* <<_st7920glcdcleargraphics,ST7920GLCDClearGraphics>> -- clearing the test pattern afterward

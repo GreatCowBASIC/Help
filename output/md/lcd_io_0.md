@@ -49,20 +49,82 @@ are optional or can be ignored.
 
 </div>
 
-For a code example of connection mode 0 program, download
-<a href="http://gcbasic.sourceforge.net/library/DEMO%20CODE/Demo%20code%20for%20lcd/Demo%20mode%200.gcb" class="link">here</a>.
+<span class="strong">**Example:**</span>
+
+``` programlisting
+    #chip 16F877A, 20
+
+    ' Connection mode 0: every byte written to the LCD is handled by a custom
+    ' subroutine instead of GCBASIC's built-in LCD_IO wiring. This example's
+    ' subroutine sends the byte over I2C to a remote LCD driver.
+    #define LCD_IO 0
+    #define LCD_NO_RW
+    #define LCDWriteByte MySendToLCD
+
+    cls
+    print "Hello World."          ' <<< the print instruction this page documents
+
+    end
+
+    Sub MySendToLCD(In MyLCDByte)
+
+        'Uses I2C.
+        'Sends an address byte (128), then a control byte where bit 4 is the
+        'state of the RS pin, then a data byte, which is sent to the LCD.
+
+        ControlByte = 0
+        If LCD_RS = On Then ControlByte.4 = On
+
+        I2CStart
+        I2CSend 128
+        I2CSend ControlByte
+        I2CSend MyLCDByte
+        I2CStop
+
+        'Allow time for the receiver to update the LCD.
+        Wait 5 ms
+
+    End Sub
+```
+
+<span class="strong">**Key line:**</span>
+`print "Hello World."` — exercises the connection exactly like any other
+LCD\_IO mode; `LCDWriteByte` transparently calls `MySendToLCD` for every
+byte `print` sends, so higher-level commands need no special handling
+for connection mode 0.
 
 See the separate sections of the Help file for the specifics of each
 Connection Mode.
 
-<span class="strong">**For more help, see**</span>
-<a href="lcd_io_1" class="link" title="LCD_IO 1">LCD_IO 1</a>,
-<a href="lcd_io_2" class="link" title="LCD_IO 2">LCD_IO 2</a>,
-<a href="lcd_io_2_74xx164" class="link" title="LCD_IO 2_74xx164">LCD_IO 2_74xx164</a>,
-<a href="lcd_io_2_74xx174" class="link" title="LCD_IO 2_74xx174">LCD_IO 2_74xx174</a>,
-<a href="lcd_io_4" class="link" title="LCD_IO 4">LCD_IO 4</a>,<a href="lcd_io_8" class="link" title="LCD_IO 8">LCD_IO 8</a>,
-<a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a>
-or
-<a href="lcd_io_12" class="link" title="LCD_IO 12">LCD_IO 12</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcd_io_1" class="link" title="LCD_IO 1">LCD_IO 1</a> — 1-wire,
+    via a 74HC595 shift register
+-   <a href="lcd_io_2" class="link" title="LCD_IO 2">LCD_IO 2</a> — 2-wire
+    shift register, deprecated
+-   <a href="lcd_io_2_74xx164" class="link" title="LCD_IO 2_74xx164">LCD_IO 2_74xx164</a> — 2-wire
+    via 74HC164/74LS164, the preferred 2-wire method
+-   <a href="lcd_io_2_74xx174" class="link" title="LCD_IO 2_74xx174">LCD_IO 2_74xx174</a> — 2-wire
+    via 74LS174, deprecated
+-   <a href="lcd_io_3" class="link" title="LCD_IO 3">LCD_IO 3</a> — 3-wire
+    shift register with an added Enable line
+-   <a href="lcd_io_4" class="link" title="LCD_IO 4">LCD_IO 4</a> — 4-bit
+    parallel connection
+-   <a href="lcd_io_8" class="link" title="LCD_IO 8">LCD_IO 8</a> — 8-bit
+    parallel connection
+-   <a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a> — I2C
+    via a PCF8574/PCF8574A I/O expander
+-   <a href="lcd_io_12" class="link" title="LCD_IO 12">LCD_IO 12</a> — I2C
+    via a Ywmjkdz-layout adapter
+-   <a href="lcd_io_14" class="link" title="LCD_IO 14">LCD_IO 14</a> — SPI
+    expander
+-   <a href="lcd_io_16" class="link" title="LCD_IO 16">LCD_IO 16</a> — PIC16LF72
+    SPI expander
+-   <a href="lcd_io_107" class="link" title="LCD_IO 107">LCD_IO 107</a> — K107
+    serial adapter
+
+</div>
 
 </div>

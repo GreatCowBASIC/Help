@@ -1,7 +1,10 @@
 ==== StartTimer
 
+(((Timers,StartTimer)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     StartTimer _TimerNo_
 ----
@@ -31,11 +34,12 @@ On Microchip PIC baseline and midrange microcontrollers `starttimer` (and `stopt
 This example will measure that time that a switch is depressed (or on) and will write the results to the EEPROM.
 
 
+[source,gcbasic]
 ----
     #chip 16F819, 20
-    #define Switch PORTA.0
+    #define SWITCH PORTA.0
 
-    Dir Switch In
+    Dir SWITCH In
     DataCount = 0
 
     'Initilise Timer 1
@@ -45,9 +49,9 @@ This example will measure that time that a switch is depressed (or on) and will 
 
     Do
         ClearTimer 1
-        Wait Until Switch = On
-        StartTimer 1
-        Wait Until Switch = Off
+        Wait Until SWITCH = On
+        StartTimer 1          ' <<< the StartTimer instruction
+        Wait Until SWITCH = Off
         StopTimer 1
 
         'Read the timer
@@ -59,5 +63,14 @@ This example will measure that time that a switch is depressed (or on) and will 
         DataCount += 2
     Loop
 ----
+*Key line:* `StartTimer 1` -- starts Timer 1 counting from wherever `ClearTimer` left it, right when the switch is pressed.
+
+**See Also:**
+
+* <<_inittimer1,InitTimer1>> -- configuring the timer's clock source/prescaler before starting it
+* <<_stoptimer,StopTimer>> / <<_cleartimer,ClearTimer>> -- stopping and resetting the timer, as used above
+* <<_settimer,Settimer>> -- preloading a timer's count value
+* <<_reading_timers,Reading Timers>> -- reading a running timer's current count
+* <<_epwrite,EPWrite>> -- logging the measured timer value, as used above
 
 *Supported in <TIMER.H>*

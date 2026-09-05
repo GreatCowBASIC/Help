@@ -1,7 +1,10 @@
 ==== Set
 
+(((Variables Operations,Set)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     Set _variable.bit_ {On | Off}
 ----
@@ -18,6 +21,7 @@ The Set command is most useful for controlling output ports, but can also be use
 Often when controlling output ports, Set is used in conjunction with constants. This makes it easier to adapt the program for a new circuit later.
 
 *Example:*
+[source,gcbasic]
 ----
     'Blink LED sample program for GCBASIC
     'Controls an LED on PORTB bit 0.
@@ -33,9 +37,16 @@ Often when controlling output ports, Set is used in conjunction with constants. 
 
     'Main routine
     Do
-        Set LED On
+        Set LED On          ' <<< the Set instruction
         Wait 1 sec
         Set LED OFF
         Wait 1 sec
     Loop
 ----
+*Key line:* `Set LED On` -- drives the `LED` bit (aliased to `PORTB.0`) high; using the `LED` constant instead of writing `PORTB.0` directly means only the `#define` line needs to change if the circuit moves to a different pin.
+
+**See Also:**
+
+* <<_using_variables,Using Variables>> -- related command in the same category
+* <<_more_on_setting_variables_and_constants,More on setting Variables and Constants>> -- related command in the same category
+* <<_dir,Dir>> -- setting the pin direction before using Set, as used above

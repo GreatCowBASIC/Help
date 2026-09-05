@@ -22,22 +22,22 @@
 
 <span class="strong">**Explanation:**</span>
 
-This function raises a base to an exponent, i.e, `power(base,exponent)`.
-Calculation powers will become large, in terms of long numbers, you must
-ensure the program manage numbers remain within range of the defined
+This function raises a base to an exponent, i.e. `power(base,exponent)`.
+Calculated powers become large in terms of long numbers, so you must
+ensure the program keeps values within the range of the defined
 variables.
 
-The `base` and `exponent` are Byte sized numbers in this method.  
-The returned result is a Long.  
+The `base` and `exponent` are byte-sized numbers in this method.  
+The returned result is a `Long`.  
 Non-negative numbers are assumed throughout.
 
 <span class="strong">**Note:**</span> 0 raised to 0 is meaningless and
-should be avoided, but, any other non-zero base raised to 0 is handled
+should be avoided, but any other non-zero base raised to 0 is handled
 correctly.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     ;Thomas Henry -- 5/2/2014
 
     ;----- Configuration
@@ -74,12 +74,26 @@ correctly.
         print j
         print "="
         locate 1,0
-        print power(i,j)        ;here's the invocation
+        print power(i,j)        ;here is the invocation          ' <<< the Power instruction
         wait 1 S
       next j
     next i
 ```
 
-<span class="strong">**Supported in &lt;MATHS.H&gt;**</span>
+<span class="strong">**Key line:**</span> `power(i,j)` — raises the
+current outer-loop value `i` to the current inner-loop exponent `j`,
+sweeping every combination from 1^0 through 10^9. <span
+class="strong">**Supported in &lt;MATHS.H&gt;**</span>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="abs" class="link" title="Abs">Abs</a> — related
+    command in the same category
+-   <a href="sqrt" class="link" title="Sqrt">Sqrt</a> — the
+    inverse-square relationship to Power
+
+</div>
 
 </div>

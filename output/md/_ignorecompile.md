@@ -25,10 +25,20 @@
 The `#ignorecompile` directive is used to control whether a source file
 can be compiled.
 
-This is can be used to prevent libraries and other source file from
-being procecessed as a source file for compilation.
+This can be used to prevent libraries and other source files from being
+processed as a source file for compilation.
 
-This therefore will prevent creation all the GCBASIC outputs file in the
-folder.
+This will therefore prevent the creation of all the GCBASIC output files
+for that file.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="_include" class="link" title="#include">#include</a> — including
+    a file’s constants and subroutines instead of compiling it
+    standalone
+
+</div>
 
 </div>

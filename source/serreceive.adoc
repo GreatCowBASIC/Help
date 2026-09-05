@@ -1,7 +1,10 @@
 ==== SerReceive
 
+(((Serial Communications,SerReceive)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   SerReceive _channel_, _output_
 ----
@@ -16,6 +19,7 @@ This command will read a byte from the RS232 channel given by
 received byte in the variable `_output_`.
 
 *Example:*
+[source,gcbasic]
 ----
   'This program will read a byte from PORTB.2, and set the LED on if
   'the byte is more than 50. This can be used with the SerSend
@@ -32,10 +36,15 @@ received byte in the variable `_output_`.
 
   InitSer 1, r9600, 1 + WaitForStart, 8, 1, none, normal
   Do
-    SerReceive 1, Temp
+    SerReceive 1, Temp          ' <<< the SerReceive instruction
     If Temp <= 50 Then Set LED Off
     If Temp > 50 Then Set LED On
   Loop
 ----
-*For more help, see* <<_rs232_software_overview,RS232 Software Overview>>,
-<<_initser,InitSer>>
+*Key line:* `SerReceive 1, Temp` -- blocks until a byte arrives on software-UART channel 1, then stores it in `Temp`, using the bit rate, start/stop bits and parity previously configured by `InitSer` on that same channel.
+
+**See Also:**
+
+* <<_rs232_software_overview,RS232 Software Overview>> -- category overview
+* <<_initser,InitSer>> -- configures the channel before SerReceive can be used
+* <<_sersend,SerSend>> -- the counterpart command for sending a byte

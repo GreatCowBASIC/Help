@@ -36,7 +36,7 @@ operands:
 
   
 
-``` screen
+``` programlisting
     + (add)
     - (subtract, or negate if there is no value before it)
     * (multiply)
@@ -63,7 +63,7 @@ logical operators.
 GCBASIC understands order of operations. If multiple operands are
 present, they will be processed in this order:  
 
-``` screen
+``` programlisting
     Brackets
     Unary operations (not and negate)
     Multiply/Divide/Modulo
@@ -90,7 +90,7 @@ than boolean operations.  GCBASIC behaves the same way as most other
 languages.  Source code like this (randomly taken from glcd\_ili9326.h)
 works.
 
-``` screen
+``` programlisting
 if GLCDfntDefaultSize = 2 and CurrCharRow = 7 then
 ```
 
@@ -101,7 +101,7 @@ to deal with and result in much nicer assembly.
 
 This works using the correct order of precendence.
 
-``` screen
+``` programlisting
     if (H_Byte & 0x10) = 0x10 Then ...
 
     'or, using the individual bit check to do the same
@@ -110,7 +110,7 @@ This works using the correct order of precendence.
 
 This will fail as the order of precendence as shown below.
 
-``` screen
+``` programlisting
     if H_Byte & 0x10 = 0x10 Then ...
 
     'the code above equates. This is not achieve the testing of the H_byte.4
@@ -132,7 +132,7 @@ division routine, if the value may overflow, and then fit the result
 into a word.   This code provides the correct result, again within the
 limitations of integer numbers:
 
-``` screen
+``` programlisting
     dim L1s as word
     dim L1p as word
     L1s = 6547200 / L1p
@@ -163,7 +163,7 @@ used to including it in other BASIC dialects.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program is to illustrate the setting of variables.
     Chipmunk = 46        'Sets the variable Chipmunk to 46
     Animal = Chipmunk    'Sets the variable Animal to the value of the variable Chipmunk
@@ -183,7 +183,7 @@ Variable/Register:**</span>
 GCBASIC supports the method setting a specific bit of a variable or
 register. Use the following method:  
 
-``` screen
+``` programlisting
     'variable.bit method
     myByteVariable.0 = 1   'will set bit 0 to 1
     myByteVariable.1 = 0   'will set bit 1 to 0
@@ -198,7 +198,7 @@ method.
 GCBASIC also supports setting specific bits of a variable or register.
 Use the following method:  
 
-``` screen
+``` programlisting
     'variable.bitS method
     SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'
     ' would generate ASM [for your specific microcontroller like the following.
@@ -227,7 +227,7 @@ The `[canskip]` prefix will handle the error condition when a specific
 bit or specific bits do not exist. The following example shows the
 usage.  
 
-``` screen
+``` programlisting
     [canskip] SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'
 ```
 
@@ -238,7 +238,7 @@ another variable as the setting value (at v0.98.00).
 This example shows how the error handler compares to not have the
 `[canskip]` prefix  
 
-``` screen
+``` programlisting
       ' Of these two lines, only the first compiles:
       [canskip] SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'    'first line with error handler
       SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'              'second line with no error handler
@@ -252,21 +252,38 @@ This example shows how the error handler compares to not have the
 characters**</span>
 
 An example showing how to set a string to an escape sequence for an ANSI
-terminal.  You can \`Dim\`ension a string and then assign the elements
-similar to setting array elements.
+terminal.&\#160;&\#160;You can \`Dim\`ension a string and then assign
+the elements similar to setting array elements.
 
-``` screen
+``` programlisting
     dim line2 as string
-    line2 =  27, "[", "2", "H", 27, "[","K"
+    line2 =  27, "[", "2", "H", 27, "[","K"          ' <<< building a string one element at a time, mixing numbers and characters
     HSerPrint line2
 ```
 
 Will send the following to the terminal. &lt;esc&gt;\[2H&lt;esc&gt;\[K
 
+<span class="strong">**Key line:**</span> \` line2 = 27, "\[", "2", "H",
+27, "\[","K" \` — assigns each element of the string individually;
+numeric elements like \` 27 \` are stored as the raw byte (ASCII ESC),
+while quoted elements are stored as their literal characters, letting a
+string mix control codes and printable text in one assignment.
+
   
   
 
-<span class="strong">**For more help, see:**</span>
-<a href="variables" class="link" title="Variables">Variables</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="variable_types" class="link" title="Variable Types">Variable Types</a> — background
+    on GCBASIC’s variable types and casting
+-   <a href="using_variables" class="link" title="Using Variables">Using Variables</a> — accessing
+    individual bytes of Word/Long variables with the \` \_H `/` \_U `/`
+    \_E \` suffixes
+-   <a href="dim" class="link" title="Dim">Dim</a> — declaring the
+    variables being set here
+
+</div>
 
 </div>

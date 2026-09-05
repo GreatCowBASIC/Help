@@ -8,13 +8,15 @@ The GCBASIC development team. Copyright 2005 - 2026
 
 include::introducinggcbasic.adoc[]
 
+== Primer
+
+This is the Primer section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+
 include::gettingstartedwithgcbasic.adoc[]
 
 include::newtoGCBASIC.adoc[]
 
 ifdef::backend-pdf[<<<]
-include::changes.adoc[]
-
 include::commandlineparameters.adoc[]
 
 include::add.adoc[]
@@ -24,6 +26,8 @@ include::frequentlyaskedquestions.adoc[]
 
 ifdef::backend-pdf[<<<]
 include::troubleshooting.adoc[]
+
+include::acknowledgements.adoc[]
 
 
 == GCBASIC Compiler Insights
@@ -39,8 +43,6 @@ ifdef::backend-pdf[<<<]
 include::libraries.adoc[]
 
 ifdef::backend-pdf[<<<]
-include::acknowledgements.adoc[]
-
 include::tricksandtips.adoc[]
 
 include::hxl.adoc[]
@@ -67,11 +69,15 @@ include::variables.adoc[]
 
 include::varbytes.adoc[]
 
+include::PositivesNegativesVariableTypes.adoc[]
+
 include::variablesadvanced.adoc[]
 
 include::variableassignment.adoc[]
 
 include::AVRGPRuage.adoc[]
+
+include::dimnewexamples.adoc[]
 
 ifdef::backend-pdf[<<<]
 
@@ -113,6 +119,9 @@ include::subroutines.adoc[]
 include::converters.adoc[]
 
 ifdef::backend-pdf[<<<]
+include::commandsquickreference.adoc[]
+
+ifdef::backend-pdf[<<<]
 == Command References
 
 ifdef::backend-pdf[<<<]
@@ -134,6 +143,8 @@ include::readad12.adoc[]
 
 include::analogdigitialconversionoptimisation.adoc[]
 
+include::pot.adoc[]
+
 ifdef::backend-pdf[<<<]
 === Bitwise
 
@@ -146,6 +157,18 @@ include::FnLsL.adoc[]
 include::FnLSR.adoc[]
 
 include::SetWith.adoc[]
+
+:leveloffset: +1
+
+=== Deprecated bitwise functions.
+
+Use the alternative updated functions.
+
+include::FnEquBit.adoc[]
+
+include::FnNotBit.adoc[]
+
+:leveloffset: -1
 
 ifdef::backend-pdf[<<<]
 
@@ -359,6 +382,8 @@ include::sh1106controllers.adoc[]
 
 include::ssd1306controllers.adoc[]
 
+include::ssd1309controllers.adoc[]
+
 include::ssd1331controllers.adoc[]
 
 include::ssd1351controllers.adoc[]
@@ -412,6 +437,8 @@ include::uc1601controllers.adoc[]
 
 
 :leveloffset: -1
+
+include::initglcd.adoc[]
 
 include::box.adoc[]
 
@@ -507,6 +534,8 @@ include::lcd_io12.adoc[]
 
 include::lcd_io12portconfiguration.adoc[]
 
+include::multiplei2cadapters12.adoc[]
+
 include::lcd_io14.adoc[]
 
 include::lcd_io14portconfiguration.adoc[]
@@ -569,6 +598,13 @@ ifdef::backend-pdf[<<<]
 
 This is the Pulse width modulation section of the Help file.  Please refer the sub-sections for details using the contents/folder view for the MicroChip PIC PWM capabilities and the ATMEL AVR PWM capabilities.
 
+include::pulseout.adoc[]
+
+include::pulseoutinv.adoc[]
+
+include::pulsein.adoc[]
+
+include::pulseininv.adoc[]
 
 include::relevantconstants.adoc[]
 
@@ -848,6 +884,8 @@ include::i2cstartoccurred.adoc[]
 
 include::i2cstop.adoc[]
 
+include::pcf8574.adoc[]
+
 ifdef::backend-pdf[<<<]
 === I2C/TWI Hardware Module
 
@@ -937,6 +975,8 @@ include::readingtimers.adoc[]
 
 include::smt.adoc[]
 
+include::millis_timer_userinterrupts.adoc[]
+
 ifdef::backend-pdf[<<<]
 === Variables Operations
 
@@ -965,6 +1005,10 @@ include::set.adoc[]
 include::swap4.adoc[]
 
 include::swap.adoc[]
+
+include::peek.adoc[]
+
+include::poke.adoc[]
 
 ifdef::backend-pdf[<<<]
 === String Manipulation
@@ -1063,25 +1107,7 @@ ifdef::backend-pdf[<<<]
 
 This is the Miscellaneous Commands section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
 
-include::dir.adoc[]
-
 include::getuserid.adoc[]
-
-include::pot.adoc[]
-
-include::pulseout.adoc[]
-
-include::pulseoutinv.adoc[]
-
-include::pulsein.adoc[]
-
-include::pulseininv.adoc[]
-
-include::peek.adoc[]
-
-include::poke.adoc[]
-
-include::weakpullups.adoc[]
 
 ifdef::backend-pdf[<<<]
 === Maths
@@ -1124,11 +1150,13 @@ include::trigonometry.adoc[]
 include::trigonometryatan.adoc[]
 
 ifdef::backend-pdf[<<<]
-=== Peripheral Pin Select
+=== Port control
 
-This is the Peripheral Pin Select section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+This is the Port control section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
 
+include::dir.adoc[]
 
+include::weakpullups.adoc[]
 
 include::ppsintro.adoc[]
 
@@ -1178,9 +1206,9 @@ include::enum.adoc[]
 include::otherdirectives.adoc[]
 
 ifdef::backend-pdf[<<<]
-== Compiler Options
+== Compiler Preprocessor Options
 
-This is the Compiler Options section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+This is the Compiler Preprocessor Options section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
 
 
 include::optionexplicit.adoc[]
@@ -1264,41 +1292,24 @@ include::trigonometrycircles.adoc[]
 
 
 ifdef::backend-pdf[<<<]
-== Graphical GCBASIC
-
-This is the Graphical GCBASIC section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
-
-
-include::codedocumentation.adoc[]
-
-include::windowsnet.adoc[]
-
 ifdef::backend-pdf[<<<]
-== GCBASIC for Linux
+== Operating Systems Support
 
-This is the GCBASIC for Linux section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+This is the Operating Systems Support section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
 
 include::linuxoverview.adoc[]
 
 ifdef::backend-pdf[<<<]
 
-== GCBASIC for ARM & Pi
-
-This is the GCBASIC for Pi section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
-
 include::Pioverview.adoc[]
 
 ifdef::backend-pdf[<<<]
 
-== GCBASIC for Apple macOS
-This is the GCBASIC for Apple macOS section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
-
 include::macosoverview.adoc[]
 
-== GCBASIC for FreeBSD
-This is the GCBASIC for FreeBSD OS section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
-
 include::freebsdoverview.adoc[]
+
+include::windowsnet.adoc[]
 
 == GCBASIC Maintenance and Development
 
@@ -1310,6 +1321,10 @@ include::DeveloperGuide.adoc[]
 
 include::DeveloperGuideForCompiler.adoc[]
 
+include::codedocumentation.adoc[]
+
+include::documentationtoolchain.adoc[]
+
 == GCBASIC with the AVRISP or MKII Programmer
 
 This is the GCBASIC section of the Help file that explains how to use an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 10 
@@ -1317,6 +1332,8 @@ This is the GCBASIC section of the Help file that explains how to use an AVRISP 
 include::attinyprogrammer.adoc[]
 
 ifdef::backend-pdf[<<<]
+
+include::changes.adoc[]
 
 
 

@@ -1,20 +1,43 @@
 == Introducing GCBASIC
 
+(((Introduction,Introducing GCBASIC)))
+
+
 Hello, and welcome to GCBASIC help. This help file is intended
 to provide you insights and knowledge to use GCBASIC.
 
 For information on installing GCBASIC and several other programs that
-may be helpful, please see *Getting Started with GCBASIC* 
+may be helpful, see <<_using_gcbasic,Using GCBASIC>>.
 
 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;\http://gcbasic.sourceforge.net/starting.html
 
-If you are new to programming, you should try the GCBASIC
-demonstration programs these explains everything in a step-by-step manner, and assumes
-no prior knowledge.
+If you are new to programming, try the GCBASIC
+demonstration programs, which explain everything in a step-by-step manner and assume
+no prior knowledge. Download the https://sourceforge.net/projects/gcbasic/files/GCStudio%20-%20Complete%20IDE%20and%20Toolchain%20for%20Windows/GCBdemonstrationsPack.exe/download[GCBASIC demonstrations pack].
 
-If you have programmed in another language, then the demonstration files on GitHub ( or within your installation )
-and this command reference may be the best place to start.
+If you have programmed in another language, then the demonstration files and this command reference may be the best place to start. See <<_pic_users_and_beginners_start_here,PIC Users and Beginners: Start Here>> for a short worked example.
 
 If there is anything else that you need help on, please visit the *GCBASIC forum*
-    
+
 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;\http://sourceforge.net/forum/?group_id=169286
+
+*Where GCBASIC Came From:*
+
+GCBASIC was created by Dr. Hugh Considine in 2005, when he was just 12 years old. Hugh built it because the compilers available at the time were hard to use and not free, and he believed a compiler for hobbyist microcontroller programming should be free to everyone, forever. The name itself was his fourth attempt -- after BASPIC, Chipmunk BASIC (already taken), and Bear BASIC (dropped once he learned the slang meaning of "bear") -- before he and his sister settled on Great Cow BASIC, a name odd enough to be memorable and unclaimed by anyone else.
+
+Graphical GCBASIC grew out of the same original project, as a set of "training wheels" for newcomers: its icons share names with the underlying BASIC commands, so a user can start in the graphical environment and move to text-based GCBASIC whenever they are ready, at their own pace.
+
+In 2013, Evan Venn joined the project as a compiler developer, and has since been one of the driving forces behind GCBASIC's ongoing development, alongside many other contributors who have added compiler features, libraries, and tools over the years.
+
+GCStudio, the IDE most GCBASIC users write their programs in, is maintained by Angel Mier, who has also contributed to the toolchain's USB driver installation.
+
+The package is now called GCSTUDIO and the compiler GCBASIC.
+
+We all hope you enjoy using the GCSTUDIO and the toolchain that supports GCBASIC.
+
+**See Also:**
+
+* <<_using_gcbasic,Using GCBASIC>> -- installing GCBASIC and setting up a programmer
+* <<_pic_users_and_beginners_start_here,PIC Users and Beginners: Start Here>> -- a minimal first program and why GCBASIC needs so little manual setup
+* <<_development_guide_for_gcbasic_exe_compiler,Development Guide for GCBASIC.EXE compiler>> -- the fuller history of the compiler, and how to contribute to it
+* <<_acknowledgements,Acknowledgements>> -- the wider list of contributors to GCBASIC and its documentation

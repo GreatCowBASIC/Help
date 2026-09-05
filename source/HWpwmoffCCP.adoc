@@ -1,7 +1,11 @@
 //
 ==== HPWMOff
 
+(((Pulse width modulation,HPWMOff)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     HPWMOff ( channel )   'selectively turn off the CCP channel
 
@@ -18,6 +22,7 @@ Only available on Microchip PIC microcontrollers with Capture&Compare/PWM (CCP) 
 This command will disable the output of the CCP1/PWM module on the Microchip PIC chip.
 
 *Example:*
+[source,gcbasic]
 ----
 
     'Select chip model and speed
@@ -35,9 +40,13 @@ This command will disable the output of the CCP1/PWM module on the Microchip PIC
         next
 
         wait 1 s
-        HPWMOff ( 1 )' turn off the PWM channel
+        HPWMOff ( 1 )' turn off the PWM channel          ' <<< the HPWMOff instruction
 
     loop
 
 ----
-*For more help, see* <<_hpwmoff,HPWMOff>>
+*Key line:* `HPWMOff ( 1 )` -- disables CCP channel 1's PWM output specifically; unlike the parameterless form, which always turns off channel 1, this explicit form lets a multi-channel program turn off one channel while leaving others running.
+
+**See Also:**
+
+* <<_hpwm_ccp,HPWM CCP>> -- the counterpart command that starts a PWM channel

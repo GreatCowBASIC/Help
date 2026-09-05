@@ -49,7 +49,7 @@ Refer to your particular Device Datasheet to confirm the address table
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
       #chip 16F1455
       #Config MCLRE_ON
 
@@ -70,8 +70,8 @@ Refer to your particular Device Datasheet to confirm the address table
       dim UserIDRegister as word
 
       For Index = 0 to 0xF
-        UserIDRegister  = GetUserID(Index)
-        HserPrint "80" + hex(NVIndex)
+        UserIDRegister  = GetUserID(Index)          ' <<< the GetUserID instruction
+        HserPrint "80" + hex(Index)
         HserPrint " : "
         HserPrint hex( UserIDRegister_H )
         HserPrint hex( UserIDRegister    )
@@ -79,5 +79,22 @@ Refer to your particular Device Datasheet to confirm the address table
 
     End
 ```
+
+<span class="strong">**Key line:**</span>
+`UserIDRegister = GetUserID(Index)` — reads the word stored at memory
+address `0x8000 + Index` (the user ID, device ID, or a configuration
+word, depending on `Index`) and stores it for printing; the loop steps
+through every documented index from 0x0 to 0xF.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="dir" class="link" title="Dir">Dir</a> — related
+    command in the same category
+-   <a href="pot" class="link" title="Pot">Pot</a> — related
+    command in the same category
+
+</div>
 
 </div>

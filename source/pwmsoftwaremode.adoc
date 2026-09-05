@@ -1,5 +1,8 @@
 ==== PWM Software Mode
 
+(((Pulse width modulation,PWM Software Mode)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -17,4 +20,6 @@ The PWM signal is generated only while the `PWMOut` command is executing - there
 by moving onto the next command, the PWM signal will stop.
 
 
-*For more help, see* <<_pwmout,PWMOut>>
+**See Also:**
+
+* <<_pwmout,PWMOut>>

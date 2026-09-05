@@ -1,7 +1,11 @@
 // Edit EvanV 210117 to add PORTCHANGE
 ==== On Interrupt
 
+(((Interrupts,On Interrupt)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     On Interrupt event Call handler
     On Interrupt event Ignore
@@ -42,7 +46,7 @@ only implemented on a few specialised chips. Events in [gray]#*grey*# are
 supported by Microchip PIC and Atmel AVR microcontrollers, events in [blue]#*blue*# are only supported by some
 Microchip PIC microcontrollers, and events in [red]#*red*# are only supported by Atmel AVR microcontrollers.
 
-Note that GCBASIC doesn't fully support all of the hardware which can
+Note that GCBASIC does not fully support all of the hardware which can
 generate interrupts - some work may be required with various system
 variables to control the unsupported peripherals.
 
@@ -617,6 +621,7 @@ the handler.
 {empty} +
 *Example 1:*
 
+[source,gcbasic]
 ----
     'This program increments a counter every time Timer1 overflows
     #chip 16F877A, 20
@@ -639,7 +644,7 @@ the handler.
     Wait 100 ms
     Print "Int Test"
 
-    On Interrupt Timer1Overflow Call IncCounter
+    On Interrupt Timer1Overflow Call IncCounter          ' <<< the On Interrupt instruction
 
     Do
         CLS
@@ -651,9 +656,12 @@ the handler.
         CounterValue ++
     End Sub
 ----
+*Key line:* `On Interrupt Timer1Overflow Call IncCounter` -- enables the Timer1 overflow interrupt and registers `IncCounter` as its handler, so it runs automatically each time Timer1 overflows.
+
 {empty} +
 {empty} +
 *Example 2:*
+[source,gcbasic]
 ----
     'This example reflects the input signal on the output port.
     #chip mega328p, 16
@@ -670,7 +678,7 @@ the handler.
     dir portB.5 out
 
     'setup the On Interrupt method
-    On Interrupt PinChange0 Call TogglePin
+    On Interrupt PinChange0 Call TogglePin          ' <<< the On Interrupt instruction
 
     'maintain a loop
     do
@@ -684,9 +692,12 @@ the handler.
         portb.5 =  !pinb.5
     end sub
 ----
+*Key line:* `On Interrupt PinChange0 Call TogglePin` -- registers `TogglePin` to run whenever the pin-change interrupt for the masked pin fires.
+
 {empty} +
 {empty} +
 *Example 3:*
+[source,gcbasic]
 ----
     'This example reflects the input signal on the output port from the external interrupt port.
     #Chip mega328p, 16
@@ -711,7 +722,7 @@ the handler.
     dir portB.5 out
 
     'setup the On Interrupt method on external interrupt 0
-    On Interrupt EXTINT0 Call togglePin
+    On Interrupt EXTINT0 Call togglePin          ' <<< the On Interrupt instruction
 
     'maintain a loop
     do
@@ -726,8 +737,12 @@ the handler.
     end sub
 ----
 
-*For more help, see* <<_inittimer0,InitTimer0>> article contains
-an example of using Timer 0 and On Interrupt to generate a Pulse Width
-Modulation signal to control a motor.
+*Key line:* `On Interrupt EXTINT0 Call togglePin` -- registers `togglePin` to run whenever the external interrupt 0 pin detects the configured edge.
 
-*See also* <<_intoff,IntOff>>, <<_inton,IntOn>>
+**See Also:**
+
+* <<_on_interrupt_the_default_handler,On Interrupt: The default handler>> -- what happens to events not claimed by an `On Interrupt` line
+* <<_intoff,IntOff>> -- globally disabling interrupts
+* <<_inton,IntOn>> -- globally re-enabling interrupts
+* <<_inittimer0,InitTimer0>> -- an example using Timer 0 and On Interrupt to generate a PWM signal to control a motor
+* <<_inittimer1,InitTimer1>> -- configuring Timer1, as used in Example 1 above

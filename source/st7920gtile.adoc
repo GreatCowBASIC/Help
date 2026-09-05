@@ -1,6 +1,10 @@
 ===== ST7920gTile
 
+(((Graphical LCD,st7920gtile)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     ST7920gTile ( byte variable , byte variable)
 ----
@@ -9,6 +13,14 @@
 Tile LCD screen with two bytes in Graphic Mode.
 
 *Example usage:*
+[source,gcbasic]
 ----
-    ST7920gTile (0x55, 0x85) ‘tile the screen with an odd cross hatch
+    ST7920gTile (0x55, 0x85) 'tile the screen with an odd cross hatch          ' <<< the ST7920gTile instruction
 ----
+*Key line:* `ST7920gTile (0x55, 0x85)` -- fills the screen in graphics mode using two alternating byte patterns (0x55 and 0x85), one for even columns and one for odd, producing an irregular cross-hatch.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920tile,ST7920Tile>> -- the text-mode, single-word tiling equivalent
+* <<_st7920ctile,ST7920cTile>> -- tiling with a Chinese character instead

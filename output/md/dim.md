@@ -40,14 +40,14 @@ specific memory locations.
 GCBASIC supports <span class="strong">**optional initialisation**</span>
 at the point of declaration:
 
-``` screen
+``` programlisting
     Dim byte_var As Byte = 1
 ```
 
 This sets the variable to the specified value at program start. The
 traditional form remains fully valid:
 
-``` screen
+``` programlisting
     Dim byte_var As Byte
 ```
 
@@ -68,5 +68,24 @@ is in the "initialised to zero" category below.
 
 <span class="strong">**Command Availability:**</span> Available on all
 microcontrollers.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="alloc" class="link" title="Alloc">Alloc</a> — reserving
+    an unstructured RAM buffer/array variant instead of a typed variable
+-   <a href="serprint" class="link" title="SerPrint">SerPrint</a> — string
+    handling examples
+-   <a href="variable_types" class="link" title="Variable Types">Variable Types</a> — more
+    information on variable types
+-   <a href="set" class="link" title="Set">Set</a> — setting a bit
+    variable’s state after declaring it
+-   <a href="constants" class="link" title="Constants">Constants</a> — fixed,
+    named values as an alternative to a variable
+-   <a href="rotate" class="link" title="Rotate">Rotate</a> — bit-rotating
+    a declared variable’s value
+
+</div>
 
 </div>

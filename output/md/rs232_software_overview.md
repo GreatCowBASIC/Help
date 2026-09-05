@@ -71,4 +71,15 @@ file that uses `#define` to assign a value to the particular constant.
 
 </div>
 
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="rs232_software_overview_optimised" class="link" title="RS232 Software Overview - Optimised">RS232 Software Overview - Optimised</a> — related
+    command in the same category
+-   <a href="initser" class="link" title="InitSer">InitSer</a> — related
+    command in the same category
+
+</div>
+
 </div>

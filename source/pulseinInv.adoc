@@ -1,7 +1,10 @@
 ==== PulseInInv
 
+(((Miscellaneous Commands,PulseInInv)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     PulseInInv __pin__, __user_variable__, __time units__
 ----
@@ -18,6 +21,7 @@ The user variable must be a WORD if returned units are expected to be > 255  (Ex
 PulseInInv is not recommended for accurate measurement of microsecond pulses.
 
 *Example:*
+[source,gcbasic]
 ----
     #chip 12F629, 4
 
@@ -27,5 +31,11 @@ PulseInInv is not recommended for accurate measurement of microsecond pulses.
     Do while GPIO.0 = On        'Wait for next negative edge to start measuring
     Loop
 
-    PulseinInv GPIO.0, TimeResult, ms
+    PulseinInv GPIO.0, TimeResult, ms          ' <<< the PulseInInv instruction
 ----
+*Key line:* `PulseinInv GPIO.0, TimeResult, ms` -- waits for `GPIO.0` to go high again, then stores how long it was low, in milliseconds, into `TimeResult`.
+
+**See Also:**
+
+* <<_pulsein,PulseIn>> -- related command in the same category
+* <<_pulseout,PulseOut>> -- related command in the same category

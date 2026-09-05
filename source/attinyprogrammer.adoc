@@ -1,31 +1,34 @@
-=== Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows 
+=== Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows
+
+(((GCBASIC with the AVRISP or MKII Programmer,Setup an AVRISP MKII or USBtinyISP for ATTINY10 chip under Windows)))
+
 
 *AVRISP MKII Windows Driver Validation/Changing*
 
 
 Windows 10 and 11 tested.
 
-When using the AVRDUDE, which is used as part of the GCBASIC toolchain, you need to ensure these programmers are operating with the correct Windows device driver.&#160;&#160;
-The Windows driver must be `libusbK` not `libusb or libusb-win32` Windows driver.
+When using AVRDUDE, which is used as part of the GCBASIC toolchain, you need to ensure these programmers are operating with the correct Windows device driver.
+The Windows driver must be `libusbK`, not the `libusb` or `libusb-win32` Windows driver.
 
-You must ensure the Windows driver is `libusbK`.&#160;&#160;Using the utility Zadig enables changing the Windows device driver to `libusbK`.
+You must ensure the Windows driver is `libusbK`. Using the utility Zadig enables changing the Windows device driver to `libusbK`.
 
 
 * Download and install Zadig Driver Utility software https://zadig.akeo.ie/
 * Connect the USB cable from the AVRISP MKII to your PC.
 * Open Zadig and from the menu select Options / List All Devices.
 * From the device list select AVRISP MKII.
-* Select the target driver libusbK and click (Install / Replace Driver) button.
+* Select the target driver libusbK and click the (Install / Replace Driver) button.
 
 After the installation is completed, open Windows Device Manager and verify the driver installation.
 
-Close Zadig
+Close Zadig.
 
 image::1%20%20-%20AVRISP%20MKII%20Zadig%20Setup.png[Setup]
 
-NOTE: If you use ATMEL Studio you must ensure the Windows device driver is `libusb or libusb-win32`.
+NOTE: If you use Atmel Studio, you must ensure the Windows device driver is `libusb or libusb-win32`.
 
-NOTE: If you use AVRDUDE then uou must ensure the Windows device driver is `libusbK`.
+NOTE: If you use AVRDUDE, you must ensure the Windows device driver is `libusbK`.
 
 
 
@@ -33,17 +36,17 @@ Next in the process is to upgrade the firmware of the AVRISP MKII.
 
 *Option 1:*
 
-This process shows the installation of Atmel Studio 7, however, you may have to use Atmel Studio 6 because of operation system constraint.
+This process shows the installation of Atmel Studio 7; however, you may have to use Atmel Studio 6 because of operating system constraints.
 
-Download and Install Atmel Studio 7 from the GCBASIC file store https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/[here]
+Download and install Atmel Studio 7 from the GCBASIC file store https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/[here]
 
-After the installation open ATMEL STUDIO 7
+After the installation, open Atmel Studio 7.
 
 * Select Tools / Device Programming
 * Make sure the AVRISP MKII is selected
-* At this point ATMEL STUDIO will notified to upgrade the firmware to version 1.8
-* Click the Upgrade  button
-* Once the firmware is upgraded, close ATMEL STUDIO 7
+* At this point Atmel Studio will notify you to upgrade the firmware to version 1.8
+* Click the Upgrade button
+* Once the firmware is upgraded, close Atmel Studio 7
 
 image::2%20%20-%20ATMEL%20STUDIO.png[Studio]
 {empty} +
@@ -51,24 +54,24 @@ image::2%20%20-%20ATMEL%20STUDIO.png[Studio]
 
 *Option 2:*
 
-To update the firmware please, follow the steps listed below.  
+To update the firmware, please follow the steps listed below.
 
-* Connect the programmer to the USB and with a sharp object (needle or pin) press the upgrade pin - it is in a small hole at the back of the board (this will start the bootloader and will turn off the LED, it will also probably show a new unrecognized device in the device manager for which we will install drivers in step 3)
-* Download and install the latest version of "Atmel Flip" software (it can be downloaded from the Atmel's web-site, or from the GCBASIC file store https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/[here] )
-* Open its install folder and update the software of the unrecognized device (usually under the "Other devices" tab) with the drivers from folder named "usb"; the device should now be recognized as AT90USB162 under "libusb-win32" tab
+* Connect the programmer to the USB and, with a sharp object (needle or pin), press the upgrade pin - it is in a small hole at the back of the board (this will start the bootloader and will turn off the LED; it will also probably show a new unrecognised device in the device manager, for which we will install drivers in step 3)
+* Download and install the latest version of "Atmel Flip" software (it can be downloaded from Atmel's website, or from the GCBASIC file store https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/[here])
+* Open its install folder and update the software of the unrecognised device (usually under the "Other devices" tab) with the drivers from the folder named "usb"; the device should now be recognised as AT90USB162 under the "libusb-win32" tab
 * Start "Atmel FLIP" and click "Select a target device" -> choose AT90USB162
 * Click "Select a Communication Medium" and then USB medium
-* Download the firware and unpack https://www.olimex.com/Products/AVR/Programmers/AVR-ISP-MK2/resources/AVR456-studio-AVRISP-MKII.zip[Olimex website] or the GCBASIC files store https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/[here]
+* Download the firmware and unpack it from the https://www.olimex.com/Products/AVR/Programmers/AVR-ISP-MK2/resources/AVR456-studio-AVRISP-MKII.zip[Olimex website] or the GCBASIC file store https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/[here]
 * From "File -> load HEX file" choose the latest HEX and click "RUN" in the "Operations Flow" section
 * Disconnect the AVR-ISP-MK2 from the USB and connect it again
 
-For more information about AVR-ISP-MK2 see this guide http://gcbasic.sourceforge.net/library/AVR-ISP-MK2-OpenSourceHardwareBoard.pdf[here]
+For more information about AVR-ISP-MK2, see this guide http://gcbasic.sourceforge.net/library/AVR-ISP-MK2-OpenSourceHardwareBoard.pdf[here]
 
 
 *AVRISP MKII to ATTINY10 Connections:*
 
 
-Connect the AVRISP MKII to the ATTINY10 as show in the Diagram.
+Connect the AVRISP MKII to the ATTINY10 as shown in the diagram.
 
 image::3%20%20-%20AVRISP%20MKII%20Connections.png[Connections]
 {empty} +
@@ -77,26 +80,26 @@ image::3%20%20-%20AVRISP%20MKII%20Connections.png[Connections]
 
 *GCStudio Programmer Setup:*
 
-Open GCStudio and set the Programmers to use as show below 
+Open GCStudio and set the Programmers to use, as shown below.
 
-For AVRISP MKII use the AVR ISP XPII [KANDA] and drag it to the top of the list and click OK.
+For AVRISP MKII, use the AVR ISP XPII [KANDA] and drag it to the top of the list and click OK.
 
 image::4%20%20-%20GCStudio%20AVRISP%20MKII%20use%20the%20AVR%20ISP%20XPII%20%5BKANDA%5D.png[]
 {empty} +
 {empty} +
 
-Now you’re ready to upload your first program to an ATTINY10.
+Now you're ready to upload your first program to an ATTINY10.
 
 
 *USBtinyISP Setup:*
 
-* From Zadig select USBtinyISP in the device list.
+* From Zadig, select USBtinyISP in the device list.
 
-* Select the target driver libusb-win32 and click (Install / Replace Driver) button.
+* Select the target driver libusb-win32 and click the (Install / Replace Driver) button.
 
 * After the installation, open Windows Device Manager and verify the driver installation.
 
-* Close ZADIG
+* Close Zadig.
 
 image::5%20%20-%20USBtinyISP%20Zadig%20setup.png[]
 {empty} +
@@ -104,7 +107,7 @@ image::5%20%20-%20USBtinyISP%20Zadig%20setup.png[]
 
 *USBtinyISP to ATTINY10 Connections:*
 
-Connect the USBtinyISP to the ATTINY10 as show in the Diagram.
+Connect the USBtinyISP to the ATTINY10 as shown in the diagram.
 
 image::6%20%20-%20USBtinyISP%20Copnections.png[]
 {empty} +
@@ -112,18 +115,18 @@ image::6%20%20-%20USBtinyISP%20Copnections.png[]
 
 *GCStudio Programmer Setup:*
 
-Open GCStudio and set the Programmers to use as show below 
+Open GCStudio and set the Programmers to use, as shown below.
 
-Select and Drag  the Avrdude (USBtinyISP) programmer to the top of the list.
+Select and drag the Avrdude (USBtinyISP) programmer to the top of the list.
 
 image::7%20%20-%20GCStudio%20Avrdude%20%28USBtinyISP%29.png[]
 {empty} +
 {empty} +
 
-Now you are ready to upload your first program to an ATTINY10
+Now you are ready to upload your first program to an ATTINY10.
 
 
-For more information programming review these resources:
+For more information on programming, review these resources:
 
     A guide http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[here]
 
@@ -132,17 +135,6 @@ For more information programming review these resources:
 {empty} +
 {empty} +
 
+**See Also:**
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+* <<_uno_as_isp_programmer,UNO as ISP programmer>> -- an alternative approach using an Arduino UNO instead of a dedicated programmer

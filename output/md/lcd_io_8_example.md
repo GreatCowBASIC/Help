@@ -22,17 +22,17 @@ A 2 by 16 LCD is assumed.
 
 Based on the works by Thomas Henry and then revised Evan R. Venn
 
-``` screen
+``` programlisting
     #chip 16F877A,20
 
 
     'Use LCD in 8 pin mode and define LCD pins
-    #define LCD_IO 8
+    #define LCD_IO 8          ' <<< the constant that selects 8-bit connection mode
     #define LCD_RW PORTE.1
     #define LCD_RS PORTE.0
     #define LCD_Enable PORTE.2
     #define LCD_Data_Port PORTD
-    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
+    #define LCD_WIDTH 16                ;this example assumes a 16-character-wide LCD; the library default is 20
 
     ;Here are various LCD commands which can be used.
     ;These are the LCD commands for the HD44780 controller
@@ -93,21 +93,21 @@ Based on the works by Thomas Henry and then revised Evan R. Venn
         doHome                  ;home cursor
         LCDCmd(under)          ;choose underline cursor
         for ii = 0 to 15         ;move cursor across first line
-          LCDCmd(line1+i)
+          LCDCmd(line1+ii)
           wait 200 mS
-        next i
+        next ii
         for ii = 0 to 15         ;move cursor across second line
-          LCDCmd(line2+i)
+          LCDCmd(line2+ii)
           wait 200 mS
-        next i
+        next ii
         for ii = 15 to 0 step -1 ;move cursor back over second line
-          LCDCmd(line2+i)
+          LCDCmd(line2+ii)
           wait 200 mS
-        next i
+        next ii
         for ii = 15 to 0 step -1 ;move cursor back over first line
-          LCDCmd(line1+i)
+          LCDCmd(line1+ii)
           wait 200 mS
-        next i
+        next ii
         wait 3 S
         ;demonstrate blinking block cursor
         printMsg(8)             ;print next message
@@ -123,7 +123,7 @@ Based on the works by Thomas Henry and then revised Evan R. Venn
         for ii = 0xd0 to 0xff    ;print next message - the remaining EEPROM
           EPread ii, char        ;fetch directly from eeprom
           print chr(char)
-        next i
+        next ii
         wait 1 S
         doHome                  ;home cursor once more
         repeat 141              ;scroll message twice
@@ -139,12 +139,12 @@ Based on the works by Thomas Henry and then revised Evan R. Venn
           LCDCmd(line1+12)     ;overwrite each character displayed
           print chr(ii)            ;this is the ASCII code
           wait 500 mS
-        next i
+        next ii
         for ii = 161 to 255      ;print next batch of ASCII characters
           LCDCmd(line1+12)
           print chr(ii)
           wait 500 mS
-        next i
+        next ii
         ;say good-bye
         LCDCmd(line2)
         printMsg(11)             ;print next message
@@ -212,5 +212,26 @@ Based on the works by Thomas Henry and then revised Evan R. Venn
         next
     end sub
 ```
+
+<span class="strong">**Key line:**</span> `#define LCD_IO 8` — selects
+the 8-bit parallel connection mode, requiring `LCD_RS`, `LCD_RW`,
+`LCD_Enable`, and a full contiguous 8-bit `LCD_Data_Port`; the loops
+further down demonstrate `LCDCmd` cursor and display-mode control codes
+for the HD44780 controller.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcd_io_8" class="link" title="LCD_IO 8">LCD_IO 8</a> — full
+    reference for this connection mode
+-   <a href="lcd_width" class="link" title="LCD_WIDTH">LCD_WIDTH</a> — setting
+    the display width, as used above
+-   <a href="lcd_io_4_example" class="link" title="LCD_IO 4 Example">LCD_IO 4 Example</a> — the
+    4-bit parallel equivalent, needing fewer pins
+-   <a href="lcdcmd" class="link" title="LCDCmd">LCDCmd</a> — sending
+    raw HD44780 commands, as used throughout this example
+
+</div>
 
 </div>

@@ -1,6 +1,10 @@
 ==== GLCDDrawString
 
+(((Graphical LCD,GLCDDrawString)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
     GLCDDrawString(CharLocX, CharLocY, String [, Optional Colour] )
 ----
@@ -16,3 +20,9 @@ Displays an ASCII character at a specified X and Y location. +
 On a 128x64 Graphic LCD : +
 X = 1 to 128 +
 Y = 1 to 64 +
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_glcddrawchar,GLCDDrawChar>> -- related command in the same category
+* <<_glcddisplay,GLCDDisplay>> -- related command in the same category

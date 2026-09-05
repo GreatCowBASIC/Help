@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax**</span>:
 
-``` screen
+``` programlisting
     LCDDisplayOn
 ```
 
@@ -24,9 +24,13 @@
 
 Will turn on (restore) the LCD display
 
-<span class="strong">**See also**</span>
-<a href="lcdcursor" class="link" title="LCDCursor">LCDCursor</a>
+<span class="strong">**See Also:**</span>
 
-<span class="strong">**Supported in &lt;LCD.H&gt;**</span>
+<div class="itemizedlist">
+
+-   <a href="lcdcursor" class="link" title="LCDCursor">LCDCursor</a>
+    <span class="strong">**Supported in &lt;LCD.H&gt;**</span>
+
+</div>
 
 </div>

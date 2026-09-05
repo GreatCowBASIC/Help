@@ -1,8 +1,11 @@
 ==== HEFEraseBlock
 
+(((HEFM ( PFM ),HEFEraseBlock)))
+
+
 
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     HEFEraseBlock ( block_number )
 ----
@@ -15,7 +18,7 @@ Available on all PIC micro-controllers with HEFM memory.
 {empty} +
 HEFEraseBlock is used to erase all data locations within the HEFM block.&#160;&#160;&#160; HEFM data within the HEFM block to the erase state value of the device.&#160;&#160;&#160;
 This Value is 0xFF and will read 0x3FFF if the entire 14bit program memory word is displayed. 
-Use Caution. Once the HEFM block is erased, the HEFM data is gone forever and cannot be recovered unless it was previpusly saved. 
+Use Caution. Once the HEFM block is erased, the HEFM data is gone forever and cannot be recovered unless it was previously saved. 
 {empty} +
 {empty} +
 The single parameter is as follows:
@@ -28,6 +31,7 @@ The block_number parameter is used to calculate the physical memory location(s) 
 *Example 1:*
 
 Erase a specific block of HEFM.
+[source,gcbasic]
 ----
     '... code preamble to select part
     '... code to setup serial, if needed
@@ -39,13 +43,14 @@ Erase a specific block of HEFM.
 ----
 {empty} +
 {empty} +
-See also
-<<_hefm_overview,HEFM Overview>>,
-<<_hefread,HEFRead>>,
-<<_hefreadword,HEFReadWord>>,
-<<_hefwrite,HEFWrite>>,
-<<_hefwriteword,HEFWriteWord>>,
-<<_hefreadblock,HEFReadBlock>>,
-<<_hefwriteblock,HEFWriteBlock>>,
-<<_heferaseblock,HEFEraseBlock>>
+**See Also:**
+
+* <<_hefm_overview,HEFM Overview>>
+* <<_hefread,HEFRead>>
+* <<_hefreadword,HEFReadWord>>
+* <<_hefwrite,HEFWrite>>
+* <<_hefwriteword,HEFWriteWord>>
+* <<_hefreadblock,HEFReadBlock>>
+* <<_hefwriteblock,HEFWriteBlock>>
+* <<_heferaseblock,HEFEraseBlock>>
 

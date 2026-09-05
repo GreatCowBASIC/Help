@@ -1,7 +1,10 @@
 ==== Scale
 
+(((Maths,Scale)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     integer_variable = Scale (value_word , fromLow_integer , fromHigh_integer , toLow_integer , toHigh_integer [, calibration_integer] )
 ----
@@ -12,13 +15,13 @@ Available on all microcontrollers.&#160;&#160;&#160;The parameters are:
 
 `value`: the number to scale. A value between 0 and 0xFFFFF - all values passed will be treated as Word variables.
 
-`fromLow`: the lower bound of the value’s current range. An Integer value between -32767 and 32767.
+`fromLow`: the lower bound of the value's current range. An Integer value between -32767 and 32767.
 
-`fromHigh`: the upper bound of the value’s current range. An Integer value between -32767 and 32767.
+`fromHigh`: the upper bound of the value's current range. An Integer value between -32767 and 32767.
 
-`toLow`: the lower bound of the value’s target range. An Integer value between -32767 and 32767.
+`toLow`: the lower bound of the value's target range. An Integer value between -32767 and 32767.
 
-`toHigh`: the upper bound of the value’s target range. An Integer value between -32767 and 32767.
+`toHigh`: the upper bound of the value's target range. An Integer value between -32767 and 32767.
 
 `calibration`: optional calibration offset value. An Integer value between -32767 and 32767.
 {empty} +
@@ -26,6 +29,7 @@ Available on all microcontrollers.&#160;&#160;&#160;The parameters are:
 
 This is also an overloaded method.  You can also use word variables to provide a returned result of 0-65535.
 {empty} +
+[source,gcbasic]
 ----
     word_variable = Scale (value_word , fromLow_word , fromHigh_word , toLow_wordr , toHigh_word [, calibration_integer] )
 ----
@@ -33,13 +37,13 @@ Available on all microcontrollers.&#160;&#160;&#160;The parameters are:
 
 `value`: the number to scale. A value between 0 and 0xFFFFF - all values passed will be treated as Word variables.
 
-`fromLow`: the lower bound of the value’s current range. A word value.
+`fromLow`: the lower bound of the value's current range. A word value.
 
-`fromHigh`: the upper bound of the value’s current range. A word value.
+`fromHigh`: the upper bound of the value's current range. A word value.
 
-`toLow`: the lower bound of the value’s target range.  A word value.
+`toLow`: the lower bound of the value's target range.  A word value.
 
-`toHigh`: the upper bound of the value’s target range.  A word value.
+`toHigh`: the upper bound of the value's target range.  A word value.
 
 `calibration`: optional calibration offset value. An Integer value between -32767 and 32767.
 {empty} +
@@ -52,16 +56,24 @@ The method does not constrain values to within the integer range returned, becau
 
 Note that the "lower bounds" of either range may be larger or smaller than the "upper bounds" so the scale() method may be used to reverse a range of numbers, for example:
 
+[source,gcbasic]
 ----
-    my_newvalue  = scale ( ReadAD10(An0) , 0, 1023, 135, 270)
+    my_newvalue  = scale ( ReadAD10(An0) , 0, 1023, 135, 270)          ' <<< the Scale instruction
 ----
+*Key line:* `my_newvalue = scale ( ReadAD10(An0) , 0, 1023, 135, 270)` -- remaps a 10-bit ADC reading (0-1023) onto the range 135-270, so the smallest ADC reading becomes 135 and the largest becomes 270, with everything in between scaled proportionally.
 
 The method also handles negative integer numbers well, so that this example:
 
+[source,gcbasic]
 ----
-    my_newvalue = scale(ReadAD(An0), 0, 255, 50, -100);
+    my_newvalue = scale(ReadAD(An0), 0, 255, 50, -100)
 ----
-
-
+*Key line:* `my_newvalue = scale(ReadAD(An0), 0, 255, 50, -100)` -- because `toLow` (50) is greater than `toHigh` (-100), the output range is reversed: a low ADC reading maps near 50 and a high reading maps near -100.
 
 This method is similar to the Ardunio Map() function.
+
+**See Also:**
+
+* <<_abs,Abs>> -- related command in the same category
+* <<_average,Average>> -- related command in the same category
+* <<_readad,ReadAD>> / <<_readad10,ReadAD10>> -- reading the raw sensor value scaled in the examples above

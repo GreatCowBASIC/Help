@@ -1,7 +1,10 @@
 ==== HSerReceiveFrom
 
+(((Serial Communications,HSerReceiveFrom)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   _user_byte_ = HSerReceiveFrom [,1 | 2 | 3 | 4]
   _user_byte_ = HSerReceiveFrom         'Defaults to USART1
@@ -22,6 +25,7 @@ Atmel AVR supports USART 1,2,3 and 4.
 
 To enable the use of the USART these are the enabling constants. &#160;&#160;These constants are required.&#160;&#160;You can change the `USART_BAUD_RATE` and to meet your needs.&#160;&#160;For addition USART ports use `#define USART**n**_BAUD_RATE 9600` where `**n**`` is the required port number.
 
+[source,gcbasic]
 ----
     'USART settings for USART1
     #define USART_BAUD_RATE 9600
@@ -36,6 +40,7 @@ This command will read a byte from the hardware RS232 module. It can be only be 
 
 
 *Example:*
+[source,gcbasic]
 ----
   'This program will read a value from the USART, and display it on PORTB.
 
@@ -55,8 +60,13 @@ This command will read a byte from the hardware RS232 module. It can be only be 
   'Main loop
   Do
     'Get byte value
-    bytein = HSerReceiveFrom (2)
+    bytein = HSerReceiveFrom (2)          ' <<< the HSerReceiveFrom instruction
     'do something useful
   Loop
 ----
-*See also* <<_hserreceive,HSerReceive>>
+*Key line:* `bytein = HSerReceiveFrom (2)` -- reads one byte from USART port 2 specifically (rather than the default port 1), blocking because `USART_BLOCKING` is defined above, and stores the result in `bytein`.
+
+**See Also:**
+
+* <<_hserreceive,HSerReceive>> -- reading from the default USART port without specifying a port number
+* <<_hsersend,HSerSend>> -- the sending counterpart to HSerReceiveFrom

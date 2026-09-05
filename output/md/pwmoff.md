@@ -16,7 +16,7 @@
 
 <span class="strong">**Syntax:**</span>
 
-``` screen
+``` programlisting
     PWMOff
 ```
 
@@ -34,19 +34,27 @@ Microchip PIC chip.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'This program will enable a 76 Khz PWM signal, with a duty cycle
     'of 80%. It will emit the signal for 10 seconds, then stop.
     #define PWM_Freq 76    'Set frequency in KHz
     #define PWM_Duty 80    'Set duty cycle to 80 %
     PWMOn                  'Turn on the PWM
     WAIT 10 s              'Wait 10 seconds
-    PWMOff                 'Turn off the PWM
+    PWMOff                 'Turn off the PWM          ' <<< the PWMOff instruction
 ```
 
+<span class="strong">**Key line:**</span> `PWMOff` — immediately
+disables the CCP1 module’s PWM output; the pin stops toggling until
+`PWMOn` is called again.  
   
-  
-<span class="strong">**For more help, also see**</span>
-<a href="pwmon" class="link" title="PWMOn">PWMOn</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="pwmon" class="link" title="PWMOn">PWMOn</a> — the
+    counterpart command that enables the CCP1 PWM output
+
+</div>
 
 </div>

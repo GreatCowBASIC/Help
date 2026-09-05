@@ -1,75 +1,79 @@
 ==== Concatenation
 
+(((String Manipulation,Concatenation)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __stringvar__ = variable1 + variable2
 ----
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The method joins two variables into another variable.
+The `+` operator joins two variables into another variable when used between strings.
 
-This method does not change the existing strings, but returns a *new* string containing the text of the joined variables, see Concatenated String Constraint below.
+This operation does not change the existing strings; it returns a *new* string containing the text of the joined variables -- see the concatenation constraint below.
 
-Concatenation joins the elements of a specified values using the specified separator between each variable.
+Concatenation joins the elements of the specified values, with no separator inserted between them.
 
+WARNING: Using concatenation as a parameter to commands like `HSerPrint` or `Print`, the compiler will create a system string variable to hold the result.&#160;&#160;For example, concatenating two string constants like `HSerPrint ("123"+"456")` may yield incorrect results.&#160;&#160;Use the constant `SYSDEFAULTCONCATSTRING` to resolve this.&#160;&#160;Without `SYSDEFAULTCONCATSTRING`, there is a risk that the compiler does not allocate sufficient RAM to hold the concatenated string.&#160;&#160;
+The resulting string may be corrupted, since the size of the system string variable is not sufficient.&#160;&#160;Use `SYSDEFAULTCONCATSTRING` within the source program to resolve this.
 
-WARNING: Using concatenation as a parameter with commands like HSerPrint or Print the compiler will create a system string variable.&#160;&#160;  An examples of concatenating two strings constants like HSerPrint ("123"+"456") may yield incorrect results.&#160;&#160;Use the constant SYSDEFAULTCONCATSTRING to resolve.&#160;&#160;Without using SYSDEFAULTCONCATSTRING there is a risk that the compiler does not allocate sufficient RAM to hold the concatenated string.&#160;&#160;
-The resulting string may be corrupted as the size of the system string variable is not sufficient.&#160;&#160;Use SYSDEFAULTCONCATSTRING within the source program to resolve.
-
-*Set a specific size of compiler created system string variable*
+*Setting a Specific Size for the Compiler-Created System String Variable*
 
 Use the following to set the size of the system string variable used during concatenation.&#160;&#160;
 
-The compiler will create system string variables when you concatenate on a commands line like `HSerPrint`, `Print` and many others commands.&#160;&#160;
-Using concatenate with a command is bad practice, using a lot of RAM and may create a number of system string variables.&#160;&#160;
-It is recommended to define a string (of a known length), concatenate using an assignment then use the string.&#160;&#160;
+The compiler creates system string variables when you concatenate on a command line such as `HSerPrint`, `Print`, and many other commands.&#160;&#160;
+Concatenating directly within a command is bad practice: it uses a lot of RAM and may create a number of system string variables.&#160;&#160;
+It is recommended to define a string of a known length, concatenate using an assignment, and then use the resulting string.&#160;&#160;
 
-To control the size of system string variable use the following.&#160;&#160;
-Also, use this constant to set the size when the compiler does not create a system string variable.&#160;&#160;
+To control the size of the system string variable, use the following. Also use this constant to set the size when the compiler does not otherwise create a system string variable.&#160;&#160;
 
+[source,gcbasic]
 ----
 
-    'Define the constant to control the size of system created string variables called SYSSTRINGPARAM1, SYSSTRINGPARAM2 etc.
-    Use #DEFINE  SYSDEFAULTCONCATSTRING  4
+    'Define the constant to control the size of system-created string variables called SYSSTRINGPARAM1, SYSSTRINGPARAM2, etc.
+    Use #DEFINE  SYSDEFAULTCONCATSTRING  4          ' <<< the constant that fixes the concatenation-buffer sizing issue
 
     'Then, use
-    HSerPrint "A"+"123"   'will print A123. Without the SYSDEFAULTCONCATSTRING constant some microcontrollers may corrupt the result of the concatenation.
+    HSerPrint "A"+"123"   'will print A123. Without the SYSDEFAULTCONCATSTRING constant, some microcontrollers may corrupt the result of the concatenation.
 
 ----
+*Key line:* `#DEFINE SYSDEFAULTCONCATSTRING 4` -- reserves a system string buffer large enough for the concatenated result, preventing the corruption that can occur when the compiler under-allocates RAM for an in-line concatenation.
 
-This concatenation constraint does not apply using concatenation as an assignment.&#160;&#160;
+This concatenation constraint does not apply when concatenation is used as a plain assignment.&#160;&#160;
 {empty} +
 {empty} +
 *Example 1:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     timevariable = 999
-    __stringvar__ = "Time = " + str(timevariable) ' Convert the __timevariable__ to a String.  This operation returns *Time = 999*
+    __stringvar__ = "Time = " + str(timevariable) ' Convert __timevariable__ to a String.  This operation returns *Time = 999*
 ----
 *Example 2:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 An example showing how to set a string to an escape sequence for an ANSI terminal.&#160;&#160;You can `Dim`ension a string and then assign the elements like an array.
 {empty} +
 {empty} +
+[source,gcbasic]
 ----
     dim line2 as string
     line2 =  27, "[", "2", "H", 27, "[","K"
     HSerPrint line2
 ----
-Will send the following to the terminal.
+This sends the following to the terminal:
 <esc>[2H<esc>[K
 {empty} +
 {empty} +
-*Example 3: Assigning concatenated string to same string*
+*Example 3: Assigning a Concatenated String to the Same String*
 
-For reliable coding you must not assign a string concatenation to same source variable.&#160;&#160;You must assign the result of string concatenation to another string. &#160;&#160;To resolve see below:
+For reliable code, do not assign a string concatenation back to its own source variable.&#160;&#160;Assign the result of a string concatenation to a different string variable instead.&#160;&#160;To resolve, see below:
 
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     Dim outstring, tmpstring as string * 16
     Dim outnumber as byte
@@ -77,20 +81,21 @@ For reliable coding you must not assign a string concatenation to same source va
     outnumber = 24
     outstring = "Result = "
     'This concatenation may yield an incorrect string on 10f, 12f or 16f chips
-    outstring = outstring + str(outnumber)
+    outstring = outstring + str(outnumber)          ' <<< the unreliable pattern -- assigning a concatenation back onto itself
     HserPrintCRLF 2
     HSerPrint outstring
     HserPrintCRLF 2
 
     outstring = "Result = "
-    'This concatenation will yield an the correct string. With tmpstring1 containing the correct concatenated string
-    tmpstring = outstring +str(outnumber)
+    'This concatenation will yield the correct string, with tmpstring containing the correct concatenated string
+    tmpstring = outstring +str(outnumber)          ' <<< the reliable pattern -- assigning the concatenation to a different string
     HSerPrint tmpstring
     HserPrintCRLF 2
     end
 ----
-{empty} +
-To resolve the constraint simply assign the source string to another string.
+*Key line:* `tmpstring = outstring +str(outnumber)` -- assigns the concatenation result to a separate string variable (`tmpstring`), avoiding the unreliable self-assignment shown just above it.
 
-{empty} +
-{empty} +
+**See Also:**
+
+* <<_asc,Asc>> -- related command in the same category
+* <<_str,Str>> -- converting a number to a string before concatenating it

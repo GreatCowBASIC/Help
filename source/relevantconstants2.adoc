@@ -1,5 +1,8 @@
 ==== RS232 Software Overview
 
+(((Serial Communications,RS232 Software Overview)))
+
+
 *Introduction:*
 
 These routines allow the microcontroller to send and receive RS232 data.
@@ -40,3 +43,8 @@ serial channels A, B and C respectively.
 |`Sys232Temp.0 ON` +
 *Must be defined*
 |===
+
+**See Also:**
+
+* <<_rs232_software_overview_optimised,RS232 Software Overview - Optimised>> -- related command in the same category
+* <<_initser,InitSer>> -- related command in the same category

@@ -1,7 +1,10 @@
 ==== FastHWSPI2Transfer
 
+(((SPI,FastHWSPI2Transfer)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
   `FastHWSPI2Transfer` _tx_
 ----
@@ -19,4 +22,7 @@ data in `_tx_` will be sent to the slave.
 
 
 
-*See also* <<_spitransfer,SPITransfer>>,<<_spimode,SPIMode>>
+**See Also:**
+
+* <<_spitransfer,SPITransfer>>
+* <<_spimode,SPIMode>>

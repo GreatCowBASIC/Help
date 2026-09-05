@@ -46,7 +46,7 @@ The connectivity is shown below.  The microcontroller connections are as
 shown below.  This is an example using the Microchip PICDEM 4 2003
 board.
 
-``` screen
+``` programlisting
     //Constants - LCD connectivity type;
             #DEFINE LCD_IO 16
 
@@ -80,15 +80,35 @@ For code examples see
 See the separate sections of the Help file for the specifics of each
 Connection Mode.
 
-<span class="strong">**For more help, see**</span>
-<a href="lcd_io_0" class="link" title="LCD_IO 0">LCD_IO 0</a>,
-<a href="lcd_io_1" class="link" title="LCD_IO 1">LCD_IO 1</a>,
-<a href="lcd_io_2" class="link" title="LCD_IO 2">LCD_IO 2</a>
-<a href="lcd_io_2_74xx164" class="link" title="LCD_IO 2_74xx164">LCD_IO 2_74xx164</a>,
-<a href="lcd_io_2_74xx174" class="link" title="LCD_IO 2_74xx174">LCD_IO 2_74xx174</a>,
-<a href="lcd_io_4" class="link" title="LCD_IO 4">LCD_IO 4</a>,
-<a href="lcd_io_8" class="link" title="LCD_IO 8">LCD_IO 8</a>,
-<a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a>,
-<a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 12</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcd_io_0" class="link" title="LCD_IO 0">LCD_IO 0</a> — single
+    subroutine, software-driven mode
+-   <a href="lcd_io_1" class="link" title="LCD_IO 1">LCD_IO 1</a> — 1-wire,
+    via a 74HC595 shift register
+-   <a href="lcd_io_2" class="link" title="LCD_IO 2">LCD_IO 2</a> — 2-wire
+    shift register, deprecated
+-   <a href="lcd_io_2_74xx164" class="link" title="LCD_IO 2_74xx164">LCD_IO 2_74xx164</a> — 2-wire
+    via 74HC164/74LS164, the preferred 2-wire method
+-   <a href="lcd_io_2_74xx174" class="link" title="LCD_IO 2_74xx174">LCD_IO 2_74xx174</a> — 2-wire
+    via 74LS174, deprecated
+-   <a href="lcd_io_3" class="link" title="LCD_IO 3">LCD_IO 3</a> — 3-wire
+    shift register with an added Enable line
+-   <a href="lcd_io_4" class="link" title="LCD_IO 4">LCD_IO 4</a> — 4-bit
+    parallel connection
+-   <a href="lcd_io_8" class="link" title="LCD_IO 8">LCD_IO 8</a> — 8-bit
+    parallel connection
+-   <a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a> — I2C
+    via a PCF8574/PCF8574A I/O expander
+-   <a href="lcd_io_12" class="link" title="LCD_IO 12">LCD_IO 12</a> — I2C
+    via a Ywmjkdz-layout adapter
+-   <a href="lcd_io_14" class="link" title="LCD_IO 14">LCD_IO 14</a> — SPI
+    expander
+-   <a href="lcd_io_107" class="link" title="LCD_IO 107">LCD_IO 107</a> — K107
+    serial adapter
+
+</div>
 
 </div>

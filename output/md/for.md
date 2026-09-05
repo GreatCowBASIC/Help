@@ -68,7 +68,7 @@ cause your program to operate incorrectly.    The use of
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
     'This code will flash a green light 6 times.
 
     #chip 16F88, 8
@@ -76,13 +76,17 @@ cause your program to operate incorrectly.    The use of
     #define LED PORTB.0
     Dir LED Out
 
-    For LoopCounter = 1 to 6
+    For LoopCounter = 1 to 6          ' <<< the For...Next loop this page documents
 
       PulseOut Led, 1 s
       Wait 1 s
 
     Next
 ```
+
+<span class="strong">**Key line:**</span>
+`For LoopCounter = 1 to 6` — counts `LoopCounter` from 1 to 6 inclusive,
+running the body once per value, then continues after `Next`.
 
 <span class="strong">**Example 2:**</span>
 
@@ -133,7 +137,21 @@ in this example is the integer value of 2.
     next
 ```
 
-<span class="strong">**For more help, see
-<a href="repeat" class="link" title="Repeat">Repeat</a>**</span>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="repeat" class="link" title="Repeat">Repeat</a> — fixed-count
+    loop that does not need a counter variable
+-   <a href="do" class="link" title="Do">Do</a> — condition-driven
+    loop for when the number of iterations is not known in advance
+-   <a href="dim" class="link" title="Dim">Dim</a> — declaring the
+    loop counter/variable types used above
+-   <a href="pulseout" class="link" title="PulseOut">PulseOut</a> — generating
+    a timed pulse, as used in the example above
+-   <a href="if" class="link" title="If">If</a> — conditionally
+    exiting the loop with `Exit For`
+
+</div>
 
 </div>

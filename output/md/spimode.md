@@ -18,7 +18,7 @@
 
 <span class="strong">**Legacy SPI Module**</span>
 
-``` screen
+``` programlisting
     SPIMode ( _Mode_ [, _SPIClockMode_])
 
     // Specfic the hardware SPI operating mode, can be MasterFast, Master, MasterSlow
@@ -32,7 +32,7 @@
 
 For HWSPI channel 0
 
-``` screen
+``` programlisting
     SPIMode ( _Mode_ , _SPIClockMode_ )
 
     // Specfic the hardware SPI operating mode, can be MasterUltraFast, MasterFast, Master, MasterSlow
@@ -222,7 +222,7 @@ SPI\_SS = 1 & SPI\_CPOL = 1 & SPI\_CPHA = 1
 You can use a constant value or alternatively you can use constants to
 set the SPIClockMode as follows:
 
-``` screen
+``` programlisting
     _Legacy SPI Module_
     SPIMode ( MasterFast, SPI_CPOL_n + SPI_CPHA_n )
 
@@ -276,7 +276,7 @@ You can explicitly change the SPI baud rate by defining the
 `SPI_BAUD_RATE` constant as follows.   This will change the default SPI
 baud from 4000 to the specified numeric value.
 
-``` screen
+``` programlisting
     #DEFINE SPI_BAUD_RATE   8000
 ```
 
@@ -285,7 +285,7 @@ You can explicitly set the SPI baud rate register by defining the
 explicit numeric value to the SPI baud register.   This overwrites any
 compiler calculated value.
 
-``` screen
+``` programlisting
     #DEFINE SPI_BAUD_RATE_REGISTER  55
 ```
 
@@ -344,7 +344,7 @@ master and slave.
 
 <div class="mediaobject" align="center">
 
-![\[graphic](./images/spimode1.PNG)
+![graphic](./images/spimode1.PNG)
 
 </div>
 
@@ -357,7 +357,7 @@ process is similar of any microcontroller..
 
 You must set the data line as inputs and outputs.
 
-``` screen
+``` programlisting
         #chip mega328p, 16
         #option explicit
         #include <UNO_mega328p.h >
@@ -399,12 +399,18 @@ You must set the data line as inputs and outputs.
        do
         set SPI_CS OFF//  Select line
         set SPI_DC OFF//  Send Data if off, or, Data if On
-        SPITransfer ( outbyte, inbyte )
+        SPITransfer ( outbyte, inbyte )          ' <<< the SPITransfer instruction
+
         set SPI_CS ON//   Deselect Line
         set SPI_DC ON
         wait 10 ms
        loop
 ```
+
+<span class="strong">**Key line:**</span>
+`SPITransfer ( outbyte, inbyte )` — sends \` outbyte \` over MOSI and
+simultaneously receives the byte clocked in on MISO into \` inbyte \`,
+since SPI transfers data in both directions on every clock cycle.
 
 <span class="strong">**Modern SPI Module Summary:**</span>
 
@@ -419,13 +425,9 @@ If you have set the PPS for SPI1SSPPS then control of the SPI SS ( also
 know as CS / ChipSelect) is automatically controlled by the SPI
 transmission.
 
-<div class="itemizedlist">
+<span class="strong">**Example:**</span>
 
--   Example:\*
-
-</div>
-
-``` screen
+``` programlisting
     #CHIP 18F16Q41,64
 
     #STARTUP InitPPS, 85
@@ -470,9 +472,14 @@ transmission.
 
     DO
         // Send 0x75 via SPI over and over again...
-        FastHWSPITransfer 0x75
+        FastHWSPITransfer 0x75          ' <<< the FastHWSPITransfer instruction
     LOOP
 ```
+
+<span class="strong">**Key line:**</span>
+`FastHWSPITransfer 0x75` — sends the byte `0x75` using the Modern SPI
+Module configured just above by `SPIMode (HWSPIMode, HWSPIClockMode)`;
+the SPI pins must match whatever was assigned through PPS in `InitPPS`.
 
 <span class="strong">**Displaying SPI Configuration
 Information:**</span>
@@ -482,9 +489,15 @@ diagnostic information while it evaluates the SPI configuration. This
 includes the chip name, whether the Legacy SPI Module or Modern SPI
 Module constants were defined, and the calculated SPI baud rate values.
 
-``` screen
+``` programlisting
     #DEFINE SHOWSPISCRIPTINFO
 ```
 
-<span class="strong">**See also**</span>
-<a href="spitransfer" class="link" title="SPITransfer">SPITransfer</a>,<a href="fasthwspitransfer" class="link" title="FastHWSPITransfer">FastHWSPITransfer</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="spitransfer" class="link" title="SPITransfer">SPITransfer</a>
+-   <a href="fasthwspitransfer" class="link" title="FastHWSPITransfer">FastHWSPITransfer</a>
+
+</div>

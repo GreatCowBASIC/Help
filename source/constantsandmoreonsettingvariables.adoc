@@ -1,19 +1,25 @@
 ==== More on setting Variables and Constants
 
+(((Variables Operations,More on setting Variables and Constants)))
+
+
 *Explanation*
 
 Within GCBASIC you can use regular variable assignments. But, you can also use C like maths assignments.
 
 The following methods are also supported.
+[source,gcbasic]
 ----
     GLCDPrintLoc += 6
     CharCode -= 15
     CharCode++
-    CharCode---
+    CharCode---          ' <<< the decrement operator
 ----
+*Key line:* `CharCode---` -- decrements `CharCode` by 1. GCBASIC uses three dashes here, not two, because `--` inside an expression already means double-negation (equivalent to `+`); the extra dash disambiguates the decrement statement from that expression rule.
 
 Within GCBASIC you can define binary, hexidecimal and decimal constants, see <<_constants,Constants>>. Please note what is and what is not support with respect to assigning numbers to constants. An example program examines what is supported.
 
+[source,gcbasic]
 ----
     #chip 16F88, 4
     #config Osc = MCLRE_OFF
@@ -29,19 +35,22 @@ Within GCBASIC you can define binary, hexidecimal and decimal constants, see <<_
     # Proof - select each option one in turn
     dir porta Out
 
-    porta = test1
+    porta = test1          ' <<< all six constants below resolve to the same value, 255
     porta = test2
     porta = test3
     porta = test4
     porta = test5
     porta = test6
 ----
+*Key line:* `porta = test1` -- all six lines assign the identical value, 255, to `porta`; `Test1`/`Test2` show that binary literals accept either case of `b` prefix, and `Test4`/`Test5`/`Test6` show the same for hexadecimal, confirming GCBASIC's numeric literal prefixes are case-insensitive.
+
 You can assigned values/numbers with all the methods shown above (for constants and variables) but please be aware that you must Use '0' not '00'. One zero equates to zero and two zeros will give you an unassigned variable.
 
 *Constants:*
 
 A few critical constants are defined within GCBASIC , you can re-use these constants. They include:
 
+[source,gcbasic]
 ----
     #define ON 1       ' These are defined in System.h
     #define OFF 0
@@ -52,3 +61,9 @@ A few critical constants are defined within GCBASIC , you can re-use these const
     #define EXT = 2    ' and, are used by InitTimer0 command
     #define EXTOSC = 3
 ----
+
+**See Also:**
+
+* <<_constants,Constants>>
+* <<_setting_variables,Setting Variables>> -- the assignment and calculation rules these shorthand operators build on
+* <<_inittimer0,InitTimer0>> -- using the OSC/EXT/EXTOSC clock source constants shown above

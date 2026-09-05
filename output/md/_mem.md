@@ -19,6 +19,16 @@
 GCBASIC determines the amount of memory on a chip automatically, and
 will ignore the `#mem` directive.
 
-It is recommended that this directive is removed from all programs.
+It is recommended that this directive be removed from all programs.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="_chip" class="link" title="#chip">#chip</a> — selecting
+    the target chip, from which GCBASIC automatically determines
+    available memory
+
+</div>
 
 </div>

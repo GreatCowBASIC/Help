@@ -1,5 +1,8 @@
 ==== Keypad Overview
 
+(((Keypad,Keypad Overview)))
+
+
 *Introduction*
 
 The keypad routines allow for a program to read from a 4 x 4 matrix
@@ -129,3 +132,8 @@ For this to work, the keypad must be connected as follows:
 |===
 Note: To use a 3 x 3 keypad in this mode, the pins on the
 microcontroller for any unused columns must be pulled up.
+
+**See Also:**
+
+* <<_keypaddata,KeypadData>> -- related command in the same category
+* <<_keypadraw,KeypadRaw>> -- related command in the same category

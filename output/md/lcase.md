@@ -22,16 +22,17 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `LCase` function will convert all of the letters in the string
-`source` to lower case, and return the result.
+The `LCase` function converts all of the letters in the string `source`
+to lower case, and returns the result. Characters that are not letters
+are left unchanged.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Set chip model
     #chip 16F1936
 
@@ -46,11 +47,21 @@ The `LCase` function will convert all of the letters in the string
 
     'Display the string in lower case
     'Will display "hello, world!"
-    HSerPrint LCase(TestData)
+    HSerPrint LCase(TestData)          ' <<< the LCase instruction
     HSerPrintCRLF
 ```
 
-<span class="strong">**See Also**</span>
-<a href="ucase" class="link" title="UCase">UCase</a>
+<span class="strong">**Key line:**</span> `LCase(TestData)` — returns
+`TestData` with every letter converted to lower case, leaving the comma
+and exclamation mark untouched.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="ucase" class="link" title="UCase">UCase</a> — the
+    inverse conversion, to upper case
+
+</div>
 
 </div>

@@ -77,12 +77,12 @@ modestop=2 drawing stops when all the parabolla branches encountered a border</p
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Example for a 240x320 pixels GLCD
 
     #include <glcd.h>
 
-    Parabola(120, 160, 20, 1, 2, GLCDForeground)   ;  centered, p_factor=20, x_axis alined, stops when all branches have reached a a border
+    Parabola(120, 160, 20, 1, 2, GLCDForeground)   ;  centered, p_factor=20, x_axis alined, stops when all branches have reached a a border          ' <<< the Parabola instruction
     Parabola(120, 160 ,20, 1, 1, GLCDForeground)   ; centered, p_factor=20, x_axis alined, stops when a border is reached
     Parabola(120, 160, 20, 2, 1, GLCDForeground)   ; centered, p_factor=20, y_axis alined, stops when a border is reached,
 
@@ -92,5 +92,25 @@ modestop=2 drawing stops when all the parabolla branches encountered a border</p
     Parabola(180, 80, 20, 2, 1, GLCDForeground)   ; upper right, p_factor=20, y_axis alined, stops when a border is touched,
     Parabola(60, 240, 20, 2, 2, GLCDForeground)   ; lower left, p_factor=20, y_axis alined, stops when all branches have reached a border
 ```
+
+<span class="strong">**Key line:**</span>
+`Parabola(120, 160, 20, 1, 2, GLCDForeground)` — draws a parabola with
+vertex at (120, 160) and `p_factor`=20, aligned along the x axis
+(`type`=1), stopping only once both branches have reached a display
+border (`modestop`=2); the remaining calls vary the vertex position,
+axis, and `modestop` to show the other combinations.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview
+-   <a href="fonts_and_characters" class="link" title="Fonts and Characters">Fonts and Characters</a> — related
+    command in the same category
+-   <a href="e_paper_controllers" class="link" title="e-Paper Controllers">e-Paper Controllers</a> — related
+    command in the same category
+
+</div>
 
 </div>

@@ -32,7 +32,7 @@ GCBASIC supports 65K-color mode operations.
 To use the ILI9486(L) driver simply include the following in your user
 code. This will initialise the driver.
 
-``` screen
+``` programlisting
     #include <glcd.h>
     #DEFINE GLCD_TYPE GLCD_TYPE_ILI9486L
 ```
@@ -195,7 +195,7 @@ supported commands.
 
 </div>
 
-``` screen
+``` programlisting
     TFT_BLACK   'hexidecimal value 0x0000
     TFT_RED     'hexidecimal value 0xF800
     TFT_GREEN   'hexidecimal value 0x07E0
@@ -223,7 +223,7 @@ the built in commands of GCBASIC.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     #chip mega328p, 16
     #option explicit
 
@@ -241,20 +241,32 @@ the built in commands of GCBASIC.
     #define GLCD_DO       DIGITAL_11          ' Data out | MOSI
     #define GLCD_SCK      DIGITAL_13          ' Clock Line
 
-    #define ILI9486L_HardwareSPI              ' Remove/comment out if you want to use software SPI.
+    #define ILI9486L_HardwareSPI              ' <<< selects hardware SPI over software SPI for this driver
 
 
     GLCDPrint(0, 0, "Test of the ILI9486L Device")
     end
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>,
-<a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>,
-<a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>,
-<a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>,
-<a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
-or <a href="pset" class="link" title="Pset">Pset</a>
+<span class="strong">**Key line:**</span>
+`#define ILI9486L_HardwareSPI` — routes the driver’s SPI traffic through
+the microcontroller’s hardware SPI module instead of a bit-banged
+software implementation; remove this line to fall back to software SPI.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="glcd_overview" class="link" title="GLCD Overview">GLCD Overview</a> — category
+    overview and the full supported-display comparison table
+-   <a href="glcdcls" class="link" title="GLCDCLS">GLCDCLS</a>
+-   <a href="glcddrawchar" class="link" title="GLCDDrawChar">GLCDDrawChar</a>
+-   <a href="glcdprint" class="link" title="GLCDPrint">GLCDPrint</a>
+-   <a href="glcdreadbyte" class="link" title="GLCDReadByte">GLCDReadByte</a>
+-   <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a>
+-   <a href="pset" class="link" title="Pset">Pset</a>
+
+</div>
 
 Supported in &lt;GLCD.H&gt;
 

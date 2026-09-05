@@ -40,7 +40,7 @@ This example below is a Common Cathode configuration.
 
 <span class="strong">**Example 1:**</span>
 
-``` screen
+``` programlisting
    'This program will show " Hello  " on a LED display
     'The display should be connected to PORTB and the Enable on PORTA.0
 
@@ -54,11 +54,16 @@ This example below is a Common Cathode configuration.
     Message = " Hello  "
   Do
     For Counter = 1 to len(Message)
-      DisplayChar 1, Message(Counter)
+      DisplayChar 1, Message(Counter)          ' <<< the DisplayChar instruction
       Wait 250 ms
     Next
   Loop
 ```
+
+<span class="strong">**Key line:**</span>
+`DisplayChar 1, Message(Counter)` — shows the ASCII character at
+position `Counter` of `Message` on digit 1; unlike `DisplayValue`, this
+accepts any displayable ASCII character, not only a numeric digit.
 
 This is a Common Anode example There are three different methods for
 port specification Note the ports are specified bit by bit in this case
@@ -67,7 +72,7 @@ explanation.
 
 <span class="strong">**Example 2:**</span>
 
-``` screen
+``` programlisting
   'This program will show amessage on a LED display
   'This is a Dual digit Common anode with driver transistors example
    #chip 16F886, 8
@@ -106,9 +111,17 @@ explanation.
     Loop
 ```
 
-<span class="strong">**Also, see**</span>
-<a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Degment Display Overview</a>,
-<a href="displayvalue" class="link" title="DisplayValue">DisplayValue</a>,
-<a href="displaysegment" class="link" title="DisplaySegment">DisplaySegment</a>
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="7_segment_displays_overview" class="link" title="7 Segment Displays Overview">7 Segment Display Overview</a> — category
+    overview
+-   <a href="displayvalue" class="link" title="DisplayValue">DisplayValue</a> — displaying
+    a numeric digit instead of an arbitrary character
+-   <a href="displaysegment" class="link" title="DisplaySegment">DisplaySegment</a> — controlling
+    individual segments directly
+
+</div>
 
 </div>

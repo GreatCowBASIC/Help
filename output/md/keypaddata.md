@@ -26,10 +26,9 @@ Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-This function will return a value corresponding to the key that is
-pressed on the keypad. Note that if two or more keys are pressed, then
-only one value will be returned. `var` can have one of the following
-values:
+This function returns a value corresponding to the key that is pressed
+on the keypad. Note that if two or more keys are pressed at once, only
+one value is returned. `var` can have one of the following values:
 
 <div class="informaltable">
 
@@ -57,7 +56,7 @@ values:
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     'Program to show the value of the last pressed key on the LCD
     #chip 18F4550, 20
 
@@ -78,7 +77,7 @@ values:
     'Main loop
     Do
         'Get key
-        Temp = KeypadData
+        Temp = KeypadData          ' <<< the KeypadData instruction
 
         'If a key is pressed, then display it
         If Temp <> KEY_NONE Then
@@ -89,7 +88,19 @@ values:
     Loop
 ```
 
-<span class="strong">**For more help, see**</span>
-<a href="keypad_overview" class="link" title="Keypad Overview">Keypad Overview</a>
+<span class="strong">**Key line:**</span> `Temp = KeypadData` — reads
+the currently pressed key as a single decoded value (0-15, or `KEY_NONE`
+if nothing is pressed), rather than the raw per-key bitmask that
+`KeypadRaw` returns.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="keypad_overview" class="link" title="Keypad Overview">Keypad Overview</a>
+-   <a href="keypadraw" class="link" title="KeypadRaw">KeypadRaw</a> — the
+    raw bitmask form, for detecting multiple simultaneous key presses
+
+</div>
 
 </div>

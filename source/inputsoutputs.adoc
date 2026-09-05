@@ -1,48 +1,52 @@
 === Inputs/Outputs
 
+(((Microcontroller Fundamentals,Inputs/Outputs)))
+
+
 *About Inputs and Outputs*
 
 Most general purpose pins on a microcontroller can function in one of
 two modes: input mode, or output mode.
 
-When acting as an input, the general purpose input/output pin will be placed in a high impedance state.
+When acting as an input, the general purpose input/output pin will be placed in a high-impedance state.
 The microcontroller will then sense the general purpose input/output pin, and the program can read
-the state of the general purpose input/output pin and make decisions based on it.
+the state of the pin and make decisions based on it.
 
 When in output mode, the microcontroller will connect the general purpose input/output pin to either
 Vcc (the positive supply), or Vss (ground, or the negative supply). The
-program can then set the state of the general purpose input/output pin to either high or low.
+program can then set the state of the pin to either high or low.
 
 GCBASIC will attempt to determine the direction of each general purpose input/output pin, and set it
-appropriately, when possible. GCBASIC will try to set the direction of the general purpose input/output pin.
-However, if the general purpose input/output pin is read from and written to in your program, then
-the general purpose input/output pin must be configured to input or output mode by the program, using
+appropriately, when possible. However, if the pin is both read from and written to in your program, then
+it must be configured to input or output mode by the program, using
 the appropriate <<_dir,Dir>> commands.
 
 Example of `dir` commands.
 
+[source,gcbasic]
 ----
 
     'The port address is microcontroller specific.  Portx.x is a general case for PICs and AVRs
-    dir portb.0 in
-    dir portb.1 out
+    dir PORTB.0 in          ' <<< the Dir instruction setting a single pin's direction
+    dir PORTB.1 out
 
-    'The port address is microcontroller specific.  gpiox.x is a general case for some PICs
-    dir gpio.0 in
-    dir gpio.1 Out
+    'The port address is microcontroller specific.  GPIOx.x is a general case for some PICs
+    dir GPIO.0 in
+    dir GPIO.1 Out
 
     'Set the whole port as an output
-    dir portb out
-    dir gpio out
+    dir PORTB out
+    dir GPIO out
 
     'Set the whole port as an input
-    dir portc in
-    dir gpio in
+    dir PORTC in
+    dir GPIO in
 ----
+*Key line:* `dir PORTB.0 in` -- configures a single pin (bit 0 of PORTB) as a digital input; the remaining lines show the same command used on a whole port and on the alternate GPIO naming some PIC families use.
 
 *Microchip specifics for read/write operations*
 
-For the specific ports and general purpose input/output pins available for a specific microcontroller please refer to the datasheet.
+For the specific ports and general purpose input/output pins available for a specific microcontroller, please refer to the datasheet.
 
 [cols=3, options="header,autowidth"]
 |===
@@ -50,20 +54,20 @@ For the specific ports and general purpose input/output pins available for a spe
 |*Purpose*
 |*Example*
 
-|PORTx maps to the microcontrollers digital pins 0 to 7. Where x can be a,b,c,d,e,f or g
+|PORTx maps to the microcontroller's digital pins 0 to 7, where x can be A, B, C, D, E, F, or G
 |Read:
 
-PORTx the port data register for a  read operation.
+PORTx is the port data register for a read operation.
 |uservar=PORTA
 
 uservar=PORTA.1
 
-|PORTx maps to microcontrollers digital pins 0 to 7. Where x can be a,b,c,d,e,f or g
+|PORTx maps to the microcontroller's digital pins 0 to 7, where x can be A, B, C, D, E, F, or G
 |Write:
 
-PORTx the port data register for a  write operation, and, where LATx is not required as GCBASIC will implement LATx when needed.
+PORTx is the port data register for a write operation; LATx is not required, as GCBASIC will implement LATx when needed.
 
-See <<__option_nolatch,Option NoLatch>> for more information on LAT registers and how to disable this automatic function.
+See <<__option_nolatch,#Option NoLatch>> for more information on LAT registers and how to disable this automatic function.
 
 |PORTA=255
 
@@ -71,24 +75,26 @@ PORTA.1=1
 
 |===
 
-To read a general purpose input/output pin, you need to ensure the direction is correct `DIR Portx IN` is set (default is IN) or a specific set of port bits.
-Where `uservar = PORTx.n` can be used.
+To read a general purpose input/output pin, you need to ensure the direction is correct: `DIR Portx IN` (default is IN), or a specific set of port bits.
+`uservar = PORTx.n` can be used.
 
 
 Examples:
 
+[source,gcbasic]
 ----
     uservar = PORTb.0
     uservar = PORTb
 ----
 
 
-To write to a general purpose input/output pin, you need to ensure the direction is correct `DIR Portx OUT` for port or a specific set of port bits.
-Where  `PORTx.n = uservar` can be used.
+To write to a general purpose input/output pin, you need to ensure the direction is correct: `DIR Portx OUT` for the port, or a specific set of port bits.
+`PORTx.n = uservar` can be used.
 
 
 Examples:
 
+[source,gcbasic]
 ----
     PORTb.0 = uservar
     PORTb = uservar
@@ -97,7 +103,7 @@ Examples:
 
 *ATMEL specifics for read/write operations*
 
-Using a Mega328p as a general the following provides insights for the AVR devices.  For the specific ports and general purpose input/output pins available for a specific microcontroller please refer to the datasheet.
+Using a Mega328p as a general example, the following provides insights for AVR devices. For the specific ports and general purpose input/output pins available for a specific microcontroller, please refer to the datasheet.
 
 [cols=3, options="header,autowidth"]
 |===
@@ -105,38 +111,40 @@ Using a Mega328p as a general the following provides insights for the AVR device
 |*Write operation*
 |*Read operation*
 
-|PORTD maps to Mega328p (and, the AVR microcontrollers) digital pins 0 to 7
-|PORTD - The Port D Data Register - write operation  (a read operation to a port will provide the pull-up status)
+|PORTD maps to the Mega328p (and other AVR microcontrollers) digital pins 0 to 7
+|PORTD - The Port D Data Register - write operation (a read operation on a port will provide the pull-up status)
 |PIND - The Port D Input Pins Register - read only
 
-|PORTB maps to Mega328p (and, the AVR microcontrollers) digital pins 8 to 13. The two high bits (6 & 7) map to the crystal pins and are not usable
-|PORTB - The Port B Data Register - write operation  (a read operation to a port will provide the pull-up status)
+|PORTB maps to the Mega328p (and other AVR microcontrollers) digital pins 8 to 13. The two high bits (6 & 7) map to the crystal pins and are not usable
+|PORTB - The Port B Data Register - write operation (a read operation on a port will provide the pull-up status)
 |PINB - The Port B Input Pins Register - read only
 
-|PORTC maps to Mega328p (and, the AVR microcontrollers) analog pins 0 to 5. Pins 6 & 7 are only accessible on the Mega328p (and, the AVR microcontrollers) Mini
-|PORTC - The Port C Data Register - write operation (a read operation to a port will provide the pull-up status)
+|PORTC maps to the Mega328p (and other AVR microcontrollers) analog pins 0 to 5. Pins 6 & 7 are only accessible on the Mega328p Mini
+|PORTC - The Port C Data Register - write operation (a read operation on a port will provide the pull-up status)
 |PINC - The Port C Input Pins Register - read only
 
 |===
 
-To read a general purpose input/output pin, you need to ensure the direction is correct `DIR Portx IN` is set (default is IN) or a specific set of port bits.
-Where `uservar = PINx.n` can be used and therefore to read data port use `uservar = PINx`.
+To read a general purpose input/output pin, you need to ensure the direction is correct: `DIR Portx IN` (default is IN), or a specific set of port bits.
+`uservar = PINx.n` can be used, and to read a whole data port use `uservar = PINx`.
 
 
 Examples:
 
+[source,gcbasic]
 ----
     uservar = PINb.0
     uservar = PINb
 ----
 
 
-To write to a general purpose input/output pin you need to ensure the direction is correct `DIR Portx OUT` for port or a specific set of port bits.
-Where `PORTx.n = uservar` can be used and therefore to write to a data port use `PORTx = uservar`.
+To write to a general purpose input/output pin, you need to ensure the direction is correct: `DIR Portx OUT` for the port, or a specific set of port bits.
+`PORTx.n = uservar` can be used, and to write to a whole data port use `PORTx = uservar`.
 
 
 Examples:
 
+[source,gcbasic]
 ----
     PORTb.0 = uservar
     PORTb = uservar
@@ -145,8 +153,9 @@ Examples:
 {empty} +
 *Setting Ports and Port.bit*
 
-You can set a port as shown above with a variable, or, you can set with a constant or any combination using the bitwise and logical operators.
+You can set a port as shown above with a variable, or you can set it with a constant, or any combination using the bitwise and logical operators.
 
+[source,gcbasic]
 ----
     #define InitStateofPort 0b11110000
     PORTb = InitStateofPort               'will unconditionally set bits 4:7
@@ -156,15 +165,17 @@ You can set a port as shown above with a variable, or, you can set with a consta
     PORTb = uservar OR 0b11110000         'will OR bits 4:7 to ensure bits 4:7 are set
 ----
 
-The following is also valid - read a port.bit and then set port.bit with a variable or port value. As shown below.
+The following is also valid - read a port.bit and then set port.bit with a variable or port value, as shown below.
 
+[source,gcbasic]
 ----
-    dir portb out
+    dir PORTB out
 
-    portb.0 = NOT  portb.0
+    PORTB.0 = NOT  PORTB.0
 ----
-The user code above may cause issues with glitches when the read and write operations occurs.  Let us look at the generated assembler.
+The user code above may cause issues with glitches when the read and write operations occur. Let us look at the generated assembler.
 
+[source,gcbasic]
 ----
     ;portb.0 = NOT  portb.0
       banksel SYSTEMP1
@@ -176,17 +187,21 @@ The user code above may cause issues with glitches when the read and write opera
       btfsc SysTemp1,0
       bsf PORTB,0
 ----
-To resolve any glitches add `#option Volatile` to your user code.
+To resolve any glitches, add `#option Volatile` to your user code.
 
+[source,gcbasic]
 ----
-    #option Volatile portb.0
+    #option Volatile PORTB.0          ' <<< the #option Volatile directive resolving the read-modify-write glitch
 
-    dir portb out
+    dir PORTB out
 
-    portb.0 = NOT  portb.0
+    PORTB.0 = NOT  PORTB.0
 ----
-This option provides the following assembler resolving the glitch issue.
+*Key line:* `#option Volatile PORTB.0` -- forces the compiler to generate a glitch-free read-modify-write sequence for bit 0 of PORTB (compare the two ASM listings below), at the cost of slightly larger generated code.
 
+This option produces the following assembler, resolving the glitch issue.
+
+[source,gcbasic]
 ----
     ;portb.0 = NOT  portb.0
       banksel SYSTEMP1
@@ -202,7 +217,9 @@ This option provides the following assembler resolving the glitch issue.
 {empty} +
 {empty} +
 
-*See also*  <<_dir,Dir>>, <<__option_volatile,#Option Volatile>>
+**See Also:**
 
-{empty} +
-{empty} +
+* <<_dir,Dir>> -- setting a pin or port's direction
+* <<__option_volatile,#Option Volatile>> -- forcing glitch-free read-modify-write operations, as used above
+* <<__option_nolatch,#Option NoLatch>> -- disabling the automatic LATx substitution on writes
+

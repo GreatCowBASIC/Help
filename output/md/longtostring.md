@@ -22,30 +22,42 @@
 
 <span class="strong">**Command Availability:**</span>
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 <span class="strong">**Explanation:**</span>
 
-The `LongToString` function will convert a number into a string.
-`number` can be any Long variable, or a fixed number constant between 0
-and 4294967295 inclusive.  For Byte number use `ByteToString()`, Word
+The `LongToString` function converts a number into a string. `number`
+can be any Long variable, or a fixed number constant between 0 and
+4294967295 inclusive. For Byte numbers use `ByteToString()`, for Word
 numbers use `WordToString()`, for Integer numbers use
-`IntegerToString()` and for Single numbers use `SingleToString()`
+`IntegerToString()`, and for Single numbers use `SingleToString()`.
 
-The string variable `stringvar` will contain the same number,
-represented as a string.  The length of the string returned is 10
-characters.
+The string variable `stringvar` contains the same number, represented as
+a string. The length of the string returned is 10 characters.
 
-This function is especially useful if a number needs to added to the end
-of a string, or if a custom data sending routine has been created but
-only supports the output of string variables.  
+This function is especially useful if a number needs to be added to the
+end of a string, or if a custom data-sending routine only supports the
+output of string variables.  
   
-These methods will not support conversion of hexadecimal number
+This function does not support conversion of hexadecimal number
 strings.  
   
-<span class="strong">**Example1:**</span>
+<span class="strong">**Note:**</span> When calling `LongToString()`, do
+not leave a space between the function name and the opening
+parenthesis — doing so produces a compiler error that is not obvious to
+diagnose.
 
-``` screen
+``` programlisting
+    ' use this -- no space between LongToString and the opening parenthesis
+    LongToString(number_variable)
+
+    ' do not use this -- note the space before the parenthesis
+    LongToString (number_variable)
+```
+
+<span class="strong">**Example 1:**</span>
+
+``` programlisting
     'Set chip model
     #chip 16F1936
 
@@ -62,40 +74,28 @@ strings.
     Dim OutVar As String
 
     'Fill string with sensor reading
-    OutVar = LongToString(SensorReading)
+    OutVar = LongToString(SensorReading)          ' <<< the LongToString instruction
 
     'Send
     HSerPrint OutVar
     HSerPrintCRLF
-
-    When using the functions LongToString() do not leave space between the function
-    call and the left brace. You will get a compiler error that is
-    meaningless.
-
-    ' use this, note this is no space between the LongToString() and the left brace!
-    LongToString(number_variable)
-    ' do not use, note the space!
-    LongToString (number_variable)
 ```
 
-  
-  
-<span class="strong">**Example2:**</span>
+<span class="strong">**Key line:**</span>
+`OutVar = LongToString(SensorReading)` — converts the long-sized ADC
+reading into a decimal string, ready to be transmitted over the serial
+connection with `HSerPrint`.
 
-``` screen
-    '''
-    '''
-    '''
-    '''
+<span class="strong">**Example 2:**</span>
+
+``` programlisting
     '''************************************************************************
-    '''
     '''  PIC: 16F18855
     '''  Compiler: GCB
     '''  IDE: GCode
-    '''
     '''  Board: Xpress Evaluation Board
     '''  Date: June 2021
-    '''
+
     ' ----- Configuration
       'Chip Settings.
       #chip 16f18855,32
@@ -123,22 +123,27 @@ strings.
     do
        wait 100 ms
 
-       HSerPrint LongToString( Longvar )
+       HSerPrint LongToString( Longvar )          ' <<< the LongToString instruction
        HSerPrintCRLF
        wait 1 s
     loop
     end
-
-; ----- Support methods.  Subroutines and Functions
 ```
 
-  
-  
-<span class="strong">**See Also**</span>
-<a href="bytetohex" class="link" title="ByteToHex">ByteToString</a>,
-<a href="wordtohex" class="link" title="WordToHex">WordToString</a>,
-<a href="integertohex" class="link" title="IntegerToHex">IntegerToString</a>,
-<a href="singletohex" class="link" title="SingleToHex">SingleToString</a>,
-<a href="bytetohex" class="link" title="ByteToHex">ByteToHex</a>
+<span class="strong">**Key line:**</span>
+`HSerPrint LongToString( Longvar )` — converts the maximum Long value
+0xffffffff to a string and prints it directly, without needing an
+intermediate string variable.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="bytetostring" class="link" title="ByteToString">ByteToString</a>
+-   <a href="wordtostring" class="link" title="WordToString">WordToString</a>
+-   <a href="integertostring" class="link" title="IntegerToString">IntegerToString</a>
+-   <a href="singletostring" class="link" title="SingleToString">SingleToString</a>
+
+</div>
 
 </div>

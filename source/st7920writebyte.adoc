@@ -1,8 +1,12 @@
 ===== ST7920WriteByte
 
+(((Graphical LCD,st7920writebyte)))
+
+
 *Syntax:*
+[source,gcbasic]
 ----
-    ST7920GLCDWriteByte
+    ST7920WriteByte ( byte_variable )
 ----
 *Explanation:*
 
@@ -14,12 +18,13 @@ This is called by the GLCD common routines.
 See the data sheet for more information.
 
 *Example usage:*
+[source,gcbasic]
 ----
     ...
 
     SET GLCD_RS OFF
 
-    ST7920WriteByte( SysCalcPositionY )
+    ST7920WriteByte( SysCalcPositionY )          ' <<< the ST7920WriteByte instruction
     ST7920WriteByte( SysCalcPositionX )
     ' read data
     GLCDDataTempWord = ST7920GLCDReadByte
@@ -27,3 +32,10 @@ See the data sheet for more information.
     GLCDDataTempWord = (GLCDDataTempWord*256) + ST7920GLCDReadByte
     ...
 ----
+*Key line:* `ST7920WriteByte( SysCalcPositionY )` -- with `GLCD_RS` set off, this writes an address byte (rather than display data) to select the Y position that the following `ST7920GLCDReadByte` calls will read from.
+
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview
+* <<_st7920glcdreadbyte,ST7920GLCDReadByte>> -- reading back a byte from the position set here
+* <<_st7920writedata,ST7920WriteData>> -- writing display data rather than an address byte

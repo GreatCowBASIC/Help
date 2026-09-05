@@ -1,19 +1,23 @@
 ==== SingleToHex
 
+(((String Manipulation,SingleToHex)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     __stringvar__ = SingleToHex(__number__)
 ----
 *Command Availability:*
 
-Available on all microcontrollers
+Available on all microcontrollers.
 
 *Explanation:*
 
-The `Hex` function will convert a Single number into hexadecimal format. The input `_number_` should be a Single variable, or a fixed number between -3.4x10 ^ 38 and +3.4x10 ^ 38 inclusive. After running the function, the string variable `_stringvar_` will contain an 4 digit hexadecimal number.
+The `SingleToHex` function converts a Single (floating-point) number into hexadecimal format, representing its raw 4-byte in-memory encoding rather than a decimal-to-hex conversion of its numeric value. The input `_number_` should be a `Single` variable. After running the function, the string variable `_stringvar_` contains an 8-digit hexadecimal number (4 bytes, since a `Single` occupies 32 bits).
 
 *Example:*
+[source,gcbasic]
 ----
     'Set chip model
     #chip 16F1936
@@ -22,19 +26,17 @@ The `Hex` function will convert a Single number into hexadecimal format. The inp
     #define USART_BAUD_RATE 9600
     #define USART_TX_BLOCKING
 
+    Dim CurrSingle As Single
+    CurrSingle = 3.14159
 
-    'Send EEPROM data over serial connection
-    'Uses Hex to display as hexadecimal
-    For CurrentLocation = 0 to 9999999
-        'Send location
-        HSerPrint SingleToHex(CurrentLocation)
-        HSerPrint ":"
-        'Read Single and send
-        EPRead CurrentLocation, CurrSingle
-        HSerPrint Hex(CurrSingle)
-        'Send carriage return/line feed
-        HSerPrintCRLF
-    Next
+    HSerPrint SingleToHex(CurrSingle)          ' <<< the SingleToHex instruction
+    HSerPrintCRLF
 ----
+*Key line:* `SingleToHex(CurrSingle)` -- returns the 8-digit hex representation of the 4 raw bytes that make up the `Single` value, useful for inspecting or transmitting a floating-point value byte-for-byte.
 
-*See Also* <<_bytetohex,ByteToHex>>,<<_wordtohex_,WordToHex>>, <<_longtohex,LongToHex>>, <<_integertohex,IntegerToHex>> 
+**See Also:**
+
+* <<_bytetohex,ByteToHex>>
+* <<_wordtohex,WordToHex>>
+* <<_longtohex,LongToHex>>
+* <<_integertohex,IntegerToHex>>

@@ -25,7 +25,7 @@ ease.
 You can access the bytes within word and longs variables using the
 following as a guide using the Suffixes `_H`, `_U` and `_E`  
 
-``` screen
+``` programlisting
     Dim workvariable as word
     workvariable = 21845
     Dim lowb as byte
@@ -42,7 +42,7 @@ following as a guide using the Suffixes `_H`, `_U` and `_E`
   
 To further explain, where  
 
-``` screen
+``` programlisting
     Dim rB as Byte
     Dim sW as Word
 ```
@@ -50,7 +50,7 @@ To further explain, where
   
 To extract the bytes from a WORD of 16 bits use the Suffix `_H`  
 
-``` screen
+``` programlisting
     'To use the bits 7-0 [lower byte] in the Word variable sW
     rB = sW
 
@@ -62,7 +62,7 @@ To extract the bytes from a WORD of 16 bits use the Suffix `_H`
 To extract the bytes from a LONG of 32 bits use the Suffixes `_H`, `_U`
 and `_E`, where  
 
-``` screen
+``` programlisting
     Dim rB as Byte
     Dim tL as Long
 
@@ -82,7 +82,7 @@ and `_E`, where
   
 To extract nibbles from the variable `rB`  
 
-``` screen
+``` programlisting
     lower_nibble = rB & 0x0F
     upper_nibble = (rB & 0xF0) / 16
 ```
@@ -105,16 +105,22 @@ Word.
 Assigning two values, a byte and a word constant value, to the variable
 tL to compare resulting impact on Long variable.
 
-``` screen
+``` programlisting
     Dim tL as Long
 
     tL = 255  'All bits of the value 255 will reside in the lowest byte of the Long variable tL
-    tL = 286   'This assignment will flow into tL_H where tL_H =1 and tl=30.
+    tL = 286   ' <<< an overflowing assignment: 286 does not fit in one byte, so it flows into tL_H (tL_H becomes 1, tL becomes 30)
 ```
+
+<span class="strong">**Key line:**</span> `tL = 286` — because 286
+exceeds the 0-255 range of a single byte, GCBASIC automatically splits
+it across the Long variable’s byte elements: the low byte `tL` receives
+30 (286 - 256) and the next byte `tL_H` receives 1, so `tL_H * 256 + tL`
+reconstructs the original 286.
 
 Assigning values to specific elements of a Long variable.
 
-``` screen
+``` programlisting
     'Assign value to specific elements
     tL_E = 0xF7
     tL_U = 0xC5
@@ -129,7 +135,7 @@ Assigning values to specific elements of a Long variable.
 
 Assigning values to the byte element of a long variable.
 
-``` screen
+``` programlisting
     'This will assign the lowest byte with 0xA4 but this assignment will also clear the upper 3 byte elements of the long variable.
     tL = 0xA4
 
@@ -140,7 +146,7 @@ Assigning values to the byte element of a long variable.
 A method to check a variable is assigned as expected is to use HserPrint
 and HserPrint hex(), as follows:
 
-``` screen
+``` programlisting
     ' HserPrint hex() only prints one byte so we need to handle the four elements
     HserPrint " Print tL _E, tL_U, tL_H & tL as hex"
     HserPrint hex (tL_E)
@@ -154,12 +160,23 @@ and HserPrint hex(), as follows:
 
 The user code above will result in an output as follows:
 
-``` screen
+``` programlisting
     Print tL _E, tL_U, tL_H & tL as hexF7C5E3A4
     Variable tL = 4156941220
 ```
 
   
   
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="more_on_setting_variables_and_constants" class="link" title="More on setting Variables and Constants">More on setting Variables and Constants</a> — related
+    command in the same category
+-   <a href="setting_variables" class="link" title="Setting Variables">Setting Variables</a> — related
+    command in the same category
+
+</div>
 
 </div>

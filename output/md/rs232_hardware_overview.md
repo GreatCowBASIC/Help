@@ -35,13 +35,20 @@ below.
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
   #chip mega328p, 16
-  #define USART_BAUD_RATE 9600
+  #define USART_BAUD_RATE 9600          ' <<< the constant that sets the USART speed
   #define USART_TX_BLOCKING
 ```
 
-<span class="strong">**Command Availability:**</span>
+<span class="strong">**Key line:**</span>
+`#define USART_BAUD_RATE 9600` — this is the only setting the USART
+module strictly requires; the compiler calculates and programs the
+baud-rate-generator registers automatically, and \` \#define
+USART\_TX\_BLOCKING \` additionally makes \` HSerPrint \` and related
+transmit commands wait for the transmit register to empty instead of
+risking dropped bytes. <span class="strong">**Command
+Availability:**</span>
 
 Available on all microcontrollers with a USART or UART module.  
 Microchip PIC supports USART1 and 2.  
@@ -257,7 +264,7 @@ operation of the hardware RS232 routines:
 <tr class="odd">
 <td style="text-align: left;"><p><code class="literal">USART_BAUD_RATE</code></p></td>
 <td style="text-align: left;"><p>Baud rate (in bps) for the routines to operate at.</p></td>
-<td style="text-align: left;"><p>No default, user must enter a baud. Doesn’t have to be a standard baud.</p></td>
+<td style="text-align: left;"><p>No default, user must enter a baud. Does not have to be a standard baud.</p></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p><code class="literal">USART_BLOCKING</code></p></td>
@@ -272,7 +279,7 @@ operation of the hardware RS232 routines:
 <tr class="even">
 <td style="text-align: left;"><p><code class="literal">USART2_BAUD_RATE</code></p></td>
 <td style="text-align: left;"><p>Baud rate (in bps) for the routines to operate at.</p></td>
-<td style="text-align: left;"><p>No default, user must enter a baud. Doesn’t have to be a standard baud.</p></td>
+<td style="text-align: left;"><p>No default, user must enter a baud. Does not have to be a standard baud.</p></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><p><code class="literal">USART2_BLOCKING</code></p></td>
@@ -287,7 +294,7 @@ operation of the hardware RS232 routines:
 <tr class="odd">
 <td style="text-align: left;"><p><code class="literal">USART3_BAUD_RATE</code></p></td>
 <td style="text-align: left;"><p>Baud rate (in bps) for the routines to operate at.</p></td>
-<td style="text-align: left;"><p>No default, user must enter a baud. Doesn’t have to be a standard baud.</p></td>
+<td style="text-align: left;"><p>No default, user must enter a baud. Does not have to be a standard baud.</p></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p><code class="literal">USART3_BLOCKING</code></p></td>
@@ -302,7 +309,7 @@ operation of the hardware RS232 routines:
 <tr class="even">
 <td style="text-align: left;"><p><code class="literal">USART4_BAUD_RATE</code></p></td>
 <td style="text-align: left;"><p>Baud rate (in bps) for the routines to operate at.</p></td>
-<td style="text-align: left;"><p>No default, user must enter a baud. Doesn’t have to be a standard baud.</p></td>
+<td style="text-align: left;"><p>No default, user must enter a baud. Does not have to be a standard baud.</p></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><p><code class="literal">USART4_BLOCKING</code></p></td>
@@ -355,6 +362,17 @@ operation of the hardware RS232 routines:
 </tr>
 </tbody>
 </table>
+
+</div>
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="rs232_software_overview" class="link" title="RS232 Software Overview">RS232 Software Overview</a> — related
+    command in the same category
+-   <a href="initser" class="link" title="InitSer">InitSer</a> — related
+    command in the same category
 
 </div>
 

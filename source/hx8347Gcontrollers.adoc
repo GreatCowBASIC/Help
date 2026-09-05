@@ -1,5 +1,8 @@
 ==== HX8347G Controllers
 
+(((Graphical LCD,HX8347G Controllers)))
+
+
 This section covers GLCD devices that use the HX8347G graphics controller.
 
 HX8347G is a 262k-color single-chip SoC driver for a-TFT liquid crystal display with resolution of 240&#160;RGB&#160;x&#160;320&#160;
@@ -29,6 +32,7 @@ To use the HX8347G driver simply include the following in your user code.  This 
 {empty} +
 {empty} +
 **8-bit mode**
+[source,gcbasic]
 ----
     'This GLCD driver supports 8 bit only. UNO ports can be replaced with porta.b constants.
 
@@ -199,6 +203,7 @@ The GCBASIC commands supported for this GLCD are shown in the table below.&#160;
 
 {empty} +
 {empty} +
+[source,gcbasic]
 ----
     HX8347G_BLACK   'hexidecimal value 0x0000
     HX8347G_RED     'hexidecimal value 0xF800
@@ -229,6 +234,7 @@ example uses a Mega2560 board.
 {empty} +
 {empty} +
 *Example:*
+[source,gcbasic]
 ----
 
     #chip mega328p, 16
@@ -261,17 +267,24 @@ example uses a Mega2560 board.
 
 
     GLCDRotate ( Portrait )
-    GLCDCLS HX8347_RED
+    GLCDCLS HX8347_RED          ' <<< clears the screen using an HX8347G-specific color constant
     GLCDPrint(0, 0, "Test of the HX8347G Device")
     end
 
 ----
+*Key line:* `GLCDCLS HX8347_RED` -- clears the display to a specific color using the `HX8347G_[color]` constant family, rather than the default background color.
 
 {empty} +
 {empty} +
 
-*For more help, see*
-<<_glcdcls,GLCDCLS>>,  <<_glcddrawchar,GLCDDrawChar>>, <<_glcdprint,GLCDPrint>>, <<_glcdreadbyte,GLCDReadByte>>, <<_glcdwritebyte,GLCDWriteByte>> or <<_pset,Pset>>
-{empty} +
-{empty} +
+**See Also:**
+
+* <<_glcd_overview,GLCD Overview>> -- category overview and the full supported-display comparison table
+* <<_glcdcls,GLCDCLS>>
+* <<_glcddrawchar,GLCDDrawChar>>
+* <<_glcdprint,GLCDPrint>>
+* <<_glcdreadbyte,GLCDReadByte>>
+* <<_glcdwritebyte,GLCDWriteByte>>
+* <<_pset,Pset>>
+
 Supported in <GLCD.H>

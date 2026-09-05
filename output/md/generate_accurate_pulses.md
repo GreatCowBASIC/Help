@@ -16,37 +16,37 @@
 
 <span class="strong">**Explanation:**</span>
 
-The `PulseOut` Command is a reliable method for generating pulses if
-accuracy is not critical, the `PulseOut` command uses a calculation of
-the clock to speed for the timing .
+The `PulseOut` command is a reliable method for generating pulses if
+accuracy is not critical; the `PulseOut` command uses a calculation of
+the clock speed for the timing.
 
-If you need better accuracy and resolution then an alternative approach
+If you need better accuracy and resolution, then an alternative approach
 is required.
 
-To generate pulses in the 100 us to 2500 us range with an accuracy of +-
-1us over this range is practical using the approach shown in this
+To generate pulses in the 100 us to 2500 us range, with an accuracy of
++/- 1us over this range, is practical using the approach shown in this
 example.
 
-This example code works on a midrange PIC16F690 operating at 8Mhz.
+This example code works on a midrange PIC16F690 operating at 8MHz.
 However, it should work on any Microchip PIC microcontroller, but may
 need some minor modifications.
 
 <span class="strong">**Usage:**</span>
 
-``` screen
+``` programlisting
     Pulse_Out_us ( word_value )
 ```
 
 <span class="strong">**How It Works:**</span>
 
 `Timer1` is loaded with a preset value based upon the variable passed to
-the sub routine. The timer (`Timer1`) is started and the pulse pin (the
-output pin) is set high. When `Timer1` overflows the Timer1 interrupt
+the subroutine. The timer (`Timer1`) is started and the pulse pin (the
+output pin) is set high. When `Timer1` overflows, the Timer1 interrupt
 flag bit (`TMR1IF`) is set. This causes the program to exit a polling
-loop and set the pulse Pin off. Then, `Timer1` is stopped and `TMRIF`
-flag is cleared and the sub routine exits.
+loop and set the pulse pin off. Then, `Timer1` is stopped, the `TMR1IF`
+flag is cleared, and the subroutine exits.
 
-This method supports delays between 5 us and 65535 us and uses Timer1.
+This method supports delays between 5 us and 65535 us, and uses Timer1.
 
 <span class="strong">**Test Results:**</span>
 
@@ -58,15 +58,15 @@ These tests were completed using a Saleae Logic Analyzer.
 |:----------------------------------------------|:---------------------------------------------|
 | `Pulse_Out_us (2500)`                         | `2501.375 us`                                |
 | `Pulse_Out_us (1000)`                         | `1000.750 us`                                |
-| `Pulse_Out_us (100)`                          | `100. 125 us`                                |
+| `Pulse_Out_us (100)`                          | `100.125 us`                                 |
 | `Pulse_Out_us (10)`                           | `10.125 us`                                  |
-| `Pulse_Out_us with less then 4`               | `Unreliable results`                         |
+| `Pulse_Out_us with less than 4`               | `Unreliable results`                         |
 
 </div>
 
 <span class="strong">**Demonstration program:**</span>
 
-``` screen
+``` programlisting
     ;**************************************
     ; Code:  Output an accurate pulse
     ; Author: William Roth 03/13/2021
@@ -111,7 +111,7 @@ These tests were completed using a Saleae Logic Analyzer.
 
     ' **** This is the MAIN loop *****
     Do
-        PULSE_OUT_US (2500)  'Measured as 2501.375 us
+        PULSE_OUT_US (2500)  'Measured as 2501.375 us          ' <<< invoking the timer-based precision pulse subroutine
         wait 19 ms
         Pulse_Out_US (1000)  'Measured as 1000.750 us
         wait 19 ms
@@ -134,7 +134,19 @@ These tests were completed using a Saleae Logic Analyzer.
     END SUB
 ```
 
-Also see
-<a href="pulseout" class="link" title="PulseOut">PulseOut</a>
+<span class="strong">**Key line:**</span>
+`PULSE_OUT_US (2500)  'Measured as 2501.375 us` — presets Timer1 so that
+it overflows after almost exactly 2500us, then polls `TMR1IF` in a tight
+loop to catch the overflow with minimal jitter; this timer-preset
+approach is what achieves the +/- 1us accuracy that plain `PulseOut`
+cannot guarantee.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="pulseout" class="link" title="PulseOut">PulseOut</a>
+
+</div>
 
 </div>

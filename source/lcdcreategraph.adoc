@@ -1,5 +1,8 @@
 ==== LCDCreateGraph
 
+(((Liquid Crystal Display,LCDCreateGraph)))
+
+
 *Syntax:*
 [subs="specialcharacters,quotes"]
 ----
@@ -15,6 +18,7 @@ The LCDCreateGraph command will create a graph like character which can
 then be displayed on the LCD
 
 *Example :*
+[source,gcbasic]
 ----
     ;Chip Settings
     #chip 16F88,8
@@ -45,9 +49,15 @@ then be displayed on the LCD
 
     ' Update the characters at high speed without re-printing on LCD
     for graphvalue = 0 to 8
-        LCDCreateGraph ( 0 ,  graphvalue )
+        LCDCreateGraph ( 0 ,  graphvalue )          ' <<< the LCDCreateGraph instruction
         wait 100 ms
     next
 ----
+*Key line:* `LCDCreateGraph ( 0 , graphvalue )` -- redefines custom character 0 to show a bar graph filled to the level given by `graphvalue`; because every cell on the display already holds character 0 (from the `LCDWriteChar 0` loop above), redefining the character updates the whole graph at once without reprinting anything.
 
 *Supported in <LCD.H>*
+
+**See Also:**
+
+* <<_lcdcreatechar,LCDCreateChar>> -- related command in the same category
+* <<_lcdcmd,LCDCmd>> -- related command in the same category

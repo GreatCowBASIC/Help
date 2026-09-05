@@ -63,14 +63,14 @@ ranges from 0 to 255 where 255 is 100% duty cycle.
 To stop the PWM signal use the `HPWMOff` method with the parameter of
 the channel.
 
-``` screen
+``` programlisting
     'Stop the CCP/PWM signal
     HPWMOff ( 1 )
 ```
 
 <span class="strong">**Example:**</span>
 
-``` screen
+``` programlisting
     #chip 16F1825, 4
 
     DIR portc Out
@@ -81,12 +81,29 @@ the channel.
     'Command as follows:
     ' HPWM_CCPTimerN   CCP_Channel, Frequency, Duty, Timer Source.  Timer source defaults to timer 2, so, the timersource is optional.
 
-    HPWM_CCPTimerN  3, 30, 77 , 4         'CCP/PWM module 3 using timer 4
+    HPWM_CCPTimerN  3, 30, 77 , 4         'CCP/PWM module 3 using timer 4          ' <<< the HPWM_CCPTimerN instruction
     HPWM_CCPTimerN  4, 40, 102, 6         'CCP/PWM module 4 using timer 6
     HPWM  1, 10, 26                       'CCP/PWM module 1 with no parameter therefore timer 2
 
     do
     loop
 ```
+
+<span class="strong">**Key line:**</span>
+`HPWM_CCPTimerN 3, 30, 77, 4` — drives CCP channel 3 at 30 KHz with a
+duty cycle of 77 (out of 255), explicitly clocked from Timer 4 rather
+than the Timer-2-only source that plain `HPWM` uses; this lets multiple
+CCP channels run at independent frequencies on the same chip.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hpwm_ccp" class="link" title="HPWM CCP">HPWM CCP</a> — the
+    Timer-2-only equivalent, used above for CCP/PWM module 1
+-   <a href="hpwmoff" class="link" title="HPWMOff">HPWMOff</a> — stopping
+    a PWM channel
+
+</div>
 
 </div>

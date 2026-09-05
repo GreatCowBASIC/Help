@@ -1,7 +1,10 @@
 ==== Int
 
+(((Maths,Int)))
+
+
 *Syntax:*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 ----
     integer_variable = Int( single_variable )
 ----
@@ -11,9 +14,21 @@ Available on all microcontrollers.
 
 *Explanation:*
 
-The `Int` function will compute the integer value of an integer number therefore will return the range of single variable.
+The `Int` function truncates a floating-point (`Single`) value down to its integer part, discarding the fractional part (it does not round). The result is returned as an integer, so it must fit within the integer variable range.
 
 *Example:*
+[source,gcbasic]
 ----
-    integer_value = Int(  _singlevariable_ )  ' Will return  the range of single variable.
+    Dim singlevariable As Single
+    Dim integer_value As Integer
+    singlevariable = 7.85
+
+    integer_value = Int( singlevariable )          ' <<< the Int instruction
+    ' integer_value now holds 7
 ----
+*Key line:* `Int( singlevariable )` -- drops the `.85` fractional part of `7.85`, leaving the integer value `7` (not rounded to `8`).
+
+**See Also:**
+
+* <<_abs,Abs>> -- related command in the same category
+* <<_roundsingle,RoundSingle>> -- rounding to the nearest whole number instead of truncating

@@ -1,26 +1,31 @@
-== Libraries Overview
+=== Libraries Overview
+
+(((GCBASIC Compiler Insights,Libraries Overview)))
+
 
 *About Libraries*
-[subs="quotes"]
+[subs="specialcharacters,quotes"]
 GCBASIC (as with most other microcontroller programming languages) supports libraries.
 
 
 
-You can create you own device specific library, you are not limited to those shown below.  If you create a new device specific library - please submit for inclusion in the next release via the GCBASIC forum.
+You can create your own device-specific library - you are not limited to those shown below. If you create a new device-specific library, please submit it for inclusion in the next release via the GCBASIC forum.
 
 
-Maintenance of these libraries is completed by the GCBASIC development team.  If you wish to adapt these libraries you should create a local copy, edit and save within your development file structure.  The development team may update these libraries as part of a release and we do not want you to lose your local changes.
+Maintenance of these libraries is completed by the GCBASIC development team. If you wish to adapt these libraries, you should create a local copy, edit it, and save it within your development file structure. The development team may update these libraries as part of a release, and we do not want you to lose your local changes.
 
-To use a library, simple inlcude the following in your user code
+To use a library, simply include the following in your user code:
 
+[source,gcbasic]
 ----
     #include <3PI.H>    'this will include the 3PI capabilities within your program
 ----
 
-To use a local copy of a library, simple inlcude the following in your user code
+To use a local copy of a library, simply include the following in your user code:
 
+[source,gcbasic]
 ----
-    #include "C:\mydev\library\3pi.h"    'this will include a local copy of the the 3PI capabilities within your program
+    #include "C:\mydev\library\3pi.h"    'this will include a local copy of the 3PI capabilities within your program
 ----
 
 
@@ -33,12 +38,12 @@ GCBASIC supports the following device libraries.
 |*Class*
 |*Usage*
 |3PI
-|Polulu 3pi robot
+|Pololu 3pi robot
 |A library that interfaces the switch and the motors.
 
 |47XXX_EERAM.H
 |I2C EERAM memory
-|A device specific library for the Microchip EERAM device classs
+|A device specific library for the Microchip EERAM device class.
 
 |ALPS-EC11
 |Rotary Encoder
@@ -119,31 +124,31 @@ GCBASIC supports the following device libraries.
 
 |GLCD_
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_HX8347
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_ILI9340
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_ILI9341
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_ILI9481
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_ILI9486L
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_NT7108C
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_IMAGESANDFONTS_ADDIN3
 |Graphical LCD
@@ -151,47 +156,47 @@ GCBASIC supports the following device libraries.
 
 |GLCD_KS0108
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_NEXTION
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_PCD8544
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_SH1106
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_SSD1289
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_SSD1306
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_SSD1331
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_ST7735
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_ST7920
 |Graphical LCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_T6963_64
 |Graphical T6963 LCD with 240 x 64 pixels
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |GLCD_T6963_128
 |Graphical T6963 LCD with 240 x 64 pixels
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 |HEFLASH
 |HEF Memory Driver
@@ -225,34 +230,34 @@ GCBASIC supports the following device libraries.
 
 |LCD2SERIALREDIRECT
 |LCD to Serial Handler
-|A library that supports the use of a serial and PC terminal as a psuedo LCD.
+|A library that supports the use of a serial and PC terminal as a pseudo LCD.
 
 |LEGO-PF
 |Lego Mindstorms shield
-|A library that supports the Lego Mindstorms robot
+|A library that supports the Lego Mindstorms robot.
 
 |LEGO
 |Lego Mindstorms shield
-|A library that supports the Lego Mindstorms robot
+|A library that supports the Lego Mindstorms robot.
 
 |MATHS
 |Maths routines
-|A library that supports maths functions such as logs, power and atan.
+|A library that supports maths functions such as logs, power, and atan.
 
 |MAX6675
 |Temperature
 |A library that supports the temperature functions.
 
 |MAX7219_ledmatrix_driver
-|LED 8*8 Matrix driver
-|A library that supports the MAX7219 8*8 LED matrixes
+|LED 8x8 Matrix driver
+|A library that supports the MAX7219 8x8 LED matrixes.
 
 |MCP23008
-|i2C to serial
+|I2C to serial
 |A library that supports the I2C to serial functions.
 
 |MCP23017
-|i2C to serial
+|I2C to serial
 |A library that supports the I2C to serial functions.
 
 
@@ -275,12 +280,12 @@ GCBASIC supports the following device libraries.
 
 |PCA9685
 |PWM
-|A device specific library for the 16channel PWM driver.  See the demonstrations for example on usage.
-Support up to four devices via the I2C bus.
+|A device specific library for the 16 channel PWM driver. See the demonstrations for an example of usage.
+Supports up to four devices via the I2C bus.
 
 |PCF8574
 |GLCD
-|A device specific library for an Graphical LCD.
+|A device specific library for a Graphical LCD.
 
 
 |PCF85X3
@@ -292,8 +297,8 @@ Support up to four devices via the I2C bus.
 |A device specific library for an SD Card.
 
 |SMT_Timers
-|Signal Measurment Timer
-|A library for Signal Measurment Timer for specific Microchip microcontrollers.
+|Signal Measurement Timer
+|A library for the Signal Measurement Timer for specific Microchip microcontrollers.
 
 |SOFTSERIAL
 |Serial
@@ -313,7 +318,7 @@ Support up to four devices via the I2C bus.
 
 |SONGLAY
 |Music
-|A library for play music. Supports QBASIC and RTTTL format.
+|A library to play music. Supports QBASIC and RTTTL format.
 
 
 |SONYREMOTE
@@ -326,11 +331,11 @@ Support up to four devices via the I2C bus.
 
 |SRAM
 |Memory devices
-|A library that supports 23LC1024, 23LCV1024, 23LC1024,  23A1024,  23LCV512,  23LC512,  23A512,  23K256,  23A256,  23A640 or 23K640 devices
+|A library that supports 23LC1024, 23LCV1024, 23LC1024, 23A1024, 23LCV512, 23LC512, 23A512, 23K256, 23A256, 23A640, or 23K640 devices.
 
 |SRF04
 |Distance Sensor
-|A library that supports the SRF04 ultrasonic sensor.  See link:https://github.com/GreatCowBASIC/Demonstration_Sources/tree/main/UltraSonic_Sensor_Solutions[GitHub demos here]
+|A library that supports the SRF04 ultrasonic sensor. See link:https://github.com/GreatCowBASIC/Demonstration_Sources/tree/main/UltraSonic_Sensor_Solutions[GitHub demos here]
 
 |TEA5767
 |I2C Radio
@@ -338,26 +343,26 @@ Support up to four devices via the I2C bus.
 
 |TM1637
 |7 Segment LED display
-|A library that supports the TM1637 7-Segment LED displays
+|A library that supports the TM1637 7-Segment LED displays.
 
 |TRIG2PLACES
 |Maths functions
-|A maths library that supports trignometry to two places.
+|A maths library that supports trigonometry to two places.
 
 |TRIG3PLACES
 |Maths functions
-|A maths library that supports trignometry to three places
+|A maths library that supports trigonometry to three places.
 
 |TRIG4PLACES
 |Maths functions
-|A maths library that supports trignometry to four places
+|A maths library that supports trigonometry to four places.
 
 |UNO_MEGA328P
 |Shield
 |A library that interfaces the shield with Arduino like port addresses.
 
 |USB
-|USB Supoort
+|USB Support
 |A library that interfaces the USB for 16f and 18f microcontrollers.
 
 |===
@@ -368,7 +373,7 @@ Support up to four devices via the I2C bus.
 {empty} +
 
 {empty} +
-GCBASIC supports the following core libraries.   These libraries are automatically included in your user program therefore you do not need to use '#include' to access the libraries capabilities.
+GCBASIC supports the following core libraries. These libraries are automatically included in your user program, so you do not need to use `#include` to access their capabilities.
 
 [cols=3, options="header,autowidth",width="80%"]
 |===
@@ -378,7 +383,7 @@ GCBASIC supports the following core libraries.   These libraries are automatical
 
 |7SEGMENT
 |7 Segment LED display
-|A library that interfaces the device. See also TM1637a library.
+|A library that interfaces the device. See also the TM1637 library.
 
 |A-D
 |Analog to Digital
@@ -386,23 +391,23 @@ GCBASIC supports the following core libraries.   These libraries are automatical
 
 |EEPROM
 |EEProm
-|A library that supports I2C eeprom devices.
+|A library that supports I2C EEPROM devices.
 
 |HWI2C
 |I2C
-|A library that supports the MSSP and TWI hardware modules of I2C
+|A library that supports the MSSP and TWI hardware modules of I2C.
 
 |HWI2C2
 |I2C
-|A library that supports the MSSP and TWI hardware modules of I2C on channel two
+|A library that supports the MSSP and TWI hardware modules of I2C on channel two.
 
 |HWSPI
 |SPI
-|A library that supports the MSSP and TWI hardware modules of SPI
+|A library that supports the MSSP and TWI hardware modules of SPI.
 
 |I2C
 |I2C
-|A library that supports software I2C
+|A library that supports software I2C.
 
 |KEYPAD
 |KeyPad
@@ -410,19 +415,19 @@ GCBASIC supports the following core libraries.   These libraries are automatical
 
 |PS2
 |I2C
-|A library that supports keyboard functionality
+|A library that supports keyboard functionality.
 
 |LCD
 |LCD
-|A library that supports LCD functionality, library supports many different communications methods.
+|A library that supports LCD functionality; the library supports many different communications methods.
 
 |PWM
 |Pulse Width Modulation
-|A library supports PWM functionality.
+|A library that supports PWM functionality.
 
 |RANDOM
 |Random Numbers
-|A library supports random number functionality.
+|A library that supports random number functionality.
 
 |REMOTE
 |Infrared
@@ -434,7 +439,7 @@ GCBASIC supports the following core libraries.   These libraries are automatical
 
 |SOUND
 |Tones
-|A library for sound and tone generation
+|A library for sound and tone generation.
 
 |STDBASIC
 |Utility Functions
@@ -454,14 +459,19 @@ GCBASIC supports the following core libraries.   These libraries are automatical
 
 |USART
 |Serial
-|The library that contains the hardware serial methods that use the MSSP or AVR equivilent hardware module.
+|The library that contains the hardware serial methods that use the MSSP or AVR equivalent hardware module.
 
 
 |XPT2046
 |Touch Shield
-|A library that interfaces with the APT2026 and the ADS7843 touch sensors.
+|A library that interfaces with the XPT2046 and the ADS7843 touch sensors.
 
 
 |===
 {empty} +
 {empty} +
+
+**See Also:**
+
+* <<_acknowledgements,Acknowledgements>> -- the contributors who built these libraries
+* <<_gcbasic_compiler_insights,GCBASIC Compiler Insights>> -- category overview

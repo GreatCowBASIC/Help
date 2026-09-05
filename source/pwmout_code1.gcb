@@ -1,0 +1,18 @@
+'This program controls the brightness of an LED on PORTB.0
+'using the software PWM routine and a potentiometer.
+#chip 16f877a, 20
+
+; ----- Constants
+'PWM constant. This is a required constant.
+#define PWM_OUT1 portb.0
+
+; ----- Define Hardware settings
+'PWM port out.  This is not required but good practice.
+dir PWM_OUT1 out
+
+'A potentiometer is attached to AN0.
+
+do
+    '100 cycles is a purely arbitrary value as the loop will maintain a relatively constant PWM
+    PWMOut 1, ReadAD(AN0), 100          ' <<< the PWMOut call this page documents
+loop

@@ -18,28 +18,28 @@
 
 This program demonstrates how to create a serial input buffer ring.
 
-The program receives a character into the buffer and sends back. Try
-sending large volumes of characters…​..
+The program receives a character into the buffer and sends it back. Try
+sending large volumes of characters.
 
-This program program uses an interrupt event to capture the incoming
-byte value and place in the buffer ring. When a byte is received the
-buffer ring is incremented to ensuer the next byte is handled correctly.
+This program uses an interrupt event to capture the incoming byte value
+and place it in the buffer ring. When a byte is received, the buffer
+ring is incremented to ensure the next byte is handled correctly.
 
-Testing `bkbhit` will set to True when a byte has been received. Reading
-the function `bgetc` will return the last byte received.
+Testing `bkbhit` will be True when a byte has been received. Reading the
+function `bgetc` will return the last byte received.
 
 <span class="strong">**Demonstration program:**</span>
 
 This demonstration program will support up to 256 bytes. For a larger
-buffer change the variables to words.
+buffer, change the variables to words.
 
-``` screen
+``` programlisting
     #chip 16F1937
     // #chip mega4809
     // #chip mega328p, 16
 
 
-    // Add PPS if appropiate for your chip
+    // Add PPS if appropriate for your chip
     // [change to your config] This is the config for a serial terminal
 
     // assumes USART1 ( or USART0 on AVRDx ), if you select USART1/2/3/4 then you MUST add the comport parameter to all HSerxxxxx functions.
@@ -48,7 +48,7 @@ buffer change the variables to words.
     #DEFINE USART_BAUD_RATE 9600
     #DEFINE USART_BLOCKING  // Required, could use #define USART_TX_BLOCKING as the RX is interrupt driven.
 
-    // This assumes you are using an ANSI compatible terminal.  Use PUTTY.EXE it is very easy to use.
+    // This assumes you are using an ANSI compatible terminal.  Use PUTTY.EXE, it is very easy to use.
 
     //   Main program
 
@@ -66,7 +66,7 @@ buffer change the variables to words.
     #DEFINE bkbhit (next_in <> next_out)
 
     // Define the Buffer
-    Dim buffer( BUFFER_SIZE - 1 ) // we will use element 0 in the array as part of out buffer
+    Dim buffer( BUFFER_SIZE - 1 ) // we will use element 0 in the array as part of our buffer
 
     // Call init the buffer
     InitBufferRing
@@ -81,13 +81,12 @@ buffer change the variables to words.
 
 
     // Get character(s) and send back
-    // Get character(s) and send back
     Do
 
         //  Do we have data in the buffer?
         if bkbhit then
 
-            // Send the next character in the buffer to the terminal, exposed via the function `bgetc` back the terminal
+            // Send the next character in the buffer to the terminal, exposed via the function `bgetc`          ' <<< draining the buffer ring one character at a time
             HSerSend bgetc
 
         end if
@@ -148,5 +147,22 @@ buffer change the variables to words.
 
     End Sub
 ```
+
+<span class="strong">**Key line:**</span> `HSerSend bgetc` — calls the
+function `bgetc`, which pulls the oldest byte out of the ring buffer and
+advances the read pointer, then immediately transmits that byte back to
+the terminal; this only runs when `bkbhit` reports the buffer is
+non-empty.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="hserreceive" class="link" title="HSerReceive">HSerReceive</a> — receiving
+    a byte directly, called from the interrupt handler above
+-   <a href="hsersend" class="link" title="HSerSend">HSerSend</a> — sending
+    a byte, used above to echo the buffered character
+
+</div>
 
 </div>

@@ -29,7 +29,7 @@ over top of chip.
 This demonstrates using Joy-IT/Raspberry Pi LCD PCB by changing the
 I2C\_LCD\_\* constants that control this mode of LCD\_IO operations.
 
-``` screen
+``` programlisting
       #chip AVR128DA28, 24
       #option explicit
 
@@ -38,7 +38,7 @@ I2C\_LCD\_\* constants that control this mode of LCD\_IO operations.
       #DEFINE HI2C_DATA  PORTA.2
       #DEFINE HI2C_CLOCK PORTA.3
 
-      #DEFINE LCD_IO 10
+      #DEFINE LCD_IO 10          ' <<< the constant that selects the PCF8574 I2C connection mode
       // LCD_I2C_Address_1 is not required because default address
       //  #DEFINE LCD_I2C_ADDRESS_1 0X4E
 
@@ -59,12 +59,18 @@ I2C\_LCD\_\* constants that control this mode of LCD\_IO operations.
       Print "Hello World"
 ```
 
+<span class="strong">**Key line:**</span> `#DEFINE LCD_IO 10` — selects
+the PCF8574/PCF8574A I2C expander connection mode; the `I2C_LCD_*`
+constants that follow remap the expander’s port bits, which is only
+needed when the adapter’s PCB layout (such as the Joy-IT/Raspberry Pi
+board here) differs from the library’s default mapping.
+
 <span class="strong">**Example - Multiple LCDs:**</span>
 
 This demonstrates reading a DS18B20 and showing the results on multiple
 LCDs.
 
-``` screen
+``` programlisting
     #chip mega328p, 16
     #include <DS18B20.h>
 
@@ -98,7 +104,7 @@ LCDs.
 
     'Change to the correct LCD by setting     LCD_I2C_ADDRESS_Current to the correct address then write to LCD.
     LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 1 )
-    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 1 )
+    LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2: DisplayInformation ( 1 )          ' <<< switching the active LCD via LCD_I2C_ADDRESS_Current
     wait 4 s
     LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1:  CLS
     LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_2:  CLS
@@ -185,5 +191,26 @@ LCDs.
 
     end sub
 ```
+
+<span class="strong">**Key line:**</span>
+`LCD_I2C_ADDRESS_Current = LCD_I2C_ADDRESS_1: DisplayInformation ( 1 )` — setting
+`LCD_I2C_ADDRESS_Current` before each write is what routes LCD commands
+to a specific physical display, allowing up to eight PCF8574 adapters
+(each at a distinct I2C address) to be driven independently on the same
+bus.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="lcd_io_10" class="link" title="LCD_IO 10">LCD_IO 10</a> — full
+    reference for this connection mode, including the address constant
+    table
+-   <a href="lcd_io_12" class="link" title="LCD_IO 12">LCD_IO 12</a> — the
+    alternate Ywmjkdz I2C expander layout mentioned above
+-   <a href="ds18b20" class="link" title="DS18B20">DS18B20</a> — reading
+    the temperature sensor used in the second example
+
+</div>
 
 </div>
