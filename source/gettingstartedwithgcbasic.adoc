@@ -62,7 +62,13 @@ The "Programmer Preferences" is a software tool to control and set up the diff
 Select Terminal/Run Task or press function <F4> to see the menu
 {empty} +
 {empty} +
+ifndef::backend-pdf[]
 image:Prefs1.gif[graphic,width=640,height=480]
+endif::[]
+ifdef::backend-pdf[]
+image:Prefs1.png[graphic,width=640,height=480]
+[.text-center]_(animated walkthrough available in the CHM/online help)_
+endif::[]
 {empty} +
 {empty} +
 *Or, when using GC Code at the IDE*
@@ -71,13 +77,25 @@ image:Prefs1.gif[graphic,width=640,height=480]
 Select the drop down menu to see the menu
 {empty} +
 {empty} +
+ifndef::backend-pdf[]
 image:Prefs2.gif[graphic,width=640,height=480]
+endif::[]
+ifdef::backend-pdf[]
+image:Prefs2.png[graphic,width=640,height=480]
+[.text-center]_(animated walkthrough available in the CHM/online help)_
+endif::[]
 {empty} +
 {empty} +
 *When using SynWrite at the IDE*
 {empty} +
 {empty} +
+ifndef::backend-pdf[]
 image:PPtool.gif[graphic,width=640,height=480]
+endif::[]
+ifdef::backend-pdf[]
+image:PPtool.png[graphic,width=640,height=480]
+[.text-center]_(animated walkthrough available in the CHM/online help)_
+endif::[]
 {empty} +
 {empty} +
 

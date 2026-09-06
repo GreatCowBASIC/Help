@@ -27,7 +27,13 @@ The TM1637 specification is
 
 *Using the TM1637 Display Module*
 
+ifndef::backend-pdf[]
 image::TM1637_6d.gif[graphic,align="center", 40%]
+endif::[]
+ifdef::backend-pdf[]
+image::TM1637_6d.png[graphic,align="center", 40%]
+[.text-center]_(animated walkthrough available in the CHM/online help)_
+endif::[]
 
 *Why to use TM1637 Display Module?*
 
