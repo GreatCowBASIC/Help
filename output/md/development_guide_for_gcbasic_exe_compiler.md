@@ -102,7 +102,8 @@ written in FreeBASIC. FreeBASIC is a multiplatform, free/open source
 (GPL) BASIC programming language and a compiler for Microsoft Windows,
 protected-mode MS-DOS (DOS extender), Linux, and FreeBSD.  
   
-The official website is <https://www.freebasic.net/>  
+The official website is [FreeBASIC
+website](https://www.freebasic.net/)  
   
 FreeBASIC provides syntax compatibility with programs originally written
 in Microsoft QuickBASIC (QB). FreeBASIC is a command-line-only compiler,
@@ -114,7 +115,7 @@ Suite and VisualFBEditor.
 The source code is Open Source, and has a GNU GENERAL PUBLIC LICENSE.  
   
 The source code for the compiler can be found on
-<a href="https://sourceforge.net/p/gcbasic/code/HEAD/tree/GCBASIC/trunk/" class="link">SourceForge</a>  
+[SourceForge](https://sourceforge.net/p/gcbasic/code/HEAD/tree/GCBASIC/trunk/)  
   
 Use SVN to update and commit code changes. You require developer access
 to SourceForge, but if you have got this far then you already know this.
@@ -128,7 +129,7 @@ should be the same as the description in the change log. Add the
 commit number.
 
 You will find the changelog
-<a href="https://onedrive.live.com/Edit.aspx?resid=2F87FFE77F3DBEC7!67634&amp;wd=cpe&amp;authkey=!ADmkT3exl5l4Pkc" class="link">here</a>.
+[here](https://onedrive.live.com/Edit.aspx?resid=2F87FFE77F3DBEC7!67634&wd=cpe&authkey=!ADmkT3exl5l4Pkc).
 The change log is an Excel spreadsheet.
 
   
@@ -293,9 +294,9 @@ For Windows 64 bit
     "%ProgramFiles%\FreeBASIC\win64\fbc.exe"  $SF\gcbasic.bas   -x $SF\gcbasic64.exe -ex
 ```
 
-Linux, FreeBSD, and Pi OS are also supported. Please see
-<a href="http://gcbasic.sourceforge.net/help/" class="link">Online Help</a>
-and search for the specific operating system.
+Linux, FreeBSD, and Pi OS are also supported. Please see [Online
+Help](https://gcbasic.sourceforge.net/help/) and search for the specific
+operating system.
 
   
   
@@ -304,7 +305,7 @@ and search for the specific operating system.
 
 To simplify the establishment of a development environment, download a
 complete installation from
-<a href="https://sourceforge.net/projects/gcbasic/files/Support%20Files/GCBASICWindowsToolchain/FreeBASIC.zip/download" class="link">here</a>.
+[here](https://sourceforge.net/projects/gcbasic/files/Support%20Files/GCBASICWindowsToolchain/FreeBASIC.zip/download).
 This includes the correct version of FreeBASIC and the libraries - all
 ready for use. Simply unzip the ZIP to a folder, and the toolchain is
 ready for use. For an IDE, please see the information above.
@@ -322,7 +323,7 @@ Complete the following:
 
 ``` programlisting
         1. Download and install FreeBASIC from the url shown above.
-        2. Download and install fbedit from https://sourceforge.net/projects/fbedit/?source=dlp
+        2. Download and install fbedit from https://sourceforge.net/projects/fbedit/?source=dlp[SourceForge]
         3. Download the GCBASIC source using SVN into a gcbasic source folder.
         4. Run fbedit (installed at step #2).  Load project  GCBASIC.fbp  from the GCBASIC source folder.
         5. Hit <f5> to compile.

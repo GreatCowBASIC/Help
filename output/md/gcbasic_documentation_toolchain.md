@@ -17,9 +17,9 @@
 <span class="strong">**Introduction:**</span>
 
 GCBASIC documentation is written in AsciiDoc and maintained through
-<a href="https://asciidoctor.org/" class="link">Asciidoctor</a>, a fast
-text processor and publishing toolchain for converting AsciiDoc content
-to HTML5, DocBook, PDF, and Microsoft Compiled HTML Help (CHM).
+[Asciidoctor](https://asciidoctor.org/), a fast text processor and
+publishing toolchain for converting AsciiDoc content to HTML5, DocBook,
+PDF, and Microsoft Compiled HTML Help (CHM).
 
 Asciidoctor is written in Ruby, packaged as a RubyGem. Because it is
 Ruby-based, it runs directly on Windows without needing a Linux virtual

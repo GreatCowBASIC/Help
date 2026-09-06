@@ -30,7 +30,7 @@ enables changing the Windows device driver to `libusbK`.
 <div class="itemizedlist">
 
 -   Download and install Zadig Driver Utility software
-    <https://zadig.akeo.ie/>
+    [Zadig](https://zadig.akeo.ie/)
 -   Connect the USB cable from the AVRISP MKII to your PC.
 -   Open Zadig and from the menu select Options / List All Devices.
 -   From the device list select AVRISP MKII.
@@ -80,7 +80,7 @@ This process shows the installation of Atmel Studio 7; however, you may
 have to use Atmel Studio 6 because of operating system constraints.
 
 Download and install Atmel Studio 7 from the GCBASIC file store
-<a href="https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/" class="link">here</a>
+[here](https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/)
 
 After the installation, open Atmel Studio 7.
 
@@ -122,7 +122,7 @@ To update the firmware, please follow the steps listed below.
 -   Download and install the latest version of "Atmel Flip" software (it
     can be downloaded from Atmel’s website, or from the GCBASIC file
     store
-    <a href="https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/" class="link">here</a>)
+    [here](https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/))
 -   Open its install folder and update the software of the unrecognised
     device (usually under the "Other devices" tab) with the drivers from
     the folder named "usb"; the device should now be recognised as
@@ -130,10 +130,10 @@ To update the firmware, please follow the steps listed below.
 -   Start "Atmel FLIP" and click "Select a target device" → choose
     AT90USB162
 -   Click "Select a Communication Medium" and then USB medium
--   Download the firmware and unpack it from the
-    <a href="https://www.olimex.com/Products/AVR/Programmers/AVR-ISP-MK2/resources/AVR456-studio-AVRISP-MKII.zip" class="link">Olimex website</a>
+-   Download the firmware and unpack it from the [Olimex
+    website](https://www.olimex.com/Products/AVR/Programmers/AVR-ISP-MK2/resources/AVR456-studio-AVRISP-MKII.zip)
     or the GCBASIC file store
-    <a href="https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/" class="link">here</a>
+    [here](https://sourceforge.net/projects/gcbasic/files/Support%20Files/ATMELCompilers/AVRISPMk2/)
 -   From "File → load HEX file" choose the latest HEX and click "RUN" in
     the "Operations Flow" section
 -   Disconnect the AVR-ISP-MK2 from the USB and connect it again
@@ -141,7 +141,7 @@ To update the firmware, please follow the steps listed below.
 </div>
 
 For more information about AVR-ISP-MK2, see this guide
-<a href="http://gcbasic.sourceforge.net/library/AVR-ISP-MK2-OpenSourceHardwareBoard.pdf" class="link">here</a>
+[here](https://gcbasic.sourceforge.net/library/AVR-ISP-MK2-OpenSourceHardwareBoard.pdf)
 
 <span class="strong">**AVRISP MKII to ATTINY10 Connections:**</span>
 
@@ -254,11 +254,11 @@ Now you are ready to upload your first program to an ATTINY10.
 For more information on programming, review these resources:
 
 ``` literallayout
-A guide http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[here]
+A guide https://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[here]
 ```
 
 ``` literallayout
-A blog http://gcbasic.sourceforge.net/library/Technoblogy_Programming_the_ATtiny10.pdf[here]
+A blog https://gcbasic.sourceforge.net/library/Technoblogy_Programming_the_ATtiny10.pdf[here]
 ```
 
   

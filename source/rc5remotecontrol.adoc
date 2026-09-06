@@ -1,0 +1,55 @@
+==== RC5 Remote Control
+
+(((Infrared Remote Control,RC5 Remote Control)))
+
+
+*Syntax:*
+[subs="specialcharacters,quotes"]
+----
+    RC5Send _address_, _data_
+
+    RC5High
+    RC5Low
+----
+*Command Availability:*
+
+Available on all microcontrollers. Requires the inclusion of the following:
+
+[source,gcbasic]
+----
+    #include <remote.h>
+----
+
+*Explanation:*
+
+`RC5Send` transmits a complete RC5-protocol infrared remote-control frame: two AGC (automatic gain control) bits, a toggle bit, 5 address bits, and 6 command bits. `RC5High` and `RC5Low` are the lower-level biphase (Manchester-style) half-bit routines `RC5Send` uses to transmit each bit -- most programs only need to call `RC5Send`.
+
+This command shares its output pin with `NECSend` (see <<_nec_remote_control,NEC Remote Control>>), set with:
+
+[source,gcbasic]
+----
+    #define RC5Out <pin>
+----
+
+The toggle bit is tracked automatically in the global variable `RC5Toggle`, which increments by one on every call to `RC5Send` -- this is the standard RC5 mechanism a receiver uses to distinguish a genuinely new button press from a held-down repeat.
+
+`_address_` uses the low 5 bits of the value passed, and `_data_` uses the low 6 bits, matching RC5's 5-bit address / 6-bit command frame.
+
+*Example:*
+[source,gcbasic]
+----
+    #chip 16F877A, 20
+
+    #define RC5Out PORTB.0
+    Dir RC5Out Out
+
+    Do
+        RC5Send 0x04, 0x0A          ' <<< the RC5Send instruction
+        Wait 100 ms
+    Loop
+----
+*Key line:* `RC5Send 0x04, 0x0A` -- transmits address `0x04` and command `0x0A` as a complete RC5 frame, automatically incrementing `RC5Toggle` so a receiver can tell this transmission apart from a repeat of the previous one.
+
+**See Also:**
+
+* <<_nec_remote_control,NEC Remote Control>> -- the alternate infrared protocol supported by the same output pin

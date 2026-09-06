@@ -11,10 +11,10 @@ These instructions are not distribution-specific, but are for Linux only (not Wi
 *Instructions:*
 Complete the following steps to compile and install GCBASIC for Linux:
 [start=1]
- . Install FreeBasic from your distribution's repository or http://www.freebasic.net/wiki/CompilerInstalling
+ . Install FreeBasic from your distribution's repository or https://www.freebasic.net/wiki/CompilerInstalling[the FreeBASIC wiki]
 
 
- . Download the "GCBASIC - Linux Distribution" from SourceForge at https://sourceforge.net/projects/gcbasic/files/
+ . Download the "GCBASIC - Linux Distribution" from SourceForge at https://sourceforge.net/projects/gcbasic/files/[sourceforge.net]
 
 
  . Unrar/unpack GCBASIC.rar to a location of your choice within your home directory (eg. within Downloads) with either a file manager or from a console.
@@ -47,9 +47,9 @@ Now you can create and compile GCBASIC source files.
 
 To program your microcontroller with your GCBASIC-created hex file, you will need additional programming and programmer software.
 
-For Microchip PIC microcontroller programming, you might find what you need at: www.pickitplus.co.uk. The PICkitPlus Team provide programmers and Linux software.
+For Microchip PIC microcontroller programming, you might find what you need at: https://www.pickitplus.co.uk[www.pickitplus.co.uk]. The PICkitPlus Team provide programmers and Linux software.
 
-For Atmel AVR microcontroller programming, you will need `avrdude`. It should be available in your distribution's repository. If not, check here: http://www.nongnu.org/avrdude/
+For Atmel AVR microcontroller programming, you will need `avrdude`. It should be available in your distribution's repository. If not, check here: https://www.nongnu.org/avrdude/[avrdude website]
 
 {empty} +
 {empty} +

@@ -203,7 +203,7 @@ Parameter is dim value</p></td>
 </div>
 
 For a SH1106 datasheet, please refer
-<a href="http://gcbasic.sourceforge.net/library/DISPLAY/SH1106.pdf" class="link">here</a>.
+[here](https://gcbasic.sourceforge.net/library/DISPLAY/SH1106.pdf).
 
 This example shows how to drive a SH1106 based Graphic LCD module with
 the built in commands of GCBASIC.

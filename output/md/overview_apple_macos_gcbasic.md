@@ -42,7 +42,7 @@ Installer**</span>
 <div class="orderedlist">
 
 1.  Download the GCBASIC - macOS Installer disk image (.dmg) file from
-    <https://sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download>
+    [sourceforge.net](https://sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download)
 2.  Double click the .dmg file to mount it on your Desktop, and a window
     will open which contains the Installer.
 3.  Double click the README\_FIRST.txt file and read it for any
@@ -60,9 +60,9 @@ compiler:
 <div class="orderedlist">
 
 1.  Download the FreeBASIC 1.06 macOS binary compilation from:
-    <http://tmc.castleparadox.com/temp/fbc-1.06-darwin-wip20160505.tar.bz2>
+    [castleparadox.com](https://tmc.castleparadox.com/temp/fbc-1.06-darwin-wip20160505.tar.bz2)
 2.  Download the GCBASIC UNIX Source Distribution from SourceForge at
-    <http://gcbasic.sourceforge.net/Typesetter/index.php/Download>
+    [gcbasic.sourceforge.net](https://gcbasic.sourceforge.net/Typesetter/index.php/Download)
 3.  Note: the following instructions assume the distribution file is
     named GCBASIC-UNIX-v0\_98\_05.rar; however, the version number
     (v0\_98\_05) may change before these instructions are updated, so
@@ -72,10 +72,10 @@ compiler:
     compiler, and FreeBASIC needs the real gcc due to a certain use of
     `goto`. So, you can compile your own version of gcc following the
     instructions at
-    <https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/>, or
-    you can take the low road and just download the pre-compiled binary
-    version from
-    <https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2>
+    [solarianprogrammer.com](https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/),
+    or you can take the low road and just download the pre-compiled
+    binary version from
+    [GitHub](https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2)
 5.  Open a Terminal window (Terminal can be found in Applications &gt;
     Utilities).
 6.  Move gcc-8.3.tar.bz2 from your Downloads directory to your Home
@@ -250,13 +250,13 @@ will need additional hardware and software.
 <div class="orderedlist">
 
 1.  For Microchip PIC microcontroller programming, you might find what
-    you need at:
-    <https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120>
+    you need at: [Microchip Development
+    Tools](https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120)
     and the macOS version of the `pk2cmd` v1.2 command line programming
     software.
 2.  For Atmel AVR microcontroller programming, you will need the
-    `avrdude` programming software. Check here:
-    <http://www.nongnu.org/avrdude/>
+    `avrdude` programming software. Check here: [avrdude
+    website](https://www.nongnu.org/avrdude/)
 
 </div>
 
@@ -269,11 +269,11 @@ programming software.
 
 -   For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or
     even better the PICkitPlus software
-    (<https://sourceforge.net/projects/pickit3plus/>) for both the
-    PICkit 2
-    (<https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120>)
+    ([PICkitPlus](https://sourceforge.net/projects/pickit3plus/)) for
+    both the PICkit 2
+    ([Microchip](https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120))
     and PICkit 3
-    (<https://www.microchip.com/Developmenttools/ProductDetails/PG164130>),
+    ([Microchip](https://www.microchip.com/Developmenttools/ProductDetails/PG164130)),
     which has fixed various bugs in those programs and been updated to
     program the latest Microchip 8-bit microcontrollers.
 
@@ -286,7 +286,7 @@ subdirectory in your GCBASIC directory.
 
 If at any time you encounter an issue and need help, you will find it
 over at the friendly GCBASIC discussion forums at
-<https://sourceforge.net/p/gcbasic/discussion/>
+[SourceForge](https://sourceforge.net/p/gcbasic/discussion/)
 
 <span class="strong">**See Also:**</span>
 

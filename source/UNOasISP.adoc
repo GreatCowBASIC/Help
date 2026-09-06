@@ -31,7 +31,7 @@ This is used to upload a sketch to the UNO that converts it into an ISP programm
 In the Arduino IDE, go to Tools -> Set board and select "Arduino UNO".
 Select the correct com port for the Arduino UNO, as shown in Device Manager.
 
-4. Go to File -> Examples -> ArduinoISP to select the sketch that will convert the UNO to an ISP programmer. A better-working version is available at Adafruit. Simply copy all the text from this link into a new sketch, https://raw.githubusercontent.com/adafruit/ArduinoISP/master/ArduinoISP.ino (or download the ino file and open it in the Arduino IDE), and go to step 5.
+4. Go to File -> Examples -> ArduinoISP to select the sketch that will convert the UNO to an ISP programmer. A better-working version is available at Adafruit. Simply copy all the text from this link into a new sketch, https://raw.githubusercontent.com/adafruit/ArduinoISP/master/ArduinoISP.ino[ArduinoISP.ino] (or download the ino file and open it in the Arduino IDE), and go to step 5.
 
 5. Click upload and confirm the sketch uploaded correctly by checking the status window at the bottom of the Arduino IDE.
 

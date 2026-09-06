@@ -16,7 +16,7 @@
       <link rel="next" href="_ssd1309_controllers.html" title="SSD1309 Controllers" />
       <meta name="Section-title" content="SSD1306 Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-89895";
+            var treeCookieId = "treeview-90303";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,8 +184,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><a id="d0e40443" class="indexterm"></a>
-               <a id="d0e40449" class="indexterm"></a></p>
+            <p><a id="d0e40534" class="indexterm"></a>
+               <a id="d0e40540" class="indexterm"></a></p>
             <p>This section covers GLCD devices that use the SSD1306 graphics controller.</p>
             <p>The SSD1306 is a single-chip CMOS OLED/PLED driver with controller for organic / polymer light emitting diode dot-matrix graphic
                display system. It consists of 128 segments and 64 commons. This IC is designed for Common Cathode type OLED panel.
@@ -782,6 +782,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
+            <p>Internally, <code class="literal">GLCD_Open_PageTransaction</code>/<code class="literal">GLCD_Close_PageTransaction</code> iterate over the display’s 8-pixel-tall pages using the global byte variable <code class="literal">_GLCDPage</code>, bounded by <code class="literal">_GLCDPagesL</code>/<code class="literal">_GLCDPagesH</code> (defaulting to 0 and 7 — the full 64-row display, matching the <code class="literal">0, 7</code> example above). These are internal loop-control variables — the source comments explicitly warn <code class="literal">_GLCDPage</code> must not be changed by user code — and are documented here only for completeness; use <code class="literal">GLCD_Open_PageTransaction</code>/<code class="literal">GLCD_Close_PageTransaction</code> as shown above rather than referencing them directly.
+            </p>
             <p>The GCBASIC specific commands for this GLCD are shown in the table below.</p>
             <div class="informaltable">
                <table border="1">
@@ -861,7 +863,7 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p>For a SSD1306 datasheet, please refer <a class="link" href="http://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf" target="_top">here</a>.
+            <p>For a SSD1306 datasheet, please refer <a class="link" href="https://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf" target="_top">here</a>.
             </p>
             <p>This example shows how to drive a SSD1306 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode
                GLCD
@@ -1593,6 +1595,11 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_hserprintcrlf.html" tabindex="1">HserPrintCRLF</a></span></li>
                                        </ul>
                                     </li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_infrared_remote_control.html" tabindex="1">Infrared Remote Control</a></span><ul>
+                                    <li><span class="file"><a href="_nec_remote_control.html" tabindex="1">NEC Remote Control</a></span></li>
+                                    <li><span class="file"><a href="_rc5_remote_control.html" tabindex="1">RC5 Remote Control</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_ps_2.html" tabindex="1">PS/2</a></span><ul>

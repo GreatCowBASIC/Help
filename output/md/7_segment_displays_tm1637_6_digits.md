@@ -113,10 +113,10 @@ is not supported in the library.
 The datasheets can found here:
 
 English -
-<a href="http://gcbasic.sourceforge.net/library/TM1637/TM1637_V2.4_EN.pdf" class="link">here</a>.
+[here](https://gcbasic.sourceforge.net/library/TM1637/TM1637_V2.4_EN.pdf).
 
 Chinese -
-<a href="http://gcbasic.sourceforge.net/library/TM1637/TM1637_V2.4.pdf" class="link">here</a>.
+[here](https://gcbasic.sourceforge.net/library/TM1637/TM1637_V2.4.pdf).
 
 <span class="strong">**Usage**</span>
 

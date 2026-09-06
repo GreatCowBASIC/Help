@@ -145,7 +145,7 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | Dim _variable_ // will define a Byte variable
 
 | <<_dir,Dir>>
-| Miscellaneous Commands
+| Port control
 | Dir __port.bit__ {In \| Out} __(Individual Form)__
 
 | <<_displaychar,DisplayChar>>
@@ -749,7 +749,7 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | Locate _Line, Column_
 
 | <<_lockpps,LockPPS>>
-| Peripheral Pin Select
+| Port control
 | LOCKPSS
 
 | <<_log10,Log10>>
@@ -796,6 +796,10 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | Variables Operations
 | Within GCBASIC you can use regular variable assignments. But, you can also use C like maths assignments.
 
+| <<_nec_remote_control,NEC Remote Control>>
+| Infrared Remote Control
+| NECSend _address_, _data_
+
 | <<_nextion_controllers,NEXTION Controllers>>
 | Graphical LCD
 | This section covers GLCD devices that use the serially attached Nextion graphics displays.
@@ -833,11 +837,11 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | This section covers GLCD devices that use the PCD844 graphics controller. +
 
 | <<_peek,Peek>>
-| Miscellaneous Commands
+| Variables Operations
 | __OutputVariable__ = Peek (__location__)
 
 | <<_peripheral_pin_select_for_microchip_microcontrollers,Peripheral Pin Select for Microchip microcontrollers.>>
-| Peripheral Pin Select
+| Port control
 | Peripheral Pin Select (PPS) enables the digital peripheral I/O pins to be changed to support mapping of external pins to different pins.
 
 | <<_pfmread,PFMRead>>
@@ -857,11 +861,11 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | PlayRTTTL SoundPlayRTTTLDataString
 
 | <<_poke,Poke>>
-| Miscellaneous Commands
+| Variables Operations
 | Poke(__location__, __value__)
 
 | <<_pot,Pot>>
-| Miscellaneous Commands
+| Analog/Digital conversion
 | Pot _pin, output_
 
 | <<_power,Power>>
@@ -905,19 +909,19 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | PSet(XPosition, YPosition, GLCDState)
 
 | <<_pulsein,PulseIn>>
-| Miscellaneous Commands
+| Pulse width modulation
 | PulseIn __pin__, __user_variable__, __time units__
 
 | <<_pulseininv,PulseInInv>>
-| Miscellaneous Commands
+| Pulse width modulation
 | PulseInInv __pin__, __user_variable__, __time units__
 
 | <<_pulseout,PulseOut>>
-| Miscellaneous Commands
+| Pulse width modulation
 | PulseOut __pin__, __time units__
 
 | <<_pulseoutinv,PulseOutInv>>
-| Miscellaneous Commands
+| Pulse width modulation
 | PulseOutInv _pin,_ _time units_
 
 | <<_put,Put>>
@@ -955,6 +959,10 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | <<_randomize,Randomize>>
 | Random Numbers
 | Randomize
+
+| <<_rc5_remote_control,RC5 Remote Control>>
+| Infrared Remote Control
+| RC5Send _address_, _data_
 
 | <<_readad,ReadAD>>
 | Analog/Digital conversion
@@ -1313,7 +1321,7 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | __stringvar__ = ULongIntToBin(__ULongIntvar__)
 
 | <<_unlockpps,UnLockPPS>>
-| Peripheral Pin Select
+| Port control
 | UNLOCKPPS
 
 | <<_using_variables,Using Variables>>
@@ -1333,7 +1341,7 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | Wait time units
 
 | <<_weak_pullups,Weak Pullups>>
-| Miscellaneous Commands
+| Port control
 | Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support internal/s...
 
 | <<_wordtobin,WordToBin>>
@@ -1378,6 +1386,9 @@ This page is the definitive, browsable index of every documented GCBASIC command
 
 | <<_readad12,ReadAD12>>
 | For a normal ( also called a Single Channel ) read use.
+
+| <<_pot,Pot>>
+| Pot _pin, output_
 
 |===
 
@@ -1948,6 +1959,18 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | <<_pwmout,PWMOut>>
 | PWMOut _channel, duty cycle, cycles_
 
+| <<_pulseout,PulseOut>>
+| PulseOut __pin__, __time units__
+
+| <<_pulseoutinv,PulseOutInv>>
+| PulseOutInv _pin,_ _time units_
+
+| <<_pulsein,PulseIn>>
+| PulseIn __pin__, __user_variable__, __time units__
+
+| <<_pulseininv,PulseInInv>>
+| PulseInInv __pin__, __user_variable__, __time units__
+
 |===
 
 *Random Numbers*
@@ -2120,6 +2143,20 @@ This page is the definitive, browsable index of every documented GCBASIC command
 
 | <<_sersend,SerSend>>
 | SerSend _channel_, _data_
+
+|===
+
+*Infrared Remote Control*
+
+[cols="3,7", options="header"]
+|===
+| Command | Summary
+
+| <<_nec_remote_control,NEC Remote Control>>
+| NECSend _address_, _data_
+
+| <<_rc5_remote_control,RC5 Remote Control>>
+| RC5Send _address_, _data_
 
 |===
 
@@ -2381,6 +2418,12 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | <<_variable_lifecycle,Variable Lifecycle>>
 | Within GCBASIC you can use variables. This section details the Variable Lifecycle when using variables.
 
+| <<_peek,Peek>>
+| __OutputVariable__ = Peek (__location__)
+
+| <<_poke,Poke>>
+| Poke(__location__, __value__)
+
 |===
 
 *String Manipulation*
@@ -2522,35 +2565,8 @@ This page is the definitive, browsable index of every documented GCBASIC command
 |===
 | Command | Summary
 
-| <<_dir,Dir>>
-| Dir __port.bit__ {In \| Out} __(Individual Form)__
-
 | <<_getuserid,GetUserID>>
 | Available on all Microchip microcontrollers that support UserIDs.
-
-| <<_peek,Peek>>
-| __OutputVariable__ = Peek (__location__)
-
-| <<_poke,Poke>>
-| Poke(__location__, __value__)
-
-| <<_pot,Pot>>
-| Pot _pin, output_
-
-| <<_pulsein,PulseIn>>
-| PulseIn __pin__, __user_variable__, __time units__
-
-| <<_pulseininv,PulseInInv>>
-| PulseInInv __pin__, __user_variable__, __time units__
-
-| <<_pulseout,PulseOut>>
-| PulseOut __pin__, __time units__
-
-| <<_pulseoutinv,PulseOutInv>>
-| PulseOutInv _pin,_ _time units_
-
-| <<_weak_pullups,Weak Pullups>>
-| Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support internal/s...
 
 |===
 
@@ -2604,14 +2620,17 @@ This page is the definitive, browsable index of every documented GCBASIC command
 
 |===
 
-*Peripheral Pin Select*
+*Port control*
 
 [cols="3,7", options="header"]
 |===
 | Command | Summary
 
-| <<_lockpps,LockPPS>>
-| LOCKPSS
+| <<_dir,Dir>>
+| Dir __port.bit__ {In \| Out} __(Individual Form)__
+
+| <<_weak_pullups,Weak Pullups>>
+| Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support internal/s...
 
 | <<_peripheral_pin_select_for_microchip_microcontrollers,Peripheral Pin Select for Microchip microcontrollers.>>
 | Peripheral Pin Select (PPS) enables the digital peripheral I/O pins to be changed to support mapping of external pins to different pins.
@@ -2619,38 +2638,35 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | <<_unlockpps,UnLockPPS>>
 | UNLOCKPPS
 
+| <<_lockpps,LockPPS>>
+| LOCKPSS
+
 |===
 
 === Commands Not Yet Documented
 
 The following names are recognised by the GCBASIC compiler (per its reserved-word list) but do not currently have a dedicated Help page or any mention in the existing documentation text. They are listed here as a known-gaps appendix, not fabricated pages -- if you rely on one of these, please raise it so a page can be added.
 
-[cols="1"]
+[cols="1", options="header"]
 |===
-| _glcdpage
-| _glcdpagesh
-| _glcdpagesl
+| Reserved Word
+
 | createbutton
 | eeram_write_command
 | fillroundrect
-| glcdprintdefaultfont_nextion
 | hefreadbyte
 | hline
 | hpwm16_log2
 | hpwm16_setdc
-| hpwm16_setgoing 
+| hpwm16_setgoing
 | hpwm16_setprps
 | hpwm16init
-| i2cslavedevicereceive
 | masterrst
 | owout
 | ppulse
 | roundrect
 | safreadbyte
 | shiftr
-| st7735rotation
 | st7735sendcommand
 | vline
 |===
-
-

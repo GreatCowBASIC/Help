@@ -43,8 +43,8 @@ Quadrant 4 = 270 to 359
 ```
 
 This ATan function is a fast XY vector to integer degree algorithm
-developed in Jan 2011, see www.RomanBlack.com and see
-<http://www.romanblack.com/integer_degree.htm>
+developed in Jan 2011, see [RomanBlack.com](https://www.romanblack.com)
+and see [here](https://www.romanblack.com/integer_degree.htm)
 
 The function converts any XY vectors including 0 to a degree value that
 should be within +/- 1 degree of the accurate value without needing

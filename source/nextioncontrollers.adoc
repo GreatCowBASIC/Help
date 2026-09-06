@@ -6,7 +6,7 @@
 This section covers GLCD devices that use the serially attached Nextion graphics displays.
 
 Nextion includes hardware part (a series of TFT boards) and software part (the Nextion
-editor (http://nextion.itead.cc/)).
+editor (https://nextion.itead.cc/[itead.cc])).
 
 The Nextion TFT board uses only one serial port to communicate. &#160;&#160;It lets you avoid the hassle of wiring.&#160;&#160;Nextion
 editor has mass components such as button, text, progress bar, slider, instrument panel etc.
@@ -226,6 +226,9 @@ The GCBASIC Nextion specific commands supported for this GLCD are shown in the t
 |Print string of characters on GLCD using Nextion font set adding a newline and carriage return to move cursort to start of next line.
 |`GLCDPrintStringLn_Nextion( Stringvariable )`
 
+|`GLCDPrintDefaultFont_Nextion`
+|Reset the GLCD default font parameters. On the Nextion driver this is implemented as a no-op stub -- the Nextion panel manages its own fonts on-device via the `NextionFont0`/`NextionFont1`/`NextionFont2` constants shown above, so no action is needed in GCBASIC code. The command exists only to satisfy the generic GLCD API surface shared with other controllers.
+|`GLCDPrintDefaultFont_Nextion( GLCDfntDefault, GLCDFontWidth, GLCDfntDefaultsize )`
 
 
 

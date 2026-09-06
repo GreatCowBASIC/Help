@@ -238,12 +238,12 @@ Read a byte value from the controller, see the datasheet for usage.
 `bytevariable = GLCDReadByte`
 
 For a TS7920 datasheet, please refer
-<a href="http://www.crystalfontz.com/controllers/ST7920.pdf" class="link">here.</a>
+[here.](https://www.crystalfontz.com/controllers/ST7920.pdf)
 
 This example shows how to drive a ST7920 based Graphic LCD module with
-the built in commands of GCBASIC. See
-<a href="http://www.greatcowbasic.com/sample-projects" class="link">Graphic LCD</a>
-for details, this is an external web site.
+the built in commands of GCBASIC. See [Graphic
+LCD](https://www.greatcowbasic.com/sample-projects) for details,
+this is an external web site.
 
 <span class="strong">**Example 1:**</span>
 

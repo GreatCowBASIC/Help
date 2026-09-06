@@ -16,7 +16,7 @@
       <link rel="next" href="_nt7108c_controllers.html" title="NT7108C Controllers" />
       <meta name="Section-title" content="NEXTION Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-89895";
+            var treeCookieId = "treeview-90303";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,11 +184,11 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><a id="d0e38133" class="indexterm"></a>
-               <a id="d0e38139" class="indexterm"></a></p>
+            <p><a id="d0e38203" class="indexterm"></a>
+               <a id="d0e38209" class="indexterm"></a></p>
             <p>This section covers GLCD devices that use the serially attached Nextion graphics displays.</p>
             <p>Nextion includes hardware part (a series of TFT boards) and software part (the Nextion
-               editor (<a class="link" href="http://nextion.itead.cc/)" target="_top">http://nextion.itead.cc/)</a>).
+               editor (<a class="link" href="https://nextion.itead.cc/" target="_top">itead.cc</a>)).
             </p>
             <p>The Nextion TFT board uses only one serial port to communicate.   It lets you avoid the hassle of wiring.  Nextion
                editor has mass components such as button, text, progress bar, slider, instrument panel etc.
@@ -485,6 +485,20 @@ border: none; background: none; font-weight: none; color: none; }
                         </td>
                         <td align="left" valign="top">
                            <p><code class="literal">GLCDPrintStringLn_Nextion( Stringvariable )</code></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCDPrintDefaultFont_Nextion</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Reset the GLCD default font parameters. On the Nextion driver this is implemented as a no-op stub — the Nextion panel manages
+                              its own fonts on-device via the <code class="literal">NextionFont0</code>/<code class="literal">NextionFont1</code>/<code class="literal">NextionFont2</code> constants shown above, so no action is needed in GCBASIC code. The command exists only to satisfy the generic GLCD API surface
+                              shared with other controllers.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCDPrintDefaultFont_Nextion( GLCDfntDefault, GLCDFontWidth, GLCDfntDefaultsize )</code></p>
                         </td>
                      </tr>
                      <tr>
@@ -1166,6 +1180,11 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_hserprintcrlf.html" tabindex="1">HserPrintCRLF</a></span></li>
                                        </ul>
                                     </li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_infrared_remote_control.html" tabindex="1">Infrared Remote Control</a></span><ul>
+                                    <li><span class="file"><a href="_nec_remote_control.html" tabindex="1">NEC Remote Control</a></span></li>
+                                    <li><span class="file"><a href="_rc5_remote_control.html" tabindex="1">RC5 Remote Control</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_ps_2.html" tabindex="1">PS/2</a></span><ul>

@@ -19,7 +19,7 @@ You *must* use the command `UnLockPPS` to enable setting of the PPS if the PPS h
 
 GCBASIC includes these two macros to ensure this process is handled correctly.
 
-Also, see http://microchip.wikidot.com/8bit:pps for more information.
+Also, see https://microchip.wikidot.com/8bit:pps[microchip.wikidot.com] for more information.
 
 *Why the priority value of 85 is important:*
 

@@ -184,27 +184,39 @@ supported commands.
 
 <div class="informaltable">
 
-| <span class="strong">**Command**</span> | <span class="strong">**Purpose**</span>                                                  | <span class="strong">**Example**</span>                                                                                                                                                   |
-|:----------------------------------------|:-----------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `GLCDCLS`                               | Clear screen of GLCD                                                                     | `GLCDCLS`                                                                                                                                                                                 |
-| `GLCDPrint`                             | Print string of characters on GLCD using GCB font set                                    | `GLCDPrint( Xposition, Yposition, Stringvariable )`                                                                                                                                       |
-| `GLCDDrawChar`                          | Print character on GLCD using GCB font set                                               | `GLCDDrawChar( Xposition, Yposition, CharCode )`                                                                                                                                          |
-| `GLCDDrawString`                        | Print characters on GLCD using GCB font set                                              | `GLCDDrawString( Xposition, Yposition, Stringvariable )`                                                                                                                                  |
-| `Box`                                   | Draw a box on the GLCD to a specific size                                                | `Box ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour as 0 or 1] )`                                                                                              |
-| `FilledBox`                             | Draw a box on the GLCD to a specific size that is filled with the foreground colour.     | `FilledBox (Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour 0 or 1] )`                                                                                            |
-| `Line`                                  | Draw a line on the GLCD to a specific length that is filled with the specific attribute. | `Line ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour 0 or 1] )`                                                                                                |
-| `PSet`                                  | Set a pixel on the GLCD at a specific position that is set with the specific attribute.  | `PSet(Xposition, Yposition, Pixel Colour 0 or 1)`                                                                                                                                         |
-| `GLCDWriteByte`                         | Set a byte value to the controller, see the datasheet for usage.                         | `GLCDWriteByte (LCDByte)`                                                                                                                                                                 |
-| `GLCDReadByte`                          | Read a byte value from the controller, see the datasheet for usage.                      | `bytevariable = GLCDReadByte`                                                                                                                                                             |
-| `ST7735_[color]`                        | Specify color as a parameter for many GLCD commands                                      | Any color can be defined using a valid hexidecimal word value between 0x0000 to 0xFFFF., see <http://www.barth-dev.de/online/rgb565-color-picker/> for a wider range of color parameters. |
+| <span class="strong">**Command**</span> | <span class="strong">**Purpose**</span>                                                  | <span class="strong">**Example**</span>                                                                                                                                                                            |
+|:----------------------------------------|:-----------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `GLCDCLS`                               | Clear screen of GLCD                                                                     | `GLCDCLS`                                                                                                                                                                                                          |
+| `GLCDPrint`                             | Print string of characters on GLCD using GCB font set                                    | `GLCDPrint( Xposition, Yposition, Stringvariable )`                                                                                                                                                                |
+| `GLCDDrawChar`                          | Print character on GLCD using GCB font set                                               | `GLCDDrawChar( Xposition, Yposition, CharCode )`                                                                                                                                                                   |
+| `GLCDDrawString`                        | Print characters on GLCD using GCB font set                                              | `GLCDDrawString( Xposition, Yposition, Stringvariable )`                                                                                                                                                           |
+| `Box`                                   | Draw a box on the GLCD to a specific size                                                | `Box ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour as 0 or 1] )`                                                                                                                       |
+| `FilledBox`                             | Draw a box on the GLCD to a specific size that is filled with the foreground colour.     | `FilledBox (Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour 0 or 1] )`                                                                                                                     |
+| `Line`                                  | Draw a line on the GLCD to a specific length that is filled with the specific attribute. | `Line ( Xposition1, Yposition1, Xposition2, Yposition2, [Optional In LineColour 0 or 1] )`                                                                                                                         |
+| `PSet`                                  | Set a pixel on the GLCD at a specific position that is set with the specific attribute.  | `PSet(Xposition, Yposition, Pixel Colour 0 or 1)`                                                                                                                                                                  |
+| `GLCDWriteByte`                         | Set a byte value to the controller, see the datasheet for usage.                         | `GLCDWriteByte (LCDByte)`                                                                                                                                                                                          |
+| `GLCDReadByte`                          | Read a byte value from the controller, see the datasheet for usage.                      | `bytevariable = GLCDReadByte`                                                                                                                                                                                      |
+| `ST7735_[color]`                        | Specify color as a parameter for many GLCD commands                                      | Any color can be defined using a valid hexidecimal word value between 0x0000 to 0xFFFF., see the [RGB565 color picker](http://www.barth-dev.de/online/rgb565-color-picker/) for a wider range of color parameters. |
 
 </div>
 
+Internally, the generic
+<a href="glcdrotate" class="link" title="GLCDRotate">GLCDRotate</a>
+command is implemented for this controller by `GLCDRotate_ST7735`, which
+handles the four orientations (`LANDSCAPE`, `PORTRAIT`, `LANDSCAPE_REV`,
+`PORTRAIT_REV`), swaps `GLCDDeviceWidth`/`GLCDDeviceHeight` for the
+landscape modes, and selects RGB or BGR colour order according to
+`ST7735TABCOLOR`. Bytes are sent to the controller via the internal
+`SendCommand_ST7735` helper (hardware SPI, or a bit-banged software path
+when `ST7735_HardwareSPI` is not defined). Both are internal
+implementation routines — use the public `GLCDRotate` command rather
+than calling either directly.
+
 For a ST7735 datasheet, please refer
-<a href="http://www.crystalfontz.com/controllers/ST7735_V2.1_20100505.pdf" class="link">here.</a>
+[here.](http://www.crystalfontz.com/controllers/ST7735_V2.1_20100505.pdf)
 
 For a ST7735R datasheet, please refer
-<a href="https://cdn-shop.adafruit.com/datasheets/ST7735R_V0.2.pdf" class="link">here.</a>
+[here.](https://cdn-shop.adafruit.com/datasheets/ST7735R_V0.2.pdf)
 
 <span class="strong">**Example:**</span>
 
@@ -249,6 +261,9 @@ GCBASIC-supported GLCD.
     /
     <a href="glcdwritebyte" class="link" title="GLCDWriteByte">GLCDWriteByte</a> — low-level
     byte access, for expert use
+-   <a href="glcdrotate" class="link" title="GLCDRotate">GLCDRotate</a> — rotating
+    the display, implemented for this controller by the internal
+    GLCDRotate\_ST7735 routine
 -   <a href="pset" class="link" title="Pset">Pset</a> — setting a
     single pixel
 

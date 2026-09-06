@@ -135,7 +135,8 @@ another chip.
     command in the same category
 -   <a href="getuserid" class="link" title="GetUserID">GetUserID</a> — related
     command in the same category
--   <a href="http://ladyada.net/library/rccalc" class="link">ladyada.net/library/rccalc</a> — calculating
+-   [RC
+    calculator](https://ladyada.net/library/rccalc) — calculating
     the capacitor value (not associated with GCBASIC)
 
 </div>

@@ -110,8 +110,8 @@ this page documents; see
 <a href="multiple_i2c_adapters_lcd_io_12" class="link" title="Multiple I2C Adapters (LCD_IO 12)">Multiple I2C Adapters (LCD_IO 12)</a>
 for driving up to four of these adapters on the same bus.
 
-For further code examples see
-<a href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions" class="link">I2C LCD Solutions</a>.
+For further code examples see [I2C LCD
+Solutions](https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions).
 
 See the separate sections of the Help file for the specifics of each
 Connection Mode.

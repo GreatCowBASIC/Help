@@ -739,7 +739,7 @@ This equates to 8 pixels high.
 
 |===
 
-For color TFT displays, any color can be defined using a valid hexadecimal word value between 0x0000 and 0xFFFF -- see http://www.barth-dev.de/online/rgb565-color-picker/ for a wider range of color parameters.
+For color TFT displays, any color can be defined using a valid hexadecimal word value between 0x0000 and 0xFFFF -- see the https://www.barth-dev.de/online/rgb565-color-picker/[RGB565 color picker] for a wider range of color parameters.
 
 The following color constants are pre-defined.
 
@@ -768,7 +768,7 @@ The following color constants are pre-defined.
 
 This example shows how to drive a KS0108-based Graphic LCD module with
 the built-in commands of GCBASIC. See
-http://www.greatcowbasic.com/sample-projects.html[Graphic LCD] for
+https://www.greatcowbasic.com/sample-projects.html[Graphic LCD] for
 details (this is an external website).
 
 *Example:*

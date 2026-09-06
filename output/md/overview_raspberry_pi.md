@@ -32,23 +32,23 @@ using just a Pi and an SSH connection.
 GCBASIC is not published for ARM-based computers - there is currently no
 pre-compiled version for ARM-based computers, so you will have to
 compile it from source. The GCBASIC compiler is written in
-<a href="https://www.freebasic.net/" class="link">FreeBASIC</a> (an
-open-source version of BASIC), so you will need to first install the
-FreeBASIC compiler on your Pi, then use it to compile the GCBASIC
-compiler from its source code. This is relatively simple.
+[FreeBASIC](https://www.freebasic.net/) (an open-source version of
+BASIC), so you will need to first install the FreeBASIC compiler on your
+Pi, then use it to compile the GCBASIC compiler from its source code.
+This is relatively simple.
 
 FreeBASIC is not included in any of the major Linux repositories, but
 there is a customised version for ARMv7 boards like the Raspberry Pi on
-their
-<a href="https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/" class="link">web site</a>.
+their [web
+site](https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/).
 
 The following procedure will work with any ARMv7 single-board computer
-running a Debian derivative like
-<a href="https://www.raspberrypi.org/downloads/raspberry-pi-os/" class="link">Raspberry Pi OS</a>
-or <a href="https://www.armbian.com/" class="link">Armbian</a>. This
-includes the Raspberry Pi 2 and 3, and all single-board computers with
-an Allwinner H2+ or H3 microprocessor (Orange Pi PC, Orange Pi Zero,
-Nano Pi R1, etc). It has not been tested with a Raspberry Pi 4.
+running a Debian derivative like [Raspberry Pi
+OS](https://www.raspberrypi.org/downloads/raspberry-pi-os/) or
+[Armbian](https://www.armbian.com/). This includes the Raspberry Pi 2
+and 3, and all single-board computers with an Allwinner H2+ or H3
+microprocessor (Orange Pi PC, Orange Pi Zero, Nano Pi R1, etc). It has
+not been tested with a Raspberry Pi 4.
 
 <span class="strong">**Instructions:**</span>
 
@@ -71,7 +71,7 @@ Pi.
 <div class="orderedlist">
 
 1.  Download the latest version of FreeBASIC for ARMv7 from
-    <https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/>
+    [freebasic-portal.de](https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/)
     :
 
 </div>
@@ -166,16 +166,16 @@ class="strong">**Programming**</span>
 To transfer your compiled .hex program files from your Pi to your
 microcontroller, you will need additional software.
 
-For most PIC microcontrollers, you should use
-<a href="https://pickitplus.co.uk/Typesetter/index.php/PKCMD-Pi-Application" class="link">PICkitPlus for Pi</a>.
+For most PIC microcontrollers, you should use [PICkitPlus for
+Pi](https://pickitplus.co.uk/Typesetter/index.php/PKCMD-Pi-Application).
 PICkitPlus supports the widest range of PICs, including the latest PICs.
 It is a fully supported application.
 
 For AVR microcontrollers, you will need `avrdude`. It should be
 available in your distribution’s repository. If not, check here:
-<http://www.nongnu.org/avrdude/> . Instructions on how to use it can be
-found
-<a href="https://learn.adafruit.com/program-an-avr-or-arduino-using-raspberry-pi-gpio-pins/overview" class="link">here</a>.
+[avrdude website](https://www.nongnu.org/avrdude/) . Instructions on how
+to use it can be found
+[here](https://learn.adafruit.com/program-an-avr-or-arduino-using-raspberry-pi-gpio-pins/overview).
 
 <span class="strong">**See Also:**</span>
 

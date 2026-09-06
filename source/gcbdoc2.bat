@@ -9,7 +9,10 @@ set GCButil=%GCBase%\prog\utils
 set GCBsaxjava=..\prog\saxon6-5-5\saxon.jar
 set GCBruby=%GCBase%\prog\ruby-2.2.2-i386-mingw32\bin
 set GCBxsldir=%GCBase%\prog\docbook-xsl-ns-1.78.1
-set GCBxsl=%GCBxsldir%\htmlhelp\htmlhelp.xsl
+rem GCBxsl points at our customization layer (source\gcbasic-htmlhelp.xsl),
+rem not the stock htmlhelp.xsl, so external links launch the real browser
+rem instead of failing inside the CHM's restricted embedded viewer.
+set GCBxsl=%GCBase%\source\gcbasic-htmlhelp.xsl
 set GCBweb=%GCBxsldir%\webhelp\webhelp.xsl
 
 set PATH=%PATH_ANT%\bin;%GCBruby%;%PATH%;%GCBsax%;%GCButil%

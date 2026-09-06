@@ -16,7 +16,7 @@
       <link rel="next" href="_unlockpps.html" title="UnLockPPS" />
       <meta name="Section-title" content="Peripheral Pin Select for Microchip microcontrollers." /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-89895";
+            var treeCookieId = "treeview-90303";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,8 +184,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><a id="d0e82764" class="indexterm"></a>
-               <a id="d0e82770" class="indexterm"></a></p>
+            <p><a id="d0e83169" class="indexterm"></a>
+               <a id="d0e83175" class="indexterm"></a></p>
             <p><span class="strong"><strong>Introduction:</strong></span></p>
             <p>Peripheral Pin Select (PPS) enables the digital peripheral I/O pins to be changed to support mapping of external pins to different
                pins.
@@ -200,7 +200,7 @@ border: none; background: none; font-weight: none; color: none; }
             <p>You <span class="strong"><strong>must</strong></span> use the command <code class="literal">UnLockPPS</code> to enable setting of the PPS if the PPS have been previously locked, and, you can, optionally, use <code class="literal">LockPPS</code> to prevent unintentional change to PPS settings afterward.
             </p>
             <p>GCBASIC includes these two macros to ensure this process is handled correctly.</p>
-            <p>Also, see <a class="link" href="http://microchip.wikidot.com/8bit:pps" target="_top">http://microchip.wikidot.com/8bit:pps</a> for more information.
+            <p>Also, see <a class="link" href="https://microchip.wikidot.com/8bit:pps" target="_top">microchip.wikidot.com</a> for more information.
             </p>
             <p><span class="strong"><strong>Why the priority value of 85 is important:</strong></span></p>
             <p><code class="literal">InitPPS</code> is registered with <code class="literal"><a class="link" href="__startup.html" title="#startup">#startup</a></code> using an explicit priority, for example <code class="literal">#startup InitPPS, 85</code>. This priority number is not arbitrary.
@@ -714,6 +714,11 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_hserprintcrlf.html" tabindex="1">HserPrintCRLF</a></span></li>
                                        </ul>
                                     </li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_infrared_remote_control.html" tabindex="1">Infrared Remote Control</a></span><ul>
+                                    <li><span class="file"><a href="_nec_remote_control.html" tabindex="1">NEC Remote Control</a></span></li>
+                                    <li><span class="file"><a href="_rc5_remote_control.html" tabindex="1">RC5 Remote Control</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_ps_2.html" tabindex="1">PS/2</a></span><ul>

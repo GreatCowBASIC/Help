@@ -144,8 +144,8 @@ character is written as two 4-bit nibbles over `LCD_DB4`-`LCD_DB7`,
 strobed by `LCD_Enable`, exactly as the physical LCD’s HD44780-style
 controller expects in 4-bit mode.
 
-Also see further code examples at
-<a href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions" class="link">Four Wire LCD Solutions</a>.
+Also see further code examples at [Four Wire LCD
+Solutions](https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions).
 
 See the separate sections of the Help file for the specifics of each
 Connection Mode.

@@ -20,24 +20,43 @@ provide you insights and knowledge to use GCBASIC.
 
 For information on installing GCBASIC and several other programs that
 may be helpful, see
-<a href="using_gcbasic" class="link" title="Using GCBASIC">Using GCBASIC</a>.
+<a href="using_gcbasic" class="link" title="Using GCBASIC">Using GCBASIC</a>
+or the [GCBASIC starting
+guide](https://gcbasic.sourceforge.net/starting).
 
-        http://gcbasic.sourceforge.net/starting
+<span class="strong">**What GCBASIC Offers:**</span>
+
+GCBASIC is a free compiler suite for programming Microchip PIC,
+Atmel/Microchip AVR, and LGT 8-bit microcontrollers, with syntax based
+on QBASIC/FreeBASIC and support for 1,432 microcontrollers. Three IDEs
+build on the same underlying compiler: GCStudio (the current, actively
+developed IDE), the legacy GCBASIC IDE, and the legacy Graphical GCBASIC
+(a drag-and-drop, icon-based environment for newcomers).
+
+Two further resources worth knowing about:
+
+<div class="itemizedlist">
+
+-   [FAQ](https://gcbasic.sourceforge.net/Typesetter/index.php/FAQ) — answers
+    to common questions
+-   [Demo
+    Code](https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources) — example
+    GCBASIC programs on GitHub
+
+</div>
 
 If you are new to programming, try the GCBASIC demonstration programs,
 which explain everything in a step-by-step manner and assume no prior
-knowledge. Download the
-<a href="https://sourceforge.net/projects/gcbasic/files/GCStudio%20-%20Complete%20IDE%20and%20Toolchain%20for%20Windows/GCBdemonstrationsPack.exe/download" class="link">GCBASIC demonstrations pack</a>.
+knowledge. Download the [GCBASIC demonstrations
+pack](https://sourceforge.net/projects/gcbasic/files/GCStudio%20-%20Complete%20IDE%20and%20Toolchain%20for%20Windows/GCBdemonstrationsPack.exe/download).
 
 If you have programmed in another language, then the demonstration files
 and this command reference may be the best place to start. See
 <a href="pic_users_and_beginners_start_here" class="link" title="PIC users and Beginners: Start Here">PIC Users and Beginners: Start Here</a>
 for a short worked example.
 
-If there is anything else that you need help on, please visit the <span
-class="strong">**GCBASIC forum**</span>
-
-        http://sourceforge.net/forum/?group\_id=169286
+If there is anything else that you need help on, please visit the
+[GCBASIC forum](https://sourceforge.net/forum/?group_id=169286).
 
 <span class="strong">**Where GCBASIC Came From:**</span>
 

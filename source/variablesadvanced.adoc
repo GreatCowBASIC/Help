@@ -82,7 +82,7 @@ This range is an implementation constraint of the GCBASIC compiler.
 |===
 {empty} +
 The format for single and double floats is defined by the IEEE 754 standard.
-The sign, exponent, and mantissa are all in the positions described here: https://www.geeksforgeeks.org/ieee-standard-754-floating-point-numbers/
+The sign, exponent, and mantissa are all in the positions described here: https://www.geeksforgeeks.org/ieee-standard-754-floating-point-numbers/[GeeksforGeeks]
 
 *Organisation of advanced variables*
 

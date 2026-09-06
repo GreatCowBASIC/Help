@@ -39,6 +39,14 @@ before reading. When the method `I2CReceive` is used in Slave mode the
 global variable `I2CMatch` will be set to true when the received value
 is equal to the constant `I2C_ADDRESS`.
 
+<span class="strong">**Note:**</span>
+
+Earlier versions of GCBASIC provided a separate `I2CSlaveDeviceReceive`
+command for slave-mode reception. That name is now a reserved legacy
+identifier only — the functionality has been folded into `I2CReceive`
+itself, conditioned on `#define I2C_MODE Slave`, exactly as shown in
+Example 2 below.
+
 <span class="strong">**Example 1 - Master Mode:**</span>
 
 ``` programlisting

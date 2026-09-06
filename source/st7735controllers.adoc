@@ -193,15 +193,16 @@ specific attribute.
 
 |`ST7735_[color]`
 |Specify color as a parameter for many GLCD commands
-|Any color can be defined using a valid hexidecimal word value between 0x0000 to 0xFFFF., see http://www.barth-dev.de/online/rgb565-color-picker/ for a wider range of color parameters.
+|Any color can be defined using a valid hexidecimal word value between 0x0000 to 0xFFFF., see the http://www.barth-dev.de/online/rgb565-color-picker/[RGB565 color picker^] for a wider range of color parameters.
 |===
 
+Internally, the generic <<_glcdrotate,GLCDRotate>> command is implemented for this controller by `GLCDRotate_ST7735`, which handles the four orientations (`LANDSCAPE`, `PORTRAIT`, `LANDSCAPE_REV`, `PORTRAIT_REV`), swaps `GLCDDeviceWidth`/`GLCDDeviceHeight` for the landscape modes, and selects RGB or BGR colour order according to `ST7735TABCOLOR`. Bytes are sent to the controller via the internal `SendCommand_ST7735` helper (hardware SPI, or a bit-banged software path when `ST7735_HardwareSPI` is not defined). Both are internal implementation routines -- use the public `GLCDRotate` command rather than calling either directly.
 
 For a ST7735 datasheet, please refer
-http://www.crystalfontz.com/controllers/ST7735_V2.1_20100505.pdf[here.]
+http://www.crystalfontz.com/controllers/ST7735_V2.1_20100505.pdf[here.^]
 
 For a ST7735R datasheet, please refer
-https://cdn-shop.adafruit.com/datasheets/ST7735R_V0.2.pdf[here.]
+https://cdn-shop.adafruit.com/datasheets/ST7735R_V0.2.pdf[here.^]
 
 *Example:*
 
@@ -234,6 +235,7 @@ https://cdn-shop.adafruit.com/datasheets/ST7735R_V0.2.pdf[here.]
 * <<_glcddrawchar,GLCDDrawChar>> -- drawing a single character
 * <<_glcdprint,GLCDPrint>> -- printing a value at a specific location, as used above
 * <<_glcdreadbyte,GLCDReadByte>> / <<_glcdwritebyte,GLCDWriteByte>> -- low-level byte access, for expert use
+* <<_glcdrotate,GLCDRotate>> -- rotating the display, implemented for this controller by the internal GLCDRotate_ST7735 routine
 * <<_pset,Pset>> -- setting a single pixel
 
 Supported in <GLCD.H>

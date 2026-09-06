@@ -31,8 +31,8 @@ Randomize is used to seed the pseudo random number generator, so that it
 will produce a different sequence of numbers each time it is used.
 
 The random number generator in GCBASIC is a 16 bit linear feedback shift
-register, which is explained here:
-<http://en.wikipedia.org/wiki/Linear_feedback_shift_register>
+register, which is explained here: [Linear feedback shift register on
+Wikipedia](https://en.wikipedia.org/wiki/Linear_feedback_shift_register)
 
 Generally, you will get the same sequence every time it is
 used.  However, you can seed it so that it will start at a different

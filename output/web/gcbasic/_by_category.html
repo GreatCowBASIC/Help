@@ -16,7 +16,7 @@
       <link rel="next" href="_commands_not_yet_documented.html" title="Commands Not Yet Documented" />
       <meta name="Section-title" content="By Category" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-89895";
+            var treeCookieId = "treeview-90303";
             var language = "en";
             var w = new Object();
             //Localization
@@ -256,6 +256,14 @@ border: none; background: none; font-weight: none; color: none; }
                         </td>
                         <td align="left" valign="top">
                            <p>For a normal ( also called a Single Channel ) read use.</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><a class="link" href="_pot.html" title="Pot">Pot</a></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Pot <span class="emphasis"><em>pin, output</em></span></p>
                         </td>
                      </tr>
                   </tbody>
@@ -1748,6 +1756,38 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>PWMOut <span class="emphasis"><em>channel, duty cycle, cycles</em></span></p>
                         </td>
                      </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><a class="link" href="_pulseout.html" title="PulseOut">PulseOut</a></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>PulseOut <span class="emphasis"><em>pin</em></span>, <span class="emphasis"><em>time units</em></span></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><a class="link" href="_pulseoutinv.html" title="PulseOutInv">PulseOutInv</a></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>PulseOutInv <span class="emphasis"><em>pin,</em></span> <span class="emphasis"><em>time units</em></span></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><a class="link" href="_pulsein.html" title="PulseIn">PulseIn</a></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>PulseIn <span class="emphasis"><em>pin</em></span>, <span class="emphasis"><em>user_variable</em></span>, <span class="emphasis"><em>time units</em></span></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><a class="link" href="_pulseininv.html" title="PulseInInv">PulseInInv</a></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>PulseInInv <span class="emphasis"><em>pin</em></span>, <span class="emphasis"><em>user_variable</em></span>, <span class="emphasis"><em>time units</em></span></p>
+                        </td>
+                     </tr>
                   </tbody>
                </table>
             </div>
@@ -2203,6 +2243,39 @@ border: none; background: none; font-weight: none; color: none; }
                         </td>
                         <td align="left" valign="top">
                            <p>SerSend <span class="emphasis"><em>channel</em></span>, <span class="emphasis"><em>data</em></span></p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <p><span class="strong"><strong>Infrared Remote Control</strong></span></p>
+            <div class="informaltable">
+               <table border="1">
+                  <colgroup>
+                     <col class="col_1" />
+                     <col class="col_2" />
+                  </colgroup>
+                  <thead>
+                     <tr>
+                        <th align="left" valign="top">Command</th>
+                        <th align="left" valign="top">Summary</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><a class="link" href="_nec_remote_control.html" title="NEC Remote Control">NEC Remote Control</a></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>NECSend <span class="emphasis"><em>address</em></span>, <span class="emphasis"><em>data</em></span></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><a class="link" href="_rc5_remote_control.html" title="RC5 Remote Control">RC5 Remote Control</a></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>RC5Send <span class="emphasis"><em>address</em></span>, <span class="emphasis"><em>data</em></span></p>
                         </td>
                      </tr>
                   </tbody>
@@ -2881,6 +2954,24 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>Within GCBASIC you can use variables. This section details the Variable Lifecycle when using variables.</p>
                         </td>
                      </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><a class="link" href="_peek.html" title="Peek">Peek</a></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><span class="emphasis"><em>OutputVariable</em></span> = Peek (<span class="emphasis"><em>location</em></span>)
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><a class="link" href="_poke.html" title="Poke">Poke</a></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Poke(<span class="emphasis"><em>location</em></span>, <span class="emphasis"><em>value</em></span>)
+                           </p>
+                        </td>
+                     </tr>
                   </tbody>
                </table>
             </div>
@@ -3285,86 +3376,10 @@ border: none; background: none; font-weight: none; color: none; }
                   <tbody>
                      <tr>
                         <td align="left" valign="top">
-                           <p><a class="link" href="_dir.html" title="Dir">Dir</a></p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>Dir <span class="emphasis"><em>port.bit</em></span> {In | Out} <span class="emphasis"><em>(Individual Form)</em></span></p>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td align="left" valign="top">
                            <p><a class="link" href="_getuserid.html" title="GetUserID">GetUserID</a></p>
                         </td>
                         <td align="left" valign="top">
                            <p>Available on all Microchip microcontrollers that support UserIDs.</p>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td align="left" valign="top">
-                           <p><a class="link" href="_peek.html" title="Peek">Peek</a></p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p><span class="emphasis"><em>OutputVariable</em></span> = Peek (<span class="emphasis"><em>location</em></span>)
-                           </p>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td align="left" valign="top">
-                           <p><a class="link" href="_poke.html" title="Poke">Poke</a></p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>Poke(<span class="emphasis"><em>location</em></span>, <span class="emphasis"><em>value</em></span>)
-                           </p>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td align="left" valign="top">
-                           <p><a class="link" href="_pot.html" title="Pot">Pot</a></p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>Pot <span class="emphasis"><em>pin, output</em></span></p>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td align="left" valign="top">
-                           <p><a class="link" href="_pulsein.html" title="PulseIn">PulseIn</a></p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>PulseIn <span class="emphasis"><em>pin</em></span>, <span class="emphasis"><em>user_variable</em></span>, <span class="emphasis"><em>time units</em></span></p>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td align="left" valign="top">
-                           <p><a class="link" href="_pulseininv.html" title="PulseInInv">PulseInInv</a></p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>PulseInInv <span class="emphasis"><em>pin</em></span>, <span class="emphasis"><em>user_variable</em></span>, <span class="emphasis"><em>time units</em></span></p>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td align="left" valign="top">
-                           <p><a class="link" href="_pulseout.html" title="PulseOut">PulseOut</a></p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>PulseOut <span class="emphasis"><em>pin</em></span>, <span class="emphasis"><em>time units</em></span></p>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td align="left" valign="top">
-                           <p><a class="link" href="_pulseoutinv.html" title="PulseOutInv">PulseOutInv</a></p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>PulseOutInv <span class="emphasis"><em>pin,</em></span> <span class="emphasis"><em>time units</em></span></p>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td align="left" valign="top">
-                           <p><a class="link" href="_weak_pullups.html" title="Weak Pullups">Weak Pullups</a></p>
-                        </td>
-                        <td align="left" valign="top">
-                           <p>Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support
-                              internal/s…​
-                           </p>
                         </td>
                      </tr>
                   </tbody>
@@ -3506,7 +3521,7 @@ border: none; background: none; font-weight: none; color: none; }
                   </tbody>
                </table>
             </div>
-            <p><span class="strong"><strong>Peripheral Pin Select</strong></span></p>
+            <p><span class="strong"><strong>Port control</strong></span></p>
             <div class="informaltable">
                <table border="1">
                   <colgroup>
@@ -3522,10 +3537,20 @@ border: none; background: none; font-weight: none; color: none; }
                   <tbody>
                      <tr>
                         <td align="left" valign="top">
-                           <p><a class="link" href="_lockpps.html" title="LockPPS">LockPPS</a></p>
+                           <p><a class="link" href="_dir.html" title="Dir">Dir</a></p>
                         </td>
                         <td align="left" valign="top">
-                           <p>LOCKPSS</p>
+                           <p>Dir <span class="emphasis"><em>port.bit</em></span> {In | Out} <span class="emphasis"><em>(Individual Form)</em></span></p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><a class="link" href="_weak_pullups.html" title="Weak Pullups">Weak Pullups</a></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support
+                              internal/s…​
+                           </p>
                         </td>
                      </tr>
                      <tr>
@@ -3544,6 +3569,14 @@ border: none; background: none; font-weight: none; color: none; }
                         </td>
                         <td align="left" valign="top">
                            <p>UNLOCKPPS</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><a class="link" href="_lockpps.html" title="LockPPS">LockPPS</a></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>LOCKPSS</p>
                         </td>
                      </tr>
                   </tbody>
@@ -4012,6 +4045,11 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_hserprintcrlf.html" tabindex="1">HserPrintCRLF</a></span></li>
                                        </ul>
                                     </li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_infrared_remote_control.html" tabindex="1">Infrared Remote Control</a></span><ul>
+                                    <li><span class="file"><a href="_nec_remote_control.html" tabindex="1">NEC Remote Control</a></span></li>
+                                    <li><span class="file"><a href="_rc5_remote_control.html" tabindex="1">RC5 Remote Control</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_ps_2.html" tabindex="1">PS/2</a></span><ul>

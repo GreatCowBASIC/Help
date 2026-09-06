@@ -58,8 +58,8 @@ then, once the bootloader has initialised, execution of the start code.
 
 </div>
 
-See
-<a href="https://sourceforge.net/projects/tinypicbootload/files/" class="link">example bootload software.</a>
+See [example bootload
+software.](https://sourceforge.net/projects/tinypicbootload/files/)
 
 <span class="strong">**Example:**</span>
 

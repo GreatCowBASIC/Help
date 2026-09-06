@@ -46,9 +46,9 @@ The process is automated with automatic versioning and configuration.
 
 The macOS GCBASIC installer uses the <span
 class="emphasis">*Packages*</span> installer
-(<http://s.sudre.free.fr/Software/Packages/about>) with packaging
-completed using the Bourne shell script `pkg2dmg.sh` to create a
-compressed disk image file containing the installer.
+([Packages](https://s.sudre.free.fr/Software/Packages/about)) with
+packaging completed using the Bourne shell script `pkg2dmg.sh` to create
+a compressed disk image file containing the installer.
 
   
   

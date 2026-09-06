@@ -29,8 +29,9 @@ Available on all microcontrollers.
 <span class="emphasis">*TMaddr*</span> is 0 , 1 , 2 , 3 4, 5 (display
 left to right) <span class="emphasis">*TMchar*</span> is a letter from A
 to Z (default alphabet) or from `a` to `z` Siekoo alphabet by Alexander
-Fakoo, more info at: <http://en.fakoo.de/siekoo>.    You can insert
-the special characters (blank, -, ) and/or ?).  
+Fakoo, more info at:
+[en.fakoo.de/siekoo](https://en.fakoo.de/siekoo).    You can
+insert the special characters (blank, -, ) and/or ?).  
   
 Character map:
 

@@ -258,7 +258,7 @@ specific attribute.
 |`bytevariable = GLCDReadByte`
 |===
 For a NT7108C datasheet, please refer
-http://www.farnell.com/datasheets/1878006.pdf[here.]
+https://www.farnell.com/datasheets/1878006.pdf[here.]
 
 This example shows how to drive a NT7108C based Graphic LCD module with
 the built in commands of GCBASIC. See https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/[Graphic LCD] for

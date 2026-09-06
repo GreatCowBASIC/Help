@@ -27,13 +27,14 @@ for FreeBSD:
 <div class="orderedlist">
 
 1.  Download one of the nightly builds of FreeBASIC 1.06 for the FreeBSD
-    32-bit or 64-bit binary compilation from:
-    <http://users.freebasic-portal.de/stw/builds/freebsd32/> (32 bit) or
-    <http://users.freebasic-portal.de/stw/builds/freebsd64/> (64 bit).
-    The filenames are in the format fbc\_freebsd\[32\|64\]<span
+    32-bit or 64-bit binary compilation from: [32-bit
+    build](https://users.freebasic-portal.de/stw/builds/freebsd32/) or
+    [64-bit
+    build](https://users.freebasic-portal.de/stw/builds/freebsd64/). The
+    filenames are in the format fbc\_freebsd\[32\|64\]<span
     class="emphasis">*\[BuildNumber\]*</span>\[Date\].zip.
 2.  Download the GCBASIC UNIX Source Distribution from SourceForge at
-    <https://gcbasic.sourceforge.net/Typesetter/index.php/Download>
+    [gcbasic.sourceforge.net](https://gcbasic.sourceforge.net/Typesetter/index.php/Download)
 3.  Move the FreeBASIC ZIP file from your download directory to your
     home directory.
 4.  Unzip the FreeBASIC ZIP file, which will produce a new directory
@@ -114,8 +115,8 @@ will need additional hardware and software.
 <div class="orderedlist">
 
 1.  For Microchip PIC microcontroller programming, you might find what
-    you need at:
-    <https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120>
+    you need at: [Microchip Development
+    Tools](https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120)
     and the FreeBSD version of the `pk2cmd` v1.2 command line
     programming software.
 2.  For Atmel AVR microcontroller programming, you will need the
@@ -134,11 +135,11 @@ able to use Windows GUI programming software.
 
 -   For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or
     even better the PICkitPlus software
-    (<https://sourceforge.net/projects/pickit3plus/>) for both the
-    PICkit 2
-    (<https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120>)
+    ([PICkitPlus](https://sourceforge.net/projects/pickit3plus/)) for
+    both the PICkit 2
+    ([Microchip](https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120))
     and PICkit 3
-    (<https://www.microchip.com/Developmenttools/ProductDetails/PG164130>),
+    ([Microchip](https://www.microchip.com/Developmenttools/ProductDetails/PG164130)),
     which has fixed various bugs in those programs and been updated to
     program the latest Microchip 8-bit microcontrollers.
 
@@ -151,7 +152,7 @@ subdirectory in your GCBASIC directory.
 
 If at any time you encounter an issue and need help, you will find it
 over at the friendly GCBASIC discussion forums at
-<https://sourceforge.net/p/gcbasic/discussion/>
+[SourceForge](https://sourceforge.net/p/gcbasic/discussion/)
 
 <span class="strong">**See Also:**</span>
 

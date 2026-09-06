@@ -281,6 +281,16 @@ below.
 
 </div>
 
+Internally, `GLCD_Open_PageTransaction`/`GLCD_Close_PageTransaction`
+iterate over the display’s 8-pixel-tall pages using the global byte
+variable `_GLCDPage`, bounded by `_GLCDPagesL`/`_GLCDPagesH` (defaulting
+to 0 and 7 — the full 64-row display, matching the `0, 7` example
+above). These are internal loop-control variables — the source comments
+explicitly warn `_GLCDPage` must not be changed by user code — and are
+documented here only for completeness; use
+`GLCD_Open_PageTransaction`/`GLCD_Close_PageTransaction` as shown above
+rather than referencing them directly.
+
 The GCBASIC specific commands for this GLCD are shown in the table
 below.
 
@@ -333,7 +343,7 @@ Parameter is dim value</p></td>
 </div>
 
 For a SSD1306 datasheet, please refer
-<a href="http://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf" class="link">here</a>.
+[here](https://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf).
 
 This example shows how to drive a SSD1306 based Graphic I2C LCD module
 with the built in commands of GCBASIC using Full Mode GLCD

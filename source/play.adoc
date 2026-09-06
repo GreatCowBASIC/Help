@@ -69,7 +69,7 @@ Unsupported QBASIC commands are
 
 |===
 
-For more information on the QBASIC PLAY command set, see https://en.wikibooks.org/wiki/QBasic/Appendix
+For more information on the QBASIC PLAY command set, see https://en.wikibooks.org/wiki/QBasic/Appendix[QBasic Appendix on Wikibooks]
 
 
 *Example:*

@@ -1,0 +1,54 @@
+==== NEC Remote Control
+
+(((Infrared Remote Control,NEC Remote Control)))
+
+
+*Syntax:*
+[subs="specialcharacters,quotes"]
+----
+    NECSend _address_, _data_
+
+    NECByte _value_
+----
+*Command Availability:*
+
+Available on all microcontrollers. Requires the inclusion of the following:
+
+[source,gcbasic]
+----
+    #include <remote.h>
+----
+
+*Explanation:*
+
+`NECSend` transmits a complete NEC-protocol infrared remote-control frame: a start burst, a sync gap, the address byte, its bitwise complement, the command byte, and its complement. `NECByte` is the lower-level routine `NECSend` uses to transmit each of those four bytes individually -- most programs only need to call `NECSend`.
+
+Both this command and `RC5Send` (see <<_rc5_remote_control,RC5 Remote Control>>) share the same output pin, set with:
+
+[source,gcbasic]
+----
+    #define RC5Out <pin>
+----
+
+`_address_` and `_data_` are byte values. `NECSend` automatically transmits each one's bitwise complement (`!_address_`, `!_data_`) immediately afterward, which is how a NEC receiver detects transmission errors.
+
+Each bit sent by `NECByte` is a short mark burst followed by a space whose length encodes the bit value -- the two space lengths differ so a receiver can distinguish a 1 from a 0.
+
+*Example:*
+[source,gcbasic]
+----
+    #chip 16F877A, 20
+
+    #define RC5Out PORTB.0
+    Dir RC5Out Out
+
+    Do
+        NECSend 0x04, 0x0A          ' <<< the NECSend instruction
+        Wait 100 ms
+    Loop
+----
+*Key line:* `NECSend 0x04, 0x0A` -- transmits address `0x04` and command `0x0A` as a complete NEC frame (address, its complement, command, its complement), preceded by the standard start burst and sync gap.
+
+**See Also:**
+
+* <<_rc5_remote_control,RC5 Remote Control>> -- the alternate infrared protocol supported by the same output pin

@@ -51,8 +51,8 @@ used in conjunction with AVRdude.
 
 <div class="orderedlist">
 
-1.  Obtain an Arduino UNO or Mega. Upload this
-    <a href="https://sourceforge.net/p/gcbasic/discussion/chipfileforum/thread/088449090a/ed10/attachment/arduino_As_ISP_adafruit.hex" class="link">hex file</a>
+1.  Obtain an Arduino UNO or Mega. Upload this [hex
+    file](https://sourceforge.net/p/gcbasic/discussion/chipfileforum/thread/088449090a/ed10/attachment/arduino_As_ISP_adafruit.hex)
     to convert the UNO into an ISP programmer, or follow steps 2-5
     below.
 2.  Download the Arduino IDE software. This is used to upload a sketch
@@ -64,7 +64,7 @@ used in conjunction with AVRdude.
     convert the UNO to an ISP programmer. A better-working version is
     available at Adafruit. Simply copy all the text from this link into
     a new sketch,
-    <https://raw.githubusercontent.com/adafruit/ArduinoISP/master/ArduinoISP.ino>
+    [ArduinoISP.ino](https://raw.githubusercontent.com/adafruit/ArduinoISP/master/ArduinoISP.ino)
     (or download the ino file and open it in the Arduino IDE), and go to
     step 5.
 5.  Click upload and confirm the sketch uploaded correctly by checking

@@ -180,7 +180,7 @@ Parameter is dim value
 
 |===
 
-For a SH1106 datasheet, please refer http://gcbasic.sourceforge.net/library/DISPLAY/SH1106.pdf[here].
+For a SH1106 datasheet, please refer https://gcbasic.sourceforge.net/library/DISPLAY/SH1106.pdf[here].
 
 This example shows how to drive a SH1106 based Graphic LCD module with the built in commands of GCBASIC.
 [source,gcbasic]

@@ -176,7 +176,7 @@ The library predefines the named colors below as 16-bit RGB565 values (5 bits re
 
 
 
-For a SSD1289 datasheet, please refer http://gcbasic.sourceforge.net/library/DISPLAY/SDD1289.pdf[here]. +
+For a SSD1289 datasheet, please refer https://gcbasic.sourceforge.net/library/DISPLAY/SDD1289.pdf[here]. +
 
 This example shows how to drive an SSD1289 based Graphic LCD module with the built in commands of GCBASIC. +
 

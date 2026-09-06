@@ -65,7 +65,7 @@ The connectivity is shown below.&#160;&#160;The microcontroller connections are 
 image::lcd_io_16_1.png[graphic,align="center"]
 
 
-For code examples see http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions[LCD Solutions].
+For code examples see https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions[LCD Solutions].
 
 
 See the separate sections of the Help file for the specifics of each

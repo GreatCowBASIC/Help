@@ -199,11 +199,11 @@ The following methods ( calls ) are available for expert use.
 |===
 
 For a TS7920 datasheet, please refer
-http://www.crystalfontz.com/controllers/ST7920.pdf[here.]
+https://www.crystalfontz.com/controllers/ST7920.pdf[here.]
 
 This example shows how to drive a ST7920 based Graphic LCD module with
 the built in commands of GCBASIC. See
-http://www.greatcowbasic.com/sample-projects.html[Graphic LCD] for
+https://www.greatcowbasic.com/sample-projects.html[Graphic LCD] for
 details, this is an external web site.
 
 *Example 1:*

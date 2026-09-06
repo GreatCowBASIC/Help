@@ -826,6 +826,16 @@ ifdef::backend-pdf[<<<]
 
 :leveloffset: -1
 
+=== Infrared Remote Control
+
+This is the Infrared Remote Control section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+
+include::necremotecontrol.adoc[]
+
+include::rc5remotecontrol.adoc[]
+
+ifdef::backend-pdf[<<<]
+
 === PS/2
 
 This is the PS/2 section of the Help file.  Please refer the sub-sections for details using the contents/folder view.

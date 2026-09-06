@@ -7,19 +7,24 @@ Hello, and welcome to GCBASIC help. This help file is intended
 to provide you insights and knowledge to use GCBASIC.
 
 For information on installing GCBASIC and several other programs that
-may be helpful, see <<_using_gcbasic,Using GCBASIC>>.
+may be helpful, see <<_using_gcbasic,Using GCBASIC>> or the https://gcbasic.sourceforge.net/starting.html[GCBASIC starting guide^].
 
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;\http://gcbasic.sourceforge.net/starting.html
+*What GCBASIC Offers:*
+
+GCBASIC is a free compiler suite for programming Microchip PIC, Atmel/Microchip AVR, and LGT 8-bit microcontrollers, with syntax based on QBASIC/FreeBASIC and support for 1,432 microcontrollers. Three IDEs build on the same underlying compiler: GCStudio (the current, actively developed IDE), the legacy GCBASIC IDE, and the legacy Graphical GCBASIC (a drag-and-drop, icon-based environment for newcomers).
+
+Two further resources worth knowing about:
+
+* https://gcbasic.sourceforge.net/Typesetter/index.php/FAQ[FAQ^] -- answers to common questions
+* https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources[Demo Code^] -- example GCBASIC programs on GitHub
 
 If you are new to programming, try the GCBASIC
 demonstration programs, which explain everything in a step-by-step manner and assume
-no prior knowledge. Download the https://sourceforge.net/projects/gcbasic/files/GCStudio%20-%20Complete%20IDE%20and%20Toolchain%20for%20Windows/GCBdemonstrationsPack.exe/download[GCBASIC demonstrations pack].
+no prior knowledge. Download the https://sourceforge.net/projects/gcbasic/files/GCStudio%20-%20Complete%20IDE%20and%20Toolchain%20for%20Windows/GCBdemonstrationsPack.exe/download[GCBASIC demonstrations pack^].
 
 If you have programmed in another language, then the demonstration files and this command reference may be the best place to start. See <<_pic_users_and_beginners_start_here,PIC Users and Beginners: Start Here>> for a short worked example.
 
-If there is anything else that you need help on, please visit the *GCBASIC forum*
-
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;\http://sourceforge.net/forum/?group_id=169286
+If there is anything else that you need help on, please visit the https://sourceforge.net/forum/?group_id=169286[GCBASIC forum^].
 
 *Where GCBASIC Came From:*
 

@@ -18,7 +18,7 @@ This section covers GLCD devices that use the serially attached Nextion
 graphics displays.
 
 Nextion includes hardware part (a series of TFT boards) and software
-part (the Nextion editor (<http://nextion.itead.cc/)>).
+part (the Nextion editor ([itead.cc](https://nextion.itead.cc/))).
 
 The Nextion TFT board uses only one serial port to communicate.   It
 lets you avoid the hassle of wiring.  Nextion editor has mass components
@@ -31,8 +31,8 @@ The Nextion displays are 2.4 to 7.0 inches and range from 320\*240 to
 GCBASIC supports hardware and software serial connectivity.
 
 See GITHUB for the set of GCBASIC demonstrations fro the Nextion
-displays. See
-<a href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/GLCD%20%20Solutions/GLCD%20Nextion%20Solutions" class="link">Nextion demonstrations on GITHUB</a>.
+displays. See [Nextion demonstrations on
+GITHUB](https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/GLCD%20%20Solutions/GLCD%20Nextion%20Solutions).
 
   
   
@@ -241,16 +241,21 @@ latest full set of supported commands.
 <td style="text-align: left;"><p><code class="literal">GLCDPrintStringLn_Nextion( Stringvariable )</code></p></td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;"><p><code class="literal">GLCDPrintDefaultFont_Nextion</code></p></td>
+<td style="text-align: left;"><p>Reset the GLCD default font parameters. On the Nextion driver this is implemented as a no-op stub — the Nextion panel manages its own fonts on-device via the <code class="literal">NextionFont0</code>/<code class="literal">NextionFont1</code>/<code class="literal">NextionFont2</code> constants shown above, so no action is needed in GCBASIC code. The command exists only to satisfy the generic GLCD API surface shared with other controllers.</p></td>
+<td style="text-align: left;"><p><code class="literal">GLCDPrintDefaultFont_Nextion( GLCDfntDefault, GLCDFontWidth, GLCDfntDefaultsize )</code></p></td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><p><code class="literal">GLCDSendOpInstruction_Nextion</code></p></td>
 <td style="text-align: left;"><p>Send the Nextion display a specific command and a specific value</p></td>
 <td style="text-align: left;"><p><code class="literal">GLCDSendOpInstruction_Nextion( Nextion_command, command_value )</code></p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><code class="literal">GLCDUpdateObject_Nextion</code></p></td>
 <td style="text-align: left;"><p>Update a Nextion display object with a specific value</p></td>
 <td style="text-align: left;"><p><code class="literal">GLCDUpdateObject_Nextion( Nextion_object, object_value )</code></p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><code class="literal">myReturnedWordValue  = GLCDGetTouch_Nextion( "nextion_command_string" )</code></p></td>
 <td style="text-align: left;"><p>A function that returns a long, that can be treated as word variable, value of the Touch event..  As follows:<br />
 <br />

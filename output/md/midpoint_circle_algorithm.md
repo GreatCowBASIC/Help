@@ -18,11 +18,11 @@
 
 GCBASIC can draw circles using the midpoint circle algorithm. The
 midpoint circle algorithm determines the points needed for drawing a
-circle. The algorithm is a variant of
-<a href="https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm" class="link">Bresenham’s line algorithm</a>,
+circle. The algorithm is a variant of [Bresenham’s line
+algorithm](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm),
 and is thus sometimes known as Bresenham’s circle algorithm, although it
-was not actually invented by
-<a href="https://en.wikipedia.org/wiki/Jack_Elton_Bresenham" class="link">Jack E. Bresenham</a>.
+was not actually invented by [Jack E.
+Bresenham](https://en.wikipedia.org/wiki/Jack_Elton_Bresenham).
 
 The example program below shows the midpoint circle algorithm within
 GCBASIC.

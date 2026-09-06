@@ -20,7 +20,7 @@ This approach uses a single connectivity line that supports a combined
 data and clock signal between the microcontroller and the LCD display.
 This approach is used when the LCD is connected through a shift register
 74HC595, as detailed at
-<a href="http://gcbasic.sourceforge.net/library/DIAGRAMS/1-Wire%20LCD/1-wire%20LCD%2074HC595%20for%20GCB.jpg" class="link">here</a>.
+[here](https://gcbasic.sourceforge.net/library/DIAGRAMS/1-Wire%20LCD/1-wire%20LCD%2074HC595%20for%20GCB.jpg).
 This connection method is also called a 1-wire connection.
 
 This solution approach recognises the original work provided in the
@@ -77,8 +77,8 @@ the background led.
 `LCD_CD` line to the 74HC595, one bit at a time, with no other wiring
 involved.
 
-See further code examples at
-<a href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions" class="link">0, 1 and 2 Wire LCD Solutions</a>.
+See further code examples at [0, 1 and 2 Wire LCD
+Solutions](https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions).
 
 See the separate sections of the Help file for the specifics of each
 Connection Mode.

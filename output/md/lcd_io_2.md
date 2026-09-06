@@ -19,7 +19,7 @@
 This method uses a Data and a Clock line via a shift register to control
 the LCD display. This method is used when the LCD is connected through a
 shift register IC either using a 74HC164 or a 74LS174, as detailed at
-<a href="http://gcbasic.sourceforge.net/library/DIAGRAMS/2-Wire%20LCD/" class="link">here</a>.
+[here](https://gcbasic.sourceforge.net/library/DIAGRAMS/2-Wire%20LCD/).
 This connection method is also called a 2-wire connection.
 
 This is a <span class="strong">**deprecated**</span> method mode to
@@ -79,8 +79,8 @@ others are optional or can be ignored.
 to the 74LS174, which the LCD itself decodes back into an 8-bit parallel
 write.
 
-See further code examples at
-<a href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions" class="link">Two Wire LCD Solutions</a>.
+See further code examples at [Two Wire LCD
+Solutions](https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions).
 
 See the separate sections of the Help file for the specifics of each
 Connection Mode.

@@ -92,7 +92,7 @@ There are some options you can tweak. See the example setup below. You can play 
 ----
 
 
-For code examples see http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions[LCD Solutions].
+For code examples see https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions[LCD Solutions].
 
 
 See the separate sections of the Help file for the specifics of each

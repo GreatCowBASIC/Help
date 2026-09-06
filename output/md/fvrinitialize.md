@@ -38,16 +38,16 @@ This subroutine sets the state of the FVR.   
 `FVR_4x` = Fixed Voltage Reference is set to 4.096V
 
 Using the 16F1828 device’s datasheet as a general case
-(<http://ww1.microchip.com/downloads/en/DeviceDoc/40001419F.pdf>, from
-the device’s product page at
-<http://www.microchip.com/wwwproducts/en/pic16f1828>), parameter AD06 in
-table 30-8 on page 359, and the corresponding Note 4, show that the Vref
-voltage (Vref+ minus Vref-) should not be less than 1.8V, regardless of
-the reference voltage used, for the ADC module to work within the
-datasheet specifications.   Also, since Vref- cannot be a negative
-voltage (voltages below GND), the lowest voltage on it is 0V.  This
-means an FVR of 1.024V cannot be used as VREF+ for the ADC — only the
-2.048V and 4.096V values can.
+([datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/40001419F.pdf),
+from the device’s product page at [product
+page](https://www.microchip.com/wwwproducts/en/pic16f1828)), parameter
+AD06 in table 30-8 on page 359, and the corresponding Note 4, show that
+the Vref voltage (Vref+ minus Vref-) should not be less than 1.8V,
+regardless of the reference voltage used, for the ADC module to work
+within the datasheet specifications.   Also, since Vref- cannot be a
+negative voltage (voltages below GND), the lowest voltage on it is
+0V.  This means an FVR of 1.024V cannot be used as VREF+ for the
+ADC — only the 2.048V and 4.096V values can.
 
 The 1.024V FVR value still exists for use with other modules, not just
 the ADC module.

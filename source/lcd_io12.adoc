@@ -61,7 +61,7 @@ include::lcd_io12_code1.gcb[]
 ----
 *Key line:* `#define LCD_I2C_Address_1 0x4E` -- sets the I2C address of the adapter this page documents; see <<_multiple_i2c_adapters_lcd_io_12,Multiple I2C Adapters (LCD_IO 12)>> for driving up to four of these adapters on the same bus.
 
-For further code examples see http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions[I2C LCD Solutions].
+For further code examples see https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions[I2C LCD Solutions].
 
 
 See the separate sections of the Help file for the specifics of each

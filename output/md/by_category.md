@@ -27,6 +27,7 @@
 | <a href="readad" class="link" title="ReadAD">ReadAD</a>                                                                                                                | For a normal ( also called a Single Channel ) read use.                                                                                     |
 | <a href="readad10" class="link" title="ReadAD10">ReadAD10</a>                                                                                                          | For a normal ( also called a Single Channel ) read use.                                                                                     |
 | <a href="readad12" class="link" title="ReadAD12">ReadAD12</a>                                                                                                          | For a normal ( also called a Single Channel ) read use.                                                                                     |
+| <a href="pot" class="link" title="Pot">Pot</a>                                                                                                                         | Pot <span class="emphasis">*pin, output*</span>                                                                                             |
 
 </div>
 
@@ -553,6 +554,22 @@
 <td style="text-align: left;"><p><a href="pwmout" class="link" title="PWMOut">PWMOut</a></p></td>
 <td style="text-align: left;"><p>PWMOut <span class="emphasis"><em>channel, duty cycle, cycles</em></span></p></td>
 </tr>
+<tr class="even">
+<td style="text-align: left;"><p><a href="pulseout" class="link" title="PulseOut">PulseOut</a></p></td>
+<td style="text-align: left;"><p>PulseOut <span class="emphasis"><em>pin</em></span>, <span class="emphasis"><em>time units</em></span></p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p><a href="pulseoutinv" class="link" title="PulseOutInv">PulseOutInv</a></p></td>
+<td style="text-align: left;"><p>PulseOutInv <span class="emphasis"><em>pin,</em></span> <span class="emphasis"><em>time units</em></span></p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p><a href="pulsein" class="link" title="PulseIn">PulseIn</a></p></td>
+<td style="text-align: left;"><p>PulseIn <span class="emphasis"><em>pin</em></span>, <span class="emphasis"><em>user_variable</em></span>, <span class="emphasis"><em>time units</em></span></p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p><a href="pulseininv" class="link" title="PulseInInv">PulseInInv</a></p></td>
+<td style="text-align: left;"><p>PulseInInv <span class="emphasis"><em>pin</em></span>, <span class="emphasis"><em>user_variable</em></span>, <span class="emphasis"><em>time units</em></span></p></td>
+</tr>
 </tbody>
 </table>
 
@@ -638,6 +655,17 @@
 | <a href="serprint" class="link" title="SerPrint">SerPrint</a>                                                                                | SerPrint <span class="emphasis">*channel, value*</span>                                                                  |
 | <a href="serreceive" class="link" title="SerReceive">SerReceive</a>                                                                          | SerReceive <span class="emphasis">*channel*</span>, <span class="emphasis">*output*</span>                               |
 | <a href="sersend" class="link" title="SerSend">SerSend</a>                                                                                   | SerSend <span class="emphasis">*channel*</span>, <span class="emphasis">*data*</span>                                    |
+
+</div>
+
+<span class="strong">**Infrared Remote Control**</span>
+
+<div class="informaltable">
+
+| Command                                                                                           | Summary                                                                               |
+|:--------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------|
+| <a href="nec_remote_control" class="link" title="NEC Remote Control">NEC Remote Control</a> | NECSend <span class="emphasis">*address*</span>, <span class="emphasis">*data*</span> |
+| <a href="rc5_remote_control" class="link" title="RC5 Remote Control">RC5 Remote Control</a> | RC5Send <span class="emphasis">*address*</span>, <span class="emphasis">*data*</span> |
 
 </div>
 
@@ -812,6 +840,14 @@
 <td style="text-align: left;"><p><a href="variable_lifecycle" class="link" title="Variable Lifecycle">Variable Lifecycle</a></p></td>
 <td style="text-align: left;"><p>Within GCBASIC you can use variables. This section details the Variable Lifecycle when using variables.</p></td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;"><p><a href="peek" class="link" title="Peek">Peek</a></p></td>
+<td style="text-align: left;"><p><span class="emphasis"><em>OutputVariable</em></span> = Peek (<span class="emphasis"><em>location</em></span>)</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p><a href="poke" class="link" title="Poke">Poke</a></p></td>
+<td style="text-align: left;"><p>Poke(<span class="emphasis"><em>location</em></span>, <span class="emphasis"><em>value</em></span>)</p></td>
+</tr>
 </tbody>
 </table>
 
@@ -878,18 +914,9 @@
 
 <div class="informaltable">
 
-| Command                                                                         | Summary                                                                                                                                     |
-|:--------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
-| <a href="dir" class="link" title="Dir">Dir</a>                            | Dir <span class="emphasis">*port.bit*</span> {In \| Out} <span class="emphasis">*(Individual Form)*</span>                                  |
-| <a href="getuserid" class="link" title="GetUserID">GetUserID</a>          | Available on all Microchip microcontrollers that support UserIDs.                                                                           |
-| <a href="peek" class="link" title="Peek">Peek</a>                         | <span class="emphasis">*OutputVariable*</span> = Peek (<span class="emphasis">*location*</span>)                                            |
-| <a href="poke" class="link" title="Poke">Poke</a>                         | Poke(<span class="emphasis">*location*</span>, <span class="emphasis">*value*</span>)                                                       |
-| <a href="pot" class="link" title="Pot">Pot</a>                            | Pot <span class="emphasis">*pin, output*</span>                                                                                             |
-| <a href="pulsein" class="link" title="PulseIn">PulseIn</a>                | PulseIn <span class="emphasis">*pin*</span>, <span class="emphasis">*user\_variable*</span>, <span class="emphasis">*time units*</span>     |
-| <a href="pulseininv" class="link" title="PulseInInv">PulseInInv</a>       | PulseInInv <span class="emphasis">*pin*</span>, <span class="emphasis">*user\_variable*</span>, <span class="emphasis">*time units*</span>  |
-| <a href="pulseout" class="link" title="PulseOut">PulseOut</a>             | PulseOut <span class="emphasis">*pin*</span>, <span class="emphasis">*time units*</span>                                                    |
-| <a href="pulseoutinv" class="link" title="PulseOutInv">PulseOutInv</a>    | PulseOutInv <span class="emphasis">*pin,*</span> <span class="emphasis">*time units*</span>                                                 |
-| <a href="weak_pullups" class="link" title="Weak Pullups">Weak Pullups</a> | Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support internal/s…​ |
+| Command                                                                | Summary                                                           |
+|:-----------------------------------------------------------------------|:------------------------------------------------------------------|
+| <a href="getuserid" class="link" title="GetUserID">GetUserID</a> | Available on all Microchip microcontrollers that support UserIDs. |
 
 </div>
 
@@ -916,15 +943,17 @@
 
 </div>
 
-<span class="strong">**Peripheral Pin Select**</span>
+<span class="strong">**Port control**</span>
 
 <div class="informaltable">
 
-| Command                                                                                                                                                                                                   | Summary                                                                                                                                  |
-|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------|
-| <a href="lockpps" class="link" title="LockPPS">LockPPS</a>                                                                                                                                          | LOCKPSS                                                                                                                                  |
-| <a href="peripheral_pin_select_for_microchip_microcontrollers" class="link" title="Peripheral Pin Select for Microchip microcontrollers.">Peripheral Pin Select for Microchip microcontrollers.</a> | Peripheral Pin Select (PPS) enables the digital peripheral I/O pins to be changed to support mapping of external pins to different pins. |
-| <a href="unlockpps" class="link" title="UnLockPPS">UnLockPPS</a>                                                                                                                                    | UNLOCKPPS                                                                                                                                |
+| Command                                                                                                                                                                                                   | Summary                                                                                                                                     |
+|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
+| <a href="dir" class="link" title="Dir">Dir</a>                                                                                                                                                      | Dir <span class="emphasis">*port.bit*</span> {In \| Out} <span class="emphasis">*(Individual Form)*</span>                                  |
+| <a href="weak_pullups" class="link" title="Weak Pullups">Weak Pullups</a>                                                                                                                           | Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support internal/s…​ |
+| <a href="peripheral_pin_select_for_microchip_microcontrollers" class="link" title="Peripheral Pin Select for Microchip microcontrollers.">Peripheral Pin Select for Microchip microcontrollers.</a> | Peripheral Pin Select (PPS) enables the digital peripheral I/O pins to be changed to support mapping of external pins to different pins.    |
+| <a href="unlockpps" class="link" title="UnLockPPS">UnLockPPS</a>                                                                                                                                    | UNLOCKPPS                                                                                                                                   |
+| <a href="lockpps" class="link" title="LockPPS">LockPPS</a>                                                                                                                                          | LOCKPSS                                                                                                                                     |
 
 </div>
 

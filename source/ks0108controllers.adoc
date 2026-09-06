@@ -256,11 +256,11 @@ specific attribute.
 |`bytevariable = GLCDReadByte`
 |===
 For a KS0108 datasheet, please refer
-http://www.vishay.com/docs/37329/37329.pdf[here.]
+https://www.vishay.com/docs/37329/37329.pdf[here.]
 
 This example shows how to drive a KS0108 based Graphic LCD module with
 the built in commands of GCBASIC. See
-http://www.greatcowbasic.com/sample-projects.html[Graphic LCD] for
+https://www.greatcowbasic.com/sample-projects.html[Graphic LCD] for
 details, this is an external web site.
 
 

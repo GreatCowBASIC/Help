@@ -188,7 +188,7 @@ your own custom 0x0000-0xFFFF value, as the colour parameter to
 ```
 
 For a SSD1289 datasheet, please refer
-<a href="http://gcbasic.sourceforge.net/library/DISPLAY/SDD1289.pdf" class="link">here</a>.  
+[here](https://gcbasic.sourceforge.net/library/DISPLAY/SDD1289.pdf).  
 
 This example shows how to drive an SSD1289 based Graphic LCD module with
 the built in commands of GCBASIC.  

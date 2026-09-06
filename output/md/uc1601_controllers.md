@@ -244,7 +244,7 @@ Parameter is contrast value</p></td>
 </div>
 
 For a UC1601 datasheet, please refer
-<a href="http://gcbasic.sourceforge.net/library/DISPLAY/UC1601.pdf" class="link">here</a>.
+[here](https://gcbasic.sourceforge.net/library/DISPLAY/UC1601.pdf).
 
 This example shows how to drive a UC1601 based Graphic I2C LCD module
 with the built in commands of GCBASIC using Full Mode GLCD

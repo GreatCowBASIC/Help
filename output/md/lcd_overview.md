@@ -46,12 +46,12 @@ This is an advanced method of driving an LCD.</p></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><p>1</p></td>
-<td style="text-align: left;"><p>Uses a combined data and clock line. This mode is used when the LCD is connected through a shift register 74HC595, as detailed at <a href="http://gcbasic.sourceforge.net/library/DIAGRAMS/1-Wire%20LCD/" class="link"><span class="strong"><strong>here</strong></span></a>.<br />
+<td style="text-align: left;"><p>Uses a combined data and clock line. This mode is used when the LCD is connected through a shift register 74HC595, as detailed at <a href="https://gcbasic.sourceforge.net/library/DIAGRAMS/1-Wire%20LCD/"><span class="strong"><strong>here</strong></span></a>.<br />
 This method of driving an LCD requires an additional integrated circuit and other passive components. This is not recommended for the beginner.</p></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><p>2</p></td>
-<td style="text-align: left;"><p>Uses separated Data and Clock lines. This mode is used when the LCD is connected through a 74LS174 shift register IC, as detailed at <a href="http://gcbasic.sourceforge.net/library/DIAGRAMS/2-Wire%20LCD/" class="link"><span class="strong"><strong>here</strong></span></a><br />
+<td style="text-align: left;"><p>Uses separated Data and Clock lines. This mode is used when the LCD is connected through a 74LS174 shift register IC, as detailed at <a href="https://gcbasic.sourceforge.net/library/DIAGRAMS/2-Wire%20LCD/"><span class="strong"><strong>here</strong></span></a><br />
 This method of driving an LCD requires additional integrated circuits and other passive components. This is not recommended for the beginner.</p></td>
 </tr>
 <tr class="even">

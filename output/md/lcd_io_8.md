@@ -79,8 +79,8 @@ full 8-bit parallel value, strobed by `LCD_Enable`, in a single write
 per character rather than the two nibble-writes that 4-bit mode
 requires.
 
-For further code examples see
-<a href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions" class="link">Eight Wire Examples</a>.
+For further code examples see [Eight Wire
+Examples](https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions).
 
 See the separate sections of the Help file for the specifics of each
 Connection Mode.

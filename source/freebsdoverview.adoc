@@ -12,9 +12,9 @@ The GCBASIC compiler can be used with the FreeBSD operating system.
 Complete the following steps to compile and install the GCBASIC compiler for FreeBSD:
 
 [start=1]
- . Download one of the nightly builds of FreeBASIC 1.06 for the FreeBSD 32-bit or 64-bit binary compilation from: http://users.freebasic-portal.de/stw/builds/freebsd32/ (32 bit) or http://users.freebasic-portal.de/stw/builds/freebsd64/ (64 bit). The filenames are in the format fbc_freebsd[32|64]_[BuildNumber]_[Date].zip.
+ . Download one of the nightly builds of FreeBASIC 1.06 for the FreeBSD 32-bit or 64-bit binary compilation from: https://users.freebasic-portal.de/stw/builds/freebsd32/[32-bit build] or https://users.freebasic-portal.de/stw/builds/freebsd64/[64-bit build]. The filenames are in the format fbc_freebsd[32|64]_[BuildNumber]_[Date].zip.
 
- . Download the GCBASIC UNIX Source Distribution from SourceForge at https://gcbasic.sourceforge.net/Typesetter/index.php/Download
+ . Download the GCBASIC UNIX Source Distribution from SourceForge at https://gcbasic.sourceforge.net/Typesetter/index.php/Download[gcbasic.sourceforge.net]
 
  . Move the FreeBASIC ZIP file from your download directory to your home directory.
 
@@ -56,19 +56,19 @@ Now you should be able to create GCB source files with your favourite editor and
 
 To program your microcontroller with your GCBASIC-created hex file, you will need additional hardware and software.
 
-. For Microchip PIC microcontroller programming, you might find what you need at: https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120 and the FreeBSD version of the `pk2cmd` v1.2 command line programming software.
+. For Microchip PIC microcontroller programming, you might find what you need at: https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120[Microchip Development Tools] and the FreeBSD version of the `pk2cmd` v1.2 command line programming software.
 
 . For Atmel AVR microcontroller programming, you will need the `avrdude` programming software. avrdude can be compiled and installed from the FreeBSD ports directory, or the precompiled binary and any missing dependencies can be installed using `pkg install avrdude`.
 
 Alternatively, if you use virtual machine software such as _VirtualBox_ to run Windows programs, you may be able to use Windows GUI programming software.
 
-* For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or even better the PICkitPlus software (https://sourceforge.net/projects/pickit3plus/) for both the PICkit 2 (https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120) and PICkit 3 (https://www.microchip.com/Developmenttools/ProductDetails/PG164130), which has fixed various bugs in those programs and been updated to program the latest Microchip 8-bit microcontrollers.
+* For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or even better the PICkitPlus software (https://sourceforge.net/projects/pickit3plus/[PICkitPlus]) for both the PICkit 2 (https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120[Microchip]) and PICkit 3 (https://www.microchip.com/Developmenttools/ProductDetails/PG164130[Microchip]), which has fixed various bugs in those programs and been updated to program the latest Microchip 8-bit microcontrollers.
 
 *Help*
 
 GCBASIC Help documentation is installed in the Documentation subdirectory in your GCBASIC directory.
 
-If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at https://sourceforge.net/p/gcbasic/discussion/
+If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at https://sourceforge.net/p/gcbasic/discussion/[SourceForge]
 
 **See Also:**
 

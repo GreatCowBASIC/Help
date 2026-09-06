@@ -135,7 +135,7 @@ Atmel AVR memory values are specified in WORDS in GCBASIC. The GCBASIC compiler 
 {empty} +
 *I cannot open the Windows Help File?*
 
-See http://digital.ni.com/public.nsf/allkb/B59D2B24D624B823862575FC0056F3D0
+See https://digital.ni.com/public.nsf/allkb/B59D2B24D624B823862575FC0056F3D0[National Instruments knowledge base]
 {empty} +
 {empty} +
 *How do I revert the FOR-NEXT loop to the legacy FOR-NEXT method?*

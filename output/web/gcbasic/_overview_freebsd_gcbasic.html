@@ -16,7 +16,7 @@
       <link rel="next" href="_windows_net_support.html" title="Windows .NET Support" />
       <meta name="Section-title" content="Overview - FreeBSD GCBASIC" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-89895";
+            var treeCookieId = "treeview-90303";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,17 +184,17 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><a id="d0e87853" class="indexterm"></a>
-               <a id="d0e87859" class="indexterm"></a></p>
+            <p><a id="d0e88261" class="indexterm"></a>
+               <a id="d0e88267" class="indexterm"></a></p>
             <p><span class="strong"><strong>Introduction</strong></span></p>
             <p>The GCBASIC compiler can be used with the FreeBSD operating system.</p>
             <p><span class="strong"><strong>Instructions for using the GCBASIC install.sh script</strong></span></p>
             <p>Complete the following steps to compile and install the GCBASIC compiler for FreeBSD:</p>
             <div class="orderedlist">
                <ol class="orderedlist" type="1">
-                  <li class="listitem">Download one of the nightly builds of FreeBASIC 1.06 for the FreeBSD 32-bit or 64-bit binary compilation from: <a class="link" href="http://users.freebasic-portal.de/stw/builds/freebsd32/" target="_top">http://users.freebasic-portal.de/stw/builds/freebsd32/</a> (32 bit) or <a class="link" href="http://users.freebasic-portal.de/stw/builds/freebsd64/" target="_top">http://users.freebasic-portal.de/stw/builds/freebsd64/</a> (64 bit). The filenames are in the format fbc_freebsd[32|64]<span class="emphasis"><em>[BuildNumber]</em></span>[Date].zip.
+                  <li class="listitem">Download one of the nightly builds of FreeBASIC 1.06 for the FreeBSD 32-bit or 64-bit binary compilation from: <a class="link" href="https://users.freebasic-portal.de/stw/builds/freebsd32/" target="_top">32-bit build</a> or <a class="link" href="https://users.freebasic-portal.de/stw/builds/freebsd64/" target="_top">64-bit build</a>. The filenames are in the format fbc_freebsd[32|64]<span class="emphasis"><em>[BuildNumber]</em></span>[Date].zip.
                   </li>
-                  <li class="listitem">Download the GCBASIC UNIX Source Distribution from SourceForge at <a class="link" href="https://gcbasic.sourceforge.net/Typesetter/index.php/Download" target="_top">https://gcbasic.sourceforge.net/Typesetter/index.php/Download</a></li>
+                  <li class="listitem">Download the GCBASIC UNIX Source Distribution from SourceForge at <a class="link" href="https://gcbasic.sourceforge.net/Typesetter/index.php/Download" target="_top">gcbasic.sourceforge.net</a></li>
                   <li class="listitem">Move the FreeBASIC ZIP file from your download directory to your home directory.</li>
                   <li class="listitem">Unzip the FreeBASIC ZIP file, which will produce a new directory called <code class="literal">fbc_freebsd[32|64]</code>. The FreeBASIC compiler <code class="literal">fbc</code> is in the <code class="literal">bin</code> subdirectory. You should add the path to <code class="literal">fbc</code> to your path so that the installation script can find it.
                   </li>
@@ -236,7 +236,7 @@ border: none; background: none; font-weight: none; color: none; }
             <p>To program your microcontroller with your GCBASIC-created hex file, you will need additional hardware and software.</p>
             <div class="orderedlist">
                <ol class="orderedlist" type="1">
-                  <li class="listitem">For Microchip PIC microcontroller programming, you might find what you need at: <a class="link" href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</a> and the FreeBSD version of the <code class="literal">pk2cmd</code> v1.2 command line programming software.
+                  <li class="listitem">For Microchip PIC microcontroller programming, you might find what you need at: <a class="link" href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">Microchip Development Tools</a> and the FreeBSD version of the <code class="literal">pk2cmd</code> v1.2 command line programming software.
                   </li>
                   <li class="listitem">For Atmel AVR microcontroller programming, you will need the <code class="literal">avrdude</code> programming software. avrdude can be compiled and installed from the FreeBSD ports directory, or the precompiled binary and
                      any missing dependencies can be installed using <code class="literal">pkg install avrdude</code>.
@@ -247,13 +247,13 @@ border: none; background: none; font-weight: none; color: none; }
             </p>
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">
-                  <li class="listitem">For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or even better the PICkitPlus software (<a class="link" href="https://sourceforge.net/projects/pickit3plus/" target="_top">https://sourceforge.net/projects/pickit3plus/</a>) for both the PICkit 2 (<a class="link" href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</a>) and PICkit 3 (<a class="link" href="https://www.microchip.com/Developmenttools/ProductDetails/PG164130" target="_top">https://www.microchip.com/Developmenttools/ProductDetails/PG164130</a>), which has fixed various bugs in those programs and been updated to program the latest Microchip 8-bit microcontrollers.
+                  <li class="listitem">For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or even better the PICkitPlus software (<a class="link" href="https://sourceforge.net/projects/pickit3plus/" target="_top">PICkitPlus</a>) for both the PICkit 2 (<a class="link" href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120" target="_top">Microchip</a>) and PICkit 3 (<a class="link" href="https://www.microchip.com/Developmenttools/ProductDetails/PG164130" target="_top">Microchip</a>), which has fixed various bugs in those programs and been updated to program the latest Microchip 8-bit microcontrollers.
                   </li>
                </ul>
             </div>
             <p><span class="strong"><strong>Help</strong></span></p>
             <p>GCBASIC Help documentation is installed in the Documentation subdirectory in your GCBASIC directory.</p>
-            <p>If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at <a class="link" href="https://sourceforge.net/p/gcbasic/discussion/" target="_top">https://sourceforge.net/p/gcbasic/discussion/</a></p>
+            <p>If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at <a class="link" href="https://sourceforge.net/p/gcbasic/discussion/" target="_top">SourceForge</a></p>
             <p><span class="strong"><strong>See Also:</strong></span></p>
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">
@@ -726,6 +726,11 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_hserprintcrlf.html" tabindex="1">HserPrintCRLF</a></span></li>
                                        </ul>
                                     </li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_infrared_remote_control.html" tabindex="1">Infrared Remote Control</a></span><ul>
+                                    <li><span class="file"><a href="_nec_remote_control.html" tabindex="1">NEC Remote Control</a></span></li>
+                                    <li><span class="file"><a href="_rc5_remote_control.html" tabindex="1">RC5 Remote Control</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_ps_2.html" tabindex="1">PS/2</a></span><ul>

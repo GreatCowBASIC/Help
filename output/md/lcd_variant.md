@@ -83,8 +83,8 @@ adaptation for this specific LCD sub-type; it is layered on top of the
 chosen `LCD_IO` connection mode (here `LCD_IO 10`, I2C via a PCF8574
 expander), not a replacement for it.
 
-For code examples see
-<a href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions/Variant1601a_LCD_Solutions" class="link">I2C Variants LCD Solutions</a>.
+For code examples see [I2C Variants LCD
+Solutions](https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions/Variant1601a_LCD_Solutions).
 
 See the separate sections of the Help file for the specifics of each
 Connection Mode.

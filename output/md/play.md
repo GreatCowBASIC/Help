@@ -59,8 +59,8 @@ Unsupported QBASIC commands are
 
 </div>
 
-For more information on the QBASIC PLAY command set, see
-<https://en.wikibooks.org/wiki/QBasic/Appendix>
+For more information on the QBASIC PLAY command set, see [QBasic
+Appendix on Wikibooks](https://en.wikibooks.org/wiki/QBasic/Appendix)
 
 <span class="strong">**Example:**</span>
 

@@ -119,7 +119,7 @@ The advanced variable types that GCBASIC supports are:
 The format for single and double floats is defined by the IEEE 754
 standard. The sign, exponent, and mantissa are all in the positions
 described here:
-<https://www.geeksforgeeks.org/ieee-standard-754-floating-point-numbers/>
+[GeeksforGeeks](https://www.geeksforgeeks.org/ieee-standard-754-floating-point-numbers/)
 
 <span class="strong">**Organisation of advanced variables**</span>
 

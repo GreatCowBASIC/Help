@@ -277,11 +277,11 @@ below.
 </div>
 
 For a NT7108C datasheet, please refer
-<a href="http://www.farnell.com/datasheets/1878006.pdf" class="link">here.</a>
+[here.](https://www.farnell.com/datasheets/1878006.pdf)
 
 This example shows how to drive a NT7108C based Graphic LCD module with
-the built in commands of GCBASIC. See
-<a href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/" class="link">Graphic LCD</a>
+the built in commands of GCBASIC. See [Graphic
+LCD](https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/)
 for details, this is an external web site.
 
 ``` programlisting

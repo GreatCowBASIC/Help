@@ -24,7 +24,7 @@ The SSD1306 can operate in three modes. Full GLCD mode, Low Memory GLCD mode or 
 
 To use the SSD1306 drivers simply include one of the following configuration.  You can select Full Mode GLCD, Low Memory Mode GLCD or Text mode these require 1024, 128 or 0 byte GLCD buffer respectively - you microcontroller requires sufficient RAM to support the selected mode of GLCD operation.
 
-Performance of the SSD1306 has been validated at 16Mhz and 400Hz I2C baud.&#160;&#160;Using other frequencies should be fully tested. 
+Performance of the SSD1306 has been validated at 16Mhz and 400Hz I2C baud.&#160;&#160;Using other frequencies should be fully tested.
 
 [source,gcbasic]
 ----
@@ -297,6 +297,8 @@ specific attribute.
 
 |===
 
+Internally, `GLCD_Open_PageTransaction`/`GLCD_Close_PageTransaction` iterate over the display's 8-pixel-tall pages using the global byte variable `_GLCDPage`, bounded by `_GLCDPagesL`/`_GLCDPagesH` (defaulting to 0 and 7 -- the full 64-row display, matching the `0, 7` example above). These are internal loop-control variables -- the source comments explicitly warn `_GLCDPage` must not be changed by user code -- and are documented here only for completeness; use `GLCD_Open_PageTransaction`/`GLCD_Close_PageTransaction` as shown above rather than referencing them directly.
+
 The GCBASIC specific commands for this GLCD are shown in the table below.
 [cols="1,1", options="header,autowidth"]
 |===
@@ -334,7 +336,7 @@ Parameters are `Start row`,`End row`, optionally `Scrollspeed`
 |Sets the constrast between 0 and 255. The contrast increases as the value increases. +
 Parameter is dim value
 |===
-For a SSD1306 datasheet, please refer http://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf[here].
+For a SSD1306 datasheet, please refer https://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf[here].
 
 This example shows how to drive a SSD1306 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode GLCD
 [source,gcbasic]

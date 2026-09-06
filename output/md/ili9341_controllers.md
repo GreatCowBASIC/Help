@@ -401,7 +401,7 @@ supported commands.
 ```
 
 For a ILI9341 datasheet, please refer
-<a href="http://gcbasic.sourceforge.net/library/DISPLAY/ILI9341.pdf" class="link">here</a>.
+[here](https://gcbasic.sourceforge.net/library/DISPLAY/ILI9341.pdf).
 
 This example shows how to drive a ILI9341 based Graphic LCD module with
 the built in commands of GCBASIC.

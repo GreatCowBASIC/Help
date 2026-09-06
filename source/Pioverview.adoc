@@ -31,7 +31,7 @@ _Installing FreeBASIC_
 ----
 
 [start=2]
- . Download the latest version of FreeBASIC for ARMv7 from https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/ :
+ . Download the latest version of FreeBASIC for ARMv7 from https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/[freebasic-portal.de] :
 [source,gcbasic]
 ----
     $ cd ~
@@ -99,7 +99,7 @@ To transfer your compiled .hex program files from your Pi to your microcontrolle
 
 For most PIC microcontrollers, you should use https://pickitplus.co.uk/Typesetter/index.php/PKCMD-Pi-Application[PICkitPlus for Pi]. PICkitPlus supports the widest range of PICs, including the latest PICs. It is a fully supported application.
 
-For AVR microcontrollers, you will need `avrdude`. It should be available in your distribution's repository. If not, check here: http://www.nongnu.org/avrdude/ . Instructions on how to use it can be found https://learn.adafruit.com/program-an-avr-or-arduino-using-raspberry-pi-gpio-pins/overview[here].
+For AVR microcontrollers, you will need `avrdude`. It should be available in your distribution's repository. If not, check here: https://www.nongnu.org/avrdude/[avrdude website] . Instructions on how to use it can be found https://learn.adafruit.com/program-an-avr-or-arduino-using-raspberry-pi-gpio-pins/overview[here].
 
 **See Also:**
 

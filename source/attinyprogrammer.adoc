@@ -14,7 +14,7 @@ The Windows driver must be `libusbK`, not the `libusb` or `libusb-win32` Windows
 You must ensure the Windows driver is `libusbK`. Using the utility Zadig enables changing the Windows device driver to `libusbK`.
 
 
-* Download and install Zadig Driver Utility software https://zadig.akeo.ie/
+* Download and install Zadig Driver Utility software https://zadig.akeo.ie/[Zadig]
 * Connect the USB cable from the AVRISP MKII to your PC.
 * Open Zadig and from the menu select Options / List All Devices.
 * From the device list select AVRISP MKII.
@@ -65,7 +65,7 @@ To update the firmware, please follow the steps listed below.
 * From "File -> load HEX file" choose the latest HEX and click "RUN" in the "Operations Flow" section
 * Disconnect the AVR-ISP-MK2 from the USB and connect it again
 
-For more information about AVR-ISP-MK2, see this guide http://gcbasic.sourceforge.net/library/AVR-ISP-MK2-OpenSourceHardwareBoard.pdf[here]
+For more information about AVR-ISP-MK2, see this guide https://gcbasic.sourceforge.net/library/AVR-ISP-MK2-OpenSourceHardwareBoard.pdf[here]
 
 
 *AVRISP MKII to ATTINY10 Connections:*
@@ -128,9 +128,9 @@ Now you are ready to upload your first program to an ATTINY10.
 
 For more information on programming, review these resources:
 
-    A guide http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[here]
+    A guide https://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[here]
 
-    A blog http://gcbasic.sourceforge.net/library/Technoblogy_Programming_the_ATtiny10.pdf[here]
+    A blog https://gcbasic.sourceforge.net/library/Technoblogy_Programming_the_ATtiny10.pdf[here]
 
 {empty} +
 {empty} +

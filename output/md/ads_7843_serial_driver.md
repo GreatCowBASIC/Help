@@ -116,7 +116,8 @@ a parameter of ADS7843\_SetPrecision changes the precision controls.
 
 <span class="strong">**Example:**</span>
 
-For more information see <http://www.ti.com/product/ads7843>.
+For more information see [TI product
+page](https://www.ti.com/product/ads7843).
 
 This example shows how to drive a SSD1289 based Graphic LCD module with
 ADS7843 touch controller.

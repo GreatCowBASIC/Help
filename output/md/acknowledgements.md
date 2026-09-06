@@ -42,12 +42,12 @@ Murat Inceer - Turkish
 Russ Hensel - GCBASIC Notes.
 
 Chuck Hellebuyck - His documentation for the GLCD and other pieces, see
-<http://www.elproducts.com>.
+[www.elproducts.com](https://www.elproducts.com).
 
 Frank Steinberg - GCode IDE for GCBASIC.
 
-Alexy T. - SynWrite IDE used for the GCB IDE, see
-<http://www.uvviewsoft.com/synwrite>
+Alexy T. - SynWrite IDE used for the GCB IDE, see [SynWrite
+website](https://www.uvviewsoft.com/synwrite)
 
 Thomas Henry for the Select Case and the Sine Table examples.
 
@@ -66,10 +66,8 @@ Angel Mier for the USB driver installation.
 <span class="strong">**Conversion of AsciiDoc documentation
 files**</span>:
 
-See the
-<a href="http://asciidoctor.org/" class="link">asciidoctor Web site</a>
-and the
-<a href="http://discuss.asciidoctor.org/" class="link">support forum</a>.
+See the [asciidoctor Web site](https://asciidoctor.org/) and the
+[support forum](https://discuss.asciidoctor.org/).
 
 <span class="strong">**See Also:**</span>
 

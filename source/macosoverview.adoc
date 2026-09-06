@@ -17,7 +17,7 @@ There are instructions below for both choices. If you use the macOS GCBASIC Inst
 *Instructions for using the GCBASIC Installer*
 
 [start=1]
- . Download the GCBASIC - macOS Installer disk image (.dmg) file from https://sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download
+ . Download the GCBASIC - macOS Installer disk image (.dmg) file from https://sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download[sourceforge.net]
 
  . Double click the .dmg file to mount it on your Desktop, and a window will open which contains the Installer.
 
@@ -30,13 +30,13 @@ There are instructions below for both choices. If you use the macOS GCBASIC Inst
 Complete the following steps to compile and install the GCBASIC compiler:
 
 [start=1]
- . Download the FreeBASIC 1.06 macOS binary compilation from: http://tmc.castleparadox.com/temp/fbc-1.06-darwin-wip20160505.tar.bz2
+ . Download the FreeBASIC 1.06 macOS binary compilation from: https://tmc.castleparadox.com/temp/fbc-1.06-darwin-wip20160505.tar.bz2[castleparadox.com]
 
- . Download the GCBASIC UNIX Source Distribution from SourceForge at http://gcbasic.sourceforge.net/Typesetter/index.php/Download
+ . Download the GCBASIC UNIX Source Distribution from SourceForge at https://gcbasic.sourceforge.net/Typesetter/index.php/Download[gcbasic.sourceforge.net]
 
  . Note: the following instructions assume the distribution file is named GCBASIC-UNIX-v0_98_05.rar; however, the version number (v0_98_05) may change before these instructions are updated, so you may have to adjust the filename to match the version you have downloaded.
 
- . Unfortunately, Apple replaced the gcc compiler with the clang compiler, and FreeBASIC needs the real gcc due to a certain use of `goto`. So, you can compile your own version of gcc following the instructions at https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/, or you can take the low road and just download the pre-compiled binary version from https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2
+ . Unfortunately, Apple replaced the gcc compiler with the clang compiler, and FreeBASIC needs the real gcc due to a certain use of `goto`. So, you can compile your own version of gcc following the instructions at https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/[solarianprogrammer.com], or you can take the low road and just download the pre-compiled binary version from https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2[GitHub]
 
  . Open a Terminal window (Terminal can be found in Applications > Utilities).
 
@@ -141,19 +141,19 @@ Now you should be able to create GCB source files with your favourite editor and
 
 To program your microcontroller with your GCBASIC-created hex file, you will need additional hardware and software.
 
-. For Microchip PIC microcontroller programming, you might find what you need at: https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120 and the macOS version of the `pk2cmd` v1.2 command line programming software.
+. For Microchip PIC microcontroller programming, you might find what you need at: https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120[Microchip Development Tools] and the macOS version of the `pk2cmd` v1.2 command line programming software.
 
-. For Atmel AVR microcontroller programming, you will need the `avrdude` programming software. Check here: http://www.nongnu.org/avrdude/
+. For Atmel AVR microcontroller programming, you will need the `avrdude` programming software. Check here: https://www.nongnu.org/avrdude/[avrdude website]
 
 Alternatively, if you use virtual machine software such as _Parallels_ or _VMWare Fusion_ to run Windows programs, you can use Windows GUI programming software.
 
-* For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or even better the PICkitPlus software (https://sourceforge.net/projects/pickit3plus/) for both the PICkit 2 (https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120) and PICkit 3 (https://www.microchip.com/Developmenttools/ProductDetails/PG164130), which has fixed various bugs in those programs and been updated to program the latest Microchip 8-bit microcontrollers.
+* For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or even better the PICkitPlus software (https://sourceforge.net/projects/pickit3plus/[PICkitPlus]) for both the PICkit 2 (https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120[Microchip]) and PICkit 3 (https://www.microchip.com/Developmenttools/ProductDetails/PG164130[Microchip]), which has fixed various bugs in those programs and been updated to program the latest Microchip 8-bit microcontrollers.
 
 *Help*
 
 GCBASIC Help documentation is installed in the Documentation subdirectory in your GCBASIC directory.
 
-If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at https://sourceforge.net/p/gcbasic/discussion/
+If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at https://sourceforge.net/p/gcbasic/discussion/[SourceForge]
 
 **See Also:**
 

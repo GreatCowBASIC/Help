@@ -40,7 +40,9 @@ PPS settings afterward.
 GCBASIC includes these two macros to ensure this process is handled
 correctly.
 
-Also, see <http://microchip.wikidot.com/8bit:pps> for more information.
+Also, see
+[microchip.wikidot.com](https://microchip.wikidot.com/8bit:pps) for more
+information.
 
 <span class="strong">**Why the priority value of 85 is
 important:**</span>

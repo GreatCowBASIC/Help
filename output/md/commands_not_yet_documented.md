@@ -22,32 +22,26 @@ these, please raise it so a page can be added.
 
 <div class="informaltable">
 
-|                               |
-|:------------------------------|
-| \_glcdpage                    |
-| \_glcdpagesh                  |
-| \_glcdpagesl                  |
-| createbutton                  |
-| eeram\_write\_command         |
-| fillroundrect                 |
-| glcdprintdefaultfont\_nextion |
-| hefreadbyte                   |
-| hline                         |
-| hpwm16\_log2                  |
-| hpwm16\_setdc                 |
-| hpwm16\_setgoing              |
-| hpwm16\_setprps               |
-| hpwm16init                    |
-| i2cslavedevicereceive         |
-| masterrst                     |
-| owout                         |
-| ppulse                        |
-| roundrect                     |
-| safreadbyte                   |
-| shiftr                        |
-| st7735rotation                |
-| st7735sendcommand             |
-| vline                         |
+| Reserved Word         |
+|:----------------------|
+| createbutton          |
+| eeram\_write\_command |
+| fillroundrect         |
+| hefreadbyte           |
+| hline                 |
+| hpwm16\_log2          |
+| hpwm16\_setdc         |
+| hpwm16\_setgoing      |
+| hpwm16\_setprps       |
+| hpwm16init            |
+| masterrst             |
+| owout                 |
+| ppulse                |
+| roundrect             |
+| safreadbyte           |
+| shiftr                |
+| st7735sendcommand     |
+| vline                 |
 
 </div>
 

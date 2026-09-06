@@ -16,7 +16,7 @@
       <link rel="next" href="_fvrisoutputready.html" title="FVRIsOutputReady" />
       <meta name="Section-title" content="FVRInitialize" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-89895";
+            var treeCookieId = "treeview-90303";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,8 +184,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><a id="d0e28196" class="indexterm"></a>
-               <a id="d0e28202" class="indexterm"></a></p>
+            <p><a id="d0e28266" class="indexterm"></a>
+               <a id="d0e28272" class="indexterm"></a></p>
             <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    FVRInitialize ( FVR_OFF | FVR_1x | FVR_2x | FVR_4x  )</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
             <p>Available on all Microchip microcontrollers with the Fixed Voltage Reference (FVR) module.</p>
             <p><span class="strong"><strong>Explanation:</strong></span></p>
@@ -198,7 +198,7 @@ border: none; background: none; font-weight: none; color: none; }
             </p>
             <p><code class="literal">FVR_4x</code> = Fixed Voltage Reference is set to 4.096V
             </p>
-            <p>Using the 16F1828 device’s datasheet as a general case (<a class="link" href="http://ww1.microchip.com/downloads/en/DeviceDoc/40001419F.pdf" target="_top">http://ww1.microchip.com/downloads/en/DeviceDoc/40001419F.pdf</a>, from the device’s product page at <a class="link" href="http://www.microchip.com/wwwproducts/en/pic16f1828" target="_top">http://www.microchip.com/wwwproducts/en/pic16f1828</a>), parameter AD06 in table 30-8 on page 359, and the corresponding Note 4, show that the Vref voltage (Vref+ minus Vref-)
+            <p>Using the 16F1828 device’s datasheet as a general case (<a class="link" href="https://ww1.microchip.com/downloads/en/DeviceDoc/40001419F.pdf" target="_top">datasheet</a>, from the device’s product page at <a class="link" href="https://www.microchip.com/wwwproducts/en/pic16f1828" target="_top">product page</a>), parameter AD06 in table 30-8 on page 359, and the corresponding Note 4, show that the Vref voltage (Vref+ minus Vref-)
                should not be less than 1.8V, regardless of the reference voltage used, for the ADC module to work within the datasheet specifications.
                  Also, since Vref- cannot be a negative voltage (voltages below GND), the lowest voltage on it is 0V.  This means an FVR
                of 1.024V cannot be used as VREF+ for the ADC — only the 2.048V and 4.096V values can.
@@ -684,6 +684,11 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_hserprintcrlf.html" tabindex="1">HserPrintCRLF</a></span></li>
                                        </ul>
                                     </li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_infrared_remote_control.html" tabindex="1">Infrared Remote Control</a></span><ul>
+                                    <li><span class="file"><a href="_nec_remote_control.html" tabindex="1">NEC Remote Control</a></span></li>
+                                    <li><span class="file"><a href="_rc5_remote_control.html" tabindex="1">RC5 Remote Control</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_ps_2.html" tabindex="1">PS/2</a></span><ul>

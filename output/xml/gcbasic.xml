@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2026-09-05</date>
+<date>2026-09-06</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team. Copyright 2005 - 2026</firstname>
@@ -23,14 +23,23 @@
 <simpara>Hello, and welcome to GCBASIC help. This help file is intended
 to provide you insights and knowledge to use GCBASIC.</simpara>
 <simpara>For information on installing GCBASIC and several other programs that
-may be helpful, see <link linkend="_using_gcbasic">Using GCBASIC</link>.</simpara>
-<simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;http://gcbasic.sourceforge.net/starting.html</simpara>
+may be helpful, see <link linkend="_using_gcbasic">Using GCBASIC</link> or the <link xlink:href="https://gcbasic.sourceforge.net/starting.html">GCBASIC starting guide</link>.</simpara>
+<simpara><emphasis role="strong">What GCBASIC Offers:</emphasis></simpara>
+<simpara>GCBASIC is a free compiler suite for programming Microchip PIC, Atmel/Microchip AVR, and LGT 8-bit microcontrollers, with syntax based on QBASIC/FreeBASIC and support for 1,432 microcontrollers. Three IDEs build on the same underlying compiler: GCStudio (the current, actively developed IDE), the legacy GCBASIC IDE, and the legacy Graphical GCBASIC (a drag-and-drop, icon-based environment for newcomers).</simpara>
+<simpara>Two further resources worth knowing about:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><link xlink:href="https://gcbasic.sourceforge.net/Typesetter/index.php/FAQ">FAQ</link>&#8201;&#8212;&#8201;answers to common questions</simpara>
+</listitem>
+<listitem>
+<simpara><link xlink:href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources">Demo Code</link>&#8201;&#8212;&#8201;example GCBASIC programs on GitHub</simpara>
+</listitem>
+</itemizedlist>
 <simpara>If you are new to programming, try the GCBASIC
 demonstration programs, which explain everything in a step-by-step manner and assume
 no prior knowledge. Download the <link xlink:href="https://sourceforge.net/projects/gcbasic/files/GCStudio%20-%20Complete%20IDE%20and%20Toolchain%20for%20Windows/GCBdemonstrationsPack.exe/download">GCBASIC demonstrations pack</link>.</simpara>
 <simpara>If you have programmed in another language, then the demonstration files and this command reference may be the best place to start. See <link linkend="_pic_users_and_beginners_start_here">PIC Users and Beginners: Start Here</link> for a short worked example.</simpara>
-<simpara>If there is anything else that you need help on, please visit the <emphasis role="strong">GCBASIC forum</emphasis></simpara>
-<simpara>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;http://sourceforge.net/forum/?group_id=169286</simpara>
+<simpara>If there is anything else that you need help on, please visit the <link xlink:href="https://sourceforge.net/forum/?group_id=169286">GCBASIC forum</link>.</simpara>
 <simpara><emphasis role="strong">Where GCBASIC Came From:</emphasis></simpara>
 <simpara>GCBASIC was created by Dr. Hugh Considine in 2005, when he was just 12 years old. Hugh built it because the compilers available at the time were hard to use and not free, and he believed a compiler for hobbyist microcontroller programming should be free to everyone, forever. The name itself was his fourth attempt&#8201;&#8212;&#8201;after BASPIC, Chipmunk BASIC (already taken), and Bear BASIC (dropped once he learned the slang meaning of "bear")&#8201;&#8212;&#8201;before he and his sister settled on Great Cow BASIC, a name odd enough to be memorable and unclaimed by anyone else.</simpara>
 <simpara>Graphical GCBASIC grew out of the same original project, as a set of "training wheels" for newcomers: its icons share names with the underlying BASIC commands, so a user can start in the graphical environment and move to text-based GCBASIC whenever they are ready, at their own pace.</simpara>
@@ -698,7 +707,7 @@ not get compiled.
 <?asciidoc-br?>
 <?asciidoc-br?>
 <emphasis role="strong">I cannot open the Windows Help File?</emphasis></simpara>
-<simpara>See <link xlink:href="http://digital.ni.com/public.nsf/allkb/B59D2B24D624B823862575FC0056F3D0">http://digital.ni.com/public.nsf/allkb/B59D2B24D624B823862575FC0056F3D0</link>
+<simpara>See <link xlink:href="https://digital.ni.com/public.nsf/allkb/B59D2B24D624B823862575FC0056F3D0">National Instruments knowledge base</link>
 <?asciidoc-br?>
 <?asciidoc-br?>
 <emphasis role="strong">How do I revert the FOR-NEXT loop to the legacy FOR-NEXT method?</emphasis></simpara>
@@ -789,9 +798,9 @@ particular line of code?</simpara></entry>
 <simpara>Murat Inceer - Turkish</simpara>
 <simpara><emphasis role="strong">Other Contributors:</emphasis></simpara>
 <simpara>Russ Hensel - GCBASIC Notes.</simpara>
-<simpara>Chuck Hellebuyck - His documentation for the GLCD and other pieces, see <link xlink:href="http://www.elproducts.com">http://www.elproducts.com</link>.</simpara>
+<simpara>Chuck Hellebuyck - His documentation for the GLCD and other pieces, see <link xlink:href="https://www.elproducts.com">www.elproducts.com</link>.</simpara>
 <simpara>Frank Steinberg - GCode IDE for GCBASIC.</simpara>
-<simpara>Alexy T. - SynWrite IDE used for the GCB IDE, see <link xlink:href="http://www.uvviewsoft.com/synwrite">http://www.uvviewsoft.com/synwrite</link></simpara>
+<simpara>Alexy T. - SynWrite IDE used for the GCB IDE, see <link xlink:href="https://www.uvviewsoft.com/synwrite">SynWrite website</link></simpara>
 <simpara>Thomas Henry for the Select Case and the Sine Table examples.</simpara>
 <simpara>William Roth for the LCD code and supporting diagrams.</simpara>
 <simpara>Theo Loermans for the revised LCD sections and the serial library.</simpara>
@@ -799,7 +808,7 @@ particular line of code?</simpara></entry>
 <simpara>Jberg2024 for the adaptation of the Software Serial routines to improve usage.</simpara>
 <simpara>Angel Mier for the USB driver installation.</simpara>
 <simpara><emphasis role="strong">Conversion of AsciiDoc documentation files</emphasis>:</simpara>
-<simpara>See the <link xlink:href="http://asciidoctor.org/">asciidoctor Web site</link> and the <link xlink:href="http://discuss.asciidoctor.org/">support forum</link>.</simpara>
+<simpara>See the <link xlink:href="https://asciidoctor.org/">asciidoctor Web site</link> and the <link xlink:href="https://discuss.asciidoctor.org/">support forum</link>.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -2036,7 +2045,7 @@ In the Arduino IDE, go to Tools &#8594; Set board and select "Arduino UNO".
 Select the correct com port for the Arduino UNO, as shown in Device Manager.</simpara>
 </listitem>
 <listitem>
-<simpara>Go to File &#8594; Examples &#8594; ArduinoISP to select the sketch that will convert the UNO to an ISP programmer. A better-working version is available at Adafruit. Simply copy all the text from this link into a new sketch, <link xlink:href="https://raw.githubusercontent.com/adafruit/ArduinoISP/master/ArduinoISP.ino">https://raw.githubusercontent.com/adafruit/ArduinoISP/master/ArduinoISP.ino</link> (or download the ino file and open it in the Arduino IDE), and go to step 5.</simpara>
+<simpara>Go to File &#8594; Examples &#8594; ArduinoISP to select the sketch that will convert the UNO to an ISP programmer. A better-working version is available at Adafruit. Simply copy all the text from this link into a new sketch, <link xlink:href="https://raw.githubusercontent.com/adafruit/ArduinoISP/master/ArduinoISP.ino">ArduinoISP.ino</link> (or download the ino file and open it in the Arduino IDE), and go to step 5.</simpara>
 </listitem>
 <listitem>
 <simpara>Click upload and confirm the sketch uploaded correctly by checking the status window at the bottom of the Arduino IDE.</simpara>
@@ -3459,7 +3468,7 @@ The advanced variable types that GCBASIC supports are:</simpara>
 </informaltable>
 <simpara><?asciidoc-br?>
 The format for single and double floats is defined by the IEEE 754 standard.
-The sign, exponent, and mantissa are all in the positions described here: <link xlink:href="https://www.geeksforgeeks.org/ieee-standard-754-floating-point-numbers/">https://www.geeksforgeeks.org/ieee-standard-754-floating-point-numbers/</link></simpara>
+The sign, exponent, and mantissa are all in the positions described here: <link xlink:href="https://www.geeksforgeeks.org/ieee-standard-754-floating-point-numbers/">GeeksforGeeks</link></simpara>
 <simpara><emphasis role="strong">Organisation of advanced variables</emphasis></simpara>
 <simpara>GCBASIC stores advanced variables in bytes.
 The suffix naming, from the highest byte to the lowest, is:</simpara>
@@ -6730,7 +6739,7 @@ The converter requires the following files - these are included with your instal
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_dir">Dir</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Miscellaneous Commands</simpara></entry>
+<entry align="left" valign="top"><simpara>Port control</simpara></entry>
 <entry align="left" valign="top"><simpara>Dir <emphasis>port.bit</emphasis> {In | Out} <emphasis>(Individual Form)</emphasis></simpara></entry>
 </row>
 <row>
@@ -7485,7 +7494,7 @@ The converter requires the following files - these are included with your instal
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_lockpps">LockPPS</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Peripheral Pin Select</simpara></entry>
+<entry align="left" valign="top"><simpara>Port control</simpara></entry>
 <entry align="left" valign="top"><simpara>LOCKPSS</simpara></entry>
 </row>
 <row>
@@ -7544,6 +7553,11 @@ The converter requires the following files - these are included with your instal
 <entry align="left" valign="top"><simpara>Within GCBASIC you can use regular variable assignments. But, you can also use C like maths assignments.</simpara></entry>
 </row>
 <row>
+<entry align="left" valign="top"><simpara><link linkend="_nec_remote_control">NEC Remote Control</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Infrared Remote Control</simpara></entry>
+<entry align="left" valign="top"><simpara>NECSend <emphasis>address</emphasis>, <emphasis>data</emphasis></simpara></entry>
+</row>
+<row>
 <entry align="left" valign="top"><simpara><link linkend="_nextion_controllers">NEXTION Controllers</link></simpara></entry>
 <entry align="left" valign="top"><simpara>Graphical LCD</simpara></entry>
 <entry align="left" valign="top"><simpara>This section covers GLCD devices that use the serially attached Nextion graphics displays.</simpara></entry>
@@ -7590,12 +7604,12 @@ The converter requires the following files - these are included with your instal
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_peek">Peek</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Miscellaneous Commands</simpara></entry>
+<entry align="left" valign="top"><simpara>Variables Operations</simpara></entry>
 <entry align="left" valign="top"><simpara><emphasis>OutputVariable</emphasis> = Peek (<emphasis>location</emphasis>)</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_peripheral_pin_select_for_microchip_microcontrollers">Peripheral Pin Select for Microchip microcontrollers.</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Peripheral Pin Select</simpara></entry>
+<entry align="left" valign="top"><simpara>Port control</simpara></entry>
 <entry align="left" valign="top"><simpara>Peripheral Pin Select (PPS) enables the digital peripheral I/O pins to be changed to support mapping of external pins to different pins.</simpara></entry>
 </row>
 <row>
@@ -7620,12 +7634,12 @@ The converter requires the following files - these are included with your instal
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_poke">Poke</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Miscellaneous Commands</simpara></entry>
+<entry align="left" valign="top"><simpara>Variables Operations</simpara></entry>
 <entry align="left" valign="top"><simpara>Poke(<emphasis>location</emphasis>, <emphasis>value</emphasis>)</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_pot">Pot</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Miscellaneous Commands</simpara></entry>
+<entry align="left" valign="top"><simpara>Analog/Digital conversion</simpara></entry>
 <entry align="left" valign="top"><simpara>Pot <emphasis>pin, output</emphasis></simpara></entry>
 </row>
 <row>
@@ -7680,22 +7694,22 @@ The converter requires the following files - these are included with your instal
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_pulsein">PulseIn</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Miscellaneous Commands</simpara></entry>
+<entry align="left" valign="top"><simpara>Pulse width modulation</simpara></entry>
 <entry align="left" valign="top"><simpara>PulseIn <emphasis>pin</emphasis>, <emphasis>user_variable</emphasis>, <emphasis>time units</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_pulseininv">PulseInInv</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Miscellaneous Commands</simpara></entry>
+<entry align="left" valign="top"><simpara>Pulse width modulation</simpara></entry>
 <entry align="left" valign="top"><simpara>PulseInInv <emphasis>pin</emphasis>, <emphasis>user_variable</emphasis>, <emphasis>time units</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_pulseout">PulseOut</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Miscellaneous Commands</simpara></entry>
+<entry align="left" valign="top"><simpara>Pulse width modulation</simpara></entry>
 <entry align="left" valign="top"><simpara>PulseOut <emphasis>pin</emphasis>, <emphasis>time units</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_pulseoutinv">PulseOutInv</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Miscellaneous Commands</simpara></entry>
+<entry align="left" valign="top"><simpara>Pulse width modulation</simpara></entry>
 <entry align="left" valign="top"><simpara>PulseOutInv <emphasis>pin,</emphasis> <emphasis>time units</emphasis></simpara></entry>
 </row>
 <row>
@@ -7742,6 +7756,11 @@ The converter requires the following files - these are included with your instal
 <entry align="left" valign="top"><simpara><link linkend="_randomize">Randomize</link></simpara></entry>
 <entry align="left" valign="top"><simpara>Random Numbers</simpara></entry>
 <entry align="left" valign="top"><simpara>Randomize</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_rc5_remote_control">RC5 Remote Control</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Infrared Remote Control</simpara></entry>
+<entry align="left" valign="top"><simpara>RC5Send <emphasis>address</emphasis>, <emphasis>data</emphasis></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_readad">ReadAD</link></simpara></entry>
@@ -8190,7 +8209,7 @@ The converter requires the following files - these are included with your instal
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_unlockpps">UnLockPPS</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Peripheral Pin Select</simpara></entry>
+<entry align="left" valign="top"><simpara>Port control</simpara></entry>
 <entry align="left" valign="top"><simpara>UNLOCKPPS</simpara></entry>
 </row>
 <row>
@@ -8215,7 +8234,7 @@ The converter requires the following files - these are included with your instal
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_weak_pullups">Weak Pullups</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Miscellaneous Commands</simpara></entry>
+<entry align="left" valign="top"><simpara>Port control</simpara></entry>
 <entry align="left" valign="top"><simpara>Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support internal/s&#8230;&#8203;</simpara></entry>
 </row>
 <row>
@@ -8278,6 +8297,10 @@ The converter requires the following files - these are included with your instal
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_readad12">ReadAD12</link></simpara></entry>
 <entry align="left" valign="top"><simpara>For a normal ( also called a Single Channel ) read use.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_pot">Pot</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Pot <emphasis>pin, output</emphasis></simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -9107,6 +9130,22 @@ The converter requires the following files - these are included with your instal
 <entry align="left" valign="top"><simpara><link linkend="_pwmout">PWMOut</link></simpara></entry>
 <entry align="left" valign="top"><simpara>PWMOut <emphasis>channel, duty cycle, cycles</emphasis></simpara></entry>
 </row>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_pulseout">PulseOut</link></simpara></entry>
+<entry align="left" valign="top"><simpara>PulseOut <emphasis>pin</emphasis>, <emphasis>time units</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_pulseoutinv">PulseOutInv</link></simpara></entry>
+<entry align="left" valign="top"><simpara>PulseOutInv <emphasis>pin,</emphasis> <emphasis>time units</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_pulsein">PulseIn</link></simpara></entry>
+<entry align="left" valign="top"><simpara>PulseIn <emphasis>pin</emphasis>, <emphasis>user_variable</emphasis>, <emphasis>time units</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_pulseininv">PulseInInv</link></simpara></entry>
+<entry align="left" valign="top"><simpara>PulseInInv <emphasis>pin</emphasis>, <emphasis>user_variable</emphasis>, <emphasis>time units</emphasis></simpara></entry>
+</row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -9354,6 +9393,29 @@ The converter requires the following files - these are included with your instal
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_sersend">SerSend</link></simpara></entry>
 <entry align="left" valign="top"><simpara>SerSend <emphasis>channel</emphasis>, <emphasis>data</emphasis></simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><emphasis role="strong">Infrared Remote Control</emphasis></simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="30*"/>
+<colspec colname="col_2" colwidth="70*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Command</entry>
+<entry align="left" valign="top">Summary</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_nec_remote_control">NEC Remote Control</link></simpara></entry>
+<entry align="left" valign="top"><simpara>NECSend <emphasis>address</emphasis>, <emphasis>data</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_rc5_remote_control">RC5 Remote Control</link></simpara></entry>
+<entry align="left" valign="top"><simpara>RC5Send <emphasis>address</emphasis>, <emphasis>data</emphasis></simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -9732,6 +9794,14 @@ The converter requires the following files - these are included with your instal
 <entry align="left" valign="top"><simpara><link linkend="_variable_lifecycle">Variable Lifecycle</link></simpara></entry>
 <entry align="left" valign="top"><simpara>Within GCBASIC you can use variables. This section details the Variable Lifecycle when using variables.</simpara></entry>
 </row>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_peek">Peek</link></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis>OutputVariable</emphasis> = Peek (<emphasis>location</emphasis>)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_poke">Poke</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Poke(<emphasis>location</emphasis>, <emphasis>value</emphasis>)</simpara></entry>
+</row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -9934,44 +10004,8 @@ The converter requires the following files - these are included with your instal
 </thead>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara><link linkend="_dir">Dir</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Dir <emphasis>port.bit</emphasis> {In | Out} <emphasis>(Individual Form)</emphasis></simpara></entry>
-</row>
-<row>
 <entry align="left" valign="top"><simpara><link linkend="_getuserid">GetUserID</link></simpara></entry>
 <entry align="left" valign="top"><simpara>Available on all Microchip microcontrollers that support UserIDs.</simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara><link linkend="_peek">Peek</link></simpara></entry>
-<entry align="left" valign="top"><simpara><emphasis>OutputVariable</emphasis> = Peek (<emphasis>location</emphasis>)</simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara><link linkend="_poke">Poke</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Poke(<emphasis>location</emphasis>, <emphasis>value</emphasis>)</simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara><link linkend="_pot">Pot</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Pot <emphasis>pin, output</emphasis></simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara><link linkend="_pulsein">PulseIn</link></simpara></entry>
-<entry align="left" valign="top"><simpara>PulseIn <emphasis>pin</emphasis>, <emphasis>user_variable</emphasis>, <emphasis>time units</emphasis></simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara><link linkend="_pulseininv">PulseInInv</link></simpara></entry>
-<entry align="left" valign="top"><simpara>PulseInInv <emphasis>pin</emphasis>, <emphasis>user_variable</emphasis>, <emphasis>time units</emphasis></simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara><link linkend="_pulseout">PulseOut</link></simpara></entry>
-<entry align="left" valign="top"><simpara>PulseOut <emphasis>pin</emphasis>, <emphasis>time units</emphasis></simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara><link linkend="_pulseoutinv">PulseOutInv</link></simpara></entry>
-<entry align="left" valign="top"><simpara>PulseOutInv <emphasis>pin,</emphasis> <emphasis>time units</emphasis></simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara><link linkend="_weak_pullups">Weak Pullups</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support internal/s&#8230;&#8203;</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -10047,7 +10081,7 @@ The converter requires the following files - these are included with your instal
 </tbody>
 </tgroup>
 </informaltable>
-<simpara><emphasis role="strong">Peripheral Pin Select</emphasis></simpara>
+<simpara><emphasis role="strong">Port control</emphasis></simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <tgroup cols="2">
 <colspec colname="col_1" colwidth="30*"/>
@@ -10060,8 +10094,12 @@ The converter requires the following files - these are included with your instal
 </thead>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara><link linkend="_lockpps">LockPPS</link></simpara></entry>
-<entry align="left" valign="top"><simpara>LOCKPSS</simpara></entry>
+<entry align="left" valign="top"><simpara><link linkend="_dir">Dir</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Dir <emphasis>port.bit</emphasis> {In | Out} <emphasis>(Individual Form)</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_weak_pullups">Weak Pullups</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support internal/s&#8230;&#8203;</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_peripheral_pin_select_for_microchip_microcontrollers">Peripheral Pin Select for Microchip microcontrollers.</link></simpara></entry>
@@ -10070,6 +10108,10 @@ The converter requires the following files - these are included with your instal
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_unlockpps">UnLockPPS</link></simpara></entry>
 <entry align="left" valign="top"><simpara>UNLOCKPPS</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_lockpps">LockPPS</link></simpara></entry>
+<entry align="left" valign="top"><simpara>LOCKPSS</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -10081,16 +10123,12 @@ The converter requires the following files - these are included with your instal
 <informaltable frame="all" rowsep="1" colsep="1">
 <tgroup cols="1">
 <colspec colname="col_1" colwidth="100*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Reserved Word</entry>
+</row>
+</thead>
 <tbody>
-<row>
-<entry align="left" valign="top"><simpara>_glcdpage</simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara>_glcdpagesh</simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara>_glcdpagesl</simpara></entry>
-</row>
 <row>
 <entry align="left" valign="top"><simpara>createbutton</simpara></entry>
 </row>
@@ -10099,9 +10137,6 @@ The converter requires the following files - these are included with your instal
 </row>
 <row>
 <entry align="left" valign="top"><simpara>fillroundrect</simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara>glcdprintdefaultfont_nextion</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>hefreadbyte</simpara></entry>
@@ -10125,9 +10160,6 @@ The converter requires the following files - these are included with your instal
 <entry align="left" valign="top"><simpara>hpwm16init</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>i2cslavedevicereceive</simpara></entry>
-</row>
-<row>
 <entry align="left" valign="top"><simpara>masterrst</simpara></entry>
 </row>
 <row>
@@ -10144,9 +10176,6 @@ The converter requires the following files - these are included with your instal
 </row>
 <row>
 <entry align="left" valign="top"><simpara>shiftr</simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara>st7735rotation</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>st7735sendcommand</simpara></entry>
@@ -11351,7 +11380,7 @@ holding capacitor remains connected to AD channel from the instant the read is c
 <simpara><link linkend="_getuserid">GetUserID</link>&#8201;&#8212;&#8201;related command in the same category</simpara>
 </listitem>
 <listitem>
-<simpara><link xlink:href="http://ladyada.net/library/rccalc.html">ladyada.net/library/rccalc.html</link>&#8201;&#8212;&#8201;calculating the capacitor value (not associated with GCBASIC)</simpara>
+<simpara><link xlink:href="https://ladyada.net/library/rccalc.html">RC calculator</link>&#8201;&#8212;&#8201;calculating the capacitor value (not associated with GCBASIC)</simpara>
 </listitem>
 </itemizedlist>
 </section>
@@ -16177,7 +16206,7 @@ Delays at clock frequencies below 500kHz may be impacted by previous instruction
 <simpara><literal>FVR_1x</literal> = Fixed Voltage Reference is set to 1.024V</simpara>
 <simpara><literal>FVR_2x</literal> = Fixed Voltage Reference is set to 2.048V</simpara>
 <simpara><literal>FVR_4x</literal> = Fixed Voltage Reference is set to 4.096V</simpara>
-<simpara>Using the 16F1828 device&#8217;s datasheet as a general case (<link xlink:href="http://ww1.microchip.com/downloads/en/DeviceDoc/40001419F.pdf">http://ww1.microchip.com/downloads/en/DeviceDoc/40001419F.pdf</link>, from the device&#8217;s product page at <link xlink:href="http://www.microchip.com/wwwproducts/en/pic16f1828">http://www.microchip.com/wwwproducts/en/pic16f1828</link>), parameter AD06 in table 30-8 on page 359, and the corresponding Note 4, show that the Vref voltage (Vref+ minus Vref-) should not be less than 1.8V, regardless of the reference voltage used, for the ADC module to work within the datasheet specifications.
+<simpara>Using the 16F1828 device&#8217;s datasheet as a general case (<link xlink:href="https://ww1.microchip.com/downloads/en/DeviceDoc/40001419F.pdf">datasheet</link>, from the device&#8217;s product page at <link xlink:href="https://www.microchip.com/wwwproducts/en/pic16f1828">product page</link>), parameter AD06 in table 30-8 on page 359, and the corresponding Note 4, show that the Vref voltage (Vref+ minus Vref-) should not be less than 1.8V, regardless of the reference voltage used, for the ADC module to work within the datasheet specifications.
 &#160;&#160;Also, since Vref- cannot be a negative voltage (voltages below GND), the lowest voltage on it is 0V.&#160;&#160;This means an FVR of 1.024V cannot be used as VREF+ for the ADC&#8201;&#8212;&#8201;only the 2.048V and 4.096V values can.</simpara>
 <simpara>The 1.024V FVR value still exists for use with other modules, not just the ADC module.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
@@ -18653,7 +18682,7 @@ This equates to 8 pixels high.</simpara></entry>
 </tbody>
 </tgroup>
 </informaltable>
-<simpara>For color TFT displays, any color can be defined using a valid hexadecimal word value between 0x0000 and 0xFFFF&#8201;&#8212;&#8201;see <link xlink:href="http://www.barth-dev.de/online/rgb565-color-picker/">http://www.barth-dev.de/online/rgb565-color-picker/</link> for a wider range of color parameters.</simpara>
+<simpara>For color TFT displays, any color can be defined using a valid hexadecimal word value between 0x0000 and 0xFFFF&#8201;&#8212;&#8201;see the <link xlink:href="https://www.barth-dev.de/online/rgb565-color-picker/">RGB565 color picker</link> for a wider range of color parameters.</simpara>
 <simpara>The following color constants are pre-defined.</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    TFT_BLACK       0x0000
     TFT_NAVY        0x000F
@@ -18676,7 +18705,7 @@ This equates to 8 pixels high.</simpara></entry>
     TFT_PINK        0xF81F</programlisting>
 <simpara>This example shows how to drive a KS0108-based Graphic LCD module with
 the built-in commands of GCBASIC. See
-<link xlink:href="http://www.greatcowbasic.com/sample-projects.html">Graphic LCD</link> for
+<link xlink:href="https://www.greatcowbasic.com/sample-projects.html">Graphic LCD</link> for
 details (this is an external website).</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    ;Chip Settings
@@ -20049,7 +20078,7 @@ Cannot be changed.</simpara></entry>
     ILI9340_TEAL    'hexidecimal value 0x0410
     ILI9340_NAVY    'hexidecimal value 0x0010
     ILI9340_FUCHSIA 'hexidecimal value 0xF81F</programlisting>
-<simpara>For a ILI9340 datasheet, please refer <link xlink:href="http://gcbasic.sourceforge.net/library/DISPLAY/ILI9340.pdf">here</link>.</simpara>
+<simpara>For a ILI9340 datasheet, please refer <link xlink:href="https://gcbasic.sourceforge.net/library/DISPLAY/ILI9340.pdf">here</link>.</simpara>
 <simpara>This example shows how to drive a ILI9340 based Graphic LCD module with the built in commands of GCBASIC.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    ;Chip Settings
@@ -20438,7 +20467,7 @@ MASTERULTRAFAST for specific AVRs only.</simpara></entry>
     ILI9341_TEAL    'hexidecimal value 0x0410
     ILI9341_NAVY    'hexidecimal value 0x0010
     ILI9341_FUCHSIA 'hexidecimal value 0xF81F</programlisting>
-<simpara>For a ILI9341 datasheet, please refer <link xlink:href="http://gcbasic.sourceforge.net/library/DISPLAY/ILI9341.pdf">here</link>.</simpara>
+<simpara>For a ILI9341 datasheet, please refer <link xlink:href="https://gcbasic.sourceforge.net/library/DISPLAY/ILI9341.pdf">here</link>.</simpara>
 <simpara>This example shows how to drive a ILI9341 based Graphic LCD module with the built in commands of GCBASIC.</simpara>
 <simpara><emphasis role="strong">Example #1</emphasis></simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    ;Chip Settings
@@ -21881,10 +21910,10 @@ specific attribute.</simpara></entry>
 </tgroup>
 </informaltable>
 <simpara>For a KS0108 datasheet, please refer
-<link xlink:href="http://www.vishay.com/docs/37329/37329.pdf">here.</link></simpara>
+<link xlink:href="https://www.vishay.com/docs/37329/37329.pdf">here.</link></simpara>
 <simpara>This example shows how to drive a KS0108 based Graphic LCD module with
 the built in commands of GCBASIC. See
-<link xlink:href="http://www.greatcowbasic.com/sample-projects.html">Graphic LCD</link> for
+<link xlink:href="https://www.greatcowbasic.com/sample-projects.html">Graphic LCD</link> for
 details, this is an external web site.</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    ;Chip Settings
     #chip 16F886,16
@@ -21957,7 +21986,7 @@ details, this is an external web site.</simpara>
 </indexterm></simpara>
 <simpara>This section covers GLCD devices that use the serially attached Nextion graphics displays.</simpara>
 <simpara>Nextion includes hardware part (a series of TFT boards) and software part (the Nextion
-editor (<link xlink:href="http://nextion.itead.cc/)">http://nextion.itead.cc/)</link>).</simpara>
+editor (<link xlink:href="https://nextion.itead.cc/">itead.cc</link>)).</simpara>
 <simpara>The Nextion TFT board uses only one serial port to communicate. &#160;&#160;It lets you avoid the hassle of wiring.&#160;&#160;Nextion
 editor has mass components such as button, text, progress bar, slider, instrument panel etc.
 to enrich your interface design.&#160;&#160; And, the drag-and-drop function ensures that you spend less
@@ -22189,6 +22218,11 @@ The GCBASIC constants for control display characteristics are shown in the table
 <entry align="left" valign="top"><simpara><literal>GLCDPrintStringLn_Nextion</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Print string of characters on GLCD using Nextion font set adding a newline and carriage return to move cursort to start of next line.</simpara></entry>
 <entry align="left" valign="top"><simpara><literal>GLCDPrintStringLn_Nextion( Stringvariable )</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>GLCDPrintDefaultFont_Nextion</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Reset the GLCD default font parameters. On the Nextion driver this is implemented as a no-op stub&#8201;&#8212;&#8201;the Nextion panel manages its own fonts on-device via the <literal>NextionFont0</literal>/<literal>NextionFont1</literal>/<literal>NextionFont2</literal> constants shown above, so no action is needed in GCBASIC code. The command exists only to satisfy the generic GLCD API surface shared with other controllers.</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>GLCDPrintDefaultFont_Nextion( GLCDfntDefault, GLCDFontWidth, GLCDfntDefaultsize )</literal></simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><literal>GLCDSendOpInstruction_Nextion</literal></simpara></entry>
@@ -22621,7 +22655,7 @@ specific attribute.</simpara></entry>
 </tgroup>
 </informaltable>
 <simpara>For a NT7108C datasheet, please refer
-<link xlink:href="http://www.farnell.com/datasheets/1878006.pdf">here.</link></simpara>
+<link xlink:href="https://www.farnell.com/datasheets/1878006.pdf">here.</link></simpara>
 <simpara>This example shows how to drive a NT7108C based Graphic LCD module with
 the built in commands of GCBASIC. See <link xlink:href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/">Graphic LCD</link> for
 details, this is an external web site.</simpara>
@@ -23164,7 +23198,7 @@ specific attribute.</simpara></entry>
       SSD1289_TEAL    'hexidecimal value 0x0410
       SSD1289_NAVY    'hexidecimal value 0x0010
       SSD1289_FUCHSIA 'hexidecimal value 0xF81F</programlisting>
-<simpara>For a SSD1289 datasheet, please refer <link xlink:href="http://gcbasic.sourceforge.net/library/DISPLAY/SDD1289.pdf">here</link>.<?asciidoc-br?></simpara>
+<simpara>For a SSD1289 datasheet, please refer <link xlink:href="https://gcbasic.sourceforge.net/library/DISPLAY/SDD1289.pdf">here</link>.<?asciidoc-br?></simpara>
 <simpara>This example shows how to drive an SSD1289 based Graphic LCD module with the built in commands of GCBASIC.<?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    ;Chip Settings
@@ -23439,7 +23473,7 @@ Parameter is dim value</simpara></entry>
 </tbody>
 </tgroup>
 </informaltable>
-<simpara>For a SH1106 datasheet, please refer <link xlink:href="http://gcbasic.sourceforge.net/library/DISPLAY/SH1106.pdf">here</link>.</simpara>
+<simpara>For a SH1106 datasheet, please refer <link xlink:href="https://gcbasic.sourceforge.net/library/DISPLAY/SH1106.pdf">here</link>.</simpara>
 <simpara>This example shows how to drive a SH1106 based Graphic LCD module with the built in commands of GCBASIC.</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">; ----- Configuration
     #chip mega328p,16
@@ -23937,6 +23971,7 @@ specific attribute.</simpara></entry>
 </tbody>
 </tgroup>
 </informaltable>
+<simpara>Internally, <literal>GLCD_Open_PageTransaction</literal>/<literal>GLCD_Close_PageTransaction</literal> iterate over the display&#8217;s 8-pixel-tall pages using the global byte variable <literal>_GLCDPage</literal>, bounded by <literal>_GLCDPagesL</literal>/<literal>_GLCDPagesH</literal> (defaulting to 0 and 7&#8201;&#8212;&#8201;the full 64-row display, matching the <literal>0, 7</literal> example above). These are internal loop-control variables&#8201;&#8212;&#8201;the source comments explicitly warn <literal>_GLCDPage</literal> must not be changed by user code&#8201;&#8212;&#8201;and are documented here only for completeness; use <literal>GLCD_Open_PageTransaction</literal>/<literal>GLCD_Close_PageTransaction</literal> as shown above rather than referencing them directly.</simpara>
 <simpara>The GCBASIC specific commands for this GLCD are shown in the table below.</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
 <tgroup cols="2">
@@ -23989,7 +24024,7 @@ Parameter is dim value</simpara></entry>
 </tbody>
 </tgroup>
 </informaltable>
-<simpara>For a SSD1306 datasheet, please refer <link xlink:href="http://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf">here</link>.</simpara>
+<simpara>For a SSD1306 datasheet, please refer <link xlink:href="https://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf">here</link>.</simpara>
 <simpara>This example shows how to drive a SSD1306 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode GLCD</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    #chip mega328p,16
     #include &lt;glcd.h&gt;
@@ -26416,11 +26451,12 @@ specific attribute.</simpara></entry>
 <row>
 <entry align="left" valign="top"><simpara><literal>ST7735_[color]</literal></simpara></entry>
 <entry align="left" valign="top"><simpara>Specify color as a parameter for many GLCD commands</simpara></entry>
-<entry align="left" valign="top"><simpara>Any color can be defined using a valid hexidecimal word value between 0x0000 to 0xFFFF., see <link xlink:href="http://www.barth-dev.de/online/rgb565-color-picker/">http://www.barth-dev.de/online/rgb565-color-picker/</link> for a wider range of color parameters.</simpara></entry>
+<entry align="left" valign="top"><simpara>Any color can be defined using a valid hexidecimal word value between 0x0000 to 0xFFFF., see the <link xlink:href="http://www.barth-dev.de/online/rgb565-color-picker/">RGB565 color picker</link> for a wider range of color parameters.</simpara></entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
+<simpara>Internally, the generic <link linkend="_glcdrotate">GLCDRotate</link> command is implemented for this controller by <literal>GLCDRotate_ST7735</literal>, which handles the four orientations (<literal>LANDSCAPE</literal>, <literal>PORTRAIT</literal>, <literal>LANDSCAPE_REV</literal>, <literal>PORTRAIT_REV</literal>), swaps <literal>GLCDDeviceWidth</literal>/<literal>GLCDDeviceHeight</literal> for the landscape modes, and selects RGB or BGR colour order according to <literal>ST7735TABCOLOR</literal>. Bytes are sent to the controller via the internal <literal>SendCommand_ST7735</literal> helper (hardware SPI, or a bit-banged software path when <literal>ST7735_HardwareSPI</literal> is not defined). Both are internal implementation routines&#8201;&#8212;&#8201;use the public <literal>GLCDRotate</literal> command rather than calling either directly.</simpara>
 <simpara>For a ST7735 datasheet, please refer
 <link xlink:href="http://www.crystalfontz.com/controllers/ST7735_V2.1_20100505.pdf">here.</link></simpara>
 <simpara>For a ST7735R datasheet, please refer
@@ -26458,6 +26494,9 @@ specific attribute.</simpara></entry>
 </listitem>
 <listitem>
 <simpara><link linkend="_glcdreadbyte">GLCDReadByte</link> / <link linkend="_glcdwritebyte">GLCDWriteByte</link>&#8201;&#8212;&#8201;low-level byte access, for expert use</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_glcdrotate">GLCDRotate</link>&#8201;&#8212;&#8201;rotating the display, implemented for this controller by the internal GLCDRotate_ST7735 routine</simpara>
 </listitem>
 <listitem>
 <simpara><link linkend="_pset">Pset</link>&#8201;&#8212;&#8201;setting a single pixel</simpara>
@@ -27057,10 +27096,10 @@ specific attribute.</simpara></entry>
 </tgroup>
 </informaltable>
 <simpara>For a TS7920 datasheet, please refer
-<link xlink:href="http://www.crystalfontz.com/controllers/ST7920.pdf">here.</link></simpara>
+<link xlink:href="https://www.crystalfontz.com/controllers/ST7920.pdf">here.</link></simpara>
 <simpara>This example shows how to drive a ST7920 based Graphic LCD module with
 the built in commands of GCBASIC. See
-<link xlink:href="http://www.greatcowbasic.com/sample-projects.html">Graphic LCD</link> for
+<link xlink:href="https://www.greatcowbasic.com/sample-projects.html">Graphic LCD</link> for
 details, this is an external web site.</simpara>
 <simpara><emphasis role="strong">Example 1:</emphasis></simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    ;Chip Settings
@@ -28624,7 +28663,7 @@ Parameter is contrast value</simpara></entry>
 </tbody>
 </tgroup>
 </informaltable>
-<simpara>For a UC1601 datasheet, please refer <link xlink:href="http://gcbasic.sourceforge.net/library/DISPLAY/UC1601.pdf">here</link>.</simpara>
+<simpara>For a UC1601 datasheet, please refer <link xlink:href="https://gcbasic.sourceforge.net/library/DISPLAY/UC1601.pdf">here</link>.</simpara>
 <simpara>This example shows how to drive a UC1601 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode GLCD</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">        ; ----- Configuration
         #chip 16f18446, 32
@@ -30036,7 +30075,7 @@ Passing a parameter of ADS7843_SetPrecision changes the precision controls.</sim
 </tgroup>
 </informaltable>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
-<simpara>For more information see <link xlink:href="http://www.ti.com/product/ads7843">http://www.ti.com/product/ads7843</link>.</simpara>
+<simpara>For more information see <link xlink:href="https://www.ti.com/product/ads7843">TI product page</link>.</simpara>
 <simpara>This example shows how to drive a SSD1289 based Graphic LCD module with ADS7843 touch controller.</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    'Chip Settings
     #chip mega2560, 16
@@ -30166,7 +30205,7 @@ This is an advanced method of driving an LCD.</simpara></entry>
 <row>
 <entry align="center" valign="top"><simpara>1</simpara></entry>
 <entry align="left" valign="top"><simpara>Uses a combined data and clock line. This mode is used when the LCD is connected through a
-shift register 74HC595, as detailed at <link xlink:href="http://gcbasic.sourceforge.net/library/DIAGRAMS/1-Wire%20LCD/"><emphasis role="strong">here</emphasis></link>.
+shift register 74HC595, as detailed at <link xlink:href="https://gcbasic.sourceforge.net/library/DIAGRAMS/1-Wire%20LCD/"><emphasis role="strong">here</emphasis></link>.
 <?asciidoc-br?>
 This method of driving an LCD requires an additional integrated circuit and other passive components.
 This is not recommended for the beginner.</simpara></entry>
@@ -30175,7 +30214,7 @@ This is not recommended for the beginner.</simpara></entry>
 <entry align="center" valign="top"><simpara>2</simpara></entry>
 <entry align="left" valign="top"><simpara>Uses separated Data and Clock lines. This mode is used when the LCD is connected
 through a 74LS174 shift register IC, as detailed at
-<link xlink:href="http://gcbasic.sourceforge.net/library/DIAGRAMS/2-Wire%20LCD/"><emphasis role="strong">here</emphasis></link>
+<link xlink:href="https://gcbasic.sourceforge.net/library/DIAGRAMS/2-Wire%20LCD/"><emphasis role="strong">here</emphasis></link>
 <?asciidoc-br?>
 This method of driving an LCD requires additional integrated circuits
 and other passive components. This is not recommended for the beginner.</simpara></entry>
@@ -30512,7 +30551,7 @@ Connection Mode.</simpara>
 <simpara>This approach uses a single connectivity line that supports a combined data
 and clock signal between the microcontroller and the LCD display. This approach
 is used when the LCD is connected through a shift register 74HC595, as detailed
-at <link xlink:href="http://gcbasic.sourceforge.net/library/DIAGRAMS/1-Wire%20LCD/1-wire%20LCD%2074HC595%20for%20GCB.jpg">here</link>.
+at <link xlink:href="https://gcbasic.sourceforge.net/library/DIAGRAMS/1-Wire%20LCD/1-wire%20LCD%2074HC595%20for%20GCB.jpg">here</link>.
 This connection method is also called a 1-wire connection.</simpara>
 <simpara>This solution approach recognises the original work provided in the Elektor Magazine.</simpara>
 <simpara><emphasis role="strong">Relevant Constants:</emphasis></simpara>
@@ -30563,7 +30602,7 @@ This connection method is also called a 1-wire connection.</simpara>
     Locate 1,0
     Print "  Hello World."          ' &lt;&lt;&lt; the print instruction this page documents</programlisting>
 <simpara><emphasis role="strong">Key line:</emphasis> <literal>Print "  Hello World."</literal>&#8201;&#8212;&#8201;writes to the second LCD line after <literal>Locate 1,0</literal>; both <literal>Print</literal> calls are shifted out over the single <literal>LCD_CD</literal> line to the 74HC595, one bit at a time, with no other wiring involved.</simpara>
-<simpara>See further code examples at <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">0, 1 and 2 Wire LCD Solutions</link>.</simpara>
+<simpara>See further code examples at <link xlink:href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">0, 1 and 2 Wire LCD Solutions</link>.</simpara>
 <simpara>See the separate sections of the Help file for the specifics of each Connection Mode.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
@@ -30616,7 +30655,7 @@ This connection method is also called a 1-wire connection.</simpara>
 <simpara><emphasis role="strong">Using connection mode 2_74XX164:</emphasis></simpara>
 <simpara>Use a Data and a Clock line. This manner is used when the LCD is
 connected through a  shift register IC either using a 74HC164 or a 74LS164,
-as detailed at <link xlink:href="http://gcbasic.sourceforge.net/library/DIAGRAMS/2-Wire%20LCD/">here</link>.
+as detailed at <link xlink:href="https://gcbasic.sourceforge.net/library/DIAGRAMS/2-Wire%20LCD/">here</link>.
 This connection method is also called a 2-wire connection.</simpara>
 <simpara>This is the preferred two wire method to connect via a shift register to an LCD display.</simpara>
 <simpara><emphasis role="strong">Relevant Constants:</emphasis></simpara>
@@ -30673,7 +30712,7 @@ This connection method is also called a 2-wire connection.</simpara>
     Locate 1,0
     Print "  Hello World."          ' &lt;&lt;&lt; the print instruction this page documents</programlisting>
 <simpara><emphasis role="strong">Key line:</emphasis> <literal>Print "  Hello World."</literal>&#8201;&#8212;&#8201;writes to the second LCD line after <literal>Locate 1,0</literal>; both <literal>Print</literal> calls are shifted out over <literal>LCD_DB</literal>/<literal>LCD_CB</literal> to the 74HC164/74LS164, which the LCD itself decodes back into an 8-bit parallel write.</simpara>
-<simpara>See further code examples at <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">Two Wire LCD Solutions</link>.</simpara>
+<simpara>See further code examples at <link xlink:href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">Two Wire LCD Solutions</link>.</simpara>
 <simpara>See the separate sections of the Help file for the specifics of each Connection Mode.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
@@ -30725,7 +30764,7 @@ This connection method is also called a 2-wire connection.</simpara>
 </indexterm></simpara>
 <simpara><emphasis role="strong">Using connection mode 2:</emphasis></simpara>
 <simpara>This method uses a Data and a Clock line via a shift register to control the LCD display.
-This method is used when the LCD is connected through a shift register IC either using a 74HC164 or a 74LS174, as detailed at <link xlink:href="http://gcbasic.sourceforge.net/library/DIAGRAMS/2-Wire%20LCD/">here</link>.
+This method is used when the LCD is connected through a shift register IC either using a 74HC164 or a 74LS174, as detailed at <link xlink:href="https://gcbasic.sourceforge.net/library/DIAGRAMS/2-Wire%20LCD/">here</link>.
 This connection method is also called a 2-wire connection.</simpara>
 <simpara>This is a <emphasis role="strong">deprecated</emphasis> method mode to connect an LCD display to a microcontroller via a shift registry either a 74LS174 (or a 74LS164 with diode connected to pin 11).   This method does not support backlight control and has no additional input/output pin.</simpara>
 <simpara>If you have used the 2-wire mode prior to August 2015, please choose this method for your existing code.</simpara>
@@ -30780,7 +30819,7 @@ When using 2-bit mode only three constants must be set - all others are optional
     Locate 1,0
     Print "  Hello World."          ' &lt;&lt;&lt; the print instruction this page documents</programlisting>
 <simpara><emphasis role="strong">Key line:</emphasis> <literal>Print "  Hello World."</literal>&#8201;&#8212;&#8201;writes to the second LCD line after <literal>Locate 1,0</literal>; both <literal>Print</literal> calls are shifted out over <literal>LCD_DB</literal>/<literal>LCD_CB</literal> to the 74LS174, which the LCD itself decodes back into an 8-bit parallel write.</simpara>
-<simpara>See further code examples at <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">Two Wire LCD Solutions</link>.</simpara>
+<simpara>See further code examples at <link xlink:href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">Two Wire LCD Solutions</link>.</simpara>
 <simpara>See the separate sections of the Help file for the specifics of each
 Connection Mode.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
@@ -31145,7 +31184,7 @@ the LCD is connected to ground if not used.</simpara>
 
     End</programlisting>
 <simpara><emphasis role="strong">Key line:</emphasis> <literal>Print "Hello World."</literal>&#8201;&#8212;&#8201;each character is written as two 4-bit nibbles over <literal>LCD_DB4</literal>-<literal>LCD_DB7</literal>, strobed by <literal>LCD_Enable</literal>, exactly as the physical LCD&#8217;s HD44780-style controller expects in 4-bit mode.</simpara>
-<simpara>Also see further code examples at <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">Four Wire LCD Solutions</link>.</simpara>
+<simpara>Also see further code examples at <link xlink:href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">Four Wire LCD Solutions</link>.</simpara>
 <simpara>See the separate sections of the Help file for the specifics of each
 Connection Mode.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
@@ -31285,7 +31324,7 @@ the LCD is connected to ground if not used.</simpara>
 
     END</programlisting>
 <simpara><emphasis role="strong">Key line:</emphasis> <literal>Print "Hello World."</literal>&#8201;&#8212;&#8201;writes each character to <literal>LCD_DATA_PORT</literal> as a full 8-bit parallel value, strobed by <literal>LCD_Enable</literal>, in a single write per character rather than the two nibble-writes that 4-bit mode requires.</simpara>
-<simpara>For further code examples see <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">Eight Wire Examples</link>.</simpara>
+<simpara>For further code examples see <link xlink:href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">Eight Wire Examples</link>.</simpara>
 <simpara>See the separate sections of the Help file for the specifics of each
 Connection Mode.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
@@ -31743,7 +31782,7 @@ be ignored.</simpara>
     CLS
     Print "Hello World."</programlisting>
 <simpara><emphasis role="strong">Key line:</emphasis> <literal>#define LCD_I2C_Address_1 0x4E</literal>&#8201;&#8212;&#8201;sets the I2C address of the adapter this page documents; see <link linkend="_multiple_i2c_adapters_lcd_io_12">Multiple I2C Adapters (LCD_IO 12)</link> for driving up to four of these adapters on the same bus.</simpara>
-<simpara>For further code examples see <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">I2C LCD Solutions</link>.</simpara>
+<simpara>For further code examples see <link xlink:href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">I2C LCD Solutions</link>.</simpara>
 <simpara>See the separate sections of the Help file for the specifics of each
 Connection Mode.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
@@ -31981,7 +32020,7 @@ Then, define the LCD type, set the SPI address of the SPI expander, and, the LCD
         // Optional(s) reset Port.Pin connection to expander, select one.
             // #define LCD_SPI_RESET_IN       portb.5
             #define LCD_SPI_RESET_OUT      portb.5</programlisting>
-<simpara>For code examples see <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">LCD Solutions</link>.</simpara>
+<simpara>For code examples see <link xlink:href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">LCD Solutions</link>.</simpara>
 <simpara>See the separate sections of the Help file for the specifics of each
 Connection Mode.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
@@ -32164,7 +32203,7 @@ Connection Mode.</simpara>
 <textobject><phrase>graphic</phrase></textobject>
 </mediaobject>
 </informalfigure>
-<simpara>For code examples see <link xlink:href="http://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">LCD Solutions</link>.</simpara>
+<simpara>For code examples see <link xlink:href="https://github.com/Anobium/Great-Cow-BASIC-Demonstration-Sources/tree/master/LCD_Solutions">LCD Solutions</link>.</simpara>
 <simpara>See the separate sections of the Help file for the specifics of each
 Connection Mode.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
@@ -36588,7 +36627,7 @@ To set them, place a line in the main program file that uses
 <simpara>Randomize is used to seed the pseudo random number generator, so that it
 will produce a different sequence of numbers each time it is used.</simpara>
 <simpara>The random number generator in GCBASIC is a 16 bit linear feedback shift register,
-which is explained here: <link xlink:href="http://en.wikipedia.org/wiki/Linear_feedback_shift_register">http://en.wikipedia.org/wiki/Linear_feedback_shift_register</link></simpara>
+which is explained here: <link xlink:href="https://en.wikipedia.org/wiki/Linear_feedback_shift_register">Linear feedback shift register on Wikipedia</link></simpara>
 <simpara>Generally, you will get the same sequence every time it is used.&#160;&#160;However, you can seed it so that it will start at a different point at the sequence using the Randomize command.</simpara>
 <simpara>If you wanted to use an analog reading to seed the generator, this would work:</simpara>
 <literallayout class="monospaced">Randomize ReadAD10(AN0)</literallayout>
@@ -37595,8 +37634,8 @@ All you need to do is connect DIO and CLK to any of GPIO (General Purpose Input 
 <simpara>The TM1637 chip supports the reading of the keyboard matrix however that is not supported in the library.</simpara>
 <simpara><emphasis role="strong">DataSheets</emphasis></simpara>
 <simpara>The datasheets can found here:</simpara>
-<simpara>English -  <link xlink:href="http://gcbasic.sourceforge.net/library/TM1637/TM1637_V2.4_EN.pdf">here</link>.</simpara>
-<simpara>Chinese - <link xlink:href="http://gcbasic.sourceforge.net/library/TM1637/TM1637_V2.4.pdf">here</link>.</simpara>
+<simpara>English -  <link xlink:href="https://gcbasic.sourceforge.net/library/TM1637/TM1637_V2.4_EN.pdf">here</link>.</simpara>
+<simpara>Chinese - <link xlink:href="https://gcbasic.sourceforge.net/library/TM1637/TM1637_V2.4.pdf">here</link>.</simpara>
 <simpara><emphasis role="strong">Usage</emphasis></simpara>
 <simpara>The following will set the display.</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
@@ -37744,7 +37783,7 @@ Only values from from 0x0000 to 0xFFFF can be displayed. Non-hex values will be 
 <simpara>Available on all microcontrollers.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara><emphasis>TMaddr</emphasis> is 0 , 1 , 2 , 3 (display left to right)
-<emphasis>TMchar</emphasis> is a letter from A to Z (default alphabet) or from <literal>a</literal> to <literal>z</literal> Siekoo alphabet by Alexander Fakoo, more info at: <link xlink:href="http://en.fakoo.de/siekoo.html">http://en.fakoo.de/siekoo.html</link>. &#160;&#160;
+<emphasis>TMchar</emphasis> is a letter from A to Z (default alphabet) or from <literal>a</literal> to <literal>z</literal> Siekoo alphabet by Alexander Fakoo, more info at: <link xlink:href="https://en.fakoo.de/siekoo.html">en.fakoo.de/siekoo.html</link>. &#160;&#160;
 You can insert the special characters (blank, -, ) and/or ?).
 <?asciidoc-br?>
 <?asciidoc-br?>
@@ -37850,8 +37889,8 @@ All you need to do is connect DIO and CLK to any of GPIO (General Purpose Input 
 <simpara>The TM1637 chip supports the reading of the keyboard matrix however that is not supported in the library.</simpara>
 <simpara><emphasis role="strong">DataSheets</emphasis></simpara>
 <simpara>The datasheets can found here:</simpara>
-<simpara>English -  <link xlink:href="http://gcbasic.sourceforge.net/library/TM1637/TM1637_V2.4_EN.pdf">here</link>.</simpara>
-<simpara>Chinese - <link xlink:href="http://gcbasic.sourceforge.net/library/TM1637/TM1637_V2.4.pdf">here</link>.</simpara>
+<simpara>English -  <link xlink:href="https://gcbasic.sourceforge.net/library/TM1637/TM1637_V2.4_EN.pdf">here</link>.</simpara>
+<simpara>Chinese - <link xlink:href="https://gcbasic.sourceforge.net/library/TM1637/TM1637_V2.4.pdf">here</link>.</simpara>
 <simpara><emphasis role="strong">Usage</emphasis></simpara>
 <simpara>The following will set the display.</simpara>
 <informaltable frame="all" rowsep="1" colsep="1">
@@ -38000,7 +38039,7 @@ Only values from from 0x0000 to 0xFFFF can be displayed. Non-hex values will be 
 <simpara>Available on all microcontrollers.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara><emphasis>TMaddr</emphasis> is 0 , 1 , 2 , 3 4, 5 (display left to right)
-<emphasis>TMchar</emphasis> is a letter from A to Z (default alphabet) or from <literal>a</literal> to <literal>z</literal> Siekoo alphabet by Alexander Fakoo, more info at: <link xlink:href="http://en.fakoo.de/siekoo.html">http://en.fakoo.de/siekoo.html</link>. &#160;&#160;
+<emphasis>TMchar</emphasis> is a letter from A to Z (default alphabet) or from <literal>a</literal> to <literal>z</literal> Siekoo alphabet by Alexander Fakoo, more info at: <link xlink:href="https://en.fakoo.de/siekoo.html">en.fakoo.de/siekoo.html</link>. &#160;&#160;
 You can insert the special characters (blank, -, ) and/or ?).
 <?asciidoc-br?>
 <?asciidoc-br?>
@@ -40421,6 +40460,89 @@ number of ASCII codes 13 and 10 set to the hardware RS232 module.</simpara>
 </section>
 </section>
 </section>
+<section xml:id="_infrared_remote_control">
+<title>Infrared Remote Control</title>
+<simpara>This is the Infrared Remote Control section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</simpara>
+<section xml:id="_nec_remote_control">
+<title>NEC Remote Control</title>
+<simpara><indexterm>
+<primary>Infrared Remote Control</primary><secondary>NEC Remote Control</secondary>
+</indexterm>
+<indexterm>
+<primary>NEC Remote Control</primary>
+</indexterm></simpara>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    NECSend <emphasis>address</emphasis>, <emphasis>data</emphasis>
+
+    NECByte <emphasis>value</emphasis></screen>
+<simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
+<simpara>Available on all microcontrollers. Requires the inclusion of the following:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #include &lt;remote.h&gt;</programlisting>
+<simpara><emphasis role="strong">Explanation:</emphasis></simpara>
+<simpara><literal>NECSend</literal> transmits a complete NEC-protocol infrared remote-control frame: a start burst, a sync gap, the address byte, its bitwise complement, the command byte, and its complement. <literal>NECByte</literal> is the lower-level routine <literal>NECSend</literal> uses to transmit each of those four bytes individually&#8201;&#8212;&#8201;most programs only need to call <literal>NECSend</literal>.</simpara>
+<simpara>Both this command and <literal>RC5Send</literal> (see <link linkend="_rc5_remote_control">RC5 Remote Control</link>) share the same output pin, set with:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #define RC5Out &lt;pin&gt;</programlisting>
+<simpara><literal><emphasis>address</emphasis></literal> and <literal><emphasis>data</emphasis></literal> are byte values. <literal>NECSend</literal> automatically transmits each one&#8217;s bitwise complement (<literal>!<emphasis>address</emphasis></literal>, <literal>!<emphasis>data</emphasis></literal>) immediately afterward, which is how a NEC receiver detects transmission errors.</simpara>
+<simpara>Each bit sent by <literal>NECByte</literal> is a short mark burst followed by a space whose length encodes the bit value&#8201;&#8212;&#8201;the two space lengths differ so a receiver can distinguish a 1 from a 0.</simpara>
+<simpara><emphasis role="strong">Example:</emphasis></simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #chip 16F877A, 20
+
+    #define RC5Out PORTB.0
+    Dir RC5Out Out
+
+    Do
+        NECSend 0x04, 0x0A          ' &lt;&lt;&lt; the NECSend instruction
+        Wait 100 ms
+    Loop</programlisting>
+<simpara><emphasis role="strong">Key line:</emphasis> <literal>NECSend 0x04, 0x0A</literal>&#8201;&#8212;&#8201;transmits address <literal>0x04</literal> and command <literal>0x0A</literal> as a complete NEC frame (address, its complement, command, its complement), preceded by the standard start burst and sync gap.</simpara>
+<simpara><emphasis role="strong">See Also:</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><link linkend="_rc5_remote_control">RC5 Remote Control</link>&#8201;&#8212;&#8201;the alternate infrared protocol supported by the same output pin</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_rc5_remote_control">
+<title>RC5 Remote Control</title>
+<simpara><indexterm>
+<primary>Infrared Remote Control</primary><secondary>RC5 Remote Control</secondary>
+</indexterm>
+<indexterm>
+<primary>RC5 Remote Control</primary>
+</indexterm></simpara>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    RC5Send <emphasis>address</emphasis>, <emphasis>data</emphasis>
+
+    RC5High
+    RC5Low</screen>
+<simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
+<simpara>Available on all microcontrollers. Requires the inclusion of the following:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #include &lt;remote.h&gt;</programlisting>
+<simpara><emphasis role="strong">Explanation:</emphasis></simpara>
+<simpara><literal>RC5Send</literal> transmits a complete RC5-protocol infrared remote-control frame: two AGC (automatic gain control) bits, a toggle bit, 5 address bits, and 6 command bits. <literal>RC5High</literal> and <literal>RC5Low</literal> are the lower-level biphase (Manchester-style) half-bit routines <literal>RC5Send</literal> uses to transmit each bit&#8201;&#8212;&#8201;most programs only need to call <literal>RC5Send</literal>.</simpara>
+<simpara>This command shares its output pin with <literal>NECSend</literal> (see <link linkend="_nec_remote_control">NEC Remote Control</link>), set with:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #define RC5Out &lt;pin&gt;</programlisting>
+<simpara>The toggle bit is tracked automatically in the global variable <literal>RC5Toggle</literal>, which increments by one on every call to <literal>RC5Send</literal>&#8201;&#8212;&#8201;this is the standard RC5 mechanism a receiver uses to distinguish a genuinely new button press from a held-down repeat.</simpara>
+<simpara><literal><emphasis>address</emphasis></literal> uses the low 5 bits of the value passed, and <literal><emphasis>data</emphasis></literal> uses the low 6 bits, matching RC5&#8217;s 5-bit address / 6-bit command frame.</simpara>
+<simpara><emphasis role="strong">Example:</emphasis></simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #chip 16F877A, 20
+
+    #define RC5Out PORTB.0
+    Dir RC5Out Out
+
+    Do
+        RC5Send 0x04, 0x0A          ' &lt;&lt;&lt; the RC5Send instruction
+        Wait 100 ms
+    Loop</programlisting>
+<simpara><emphasis role="strong">Key line:</emphasis> <literal>RC5Send 0x04, 0x0A</literal>&#8201;&#8212;&#8201;transmits address <literal>0x04</literal> and command <literal>0x0A</literal> as a complete RC5 frame, automatically incrementing <literal>RC5Toggle</literal> so a receiver can tell this transmission apart from a repeat of the previous one.</simpara>
+<simpara><emphasis role="strong">See Also:</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><link linkend="_nec_remote_control">NEC Remote Control</link>&#8201;&#8212;&#8201;the alternate infrared protocol supported by the same output pin</simpara>
+</listitem>
+</itemizedlist>
+</section>
+</section>
 <section xml:id="_ps_2">
 <title>PS/2</title>
 <simpara>This is the PS/2 section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</simpara>
@@ -42117,6 +42239,8 @@ an ack.</simpara>
 before reading. When the method <literal>I2CReceive</literal> is used in Slave mode the
 global variable <literal>I2CMatch</literal> will be set to true when the received value is
 equal to the constant <literal>I2C_ADDRESS</literal>.</simpara>
+<simpara><emphasis role="strong">Note:</emphasis></simpara>
+<simpara>Earlier versions of GCBASIC provided a separate <literal>I2CSlaveDeviceReceive</literal> command for slave-mode reception. That name is now a reserved legacy identifier only&#8201;&#8212;&#8201;the functionality has been folded into <literal>I2CReceive</literal> itself, conditioned on <literal>#define I2C_MODE Slave</literal>, exactly as shown in Example 2 below.</simpara>
 <simpara><emphasis role="strong">Example 1 - Master Mode:</emphasis></simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">  ' I2C Receive - using the ChipIno board, see here for information. ' This program reads an I2C register and LED is set to on if the value  is over 100.
   ' This program will read from address 83, register 1.
@@ -44189,7 +44313,7 @@ This command will plays a QBASIC sequence of notes. The SoundPlayDataString is a
 </tbody>
 </tgroup>
 </informaltable>
-<simpara>For more information on the QBASIC PLAY command set, see <link xlink:href="https://en.wikibooks.org/wiki/QBasic/Appendix">https://en.wikibooks.org/wiki/QBasic/Appendix</link></simpara>
+<simpara>For more information on the QBASIC PLAY command set, see <link xlink:href="https://en.wikibooks.org/wiki/QBasic/Appendix">QBasic Appendix on Wikibooks</link></simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    'Sample program to play a string
     'on PORTB bit 1.
@@ -52717,7 +52841,7 @@ The output values are also integers, represented as fixed point decimal fraction
 Quadrant 2 = 90 to 179
 Quadrant 3 = 180 to 269
 Quadrant 4 = 270 to 359</literallayout>
-<simpara>This ATan function is a fast XY vector to integer degree algorithm developed in Jan 2011, see www.RomanBlack.com and see <link xlink:href="http://www.romanblack.com/integer_degree.htm">http://www.romanblack.com/integer_degree.htm</link></simpara>
+<simpara>This ATan function is a fast XY vector to integer degree algorithm developed in Jan 2011, see <link xlink:href="https://www.romanblack.com">RomanBlack.com</link> and see <link xlink:href="https://www.romanblack.com/integer_degree.htm">here</link></simpara>
 <simpara>The function converts any XY vectors including 0 to a degree value that should be within +/- 1 degree of the accurate value without needing large slow trig functions like ArcTan() or ArcCos().</simpara>
 <simpara>At least one of the X or Y values must be non-zero.&#160;&#160;
 This is the full version, for all 4 quadrants and will generate the angle in integer degrees from 0-360.&#160;&#160;
@@ -52866,7 +52990,7 @@ Entire port form will work differently on Atmel AVR microcontrollers when a valu
 <simpara>There are cases where a change of I/O position can make a circuit board easier to route. Sometimes mistakes are found too late to fix, so having the option to change a pinout mapping in software rather than creating a new printed circuit board can be very helpful.</simpara>
 <simpara>You <emphasis role="strong">must</emphasis> use the command <literal>UnLockPPS</literal> to enable setting of the PPS if the PPS have been previously locked, and, you can, optionally, use <literal>LockPPS</literal> to prevent unintentional change to PPS settings afterward.</simpara>
 <simpara>GCBASIC includes these two macros to ensure this process is handled correctly.</simpara>
-<simpara>Also, see <link xlink:href="http://microchip.wikidot.com/8bit:pps">http://microchip.wikidot.com/8bit:pps</link> for more information.</simpara>
+<simpara>Also, see <link xlink:href="https://microchip.wikidot.com/8bit:pps">microchip.wikidot.com</link> for more information.</simpara>
 <simpara><emphasis role="strong">Why the priority value of 85 is important:</emphasis></simpara>
 <simpara><literal>InitPPS</literal> is registered with <literal><link linkend="__startup">#startup</link></literal> using an explicit priority, for example <literal>#startup InitPPS, 85</literal>. This priority number is not arbitrary.</simpara>
 <simpara>GCBASIC&#8217;s own system initialisation, <literal>InitSys</literal>, always runs first, at priority 80. Low-level hardware communication libraries&#8201;&#8212;&#8201;the hardware USART used by <literal><link linkend="_hserprint">HSerPrint</link></literal> and friends, and the hardware I2C module&#8201;&#8212;&#8201;register their own startup initialisation at priority 90. Any subroutine that does not specify a priority defaults to 100.</simpara>
@@ -56671,10 +56795,10 @@ GCBASIC can be used with the Linux operating system.</simpara>
 Complete the following steps to compile and install GCBASIC for Linux:</simpara>
 <orderedlist numeration="arabic" startingnumber="1">
 <listitem>
-<simpara>Install FreeBasic from your distribution&#8217;s repository or <link xlink:href="http://www.freebasic.net/wiki/CompilerInstalling">http://www.freebasic.net/wiki/CompilerInstalling</link></simpara>
+<simpara>Install FreeBasic from your distribution&#8217;s repository or <link xlink:href="https://www.freebasic.net/wiki/CompilerInstalling">the FreeBASIC wiki</link></simpara>
 </listitem>
 <listitem>
-<simpara>Download the "GCBASIC - Linux Distribution" from SourceForge at <link xlink:href="https://sourceforge.net/projects/gcbasic/files/">https://sourceforge.net/projects/gcbasic/files/</link></simpara>
+<simpara>Download the "GCBASIC - Linux Distribution" from SourceForge at <link xlink:href="https://sourceforge.net/projects/gcbasic/files/">sourceforge.net</link></simpara>
 </listitem>
 <listitem>
 <simpara>Unrar/unpack GCBASIC.rar to a location of your choice within your home directory (eg. within Downloads) with either a file manager or from a console.</simpara>
@@ -56704,8 +56828,8 @@ Complete the following steps to compile and install GCBASIC for Linux:</simpara>
 <simpara>Now you can create and compile GCBASIC source files.</simpara>
 <simpara><emphasis role="strong">Programming microcontrollers:</emphasis></simpara>
 <simpara>To program your microcontroller with your GCBASIC-created hex file, you will need additional programming and programmer software.</simpara>
-<simpara>For Microchip PIC microcontroller programming, you might find what you need at: www.pickitplus.co.uk. The PICkitPlus Team provide programmers and Linux software.</simpara>
-<simpara>For Atmel AVR microcontroller programming, you will need <literal>avrdude</literal>. It should be available in your distribution&#8217;s repository. If not, check here: <link xlink:href="http://www.nongnu.org/avrdude/">http://www.nongnu.org/avrdude/</link></simpara>
+<simpara>For Microchip PIC microcontroller programming, you might find what you need at: <link xlink:href="https://www.pickitplus.co.uk">www.pickitplus.co.uk</link>. The PICkitPlus Team provide programmers and Linux software.</simpara>
+<simpara>For Atmel AVR microcontroller programming, you will need <literal>avrdude</literal>. It should be available in your distribution&#8217;s repository. If not, check here: <link xlink:href="https://www.nongnu.org/avrdude/">avrdude website</link></simpara>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?>
 <?asciidoc-br?>
@@ -56791,7 +56915,7 @@ Complete the following steps to compile and install GCBASIC for Linux:</simpara>
 <screen>    $ sudo apt-get install libx11-dev libxext-dev libxpm-dev libxrandr-dev libncurses5 libncurses5-dev</screen>
 <orderedlist numeration="arabic" startingnumber="2">
 <listitem>
-<simpara>Download the latest version of FreeBASIC for ARMv7 from <link xlink:href="https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/">https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/</link> :</simpara>
+<simpara>Download the latest version of FreeBASIC for ARMv7 from <link xlink:href="https://users.freebasic-portal.de/stw/builds/linux-armv7a-hf-debian/">freebasic-portal.de</link> :</simpara>
 </listitem>
 </orderedlist>
 <screen>    $ cd ~
@@ -56854,7 +56978,7 @@ Complete the following steps to compile and install GCBASIC for Linux:</simpara>
 <simpara xml:id="Programming"><emphasis role="strong">Programming</emphasis></simpara>
 <simpara>To transfer your compiled .hex program files from your Pi to your microcontroller, you will need additional software.</simpara>
 <simpara>For most PIC microcontrollers, you should use <link xlink:href="https://pickitplus.co.uk/Typesetter/index.php/PKCMD-Pi-Application">PICkitPlus for Pi</link>. PICkitPlus supports the widest range of PICs, including the latest PICs. It is a fully supported application.</simpara>
-<simpara>For AVR microcontrollers, you will need <literal>avrdude</literal>. It should be available in your distribution&#8217;s repository. If not, check here: <link xlink:href="http://www.nongnu.org/avrdude/">http://www.nongnu.org/avrdude/</link> . Instructions on how to use it can be found <link xlink:href="https://learn.adafruit.com/program-an-avr-or-arduino-using-raspberry-pi-gpio-pins/overview">here</link>.</simpara>
+<simpara>For AVR microcontrollers, you will need <literal>avrdude</literal>. It should be available in your distribution&#8217;s repository. If not, check here: <link xlink:href="https://www.nongnu.org/avrdude/">avrdude website</link> . Instructions on how to use it can be found <link xlink:href="https://learn.adafruit.com/program-an-avr-or-arduino-using-raspberry-pi-gpio-pins/overview">here</link>.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -56888,7 +57012,7 @@ Complete the following steps to compile and install GCBASIC for Linux:</simpara>
 <simpara><emphasis role="strong">Instructions for using the GCBASIC Installer</emphasis></simpara>
 <orderedlist numeration="arabic" startingnumber="1">
 <listitem>
-<simpara>Download the GCBASIC - macOS Installer disk image (.dmg) file from <link xlink:href="https://sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download">https://sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download</link></simpara>
+<simpara>Download the GCBASIC - macOS Installer disk image (.dmg) file from <link xlink:href="https://sourceforge.net/projects/gcbasic/files/GCBasic-macOS-Installer.dmg/download">sourceforge.net</link></simpara>
 </listitem>
 <listitem>
 <simpara>Double click the .dmg file to mount it on your Desktop, and a window will open which contains the Installer.</simpara>
@@ -56904,16 +57028,16 @@ Complete the following steps to compile and install GCBASIC for Linux:</simpara>
 <simpara>Complete the following steps to compile and install the GCBASIC compiler:</simpara>
 <orderedlist numeration="arabic" startingnumber="1">
 <listitem>
-<simpara>Download the FreeBASIC 1.06 macOS binary compilation from: <link xlink:href="http://tmc.castleparadox.com/temp/fbc-1.06-darwin-wip20160505.tar.bz2">http://tmc.castleparadox.com/temp/fbc-1.06-darwin-wip20160505.tar.bz2</link></simpara>
+<simpara>Download the FreeBASIC 1.06 macOS binary compilation from: <link xlink:href="https://tmc.castleparadox.com/temp/fbc-1.06-darwin-wip20160505.tar.bz2">castleparadox.com</link></simpara>
 </listitem>
 <listitem>
-<simpara>Download the GCBASIC UNIX Source Distribution from SourceForge at <link xlink:href="http://gcbasic.sourceforge.net/Typesetter/index.php/Download">http://gcbasic.sourceforge.net/Typesetter/index.php/Download</link></simpara>
+<simpara>Download the GCBASIC UNIX Source Distribution from SourceForge at <link xlink:href="https://gcbasic.sourceforge.net/Typesetter/index.php/Download">gcbasic.sourceforge.net</link></simpara>
 </listitem>
 <listitem>
 <simpara>Note: the following instructions assume the distribution file is named GCBASIC-UNIX-v0_98_05.rar; however, the version number (v0_98_05) may change before these instructions are updated, so you may have to adjust the filename to match the version you have downloaded.</simpara>
 </listitem>
 <listitem>
-<simpara>Unfortunately, Apple replaced the gcc compiler with the clang compiler, and FreeBASIC needs the real gcc due to a certain use of <literal>goto</literal>. So, you can compile your own version of gcc following the instructions at <link xlink:href="https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/">https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/</link>, or you can take the low road and just download the pre-compiled binary version from <link xlink:href="https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2">https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2</link></simpara>
+<simpara>Unfortunately, Apple replaced the gcc compiler with the clang compiler, and FreeBASIC needs the real gcc due to a certain use of <literal>goto</literal>. So, you can compile your own version of gcc following the instructions at <link xlink:href="https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/">solarianprogrammer.com</link>, or you can take the low road and just download the pre-compiled binary version from <link xlink:href="https://github.com/sol-prog/macos-gcc-binary/releases/download/v8.3/gcc-8.3.macos.tar.bz2">GitHub</link></simpara>
 </listitem>
 <listitem>
 <simpara>Open a Terminal window (Terminal can be found in Applications &gt; Utilities).</simpara>
@@ -57007,21 +57131,21 @@ Complete the following steps to compile and install GCBASIC for Linux:</simpara>
 <simpara>To program your microcontroller with your GCBASIC-created hex file, you will need additional hardware and software.</simpara>
 <orderedlist numeration="arabic">
 <listitem>
-<simpara>For Microchip PIC microcontroller programming, you might find what you need at: <link xlink:href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120">https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</link> and the macOS version of the <literal>pk2cmd</literal> v1.2 command line programming software.</simpara>
+<simpara>For Microchip PIC microcontroller programming, you might find what you need at: <link xlink:href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120">Microchip Development Tools</link> and the macOS version of the <literal>pk2cmd</literal> v1.2 command line programming software.</simpara>
 </listitem>
 <listitem>
-<simpara>For Atmel AVR microcontroller programming, you will need the <literal>avrdude</literal> programming software. Check here: <link xlink:href="http://www.nongnu.org/avrdude/">http://www.nongnu.org/avrdude/</link></simpara>
+<simpara>For Atmel AVR microcontroller programming, you will need the <literal>avrdude</literal> programming software. Check here: <link xlink:href="https://www.nongnu.org/avrdude/">avrdude website</link></simpara>
 </listitem>
 </orderedlist>
 <simpara>Alternatively, if you use virtual machine software such as <emphasis>Parallels</emphasis> or <emphasis>VMWare Fusion</emphasis> to run Windows programs, you can use Windows GUI programming software.</simpara>
 <itemizedlist>
 <listitem>
-<simpara>For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or even better the PICkitPlus software (<link xlink:href="https://sourceforge.net/projects/pickit3plus/">https://sourceforge.net/projects/pickit3plus/</link>) for both the PICkit 2 (<link xlink:href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120">https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</link>) and PICkit 3 (<link xlink:href="https://www.microchip.com/Developmenttools/ProductDetails/PG164130">https://www.microchip.com/Developmenttools/ProductDetails/PG164130</link>), which has fixed various bugs in those programs and been updated to program the latest Microchip 8-bit microcontrollers.</simpara>
+<simpara>For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or even better the PICkitPlus software (<link xlink:href="https://sourceforge.net/projects/pickit3plus/">PICkitPlus</link>) for both the PICkit 2 (<link xlink:href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120">Microchip</link>) and PICkit 3 (<link xlink:href="https://www.microchip.com/Developmenttools/ProductDetails/PG164130">Microchip</link>), which has fixed various bugs in those programs and been updated to program the latest Microchip 8-bit microcontrollers.</simpara>
 </listitem>
 </itemizedlist>
 <simpara><emphasis role="strong">Help</emphasis></simpara>
 <simpara>GCBASIC Help documentation is installed in the Documentation subdirectory in your GCBASIC directory.</simpara>
-<simpara>If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at <link xlink:href="https://sourceforge.net/p/gcbasic/discussion/">https://sourceforge.net/p/gcbasic/discussion/</link></simpara>
+<simpara>If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at <link xlink:href="https://sourceforge.net/p/gcbasic/discussion/">SourceForge</link></simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -57046,10 +57170,10 @@ Complete the following steps to compile and install GCBASIC for Linux:</simpara>
 <simpara>Complete the following steps to compile and install the GCBASIC compiler for FreeBSD:</simpara>
 <orderedlist numeration="arabic" startingnumber="1">
 <listitem>
-<simpara>Download one of the nightly builds of FreeBASIC 1.06 for the FreeBSD 32-bit or 64-bit binary compilation from: <link xlink:href="http://users.freebasic-portal.de/stw/builds/freebsd32/">http://users.freebasic-portal.de/stw/builds/freebsd32/</link> (32 bit) or <link xlink:href="http://users.freebasic-portal.de/stw/builds/freebsd64/">http://users.freebasic-portal.de/stw/builds/freebsd64/</link> (64 bit). The filenames are in the format fbc_freebsd[32|64]<emphasis>[BuildNumber]</emphasis>[Date].zip.</simpara>
+<simpara>Download one of the nightly builds of FreeBASIC 1.06 for the FreeBSD 32-bit or 64-bit binary compilation from: <link xlink:href="https://users.freebasic-portal.de/stw/builds/freebsd32/">32-bit build</link> or <link xlink:href="https://users.freebasic-portal.de/stw/builds/freebsd64/">64-bit build</link>. The filenames are in the format fbc_freebsd[32|64]<emphasis>[BuildNumber]</emphasis>[Date].zip.</simpara>
 </listitem>
 <listitem>
-<simpara>Download the GCBASIC UNIX Source Distribution from SourceForge at <link xlink:href="https://gcbasic.sourceforge.net/Typesetter/index.php/Download">https://gcbasic.sourceforge.net/Typesetter/index.php/Download</link></simpara>
+<simpara>Download the GCBASIC UNIX Source Distribution from SourceForge at <link xlink:href="https://gcbasic.sourceforge.net/Typesetter/index.php/Download">gcbasic.sourceforge.net</link></simpara>
 </listitem>
 <listitem>
 <simpara>Move the FreeBASIC ZIP file from your download directory to your home directory.</simpara>
@@ -57098,7 +57222,7 @@ Complete the following steps to compile and install GCBASIC for Linux:</simpara>
 <simpara>To program your microcontroller with your GCBASIC-created hex file, you will need additional hardware and software.</simpara>
 <orderedlist numeration="arabic">
 <listitem>
-<simpara>For Microchip PIC microcontroller programming, you might find what you need at: <link xlink:href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120">https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</link> and the FreeBSD version of the <literal>pk2cmd</literal> v1.2 command line programming software.</simpara>
+<simpara>For Microchip PIC microcontroller programming, you might find what you need at: <link xlink:href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120">Microchip Development Tools</link> and the FreeBSD version of the <literal>pk2cmd</literal> v1.2 command line programming software.</simpara>
 </listitem>
 <listitem>
 <simpara>For Atmel AVR microcontroller programming, you will need the <literal>avrdude</literal> programming software. avrdude can be compiled and installed from the FreeBSD ports directory, or the precompiled binary and any missing dependencies can be installed using <literal>pkg install avrdude</literal>.</simpara>
@@ -57107,12 +57231,12 @@ Complete the following steps to compile and install GCBASIC for Linux:</simpara>
 <simpara>Alternatively, if you use virtual machine software such as <emphasis>VirtualBox</emphasis> to run Windows programs, you may be able to use Windows GUI programming software.</simpara>
 <itemizedlist>
 <listitem>
-<simpara>For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or even better the PICkitPlus software (<link xlink:href="https://sourceforge.net/projects/pickit3plus/">https://sourceforge.net/projects/pickit3plus/</link>) for both the PICkit 2 (<link xlink:href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120">https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120</link>) and PICkit 3 (<link xlink:href="https://www.microchip.com/Developmenttools/ProductDetails/PG164130">https://www.microchip.com/Developmenttools/ProductDetails/PG164130</link>), which has fixed various bugs in those programs and been updated to program the latest Microchip 8-bit microcontrollers.</simpara>
+<simpara>For Microchip, the PICKit 2 and PICkit 3 standalone GUI software, or even better the PICkitPlus software (<link xlink:href="https://sourceforge.net/projects/pickit3plus/">PICkitPlus</link>) for both the PICkit 2 (<link xlink:href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=pg164120">Microchip</link>) and PICkit 3 (<link xlink:href="https://www.microchip.com/Developmenttools/ProductDetails/PG164130">Microchip</link>), which has fixed various bugs in those programs and been updated to program the latest Microchip 8-bit microcontrollers.</simpara>
 </listitem>
 </itemizedlist>
 <simpara><emphasis role="strong">Help</emphasis></simpara>
 <simpara>GCBASIC Help documentation is installed in the Documentation subdirectory in your GCBASIC directory.</simpara>
-<simpara>If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at <link xlink:href="https://sourceforge.net/p/gcbasic/discussion/">https://sourceforge.net/p/gcbasic/discussion/</link></simpara>
+<simpara>If at any time you encounter an issue and need help, you will find it over at the friendly GCBASIC discussion forums at <link xlink:href="https://sourceforge.net/p/gcbasic/discussion/">SourceForge</link></simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -57177,7 +57301,7 @@ These components are key for a complete solution:</simpara>
 <?asciidoc-br?>
 The Windows GCBASIC installer uses the <emphasis>InnoSetup</emphasis> installer, with packaging completed using R2Build.<?asciidoc-br?></simpara>
 <simpara>The process uses a Gold build structure. The R2Build software creates four packages for Windows and one package for the Linux distribution. The process is automated with automatic versioning and configuration.</simpara>
-<simpara>The macOS GCBASIC installer uses the <emphasis>Packages</emphasis> installer (<link xlink:href="http://s.sudre.free.fr/Software/Packages/about.html">http://s.sudre.free.fr/Software/Packages/about.html</link>) with packaging completed using the Bourne shell script <literal>pkg2dmg.sh</literal> to create a compressed disk image file containing the installer.</simpara>
+<simpara>The macOS GCBASIC installer uses the <emphasis>Packages</emphasis> installer (<link xlink:href="https://s.sudre.free.fr/Software/Packages/about.html">Packages</link>) with packaging completed using the Bourne shell script <literal>pkg2dmg.sh</literal> to create a compressed disk image file containing the installer.</simpara>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?>
 <emphasis role="strong">GCBASIC chip-specific .DAT files:</emphasis>
@@ -57571,7 +57695,7 @@ The compiler source is written in FreeBASIC.
 FreeBASIC is a multiplatform, free/open source (GPL) BASIC programming language and a compiler for Microsoft Windows, protected-mode MS-DOS (DOS extender), Linux, and FreeBSD.
 <?asciidoc-br?>
 <?asciidoc-br?>
-The official website is <link xlink:href="https://www.freebasic.net/">https://www.freebasic.net/</link>
+The official website is <link xlink:href="https://www.freebasic.net/">FreeBASIC website</link>
 <?asciidoc-br?>
 <?asciidoc-br?>
 FreeBASIC provides syntax compatibility with programs originally written in Microsoft QuickBASIC (QB).
@@ -57697,7 +57821,7 @@ Where <literal>%ProgramFiles%</literal> is the root location of the FreeBASIC in
 <simpara>For Windows 64 bit</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    "%ProgramFiles%\FreeBASIC\win64\fbc.exe"  $SF\gcbasic.bas   -x $SF\gcbasic64.exe -ex</programlisting>
 <simpara>Linux, FreeBSD, and Pi OS are also supported.
-Please see <link xlink:href="http://gcbasic.sourceforge.net/help/">Online Help</link> and search for the specific operating system.</simpara>
+Please see <link xlink:href="https://gcbasic.sourceforge.net/help/">Online Help</link> and search for the specific operating system.</simpara>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">FreeBASIC COMPILER TOOLCHAIN</emphasis></simpara>
@@ -57712,7 +57836,7 @@ For an IDE, please see the information above.</simpara>
 The list shows the installation of the FBEdit IDE.</simpara>
 <simpara>Complete the following:</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">        1. Download and install FreeBASIC from the url shown above.
-        2. Download and install fbedit from https://sourceforge.net/projects/fbedit/?source=dlp
+        2. Download and install fbedit from https://sourceforge.net/projects/fbedit/?source=dlp[SourceForge]
         3. Download the GCBASIC source using SVN into a gcbasic source folder.
         4. Run fbedit (installed at step #2).  Load project  GCBASIC.fbp  from the GCBASIC source folder.
         5. Hit &lt;f5&gt; to compile.</programlisting>
@@ -58244,7 +58368,7 @@ The Windows driver must be <literal>libusbK</literal>, not the <literal>libusb</
 <simpara>You must ensure the Windows driver is <literal>libusbK</literal>. Using the utility Zadig enables changing the Windows device driver to <literal>libusbK</literal>.</simpara>
 <itemizedlist>
 <listitem>
-<simpara>Download and install Zadig Driver Utility software <link xlink:href="https://zadig.akeo.ie/">https://zadig.akeo.ie/</link></simpara>
+<simpara>Download and install Zadig Driver Utility software <link xlink:href="https://zadig.akeo.ie/">Zadig</link></simpara>
 </listitem>
 <listitem>
 <simpara>Connect the USB cable from the AVRISP MKII to your PC.</simpara>
@@ -58335,7 +58459,7 @@ The Windows driver must be <literal>libusbK</literal>, not the <literal>libusb</
 <simpara>Disconnect the AVR-ISP-MK2 from the USB and connect it again</simpara>
 </listitem>
 </itemizedlist>
-<simpara>For more information about AVR-ISP-MK2, see this guide <link xlink:href="http://gcbasic.sourceforge.net/library/AVR-ISP-MK2-OpenSourceHardwareBoard.pdf">here</link></simpara>
+<simpara>For more information about AVR-ISP-MK2, see this guide <link xlink:href="https://gcbasic.sourceforge.net/library/AVR-ISP-MK2-OpenSourceHardwareBoard.pdf">here</link></simpara>
 <simpara><emphasis role="strong">AVRISP MKII to ATTINY10 Connections:</emphasis></simpara>
 <simpara>Connect the AVRISP MKII to the ATTINY10 as shown in the diagram.</simpara>
 <informalfigure>
@@ -58414,8 +58538,8 @@ The Windows driver must be <literal>libusbK</literal>, not the <literal>libusb</
 <?asciidoc-br?></simpara>
 <simpara>Now you are ready to upload your first program to an ATTINY10.</simpara>
 <simpara>For more information on programming, review these resources:</simpara>
-<literallayout class="monospaced">A guide http://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[here]</literallayout>
-<literallayout class="monospaced">A blog http://gcbasic.sourceforge.net/library/Technoblogy_Programming_the_ATtiny10.pdf[here]</literallayout>
+<literallayout class="monospaced">A guide https://gcbasic.sourceforge.net/library/Programming_an_Attiny10_with_AVRISP_mkII_and_AVR_Studio_5.pdf[here]</literallayout>
+<literallayout class="monospaced">A blog https://gcbasic.sourceforge.net/library/Technoblogy_Programming_the_ATtiny10.pdf[here]</literallayout>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
@@ -58452,13 +58576,13 @@ The Windows driver must be <literal>libusbK</literal>, not the <literal>libusb</
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-09-05<?asciidoc-br?>
-16:00:49 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-09-06<?asciidoc-br?>
+08:47:48 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-09-05<?asciidoc-br?>
-14:56:05 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-09-06<?asciidoc-br?>
+07:21:53 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>

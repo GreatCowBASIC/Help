@@ -166,8 +166,8 @@ simpler.
   
 <span class="strong">**I cannot open the Windows Help File?**</span>
 
-See
-<http://digital.ni.com/public.nsf/allkb/B59D2B24D624B823862575FC0056F3D0>  
+See [National Instruments knowledge
+base](https://digital.ni.com/public.nsf/allkb/B59D2B24D624B823862575FC0056F3D0)  
   
 <span class="strong">**How do I revert the FOR-NEXT loop to the legacy
 FOR-NEXT method?**</span>

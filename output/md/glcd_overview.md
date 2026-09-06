@@ -747,9 +747,9 @@ For mono GLCDs the default is non-white or 0x0000. For color GLCDs the default i
 </div>
 
 For color TFT displays, any color can be defined using a valid
-hexadecimal word value between 0x0000 and 0xFFFF — see
-<http://www.barth-dev.de/online/rgb565-color-picker/> for a wider range
-of color parameters.
+hexadecimal word value between 0x0000 and 0xFFFF — see the [RGB565 color
+picker](https://www.barth-dev.de/online/rgb565-color-picker/) for a
+wider range of color parameters.
 
 The following color constants are pre-defined.
 
@@ -776,9 +776,9 @@ The following color constants are pre-defined.
 ```
 
 This example shows how to drive a KS0108-based Graphic LCD module with
-the built-in commands of GCBASIC. See
-<a href="http://www.greatcowbasic.com/sample-projects" class="link">Graphic LCD</a>
-for details (this is an external website).
+the built-in commands of GCBASIC. See [Graphic
+LCD](https://www.greatcowbasic.com/sample-projects) for details
+(this is an external website).
 
 <span class="strong">**Example:**</span>
 

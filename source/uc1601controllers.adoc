@@ -236,7 +236,7 @@ The GCBASIC specific commands for this GLCD are shown in the table below.
 |Sets the constrast between 0 and 255. The contrast increases as the value increases. +
 Parameter is contrast value
 |===
-For a UC1601 datasheet, please refer http://gcbasic.sourceforge.net/library/DISPLAY/UC1601.pdf[here].
+For a UC1601 datasheet, please refer https://gcbasic.sourceforge.net/library/DISPLAY/UC1601.pdf[here].
 
 This example shows how to drive a UC1601 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode GLCD
 [source,gcbasic]

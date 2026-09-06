@@ -99,4 +99,4 @@ It should be note that GCBASIC will set the DIRection of GPIO.2 and GPIO.3 autom
 
 * <<_dir,Dir>> -- related command in the same category
 * <<_getuserid,GetUserID>> -- related command in the same category
-* http://ladyada.net/library/rccalc.html[ladyada.net/library/rccalc.html] -- calculating the capacitor value (not associated with GCBASIC)
+* https://ladyada.net/library/rccalc.html[RC calculator] -- calculating the capacitor value (not associated with GCBASIC)

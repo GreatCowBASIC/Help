@@ -145,8 +145,8 @@ supported commands.
 
 </div>
 
-For a PCD8544 datasheet, please refer to the
-<a href="https://www.sparkfun.com/datasheets/LCD/Monochrome/Nokia5110.pdf" class="link">Nokia 5110 datasheet</a>.  
+For a PCD8544 datasheet, please refer to the [Nokia 5110
+datasheet](https://www.sparkfun.com/datasheets/LCD/Monochrome/Nokia5110.pdf).  
 
 This example shows how to drive a PCD8544 based Graphic LCD module with
 the built in commands of GCBASIC.

@@ -186,7 +186,7 @@ The GCBASIC commands supported for this GLCD are shown in the table below.&#160;
     ILI9340_FUCHSIA 'hexidecimal value 0xF81F
 ----
 
-For a ILI9340 datasheet, please refer http://gcbasic.sourceforge.net/library/DISPLAY/ILI9340.pdf[here].
+For a ILI9340 datasheet, please refer https://gcbasic.sourceforge.net/library/DISPLAY/ILI9340.pdf[here].
 
 
 

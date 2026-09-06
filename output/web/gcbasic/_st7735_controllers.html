@@ -16,7 +16,7 @@
       <link rel="next" href="_st7789_controllers.html" title="ST7789 Controllers" />
       <meta name="Section-title" content="ST7735 Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-89895";
+            var treeCookieId = "treeview-90303";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,8 +184,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><a id="d0e43791" class="indexterm"></a>
-               <a id="d0e43797" class="indexterm"></a></p>
+            <p><a id="d0e43911" class="indexterm"></a>
+               <a id="d0e43917" class="indexterm"></a></p>
             <p>This section covers GLCD devices that use the ST7735 graphics controller.  The ST7735 or ST7735R is a single-chip controller/driver
                for 262K-color, graphic type TFT-LCD.
             </p>
@@ -597,13 +597,15 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>Specify color as a parameter for many GLCD commands</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>Any color can be defined using a valid hexidecimal word value between 0x0000 to 0xFFFF., see <a class="link" href="http://www.barth-dev.de/online/rgb565-color-picker/" target="_top">http://www.barth-dev.de/online/rgb565-color-picker/</a> for a wider range of color parameters.
+                           <p>Any color can be defined using a valid hexidecimal word value between 0x0000 to 0xFFFF., see the <a class="link" href="http://www.barth-dev.de/online/rgb565-color-picker/" target="_top">RGB565 color picker</a> for a wider range of color parameters.
                            </p>
                         </td>
                      </tr>
                   </tbody>
                </table>
             </div>
+            <p>Internally, the generic <a class="link" href="_glcdrotate.html" title="GLCDRotate">GLCDRotate</a> command is implemented for this controller by <code class="literal">GLCDRotate_ST7735</code>, which handles the four orientations (<code class="literal">LANDSCAPE</code>, <code class="literal">PORTRAIT</code>, <code class="literal">LANDSCAPE_REV</code>, <code class="literal">PORTRAIT_REV</code>), swaps <code class="literal">GLCDDeviceWidth</code>/<code class="literal">GLCDDeviceHeight</code> for the landscape modes, and selects RGB or BGR colour order according to <code class="literal">ST7735TABCOLOR</code>. Bytes are sent to the controller via the internal <code class="literal">SendCommand_ST7735</code> helper (hardware SPI, or a bit-banged software path when <code class="literal">ST7735_HardwareSPI</code> is not defined). Both are internal implementation routines — use the public <code class="literal">GLCDRotate</code> command rather than calling either directly.
+            </p>
             <p>For a ST7735 datasheet, please refer
                <a class="link" href="http://www.crystalfontz.com/controllers/ST7735_V2.1_20100505.pdf" target="_top">here.</a></p>
             <p>For a ST7735R datasheet, please refer
@@ -637,6 +639,8 @@ border: none; background: none; font-weight: none; color: none; }
                   <li class="listitem"><a class="link" href="_glcdprint.html" title="GLCDPrint">GLCDPrint</a> — printing a value at a specific location, as used above
                   </li>
                   <li class="listitem"><a class="link" href="_glcdreadbyte.html" title="GLCDReadByte">GLCDReadByte</a> / <a class="link" href="_glcdwritebyte.html" title="GLCDWriteByte">GLCDWriteByte</a> — low-level byte access, for expert use
+                  </li>
+                  <li class="listitem"><a class="link" href="_glcdrotate.html" title="GLCDRotate">GLCDRotate</a> — rotating the display, implemented for this controller by the internal GLCDRotate_ST7735 routine
                   </li>
                   <li class="listitem"><a class="link" href="_pset.html" title="Pset">Pset</a> — setting a single pixel
                   </li>
@@ -1106,6 +1110,11 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_hserprintcrlf.html" tabindex="1">HserPrintCRLF</a></span></li>
                                        </ul>
                                     </li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="_infrared_remote_control.html" tabindex="1">Infrared Remote Control</a></span><ul>
+                                    <li><span class="file"><a href="_nec_remote_control.html" tabindex="1">NEC Remote Control</a></span></li>
+                                    <li><span class="file"><a href="_rc5_remote_control.html" tabindex="1">RC5 Remote Control</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="_ps_2.html" tabindex="1">PS/2</a></span><ul>

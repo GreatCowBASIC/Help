@@ -197,7 +197,7 @@
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><p><a href="dir" class="link" title="Dir">Dir</a></p></td>
-<td style="text-align: left;"><p>Miscellaneous Commands</p></td>
+<td style="text-align: left;"><p>Port control</p></td>
 <td style="text-align: left;"><p>Dir <span class="emphasis"><em>port.bit</em></span> {In | Out} <span class="emphasis"><em>(Individual Form)</em></span></p></td>
 </tr>
 <tr class="even">
@@ -953,7 +953,7 @@
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p><a href="lockpps" class="link" title="LockPPS">LockPPS</a></p></td>
-<td style="text-align: left;"><p>Peripheral Pin Select</p></td>
+<td style="text-align: left;"><p>Port control</p></td>
 <td style="text-align: left;"><p>LOCKPSS</p></td>
 </tr>
 <tr class="odd">
@@ -1012,205 +1012,215 @@
 <td style="text-align: left;"><p>Within GCBASIC you can use regular variable assignments. But, you can also use C like maths assignments.</p></td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"><p><a href="nec_remote_control" class="link" title="NEC Remote Control">NEC Remote Control</a></p></td>
+<td style="text-align: left;"><p>Infrared Remote Control</p></td>
+<td style="text-align: left;"><p>NECSend <span class="emphasis"><em>address</em></span>, <span class="emphasis"><em>data</em></span></p></td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;"><p><a href="nextion_controllers" class="link" title="NEXTION Controllers">NEXTION Controllers</a></p></td>
 <td style="text-align: left;"><p>Graphical LCD</p></td>
 <td style="text-align: left;"><p>This section covers GLCD devices that use the serially attached Nextion graphics displays.</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="nt7108c_controllers" class="link" title="NT7108C Controllers">NT7108C Controllers</a></p></td>
 <td style="text-align: left;"><p>Graphical LCD</p></td>
 <td style="text-align: left;"><p>This section covers GLCD devices that use the NT7108C graphics controller.</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="on_interrupt" class="link" title="On Interrupt">On Interrupt</a></p></td>
 <td style="text-align: left;"><p>Interrupts</p></td>
 <td style="text-align: left;"><p>On Interrupt event Call handler</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="on_interrupt_the_default_handler" class="link" title="On Interrupt: The default handler">On Interrupt: The default handler</a></p></td>
 <td style="text-align: left;"><p>Interrupts</p></td>
 <td style="text-align: left;"><p>GCBASIC supports a default interrupt handler in two modes:</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="overview" class="link" title="Overview">Overview</a></p></td>
 <td style="text-align: left;"><p>Random Numbers</p></td>
 <td style="text-align: left;"><p>These routines allow GCBASIC to generate pseudo-random numbers.</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="pad" class="link" title="Pad">Pad</a></p></td>
 <td style="text-align: left;"><p>String Manipulation</p></td>
 <td style="text-align: left;"><p>out_string = Pad( <span class="emphasis"><em>string_variable</em></span>, <span class="emphasis"><em>byte_value_of_the_new_length</em></span>, <span class="emphasis"><em>pad_character</em></span>)</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="parabola" class="link" title="Parabola">Parabola</a></p></td>
 <td style="text-align: left;"><p>Graphical LCD</p></td>
 <td style="text-align: left;"><p>Parabola (x, y, p_factor, type, modestop, optional LineColour=GLCDForeground)</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="pause" class="link" title="Pause">Pause</a></p></td>
 <td style="text-align: left;"><p>Flow control</p></td>
 <td style="text-align: left;"><p>Pause time_ms</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="pcd8544_controllers" class="link" title="PCD8544 Controllers">PCD8544 Controllers</a></p></td>
 <td style="text-align: left;"><p>Graphical LCD</p></td>
 <td style="text-align: left;"><p>This section covers GLCD devices that use the PCD844 graphics controller.<br />
 </p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="peek" class="link" title="Peek">Peek</a></p></td>
-<td style="text-align: left;"><p>Miscellaneous Commands</p></td>
+<td style="text-align: left;"><p>Variables Operations</p></td>
 <td style="text-align: left;"><p><span class="emphasis"><em>OutputVariable</em></span> = Peek (<span class="emphasis"><em>location</em></span>)</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="peripheral_pin_select_for_microchip_microcontrollers" class="link" title="Peripheral Pin Select for Microchip microcontrollers.">Peripheral Pin Select for Microchip microcontrollers.</a></p></td>
-<td style="text-align: left;"><p>Peripheral Pin Select</p></td>
+<td style="text-align: left;"><p>Port control</p></td>
 <td style="text-align: left;"><p>Peripheral Pin Select (PPS) enables the digital peripheral I/O pins to be changed to support mapping of external pins to different pins.</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="pfmread" class="link" title="PFMRead">PFMRead</a></p></td>
 <td style="text-align: left;"><p>PROGMEM ( PFM )</p></td>
 <td style="text-align: left;"><p>PFMRead (<span class="emphasis"><em>location, store</em></span>)</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="pfmwrite" class="link" title="PFMWrite">PFMWrite</a></p></td>
 <td style="text-align: left;"><p>PROGMEM ( PFM )</p></td>
 <td style="text-align: left;"><p>PFMWrite (<span class="emphasis"><em>location</em></span>, <span class="emphasis"><em>value</em></span>)</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="play" class="link" title="Play">Play</a></p></td>
 <td style="text-align: left;"><p>Sound</p></td>
 <td style="text-align: left;"><p>Play SoundPlayDataString</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="play_rtttl" class="link" title="Play RTTTL">Play RTTTL</a></p></td>
 <td style="text-align: left;"><p>Sound</p></td>
 <td style="text-align: left;"><p>PlayRTTTL SoundPlayRTTTLDataString</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="poke" class="link" title="Poke">Poke</a></p></td>
-<td style="text-align: left;"><p>Miscellaneous Commands</p></td>
+<td style="text-align: left;"><p>Variables Operations</p></td>
 <td style="text-align: left;"><p>Poke(<span class="emphasis"><em>location</em></span>, <span class="emphasis"><em>value</em></span>)</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="pot" class="link" title="Pot">Pot</a></p></td>
-<td style="text-align: left;"><p>Miscellaneous Commands</p></td>
+<td style="text-align: left;"><p>Analog/Digital conversion</p></td>
 <td style="text-align: left;"><p>Pot <span class="emphasis"><em>pin, output</em></span></p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="power" class="link" title="Power">Power</a></p></td>
 <td style="text-align: left;"><p>Maths</p></td>
 <td style="text-align: left;"><p>power( base, exponent )</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="print" class="link" title="Print">Print</a></p></td>
 <td style="text-align: left;"><p>Liquid Crystal Display</p></td>
 <td style="text-align: left;"><p>Print <span class="emphasis"><em>string</em></span></p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="programerase" class="link" title="ProgramErase">ProgramErase</a></p></td>
 <td style="text-align: left;"><p>PROGMEM ( PFM )</p></td>
 <td style="text-align: left;"><p>ProgramErase (<span class="emphasis"><em>location</em></span>)</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="programread" class="link" title="ProgramRead">ProgramRead</a></p></td>
 <td style="text-align: left;"><p>PROGMEM ( PFM )</p></td>
 <td style="text-align: left;"><p>ProgramRead (<span class="emphasis"><em>location, store</em></span>)</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="programwrite" class="link" title="ProgramWrite">ProgramWrite</a></p></td>
 <td style="text-align: left;"><p>PROGMEM ( PFM )</p></td>
 <td style="text-align: left;"><p>ProgramWrite (<span class="emphasis"><em>location</em></span>, <span class="emphasis"><em>value</em></span>)</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="ps_2_overview" class="link" title="PS/2 Overview">PS/2 Overview</a></p></td>
 <td style="text-align: left;"><p>PS/2</p></td>
 <td style="text-align: left;"><p>These routines make it easier to communicate with a PS/2 device,</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="ps2readbyte" class="link" title="PS2ReadByte">PS2ReadByte</a></p></td>
 <td style="text-align: left;"><p>PS/2</p></td>
 <td style="text-align: left;"><p>output = PS2ReadByte</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="ps2setkbleds" class="link" title="PS2SetKBLeds">PS2SetKBLeds</a></p></td>
 <td style="text-align: left;"><p>PS/2</p></td>
 <td style="text-align: left;"><p>PS2SetKBLeds (<span class="emphasis"><em>LedStatus</em></span>)</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="ps2writebyte" class="link" title="PS2WriteByte">PS2WriteByte</a></p></td>
 <td style="text-align: left;"><p>PS/2</p></td>
 <td style="text-align: left;"><p>PS2WriteByte <span class="emphasis"><em>user_data</em></span></p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="pset" class="link" title="Pset">Pset</a></p></td>
 <td style="text-align: left;"><p>Graphical LCD</p></td>
 <td style="text-align: left;"><p>PSet(XPosition, YPosition, GLCDState)</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="pulsein" class="link" title="PulseIn">PulseIn</a></p></td>
-<td style="text-align: left;"><p>Miscellaneous Commands</p></td>
+<td style="text-align: left;"><p>Pulse width modulation</p></td>
 <td style="text-align: left;"><p>PulseIn <span class="emphasis"><em>pin</em></span>, <span class="emphasis"><em>user_variable</em></span>, <span class="emphasis"><em>time units</em></span></p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="pulseininv" class="link" title="PulseInInv">PulseInInv</a></p></td>
-<td style="text-align: left;"><p>Miscellaneous Commands</p></td>
+<td style="text-align: left;"><p>Pulse width modulation</p></td>
 <td style="text-align: left;"><p>PulseInInv <span class="emphasis"><em>pin</em></span>, <span class="emphasis"><em>user_variable</em></span>, <span class="emphasis"><em>time units</em></span></p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="pulseout" class="link" title="PulseOut">PulseOut</a></p></td>
-<td style="text-align: left;"><p>Miscellaneous Commands</p></td>
+<td style="text-align: left;"><p>Pulse width modulation</p></td>
 <td style="text-align: left;"><p>PulseOut <span class="emphasis"><em>pin</em></span>, <span class="emphasis"><em>time units</em></span></p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="pulseoutinv" class="link" title="PulseOutInv">PulseOutInv</a></p></td>
-<td style="text-align: left;"><p>Miscellaneous Commands</p></td>
+<td style="text-align: left;"><p>Pulse width modulation</p></td>
 <td style="text-align: left;"><p>PulseOutInv <span class="emphasis"><em>pin,</em></span> <span class="emphasis"><em>time units</em></span></p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="put" class="link" title="Put">Put</a></p></td>
 <td style="text-align: left;"><p>Liquid Crystal Display</p></td>
 <td style="text-align: left;"><p>Put <span class="emphasis"><em>Line</em></span>, <span class="emphasis"><em>Column</em></span>, <span class="emphasis"><em>Character</em></span></p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="pwm_software_mode" class="link" title="PWM Software Mode">PWM Software Mode</a></p></td>
 <td style="text-align: left;"><p>Pulse width modulation</p></td>
 <td style="text-align: left;"><p>PWMOut <span class="emphasis"><em>channel, duty cycle, cycles</em></span></p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="pwmoff" class="link" title="PWMOff">PWMOff</a></p></td>
 <td style="text-align: left;"><p>Pulse width modulation</p></td>
 <td style="text-align: left;"><p>PWMOff</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="pwmoff_for_avr" class="link" title="PWMOff for AVR">PWMOff for AVR</a></p></td>
 <td style="text-align: left;"><p>Pulse width modulation</p></td>
 <td style="text-align: left;"><p>PWMOff</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="pwmon" class="link" title="PWMOn">PWMOn</a></p></td>
 <td style="text-align: left;"><p>Pulse width modulation</p></td>
 <td style="text-align: left;"><p>PWMOn</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="pwmon_for_avr" class="link" title="PWMOn for AVR">PWMOn for AVR</a></p></td>
 <td style="text-align: left;"><p>Pulse width modulation</p></td>
 <td style="text-align: left;"><p>PWMOn</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="pwmout" class="link" title="PWMOut">PWMOut</a></p></td>
 <td style="text-align: left;"><p>Pulse width modulation</p></td>
 <td style="text-align: left;"><p>PWMOut <span class="emphasis"><em>channel, duty cycle, cycles</em></span></p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><a href="random" class="link" title="Random">Random</a></p></td>
 <td style="text-align: left;"><p>Random Numbers</p></td>
 <td style="text-align: left;"><p>var = Random</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><a href="randomize" class="link" title="Randomize">Randomize</a></p></td>
 <td style="text-align: left;"><p>Random Numbers</p></td>
 <td style="text-align: left;"><p>Randomize</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p><a href="rc5_remote_control" class="link" title="RC5 Remote Control">RC5 Remote Control</a></p></td>
+<td style="text-align: left;"><p>Infrared Remote Control</p></td>
+<td style="text-align: left;"><p>RC5Send <span class="emphasis"><em>address</em></span>, <span class="emphasis"><em>data</em></span></p></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p><a href="readad" class="link" title="ReadAD">ReadAD</a></p></td>
@@ -1660,7 +1670,7 @@
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><p><a href="unlockpps" class="link" title="UnLockPPS">UnLockPPS</a></p></td>
-<td style="text-align: left;"><p>Peripheral Pin Select</p></td>
+<td style="text-align: left;"><p>Port control</p></td>
 <td style="text-align: left;"><p>UNLOCKPPS</p></td>
 </tr>
 <tr class="even">
@@ -1685,7 +1695,7 @@
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p><a href="weak_pullups" class="link" title="Weak Pullups">Weak Pullups</a></p></td>
-<td style="text-align: left;"><p>Miscellaneous Commands</p></td>
+<td style="text-align: left;"><p>Port control</p></td>
 <td style="text-align: left;"><p>Weak pullups provide a method within many microcontrollers such as the Atmel AVR and Microchip PIC microcontrollers to support internal/s…​</p></td>
 </tr>
 <tr class="odd">

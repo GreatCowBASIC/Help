@@ -263,12 +263,12 @@ below.
 </div>
 
 For a KS0108 datasheet, please refer
-<a href="http://www.vishay.com/docs/37329/37329.pdf" class="link">here.</a>
+[here.](https://www.vishay.com/docs/37329/37329.pdf)
 
 This example shows how to drive a KS0108 based Graphic LCD module with
-the built in commands of GCBASIC. See
-<a href="http://www.greatcowbasic.com/sample-projects" class="link">Graphic LCD</a>
-for details, this is an external web site.
+the built in commands of GCBASIC. See [Graphic
+LCD](https://www.greatcowbasic.com/sample-projects) for details,
+this is an external web site.
 
 ``` programlisting
     ;Chip Settings
