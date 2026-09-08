@@ -155,6 +155,7 @@ to a terminal, these commands should follow every `HSerPrint` :
 
 **See Also:**
 
+* <<_hserprintlist,HSerPrintList>> -- sending two or more mixed-type values in a single statement
 * <<_hserprintbytecrlf,HserPrintByteCRLF>> -- sends a byte then a CRLF terminator
 * <<_hserprintstringcrlf,HserPrintStringCRLF>> -- sends a string then a CRLF terminator
 * <<_hserprintcrlf,HserPrintCRLF>> -- sends just a CRLF terminator

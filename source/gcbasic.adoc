@@ -788,6 +788,8 @@ include::SerNsend.adoc[]
 
 include::SerNprint.adoc[]
 
+include::SerNprintlist.adoc[]
+
 include::SerNreceive.adoc[]
 
 
@@ -810,6 +812,8 @@ include::hsergetstring.adoc[]
 
 include::hserprint.adoc[]
 
+include::hserprintlist.adoc[]
+
 include::HSerPrintStringCRLF.adoc[]
 
 include::hserreceive.adoc[]
@@ -817,6 +821,8 @@ include::hserreceive.adoc[]
 include::hserreceivefrom.adoc[]
 
 include::hsersend.adoc[]
+
+include::hsersendbytes.adoc[]
 
 include::hserprintbytecrlf.adoc[]
 
@@ -997,6 +1003,8 @@ include::usingvariables.adoc[]
 include::constantsandmoreonsettingvariables.adoc[]
 
 include::settingvariables.adoc[]
+
+include::let.adoc[]
 
 include::variablelifecycle.adoc[]
 
@@ -1183,6 +1191,8 @@ This is the Compiler Directives section of the Help file.  Please refer the sub-
 
 include::asmraw.adoc[]
 
+include::asm.adoc[]
+
 include::chip.adoc[]
 
 include::config.adoc[]
@@ -1320,6 +1330,20 @@ include::macosoverview.adoc[]
 include::freebsdoverview.adoc[]
 
 include::windowsnet.adoc[]
+
+== Constraints and Error Messages
+
+This is the Constraints and Error Messages section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+
+include::constraintsanderrormessages.adoc[]
+
+include::programmemorypages.adoc[]
+
+== Performance
+
+This is the Performance section of the Help file.  Please refer the sub-sections for details using the contents/folder view.
+
+include::performance.adoc[]
 
 == GCBASIC Maintenance and Development
 

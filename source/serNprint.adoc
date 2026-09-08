@@ -61,5 +61,6 @@ Exposed in SoftSerial.h authored by Frank Steinberg
 
 **See Also:**
 
+* <<_sernprintlist,SerNPrintList>> -- sending two or more mixed-type values in a single statement
 * <<_sernsend,SerNSend>> -- sending a single raw byte on the same channel
 * <<_sernreceive,SerNReceive>> -- reading a byte back on the same channel
