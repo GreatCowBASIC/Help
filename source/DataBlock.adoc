@@ -197,3 +197,4 @@ This example creates several DATA datasets and a lookup table. The DATA datasets
 * <<_programread,ProgramRead>> -- reading the values this page's DATA blocks store
 * <<_lookup_tables,Creating data from a Lookup Table>> -- an alternative table-based approach
 * <<_dataset_for_eeprom,Dataset for EEPROM>> -- the equivalent construct for EEPROM-backed data
+* <<_constraints_and_error_messages_overview,Constraints and Error Messages>> -- the full list of compiler constraints and error messages, including the DATA block value-size limit above

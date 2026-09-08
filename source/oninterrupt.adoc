@@ -746,3 +746,5 @@ the handler.
 * <<_inton,IntOn>> -- globally re-enabling interrupts
 * <<_inittimer0,InitTimer0>> -- an example using Timer 0 and On Interrupt to generate a PWM signal to control a motor
 * <<_inittimer1,InitTimer1>> -- configuring Timer1, as used in Example 1 above
+* <<_performance_overview,Performance>> -- how the order you check interrupt causes in affects latency
+* <<_program_memory_pages,Program Memory Pages>> -- why the interrupt handler is always pinned to page 0, and how to avoid a full-first-page error

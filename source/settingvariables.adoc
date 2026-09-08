@@ -115,7 +115,9 @@ Division also sets the global system variable SysCalcTempX to the remainder of t
  - If either of the parameters of the division are variables, the compiler will ensure the microcontroller does the calculation as the result could be different every time.  So, in the this case the microcontroller division routine does get used, and SysCalcTempX is set.
  {empty} +
 
-If you prefer, you can add `Let` to the start of the line. &#160;&#160;It will not alter the execution of the program, but is included for those who are used to including it in other BASIC dialects.
+If you prefer, you can add <<_let,`Let`>> to the start of the line. &#160;&#160;It will not alter the execution of the program, but is included for those who are used to including it in other BASIC dialects.
+{empty} +
+Keep any single calculation reasonably short: a calculation can have at most 40 elements (operators and operands combined). A calculation with more than 40 elements fails to compile with "TYPECHECKSIZE exceed - reduce complexity." Break a long calculation into two or more steps using intermediate variables instead.
 {empty} +
 {empty} +
 
@@ -227,3 +229,5 @@ Will send the following to the terminal.
 * <<_variable_types,Variable Types>> -- background on GCBASIC's variable types and casting
 * <<_using_variables,Using Variables>> -- accessing individual bytes of Word/Long variables with the ` _H `/` _U `/` _E ` suffixes
 * <<_dim,Dim>> -- declaring the variables being set here
+* <<_let,Let>> -- the optional, no-effect `Let` prefix for this same assignment syntax
+* <<_constraints_and_error_messages_overview,Constraints and Error Messages>> -- the full list of compiler constraints and error messages, including the calculation-complexity limit above

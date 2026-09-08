@@ -8215,6 +8215,14 @@ NOT, AND, OR, and XOR will not work with them.</p>
 <br></p>
 </div>
 <div class="paragraph">
+<p>Keep bitwise comparisons simple: a single condition can combine at most two <code>AND</code>/<code>OR</code> operations. A condition combining more than two will fail to compile with "More than two AND/OR statements - reduce complexity." Split the comparison across two or more lines/statements instead.
+<br>
+<br>
+Similarly, comparing more than one system-generated bit variable together with relational operators or braces in the same condition can silently produce a wrong result, and triggers the warning "Potential invalid BIT comparison error when using complex Bitwise logic." Keep this style of comparison to one bit variable at a time. The warning can be silenced with <code>#DEFINE DISABLE1173</code>, but silencing it does not fix the underlying risk of an incorrect comparison.
+<br>
+<br></p>
+</div>
+<div class="paragraph">
 <p><strong>See Also:</strong></p>
 </div>
 <div class="ulist">
@@ -8227,6 +8235,12 @@ NOT, AND, OR, and XOR will not work with them.</p>
 </li>
 <li>
 <p><a href="#_hserreceive">HSerReceive</a>&#8201;&#8212;&#8201;the function used in the worked example</p>
+</li>
+<li>
+<p><a href="#_constraints_and_error_messages_overview">Constraints and Error Messages</a>&#8201;&#8212;&#8201;the full list of compiler constraints and error messages, including the AND/OR and bit-comparison limits above</p>
+</li>
+<li>
+<p><a href="#_performance_overview">Performance</a>&#8201;&#8212;&#8201;why nested If can outperform a combined And/Or condition</p>
 </li>
 </ul>
 </div>
@@ -8389,6 +8403,9 @@ same way as parameters for subroutines.
 The only exception is that brackets are required around any parameters when calling a function. The argument&#8217;s type is given by "As type" following the parameter. If a parameter in the declaration is given a default value, the parameter is optional. Array parameters are specified by following an identifier with an empty set of parentheses.</p>
 </div>
 <div class="paragraph">
+<p>A function call can have at most 50 parameters; a call with more fails to compile with "Maximum number of parameters (50) exceeded."</p>
+</div>
+<div class="paragraph">
 <p>Returning values: <code>return_type</code> specifies the data type returned by a function upon exit. If no data type is specified, then the function will return the default data type, which is a byte.
 Functions return values by assigning the Function keyword, or the function&#8217;s <code>identifier</code>, to the desired return value; this assignment does not cause the function to exit, however.</p>
 </div>
@@ -8443,6 +8460,12 @@ readings, and then make a decision based on the average:</p>
 </li>
 <li>
 <p><a href="#_exit">Exit</a>&#8201;&#8212;&#8201;exiting a function or subroutine early</p>
+</li>
+<li>
+<p><a href="#_program_memory_pages">Program Memory Pages</a>&#8201;&#8212;&#8201;how Functions are packed into program memory pages, and the errors that result if they do not fit</p>
+</li>
+<li>
+<p><a href="#_constraints_and_error_messages_overview">Constraints and Error Messages</a>&#8201;&#8212;&#8201;the full list of compiler constraints and error messages, including the parameter-count limit above</p>
 </li>
 </ul>
 </div>
@@ -9050,6 +9073,7 @@ consist of the following commands:</p>
     Assignment (=)
     Error
     Warning
+    Info
     Int()</code></pre>
 </div>
 </div>
@@ -9067,6 +9091,9 @@ Anything after the <code>Error</code> command is displayed at the end of compila
 </div>
 <div class="paragraph">
 <p><code>Warning</code> is used to display a warning message. Anything after the <code>Warning</code> command is displayed at the end of compilation, but a warning does not halt compilation.</p>
+</div>
+<div class="paragraph">
+<p><code>Info</code> is used to display an informational message. Anything after the <code>Info</code> command is displayed at the end of compilation; unlike <code>Warning</code>, it is not saved as a warning, and unlike <code>Error</code>, it never halts compilation.</p>
 </div>
 <div class="paragraph">
 <p><code>Int()</code> calculates the integer value of a calculation. Using <code>Int()</code> is critical to set the <em>constant</em> to the integer component of the calculation.</p>
@@ -9234,14 +9261,22 @@ subroutines, so you should always allow for 2 or 3 more subroutine calls
 than your program has.</p>
 </div>
 <div class="paragraph">
-<p>On 16F chips, program memory is divided into pages. Each page holds 2048 instructions.
-If the program jumps from code on one page to code on another, the compiler has to select the new page.
-Having to do this makes the program bigger, so try to avoid it.
-To keep jumps between pages down, GCBASIC imposes a rule that each subroutine must be entirely within one page, so that only jumps to other subroutines require the page selection.
-As an example, say you have two pages of memory, each 2048 instructions (words) long.<br>
-If you have a main sub that is 1500 words, and four other subroutines each 600 words long, your total program size would be 3900 words, and you might expect it to fit into the 4096 words available.
-The problem, though, is that once the main routine takes 1500 words from page 1, nothing else will fit after it. Three of the 600-word subroutines would fit onto page 2, but that leaves one 600-word subroutine that will not fit into the 500 left on page 1 or the 200 left on page 2.
-If you want to reduce the chance of this happening, the best option is to keep your subroutines smaller - move anything out of the main routine and into another one - this will resolve memory page constraints.</p>
+<p>On baseline and mid-range PIC chips (the 10F/12F/14F/16F families - 12-bit and
+14-bit core), program memory is divided into pages, each holding 2048 instructions.
+This does not apply to 18F/18C chips or to AVR chips, which do not have this
+page-packing restriction at all. If the program jumps from code on one page to code
+on another, the compiler has to select the new page. Having to do this makes the
+program bigger, so try to avoid it. To keep jumps between pages down, GCBASIC imposes
+a rule that each subroutine must be entirely within one page, so that only jumps to
+other subroutines require the page selection.</p>
+</div>
+<div class="paragraph">
+<p>This is not only a Subroutines topic: Functions, the main body of the program, and
+the interrupt handler are all packed into pages the same way, and the main body and
+interrupt handler are always pinned to the first page. See
+<a href="#_program_memory_pages">Program Memory Pages</a> for the full explanation, including
+what always goes on page 0 and how to avoid a "First page of program memory is full"
+error.</p>
 </div>
 <div class="paragraph">
 <p>Atmel AVR microcontrollers have no fixed limit on how many subroutines can be
@@ -9446,6 +9481,9 @@ middle, then you must insert commas to allow GCBASIC to tell where the
 optional parameters are.</p>
 </div>
 <div class="paragraph">
+<p>A subroutine call can have at most 50 parameters; a call with more fails to compile with "Maximum number of parameters (50) exceeded."</p>
+</div>
+<div class="paragraph">
 <p><strong>Overloading</strong></p>
 </div>
 <div class="paragraph">
@@ -9489,6 +9527,15 @@ used:</p>
 the single-bit parameter.</p>
 </div>
 <div class="paragraph">
+<p>A single-character string literal, such as <code>"R"</code>, can be passed to whichever
+overload fits best: it matches a <code>String</code> parameter (as a one-character
+string) and equally matches a <code>Byte</code> or <code>Bit</code> parameter (as its ASCII value),
+the same way <code>Dim x As Byte = "R"</code> already works. If none of the overloads of
+a subroutine or function fit the arguments given at all&#8201;&#8212;&#8201;for example,
+passing a multi-character string where every overload expects a number&#8201;&#8212;&#8201;the call fails to compile with "No matching overload found for <code><em>name</em></code> with
+these argument types."</p>
+</div>
+<div class="paragraph">
 <p><strong>See Also:</strong></p>
 </div>
 <div class="ulist">
@@ -9498,6 +9545,18 @@ the single-bit parameter.</p>
 </li>
 <li>
 <p><a href="#_exit">Exit</a>&#8201;&#8212;&#8201;exiting a subroutine or function early</p>
+</li>
+<li>
+<p><a href="#_constraints_and_error_messages_overview">Constraints and Error Messages</a>&#8201;&#8212;&#8201;the full list of compiler constraints and error messages, including the parameter-count limit above</p>
+</li>
+<li>
+<p><a href="#_program_memory_pages">Program Memory Pages</a>&#8201;&#8212;&#8201;the full explanation of page 0 and how to avoid a full-first-page error</p>
+</li>
+<li>
+<p><a href="#_on_interrupt">On Interrupt</a>&#8201;&#8212;&#8201;writing the interrupt handler that shares page 0 with the main body</p>
+</li>
+<li>
+<p><a href="#_performance_overview">Performance</a>&#8201;&#8212;&#8201;the NOCONTEXTSAVE trade-off mentioned above, and other performance guidance</p>
 </li>
 </ul>
 </div>
@@ -10477,6 +10536,11 @@ The converter requires the following files - these are included with your instal
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_hsersend">HSerSend</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Serial Communications</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">HSerSend <em>user_byte</em> [,1|2|3|4] 'Choose comport with optional parameter</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_hsersendbytes">HSerSendBytes</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Serial Communications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HSerSendBytes(<em>byte1</em>, <em>byte2</em> [, <em>byte3</em> &#8230;&#8203; up to <em>byte16</em>])</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_hx8347g_controllers">HX8347G Controllers</a></p></td>
@@ -12698,6 +12762,10 @@ The converter requires the following files - these are included with your instal
 <td class="tableblock halign-left valign-top"><p class="tableblock">HSerSend <em>user_byte</em> [,1|2|3|4] 'Choose comport with optional parameter</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_hsersendbytes">HSerSendBytes</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HSerSendBytes(<em>byte1</em>, <em>byte2</em> [, <em>byte3</em> &#8230;&#8203; up to <em>byte16</em>])</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_initser">InitSer</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">InitSer <em>channel, rate, start, data, stop, parity, invert</em></p></td>
 </tr>
@@ -14005,6 +14073,9 @@ holding capacitor remains connected to AD channel from the instant the read is c
 </li>
 <li>
 <p><a href="#_pwmout">PWMOut</a>&#8201;&#8212;&#8201;a common consumer of a ReadAD reading, as a live duty cycle</p>
+</li>
+<li>
+<p><a href="#_performance_overview">Performance</a>&#8201;&#8212;&#8201;tuning ADC speed with ADSPEED, and more on ASM-level performance</p>
 </li>
 <li>
 <p><a href="#_wait">Wait</a>&#8201;&#8212;&#8201;pausing between readings, as used in the examples above</p>
@@ -17768,6 +17839,9 @@ The block_number parameter is used to calculate the physical memory location(s) 
 <li>
 <p><a href="#_dataset_for_eeprom">Dataset for EEPROM</a>&#8201;&#8212;&#8201;the equivalent construct for EEPROM-backed data</p>
 </li>
+<li>
+<p><a href="#_constraints_and_error_messages_overview">Constraints and Error Messages</a>&#8201;&#8212;&#8201;the full list of compiler constraints and error messages, including the DATA block value-size limit above</p>
+</li>
 </ul>
 </div>
 </div>
@@ -20520,6 +20594,9 @@ The use of <code>#DEFINE USELEGACYFORNEXT</code> is NOT recommended.
 <li>
 <p><a href="#_if">If</a>&#8201;&#8212;&#8201;conditionally exiting the loop with <code>Exit For</code></p>
 </li>
+<li>
+<p><a href="#_performance_overview">Performance</a>&#8201;&#8212;&#8201;when Repeat is cheaper than For for a fixed count</p>
+</li>
 </ul>
 </div>
 </div>
@@ -20822,6 +20899,9 @@ condition is <code>true</code>.</p>
 <li>
 <p><a href="#_readad">ReadAD</a>&#8201;&#8212;&#8201;reading the sensor value tested in the example above</p>
 </li>
+<li>
+<p><a href="#_performance_overview">Performance</a>&#8201;&#8212;&#8201;why nested If can outperform a combined And/Or condition</p>
+</li>
 </ul>
 </div>
 </div>
@@ -21048,6 +21128,9 @@ immediately.</p>
 <li>
 <p><a href="#_do">Do</a>&#8201;&#8212;&#8201;an unbounded loop, for when the iteration count is not known in advance</p>
 </li>
+<li>
+<p><a href="#_performance_overview">Performance</a>&#8201;&#8212;&#8201;why Repeat compiles to less overhead per pass than For for a fixed count</p>
+</li>
 </ul>
 </div>
 </div>
@@ -21099,6 +21182,24 @@ will be run.</p>
 <p><code>Case <em>var</em> TO <em>var</em></code> is a range of values. If the value is within the range the code section will be executed.</p>
 </div>
 <div class="paragraph">
+<p><code>Case <em>value1</em>, <em>value2</em>, &#8230;&#8203;</code> is a list of values, separated by commas. If <code><em>var</em></code> equals <strong>any</strong> of the listed values, that Case&#8217;s code section is run. Values can be numbers, characters, or strings; a single <code>Case</code> may list at most 64 values (see <a href="#_constraints_and_error_messages_overview">Constraints and Error Messages</a>).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    Select Case Temp
+      Case 0, 1, 2
+        Print "Low"
+      Case 3, 4, 5
+        Print "Medium"
+      Case Else
+        Print "High"
+    End Select</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key line:</strong> <code>Case 0, 1, 2</code>&#8201;&#8212;&#8201;runs <code>Print "Low"</code> if <code>Temp</code> is 0, 1, <strong>or</strong> 2; only one of the three values needs to match.</p>
+</div>
+<div class="paragraph">
 <p><code>Case Else</code> is optional, and the program will function correctly without
 it.</p>
 </div>
@@ -21112,10 +21213,7 @@ example, for cases 3, 4 and 5.</p>
 using <code>Select Case</code>.</p>
 </div>
 <div class="paragraph">
-<p>There are two examples shown below.</p>
-</div>
-<div class="paragraph">
-<p><strong>Example 1:</strong></p>
+<p><strong>Example:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -21160,179 +21258,6 @@ using <code>Select Case</code>.</p>
 <p><strong>Key line:</strong> <code>Select Case Temp</code>&#8201;&#8212;&#8201;only the single <code>Case</code> branch matching <code>Temp</code> runs, then execution continues after <code>End Select</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Example 2:</strong></p>
-</div>
-<div class="paragraph">
-<p>This code demonstrates how to receive codes from a handheld remote
-control unit. This has been tested and supports a Sony TV remote and
-also a universal remote set to Sony TV mode.</p>
-</div>
-<div class="paragraph">
-<p>The program gets both the device number and the key number, and also
-translates the key number to English. The received results are displayed
-on an LCD.</p>
-</div>
-<div class="paragraph">
-<p>The circuit for the IR receiver and the chip is shown below.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    'A program to receive IR codes sent by a Sony
-    'compatible handheld remote control.
-
-    #chip 16F88, 8                    'PIC16F88 running at 8 MHz
-    #config mclr=off                  'reset handled internally
-
-    '----- Constants
-
-    #define LCD_IO      4             '4-bit mode
-    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
-    #define LCD_RS      PortB.2       'pin 8 is Register Select
-    #define LCD_ENABLE  PortB.3       'pin 9 is Enable
-    #define LCD_DB4     PortB.4       'DB4 on pin 10
-    #define LCD_DB5     PortB.5       'DB5 on pin 11
-    #define LCD_DB6     PortB.6       'DB6 on pin 12
-    #define LCD_DB7     PortB.7       'DB7 on pin 13
-    #define LCD_NO_RW                 'ground RW line on LCD
-    #define IR          PortA.0       'sensor on pin 17
-
-    '----- Variables
-
-    dim device, cmd, count, i as byte
-    dim pulse(12)                     'pulse count array
-    dim button as string              'ASCII for button label
-
-    '----- Program
-
-    dir PortA in                      'A.0 is IR input
-    dir PortB out                     'B.2 - B.6 for LCD
-
-    cls                               'clear the LCD
-    print "Dev:    Cmd:"              'logo for top line
-    locate 1,0
-    print "Button:"                   'logo for second line
-
-    do
-      getIR, cmd                      'wait for IR signal
-      printCmd                        'show device and command
-      printKey                        'show key label
-      wait 10 mS                      'ignore any repeats
-    loop                              'repeat forever
-
-    '----- Subroutines
-
-    sub getIR
-      tarry1:
-        count = 0                     'wait for start bit
-        do while IR = 0               'measure width (active low)
-          wait 100 uS                 '24 X 100 uS = 2.4 mS
-          count += 1
-        loop
-      if count &lt; 20 then goto tarry1  'less than this so wait
-
-      for i=1 to 12                   'read/store the 12 pulses
-        tarry2:
-          count = 0
-          do while IR = 0             'zero = 6 units = 0.6 mS
-            wait 100 uS               'one = 12 units = 1.2 mS
-            count += 1
-          loop
-        if count &lt; 4 then goto tarry2 'too small to be legit
-        pulse(i) = count              'else store pulse width
-      next
-
-      cmd = 0                         'command built up here
-      for i = 1 to 7                  '1st seven bits are the cmd
-        cmd = cmd / 2                 'shift into place
-        if pulse(i) &gt; 10 then         'longer than 10 mS
-           cmd = cmd + 64             'so call it a one
-        end if
-      next
-
-      device = 0                      'device number built up here
-      for i=8 to 12                   'next 5 bits are device number
-        device = device / 2
-        if pulse(i) &gt; 10 then
-           device = device + 16
-        end if
-      next
-    end sub
-
-    sub printCmd            'print device number
-      locate 0,5
-      print "   "
-      locate 0,5
-      print device
-
-      locate 0,13           'print raw command number
-      print "   "
-      locate 0,13
-      print cmd
-    end sub
-
-    sub PrintKey            'print translated button
-      locate 1,9
-      print "       "
-      locate 1,9
-
-      select case cmd       'translate command code
-        case 0
-          button = "One"
-        case 1
-          button = "Two"
-        case 2
-          button = "Three"
-        case 3
-          button = "Four"
-        case 4
-          button = "Five"
-        case 5
-          button = "Six"
-        case 6
-          button = "Seven"
-        case 7
-          button = "Eight"
-        case 8
-          button = "Nine"
-        case 9
-          button = "Zero"
-        case 10
-          button = "#####"
-        case 11
-          button = "Enter"
-        case 12
-          button = "#####"
-        case 13
-          button = "#####"
-        case 14
-          button = "#####"
-        case 15
-          button = "#####"
-        case 16
-          button = "Chan+"
-        case 17
-          button = "Chan-"
-        case 18
-          button = "Vol+"
-        case 19
-          button = "Vol-"
-        case 20
-          button = "Mute"
-        case 21
-          button = "Power"
-        case else
-          button = "     "
-      end select
-      print button
-    end sub</pre>
-</div>
-</div>
-<div class="imageblock" style="text-align: center">
-<div class="content">
-<img src="./images/selectb1.PNG" alt="graphic">
-</div>
-</div>
-<div class="paragraph">
 <p><strong>See Also:</strong></p>
 </div>
 <div class="ulist">
@@ -21351,6 +21276,9 @@ on an LCD.</p>
 </li>
 <li>
 <p><a href="#_print">Print</a>&#8201;&#8212;&#8201;displaying the selected branch&#8217;s text, as used in Example 1</p>
+</li>
+<li>
+<p><a href="#_constraints_and_error_messages_overview">Constraints and Error Messages</a>&#8201;&#8212;&#8201;the 64-value Case list limit, and other compiler constraints</p>
 </li>
 </ul>
 </div>
@@ -22829,6 +22757,12 @@ the handler.</p></td>
 </li>
 <li>
 <p><a href="#_inittimer1">InitTimer1</a>&#8201;&#8212;&#8201;configuring Timer1, as used in Example 1 above</p>
+</li>
+<li>
+<p><a href="#_performance_overview">Performance</a>&#8201;&#8212;&#8201;how the order you check interrupt causes in affects latency</p>
+</li>
+<li>
+<p><a href="#_program_memory_pages">Program Memory Pages</a>&#8201;&#8212;&#8201;why the interrupt handler is always pinned to page 0, and how to avoid a full-first-page error</p>
 </li>
 </ul>
 </div>
@@ -50587,6 +50521,18 @@ user_byte_variable = <code>HSerReceiveFrom</code> (2)</p></td>
 </p><p class="tableblock"><code>HSerSend</code> ( user_byte, 2 )</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Serially send 2 to 16 bytes in a single call, using the default usart port.</strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HSerSendBytes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">byte1, byte2 [, byte3 &#8230;&#8203; up to byte16]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This subroutine sends each byte in turn, in the order given, using the same enabling constants as <code>HSerSend</code>. There is no usart-address parameter; it always sends on the default/currently configured usart.
+</p><p class="tableblock">To send three bytes on the default usart
+</p><p class="tableblock"><code>HSerSendBytes</code> ( byte1, byte2, byte3 )</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Serially send a byte and a CR&amp;LF using any of the usart ports</strong></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -51646,6 +51592,9 @@ Atmel AVR supports USART 1,2,3 and 4.</p>
 module.</p>
 </div>
 <div class="paragraph">
+<p>To send several bytes in one call, see <a href="#_hsersendbytes">HSerSendBytes</a>.</p>
+</div>
+<div class="paragraph">
 <p><strong>Example:</strong></p>
 </div>
 <div class="listingblock">
@@ -51686,10 +51635,97 @@ module.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><a href="#_hsersendbytes">HSerSendBytes</a>&#8201;&#8212;&#8201;sending 2 to 16 bytes in a single call</p>
+</li>
+<li>
 <p><a href="#_hserprint">HSerPrint</a>&#8201;&#8212;&#8201;sending a string, integer, word, or long, rather than a single raw byte</p>
 </li>
 <li>
 <p><a href="#_hserreceive">HSerReceive</a>&#8201;&#8212;&#8201;the receiving counterpart to HSerSend</p>
+</li>
+<li>
+<p><a href="#_dir">Dir</a>&#8201;&#8212;&#8201;setting the pin directions before sending, as used above</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_hsersendbytes">HSerSendBytes</h5>
+<div class="paragraph">
+<p></p>
+</div>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    HSerSendBytes(<em>byte1</em>, <em>byte2</em> [, <em>byte3</em> ... up to <em>byte16</em>])</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available anywhere <a href="#_hsersend">HSerSend</a> is available, once <code>usart.h</code> has been loaded.</p>
+</div>
+<div class="paragraph">
+<p><strong>Enabling Constants:</strong></p>
+</div>
+<div class="paragraph">
+<p>The same enabling constants as <a href="#_hsersend">HSerSend</a> apply.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    'USART settings for USART1
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>HSerSendBytes</code> sends between 2 and 16 bytes in a single call, in the order
+given, instead of writing one <code>HSerSend</code> call per byte. Each byte is sent to
+the default or currently configured comport; there is no comport argument,
+so a byte that must go to a specific comport should still be sent with
+<code>HSerSend(<em>user_byte</em>, <em>comport</em>)</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    #chip 16F877A, 20
+
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF
+
+    Dir PORTC.6 Out
+
+    Do
+      HSerSendBytes(1, 2, 3)   ' &lt;&lt;&lt; the HSerSendBytes instruction
+      HSerSend(13)             ' sends a CR
+      Wait 100 ms
+    Loop</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key line:</strong> <code>HSerSendBytes(1, 2, 3)</code>&#8201;&#8212;&#8201;sends the three bytes <code>1</code>, <code>2</code> and
+<code>3</code>, in that order, in a single call.</p>
+</div>
+<div class="paragraph">
+<p><strong>See Also:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#_hsersend">HSerSend</a>&#8201;&#8212;&#8201;sending a single byte, or a byte to a specific comport</p>
+</li>
+<li>
+<p><a href="#_hserprint">HSerPrint</a>&#8201;&#8212;&#8201;sending a string, integer, word, or long, rather than raw bytes</p>
 </li>
 <li>
 <p><a href="#_dir">Dir</a>&#8201;&#8212;&#8201;setting the pin directions before sending, as used above</p>
@@ -62782,7 +62818,9 @@ There are several modes in which variables can be set. GCBASIC will automaticall
 </ul>
 </div>
 <div class="paragraph">
-<p>If you prefer, you can add <code>Let</code> to the start of the line. &#160;&#160;It will not alter the execution of the program, but is included for those who are used to including it in other BASIC dialects.
+<p>If you prefer, you can add <a href="#_let"><code>Let</code></a> to the start of the line. &#160;&#160;It will not alter the execution of the program, but is included for those who are used to including it in other BASIC dialects.
+<br>
+Keep any single calculation reasonably short: a calculation can have at most 40 elements (operators and operands combined). A calculation with more than 40 elements fails to compile with "TYPECHECKSIZE exceed - reduce complexity." Break a long calculation into two or more steps using intermediate variables instead.
 <br>
 <br></p>
 </div>
@@ -62923,6 +62961,53 @@ This example shows how the error handler compares to not have the <code>[canskip
 </li>
 <li>
 <p><a href="#_dim">Dim</a>&#8201;&#8212;&#8201;declaring the variables being set here</p>
+</li>
+<li>
+<p><a href="#_let">Let</a>&#8201;&#8212;&#8201;the optional, no-effect <code>Let</code> prefix for this same assignment syntax</p>
+</li>
+<li>
+<p><a href="#_constraints_and_error_messages_overview">Constraints and Error Messages</a>&#8201;&#8212;&#8201;the full list of compiler constraints and error messages, including the calculation-complexity limit above</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_let">Let</h4>
+<div class="paragraph">
+<p></p>
+</div>
+<div class="paragraph">
+<p><br>
+<strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Let <em>Variable</em> = <em>data</em></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><br>
+<strong>Explanation:</strong>
+<br>
+If you prefer, you can add <code>Let</code> to the start of a <a href="#_setting_variables">variable assignment</a>. &#160;&#160;It will not alter the execution of the program, but is included for those who are used to including it in other BASIC dialects.
+<br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    Let Chipmunk = 46    'Identical to: Chipmunk = 46</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>See Also:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#_setting_variables">Setting Variables</a>&#8201;&#8212;&#8201;the assignment syntax <code>Let</code> is an optional prefix for</p>
 </li>
 </ul>
 </div>
@@ -63151,6 +63236,9 @@ Available on all microcontrollers.</p>
 </li>
 <li>
 <p><a href="#_constants">Constants</a>&#8201;&#8212;&#8201;fixed, named values as an alternative to a variable</p>
+</li>
+<li>
+<p><a href="#_performance_overview">Performance</a>&#8201;&#8212;&#8201;using Alias to remove runtime addressing cost</p>
 </li>
 <li>
 <p><a href="#_rotate">Rotate</a>&#8201;&#8212;&#8201;bit-rotating a declared variable&#8217;s value</p>
@@ -63944,6 +64032,9 @@ Use <code>Set C Off</code> before using the <code>Rotate</code> command to clear
 </li>
 <li>
 <p><a href="#_set">Set</a>&#8201;&#8212;&#8201;clearing the STATUS.C / carry flag before rotating, as recommended above</p>
+</li>
+<li>
+<p><a href="#_performance_overview">Performance</a>&#8201;&#8212;&#8201;using Rotate to replace a runtime division by a power of two</p>
 </li>
 </ul>
 </div>
@@ -69520,6 +69611,64 @@ This example will generate the following in the ASM source file.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><a href="#_asm">Asm</a>&#8201;&#8212;&#8201;the equivalent command that substitutes GCBASIC constants before inserting the line</p>
+</li>
+<li>
+<p><a href="#_compiler_insights">Compiler Insights</a>&#8201;&#8212;&#8201;forcing regular (non-raw) assembly comments into the ASM output</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_asm">Asm</h3>
+<div class="paragraph">
+<p></p>
+</div>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Asm [label]
+    Asm [Mnemonics | Directives | Macros] [Operands] ['comments]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>Asm</code> inserts a single line of raw assembly into the generated ASM source, in the same way as <a href="#__asmraw">#asmraw</a> - but with one key difference: <code>Asm</code> first replaces any GCBASIC constant (from <code>#define</code>, <code>#script</code>, or a system constant) found on the line with its value, exactly as it would in ordinary GCBASIC source. <code>#asmraw</code> does not do this - it inserts the line completely unchanged, with only leading/trailing whitespace trimmed.</p>
+</div>
+<div class="paragraph">
+<p>Use <code>Asm</code> whenever the assembly line needs to reference a GCBASIC-defined constant. Use <code>#asmraw</code> when the line must be passed to the assembler exactly as written, with no substitution.</p>
+</div>
+<div class="paragraph">
+<p><br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Example</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    #define MY_DELAY_COUNT 200
+
+    Asm movlw MY_DELAY_COUNT          ' &lt;&lt;&lt; MY_DELAY_COUNT is replaced with 200 before this line reaches the assembler
+    #asmraw movlw MY_DELAY_COUNT      ' &lt;&lt;&lt; inserted unchanged; the assembler will not recognize MY_DELAY_COUNT</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key line:</strong> <code>Asm movlw MY_DELAY_COUNT</code>&#8201;&#8212;&#8201;because this is <code>Asm</code>, not <code>#asmraw</code>, GCBASIC substitutes the constant&#8217;s value before writing the line, producing <code>movlw 200</code> in the ASM output; the <code>#asmraw</code> line below it is written out verbatim and will fail to assemble.</p>
+</div>
+<div class="paragraph">
+<p><strong>See Also:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#__asmraw">#asmraw</a>&#8201;&#8212;&#8201;the equivalent directive that inserts a line with no constant substitution</p>
+</li>
+<li>
 <p><a href="#_compiler_insights">Compiler Insights</a>&#8201;&#8212;&#8201;forcing regular (non-raw) assembly comments into the ASM output</p>
 </li>
 </ul>
@@ -69837,6 +69986,12 @@ If you set the internal oscillator to 4 MHz, a "wait 1 ms" will still be 1 ms.</
 </div>
 <div class="paragraph">
 <p>The <code>#config</code> directive is used to specify configuration options for the chip. There is a detailed explanation of <code>#config</code> in the <a href="#_configuration">Configuration</a> section of the help.</p>
+</div>
+<div class="paragraph">
+<p><strong>XC8-style <code>#pragma config</code> syntax:</strong></p>
+</div>
+<div class="paragraph">
+<p>For compatibility with source ported from Microchip&#8217;s XC8 compiler, GCBASIC also accepts <code>#pragma config <em>option1</em>, <em>option2</em>, &#8230;&#8203; , <em>optionN</em></code>. The preprocessor rewrites any line starting with <code>#pragma config</code> (case-insensitive) directly into an equivalent <code>#config</code> line before compilation, so the two forms are interchangeable and <code>#pragma config</code> options follow the same rules as <code>#config</code> above.</p>
 </div>
 <div class="paragraph">
 <p><strong>See Also:</strong></p>
@@ -75143,6 +75298,1509 @@ Complete the following steps to compile and install GCBASIC for Linux:</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_constraints_and_error_messages">Constraints and Error Messages</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is the Constraints and Error Messages section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
+</div>
+<div class="sect2">
+<h3 id="_constraints_and_error_messages_overview">Constraints and Error Messages Overview</h3>
+<div class="paragraph">
+<p></p>
+</div>
+<div class="paragraph">
+<p><strong>About this page</strong></p>
+</div>
+<div class="paragraph">
+<p>This page collects two things in one place: structural limits built into the compiler
+that no amount of correct-looking code can work around (<strong>Constraints</strong>), and the
+compiler&#8217;s error messages with a plain-language recommendation for fixing each one
+(<strong>Error Messages</strong>). If a message that has been encountered is not listed here, it is
+very likely a normal syntax error (a missing <code>Then</code>, a mismatched bracket, an
+undeclared variable) rather than a structural limit - re-check the line the compiler
+points to.</p>
+</div>
+<div class="paragraph">
+<p><strong>Constraints</strong></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37%;">
+<col style="width: 37%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Limit</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bitwise AND/OR complexity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">At most two <code>AND</code>/<code>OR</code> operations combined in one condition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">More than two fails with "More than two AND/OR statements - reduce complexity." Split the comparison across two or more lines. See <a href="#_conditions">Conditions</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bitwise comparisons using multiple system bit variables</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Combining more than one system-generated bit variable with relational operators or braces in one comparison</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Risks a silently wrong result; warns "Potential invalid BIT comparison error when using complex Bitwise logic." Suppressible with <code>#DEFINE DISABLE1173</code>, which does not fix the underlying risk. See <a href="#_conditions">Conditions</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calculation complexity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">At most 40 elements (operators and operands combined) in one calculation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fails with "TYPECHECKSIZE exceed - reduce complexity." Break the calculation into steps using intermediate variables. See <a href="#_setting_variables">Setting Variables</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sub/Function parameter count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">At most 50 parameters per call</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fails with "Maximum number of parameters (50) exceeded." See <a href="#_subroutines">Subroutines</a> / <a href="#_functions">Functions</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DATA block value size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x3FFF (14-bit PIC families) / 0xFFFF (PIC18, AVR)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A value exceeding this for the target family fails to fit in one program-memory word. See <a href="#_data">DATA</a>'s Maximum Stored Value tables.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Program memory pages (baseline/mid-range PIC only)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2048 words per page; page 0 has a little less</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each Sub, Function, the main body, and the interrupt handler must fit entirely within one page. The main body, the interrupt handler, and the automatic context save/restore code are always pinned to page 0. See <a href="#_program_memory_pages">Program Memory Pages</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Direct array-load element count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">250 elements (chip RAM &lt; 2048 bytes) or 255 elements (chip RAM &gt;= 2048 bytes)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Applies to the <code>MyArray = 1,2,3,&#8230;&#8203;</code> load method specifically, not array declarations in general. Also, this method only supports byte arrays ("Direct array load method only supports bytes arrays").</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>#STARTUP</code> count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One <code>#STARTUP</code> per program</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A second <code>#STARTUP</code> fails with "Only one #STARTUP permitted."</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVRrc (reduced-core AVR) register pressure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Byte variables only; no <code>AND</code>/<code>OR</code>/<code>XOR</code> logic except on byte variables; use <code>Rotate</code> instead of multiplication</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">These chips have very limited registers. The compiler&#8217;s own recommendation when registers run out: "keep the code very simple."</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Table source item count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fixed capacity per table</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fails with "Out of table space. Too many items in table source." Split the data across multiple tables.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>For&#8230;&#8203;Next</code> with a <code>Long</code> loop variable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Step must be positive, in the range 0 to 0xFFFFFFFF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A negative Step yields incorrect results and is not detected automatically. Suppressible with <code>SUPPRESSFORNEXTHANDLERWARNING</code>, but the underlying restriction still applies.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>For&#8230;&#8203;Next</code> with an <code>Integer</code> loop variable and a negative Step</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The To/From range must not cross zero - both bounds positive, or both negative</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Suppressible with <code>SUPPRESSFORNEXTHANDLERWARNING</code>, but the underlying restriction still applies.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nested <code>For&#8230;&#8203;Next</code> loop variables</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each nested loop needs its own loop variable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusing a loop variable already in use by an outer loop fails with "For index is already in use."</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Repeat</code> count type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Single</code>/<code>Double</code> are not permitted as a Repeat count; cast to an integer or use an integer variable/constant.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Select Case</code> test value type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No floating-point expressions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>Select Case</code> test value cannot be a Single/Double expression.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pin direction control on 12-bit core chips</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whole-port direction only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12-bit core chips cannot set the direction of individual pins with <code>Dir</code>; the whole port&#8217;s direction is set together.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array(element).bit</code> as a source or destination</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported directly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Copy <code>Array(element)</code> into a temporary variable first, use <code>temp_variable.bit</code>, then copy back if needed - or use a constant array-element address.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias byte locations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be sequential</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An alias spanning multiple RAM locations for individual bit addressing requires those locations to be sequential.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Alias</code> and <code>At</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mutually exclusive on the same variable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both set the variable&#8217;s location; a variable cannot use both.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bit variable arithmetic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not permitted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bit variables cannot be added or subtracted ("Illegal operation").</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bit variable comparisons</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>=</code> and <code>&lt;&gt;</code> only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No other relational operator (<code>&lt;</code>, <code>&gt;</code>, <code>&#8656;</code>, <code>&gt;=</code>) can be used with a bit variable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Table text content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ASCII 255 is reserved</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cannot appear inside Table text.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Overloading string-returning functions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not supported</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subroutine/Function overloading (see <a href="#_subroutines">Subroutines</a>) works for other types, but not for functions that return a string.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interrupt handler assignment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One handler per event</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assigning a second handler to the same interrupt event fails with "A handler has already been defined for the event."</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return-value syntax inside a plain <code>Sub</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not permitted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>Sub</code> (as opposed to a <code>Function</code>) cannot use return-value assignment syntax; the returned value is ignored with a warning.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multi-bit <code>Set</code> (the bits method)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Literal values only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'</code>-style multi-bit assignment cannot take its value from a variable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Select Case</code> multi-value <code>Case</code> list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">At most 64 values per <code>Case</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>Case</code> combining more than 64 comma-separated values fails with "Too many values in Case list (maximum 64)." See <a href="#_select">Select</a>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><br></p>
+</div>
+<div class="paragraph">
+<p><strong>Error Messages</strong></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Message ID</th>
+<th class="tableblock halign-left valign-top">Message Text</th>
+<th class="tableblock halign-left valign-top">Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AliasToSelf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Variable cannot be an alias to itself</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Point the <code>Alias</code>/<code>At</code> declaration at a different variable or address.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ArrayNoDec</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array/Function %Name% has not been declared</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declare the array with <code>Dim</code> (or check the function name for a typo) before using it.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ArrayTooBig</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The array %Array% is too large</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reduce the array&#8217;s element count, or free RAM elsewhere so it fits.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ArrayTypeInvalid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cannot set the type of an array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove the explicit type from the array declaration; array element type is fixed by how it&#8217;s declared.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ArrayAssignmentIncorrect</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">%Name% array assignment is incorrect</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the assignment syntax against the array&#8217;s declared type and dimensions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ASMParamMismatch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of parameters does not match</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the operand count against the instruction&#8217;s expected form in the target chip&#8217;s instruction set.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AssemblerNotFound</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Could not start the external assembler</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verify the assembler path in Preferences/Tool Variables, and that the executable exists.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AssemblyFailed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assembly failed due to the following errors:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read the assembler errors that follow this line; they identify the real problem.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadAliasSize</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Size of alias variable (%size%) does not match number of RAM locations for [%locations%]%target% variable, increase aliased bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Increase the alias&#8217;s byte count to match the target variable&#8217;s size.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadBitRead</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cannot read bit %bit% of %var%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check that the bit number is valid for the variable&#8217;s type/size.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadBitSet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cannot set bit %bit% of %var%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check that the bit number is valid for the variable&#8217;s type/size.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadBrackets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Brackets do not match up</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check for a missing or extra opening/closing bracket on the line.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadADCConstName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid constant name: %const%. Parameter should be ANx or ANxx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the chip&#8217;s actual analog-channel constant name, e.g. <code>AN0</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadCast</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cannot cast from %from% to %to%, cast here must be from larger to smaller type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reverse the cast direction, or use an intermediate variable of the larger type.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadCommandType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">%command% command cannot be used on variables of type %type%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a variable of a supported type for this command, or convert the value first.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadConfig</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration setting not valid: %option%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the <code>#CONFIG</code> option name/value against the chip&#8217;s supported configuration options.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadConstName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid constant name: %const%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rename the constant - it must be a valid identifier and not a reserved word.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadDirection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid pin direction, expected In or Out</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>In</code> or <code>Out</code> as the direction argument.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadIntEvent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid interrupt event: %event%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the event name against the chip&#8217;s supported interrupt events.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadOnType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad mode: Found %found%, expected Interrupt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the <code>On</code> statement&#8217;s mode keyword; only <code>Interrupt</code> is valid here.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EEBadORG</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad EEPROM location overwriting %loc%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adjust the EEPROM data&#8217;s address so it does not overlap another dataset.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadParam</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incorrect parameter syntax: %sub%. Correct syntax is %correct%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Match the call to the syntax shown in the message.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadParamCount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Parameter count mismatch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the number of arguments passed against the Sub/Function&#8217;s declaration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadParamsSet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incorrect parameters in Set, expected: Set variable.bit status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the form <code>Set variable.bit status</code> (e.g. <code>Set PORTB.0 On</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadPWMFreq</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid PWM Frequency value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Choose a PWM frequency achievable at the chip&#8217;s clock speed; see the PWM documentation for valid ranges.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadSetStatus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid status in Set command: %status%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a valid status keyword (e.g. <code>On</code>/<code>Off</code>) with <code>Set</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadStringConst</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String constant cannot be first in condition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Put the variable or function call first in the comparison, with the constant second.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadSymbol</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">%symbol% is not a valid symbol</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the symbol name for a typo, or confirm it exists for the selected chip.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadTableLocation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad data table location, found %loc%, expected PROGRAM or DATA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>PROGRAM</code> or <code>DATA</code> as the table&#8217;s storage location.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadValueType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cannot store %value% in the %type% variable %var%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a value compatible with the variable&#8217;s declared type, or cast it explicitly.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadVarAlias</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Variable defined with multiple aliases</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove the duplicate <code>Alias</code> declaration; a variable can have only one alias.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadVarBit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Variable %var% is of type %type% and does not have a bit %bit%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a bit number valid for the variable&#8217;s type/size.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadVarName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid variable name: %var%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rename the variable - it must be a valid identifier and not a reserved word.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BadVarType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid variable type: %type%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use one of GCBASIC&#8217;s supported variable types (Byte, Word, Long, Single, etc.).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CannotConcat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">%type% %value% cannot be assigned/appended to a string variable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Convert the value to a string first (e.g. with <code>ByteToString</code>/<code>WordToString</code>) before assigning/appending it.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CannotHandleArrayConstruction</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pointer mismatch: Cannot handle construct. Please check syntax, simplify source, check use of variable types, check String/Array size mismatch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Simplify the expression, and double-check variable types and array/string sizes match.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CannotHandleConstruction</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pointer mismatch: Cannot handle variable construct&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Simplify the expression, and double-check variable types and sizes match; note which target variable/sub the message names.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CannotHandleFunctionCall</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A GCBASIC library method %fn% exists but the return variable does not. Is this a call to a Subroutine rather than a Function?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check whether %fn% is actually a Sub, not a Function, and call it accordingly.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CannotUseReservedWords</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reserved Words cannot be labels: %label%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rename the label to something that is not a GCBASIC command/keyword.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CannotUseIncludeInsideInsert</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">#INCLUDE not permitted within #INSERT, move to main program</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Move the <code>#INCLUDE</code> line out of the <code>#INSERT</code> block and into the main program.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ChipNotSupported</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No chip data file found for %chipname%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the chip name for a typo, or confirm this compiler build supports that chip.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ChipIgnored</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional #chip ignored. Using %prevchipname% as microcontroller</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove the extra <code>#chip</code> line - only the first one takes effect.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ConstantExists</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Constant: %constname% equates to %existingconstant_value% and cannot be reassigned to equate to %value%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Do not redefine an existing constant to a different value; use a different constant name, or <code>#UNDEFINE</code> it first if that is intended.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ConstantReAssignemnt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Constant: %constname% cannot be reassigned to %value%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a different constant name, or <code>#UNDEFINE</code> the existing one first if reassignment is intended.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ConstantValueReAssignement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Constant: %constname% exists with no value '%existingconstant_value%', cannot be reassigned with %value%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Give the constant its value at first definition rather than reassigning it later.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DataFound</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">READTABLE() cannot be to access EEPROM DATA %Table%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the EEPROM-specific read routine instead of <code>ReadTable()</code> for EEPROM-backed data.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DoWithoutCondition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing condition after %mode%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add a condition after <code>While</code>/<code>Until</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DoWithoutLoop</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Do without matching Loop</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>Loop</code> for this <code>Do</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DupDef</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conflicting definition for %var% sub parameter variable. %var% is a %type%. Invalid source variable type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Match the argument&#8217;s type to the parameter&#8217;s declared type, or rename one of the conflicting variables.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DuplicateSub</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Duplicate subroutine name and parameters: %sub%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rename one of the two Subs, or change one&#8217;s parameter list so they are no longer identical overloads.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ElseIfMissingThen</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid syntax: Use ELSE IF &lt;condition&gt; THEN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add <code>Then</code> after the <code>Else If</code> condition.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ElseIfNotSupported</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid syntax: Use ELSE IF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>Else If</code> (two words) rather than <code>ElseIf</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ElseWithoutIf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Else outside of If &#8230;&#8203; End If block</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Move the <code>Else</code> inside a matching <code>If &#8230;&#8203; End If</code> block.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EndWithoutRepeat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">End Repeat without matching Repeat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>Repeat</code> for this <code>End Repeat</code>, or remove the stray <code>End Repeat</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EssentialFileMissing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Essential file missing: %MissingFile% (listed in lowlevel.dat)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One of the header files the compiler always loads (see <a href="#_development_guide_for_gcbasic_exe_compiler">Development Guide for GCBASIC.EXE compiler</a>, Note #6) could not be found - this points to a broken or incomplete GCBASIC installation, not an error in your own program. Reinstall or repair GCBASIC so the named file exists under <code>include\lowlevel\</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ErrantElse</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Single line IF statement does not support ELSE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rewrite as a multi-line <code>If &#8230;&#8203; Else &#8230;&#8203; End If</code> block.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ExcessVars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Excessive RAM usage! Delete some variables, reduce the size of arrays, or upgrade to a more powerful chip</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Free RAM by removing unused variables, shrinking arrays, or moving to a chip with more RAM.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ExtraENDIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">End If without If</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove the extra <code>End If</code>, or add the missing <code>If</code> it was meant to close.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FirstPageFull</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">First page of program memory is full, please reduce size of Main and Interrupt routines</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Move code out of Main/interrupt routines and into separate subroutines.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FloatInDelay</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Found decimal point, but delays can only handle whole numbers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a whole-number delay value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FollowOnElse</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Syntax Error: Follow on #ELSE not permitted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove the extra <code>#ELSE</code> - only one is permitted per <code>#IFDEF</code>/<code>#IF</code> block.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ForBadEnd</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For end value is too big for the counter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a loop counter variable large enough to hold the end value, or reduce the end value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ForBadStart</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For start value is too big for the counter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a loop counter variable large enough to hold the start value, or reduce the start value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ForBadStart2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid start value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the For loop&#8217;s start value/expression for errors.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ForBadStep</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For-Next 'step' must be integer when start or end values are variables</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use an integer literal or Integer-typed variable for Step when Start/End are variables.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ForBadStepNegate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You cannot negate a step value. Negate the integer variable as a prior operation or pass a negative or positive value integer variable.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Negate the Step value in a separate statement before the loop, then pass the already-negative variable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ForBadStepVariable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For-Next 'step' must be Integer variable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use an Integer-typed variable for Step.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ForStepNeeded</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For-Next 'step' integer variable must be specified when start or end values are variables - even for step 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add an explicit Step value/variable even if it&#8217;s just 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InCorrectNumberofParameters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incorrect number of parameters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Match the call&#8217;s argument count to the Sub/Function&#8217;s declaration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InCorrectTableFormatting</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incorrect Table Text formatting at %var%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check quoting/comma placement in the Table source around %var%.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InCorrectTableTextTermination</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incorrectly Terminated Table Text Line</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check that each Table text line is properly closed (matching quotes).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IncorrectWaitParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incorrect time unit specified. This can be an indirect error from a subroutine - so, inspect all time based constants</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the Wait&#8217;s time unit, and any constants used for time values elsewhere in the program.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InsertedFileMissing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">#INSERT file not found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the <code>#INSERT</code> file&#8217;s path and that it exists.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InvalidBit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bit %bit% is not a valid bit and cannot be set</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a bit number that exists on the target register/variable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InvalidBitRead</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bit %bit% is not a valid bit and cannot be read</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a bit number that exists on the target register/variable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InvalidConditionalStructure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid Conditional construct</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the condition&#8217;s syntax - operators, parentheses, and operands.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InvalidDirCommand</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid DIRection command. Command cannot contain ','</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set one pin/port&#8217;s direction per <code>Dir</code> statement rather than a comma-separated list.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InvalidDoMode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid loop mode %mode%, mode (if specified) must be While or Until</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>While</code> or <code>Until</code> as the Do loop&#8217;s mode.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InvalidElse</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid #ELSE - #IFDEF or #IFNDEF not preceded</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Make sure <code>#ELSE</code> follows an <code>#IFDEF</code>/<code>#IFNDEF</code> block.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InvalidElseCantHandle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid #ELSE - cannot handle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Simplify the surrounding <code>#IFDEF</code>/<code>#IF</code> structure around this <code>#ELSE</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InvalidNumericLiteral</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid numeric literal %literal% - no digits follow the prefix</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>0x</code> or <code>0b</code> prefix was written with no digits after it, for example <code>myVar = myVar | 0x</code>. Add the intended digits (<code>0x0F</code>, <code>0b1010</code>), or remove the incomplete literal. The quoted forms <code>0b'1010'</code> and <code>b'1010'</code> are unaffected.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LoopWithoutDo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Loop without matching Do</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>Do</code> for this <code>Loop</code>, or remove the stray <code>Loop</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MissingCoreFile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cannot find file %core%, which is required for %chip%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reinstall/repair the GCBASIC installation so the missing core file is restored.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MissingFunctionAssignment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing Function Assignment - assign function result to a variable, or, change to a Subroutine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assign the function&#8217;s result (e.g. <code>MyFunc = value</code>) before it exits, or convert it to a Sub if it does not need to return a value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MissingOperand</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing operand, %pos% %operator%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the missing value/variable on the indicated side of the operator.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MissingSubParam</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing value for parameter %param%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supply a value for %param%, or give it a default value in the declaration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MissingTarget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No subroutine specified as a target</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name the subroutine to call/jump to.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MissingEndSubDef</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing 'End Sub' or 'Return' definition or invalid 'GoSub'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>End Sub</code>, or check the <code>GoSub</code>/<code>Return</code> pairing.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MissingSubDef</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing Sub definition, or, missing GoSub definition, or, missing End Sub ( Return to exit/end a Sub Routine is no longer supported)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the missing <code>Sub</code>/<code>GoSub</code>/<code>End Sub</code>; note plain <code>Return</code> no longer ends a subroutine on its own.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MissingEndFuncDef</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing End Function definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>End Function</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MissingFuncDef</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing Function definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>Function</code> declaration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MissingEndDataDef</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing End Data definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>End Data</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MissingDataDef</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing Data definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>Data</code> declaration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NextWithoutFor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Next without matching For</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>For</code>, or remove the stray <code>Next</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoBit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing bit in Set command</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify the bit (e.g. <code>variable.0</code>) in the <code>Set</code> statement.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoChip</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Chip model not specified! GCBASIC cannot continue</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add a <code>#chip</code> line naming the target microcontroller.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoClosingComma</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing closing comma delimiter in Table source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the missing comma between Table source items.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoClosingQuote</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing closing double quote in Table source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the missing closing <code>"</code> in the Table source string.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoDelayUnits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Delay units not specified</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add a time unit (e.g. <code>ms</code>, <code>us</code>, <code>s</code>) to the <code>Wait</code>/delay value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoDestParam</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Destination parameter in ASM. The compiler has failed to optimise correctly. Try changing mathematical order with constants at end of order, or, post to support forum for advice/resolution.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reorder the calculation so constants come last, or ask on the support forum with the failing line.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoEndIf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If without matching End If</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>End If</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoEndRepeat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repeat without End Repeat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>End Repeat</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoFile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cannot find %Filename%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A file the program asked for could not be found, and compilation stops. Check the spelling of the <code>#include</code> and that the file exists. Remember <code>#include &lt;name&gt;</code> looks in the installation&#8217;s <code>include\</code> folder (not <code>include\lowlevel\</code>, whose libraries load automatically), while <code>#include "name"</code> is resolved relative to the current directory.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NOFLOATPARAMETER</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No FLOAT parameter. For Singles support set to 1. See Help for details</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set the float-capability preference/option to enable Single support, per the Help section it references.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoMatchingOverload</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No matching overload found for %subname% with these argument types</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None of the overloaded Sub/Function&#8217;s declared parameter lists fit the argument types given. See <a href="#_subroutines">Subroutines</a> for how single-character string literals and Byte/Bit parameters are matched.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoMatchingSig</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No subroutine found with matching parameters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the argument types/count against the available overloads of that Sub/Function.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoNext</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For without Next</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>Next</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoSelectVariableParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No Select Case variable specified</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Give <code>Select Case</code> a variable or expression to test.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoSourceParam</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Source parameter in ASM. The compiler has failed to optimise correctly. Try adding element(s) to complete the array definition, or, changing mathematical order with constants at end of order, or, post to support forum for advice/resolution.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete the array definition, reorder constants to the end of the calculation, or ask on the support forum with the failing line.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NotABitORAConst</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">%value% is not a bit or valid constant. Constant values should be 0 or 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>0</code>, <code>1</code>, <code>On</code>, or <code>Off</code> where a bit/constant value is expected.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NotAVariable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">%value% is not a variable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a declared variable here rather than a literal or undeclared name.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoThen</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If without Then</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add <code>Then</code> after the <code>If</code> condition.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NotIO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">%var%, or your Defined CONSTANT, is not a valid I/O pin or port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the pin/port name (or the constant defined for it) against the chip&#8217;s actual I/O names.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NotIONOTVALID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">is not a valid I/O pin or port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the pin/port name against the chip&#8217;s actual I/O names.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NotaValidDirective</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not a valid directive %directive%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the <code>#</code>-directive name for a typo against GCBASIC&#8217;s supported directives.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OperandTypeMismatch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operand %operand% cannot be used with %type% variables</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use an operand compatible with the variable&#8217;s type, or convert the variable&#8217;s type first.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OutOfProgMem</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Program is too large, cannot fit all subroutines into available program memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reduce code size or move to a chip with more program memory.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OutOfProgMemExceeded</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Program is too large, cannot fit into available program memory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reduce code size or move to a chip with more program memory.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OutOfRegSpace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Out of registers. Please break up any complex calculations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Split the calculation into smaller steps using intermediate variables.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PICASFailtoLaunch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC-AS failed to execute: %var%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the PIC-AS install path in Preferences/Tool Variables.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ReadADMissingparentheses</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">READAD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">READAD10</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">READAD12 function(s) required parentheses () as parameter delimiters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add parentheses around the argument, e.g. <code>ReadAD(AN0)</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RecursiveDefine</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recursive define</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Break the circular <code>#define</code> chain - a constant cannot be defined in terms of itself.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RepeatMissingCount</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No value given for Repeat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Give <code>Repeat</code> a count.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ShouldNotUseConstant</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Select Case should not use a Constant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test a variable/expression in <code>Select Case</code>, not a compile-time constant (the outcome would always be the same branch).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SubAndVarNameConflict</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Variable %var% cannot be created, a subroutine already has this name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rename the variable, or rename the conflicting subroutine.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SubNotFound</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subroutine %sub% could not be found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the subroutine name for a typo, and confirm it (or its library) is included.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SubParamNotVar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">%value% is not a variable and cannot be used for the parameter %param%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pass a declared variable for this parameter rather than a literal or expression.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SubTooBig</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subroutine %sub% is too large. Reduce its size, or switch to a more powerful chip</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Split the subroutine into smaller ones, or use a chip with more program memory.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SymbolNotDefined</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Symbol [SFR]%symbol% has not been defined. Inspect ASM file to determine error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the generated ASM file around this symbol to find what is missing.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SynErr</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Syntax Error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Re-check the line&#8217;s syntax against the command&#8217;s documentation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SynErrIncorrectBitDestination</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Syntax Error - cannot assign string to bit variable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assign a bit value (0/1/On/Off), not a string, to a bit variable.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SynErrIncorrectByteDestination</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Syntax Error - cannot assign string to byte variable. Use ByteToString()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Convert with <code>ByteToString()</code> if you actually want the byte&#8217;s string representation, or assign a numeric value instead.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SynErrIncorrectWordDestination</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Syntax Error - cannot assign string to word variable. Use WordToString()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Convert with <code>WordToString()</code> if you actually want the word&#8217;s string representation, or assign a numeric value instead.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SynErrIncorrectLongDestination</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Syntax Error - cannot assign string to long variable. Use LongToString()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Convert with <code>LongToString()</code> if you actually want the long&#8217;s string representation, or assign a numeric value instead.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SynErrIncorrectSingleDestination</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Syntax Error - cannot assign string to single variable. Use SingleToString()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Convert with <code>SingleToString()</code> if you actually want the single&#8217;s string representation, or assign a numeric value instead.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TableItemInvalid</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Item %item% cannot be stored in the table</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the item&#8217;s type/value against what the table&#8217;s declared type can hold.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TableNotFound</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lookup table %Table% not found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the table name for a typo, and confirm it is declared before use.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TooManyCaseValues</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Too many values in Case list (maximum %max%)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Split the value list across more than one <code>Case</code> line, each running the same code, or restructure using a <code>To</code> range where the values are contiguous. See <a href="#_select">Select</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TooManyErrors</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Too many errors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fix the errors reported so far and recompile - the compiler stopped early because there were too many to usefully continue.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UndeclaredArray</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array %array% has not been declared</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add a <code>Dim</code> declaration for the array before using it.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UndeclaredVar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Variable %var% was not explicitly declared</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add a <code>Dim</code> declaration for the variable (required under <code>#Option Explicit</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UndeclaredMacroVar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Macro variable %var% not declared - type unknown</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Give the macro variable an explicit type where it&#8217;s first used.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UnhandledHexToSingleAssignement</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unhandled hex value. Use byte component addressing for Hex value to Single variable assignment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assign to the Single variable&#8217;s individual byte components rather than the hex value directly.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UsartBaudTooLow</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">USART baud rate is too low</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Choose a higher baud rate achievable at the chip&#8217;s clock speed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UseSYSDEFAULTCONCATSTRING</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>See Also:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#_conditions">Conditions</a>&#8201;&#8212;&#8201;the AND/OR and bit-comparison constraints in context</p>
+</li>
+<li>
+<p><a href="#_setting_variables">Setting Variables</a>&#8201;&#8212;&#8201;the calculation-complexity constraint in context</p>
+</li>
+<li>
+<p><a href="#_subroutines">Subroutines</a>&#8201;&#8212;&#8201;the parameter-count and page-size constraints in context</p>
+</li>
+<li>
+<p><a href="#_functions">Functions</a>&#8201;&#8212;&#8201;the parameter-count constraint in context</p>
+</li>
+<li>
+<p><a href="#_data">DATA</a>&#8201;&#8212;&#8201;the DATA block value-size constraint in context</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_program_memory_pages">Program Memory Pages</h3>
+<div class="paragraph">
+<p></p>
+</div>
+<div class="paragraph">
+<p><strong>About program memory pages</strong></p>
+</div>
+<div class="paragraph">
+<p>On baseline and mid-range PIC chips (the 10F/12F/14F/16F families - 12-bit and
+14-bit core), program memory is divided into pages, each holding 2048 instructions.
+This does not apply to 18F/18C chips or to AVR chips, which do not have this
+page-packing restriction at all.</p>
+</div>
+<div class="paragraph">
+<p>This affects every code unit the compiler places: Subs, Functions, the main body of
+the program, and the interrupt handler. If the program jumps from code on one page to
+code on another, the compiler has to select the new page, which makes the program
+bigger, so it tries to avoid doing so. To keep page-select jumps down, GCBASIC imposes
+a rule that each Sub or Function must be entirely within one page, so that only calls
+between routines on different pages require a page selection.</p>
+</div>
+<div class="paragraph">
+<p><strong>What always goes on page 0</strong></p>
+</div>
+<div class="paragraph">
+<p>Three things are always placed on the first page, and the compiler has no freedom to
+move them elsewhere:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The main body of the program (everything outside any Sub/Function).</p>
+</li>
+<li>
+<p>The interrupt handler (the code compiled from <code>On Interrupt</code>).</p>
+</li>
+<li>
+<p>The automatic interrupt context save/restore code, unless <code>#OPTION NOCONTEXTSAVE</code>
+is used to disable it (see <a href="#_performance_overview">Performance</a> for the trade-off
+involved).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This is because the reset vector and the interrupt vector are both fixed, low
+addresses in program memory, and code reachable from them without needing an extra
+page-select jump has to live on that same first page. A handful of words at the very
+start of page 0 are reserved for the vector jumps themselves, so its usable capacity
+is slightly less than a full 2048-word page.</p>
+</div>
+<div class="paragraph">
+<p>Every other Sub and Function is free to be placed on any page - the compiler decides
+automatically, generally favouring the page that calls it most often, to minimise the
+number of page-select jumps needed overall.</p>
+</div>
+<div class="paragraph">
+<p><strong>Avoiding a full first page</strong></p>
+</div>
+<div class="paragraph">
+<p>If the main body and the interrupt handler (plus the context save/restore code, if
+enabled) do not fit together on page 0, compilation fails with "First page of program
+memory is full, please reduce size of Main and Interrupt routines." For example, if
+the main body is 1500 words and the interrupt handler is 600 words, that is 2100
+words combined - more than page 0 can hold, even though a second page with plenty of
+free space is sitting right there unused. That spare space on page 2 cannot help,
+because nothing can be moved off page 0.</p>
+</div>
+<div class="paragraph">
+<p>Since only the main body and the interrupt handler themselves are pinned - not
+whatever they call - the fix is to move logic out of both of them and into ordinary
+Subs or Functions instead of writing it inline. A Sub or Function called from the
+main body or from the interrupt handler is free to be placed on any page, so moving
+code into one immediately relieves the pressure on page 0. Keep the main body and the
+interrupt handler themselves as short as calling out to other Subs/Functions, and let
+the compiler place everything else wherever it fits.</p>
+</div>
+<div class="paragraph">
+<p>A related but different error, "Subroutine &#8230;&#8203; is too large," is not about page 0
+specifically - it means one single Sub or Function, wherever it ends up, is larger
+than 2047 words and therefore cannot fit on any page at all, since a page itself is
+only 2048 words. The fix there is to split that one routine into smaller pieces, not
+to move it around.</p>
+</div>
+<div class="paragraph">
+<p><strong>See Also:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#_subroutines">Subroutines</a>&#8201;&#8212;&#8201;declaring and calling Subs, including the separate subroutine-call-depth limit on baseline PIC chips</p>
+</li>
+<li>
+<p><a href="#_functions">Functions</a>&#8201;&#8212;&#8201;declaring Functions, which are packed into pages the same way as Subs</p>
+</li>
+<li>
+<p><a href="#_on_interrupt">On Interrupt</a>&#8201;&#8212;&#8201;writing the interrupt handler that shares page 0 with the main body</p>
+</li>
+<li>
+<p><a href="#_performance_overview">Performance</a>&#8201;&#8212;&#8201;the NOCONTEXTSAVE trade-off mentioned above, and other performance guidance</p>
+</li>
+<li>
+<p><a href="#_constraints_and_error_messages_overview">Constraints and Error Messages</a>&#8201;&#8212;&#8201;the full list of compiler constraints and error messages</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_performance">Performance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is the Performance section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</p>
+</div>
+<div class="sect2">
+<h3 id="_performance_overview">Performance Overview</h3>
+<div class="paragraph">
+<p></p>
+</div>
+<div class="paragraph">
+<p><strong>What the compiler already does</strong></p>
+</div>
+<div class="paragraph">
+<p>GCBASIC optimises the code it generates automatically, without being asked to. Some
+of what happens during a normal compile:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>A pointless self-assignment generates no code at all.</strong> If a line assigns a
+variable to itself (<code>MyVar = MyVar</code>), the compiler checks the source against the
+destination and emits nothing for that line - not even a no-op instruction. This
+check only catches the literal case of the same variable on both sides; it cannot
+detect that two different variables happen to hold the same value.</p>
+</li>
+<li>
+<p><strong>Simple clean-ups run over the generated assembly, regardless of what is written.</strong>
+These are not triggered by any particular coding choice; they are applied to
+whatever assembly the compiler has already produced. For example, a plain
+<code>MyVar = 0</code> (assigning the literal zero to a byte variable) compiles to a "load 0,
+then store it" pair of instructions; the clean-up pass recognises that exact pair
+and combines it into a single, more efficient "clear" instruction - so writing
+<code>MyVar = 0</code> normally already gets the efficient result, with nothing extra required.
+Two further examples, both fully automatic: if a value is copied out of the working
+register and the very next instruction would copy that same value straight back in,
+the redundant reload is deleted; and on PIC chips with 256 bytes of address space or
+less, now-pointless bank-select instructions are removed entirely (this one depends
+on the chip selected with <code>#chip</code>, not on anything in the program&#8217;s logic).</p>
+</li>
+<li>
+<p>Calls to other subroutines are converted to a shorter, faster form where the target
+is close enough in program memory.</p>
+</li>
+<li>
+<p><code>If</code> statements and variable-handling code are tidied up automatically.</p>
+</li>
+<li>
+<p>The whole compiled program is re-scanned afterwards, more than once, for any
+further reduction that has become possible.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See <a href="#_development_guide_for_gcbasic_exe_compiler">Development Guide for GCBASIC.EXE compiler</a>
+for more on how the compiler is put together. This automatic optimisation is good at
+what it does, but it optimises the code as written, not the intent behind it. It
+cannot restructure an approach that is fundamentally more expensive than it needs to
+be. That is where coding style takes over.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+None of this is about clock speed or overclocking the chip. Every technique on
+this page concerns the ASM the compiler actually generates - fewer instructions,
+cheaper instructions, and less time spent per instruction executed - which helps
+equally whether the chip runs at 4 MHz or 64 MHz.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Areas with their own tuning options</strong></p>
+</div>
+<div class="paragraph">
+<p>A few subsystems expose their own performance trade-offs directly:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>ADC</strong> - the <code>ADSPEED</code> constant controls the ADC clock source/speed (e.g.
+<code>#define ADSPEED MEDIUMSPEED</code>). See <a href="#_readad">ReadAD</a>.</p>
+</li>
+<li>
+<p><strong>PWM</strong> - hardware PWM (via a chip&#8217;s CCP/PWM peripheral) costs no CPU time once
+configured, whereas a software-timed PWM loop does; 16-bit PWM modes trade
+additional resolution for extra setup and register-handling cost. See the PWM
+section of the Help file for the specific commands available on a given chip family.</p>
+</li>
+<li>
+<p><strong>Timers</strong> - using a chip&#8217;s hardware timer, with the correct prescaler constant for
+the target period, offloads timing from the CPU entirely, whereas a software delay
+loop blocks it. See the Timers section of the Help file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The remainder of this page covers the coding-style choices that matter everywhere
+else - choices the compiler&#8217;s automatic optimisation cannot make on its own.</p>
+</div>
+<div class="paragraph">
+<p><strong>Coding style and performance</strong></p>
+</div>
+<div class="paragraph">
+<p>The examples below are drawn from a real, hardware-verified optimisation pass on a
+GCBASIC communications library&#8217;s interrupt handler and buffer-copy code - the most
+frequently executed, timing-sensitive code in that program. Each change was verified
+two ways: a smaller or faster compiled output, and a functional test on physical
+hardware after every step, rather than a theory about what should be faster. The same
+patterns apply to any frequently-run code elsewhere (a main loop, an interrupt
+handler, or any subroutine called often).</p>
+</div>
+<div class="paragraph">
+<p><strong>1. Avoid dividing by a power of two at runtime</strong></p>
+</div>
+<div class="paragraph">
+<p>GCBASIC has no constant-power-of-two strength reduction: a plain <code>/8</code> compiles to a
+call to a generic division subroutine, even when the divisor is a literal power of
+two, and even inside the most frequently executed code in the program. In one real
+interrupt handler that decoded a hardware status register to determine which of
+several channels had just triggered, a single division -
+<code>ChannelNumber = (StatusReg And 0x38) / 8</code>, evaluated on every occurrence of the
+interrupt - was the only division anywhere in the program, and cost a full subroutine
+call on the single most frequent event in the whole handler:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    'Before: a real division subroutine call, every time this fires
+    ChannelNumber = (StatusReg And 0x38) / 8</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This was replaced with a mask and three single-bit right rotations (dividing by 8 is
+equivalent to shifting right 3 bits):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    'After: one bit-clear plus 3 rotate instructions, no subroutine call
+    ChannelNumber = StatusReg And 0x38
+    Set C Off
+    Rotate ChannelNumber Right
+    Rotate ChannelNumber Right
+    Rotate ChannelNumber Right</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key line:</strong> <code>Set C Off</code>&#8201;&#8212;&#8201;GCBASIC&#8217;s <code>Rotate</code> command rotates <strong>through</strong> Carry (see
+<a href="#_rotate">Rotate</a>), rather than as a carry-free circular rotate. Omit this line and
+bit 7 of the result picks up whatever Carry happened to be left over from earlier,
+unrelated code - an intermittent, hard-to-reproduce corruption that only appears
+depending on what ran just before. This was caught during review, before it shipped,
+precisely because it looks like a safe, obviously correct optimisation. Masking with
+<code>0x38</code> first (clearing bits 0-2 and bits 6-7), together with the explicit <code>Set C Off</code>,
+is what makes the result bit-for-bit identical to the division - both steps are
+required, not the rotates alone.</p>
+</div>
+<div class="paragraph">
+<p><strong>2. Avoid recomputing a value that is actually a compile-time constant</strong></p>
+</div>
+<div class="paragraph">
+<p>If a variable is assigned only once, from an expression built entirely out of
+compile-time constants, and never changes afterwards, every place that re-derives
+<code>variable + offset</code> at runtime pays for a RAM read plus an addition for a value that
+never changes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    'Before: BufferAddr is a Word variable read from RAM, then added to, every time
+    Poke BufferAddr + (CurrByte - 1), TempByte</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    'After: BUFFER_BASE is a #define - resolved at compile time, at no runtime cost
+    #DEFINE BUFFER_BASE (RAM_START + 64)
+    Poke BUFFER_BASE + (CurrByte - 1), TempByte</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The variable itself may still be required elsewhere - for example, hardware that
+reads the address back out of a peripheral&#8217;s own control registers - but the point is
+that the surrounding code does not need to re-read and re-add it every time, when a
+<code>#define</code> would give the same value for nothing.</p>
+</div>
+<div class="paragraph">
+<p><strong>3. In a copy loop, increment an index rather than recomputing it</strong></p>
+</div>
+<div class="paragraph">
+<p>A loop that copies bytes one at a time often only needs a plain "next position", but
+it is easy to write it as a fresh calculation on every pass instead:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    'Before: recomputes a two-operand add on every single byte copied
+    For CurrByte = 1 to TableLength
+        ReadTable MyTable, CurrByte + TableStart, TempByte
+        ...
+    Next</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    'After: seed the index once, then simply increment it
+    CopyPos = TableStart + 1
+    For CurrByte = 1 to TableLength
+        ReadTable MyTable, CopyPos, TempByte
+        ...
+        CopyPos++
+    Next</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This trades a two-operand add for a plain increment on every byte copied - a small
+saving per byte, but a real one on a loop that runs often, such as copying a lookup
+table into a display buffer on every screen refresh.</p>
+</div>
+<div class="paragraph">
+<p><strong>4. Only unroll a copy loop when its length is a genuine, fixed constant</strong></p>
+</div>
+<div class="paragraph">
+<p>Where a transfer&#8217;s length is fixed - by a hardware protocol, a fixed record size, or
+a fixed-length packet - rather than merely "usually" a certain size in practice,
+unrolling the loop into straight-line code removes the loop overhead (initialise,
+compare, branch, increment) entirely, backed by fixed-address byte aliases into the
+buffer being copied to or from. This is a safe, unambiguous target for exactly that
+reason. A genuinely variable-length copy - a string whose length depends on what is
+being sent - is not, and should remain a loop.</p>
+</div>
+<div class="paragraph">
+<p><strong>5. Measure after every change; do not assume</strong></p>
+</div>
+<div class="paragraph">
+<p>Every change above was verified two ways: the compiler&#8217;s own reported program size
+(word count) before and after, and a functional test on real hardware. Several
+plausible-looking "obvious" optimisations attempted during the same investigation
+were tried, tested on hardware, and reverted when they did not help or made matters
+worse - each looked reasonable in the source but was not confirmed to do anything
+useful until tested. Treat "this should be faster" as a hypothesis, not a conclusion,
+until the compiled size and actual behaviour have both been checked.</p>
+</div>
+<div class="paragraph">
+<p><strong>Choosing a loop: Repeat versus For/Do for a fixed count</strong></p>
+</div>
+<div class="paragraph">
+<p>When a fixed number of repetitions is all that is needed, and the loop counter&#8217;s
+value is not otherwise used, <code>Repeat</code> compiles to less overhead per pass than <code>For</code>.
+In the generated program, <code>Repeat <em>n</em></code> comes down to this shape:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    'One variable, counting down (PIC shown; AVR chips get an equivalent
+    'decrement-and-branch pattern)
+    RepeatLoop:
+    '...body of the loop...
+    decfsz RepeatCounter, F     ' &lt;&lt;&lt; decrement, and skip the next line if it hit zero
+    goto RepeatLoop</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>One variable, decremented and tested for zero in a single instruction, then a branch
+back to the top - that is the entire per-iteration cost. <code>For</code> has to support
+features <code>Repeat</code> does not: arbitrary start and end values, ascending or descending
+order, and an optional <code>Step</code> that can itself be a variable. It therefore tracks a
+start, an end, and a step, and compares the counter against the end value on every
+single pass, rather than simply testing for zero. That generality costs real
+instructions per iteration that a plain "do this N times" loop does not need to pay
+for.</p>
+</div>
+<div class="paragraph">
+<p>Use <code>For</code> when the counter&#8217;s value is needed inside the loop, when counting in a
+direction or step size other than 1, or when the bounds are not known until runtime.
+Use <code>Repeat</code> for everything else that amounts to "do this N times." See
+<a href="#_repeat">Repeat</a> and <a href="#_for">For</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Nested If versus combined boolean conditions</strong></p>
+</div>
+<div class="paragraph">
+<p><code>If A Then If B Then If C Then &#8230;&#8203;</code> and <code>If A And B And C Then &#8230;&#8203;</code> are not compiled
+the same way, and the difference is not merely stylistic. A single condition - one
+comparison, on a byte or bit, with no <code>And</code>, <code>Or</code>, or arithmetic - is classified as
+"simple" and compiled inline as one comparison plus one conditional skip instruction.
+As soon as a condition contains <code>And</code>, <code>Or</code>, or another combining operator, it is
+reclassified as a full calculation: each side is evaluated in full, and the results
+are then combined. This is both more expensive to evaluate and, as
+<a href="#_constraints_and_error_messages_overview">Constraints and Error Messages</a> describes,
+capped at two combined <code>And</code>/<code>Or</code> operations per condition.</p>
+</div>
+<div class="paragraph">
+<p>Nested <code>If</code> statements do not have that ceiling, and gain a benefit combined
+conditions structurally cannot: short-circuiting. In <code>If A Then If B Then &#8230;&#8203;</code>, <code>B</code> is
+never evaluated at all once <code>A</code> is false - the generated code simply branches past the
+inner <code>If</code> entirely. In <code>If A And B Then &#8230;&#8203;</code>, both <code>A</code> and <code>B</code> are evaluated as
+values before being combined, every time, whether or not <code>A</code> alone would already have
+settled the answer. Where <code>A</code> is cheap to test and often false, and <code>B</code> is more
+expensive to evaluate - a function call, or a more complex comparison - nesting, with
+the cheap, likely-to-fail test placed outermost, avoids evaluating <code>B</code> at all in the
+common case. See <a href="#_if">If</a> and <a href="#_conditions">Conditions</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Aliasing for performance</strong></p>
+</div>
+<div class="paragraph">
+<p><code>Alias</code> (see <a href="#_dim">Dim</a>) does more than save RAM by letting variables share
+storage. Used deliberately, it removes runtime addressing cost entirely, because an
+alias&#8217;s location is resolved once, at compile time, and never recalculated while the
+program runs.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Aliasing a fixed array element avoids runtime array indexing.</strong> <code>MyArray(n)</code>,
+where <code>n</code> is a variable, needs a pointer or index register set up at runtime on
+every access. <code>MyArray(3)</code>, where <code>3</code> is a literal, is cheaper, but is still an
+array reference. Where code repeatedly touches one specific, always-the-same
+element of an array in a frequently-run section, alias it once to a plain variable
+name:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    Dim SensorReadings(8) As Byte
+    Dim LatestReading As Byte Alias SensorReadings(3)   ' &lt;&lt;&lt; always element 3, resolved at compile time
+
+    LatestReading = ReadAD(AN0)   ' &lt;&lt;&lt; a direct, fixed-address write, not an indexed one</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key line:</strong> <code>Dim LatestReading As Byte Alias SensorReadings(3)</code>&#8201;&#8212;&#8201;the compiler
+computes <code>SensorReadings&#8217;s base address plus the constant offset `3</code> once, while
+compiling, and gives <code>LatestReading</code> that single fixed address permanently. Every
+subsequent use of <code>LatestReading</code> is a direct read or write, without the per-access
+indexing cost that writing out <code>SensorReadings(3)</code> directly would still carry.</p>
+</div>
+</li>
+<li>
+<p><strong>Aliasing directly to a hardware register avoids a redundant variable and a copy.</strong>
+Where code needs to read or write a chip register (SFR), aliasing a variable name
+straight to that register is faster than declaring an ordinary variable and copying
+data to and from the register separately:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    'Before: a separate variable, plus a copy in and a copy out on every use
+    Dim PortBCopy As Byte
+    PortBCopy = PORTB
+    PortBCopy = PortBCopy Or 0b00000001
+    PORTB = PortBCopy</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    'After: the alias IS the register - no separate storage, and no copy in either direction
+    Dim PortBCopy As Byte Alias PORTB
+    PortBCopy = PortBCopy Or 0b00000001</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The "before" version uses a RAM byte it does not need, and pays for a
+read-from-register and a write-to-register on top of whatever the actual operation
+was. The "after" version has no separate storage at all - every reference to
+<code>PortBCopy</code> reads or writes <code>PORTB</code> directly.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Interrupt latency</strong></p>
+</div>
+<div class="paragraph">
+<p>Interrupt latency is the time between the hardware event that triggers an interrupt
+and the moment the interrupt-handling code actually starts running. There is no
+operating system scheduler involved on these chips, but there are still several
+GCBASIC-controlled costs between the interrupt firing and the handler code running,
+and the way the interrupt-handling code is written affects every one of them.</p>
+</div>
+<div class="paragraph">
+<p><strong>1. Automatic context save and restore.</strong> By default, GCBASIC adds code at the very
+start of every interrupt that saves every register the mainline code and the
+interrupt code might both use, and matching code at the end that restores them - one
+store instruction per register on entry, one load per register on exit - so that the
+interrupt cannot silently corrupt whatever the mainline code was in the middle of
+doing. This is real, unconditional latency paid on every interrupt, regardless of
+whether that particular interrupt actually touches those registers. <code>#OPTION
+NOCONTEXTSAVE</code> turns this off, at a real cost: responsibility for guaranteeing that
+no register shared between mainline and interrupt code is ever left in a state the
+other side does not expect moves to the programmer - a class of bug that is
+intermittent and hard to reproduce when it does occur, precisely because it depends
+on exactly what the mainline code happened to be doing at the moment the interrupt
+fired.</p>
+</div>
+<div class="paragraph">
+<p><strong>2. The order interrupt causes are tested in.</strong> On chips with a single shared
+interrupt vector, GCBASIC compiles the interrupt-handling code&#8217;s cause checks (each
+<code>On Interrupt</code>/flag test) in the order they are written, and tests them sequentially -
+each untested cause ahead of the one that actually fired costs a further comparison
+before the real handling code runs. Where one interrupt source fires far more often
+than the others, checking it first minimises the average latency across all the
+interrupts the program actually receives, even though the worst case - the
+least-frequent cause, tested last - does not change.</p>
+</div>
+<div class="paragraph">
+<p><strong>3. What the handler code does once it starts.</strong> Everything covered earlier on this
+page - avoiding runtime division, not recomputing constants, short-circuiting nested
+<code>If</code> statements - matters more inside an interrupt handler than almost anywhere else
+in a program, because it runs on every occurrence of whatever event triggers it,
+often while the rest of the program is waiting for it to finish.</p>
+</div>
+<div class="paragraph">
+<p><strong>See Also:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#_development_guide_for_gcbasic_exe_compiler">Development Guide for GCBASIC.EXE compiler</a>&#8201;&#8212;&#8201;the compiler&#8217;s own automatic optimisation steps</p>
+</li>
+<li>
+<p><a href="#_rotate">Rotate</a>&#8201;&#8212;&#8201;the through-Carry behaviour behind lesson 1 above</p>
+</li>
+<li>
+<p><a href="#_readad">ReadAD</a>&#8201;&#8212;&#8201;the ADSPEED constant for tuning ADC performance</p>
+</li>
+<li>
+<p><a href="#_repeat">Repeat</a> / <a href="#_for">For</a>&#8201;&#8212;&#8201;the fixed-count versus general-purpose loop choice above</p>
+</li>
+<li>
+<p><a href="#_program_memory_pages">Program Memory Pages</a>&#8201;&#8212;&#8201;the NOCONTEXTSAVE trade-off in full, and how page 0 is packed</p>
+</li>
+<li>
+<p><a href="#_if">If</a> / <a href="#_conditions">Conditions</a>&#8201;&#8212;&#8201;nested versus combined condition compilation above</p>
+</li>
+<li>
+<p><a href="#_dim">Dim</a>&#8201;&#8212;&#8201;the <code>Alias</code> declaration used for both aliasing techniques above</p>
+</li>
+<li>
+<p><a href="#_on_interrupt">On Interrupt</a>&#8201;&#8212;&#8201;declaring the interrupt-cause handlers whose order affects latency above</p>
+</li>
+<li>
+<p><a href="#_constraints_and_error_messages_overview">Constraints and Error Messages</a>&#8201;&#8212;&#8201;structural limits to bear in mind alongside performance choices</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_gcbasic_maintenance_and_development">GCBASIC Maintenance and Development</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -75895,12 +77553,18 @@ The GCBASIC header files are the following:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    1. messages.dat - the English messages source file.  All user messages from the compiler are sourced from this file.
-    2. reservedwords.dat - the list of system reserved words</code></pre>
+    2. reservedwords.dat - the list of system reserved words
+    3. lowlevel.dat - the list of header files, from include\lowlevel\, that are included by default</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p><br>
-<br>
+<br></p>
+</div>
+<div class="paragraph">
+<p><code>lowlevel.dat</code> is a plain text file, one file name per line, such as <code>usart.h</code>, <code>hwspi.h</code> and
+<code>string.h</code>. Every header file it lists is loaded into every compile by default, without the user
+needing an explicit <code>#include</code> - see Note #6 below for exactly where and how this happens.
 The compiler process is simple.
 The process, shown below, generates the ASM source and the HEX file from the user source program.</p>
 </div>
@@ -75909,7 +77573,7 @@ The process, shown below, generates the ASM source and the HEX file from the use
 <pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    1. Create the indexes
     2. Declare the methods, arrays and variables
     3. Process the user source programs using PreProcessor method. This includes
-        i.     Loading of all source files including include files
+        i.     Loading of all source files including include files (see Note #6 below)
         ii.    Translate files, if needed
         iii.   Examine source for comments, tables, asm, rawasm, functions;subs;macros, set origin of valid code
                     Origin = ";?F" + Str(RF) + "L" + Str(LC) + "S" + Str(SBC) + "?"
@@ -75929,7 +77593,8 @@ The process, shown below, generates the ASM source and the HEX file from the use
         xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program.
         xv.    Prepare programmer, need to know chip model and need to do this before checking config
         xvi.   Replace Constants
-        xvii.  Replace table value.  Replace constants and calculations in tables with actual values
+        xvii.  ExpandShifts.  Normalise shift-operator (&lt;&lt;, &gt;&gt;) expressions in the source so they parse correctly, ahead of table/constant substitution.  Also enforces a bitwise-comparison complexity limit - a line combining more than two AND/OR operations is rejected (see Note #5 below).
+        xviii. Replace table value.  Replace constants and calculations in tables with actual values
     4. Compile the program using the CompileProgram method
          i.    Compile calls to other subroutines, insert macros
          ii.   Compile DIMs again, in case any come through from macros
@@ -75950,16 +77615,18 @@ The process, shown below, generates the ASM source and the HEX file from the use
          xvii. Compile If(s)
          xviii Compile Exit Sub
          xix.  Compile Goto(s)
+         xx.   FindAssembly.  Anything not matched by the steps above is checked against the target chip's real instruction set and, if recognised, passed through as assembly (see Note #4 below).
     5. Allocate RAM using the AllocateRAM method
     6. Optimise the generated code using the TidyProgram method
     7. Combine and locate the subroutines and functions for the selected chip using the MergeSubroutines method
     8. Complete the final optimisation using the FinalOptimise method
-    9. Write the assembly using the WriteAssembly method
-    10. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other defined Assembler
-    11. Optionally, pass programming operations to the programmer
-    12. Write compilation report using the WriteCompilationReport method
-    13. If needed, write the error and warning log using the WriteErrorLog method
-    14. Exit, setting the ERRORLEVEL</code></pre>
+    9. Recalculate subroutine sizes using the RecalcSubSizes method, so that program-memory usage reflects the actual post-optimisation word counts (Step 8's call-to-rcall optimisation, for example, changes instruction sizes)
+    10. Write the assembly using the WriteAssembly method
+    11. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other defined Assembler
+    12. Optionally, pass programming operations to the programmer
+    13. Write compilation report using the WriteCompilationReport method
+    14. If needed, write the error and warning log using the WriteErrorLog method
+    15. Exit, setting the ERRORLEVEL</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -75986,6 +77653,58 @@ This means constants that are not created by the Find compiler directives step a
 <div class="paragraph">
 <p>This will create the constant AD_DELAY only when the user program does not define a value.
 <br></p>
+</div>
+<div class="paragraph">
+<p>Note #4: GCBASIC has no reference grammar that every line of source must match. Step 3.x (<code>PrepareBuiltIn</code>) indexes every Sub and Function the compiler recognizes - the built-in commands, plus everything defined by the libraries the program has loaded - before a single line of the user&#8217;s code is compiled. From that point, compiling a line of code (Step 4) works by elimination: if the line is a recognized GCBASIC command, or a call to one of the indexed Subs/Functions, it is compiled as such. If it is neither, the compiler assumes the line must be assembly and passes it to the target chip&#8217;s assembler unchanged (aside from substituting any GCBASIC constants/variables it recognizes on the line). This check is performed by <code>IsASM</code> (<code>assembly.bi</code>), which looks the line&#8217;s leading word up in the real instruction table for the selected chip family - so a line such as <code>MOVWF Display,ACCESS</code> needs no <code>Asm</code> or <code>#asmraw</code> keyword at all; it is recognized as a genuine instruction for the target chip and passed straight through. <code>#asmraw</code> is the one exception to this lookup - a <code>#asmraw</code> line is always treated as assembly unconditionally, regardless of whether its content matches a known instruction.
+<br></p>
+</div>
+<div class="paragraph">
+<p>This is also why the compilation summary&#8217;s <code>Subroutines</code> line can look surprising, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    Summary:
+         Compiled:
+              Program lines: 2
+              Subroutines:  User: 0 ; System: 1 of 486 ; Total: 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>486</code> is the total number of system Subs/Functions indexed in Step 3.x for this compile (built-in commands plus whatever the loaded libraries define) - not how many were actually used. <code>System: 1 of 486</code> means only 1 of those 486 indexed routines was actually called by this particular two-line program; the rest were indexed (so the compiler could recognize a call to any of them) but never referenced, and so contribute nothing to the compiled output.
+<br></p>
+</div>
+<div class="paragraph">
+<p>One direct consequence: because unrecognized lines fall through to assembly rather than being rejected outright, GCBASIC&#8217;s own compile step is not a full syntax check. A line with a typo in an intended command name, or a genuine assembly mnemonic used incorrectly, can compile without error at the GCBASIC stage and only surface as a failure when GCASM, MPASM, PIC-AS, or AVR2ASM actually assembles the generated ASM into the HEX file. Treat a successful GCBASIC compile as "no unrecognized commands, and everything that looked like assembly was valid enough to pass through" - the true syntax check is the assembler step that follows.
+<br></p>
+</div>
+<div class="paragraph">
+<p>Note #5: Step 3.xvii (<code>ExpandShifts</code>) is also where the compiler enforces a hard limit on bitwise-comparison complexity - a line combining more than two AND/OR operations is rejected with "More than two AND/OR statements - reduce complexity." This is not an arbitrary restriction the current team could simply lift; see <a href="#_historical_design_constraints">Historical Design Constraints</a> below for why.
+<br></p>
+</div>
+<div class="paragraph">
+<p>Note #6: Step 3.i (loading of all source files) is implemented in <code>preprocessor.bi</code>, not <code>gcbasic.bas</code> itself. It first resolves every explicit <code>#include</code> in the user&#8217;s own program, and every <code>#include</code> found inside those files in turn, repeating until a pass discovers no new files. Only once that is exhausted does it load <code>lowlevel.dat</code>: it opens <code>include\lowlevel.dat</code> (the extension is normally <code>.dat</code>, but can be overridden with <code>overridelowleveldatfileextextension</code> for testing), reads it one line at a time, skips comment lines (starting with <code>'</code>), and for every other line builds the path <code>include\lowlevel\&lt;filename&gt;</code> and adds that file to the source-file list with <code>SystemInclude = -1</code>, unless it is already loaded or listed in the compiler&#8217;s ignore-file list. This means every file <code>lowlevel.dat</code> names - <code>usart.h</code>, <code>hwspi.h</code>, <code>string.h</code>, and the rest - is loaded into every single compile unconditionally; there is no check here for whether the user actually defined <code>USART_BAUD_RATE</code> or any other enabling constant. It is the conditional-compilation guards inside each of those header files (their own <code>#IF</code>/<code>#IFDEF</code> checks against the user&#8217;s constants) that decide whether any of the loaded code actually ends up in the compiled program. This is also why a command like <code>HSerSend</code> needs no explicit <code>#include</code>: <code>usart.h</code> is already loaded by the time the user&#8217;s program is compiled, purely because it is listed in <code>lowlevel.dat</code>. If one of these listed files cannot be found on disk - a broken or incomplete installation - the compiler reports it immediately with "Essential file missing" and stops, naming the missing file, rather than silently continuing without it (see <a href="#_constraints_and_error_messages_overview">Constraints and Error Messages</a>).
+<br></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_historical_design_constraints">Historical Design Constraints</h3>
+<div class="paragraph">
+<p>This is a passing thought for whoever comes this way in the future, to understand why some things about the compiler are the way they are.</p>
+</div>
+<div class="paragraph">
+<p>GCBASIC was not originally written to be programmed by typing free-form text. It was originally constrained, controlled, and syntax-checked by Great Cow Graphical BASIC (GCGB) - see <strong>BACKGROUND</strong> above for GCGB&#8217;s origin. In GCGB, a program is built by dragging and connecting graphical blocks, each corresponding to a GCBASIC command. Because the palette of blocks and the ways they can be connected are both fixed by the graphical tool, GCGB inherently limited both what a program could express and how complex any single expression could become - you simply could not drag together a combination the tool didn&#8217;t support. That constraint doubled as a syntax check: if GCGB would let you build it, it was valid GCBASIC by construction.</p>
+</div>
+<div class="paragraph">
+<p>Moving to a freehand, text-based IDE removed that built-in ceiling. Users could now type any combination of operators and conditions they liked, whether or not anything resembling it had ever been produced by GCGB. Responsibility for validating what is typed therefore shifted from GCGB&#8217;s graphical constraints onto the compiler itself - and, as Note #4 above describes, the compiler was never built around a complete reference grammar; it grew up assuming inputs shaped like what GCGB could produce. A great deal of the compiler&#8217;s ongoing development has been - and continues to be - closing that gap, adding syntax checking for cases free-text users reach that GCGB&#8217;s graphical constraints made impossible.</p>
+</div>
+<div class="paragraph">
+<p>Some of these gaps, though, are not simply unfinished work - they are places where the underlying calculation and parsing logic was never designed to handle the complexity a free-text user can now type, because GCGB could never have produced that complexity in the first place. The bitwise-comparison limit enforced in <code>ExpandShifts</code> (Note #5 above) is a clear example: GCGB&#8217;s graphical blocks never allowed chaining more than two AND/OR conditions into a single bitwise compare, so the expression-evaluation logic underneath was never engineered to resolve deeper nesting correctly. A free-text user can type such an expression today, but the compiler cannot reliably evaluate it - and fixing that is not a small correction to an existing check, it would mean re-engineering a foundational part of the expression evaluator. That is a substantially larger undertaking than the current development team can take on, so this particular limit is enforced rather than supported.</p>
+</div>
+<div class="paragraph">
+<p>The practical lesson: when something in GCBASIC seems arbitrarily restrictive rather than simply buggy, it is worth asking whether the restriction traces back to what GCGB could originally produce. If so, treat it as a structural constraint inherited from the compiler&#8217;s origins, not an oversight waiting for a quick fix.</p>
+</div>
+<div class="paragraph">
+<p><br></p>
 </div>
 <div class="paragraph">
 <p><strong>FreeBASIC COMPILATION OF GCBASIC SOURCE CODE</strong></p>
@@ -76575,6 +78294,47 @@ The list shows the installation of the SharpDevelop IDE.</p>
 <br>
 <br></p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_regression_testing_the_compiler_against_the_demos">Regression Testing the Compiler Against the Demos</h3>
+<div class="paragraph">
+<p>Before publishing a compiler change, run it against the full demo corpus to catch regressions. The <code>testcompilealldemos.bat</code> script walks a target folder (the demos repository by default) and compiles every <code>.gcb</code> file it finds, logging the outcome of each into four files: <code>test.log</code> (files with real errors/warnings, or that failed to produce ASM/HEX), <code>success.log</code>, <code>invalidsources.log</code> (files with no <code>#chip</code>/recognised chip include, so not a compilable source), and <code>skipped.log</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Excluding files and folders from the run:</strong></p>
+</div>
+<div class="paragraph">
+<p>There are two independent ways to keep a source out of a regression run:</p>
+</div>
+<table class="tableblock frame-all grid-all">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Mechanism</th>
+<th class="tableblock halign-left valign-top">Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A file named <code>skiptest</code> or <code>skiptest.txt</code> placed in a folder</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Skips every <code>.gcb</code> file in that folder <strong>and all its subfolders</strong>. The script walks up from each file&#8217;s folder toward the target root looking for this marker, so placing one at a high-level folder (e.g. a whole <code>TestSolutions</code>-style scratch area) excludes everything beneath it.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>#SKIPTEST</code> directive inside a <code>.gcb</code> file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Skips only that individual file, wherever it lives. The script detects it with a plain text search for <code>#SKIPTEST</code> in the source, so it does not need to sit in any particular location in the file.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Neither mechanism is understood by <code>GCBASIC.EXE</code> itself - <code>#SKIPTEST</code> is not a compiler directive; the compiler never inspects it. Both are conventions read only by the regression-test script, used to exclude demos that are intentionally non-compiling (work in progress, illustrative snippets, or requiring build options the batch run doesn&#8217;t set).</p>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
 <div class="paragraph">
 <p><strong>See Also:</strong></p>
 </div>
@@ -76589,8 +78349,10 @@ The list shows the installation of the SharpDevelop IDE.</p>
 <li>
 <p><a href="#_command_line_parameters">Command Line Parameters</a>&#8201;&#8212;&#8201;the use.ini settings this compiler reads</p>
 </li>
+<li>
+<p><a href="#_performance_overview">Performance</a>&#8201;&#8212;&#8201;the user-facing guide to writing fast GCBASIC code</p>
+</li>
 </ul>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -77147,13 +78909,13 @@ If you use AVRDUDE, you must ensure the Windows device driver is <code>libusbK</
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-09-06<br>
-14:28:36 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-09-08<br>
+14:19:50 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-09-06<br>
-07:21:53 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-09-07<br>
+15:10:53 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -77165,7 +78927,7 @@ If you use AVRDUDE, you must ensure the Windows device driver is <code>libusbK</
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-06 07:21:53 GMT Summer Time
+Last updated 2026-09-07 15:10:53 GMT Summer Time
 </div>
 </div>
 </body>

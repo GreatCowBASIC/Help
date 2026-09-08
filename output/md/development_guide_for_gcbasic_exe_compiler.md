@@ -155,18 +155,24 @@ The supporting files are:
 ``` programlisting
     1. messages.dat - the English messages source file.  All user messages from the compiler are sourced from this file.
     2. reservedwords.dat - the list of system reserved words
+    3. lowlevel.dat - the list of header files, from include\lowlevel\, that are included by default
 ```
 
   
   
-The compiler process is simple. The process, shown below, generates the
-ASM source and the HEX file from the user source program.
+
+`lowlevel.dat` is a plain text file, one file name per line, such as
+`usart.h`, `hwspi.h` and `string.h`. Every header file it lists is
+loaded into every compile by default, without the user needing an
+explicit `#include` - see Note \#6 below for exactly where and how this
+happens. The compiler process is simple. The process, shown below,
+generates the ASM source and the HEX file from the user source program.
 
 ``` programlisting
     1. Create the indexes
     2. Declare the methods, arrays and variables
     3. Process the user source programs using PreProcessor method. This includes
-        i.     Loading of all source files including include files
+        i.     Loading of all source files including include files (see Note #6 below)
         ii.    Translate files, if needed
         iii.   Examine source for comments, tables, asm, rawasm, functions;subs;macros, set origin of valid code
                     Origin = ";?F" + Str(RF) + "L" + Str(LC) + "S" + Str(SBC) + "?"
@@ -186,7 +192,8 @@ ASM source and the HEX file from the user source program.
         xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program.
         xv.    Prepare programmer, need to know chip model and need to do this before checking config
         xvi.   Replace Constants
-        xvii.  Replace table value.  Replace constants and calculations in tables with actual values
+        xvii.  ExpandShifts.  Normalise shift-operator (<<, >>) expressions in the source so they parse correctly, ahead of table/constant substitution.  Also enforces a bitwise-comparison complexity limit - a line combining more than two AND/OR operations is rejected (see Note #5 below).
+        xviii. Replace table value.  Replace constants and calculations in tables with actual values
     4. Compile the program using the CompileProgram method
          i.    Compile calls to other subroutines, insert macros
          ii.   Compile DIMs again, in case any come through from macros
@@ -207,16 +214,18 @@ ASM source and the HEX file from the user source program.
          xvii. Compile If(s)
          xviii Compile Exit Sub
          xix.  Compile Goto(s)
+         xx.   FindAssembly.  Anything not matched by the steps above is checked against the target chip's real instruction set and, if recognised, passed through as assembly (see Note #4 below).
     5. Allocate RAM using the AllocateRAM method
     6. Optimise the generated code using the TidyProgram method
     7. Combine and locate the subroutines and functions for the selected chip using the MergeSubroutines method
     8. Complete the final optimisation using the FinalOptimise method
-    9. Write the assembly using the WriteAssembly method
-    10. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other defined Assembler
-    11. Optionally, pass programming operations to the programmer
-    12. Write compilation report using the WriteCompilationReport method
-    13. If needed, write the error and warning log using the WriteErrorLog method
-    14. Exit, setting the ERRORLEVEL
+    9. Recalculate subroutine sizes using the RecalcSubSizes method, so that program-memory usage reflects the actual post-optimisation word counts (Step 8's call-to-rcall optimisation, for example, changes instruction sizes)
+    10. Write the assembly using the WriteAssembly method
+    11. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other defined Assembler
+    12. Optionally, pass programming operations to the programmer
+    13. Write compilation report using the WriteCompilationReport method
+    14. If needed, write the error and warning log using the WriteErrorLog method
+    15. Exit, setting the ERRORLEVEL
 ```
 
 Note \#1: Constants can be created in many places, and the order is
@@ -252,106 +261,86 @@ default value if the user has not defined one. An example:
 This will create the constant AD\_DELAY only when the user program does
 not define a value.  
 
-<span class="strong">**FreeBASIC COMPILATION OF GCBASIC SOURCE
-CODE**</span>
+Note \#4: GCBASIC has no reference grammar that every line of source
+must match. Step 3.x (`PrepareBuiltIn`) indexes every Sub and Function
+the compiler recognizes - the built-in commands, plus everything defined
+by the libraries the program has loaded - before a single line of the
+user’s code is compiled. From that point, compiling a line of code (Step
+4) works by elimination: if the line is a recognized GCBASIC command, or
+a call to one of the indexed Subs/Functions, it is compiled as such. If
+it is neither, the compiler assumes the line must be assembly and passes
+it to the target chip’s assembler unchanged (aside from substituting any
+GCBASIC constants/variables it recognizes on the line). This check is
+performed by `IsASM` (`assembly.bi`), which looks the line’s leading
+word up in the real instruction table for the selected chip family - so
+a line such as `MOVWF Display,ACCESS` needs no `Asm` or `#asmraw`
+keyword at all; it is recognized as a genuine instruction for the target
+chip and passed straight through. `#asmraw` is the one exception to this
+lookup - a `#asmraw` line is always treated as assembly unconditionally,
+regardless of whether its content matches a known instruction.  
 
-The compiler is relatively simple in terms of the compilation.
-
-Use the following versions of the FreeBASIC compiler to compile the
-GCBASIC source code.
-
-For Windows 32 bit
-
-``` programlisting
-    FreeBASIC Compiler - Version 1.07.1 (2019-09-27), built for win32 (32bit)
-    Copyright (C) 2004-2019 The FreeBASIC development team.
-```
-
-For Windows 64 bit
-
-``` programlisting
-    FreeBASIC Compiler - Version 1.07.1 (2019-09-27), built for win64 (64bit)
-    Copyright (C) 2004-2019 The FreeBASIC development team.
-```
-
-Using other versions of the Windows FreeBASIC compiler is NOT tested and
-may fail. Use the specific versions shown above.
-
-The compiler uses the following command lines. Where `%ProgramFiles%` is
-the root location of the FreeBASIC installation, and `$SF` is the
-location of the source files and the destination of the compiled
-executable.
-
-For Windows 32 bit
+This is also why the compilation summary’s `Subroutines` line can look
+surprising, for example:
 
 ``` programlisting
-    "%ProgramFiles%\FreeBASIC\win32\fbc.exe"  $SF\gcbasic.bas   -exx -arch 586 -x $SF\gcbasic32.exe
+    Summary:
+         Compiled:
+              Program lines: 2
+              Subroutines:  User: 0 ; System: 1 of 486 ; Total: 1
 ```
 
-For Windows 64 bit
+The `486` is the total number of system Subs/Functions indexed in Step
+3.x for this compile (built-in commands plus whatever the loaded
+libraries define) - not how many were actually used. `System: 1 of 486`
+means only 1 of those 486 indexed routines was actually called by this
+particular two-line program; the rest were indexed (so the compiler
+could recognize a call to any of them) but never referenced, and so
+contribute nothing to the compiled output.  
 
-``` programlisting
-    "%ProgramFiles%\FreeBASIC\win64\fbc.exe"  $SF\gcbasic.bas   -x $SF\gcbasic64.exe -ex
-```
+One direct consequence: because unrecognized lines fall through to
+assembly rather than being rejected outright, GCBASIC’s own compile step
+is not a full syntax check. A line with a typo in an intended command
+name, or a genuine assembly mnemonic used incorrectly, can compile
+without error at the GCBASIC stage and only surface as a failure when
+GCASM, MPASM, PIC-AS, or AVR2ASM actually assembles the generated ASM
+into the HEX file. Treat a successful GCBASIC compile as "no
+unrecognized commands, and everything that looked like assembly was
+valid enough to pass through" - the true syntax check is the assembler
+step that follows.  
 
-Linux, FreeBSD, and Pi OS are also supported. Please see [Online
-Help](https://gcbasic.sourceforge.net/help/) and search for the specific
-operating system.
+Note \#5: Step 3.xvii (`ExpandShifts`) is also where the compiler
+enforces a hard limit on bitwise-comparison complexity - a line
+combining more than two AND/OR operations is rejected with "More than
+two AND/OR statements - reduce complexity." This is not an arbitrary
+restriction the current team could simply lift; see
+<a href="historical_design_constraints" class="link" title="Historical Design Constraints">Historical Design Constraints</a>
+below for why.  
 
-  
-  
-
-<span class="strong">**FreeBASIC COMPILER TOOLCHAIN**</span>
-
-To simplify the establishment of a development environment, download a
-complete installation from
-[here](https://sourceforge.net/projects/gcbasic/files/Support%20Files/GCBASICWindowsToolchain/FreeBASIC.zip/download).
-This includes the correct version of FreeBASIC and the libraries - all
-ready for use. Simply unzip the ZIP to a folder, and the toolchain is
-ready for use. For an IDE, please see the information above.
-
-  
-  
-
-<span class="strong">**BUILDING THE GCBASIC EXECUTABLE USING THE FBEDIT
-IDE**</span>
-
-To build GCBASIC from the source files. The list shows the installation
-of the FBEdit IDE.
-
-Complete the following:
-
-``` programlisting
-        1. Download and install FreeBASIC from the url shown above.
-        2. Download and install fbedit from https://sourceforge.net/projects/fbedit/?source=dlp[SourceForge]
-        3. Download the GCBASIC source using SVN into a gcbasic source folder.
-        4. Run fbedit (installed at step #2).  Load project  GCBASIC.fbp  from the GCBASIC source folder.
-        5. Hit <f5> to compile.
-```
-
-  
-  
-
-<span class="strong">**CODING STYLES**</span>
-
-Remember, Hugh was 12 when he started this project. You must forgive him
-for being a genius, but he did not implement many programming styles and
-conventions that are commonplace today.
-
-There is a general lack of documentation. We are adding documentation as
-we progress. This can make the source frustrating initially, but you can
-find the code segments, as they are clearly within method blocks.
-
-The following rules are recommended.
-
-``` programlisting
-    1. All CONSTANTS are capitalized
-    2. Do not use TAB - use two spaces
-    3. You can rename a variable to a meaningful name.  Hugh used a lot of single character variables many years ago.  This should be avoided in new code.
-    4. Document as you progress.
-    5. Ask for help.
-```
-
-  
+Note \#6: Step 3.i (loading of all source files) is implemented in
+`preprocessor.bi`, not `gcbasic.bas` itself. It first resolves every
+explicit `#include` in the user’s own program, and every `#include`
+found inside those files in turn, repeating until a pass discovers no
+new files. Only once that is exhausted does it load `lowlevel.dat`: it
+opens `include\lowlevel.dat` (the extension is normally `.dat`, but can
+be overridden with `overridelowleveldatfileextextension` for testing),
+reads it one line at a time, skips comment lines (starting with `'`),
+and for every other line builds the path `include\lowlevel\<filename>`
+and adds that file to the source-file list with `SystemInclude = -1`,
+unless it is already loaded or listed in the compiler’s ignore-file
+list. This means every file `lowlevel.dat` names - `usart.h`, `hwspi.h`,
+`string.h`, and the rest - is loaded into every single compile
+unconditionally; there is no check here for whether the user actually
+defined `USART_BAUD_RATE` or any other enabling constant. It is the
+conditional-compilation guards inside each of those header files (their
+own `#IF`/`#IFDEF` checks against the user’s constants) that decide
+whether any of the loaded code actually ends up in the compiled program.
+This is also why a command like `HSerSend` needs no explicit `#include`:
+`usart.h` is already loaded by the time the user’s program is compiled,
+purely because it is listed in `lowlevel.dat`. If one of these listed
+files cannot be found on disk - a broken or incomplete installation -
+the compiler reports it immediately with "Essential file missing" and
+stops, naming the missing file, rather than silently continuing without
+it (see
+<a href="constraints_and_error_messages_overview" class="link" title="Constraints and Error Messages Overview">Constraints and Error Messages</a>).  
 
 </div>

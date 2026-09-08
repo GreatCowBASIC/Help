@@ -134,6 +134,20 @@ This fails, as the function will not be called:
   
   
 
+Keep bitwise comparisons simple: a single condition can combine at most
+two `AND`/`OR` operations. A condition combining more than two will fail
+to compile with "More than two AND/OR statements - reduce complexity."
+Split the comparison across two or more lines/statements instead.  
+  
+Similarly, comparing more than one system-generated bit variable
+together with relational operators or braces in the same condition can
+silently produce a wrong result, and triggers the warning "Potential
+invalid BIT comparison error when using complex Bitwise logic." Keep
+this style of comparison to one bit variable at a time. The warning can
+be silenced with `#DEFINE DISABLE1173`, but silencing it does not fix
+the underlying risk of an incorrect comparison.  
+  
+
 <span class="strong">**See Also:**</span>
 
 <div class="itemizedlist">
@@ -144,6 +158,11 @@ This fails, as the function will not be called:
     to loop, as in the examples above
 -   <a href="hserreceive" class="link" title="HSerReceive">HSerReceive</a> — the
     function used in the worked example
+-   <a href="constraints_and_error_messages_overview" class="link" title="Constraints and Error Messages Overview">Constraints and Error Messages</a> — the
+    full list of compiler constraints and error messages, including the
+    AND/OR and bit-comparison limits above
+-   <a href="performance_overview" class="link" title="Performance Overview">Performance</a> — why
+    nested If can outperform a combined And/Or condition
 
 </div>
 

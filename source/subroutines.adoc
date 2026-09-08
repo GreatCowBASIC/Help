@@ -46,14 +46,21 @@ location before it jumps to a new subroutine. Some GCBASIC commands are
 subroutines, so you should always allow for 2 or 3 more subroutine calls
 than your program has.
 
-On 16F chips, program memory is divided into pages. Each page holds 2048 instructions.
-If the program jumps from code on one page to code on another, the compiler has to select the new page.
-Having to do this makes the program bigger, so try to avoid it.
-To keep jumps between pages down, GCBASIC imposes a rule that each subroutine must be entirely within one page, so that only jumps to other subroutines require the page selection.
-As an example, say you have two pages of memory, each 2048 instructions (words) long. +
-If you have a main sub that is 1500 words, and four other subroutines each 600 words long, your total program size would be 3900 words, and you might expect it to fit into the 4096 words available.
-The problem, though, is that once the main routine takes 1500 words from page 1, nothing else will fit after it. Three of the 600-word subroutines would fit onto page 2, but that leaves one 600-word subroutine that will not fit into the 500 left on page 1 or the 200 left on page 2.
-If you want to reduce the chance of this happening, the best option is to keep your subroutines smaller - move anything out of the main routine and into another one - this will resolve memory page constraints.
+On baseline and mid-range PIC chips (the 10F/12F/14F/16F families - 12-bit and
+14-bit core), program memory is divided into pages, each holding 2048 instructions.
+This does not apply to 18F/18C chips or to AVR chips, which do not have this
+page-packing restriction at all. If the program jumps from code on one page to code
+on another, the compiler has to select the new page. Having to do this makes the
+program bigger, so try to avoid it. To keep jumps between pages down, GCBASIC imposes
+a rule that each subroutine must be entirely within one page, so that only jumps to
+other subroutines require the page selection.
+
+This is not only a Subroutines topic: Functions, the main body of the program, and
+the interrupt handler are all packed into pages the same way, and the main body and
+interrupt handler are always pinned to the first page. See
+<<_program_memory_pages,Program Memory Pages>> for the full explanation, including
+what always goes on page 0 and how to avoid a "First page of program memory is full"
+error.
 
 Atmel AVR microcontrollers have no fixed limit on how many subroutines can be
 called at a time, but if too many are called, some variables on the
@@ -207,6 +214,8 @@ no value needs to be specified. If they are at the start or in the
 middle, then you must insert commas to allow GCBASIC to tell where the
 optional parameters are.
 
+A subroutine call can have at most 50 parameters; a call with more fails to compile with "Maximum number of parameters (50) exceeded."
+
 *Overloading*
 
 It is possible to have 2 subroutines with the same name, but different
@@ -238,7 +247,20 @@ used:
 the byte print will be used. This is because byte is the closest type to
 the single-bit parameter.
 
+A single-character string literal, such as `"R"`, can be passed to whichever
+overload fits best: it matches a `String` parameter (as a one-character
+string) and equally matches a `Byte` or `Bit` parameter (as its ASCII value),
+the same way `Dim x As Byte = "R"` already works. If none of the overloads of
+a subroutine or function fit the arguments given at all -- for example,
+passing a multi-character string where every overload expects a number --
+the call fails to compile with "No matching overload found for `_name_` with
+these argument types."
+
 **See Also:**
 
 * <<_functions,Functions>> -- the value-returning counterpart to subroutines
 * <<_exit,Exit>> -- exiting a subroutine or function early
+* <<_constraints_and_error_messages_overview,Constraints and Error Messages>> -- the full list of compiler constraints and error messages, including the parameter-count limit above
+* <<_program_memory_pages,Program Memory Pages>> -- the full explanation of page 0 and how to avoid a full-first-page error
+* <<_on_interrupt,On Interrupt>> -- writing the interrupt handler that shares page 0 with the main body
+* <<_performance_overview,Performance>> -- the NOCONTEXTSAVE trade-off mentioned above, and other performance guidance

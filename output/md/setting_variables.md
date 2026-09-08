@@ -156,9 +156,16 @@ remainder of the division.  However the following simple rules apply.
 
 </div>
 
-If you prefer, you can add `Let` to the start of the line.   It will not
-alter the execution of the program, but is included for those who are
-used to including it in other BASIC dialects.  
+If you prefer, you can add
+<a href="let" class="link" title="Let"><code class="literal">Let</code></a>
+to the start of the line.   It will not alter the execution of the
+program, but is included for those who are used to including it in other
+BASIC dialects.  
+Keep any single calculation reasonably short: a calculation can have at
+most 40 elements (operators and operands combined). A calculation with
+more than 40 elements fails to compile with "TYPECHECKSIZE exceed -
+reduce complexity." Break a long calculation into two or more steps
+using intermediate variables instead.  
   
 
 <span class="strong">**Example:**</span>
@@ -283,6 +290,11 @@ string mix control codes and printable text in one assignment.
     \_E \` suffixes
 -   <a href="dim" class="link" title="Dim">Dim</a> — declaring the
     variables being set here
+-   <a href="let" class="link" title="Let">Let</a> — the optional,
+    no-effect `Let` prefix for this same assignment syntax
+-   <a href="constraints_and_error_messages_overview" class="link" title="Constraints and Error Messages Overview">Constraints and Error Messages</a> — the
+    full list of compiler constraints and error messages, including the
+    calculation-complexity limit above
 
 </div>
 

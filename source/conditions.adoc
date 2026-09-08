@@ -143,8 +143,17 @@ This fails, as the function will not be called:
 {empty} +
 {empty} +
 
+Keep bitwise comparisons simple: a single condition can combine at most two `AND`/`OR` operations. A condition combining more than two will fail to compile with "More than two AND/OR statements - reduce complexity." Split the comparison across two or more lines/statements instead.
+{empty} +
+{empty} +
+Similarly, comparing more than one system-generated bit variable together with relational operators or braces in the same condition can silently produce a wrong result, and triggers the warning "Potential invalid BIT comparison error when using complex Bitwise logic." Keep this style of comparison to one bit variable at a time. The warning can be silenced with `#DEFINE DISABLE1173`, but silencing it does not fix the underlying risk of an incorrect comparison.
+{empty} +
+{empty} +
+
 **See Also:**
 
 * <<_if,If>> -- using conditions to branch
 * <<_do,Do>> -- using conditions to loop, as in the examples above
 * <<_hserreceive,HSerReceive>> -- the function used in the worked example
+* <<_constraints_and_error_messages_overview,Constraints and Error Messages>> -- the full list of compiler constraints and error messages, including the AND/OR and bit-comparison limits above
+* <<_performance_overview,Performance>> -- why nested If can outperform a combined And/Or condition

@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2026-09-06</date>
+<date>2026-09-07</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team. Copyright 2005 - 2026</firstname>
@@ -5511,6 +5511,12 @@ NOT, AND, OR, and XOR will not work with them.</simpara>
     Loop While HSerReceive &lt;&gt; 62</programlisting>
 <simpara><?asciidoc-br?>
 <?asciidoc-br?></simpara>
+<simpara>Keep bitwise comparisons simple: a single condition can combine at most two <literal>AND</literal>/<literal>OR</literal> operations. A condition combining more than two will fail to compile with "More than two AND/OR statements - reduce complexity." Split the comparison across two or more lines/statements instead.
+<?asciidoc-br?>
+<?asciidoc-br?>
+Similarly, comparing more than one system-generated bit variable together with relational operators or braces in the same condition can silently produce a wrong result, and triggers the warning "Potential invalid BIT comparison error when using complex Bitwise logic." Keep this style of comparison to one bit variable at a time. The warning can be silenced with <literal>#DEFINE DISABLE1173</literal>, but silencing it does not fix the underlying risk of an incorrect comparison.
+<?asciidoc-br?>
+<?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -5521,6 +5527,12 @@ NOT, AND, OR, and XOR will not work with them.</simpara>
 </listitem>
 <listitem>
 <simpara><link linkend="_hserreceive">HSerReceive</link>&#8201;&#8212;&#8201;the function used in the worked example</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_constraints_and_error_messages_overview">Constraints and Error Messages</link>&#8201;&#8212;&#8201;the full list of compiler constraints and error messages, including the AND/OR and bit-comparison limits above</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_performance_overview">Performance</link>&#8201;&#8212;&#8201;why nested If can outperform a combined And/Or condition</simpara>
 </listitem>
 </itemizedlist>
 </section>
@@ -5629,6 +5641,7 @@ put the value into the line of code in place of the variable.</simpara>
 <simpara>Functions may have parameters - these are treated in exactly the
 same way as parameters for subroutines.
 The only exception is that brackets are required around any parameters when calling a function. The argument&#8217;s type is given by "As type" following the parameter. If a parameter in the declaration is given a default value, the parameter is optional. Array parameters are specified by following an identifier with an empty set of parentheses.</simpara>
+<simpara>A function call can have at most 50 parameters; a call with more fails to compile with "Maximum number of parameters (50) exceeded."</simpara>
 <simpara>Returning values: <literal>return_type</literal> specifies the data type returned by a function upon exit. If no data type is specified, then the function will return the default data type, which is a byte.
 Functions return values by assigning the Function keyword, or the function&#8217;s <literal>identifier</literal>, to the desired return value; this assignment does not cause the function to exit, however.</simpara>
 <simpara>Since functions return values, function calls evaluate to expressions. Thus, function calls can be made wherever an expression is expected, such as in assignments or If statements. Parentheses surrounding the argument list are required on function calls in expressions, and are highly recommended even if there are no arguments.</simpara>
@@ -5667,6 +5680,12 @@ readings, and then make a decision based on the average:</simpara>
 </listitem>
 <listitem>
 <simpara><link linkend="_exit">Exit</link>&#8201;&#8212;&#8201;exiting a function or subroutine early</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_program_memory_pages">Program Memory Pages</link>&#8201;&#8212;&#8201;how Functions are packed into program memory pages, and the errors that result if they do not fit</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_constraints_and_error_messages_overview">Constraints and Error Messages</link>&#8201;&#8212;&#8201;the full list of compiler constraints and error messages, including the parameter-count limit above</simpara>
 </listitem>
 </itemizedlist>
 </section>
@@ -6100,6 +6119,7 @@ consist of the following commands:</simpara>
     Assignment (=)
     Error
     Warning
+    Info
     Int()</programlisting>
 <simpara><literal>If</literal> is similar to the If command in normal GCBASIC code, except that it does not have an <literal>Else</literal> clause.
 It is used to compare the values of the script constants.</simpara>
@@ -6108,6 +6128,7 @@ The <emphasis>constant</emphasis> that is to be set goes on the left side of the
 <simpara><literal>Error</literal> is used to display an error message.
 Anything after the <literal>Error</literal> command is displayed at the end of compilation, and is saved in the error log for the program.</simpara>
 <simpara><literal>Warning</literal> is used to display a warning message. Anything after the <literal>Warning</literal> command is displayed at the end of compilation, but a warning does not halt compilation.</simpara>
+<simpara><literal>Info</literal> is used to display an informational message. Anything after the <literal>Info</literal> command is displayed at the end of compilation; unlike <literal>Warning</literal>, it is not saved as a warning, and unlike <literal>Error</literal>, it never halts compilation.</simpara>
 <simpara><literal>Int()</literal> calculates the integer value of a calculation. Using <literal>Int()</literal> is critical to set the <emphasis>constant</emphasis> to the integer component of the calculation.</simpara>
 <simpara><emphasis role="strong">Notes:</emphasis></simpara>
 <simpara>Use <literal>Warning</literal> to display constant values when creating and debugging scripts.</simpara>
@@ -6222,14 +6243,20 @@ another sub, which vary from chip to chip:</simpara>
 location before it jumps to a new subroutine. Some GCBASIC commands are
 subroutines, so you should always allow for 2 or 3 more subroutine calls
 than your program has.</simpara>
-<simpara>On 16F chips, program memory is divided into pages. Each page holds 2048 instructions.
-If the program jumps from code on one page to code on another, the compiler has to select the new page.
-Having to do this makes the program bigger, so try to avoid it.
-To keep jumps between pages down, GCBASIC imposes a rule that each subroutine must be entirely within one page, so that only jumps to other subroutines require the page selection.
-As an example, say you have two pages of memory, each 2048 instructions (words) long.<?asciidoc-br?>
-If you have a main sub that is 1500 words, and four other subroutines each 600 words long, your total program size would be 3900 words, and you might expect it to fit into the 4096 words available.
-The problem, though, is that once the main routine takes 1500 words from page 1, nothing else will fit after it. Three of the 600-word subroutines would fit onto page 2, but that leaves one 600-word subroutine that will not fit into the 500 left on page 1 or the 200 left on page 2.
-If you want to reduce the chance of this happening, the best option is to keep your subroutines smaller - move anything out of the main routine and into another one - this will resolve memory page constraints.</simpara>
+<simpara>On baseline and mid-range PIC chips (the 10F/12F/14F/16F families - 12-bit and
+14-bit core), program memory is divided into pages, each holding 2048 instructions.
+This does not apply to 18F/18C chips or to AVR chips, which do not have this
+page-packing restriction at all. If the program jumps from code on one page to code
+on another, the compiler has to select the new page. Having to do this makes the
+program bigger, so try to avoid it. To keep jumps between pages down, GCBASIC imposes
+a rule that each subroutine must be entirely within one page, so that only jumps to
+other subroutines require the page selection.</simpara>
+<simpara>This is not only a Subroutines topic: Functions, the main body of the program, and
+the interrupt handler are all packed into pages the same way, and the main body and
+interrupt handler are always pinned to the first page. See
+<link linkend="_program_memory_pages">Program Memory Pages</link> for the full explanation, including
+what always goes on page 0 and how to avoid a "First page of program memory is full"
+error.</simpara>
 <simpara>Atmel AVR microcontrollers have no fixed limit on how many subroutines can be
 called at a time, but if too many are called, some variables on the
 chip may be corrupted. To check whether there are too many subroutines, work
@@ -6332,6 +6359,7 @@ optional. If the optional parameter(s) are at the end of the call, then
 no value needs to be specified. If they are at the start or in the
 middle, then you must insert commas to allow GCBASIC to tell where the
 optional parameters are.</simpara>
+<simpara>A subroutine call can have at most 50 parameters; a call with more fails to compile with "Maximum number of parameters (50) exceeded."</simpara>
 <simpara><emphasis role="strong">Overloading</emphasis></simpara>
 <simpara>It is possible to have 2 subroutines with the same name, but different
 parameters. This is known as overloading, and GCBASIC will automatically
@@ -6351,6 +6379,13 @@ used:</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    Print PORTB.0</programlisting>
 <simpara>the byte print will be used. This is because byte is the closest type to
 the single-bit parameter.</simpara>
+<simpara>A single-character string literal, such as <literal>"R"</literal>, can be passed to whichever
+overload fits best: it matches a <literal>String</literal> parameter (as a one-character
+string) and equally matches a <literal>Byte</literal> or <literal>Bit</literal> parameter (as its ASCII value),
+the same way <literal>Dim x As Byte = "R"</literal> already works. If none of the overloads of
+a subroutine or function fit the arguments given at all&#8201;&#8212;&#8201;for example,
+passing a multi-character string where every overload expects a number&#8201;&#8212;&#8201;the call fails to compile with "No matching overload found for <literal><emphasis>name</emphasis></literal> with
+these argument types."</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -6358,6 +6393,18 @@ the single-bit parameter.</simpara>
 </listitem>
 <listitem>
 <simpara><link linkend="_exit">Exit</link>&#8201;&#8212;&#8201;exiting a subroutine or function early</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_constraints_and_error_messages_overview">Constraints and Error Messages</link>&#8201;&#8212;&#8201;the full list of compiler constraints and error messages, including the parameter-count limit above</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_program_memory_pages">Program Memory Pages</link>&#8201;&#8212;&#8201;the full explanation of page 0 and how to avoid a full-first-page error</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_on_interrupt">On Interrupt</link>&#8201;&#8212;&#8201;writing the interrupt handler that shares page 0 with the main body</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_performance_overview">Performance</link>&#8201;&#8212;&#8201;the NOCONTEXTSAVE trade-off mentioned above, and other performance guidance</simpara>
 </listitem>
 </itemizedlist>
 </section>
@@ -7176,6 +7223,11 @@ The converter requires the following files - these are included with your instal
 <entry align="left" valign="top"><simpara><link linkend="_hsersend">HSerSend</link></simpara></entry>
 <entry align="left" valign="top"><simpara>Serial Communications</simpara></entry>
 <entry align="left" valign="top"><simpara>HSerSend <emphasis>user_byte</emphasis> [,1|2|3|4] 'Choose comport with optional parameter</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><link linkend="_hsersendbytes">HSerSendBytes</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Serial Communications</simpara></entry>
+<entry align="left" valign="top"><simpara>HSerSendBytes(<emphasis>byte1</emphasis>, <emphasis>byte2</emphasis> [, <emphasis>byte3</emphasis> &#8230;&#8203; up to <emphasis>byte16</emphasis>])</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_hx8347g_controllers">HX8347G Controllers</link></simpara></entry>
@@ -9355,6 +9407,10 @@ The converter requires the following files - these are included with your instal
 <entry align="left" valign="top"><simpara>HSerSend <emphasis>user_byte</emphasis> [,1|2|3|4] 'Choose comport with optional parameter</simpara></entry>
 </row>
 <row>
+<entry align="left" valign="top"><simpara><link linkend="_hsersendbytes">HSerSendBytes</link></simpara></entry>
+<entry align="left" valign="top"><simpara>HSerSendBytes(<emphasis>byte1</emphasis>, <emphasis>byte2</emphasis> [, <emphasis>byte3</emphasis> &#8230;&#8203; up to <emphasis>byte16</emphasis>])</simpara></entry>
+</row>
+<row>
 <entry align="left" valign="top"><simpara><link linkend="_initser">InitSer</link></simpara></entry>
 <entry align="left" valign="top"><simpara>InitSer <emphasis>channel, rate, start, data, stop, parity, invert</emphasis></simpara></entry>
 </row>
@@ -10473,6 +10529,9 @@ holding capacitor remains connected to AD channel from the instant the read is c
 </listitem>
 <listitem>
 <simpara><link linkend="_pwmout">PWMOut</link>&#8201;&#8212;&#8201;a common consumer of a ReadAD reading, as a live duty cycle</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_performance_overview">Performance</link>&#8201;&#8212;&#8201;tuning ADC speed with ADSPEED, and more on ASM-level performance</simpara>
 </listitem>
 <listitem>
 <simpara><link linkend="_wait">Wait</link>&#8201;&#8212;&#8201;pausing between readings, as used in the examples above</simpara>
@@ -13296,6 +13355,9 @@ The block_number parameter is used to calculate the physical memory location(s) 
 <listitem>
 <simpara><link linkend="_dataset_for_eeprom">Dataset for EEPROM</link>&#8201;&#8212;&#8201;the equivalent construct for EEPROM-backed data</simpara>
 </listitem>
+<listitem>
+<simpara><link linkend="_constraints_and_error_messages_overview">Constraints and Error Messages</link>&#8201;&#8212;&#8201;the full list of compiler constraints and error messages, including the DATA block value-size limit above</simpara>
+</listitem>
 </itemizedlist>
 </section>
 <section xml:id="_programerase">
@@ -15424,6 +15486,9 @@ The use of <literal>#DEFINE USELEGACYFORNEXT</literal> is NOT recommended.</simp
 <listitem>
 <simpara><link linkend="_if">If</link>&#8201;&#8212;&#8201;conditionally exiting the loop with <literal>Exit For</literal></simpara>
 </listitem>
+<listitem>
+<simpara><link linkend="_performance_overview">Performance</link>&#8201;&#8212;&#8201;when Repeat is cheaper than For for a fixed count</simpara>
+</listitem>
 </itemizedlist>
 </section>
 <section xml:id="_gosub">
@@ -15633,6 +15698,9 @@ condition is <literal>true</literal>.</simpara>
 <listitem>
 <simpara><link linkend="_readad">ReadAD</link>&#8201;&#8212;&#8201;reading the sensor value tested in the example above</simpara>
 </listitem>
+<listitem>
+<simpara><link linkend="_performance_overview">Performance</link>&#8201;&#8212;&#8201;why nested If can outperform a combined And/Or condition</simpara>
+</listitem>
 </itemizedlist>
 </section>
 <section xml:id="_indcall">
@@ -15780,6 +15848,9 @@ immediately.</simpara>
 <listitem>
 <simpara><link linkend="_do">Do</link>&#8201;&#8212;&#8201;an unbounded loop, for when the iteration count is not known in advance</simpara>
 </listitem>
+<listitem>
+<simpara><link linkend="_performance_overview">Performance</link>&#8201;&#8212;&#8201;why Repeat compiles to less overhead per pass than For for a fixed count</simpara>
+</listitem>
 </itemizedlist>
 </section>
 <section xml:id="_select">
@@ -15816,6 +15887,16 @@ the <literal>End Select</literal> command and continue running the program. If n
 other conditions are true, then the code under the <literal>Case Else</literal> section
 will be run.</simpara>
 <simpara><literal>Case <emphasis>var</emphasis> TO <emphasis>var</emphasis></literal> is a range of values. If the value is within the range the code section will be executed.</simpara>
+<simpara><literal>Case <emphasis>value1</emphasis>, <emphasis>value2</emphasis>, &#8230;&#8203;</literal> is a list of values, separated by commas. If <literal><emphasis>var</emphasis></literal> equals <emphasis role="strong">any</emphasis> of the listed values, that Case&#8217;s code section is run. Values can be numbers, characters, or strings; a single <literal>Case</literal> may list at most 64 values (see <link linkend="_constraints_and_error_messages_overview">Constraints and Error Messages</link>).</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    Select Case Temp
+      Case 0, 1, 2
+        Print "Low"
+      Case 3, 4, 5
+        Print "Medium"
+      Case Else
+        Print "High"
+    End Select</programlisting>
+<simpara><emphasis role="strong">Key line:</emphasis> <literal>Case 0, 1, 2</literal>&#8201;&#8212;&#8201;runs <literal>Print "Low"</literal> if <literal>Temp</literal> is 0, 1, <emphasis role="strong">or</emphasis> 2; only one of the three values needs to match.</simpara>
 <simpara><literal>Case Else</literal> is optional, and the program will function correctly without
 it.</simpara>
 <simpara>If there is only one line of code after the <literal>Case</literal>, the code may look
@@ -15823,8 +15904,7 @@ neater if the line is placed after the <literal>Case</literal>. This is shown be
 example, for cases 3, 4 and 5.</simpara>
 <simpara>It is important to note that <emphasis role="strong">only one section of code will be run</emphasis> when
 using <literal>Select Case</literal>.</simpara>
-<simpara>There are two examples shown below.</simpara>
-<simpara><emphasis role="strong">Example 1:</emphasis></simpara>
+<simpara><emphasis role="strong">Example:</emphasis></simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    'Program to read a value from a potentiometer, and display a
     'different word based on the result
 
@@ -15861,170 +15941,6 @@ using <literal>Select Case</literal>.</simpara>
       Wait 250 ms
     Loop</programlisting>
 <simpara><emphasis role="strong">Key line:</emphasis> <literal>Select Case Temp</literal>&#8201;&#8212;&#8201;only the single <literal>Case</literal> branch matching <literal>Temp</literal> runs, then execution continues after <literal>End Select</literal>.</simpara>
-<simpara><emphasis role="strong">Example 2:</emphasis></simpara>
-<simpara>This code demonstrates how to receive codes from a handheld remote
-control unit. This has been tested and supports a Sony TV remote and
-also a universal remote set to Sony TV mode.</simpara>
-<simpara>The program gets both the device number and the key number, and also
-translates the key number to English. The received results are displayed
-on an LCD.</simpara>
-<simpara>The circuit for the IR receiver and the chip is shown below.</simpara>
-<screen>    'A program to receive IR codes sent by a Sony
-    'compatible handheld remote control.
-
-    #chip 16F88, 8                    'PIC16F88 running at 8 MHz
-    #config mclr=off                  'reset handled internally
-
-    '----- Constants
-
-    #define LCD_IO      4             '4-bit mode
-    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
-    #define LCD_RS      PortB.2       'pin 8 is Register Select
-    #define LCD_ENABLE  PortB.3       'pin 9 is Enable
-    #define LCD_DB4     PortB.4       'DB4 on pin 10
-    #define LCD_DB5     PortB.5       'DB5 on pin 11
-    #define LCD_DB6     PortB.6       'DB6 on pin 12
-    #define LCD_DB7     PortB.7       'DB7 on pin 13
-    #define LCD_NO_RW                 'ground RW line on LCD
-    #define IR          PortA.0       'sensor on pin 17
-
-    '----- Variables
-
-    dim device, cmd, count, i as byte
-    dim pulse(12)                     'pulse count array
-    dim button as string              'ASCII for button label
-
-    '----- Program
-
-    dir PortA in                      'A.0 is IR input
-    dir PortB out                     'B.2 - B.6 for LCD
-
-    cls                               'clear the LCD
-    print "Dev:    Cmd:"              'logo for top line
-    locate 1,0
-    print "Button:"                   'logo for second line
-
-    do
-      getIR, cmd                      'wait for IR signal
-      printCmd                        'show device and command
-      printKey                        'show key label
-      wait 10 mS                      'ignore any repeats
-    loop                              'repeat forever
-
-    '----- Subroutines
-
-    sub getIR
-      tarry1:
-        count = 0                     'wait for start bit
-        do while IR = 0               'measure width (active low)
-          wait 100 uS                 '24 X 100 uS = 2.4 mS
-          count += 1
-        loop
-      if count &lt; 20 then goto tarry1  'less than this so wait
-
-      for i=1 to 12                   'read/store the 12 pulses
-        tarry2:
-          count = 0
-          do while IR = 0             'zero = 6 units = 0.6 mS
-            wait 100 uS               'one = 12 units = 1.2 mS
-            count += 1
-          loop
-        if count &lt; 4 then goto tarry2 'too small to be legit
-        pulse(i) = count              'else store pulse width
-      next
-
-      cmd = 0                         'command built up here
-      for i = 1 to 7                  '1st seven bits are the cmd
-        cmd = cmd / 2                 'shift into place
-        if pulse(i) &gt; 10 then         'longer than 10 mS
-           cmd = cmd + 64             'so call it a one
-        end if
-      next
-
-      device = 0                      'device number built up here
-      for i=8 to 12                   'next 5 bits are device number
-        device = device / 2
-        if pulse(i) &gt; 10 then
-           device = device + 16
-        end if
-      next
-    end sub
-
-    sub printCmd            'print device number
-      locate 0,5
-      print "   "
-      locate 0,5
-      print device
-
-      locate 0,13           'print raw command number
-      print "   "
-      locate 0,13
-      print cmd
-    end sub
-
-    sub PrintKey            'print translated button
-      locate 1,9
-      print "       "
-      locate 1,9
-
-      select case cmd       'translate command code
-        case 0
-          button = "One"
-        case 1
-          button = "Two"
-        case 2
-          button = "Three"
-        case 3
-          button = "Four"
-        case 4
-          button = "Five"
-        case 5
-          button = "Six"
-        case 6
-          button = "Seven"
-        case 7
-          button = "Eight"
-        case 8
-          button = "Nine"
-        case 9
-          button = "Zero"
-        case 10
-          button = "#####"
-        case 11
-          button = "Enter"
-        case 12
-          button = "#####"
-        case 13
-          button = "#####"
-        case 14
-          button = "#####"
-        case 15
-          button = "#####"
-        case 16
-          button = "Chan+"
-        case 17
-          button = "Chan-"
-        case 18
-          button = "Vol+"
-        case 19
-          button = "Vol-"
-        case 20
-          button = "Mute"
-        case 21
-          button = "Power"
-        case else
-          button = "     "
-      end select
-      print button
-    end sub</screen>
-<informalfigure>
-<mediaobject>
-<imageobject>
-<imagedata fileref="./images/selectb1.PNG" align="center"/>
-</imageobject>
-<textobject><phrase>graphic</phrase></textobject>
-</mediaobject>
-</informalfigure>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -16041,6 +15957,9 @@ on an LCD.</simpara>
 </listitem>
 <listitem>
 <simpara><link linkend="_print">Print</link>&#8201;&#8212;&#8201;displaying the selected branch&#8217;s text, as used in Example 1</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_constraints_and_error_messages_overview">Constraints and Error Messages</link>&#8201;&#8212;&#8201;the 64-value Case list limit, and other compiler constraints</simpara>
 </listitem>
 </itemizedlist>
 </section>
@@ -17267,6 +17186,12 @@ the handler.</simpara></entry>
 </listitem>
 <listitem>
 <simpara><link linkend="_inittimer1">InitTimer1</link>&#8201;&#8212;&#8201;configuring Timer1, as used in Example 1 above</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_performance_overview">Performance</link>&#8201;&#8212;&#8201;how the order you check interrupt causes in affects latency</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_program_memory_pages">Program Memory Pages</link>&#8201;&#8212;&#8201;why the interrupt handler is always pinned to page 0, and how to avoid a full-first-page error</simpara>
 </listitem>
 </itemizedlist>
 </section>
@@ -39562,6 +39487,18 @@ user_byte_variable = <literal>HSerReceiveFrom</literal> (2)</simpara></entry>
 </simpara><simpara><literal>HSerSend</literal> ( user_byte, 2 )</simpara></entry>
 </row>
 <row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Serially send 2 to 16 bytes in a single call, using the default usart port.</emphasis></simpara></entry>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>HSerSendBytes</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>byte1, byte2 [, byte3 &#8230;&#8203; up to byte16]</simpara></entry>
+<entry align="left" valign="top"><simpara>This subroutine sends each byte in turn, in the order given, using the same enabling constants as <literal>HSerSend</literal>. There is no usart-address parameter; it always sends on the default/currently configured usart.
+</simpara><simpara>To send three bytes on the default usart
+</simpara><simpara><literal>HSerSendBytes</literal> ( byte1, byte2, byte3 )</simpara></entry>
+</row>
+<row>
 <entry align="left" valign="top"><simpara><emphasis role="strong">Serially send a byte and a CR&amp;LF using any of the usart ports</emphasis></simpara></entry>
 <entry align="left" valign="top"></entry>
 <entry align="left" valign="top"></entry>
@@ -40332,6 +40269,7 @@ Atmel AVR supports USART 1,2,3 and 4.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara>This command will send a byte given by <emphasis>user_byte</emphasis> using the hardware RS232
 module.</simpara>
+<simpara>To send several bytes in one call, see <link linkend="_hsersendbytes">HSerSendBytes</link>.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">  'This program will send the status of PORTB through the hardware
   'serial module.
@@ -40362,10 +40300,66 @@ module.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
+<simpara><link linkend="_hsersendbytes">HSerSendBytes</link>&#8201;&#8212;&#8201;sending 2 to 16 bytes in a single call</simpara>
+</listitem>
+<listitem>
 <simpara><link linkend="_hserprint">HSerPrint</link>&#8201;&#8212;&#8201;sending a string, integer, word, or long, rather than a single raw byte</simpara>
 </listitem>
 <listitem>
 <simpara><link linkend="_hserreceive">HSerReceive</link>&#8201;&#8212;&#8201;the receiving counterpart to HSerSend</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_dir">Dir</link>&#8201;&#8212;&#8201;setting the pin directions before sending, as used above</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_hsersendbytes">
+<title>HSerSendBytes</title>
+<simpara><indexterm>
+<primary>Serial Communications</primary><secondary>HSerSendBytes</secondary>
+</indexterm>
+<indexterm>
+<primary>HSerSendBytes</primary>
+</indexterm></simpara>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    HSerSendBytes(<emphasis>byte1</emphasis>, <emphasis>byte2</emphasis> [, <emphasis>byte3</emphasis> ... up to <emphasis>byte16</emphasis>])</screen>
+<simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
+<simpara>Available anywhere <link linkend="_hsersend">HSerSend</link> is available, once <literal>usart.h</literal> has been loaded.</simpara>
+<simpara><emphasis role="strong">Enabling Constants:</emphasis></simpara>
+<simpara>The same enabling constants as <link linkend="_hsersend">HSerSend</link> apply.</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    'USART settings for USART1
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF</programlisting>
+<simpara><emphasis role="strong">Explanation:</emphasis></simpara>
+<simpara><literal>HSerSendBytes</literal> sends between 2 and 16 bytes in a single call, in the order
+given, instead of writing one <literal>HSerSend</literal> call per byte. Each byte is sent to
+the default or currently configured comport; there is no comport argument,
+so a byte that must go to a specific comport should still be sent with
+<literal>HSerSend(<emphasis>user_byte</emphasis>, <emphasis>comport</emphasis>)</literal>.</simpara>
+<simpara><emphasis role="strong">Example:</emphasis></simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #chip 16F877A, 20
+
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF
+
+    Dir PORTC.6 Out
+
+    Do
+      HSerSendBytes(1, 2, 3)   ' &lt;&lt;&lt; the HSerSendBytes instruction
+      HSerSend(13)             ' sends a CR
+      Wait 100 ms
+    Loop</programlisting>
+<simpara><emphasis role="strong">Key line:</emphasis> <literal>HSerSendBytes(1, 2, 3)</literal>&#8201;&#8212;&#8201;sends the three bytes <literal>1</literal>, <literal>2</literal> and
+<literal>3</literal>, in that order, in a single call.</simpara>
+<simpara><emphasis role="strong">See Also:</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><link linkend="_hsersend">HSerSend</link>&#8201;&#8212;&#8201;sending a single byte, or a byte to a specific comport</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_hserprint">HSerPrint</link>&#8201;&#8212;&#8201;sending a string, integer, word, or long, rather than raw bytes</simpara>
 </listitem>
 <listitem>
 <simpara><link linkend="_dir">Dir</link>&#8201;&#8212;&#8201;setting the pin directions before sending, as used above</simpara>
@@ -48774,7 +48768,9 @@ There are several modes in which variables can be set. GCBASIC will automaticall
 <?asciidoc-br?></simpara>
 </listitem>
 </itemizedlist>
-<simpara>If you prefer, you can add <literal>Let</literal> to the start of the line. &#160;&#160;It will not alter the execution of the program, but is included for those who are used to including it in other BASIC dialects.
+<simpara>If you prefer, you can add <link linkend="_let"><literal>Let</literal></link> to the start of the line. &#160;&#160;It will not alter the execution of the program, but is included for those who are used to including it in other BASIC dialects.
+<?asciidoc-br?>
+Keep any single calculation reasonably short: a calculation can have at most 40 elements (operators and operands combined). A calculation with more than 40 elements fails to compile with "TYPECHECKSIZE exceed - reduce complexity." Break a long calculation into two or more steps using intermediate variables instead.
 <?asciidoc-br?>
 <?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
@@ -48857,6 +48853,38 @@ This example shows how the error handler compares to not have the <literal>[cans
 </listitem>
 <listitem>
 <simpara><link linkend="_dim">Dim</link>&#8201;&#8212;&#8201;declaring the variables being set here</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_let">Let</link>&#8201;&#8212;&#8201;the optional, no-effect <literal>Let</literal> prefix for this same assignment syntax</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_constraints_and_error_messages_overview">Constraints and Error Messages</link>&#8201;&#8212;&#8201;the full list of compiler constraints and error messages, including the calculation-complexity limit above</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_let">
+<title>Let</title>
+<simpara><indexterm>
+<primary>Variables Operations</primary><secondary>Let</secondary>
+</indexterm>
+<indexterm>
+<primary>Let</primary>
+</indexterm></simpara>
+<simpara><?asciidoc-br?>
+<emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    Let <emphasis>Variable</emphasis> = <emphasis>data</emphasis></screen>
+<simpara><?asciidoc-br?>
+<emphasis role="strong">Explanation:</emphasis>
+<?asciidoc-br?>
+If you prefer, you can add <literal>Let</literal> to the start of a <link linkend="_setting_variables">variable assignment</link>. &#160;&#160;It will not alter the execution of the program, but is included for those who are used to including it in other BASIC dialects.
+<?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">Example:</emphasis></simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    Let Chipmunk = 46    'Identical to: Chipmunk = 46</programlisting>
+<simpara><emphasis role="strong">See Also:</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><link linkend="_setting_variables">Setting Variables</link>&#8201;&#8212;&#8201;the assignment syntax <literal>Let</literal> is an optional prefix for</simpara>
 </listitem>
 </itemizedlist>
 </section>
@@ -49001,6 +49029,9 @@ Available on all microcontrollers.</simpara>
 </listitem>
 <listitem>
 <simpara><link linkend="_constants">Constants</link>&#8201;&#8212;&#8201;fixed, named values as an alternative to a variable</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_performance_overview">Performance</link>&#8201;&#8212;&#8201;using Alias to remove runtime addressing cost</simpara>
 </listitem>
 <listitem>
 <simpara><link linkend="_rotate">Rotate</link>&#8201;&#8212;&#8201;bit-rotating a declared variable&#8217;s value</simpara>
@@ -49524,6 +49555,9 @@ Use <literal>Set C Off</literal> before using the <literal>Rotate</literal> comm
 </listitem>
 <listitem>
 <simpara><link linkend="_set">Set</link>&#8201;&#8212;&#8201;clearing the STATUS.C / carry flag before rotating, as recommended above</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_performance_overview">Performance</link>&#8201;&#8212;&#8201;using Rotate to replace a runtime division by a power of two</simpara>
 </listitem>
 </itemizedlist>
 </section>
@@ -53193,6 +53227,41 @@ This example will generate the following in the ASM source file.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
+<simpara><link linkend="_asm">Asm</link>&#8201;&#8212;&#8201;the equivalent command that substitutes GCBASIC constants before inserting the line</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_compiler_insights">Compiler Insights</link>&#8201;&#8212;&#8201;forcing regular (non-raw) assembly comments into the ASM output</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_asm">
+<title>Asm</title>
+<simpara><indexterm>
+<primary>Compiler Directives</primary><secondary>Asm</secondary>
+</indexterm>
+<indexterm>
+<primary>Asm</primary>
+</indexterm></simpara>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    Asm [label]
+    Asm [Mnemonics | Directives | Macros] [Operands] ['comments]</screen>
+<simpara><emphasis role="strong">Explanation:</emphasis></simpara>
+<simpara><literal>Asm</literal> inserts a single line of raw assembly into the generated ASM source, in the same way as <link linkend="__asmraw">#asmraw</link> - but with one key difference: <literal>Asm</literal> first replaces any GCBASIC constant (from <literal>#define</literal>, <literal>#script</literal>, or a system constant) found on the line with its value, exactly as it would in ordinary GCBASIC source. <literal>#asmraw</literal> does not do this - it inserts the line completely unchanged, with only leading/trailing whitespace trimmed.</simpara>
+<simpara>Use <literal>Asm</literal> whenever the assembly line needs to reference a GCBASIC-defined constant. Use <literal>#asmraw</literal> when the line must be passed to the assembler exactly as written, with no substitution.</simpara>
+<simpara><?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">Example</emphasis></simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #define MY_DELAY_COUNT 200
+
+    Asm movlw MY_DELAY_COUNT          ' &lt;&lt;&lt; MY_DELAY_COUNT is replaced with 200 before this line reaches the assembler
+    #asmraw movlw MY_DELAY_COUNT      ' &lt;&lt;&lt; inserted unchanged; the assembler will not recognize MY_DELAY_COUNT</programlisting>
+<simpara><emphasis role="strong">Key line:</emphasis> <literal>Asm movlw MY_DELAY_COUNT</literal>&#8201;&#8212;&#8201;because this is <literal>Asm</literal>, not <literal>#asmraw</literal>, GCBASIC substitutes the constant&#8217;s value before writing the line, producing <literal>movlw 200</literal> in the ASM output; the <literal>#asmraw</literal> line below it is written out verbatim and will fail to assemble.</simpara>
+<simpara><emphasis role="strong">See Also:</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><link linkend="__asmraw">#asmraw</link>&#8201;&#8212;&#8201;the equivalent directive that inserts a line with no constant substitution</simpara>
+</listitem>
+<listitem>
 <simpara><link linkend="_compiler_insights">Compiler Insights</link>&#8201;&#8212;&#8201;forcing regular (non-raw) assembly comments into the ASM output</simpara>
 </listitem>
 </itemizedlist>
@@ -53374,6 +53443,8 @@ If you set the internal oscillator to 4 MHz, a "wait 1 ms" will still be 1 ms.</
 <screen>    #config <emphasis>option1</emphasis>, <emphasis>option2</emphasis>, ... , <emphasis>optionN</emphasis></screen>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara>The <literal>#config</literal> directive is used to specify configuration options for the chip. There is a detailed explanation of <literal>#config</literal> in the <link linkend="_configuration">Configuration</link> section of the help.</simpara>
+<simpara><emphasis role="strong">XC8-style <literal>#pragma config</literal> syntax:</emphasis></simpara>
+<simpara>For compatibility with source ported from Microchip&#8217;s XC8 compiler, GCBASIC also accepts <literal>#pragma config <emphasis>option1</emphasis>, <emphasis>option2</emphasis>, &#8230;&#8203; , <emphasis>optionN</emphasis></literal>. The preprocessor rewrites any line starting with <literal>#pragma config</literal> (case-insensitive) directly into an equivalent <literal>#config</literal> line before compilation, so the two forms are interchangeable and <literal>#pragma config</literal> options follow the same rules as <literal>#config</literal> above.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -57264,6 +57335,1333 @@ Complete the following steps to compile and install GCBASIC for Linux:</simpara>
 </itemizedlist>
 </section>
 </section>
+<section xml:id="_constraints_and_error_messages">
+<title>Constraints and Error Messages</title>
+<simpara>This is the Constraints and Error Messages section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</simpara>
+<section xml:id="_constraints_and_error_messages_overview">
+<title>Constraints and Error Messages Overview</title>
+<simpara><indexterm>
+<primary>Constraints and Error Messages</primary><secondary>Constraints and Error Messages Overview</secondary>
+</indexterm>
+<indexterm>
+<primary>Constraints and Error Messages Overview</primary>
+</indexterm></simpara>
+<simpara><emphasis role="strong">About this page</emphasis></simpara>
+<simpara>This page collects two things in one place: structural limits built into the compiler
+that no amount of correct-looking code can work around (<emphasis role="strong">Constraints</emphasis>), and the
+compiler&#8217;s error messages with a plain-language recommendation for fixing each one
+(<emphasis role="strong">Error Messages</emphasis>). If a message that has been encountered is not listed here, it is
+very likely a normal syntax error (a missing <literal>Then</literal>, a mismatched bracket, an
+undeclared variable) rather than a structural limit - re-check the line the compiler
+points to.</simpara>
+<simpara><emphasis role="strong">Constraints</emphasis></simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="37*"/>
+<colspec colname="col_3" colwidth="37*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Constraint</entry>
+<entry align="left" valign="top">Limit</entry>
+<entry align="left" valign="top">Notes</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Bitwise AND/OR complexity</simpara></entry>
+<entry align="left" valign="top"><simpara>At most two <literal>AND</literal>/<literal>OR</literal> operations combined in one condition</simpara></entry>
+<entry align="left" valign="top"><simpara>More than two fails with "More than two AND/OR statements - reduce complexity." Split the comparison across two or more lines. See <link linkend="_conditions">Conditions</link>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Bitwise comparisons using multiple system bit variables</simpara></entry>
+<entry align="left" valign="top"><simpara>Combining more than one system-generated bit variable with relational operators or braces in one comparison</simpara></entry>
+<entry align="left" valign="top"><simpara>Risks a silently wrong result; warns "Potential invalid BIT comparison error when using complex Bitwise logic." Suppressible with <literal>#DEFINE DISABLE1173</literal>, which does not fix the underlying risk. See <link linkend="_conditions">Conditions</link>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Calculation complexity</simpara></entry>
+<entry align="left" valign="top"><simpara>At most 40 elements (operators and operands combined) in one calculation</simpara></entry>
+<entry align="left" valign="top"><simpara>Fails with "TYPECHECKSIZE exceed - reduce complexity." Break the calculation into steps using intermediate variables. See <link linkend="_setting_variables">Setting Variables</link>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Sub/Function parameter count</simpara></entry>
+<entry align="left" valign="top"><simpara>At most 50 parameters per call</simpara></entry>
+<entry align="left" valign="top"><simpara>Fails with "Maximum number of parameters (50) exceeded." See <link linkend="_subroutines">Subroutines</link> / <link linkend="_functions">Functions</link>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>DATA block value size</simpara></entry>
+<entry align="left" valign="top"><simpara>0x3FFF (14-bit PIC families) / 0xFFFF (PIC18, AVR)</simpara></entry>
+<entry align="left" valign="top"><simpara>A value exceeding this for the target family fails to fit in one program-memory word. See <link linkend="_data">DATA</link>'s Maximum Stored Value tables.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Program memory pages (baseline/mid-range PIC only)</simpara></entry>
+<entry align="left" valign="top"><simpara>2048 words per page; page 0 has a little less</simpara></entry>
+<entry align="left" valign="top"><simpara>Each Sub, Function, the main body, and the interrupt handler must fit entirely within one page. The main body, the interrupt handler, and the automatic context save/restore code are always pinned to page 0. See <link linkend="_program_memory_pages">Program Memory Pages</link>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Direct array-load element count</simpara></entry>
+<entry align="left" valign="top"><simpara>250 elements (chip RAM &lt; 2048 bytes) or 255 elements (chip RAM &gt;= 2048 bytes)</simpara></entry>
+<entry align="left" valign="top"><simpara>Applies to the <literal>MyArray = 1,2,3,&#8230;&#8203;</literal> load method specifically, not array declarations in general. Also, this method only supports byte arrays ("Direct array load method only supports bytes arrays").</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>#STARTUP</literal> count</simpara></entry>
+<entry align="left" valign="top"><simpara>One <literal>#STARTUP</literal> per program</simpara></entry>
+<entry align="left" valign="top"><simpara>A second <literal>#STARTUP</literal> fails with "Only one #STARTUP permitted."</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>AVRrc (reduced-core AVR) register pressure</simpara></entry>
+<entry align="left" valign="top"><simpara>Byte variables only; no <literal>AND</literal>/<literal>OR</literal>/<literal>XOR</literal> logic except on byte variables; use <literal>Rotate</literal> instead of multiplication</simpara></entry>
+<entry align="left" valign="top"><simpara>These chips have very limited registers. The compiler&#8217;s own recommendation when registers run out: "keep the code very simple."</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Table source item count</simpara></entry>
+<entry align="left" valign="top"><simpara>Fixed capacity per table</simpara></entry>
+<entry align="left" valign="top"><simpara>Fails with "Out of table space. Too many items in table source." Split the data across multiple tables.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>For&#8230;&#8203;Next</literal> with a <literal>Long</literal> loop variable</simpara></entry>
+<entry align="left" valign="top"><simpara>Step must be positive, in the range 0 to 0xFFFFFFFF</simpara></entry>
+<entry align="left" valign="top"><simpara>A negative Step yields incorrect results and is not detected automatically. Suppressible with <literal>SUPPRESSFORNEXTHANDLERWARNING</literal>, but the underlying restriction still applies.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>For&#8230;&#8203;Next</literal> with an <literal>Integer</literal> loop variable and a negative Step</simpara></entry>
+<entry align="left" valign="top"><simpara>The To/From range must not cross zero - both bounds positive, or both negative</simpara></entry>
+<entry align="left" valign="top"><simpara>Suppressible with <literal>SUPPRESSFORNEXTHANDLERWARNING</literal>, but the underlying restriction still applies.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Nested <literal>For&#8230;&#8203;Next</literal> loop variables</simpara></entry>
+<entry align="left" valign="top"><simpara>Each nested loop needs its own loop variable</simpara></entry>
+<entry align="left" valign="top"><simpara>Reusing a loop variable already in use by an outer loop fails with "For index is already in use."</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Repeat</literal> count type</simpara></entry>
+<entry align="left" valign="top"><simpara>Integer only</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>Single</literal>/<literal>Double</literal> are not permitted as a Repeat count; cast to an integer or use an integer variable/constant.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Select Case</literal> test value type</simpara></entry>
+<entry align="left" valign="top"><simpara>No floating-point expressions</simpara></entry>
+<entry align="left" valign="top"><simpara>A <literal>Select Case</literal> test value cannot be a Single/Double expression.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Pin direction control on 12-bit core chips</simpara></entry>
+<entry align="left" valign="top"><simpara>Whole-port direction only</simpara></entry>
+<entry align="left" valign="top"><simpara>12-bit core chips cannot set the direction of individual pins with <literal>Dir</literal>; the whole port&#8217;s direction is set together.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Array(element).bit</literal> as a source or destination</simpara></entry>
+<entry align="left" valign="top"><simpara>Not supported directly</simpara></entry>
+<entry align="left" valign="top"><simpara>Copy <literal>Array(element)</literal> into a temporary variable first, use <literal>temp_variable.bit</literal>, then copy back if needed - or use a constant array-element address.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Alias byte locations</simpara></entry>
+<entry align="left" valign="top"><simpara>Must be sequential</simpara></entry>
+<entry align="left" valign="top"><simpara>An alias spanning multiple RAM locations for individual bit addressing requires those locations to be sequential.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Alias</literal> and <literal>At</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Mutually exclusive on the same variable</simpara></entry>
+<entry align="left" valign="top"><simpara>Both set the variable&#8217;s location; a variable cannot use both.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Bit variable arithmetic</simpara></entry>
+<entry align="left" valign="top"><simpara>Not permitted</simpara></entry>
+<entry align="left" valign="top"><simpara>Bit variables cannot be added or subtracted ("Illegal operation").</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Bit variable comparisons</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>=</literal> and <literal>&lt;&gt;</literal> only</simpara></entry>
+<entry align="left" valign="top"><simpara>No other relational operator (<literal>&lt;</literal>, <literal>&gt;</literal>, <literal>&#8656;</literal>, <literal>&gt;=</literal>) can be used with a bit variable.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Table text content</simpara></entry>
+<entry align="left" valign="top"><simpara>ASCII 255 is reserved</simpara></entry>
+<entry align="left" valign="top"><simpara>Cannot appear inside Table text.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Overloading string-returning functions</simpara></entry>
+<entry align="left" valign="top"><simpara>Not supported</simpara></entry>
+<entry align="left" valign="top"><simpara>Subroutine/Function overloading (see <link linkend="_subroutines">Subroutines</link>) works for other types, but not for functions that return a string.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Interrupt handler assignment</simpara></entry>
+<entry align="left" valign="top"><simpara>One handler per event</simpara></entry>
+<entry align="left" valign="top"><simpara>Assigning a second handler to the same interrupt event fails with "A handler has already been defined for the event."</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Return-value syntax inside a plain <literal>Sub</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Not permitted</simpara></entry>
+<entry align="left" valign="top"><simpara>A <literal>Sub</literal> (as opposed to a <literal>Function</literal>) cannot use return-value assignment syntax; the returned value is ignored with a warning.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Multi-bit <literal>Set</literal> (the bits method)</simpara></entry>
+<entry align="left" valign="top"><simpara>Literal values only</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>SPLLEN, IRCF3, IRCF2, IRCF1, IRCF0 = b'01111'</literal>-style multi-bit assignment cannot take its value from a variable.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Select Case</literal> multi-value <literal>Case</literal> list</simpara></entry>
+<entry align="left" valign="top"><simpara>At most 64 values per <literal>Case</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>A <literal>Case</literal> combining more than 64 comma-separated values fails with "Too many values in Case list (maximum 64)." See <link linkend="_select">Select</link>.</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><?asciidoc-br?></simpara>
+<simpara><emphasis role="strong">Error Messages</emphasis></simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="20*"/>
+<colspec colname="col_2" colwidth="40*"/>
+<colspec colname="col_3" colwidth="40*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Message ID</entry>
+<entry align="left" valign="top">Message Text</entry>
+<entry align="left" valign="top">Recommendation</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>AliasToSelf</simpara></entry>
+<entry align="left" valign="top"><simpara>Variable cannot be an alias to itself</simpara></entry>
+<entry align="left" valign="top"><simpara>Point the <literal>Alias</literal>/<literal>At</literal> declaration at a different variable or address.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ArrayNoDec</simpara></entry>
+<entry align="left" valign="top"><simpara>Array/Function %Name% has not been declared</simpara></entry>
+<entry align="left" valign="top"><simpara>Declare the array with <literal>Dim</literal> (or check the function name for a typo) before using it.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ArrayTooBig</simpara></entry>
+<entry align="left" valign="top"><simpara>The array %Array% is too large</simpara></entry>
+<entry align="left" valign="top"><simpara>Reduce the array&#8217;s element count, or free RAM elsewhere so it fits.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ArrayTypeInvalid</simpara></entry>
+<entry align="left" valign="top"><simpara>Cannot set the type of an array</simpara></entry>
+<entry align="left" valign="top"><simpara>Remove the explicit type from the array declaration; array element type is fixed by how it&#8217;s declared.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ArrayAssignmentIncorrect</simpara></entry>
+<entry align="left" valign="top"><simpara>%Name% array assignment is incorrect</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the assignment syntax against the array&#8217;s declared type and dimensions.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ASMParamMismatch</simpara></entry>
+<entry align="left" valign="top"><simpara>Number of parameters does not match</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the operand count against the instruction&#8217;s expected form in the target chip&#8217;s instruction set.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>AssemblerNotFound</simpara></entry>
+<entry align="left" valign="top"><simpara>Could not start the external assembler</simpara></entry>
+<entry align="left" valign="top"><simpara>Verify the assembler path in Preferences/Tool Variables, and that the executable exists.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>AssemblyFailed</simpara></entry>
+<entry align="left" valign="top"><simpara>Assembly failed due to the following errors:</simpara></entry>
+<entry align="left" valign="top"><simpara>Read the assembler errors that follow this line; they identify the real problem.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadAliasSize</simpara></entry>
+<entry align="left" valign="top"><simpara>Size of alias variable (%size%) does not match number of RAM locations for [%locations%]%target% variable, increase aliased bytes</simpara></entry>
+<entry align="left" valign="top"><simpara>Increase the alias&#8217;s byte count to match the target variable&#8217;s size.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadBitRead</simpara></entry>
+<entry align="left" valign="top"><simpara>Cannot read bit %bit% of %var%</simpara></entry>
+<entry align="left" valign="top"><simpara>Check that the bit number is valid for the variable&#8217;s type/size.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadBitSet</simpara></entry>
+<entry align="left" valign="top"><simpara>Cannot set bit %bit% of %var%</simpara></entry>
+<entry align="left" valign="top"><simpara>Check that the bit number is valid for the variable&#8217;s type/size.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadBrackets</simpara></entry>
+<entry align="left" valign="top"><simpara>Brackets do not match up</simpara></entry>
+<entry align="left" valign="top"><simpara>Check for a missing or extra opening/closing bracket on the line.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadADCConstName</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid constant name: %const%. Parameter should be ANx or ANxx</simpara></entry>
+<entry align="left" valign="top"><simpara>Use the chip&#8217;s actual analog-channel constant name, e.g. <literal>AN0</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadCast</simpara></entry>
+<entry align="left" valign="top"><simpara>Cannot cast from %from% to %to%, cast here must be from larger to smaller type</simpara></entry>
+<entry align="left" valign="top"><simpara>Reverse the cast direction, or use an intermediate variable of the larger type.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadCommandType</simpara></entry>
+<entry align="left" valign="top"><simpara>%command% command cannot be used on variables of type %type%</simpara></entry>
+<entry align="left" valign="top"><simpara>Use a variable of a supported type for this command, or convert the value first.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadConfig</simpara></entry>
+<entry align="left" valign="top"><simpara>Configuration setting not valid: %option%</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the <literal>#CONFIG</literal> option name/value against the chip&#8217;s supported configuration options.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadConstName</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid constant name: %const%</simpara></entry>
+<entry align="left" valign="top"><simpara>Rename the constant - it must be a valid identifier and not a reserved word.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadDirection</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid pin direction, expected In or Out</simpara></entry>
+<entry align="left" valign="top"><simpara>Use <literal>In</literal> or <literal>Out</literal> as the direction argument.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadIntEvent</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid interrupt event: %event%</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the event name against the chip&#8217;s supported interrupt events.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadOnType</simpara></entry>
+<entry align="left" valign="top"><simpara>Bad mode: Found %found%, expected Interrupt</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the <literal>On</literal> statement&#8217;s mode keyword; only <literal>Interrupt</literal> is valid here.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>EEBadORG</simpara></entry>
+<entry align="left" valign="top"><simpara>Bad EEPROM location overwriting %loc%</simpara></entry>
+<entry align="left" valign="top"><simpara>Adjust the EEPROM data&#8217;s address so it does not overlap another dataset.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadParam</simpara></entry>
+<entry align="left" valign="top"><simpara>Incorrect parameter syntax: %sub%. Correct syntax is %correct%</simpara></entry>
+<entry align="left" valign="top"><simpara>Match the call to the syntax shown in the message.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadParamCount</simpara></entry>
+<entry align="left" valign="top"><simpara>Parameter count mismatch</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the number of arguments passed against the Sub/Function&#8217;s declaration.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadParamsSet</simpara></entry>
+<entry align="left" valign="top"><simpara>Incorrect parameters in Set, expected: Set variable.bit status</simpara></entry>
+<entry align="left" valign="top"><simpara>Use the form <literal>Set variable.bit status</literal> (e.g. <literal>Set PORTB.0 On</literal>).</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadPWMFreq</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid PWM Frequency value</simpara></entry>
+<entry align="left" valign="top"><simpara>Choose a PWM frequency achievable at the chip&#8217;s clock speed; see the PWM documentation for valid ranges.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadSetStatus</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid status in Set command: %status%</simpara></entry>
+<entry align="left" valign="top"><simpara>Use a valid status keyword (e.g. <literal>On</literal>/<literal>Off</literal>) with <literal>Set</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadStringConst</simpara></entry>
+<entry align="left" valign="top"><simpara>String constant cannot be first in condition</simpara></entry>
+<entry align="left" valign="top"><simpara>Put the variable or function call first in the comparison, with the constant second.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadSymbol</simpara></entry>
+<entry align="left" valign="top"><simpara>%symbol% is not a valid symbol</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the symbol name for a typo, or confirm it exists for the selected chip.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadTableLocation</simpara></entry>
+<entry align="left" valign="top"><simpara>Bad data table location, found %loc%, expected PROGRAM or DATA</simpara></entry>
+<entry align="left" valign="top"><simpara>Use <literal>PROGRAM</literal> or <literal>DATA</literal> as the table&#8217;s storage location.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadValueType</simpara></entry>
+<entry align="left" valign="top"><simpara>Cannot store %value% in the %type% variable %var%</simpara></entry>
+<entry align="left" valign="top"><simpara>Use a value compatible with the variable&#8217;s declared type, or cast it explicitly.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadVarAlias</simpara></entry>
+<entry align="left" valign="top"><simpara>Variable defined with multiple aliases</simpara></entry>
+<entry align="left" valign="top"><simpara>Remove the duplicate <literal>Alias</literal> declaration; a variable can have only one alias.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadVarBit</simpara></entry>
+<entry align="left" valign="top"><simpara>Variable %var% is of type %type% and does not have a bit %bit%</simpara></entry>
+<entry align="left" valign="top"><simpara>Use a bit number valid for the variable&#8217;s type/size.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadVarName</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid variable name: %var%</simpara></entry>
+<entry align="left" valign="top"><simpara>Rename the variable - it must be a valid identifier and not a reserved word.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BadVarType</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid variable type: %type%</simpara></entry>
+<entry align="left" valign="top"><simpara>Use one of GCBASIC&#8217;s supported variable types (Byte, Word, Long, Single, etc.).</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>CannotConcat</simpara></entry>
+<entry align="left" valign="top"><simpara>%type% %value% cannot be assigned/appended to a string variable</simpara></entry>
+<entry align="left" valign="top"><simpara>Convert the value to a string first (e.g. with <literal>ByteToString</literal>/<literal>WordToString</literal>) before assigning/appending it.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>CannotHandleArrayConstruction</simpara></entry>
+<entry align="left" valign="top"><simpara>Pointer mismatch: Cannot handle construct. Please check syntax, simplify source, check use of variable types, check String/Array size mismatch</simpara></entry>
+<entry align="left" valign="top"><simpara>Simplify the expression, and double-check variable types and array/string sizes match.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>CannotHandleConstruction</simpara></entry>
+<entry align="left" valign="top"><simpara>Pointer mismatch: Cannot handle variable construct&#8230;&#8203;</simpara></entry>
+<entry align="left" valign="top"><simpara>Simplify the expression, and double-check variable types and sizes match; note which target variable/sub the message names.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>CannotHandleFunctionCall</simpara></entry>
+<entry align="left" valign="top"><simpara>A GCBASIC library method %fn% exists but the return variable does not. Is this a call to a Subroutine rather than a Function?</simpara></entry>
+<entry align="left" valign="top"><simpara>Check whether %fn% is actually a Sub, not a Function, and call it accordingly.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>CannotUseReservedWords</simpara></entry>
+<entry align="left" valign="top"><simpara>Reserved Words cannot be labels: %label%</simpara></entry>
+<entry align="left" valign="top"><simpara>Rename the label to something that is not a GCBASIC command/keyword.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>CannotUseIncludeInsideInsert</simpara></entry>
+<entry align="left" valign="top"><simpara>#INCLUDE not permitted within #INSERT, move to main program</simpara></entry>
+<entry align="left" valign="top"><simpara>Move the <literal>#INCLUDE</literal> line out of the <literal>#INSERT</literal> block and into the main program.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ChipNotSupported</simpara></entry>
+<entry align="left" valign="top"><simpara>No chip data file found for %chipname%</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the chip name for a typo, or confirm this compiler build supports that chip.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ChipIgnored</simpara></entry>
+<entry align="left" valign="top"><simpara>Additional #chip ignored. Using %prevchipname% as microcontroller</simpara></entry>
+<entry align="left" valign="top"><simpara>Remove the extra <literal>#chip</literal> line - only the first one takes effect.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ConstantExists</simpara></entry>
+<entry align="left" valign="top"><simpara>Constant: %constname% equates to %existingconstant_value% and cannot be reassigned to equate to %value%</simpara></entry>
+<entry align="left" valign="top"><simpara>Do not redefine an existing constant to a different value; use a different constant name, or <literal>#UNDEFINE</literal> it first if that is intended.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ConstantReAssignemnt</simpara></entry>
+<entry align="left" valign="top"><simpara>Constant: %constname% cannot be reassigned to %value%</simpara></entry>
+<entry align="left" valign="top"><simpara>Use a different constant name, or <literal>#UNDEFINE</literal> the existing one first if reassignment is intended.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ConstantValueReAssignement</simpara></entry>
+<entry align="left" valign="top"><simpara>Constant: %constname% exists with no value '%existingconstant_value%', cannot be reassigned with %value%</simpara></entry>
+<entry align="left" valign="top"><simpara>Give the constant its value at first definition rather than reassigning it later.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>DataFound</simpara></entry>
+<entry align="left" valign="top"><simpara>READTABLE() cannot be to access EEPROM DATA %Table%</simpara></entry>
+<entry align="left" valign="top"><simpara>Use the EEPROM-specific read routine instead of <literal>ReadTable()</literal> for EEPROM-backed data.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>DoWithoutCondition</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing condition after %mode%</simpara></entry>
+<entry align="left" valign="top"><simpara>Add a condition after <literal>While</literal>/<literal>Until</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>DoWithoutLoop</simpara></entry>
+<entry align="left" valign="top"><simpara>Do without matching Loop</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the matching <literal>Loop</literal> for this <literal>Do</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>DupDef</simpara></entry>
+<entry align="left" valign="top"><simpara>Conflicting definition for %var% sub parameter variable. %var% is a %type%. Invalid source variable type</simpara></entry>
+<entry align="left" valign="top"><simpara>Match the argument&#8217;s type to the parameter&#8217;s declared type, or rename one of the conflicting variables.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>DuplicateSub</simpara></entry>
+<entry align="left" valign="top"><simpara>Duplicate subroutine name and parameters: %sub%</simpara></entry>
+<entry align="left" valign="top"><simpara>Rename one of the two Subs, or change one&#8217;s parameter list so they are no longer identical overloads.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ElseIfMissingThen</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid syntax: Use ELSE IF &lt;condition&gt; THEN</simpara></entry>
+<entry align="left" valign="top"><simpara>Add <literal>Then</literal> after the <literal>Else If</literal> condition.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ElseIfNotSupported</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid syntax: Use ELSE IF</simpara></entry>
+<entry align="left" valign="top"><simpara>Use <literal>Else If</literal> (two words) rather than <literal>ElseIf</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ElseWithoutIf</simpara></entry>
+<entry align="left" valign="top"><simpara>Else outside of If &#8230;&#8203; End If block</simpara></entry>
+<entry align="left" valign="top"><simpara>Move the <literal>Else</literal> inside a matching <literal>If &#8230;&#8203; End If</literal> block.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>EndWithoutRepeat</simpara></entry>
+<entry align="left" valign="top"><simpara>End Repeat without matching Repeat</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the matching <literal>Repeat</literal> for this <literal>End Repeat</literal>, or remove the stray <literal>End Repeat</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>EssentialFileMissing</simpara></entry>
+<entry align="left" valign="top"><simpara>Essential file missing: %MissingFile% (listed in lowlevel.dat)</simpara></entry>
+<entry align="left" valign="top"><simpara>One of the header files the compiler always loads (see <link linkend="_development_guide_for_gcbasic_exe_compiler">Development Guide for GCBASIC.EXE compiler</link>, Note #6) could not be found - this points to a broken or incomplete GCBASIC installation, not an error in your own program. Reinstall or repair GCBASIC so the named file exists under <literal>include\lowlevel\</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ErrantElse</simpara></entry>
+<entry align="left" valign="top"><simpara>Single line IF statement does not support ELSE</simpara></entry>
+<entry align="left" valign="top"><simpara>Rewrite as a multi-line <literal>If &#8230;&#8203; Else &#8230;&#8203; End If</literal> block.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ExcessVars</simpara></entry>
+<entry align="left" valign="top"><simpara>Excessive RAM usage! Delete some variables, reduce the size of arrays, or upgrade to a more powerful chip</simpara></entry>
+<entry align="left" valign="top"><simpara>Free RAM by removing unused variables, shrinking arrays, or moving to a chip with more RAM.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ExtraENDIF</simpara></entry>
+<entry align="left" valign="top"><simpara>End If without If</simpara></entry>
+<entry align="left" valign="top"><simpara>Remove the extra <literal>End If</literal>, or add the missing <literal>If</literal> it was meant to close.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>FirstPageFull</simpara></entry>
+<entry align="left" valign="top"><simpara>First page of program memory is full, please reduce size of Main and Interrupt routines</simpara></entry>
+<entry align="left" valign="top"><simpara>Move code out of Main/interrupt routines and into separate subroutines.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>FloatInDelay</simpara></entry>
+<entry align="left" valign="top"><simpara>Found decimal point, but delays can only handle whole numbers</simpara></entry>
+<entry align="left" valign="top"><simpara>Use a whole-number delay value.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>FollowOnElse</simpara></entry>
+<entry align="left" valign="top"><simpara>Syntax Error: Follow on #ELSE not permitted</simpara></entry>
+<entry align="left" valign="top"><simpara>Remove the extra <literal>#ELSE</literal> - only one is permitted per <literal>#IFDEF</literal>/<literal>#IF</literal> block.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ForBadEnd</simpara></entry>
+<entry align="left" valign="top"><simpara>For end value is too big for the counter</simpara></entry>
+<entry align="left" valign="top"><simpara>Use a loop counter variable large enough to hold the end value, or reduce the end value.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ForBadStart</simpara></entry>
+<entry align="left" valign="top"><simpara>For start value is too big for the counter</simpara></entry>
+<entry align="left" valign="top"><simpara>Use a loop counter variable large enough to hold the start value, or reduce the start value.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ForBadStart2</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid start value</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the For loop&#8217;s start value/expression for errors.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ForBadStep</simpara></entry>
+<entry align="left" valign="top"><simpara>For-Next 'step' must be integer when start or end values are variables</simpara></entry>
+<entry align="left" valign="top"><simpara>Use an integer literal or Integer-typed variable for Step when Start/End are variables.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ForBadStepNegate</simpara></entry>
+<entry align="left" valign="top"><simpara>You cannot negate a step value. Negate the integer variable as a prior operation or pass a negative or positive value integer variable.</simpara></entry>
+<entry align="left" valign="top"><simpara>Negate the Step value in a separate statement before the loop, then pass the already-negative variable.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ForBadStepVariable</simpara></entry>
+<entry align="left" valign="top"><simpara>For-Next 'step' must be Integer variable</simpara></entry>
+<entry align="left" valign="top"><simpara>Use an Integer-typed variable for Step.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ForStepNeeded</simpara></entry>
+<entry align="left" valign="top"><simpara>For-Next 'step' integer variable must be specified when start or end values are variables - even for step 1</simpara></entry>
+<entry align="left" valign="top"><simpara>Add an explicit Step value/variable even if it&#8217;s just 1.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>InCorrectNumberofParameters</simpara></entry>
+<entry align="left" valign="top"><simpara>Incorrect number of parameters</simpara></entry>
+<entry align="left" valign="top"><simpara>Match the call&#8217;s argument count to the Sub/Function&#8217;s declaration.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>InCorrectTableFormatting</simpara></entry>
+<entry align="left" valign="top"><simpara>Incorrect Table Text formatting at %var%</simpara></entry>
+<entry align="left" valign="top"><simpara>Check quoting/comma placement in the Table source around %var%.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>InCorrectTableTextTermination</simpara></entry>
+<entry align="left" valign="top"><simpara>Incorrectly Terminated Table Text Line</simpara></entry>
+<entry align="left" valign="top"><simpara>Check that each Table text line is properly closed (matching quotes).</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>IncorrectWaitParameter</simpara></entry>
+<entry align="left" valign="top"><simpara>Incorrect time unit specified. This can be an indirect error from a subroutine - so, inspect all time based constants</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the Wait&#8217;s time unit, and any constants used for time values elsewhere in the program.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>InsertedFileMissing</simpara></entry>
+<entry align="left" valign="top"><simpara>#INSERT file not found</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the <literal>#INSERT</literal> file&#8217;s path and that it exists.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>InvalidBit</simpara></entry>
+<entry align="left" valign="top"><simpara>Bit %bit% is not a valid bit and cannot be set</simpara></entry>
+<entry align="left" valign="top"><simpara>Use a bit number that exists on the target register/variable.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>InvalidBitRead</simpara></entry>
+<entry align="left" valign="top"><simpara>Bit %bit% is not a valid bit and cannot be read</simpara></entry>
+<entry align="left" valign="top"><simpara>Use a bit number that exists on the target register/variable.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>InvalidConditionalStructure</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid Conditional construct</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the condition&#8217;s syntax - operators, parentheses, and operands.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>InvalidDirCommand</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid DIRection command. Command cannot contain ','</simpara></entry>
+<entry align="left" valign="top"><simpara>Set one pin/port&#8217;s direction per <literal>Dir</literal> statement rather than a comma-separated list.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>InvalidDoMode</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid loop mode %mode%, mode (if specified) must be While or Until</simpara></entry>
+<entry align="left" valign="top"><simpara>Use <literal>While</literal> or <literal>Until</literal> as the Do loop&#8217;s mode.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>InvalidElse</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid #ELSE - #IFDEF or #IFNDEF not preceded</simpara></entry>
+<entry align="left" valign="top"><simpara>Make sure <literal>#ELSE</literal> follows an <literal>#IFDEF</literal>/<literal>#IFNDEF</literal> block.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>InvalidElseCantHandle</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid #ELSE - cannot handle</simpara></entry>
+<entry align="left" valign="top"><simpara>Simplify the surrounding <literal>#IFDEF</literal>/<literal>#IF</literal> structure around this <literal>#ELSE</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>InvalidNumericLiteral</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid numeric literal %literal% - no digits follow the prefix</simpara></entry>
+<entry align="left" valign="top"><simpara>A <literal>0x</literal> or <literal>0b</literal> prefix was written with no digits after it, for example <literal>myVar = myVar | 0x</literal>. Add the intended digits (<literal>0x0F</literal>, <literal>0b1010</literal>), or remove the incomplete literal. The quoted forms <literal>0b'1010'</literal> and <literal>b'1010'</literal> are unaffected.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>LoopWithoutDo</simpara></entry>
+<entry align="left" valign="top"><simpara>Loop without matching Do</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the matching <literal>Do</literal> for this <literal>Loop</literal>, or remove the stray <literal>Loop</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>MissingCoreFile</simpara></entry>
+<entry align="left" valign="top"><simpara>Cannot find file %core%, which is required for %chip%</simpara></entry>
+<entry align="left" valign="top"><simpara>Reinstall/repair the GCBASIC installation so the missing core file is restored.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>MissingFunctionAssignment</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing Function Assignment - assign function result to a variable, or, change to a Subroutine</simpara></entry>
+<entry align="left" valign="top"><simpara>Assign the function&#8217;s result (e.g. <literal>MyFunc = value</literal>) before it exits, or convert it to a Sub if it does not need to return a value.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>MissingOperand</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing operand, %pos% %operator%</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the missing value/variable on the indicated side of the operator.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>MissingSubParam</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing value for parameter %param%</simpara></entry>
+<entry align="left" valign="top"><simpara>Supply a value for %param%, or give it a default value in the declaration.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>MissingTarget</simpara></entry>
+<entry align="left" valign="top"><simpara>No subroutine specified as a target</simpara></entry>
+<entry align="left" valign="top"><simpara>Name the subroutine to call/jump to.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>MissingEndSubDef</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing 'End Sub' or 'Return' definition or invalid 'GoSub'</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the matching <literal>End Sub</literal>, or check the <literal>GoSub</literal>/<literal>Return</literal> pairing.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>MissingSubDef</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing Sub definition, or, missing GoSub definition, or, missing End Sub ( Return to exit/end a Sub Routine is no longer supported)</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the missing <literal>Sub</literal>/<literal>GoSub</literal>/<literal>End Sub</literal>; note plain <literal>Return</literal> no longer ends a subroutine on its own.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>MissingEndFuncDef</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing End Function definition</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the matching <literal>End Function</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>MissingFuncDef</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing Function definition</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the matching <literal>Function</literal> declaration.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>MissingEndDataDef</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing End Data definition</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the matching <literal>End Data</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>MissingDataDef</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing Data definition</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the matching <literal>Data</literal> declaration.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NextWithoutFor</simpara></entry>
+<entry align="left" valign="top"><simpara>Next without matching For</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the matching <literal>For</literal>, or remove the stray <literal>Next</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoBit</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing bit in Set command</simpara></entry>
+<entry align="left" valign="top"><simpara>Specify the bit (e.g. <literal>variable.0</literal>) in the <literal>Set</literal> statement.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoChip</simpara></entry>
+<entry align="left" valign="top"><simpara>Chip model not specified! GCBASIC cannot continue</simpara></entry>
+<entry align="left" valign="top"><simpara>Add a <literal>#chip</literal> line naming the target microcontroller.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoClosingComma</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing closing comma delimiter in Table source</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the missing comma between Table source items.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoClosingQuote</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing closing double quote in Table source</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the missing closing <literal>"</literal> in the Table source string.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoDelayUnits</simpara></entry>
+<entry align="left" valign="top"><simpara>Delay units not specified</simpara></entry>
+<entry align="left" valign="top"><simpara>Add a time unit (e.g. <literal>ms</literal>, <literal>us</literal>, <literal>s</literal>) to the <literal>Wait</literal>/delay value.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoDestParam</simpara></entry>
+<entry align="left" valign="top"><simpara>Bad Destination parameter in ASM. The compiler has failed to optimise correctly. Try changing mathematical order with constants at end of order, or, post to support forum for advice/resolution.</simpara></entry>
+<entry align="left" valign="top"><simpara>Reorder the calculation so constants come last, or ask on the support forum with the failing line.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoEndIf</simpara></entry>
+<entry align="left" valign="top"><simpara>If without matching End If</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the matching <literal>End If</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoEndRepeat</simpara></entry>
+<entry align="left" valign="top"><simpara>Repeat without End Repeat</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the matching <literal>End Repeat</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoFile</simpara></entry>
+<entry align="left" valign="top"><simpara>Cannot find %Filename%</simpara></entry>
+<entry align="left" valign="top"><simpara>A file the program asked for could not be found, and compilation stops. Check the spelling of the <literal>#include</literal> and that the file exists. Remember <literal>#include &lt;name&gt;</literal> looks in the installation&#8217;s <literal>include\</literal> folder (not <literal>include\lowlevel\</literal>, whose libraries load automatically), while <literal>#include "name"</literal> is resolved relative to the current directory.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NOFLOATPARAMETER</simpara></entry>
+<entry align="left" valign="top"><simpara>No FLOAT parameter. For Singles support set to 1. See Help for details</simpara></entry>
+<entry align="left" valign="top"><simpara>Set the float-capability preference/option to enable Single support, per the Help section it references.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoMatchingOverload</simpara></entry>
+<entry align="left" valign="top"><simpara>No matching overload found for %subname% with these argument types</simpara></entry>
+<entry align="left" valign="top"><simpara>None of the overloaded Sub/Function&#8217;s declared parameter lists fit the argument types given. See <link linkend="_subroutines">Subroutines</link> for how single-character string literals and Byte/Bit parameters are matched.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoMatchingSig</simpara></entry>
+<entry align="left" valign="top"><simpara>No subroutine found with matching parameters</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the argument types/count against the available overloads of that Sub/Function.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoNext</simpara></entry>
+<entry align="left" valign="top"><simpara>For without Next</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the matching <literal>Next</literal>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoSelectVariableParameter</simpara></entry>
+<entry align="left" valign="top"><simpara>No Select Case variable specified</simpara></entry>
+<entry align="left" valign="top"><simpara>Give <literal>Select Case</literal> a variable or expression to test.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoSourceParam</simpara></entry>
+<entry align="left" valign="top"><simpara>Bad Source parameter in ASM. The compiler has failed to optimise correctly. Try adding element(s) to complete the array definition, or, changing mathematical order with constants at end of order, or, post to support forum for advice/resolution.</simpara></entry>
+<entry align="left" valign="top"><simpara>Complete the array definition, reorder constants to the end of the calculation, or ask on the support forum with the failing line.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NotABitORAConst</simpara></entry>
+<entry align="left" valign="top"><simpara>%value% is not a bit or valid constant. Constant values should be 0 or 1</simpara></entry>
+<entry align="left" valign="top"><simpara>Use <literal>0</literal>, <literal>1</literal>, <literal>On</literal>, or <literal>Off</literal> where a bit/constant value is expected.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NotAVariable</simpara></entry>
+<entry align="left" valign="top"><simpara>%value% is not a variable</simpara></entry>
+<entry align="left" valign="top"><simpara>Use a declared variable here rather than a literal or undeclared name.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NoThen</simpara></entry>
+<entry align="left" valign="top"><simpara>If without Then</simpara></entry>
+<entry align="left" valign="top"><simpara>Add <literal>Then</literal> after the <literal>If</literal> condition.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NotIO</simpara></entry>
+<entry align="left" valign="top"><simpara>%var%, or your Defined CONSTANT, is not a valid I/O pin or port</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the pin/port name (or the constant defined for it) against the chip&#8217;s actual I/O names.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NotIONOTVALID</simpara></entry>
+<entry align="left" valign="top"><simpara>is not a valid I/O pin or port</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the pin/port name against the chip&#8217;s actual I/O names.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>NotaValidDirective</simpara></entry>
+<entry align="left" valign="top"><simpara>Not a valid directive %directive%</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the <literal>#</literal>-directive name for a typo against GCBASIC&#8217;s supported directives.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>OperandTypeMismatch</simpara></entry>
+<entry align="left" valign="top"><simpara>Operand %operand% cannot be used with %type% variables</simpara></entry>
+<entry align="left" valign="top"><simpara>Use an operand compatible with the variable&#8217;s type, or convert the variable&#8217;s type first.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>OutOfProgMem</simpara></entry>
+<entry align="left" valign="top"><simpara>Program is too large, cannot fit all subroutines into available program memory</simpara></entry>
+<entry align="left" valign="top"><simpara>Reduce code size or move to a chip with more program memory.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>OutOfProgMemExceeded</simpara></entry>
+<entry align="left" valign="top"><simpara>Program is too large, cannot fit into available program memory</simpara></entry>
+<entry align="left" valign="top"><simpara>Reduce code size or move to a chip with more program memory.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>OutOfRegSpace</simpara></entry>
+<entry align="left" valign="top"><simpara>Out of registers. Please break up any complex calculations</simpara></entry>
+<entry align="left" valign="top"><simpara>Split the calculation into smaller steps using intermediate variables.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>PICASFailtoLaunch</simpara></entry>
+<entry align="left" valign="top"><simpara>PIC-AS failed to execute: %var%</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the PIC-AS install path in Preferences/Tool Variables.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ReadADMissingparentheses</simpara></entry>
+<entry align="left" valign="top"><simpara>READAD</simpara></entry>
+<entry align="left" valign="top"><simpara>READAD10</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>READAD12 function(s) required parentheses () as parameter delimiters</simpara></entry>
+<entry align="left" valign="top"><simpara>Add parentheses around the argument, e.g. <literal>ReadAD(AN0)</literal>.</simpara></entry>
+<entry align="left" valign="top"><simpara>RecursiveDefine</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Recursive define</simpara></entry>
+<entry align="left" valign="top"><simpara>Break the circular <literal>#define</literal> chain - a constant cannot be defined in terms of itself.</simpara></entry>
+<entry align="left" valign="top"><simpara>RepeatMissingCount</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>No value given for Repeat</simpara></entry>
+<entry align="left" valign="top"><simpara>Give <literal>Repeat</literal> a count.</simpara></entry>
+<entry align="left" valign="top"><simpara>ShouldNotUseConstant</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Select Case should not use a Constant</simpara></entry>
+<entry align="left" valign="top"><simpara>Test a variable/expression in <literal>Select Case</literal>, not a compile-time constant (the outcome would always be the same branch).</simpara></entry>
+<entry align="left" valign="top"><simpara>SubAndVarNameConflict</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Variable %var% cannot be created, a subroutine already has this name</simpara></entry>
+<entry align="left" valign="top"><simpara>Rename the variable, or rename the conflicting subroutine.</simpara></entry>
+<entry align="left" valign="top"><simpara>SubNotFound</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Subroutine %sub% could not be found</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the subroutine name for a typo, and confirm it (or its library) is included.</simpara></entry>
+<entry align="left" valign="top"><simpara>SubParamNotVar</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>%value% is not a variable and cannot be used for the parameter %param%</simpara></entry>
+<entry align="left" valign="top"><simpara>Pass a declared variable for this parameter rather than a literal or expression.</simpara></entry>
+<entry align="left" valign="top"><simpara>SubTooBig</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Subroutine %sub% is too large. Reduce its size, or switch to a more powerful chip</simpara></entry>
+<entry align="left" valign="top"><simpara>Split the subroutine into smaller ones, or use a chip with more program memory.</simpara></entry>
+<entry align="left" valign="top"><simpara>SymbolNotDefined</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Symbol [SFR]%symbol% has not been defined. Inspect ASM file to determine error</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the generated ASM file around this symbol to find what is missing.</simpara></entry>
+<entry align="left" valign="top"><simpara>SynErr</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Syntax Error</simpara></entry>
+<entry align="left" valign="top"><simpara>Re-check the line&#8217;s syntax against the command&#8217;s documentation.</simpara></entry>
+<entry align="left" valign="top"><simpara>SynErrIncorrectBitDestination</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Syntax Error - cannot assign string to bit variable</simpara></entry>
+<entry align="left" valign="top"><simpara>Assign a bit value (0/1/On/Off), not a string, to a bit variable.</simpara></entry>
+<entry align="left" valign="top"><simpara>SynErrIncorrectByteDestination</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Syntax Error - cannot assign string to byte variable. Use ByteToString()</simpara></entry>
+<entry align="left" valign="top"><simpara>Convert with <literal>ByteToString()</literal> if you actually want the byte&#8217;s string representation, or assign a numeric value instead.</simpara></entry>
+<entry align="left" valign="top"><simpara>SynErrIncorrectWordDestination</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Syntax Error - cannot assign string to word variable. Use WordToString()</simpara></entry>
+<entry align="left" valign="top"><simpara>Convert with <literal>WordToString()</literal> if you actually want the word&#8217;s string representation, or assign a numeric value instead.</simpara></entry>
+<entry align="left" valign="top"><simpara>SynErrIncorrectLongDestination</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Syntax Error - cannot assign string to long variable. Use LongToString()</simpara></entry>
+<entry align="left" valign="top"><simpara>Convert with <literal>LongToString()</literal> if you actually want the long&#8217;s string representation, or assign a numeric value instead.</simpara></entry>
+<entry align="left" valign="top"><simpara>SynErrIncorrectSingleDestination</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Syntax Error - cannot assign string to single variable. Use SingleToString()</simpara></entry>
+<entry align="left" valign="top"><simpara>Convert with <literal>SingleToString()</literal> if you actually want the single&#8217;s string representation, or assign a numeric value instead.</simpara></entry>
+<entry align="left" valign="top"><simpara>TableItemInvalid</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Item %item% cannot be stored in the table</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the item&#8217;s type/value against what the table&#8217;s declared type can hold.</simpara></entry>
+<entry align="left" valign="top"><simpara>TableNotFound</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Lookup table %Table% not found</simpara></entry>
+<entry align="left" valign="top"><simpara>Check the table name for a typo, and confirm it is declared before use.</simpara></entry>
+<entry align="left" valign="top"><simpara>TooManyCaseValues</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Too many values in Case list (maximum %max%)</simpara></entry>
+<entry align="left" valign="top"><simpara>Split the value list across more than one <literal>Case</literal> line, each running the same code, or restructure using a <literal>To</literal> range where the values are contiguous. See <link linkend="_select">Select</link>.</simpara></entry>
+<entry align="left" valign="top"><simpara>TooManyErrors</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Too many errors</simpara></entry>
+<entry align="left" valign="top"><simpara>Fix the errors reported so far and recompile - the compiler stopped early because there were too many to usefully continue.</simpara></entry>
+<entry align="left" valign="top"><simpara>UndeclaredArray</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Array %array% has not been declared</simpara></entry>
+<entry align="left" valign="top"><simpara>Add a <literal>Dim</literal> declaration for the array before using it.</simpara></entry>
+<entry align="left" valign="top"><simpara>UndeclaredVar</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Variable %var% was not explicitly declared</simpara></entry>
+<entry align="left" valign="top"><simpara>Add a <literal>Dim</literal> declaration for the variable (required under <literal>#Option Explicit</literal>).</simpara></entry>
+<entry align="left" valign="top"><simpara>UndeclaredMacroVar</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Macro variable %var% not declared - type unknown</simpara></entry>
+<entry align="left" valign="top"><simpara>Give the macro variable an explicit type where it&#8217;s first used.</simpara></entry>
+<entry align="left" valign="top"><simpara>UnhandledHexToSingleAssignement</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Unhandled hex value. Use byte component addressing for Hex value to Single variable assignment</simpara></entry>
+<entry align="left" valign="top"><simpara>Assign to the Single variable&#8217;s individual byte components rather than the hex value directly.</simpara></entry>
+<entry align="left" valign="top"><simpara>UsartBaudTooLow</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>USART baud rate is too low</simpara></entry>
+<entry align="left" valign="top"><simpara>Choose a higher baud rate achievable at the chip&#8217;s clock speed.</simpara></entry>
+<entry align="left" valign="top"><simpara>UseSYSDEFAULTCONCATSTRING</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara><emphasis role="strong">See Also:</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><link linkend="_conditions">Conditions</link>&#8201;&#8212;&#8201;the AND/OR and bit-comparison constraints in context</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_setting_variables">Setting Variables</link>&#8201;&#8212;&#8201;the calculation-complexity constraint in context</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_subroutines">Subroutines</link>&#8201;&#8212;&#8201;the parameter-count and page-size constraints in context</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_functions">Functions</link>&#8201;&#8212;&#8201;the parameter-count constraint in context</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_data">DATA</link>&#8201;&#8212;&#8201;the DATA block value-size constraint in context</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_program_memory_pages">
+<title>Program Memory Pages</title>
+<simpara><indexterm>
+<primary>Constraints and Error Messages</primary><secondary>Program Memory Pages</secondary>
+</indexterm>
+<indexterm>
+<primary>Program Memory Pages</primary>
+</indexterm></simpara>
+<simpara><emphasis role="strong">About program memory pages</emphasis></simpara>
+<simpara>On baseline and mid-range PIC chips (the 10F/12F/14F/16F families - 12-bit and
+14-bit core), program memory is divided into pages, each holding 2048 instructions.
+This does not apply to 18F/18C chips or to AVR chips, which do not have this
+page-packing restriction at all.</simpara>
+<simpara>This affects every code unit the compiler places: Subs, Functions, the main body of
+the program, and the interrupt handler. If the program jumps from code on one page to
+code on another, the compiler has to select the new page, which makes the program
+bigger, so it tries to avoid doing so. To keep page-select jumps down, GCBASIC imposes
+a rule that each Sub or Function must be entirely within one page, so that only calls
+between routines on different pages require a page selection.</simpara>
+<simpara><emphasis role="strong">What always goes on page 0</emphasis></simpara>
+<simpara>Three things are always placed on the first page, and the compiler has no freedom to
+move them elsewhere:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>The main body of the program (everything outside any Sub/Function).</simpara>
+</listitem>
+<listitem>
+<simpara>The interrupt handler (the code compiled from <literal>On Interrupt</literal>).</simpara>
+</listitem>
+<listitem>
+<simpara>The automatic interrupt context save/restore code, unless <literal>#OPTION NOCONTEXTSAVE</literal>
+is used to disable it (see <link linkend="_performance_overview">Performance</link> for the trade-off
+involved).</simpara>
+</listitem>
+</itemizedlist>
+<simpara>This is because the reset vector and the interrupt vector are both fixed, low
+addresses in program memory, and code reachable from them without needing an extra
+page-select jump has to live on that same first page. A handful of words at the very
+start of page 0 are reserved for the vector jumps themselves, so its usable capacity
+is slightly less than a full 2048-word page.</simpara>
+<simpara>Every other Sub and Function is free to be placed on any page - the compiler decides
+automatically, generally favouring the page that calls it most often, to minimise the
+number of page-select jumps needed overall.</simpara>
+<simpara><emphasis role="strong">Avoiding a full first page</emphasis></simpara>
+<simpara>If the main body and the interrupt handler (plus the context save/restore code, if
+enabled) do not fit together on page 0, compilation fails with "First page of program
+memory is full, please reduce size of Main and Interrupt routines." For example, if
+the main body is 1500 words and the interrupt handler is 600 words, that is 2100
+words combined - more than page 0 can hold, even though a second page with plenty of
+free space is sitting right there unused. That spare space on page 2 cannot help,
+because nothing can be moved off page 0.</simpara>
+<simpara>Since only the main body and the interrupt handler themselves are pinned - not
+whatever they call - the fix is to move logic out of both of them and into ordinary
+Subs or Functions instead of writing it inline. A Sub or Function called from the
+main body or from the interrupt handler is free to be placed on any page, so moving
+code into one immediately relieves the pressure on page 0. Keep the main body and the
+interrupt handler themselves as short as calling out to other Subs/Functions, and let
+the compiler place everything else wherever it fits.</simpara>
+<simpara>A related but different error, "Subroutine &#8230;&#8203; is too large," is not about page 0
+specifically - it means one single Sub or Function, wherever it ends up, is larger
+than 2047 words and therefore cannot fit on any page at all, since a page itself is
+only 2048 words. The fix there is to split that one routine into smaller pieces, not
+to move it around.</simpara>
+<simpara><emphasis role="strong">See Also:</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><link linkend="_subroutines">Subroutines</link>&#8201;&#8212;&#8201;declaring and calling Subs, including the separate subroutine-call-depth limit on baseline PIC chips</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_functions">Functions</link>&#8201;&#8212;&#8201;declaring Functions, which are packed into pages the same way as Subs</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_on_interrupt">On Interrupt</link>&#8201;&#8212;&#8201;writing the interrupt handler that shares page 0 with the main body</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_performance_overview">Performance</link>&#8201;&#8212;&#8201;the NOCONTEXTSAVE trade-off mentioned above, and other performance guidance</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_constraints_and_error_messages_overview">Constraints and Error Messages</link>&#8201;&#8212;&#8201;the full list of compiler constraints and error messages</simpara>
+</listitem>
+</itemizedlist>
+</section>
+</section>
+<section xml:id="_performance">
+<title>Performance</title>
+<simpara>This is the Performance section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</simpara>
+<section xml:id="_performance_overview">
+<title>Performance Overview</title>
+<simpara><indexterm>
+<primary>Performance</primary><secondary>Performance Overview</secondary>
+</indexterm>
+<indexterm>
+<primary>Performance Overview</primary>
+</indexterm></simpara>
+<simpara><emphasis role="strong">What the compiler already does</emphasis></simpara>
+<simpara>GCBASIC optimises the code it generates automatically, without being asked to. Some
+of what happens during a normal compile:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><emphasis role="strong">A pointless self-assignment generates no code at all.</emphasis> If a line assigns a
+variable to itself (<literal>MyVar = MyVar</literal>), the compiler checks the source against the
+destination and emits nothing for that line - not even a no-op instruction. This
+check only catches the literal case of the same variable on both sides; it cannot
+detect that two different variables happen to hold the same value.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Simple clean-ups run over the generated assembly, regardless of what is written.</emphasis>
+These are not triggered by any particular coding choice; they are applied to
+whatever assembly the compiler has already produced. For example, a plain
+<literal>MyVar = 0</literal> (assigning the literal zero to a byte variable) compiles to a "load 0,
+then store it" pair of instructions; the clean-up pass recognises that exact pair
+and combines it into a single, more efficient "clear" instruction - so writing
+<literal>MyVar = 0</literal> normally already gets the efficient result, with nothing extra required.
+Two further examples, both fully automatic: if a value is copied out of the working
+register and the very next instruction would copy that same value straight back in,
+the redundant reload is deleted; and on PIC chips with 256 bytes of address space or
+less, now-pointless bank-select instructions are removed entirely (this one depends
+on the chip selected with <literal>#chip</literal>, not on anything in the program&#8217;s logic).</simpara>
+</listitem>
+<listitem>
+<simpara>Calls to other subroutines are converted to a shorter, faster form where the target
+is close enough in program memory.</simpara>
+</listitem>
+<listitem>
+<simpara><literal>If</literal> statements and variable-handling code are tidied up automatically.</simpara>
+</listitem>
+<listitem>
+<simpara>The whole compiled program is re-scanned afterwards, more than once, for any
+further reduction that has become possible.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>See <link linkend="_development_guide_for_gcbasic_exe_compiler">Development Guide for GCBASIC.EXE compiler</link>
+for more on how the compiler is put together. This automatic optimisation is good at
+what it does, but it optimises the code as written, not the intent behind it. It
+cannot restructure an approach that is fundamentally more expensive than it needs to
+be. That is where coding style takes over.</simpara>
+<note>
+<simpara>None of this is about clock speed or overclocking the chip. Every technique on
+this page concerns the ASM the compiler actually generates - fewer instructions,
+cheaper instructions, and less time spent per instruction executed - which helps
+equally whether the chip runs at 4 MHz or 64 MHz.</simpara>
+</note>
+<simpara><emphasis role="strong">Areas with their own tuning options</emphasis></simpara>
+<simpara>A few subsystems expose their own performance trade-offs directly:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><emphasis role="strong">ADC</emphasis> - the <literal>ADSPEED</literal> constant controls the ADC clock source/speed (e.g.
+<literal>#define ADSPEED MEDIUMSPEED</literal>). See <link linkend="_readad">ReadAD</link>.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">PWM</emphasis> - hardware PWM (via a chip&#8217;s CCP/PWM peripheral) costs no CPU time once
+configured, whereas a software-timed PWM loop does; 16-bit PWM modes trade
+additional resolution for extra setup and register-handling cost. See the PWM
+section of the Help file for the specific commands available on a given chip family.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Timers</emphasis> - using a chip&#8217;s hardware timer, with the correct prescaler constant for
+the target period, offloads timing from the CPU entirely, whereas a software delay
+loop blocks it. See the Timers section of the Help file.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>The remainder of this page covers the coding-style choices that matter everywhere
+else - choices the compiler&#8217;s automatic optimisation cannot make on its own.</simpara>
+<simpara><emphasis role="strong">Coding style and performance</emphasis></simpara>
+<simpara>The examples below are drawn from a real, hardware-verified optimisation pass on a
+GCBASIC communications library&#8217;s interrupt handler and buffer-copy code - the most
+frequently executed, timing-sensitive code in that program. Each change was verified
+two ways: a smaller or faster compiled output, and a functional test on physical
+hardware after every step, rather than a theory about what should be faster. The same
+patterns apply to any frequently-run code elsewhere (a main loop, an interrupt
+handler, or any subroutine called often).</simpara>
+<simpara><emphasis role="strong">1. Avoid dividing by a power of two at runtime</emphasis></simpara>
+<simpara>GCBASIC has no constant-power-of-two strength reduction: a plain <literal>/8</literal> compiles to a
+call to a generic division subroutine, even when the divisor is a literal power of
+two, and even inside the most frequently executed code in the program. In one real
+interrupt handler that decoded a hardware status register to determine which of
+several channels had just triggered, a single division -
+<literal>ChannelNumber = (StatusReg And 0x38) / 8</literal>, evaluated on every occurrence of the
+interrupt - was the only division anywhere in the program, and cost a full subroutine
+call on the single most frequent event in the whole handler:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    'Before: a real division subroutine call, every time this fires
+    ChannelNumber = (StatusReg And 0x38) / 8</programlisting>
+<simpara>This was replaced with a mask and three single-bit right rotations (dividing by 8 is
+equivalent to shifting right 3 bits):</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    'After: one bit-clear plus 3 rotate instructions, no subroutine call
+    ChannelNumber = StatusReg And 0x38
+    Set C Off
+    Rotate ChannelNumber Right
+    Rotate ChannelNumber Right
+    Rotate ChannelNumber Right</programlisting>
+<simpara><emphasis role="strong">Key line:</emphasis> <literal>Set C Off</literal>&#8201;&#8212;&#8201;GCBASIC&#8217;s <literal>Rotate</literal> command rotates <emphasis role="strong">through</emphasis> Carry (see
+<link linkend="_rotate">Rotate</link>), rather than as a carry-free circular rotate. Omit this line and
+bit 7 of the result picks up whatever Carry happened to be left over from earlier,
+unrelated code - an intermittent, hard-to-reproduce corruption that only appears
+depending on what ran just before. This was caught during review, before it shipped,
+precisely because it looks like a safe, obviously correct optimisation. Masking with
+<literal>0x38</literal> first (clearing bits 0-2 and bits 6-7), together with the explicit <literal>Set C Off</literal>,
+is what makes the result bit-for-bit identical to the division - both steps are
+required, not the rotates alone.</simpara>
+<simpara><emphasis role="strong">2. Avoid recomputing a value that is actually a compile-time constant</emphasis></simpara>
+<simpara>If a variable is assigned only once, from an expression built entirely out of
+compile-time constants, and never changes afterwards, every place that re-derives
+<literal>variable + offset</literal> at runtime pays for a RAM read plus an addition for a value that
+never changes:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    'Before: BufferAddr is a Word variable read from RAM, then added to, every time
+    Poke BufferAddr + (CurrByte - 1), TempByte</programlisting>
+<programlisting language="gcbasic" linenumbering="unnumbered">    'After: BUFFER_BASE is a #define - resolved at compile time, at no runtime cost
+    #DEFINE BUFFER_BASE (RAM_START + 64)
+    Poke BUFFER_BASE + (CurrByte - 1), TempByte</programlisting>
+<simpara>The variable itself may still be required elsewhere - for example, hardware that
+reads the address back out of a peripheral&#8217;s own control registers - but the point is
+that the surrounding code does not need to re-read and re-add it every time, when a
+<literal>#define</literal> would give the same value for nothing.</simpara>
+<simpara><emphasis role="strong">3. In a copy loop, increment an index rather than recomputing it</emphasis></simpara>
+<simpara>A loop that copies bytes one at a time often only needs a plain "next position", but
+it is easy to write it as a fresh calculation on every pass instead:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    'Before: recomputes a two-operand add on every single byte copied
+    For CurrByte = 1 to TableLength
+        ReadTable MyTable, CurrByte + TableStart, TempByte
+        ...
+    Next</programlisting>
+<programlisting language="gcbasic" linenumbering="unnumbered">    'After: seed the index once, then simply increment it
+    CopyPos = TableStart + 1
+    For CurrByte = 1 to TableLength
+        ReadTable MyTable, CopyPos, TempByte
+        ...
+        CopyPos++
+    Next</programlisting>
+<simpara>This trades a two-operand add for a plain increment on every byte copied - a small
+saving per byte, but a real one on a loop that runs often, such as copying a lookup
+table into a display buffer on every screen refresh.</simpara>
+<simpara><emphasis role="strong">4. Only unroll a copy loop when its length is a genuine, fixed constant</emphasis></simpara>
+<simpara>Where a transfer&#8217;s length is fixed - by a hardware protocol, a fixed record size, or
+a fixed-length packet - rather than merely "usually" a certain size in practice,
+unrolling the loop into straight-line code removes the loop overhead (initialise,
+compare, branch, increment) entirely, backed by fixed-address byte aliases into the
+buffer being copied to or from. This is a safe, unambiguous target for exactly that
+reason. A genuinely variable-length copy - a string whose length depends on what is
+being sent - is not, and should remain a loop.</simpara>
+<simpara><emphasis role="strong">5. Measure after every change; do not assume</emphasis></simpara>
+<simpara>Every change above was verified two ways: the compiler&#8217;s own reported program size
+(word count) before and after, and a functional test on real hardware. Several
+plausible-looking "obvious" optimisations attempted during the same investigation
+were tried, tested on hardware, and reverted when they did not help or made matters
+worse - each looked reasonable in the source but was not confirmed to do anything
+useful until tested. Treat "this should be faster" as a hypothesis, not a conclusion,
+until the compiled size and actual behaviour have both been checked.</simpara>
+<simpara><emphasis role="strong">Choosing a loop: Repeat versus For/Do for a fixed count</emphasis></simpara>
+<simpara>When a fixed number of repetitions is all that is needed, and the loop counter&#8217;s
+value is not otherwise used, <literal>Repeat</literal> compiles to less overhead per pass than <literal>For</literal>.
+In the generated program, <literal>Repeat <emphasis>n</emphasis></literal> comes down to this shape:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    'One variable, counting down (PIC shown; AVR chips get an equivalent
+    'decrement-and-branch pattern)
+    RepeatLoop:
+    '...body of the loop...
+    decfsz RepeatCounter, F     ' &lt;&lt;&lt; decrement, and skip the next line if it hit zero
+    goto RepeatLoop</programlisting>
+<simpara>One variable, decremented and tested for zero in a single instruction, then a branch
+back to the top - that is the entire per-iteration cost. <literal>For</literal> has to support
+features <literal>Repeat</literal> does not: arbitrary start and end values, ascending or descending
+order, and an optional <literal>Step</literal> that can itself be a variable. It therefore tracks a
+start, an end, and a step, and compares the counter against the end value on every
+single pass, rather than simply testing for zero. That generality costs real
+instructions per iteration that a plain "do this N times" loop does not need to pay
+for.</simpara>
+<simpara>Use <literal>For</literal> when the counter&#8217;s value is needed inside the loop, when counting in a
+direction or step size other than 1, or when the bounds are not known until runtime.
+Use <literal>Repeat</literal> for everything else that amounts to "do this N times." See
+<link linkend="_repeat">Repeat</link> and <link linkend="_for">For</link>.</simpara>
+<simpara><emphasis role="strong">Nested If versus combined boolean conditions</emphasis></simpara>
+<simpara><literal>If A Then If B Then If C Then &#8230;&#8203;</literal> and <literal>If A And B And C Then &#8230;&#8203;</literal> are not compiled
+the same way, and the difference is not merely stylistic. A single condition - one
+comparison, on a byte or bit, with no <literal>And</literal>, <literal>Or</literal>, or arithmetic - is classified as
+"simple" and compiled inline as one comparison plus one conditional skip instruction.
+As soon as a condition contains <literal>And</literal>, <literal>Or</literal>, or another combining operator, it is
+reclassified as a full calculation: each side is evaluated in full, and the results
+are then combined. This is both more expensive to evaluate and, as
+<link linkend="_constraints_and_error_messages_overview">Constraints and Error Messages</link> describes,
+capped at two combined <literal>And</literal>/<literal>Or</literal> operations per condition.</simpara>
+<simpara>Nested <literal>If</literal> statements do not have that ceiling, and gain a benefit combined
+conditions structurally cannot: short-circuiting. In <literal>If A Then If B Then &#8230;&#8203;</literal>, <literal>B</literal> is
+never evaluated at all once <literal>A</literal> is false - the generated code simply branches past the
+inner <literal>If</literal> entirely. In <literal>If A And B Then &#8230;&#8203;</literal>, both <literal>A</literal> and <literal>B</literal> are evaluated as
+values before being combined, every time, whether or not <literal>A</literal> alone would already have
+settled the answer. Where <literal>A</literal> is cheap to test and often false, and <literal>B</literal> is more
+expensive to evaluate - a function call, or a more complex comparison - nesting, with
+the cheap, likely-to-fail test placed outermost, avoids evaluating <literal>B</literal> at all in the
+common case. See <link linkend="_if">If</link> and <link linkend="_conditions">Conditions</link>.</simpara>
+<simpara><emphasis role="strong">Aliasing for performance</emphasis></simpara>
+<simpara><literal>Alias</literal> (see <link linkend="_dim">Dim</link>) does more than save RAM by letting variables share
+storage. Used deliberately, it removes runtime addressing cost entirely, because an
+alias&#8217;s location is resolved once, at compile time, and never recalculated while the
+program runs.</simpara>
+<itemizedlist>
+<listitem>
+<simpara><emphasis role="strong">Aliasing a fixed array element avoids runtime array indexing.</emphasis> <literal>MyArray(n)</literal>,
+where <literal>n</literal> is a variable, needs a pointer or index register set up at runtime on
+every access. <literal>MyArray(3)</literal>, where <literal>3</literal> is a literal, is cheaper, but is still an
+array reference. Where code repeatedly touches one specific, always-the-same
+element of an array in a frequently-run section, alias it once to a plain variable
+name:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    Dim SensorReadings(8) As Byte
+    Dim LatestReading As Byte Alias SensorReadings(3)   ' &lt;&lt;&lt; always element 3, resolved at compile time
+
+    LatestReading = ReadAD(AN0)   ' &lt;&lt;&lt; a direct, fixed-address write, not an indexed one</programlisting>
+<simpara><emphasis role="strong">Key line:</emphasis> <literal>Dim LatestReading As Byte Alias SensorReadings(3)</literal>&#8201;&#8212;&#8201;the compiler
+computes <literal>SensorReadings&#8217;s base address plus the constant offset `3</literal> once, while
+compiling, and gives <literal>LatestReading</literal> that single fixed address permanently. Every
+subsequent use of <literal>LatestReading</literal> is a direct read or write, without the per-access
+indexing cost that writing out <literal>SensorReadings(3)</literal> directly would still carry.</simpara>
+</listitem>
+<listitem>
+<simpara><emphasis role="strong">Aliasing directly to a hardware register avoids a redundant variable and a copy.</emphasis>
+Where code needs to read or write a chip register (SFR), aliasing a variable name
+straight to that register is faster than declaring an ordinary variable and copying
+data to and from the register separately:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    'Before: a separate variable, plus a copy in and a copy out on every use
+    Dim PortBCopy As Byte
+    PortBCopy = PORTB
+    PortBCopy = PortBCopy Or 0b00000001
+    PORTB = PortBCopy</programlisting>
+<programlisting language="gcbasic" linenumbering="unnumbered">    'After: the alias IS the register - no separate storage, and no copy in either direction
+    Dim PortBCopy As Byte Alias PORTB
+    PortBCopy = PortBCopy Or 0b00000001</programlisting>
+<simpara>The "before" version uses a RAM byte it does not need, and pays for a
+read-from-register and a write-to-register on top of whatever the actual operation
+was. The "after" version has no separate storage at all - every reference to
+<literal>PortBCopy</literal> reads or writes <literal>PORTB</literal> directly.</simpara>
+</listitem>
+</itemizedlist>
+<simpara><emphasis role="strong">Interrupt latency</emphasis></simpara>
+<simpara>Interrupt latency is the time between the hardware event that triggers an interrupt
+and the moment the interrupt-handling code actually starts running. There is no
+operating system scheduler involved on these chips, but there are still several
+GCBASIC-controlled costs between the interrupt firing and the handler code running,
+and the way the interrupt-handling code is written affects every one of them.</simpara>
+<simpara><emphasis role="strong">1. Automatic context save and restore.</emphasis> By default, GCBASIC adds code at the very
+start of every interrupt that saves every register the mainline code and the
+interrupt code might both use, and matching code at the end that restores them - one
+store instruction per register on entry, one load per register on exit - so that the
+interrupt cannot silently corrupt whatever the mainline code was in the middle of
+doing. This is real, unconditional latency paid on every interrupt, regardless of
+whether that particular interrupt actually touches those registers. <literal>#OPTION
+NOCONTEXTSAVE</literal> turns this off, at a real cost: responsibility for guaranteeing that
+no register shared between mainline and interrupt code is ever left in a state the
+other side does not expect moves to the programmer - a class of bug that is
+intermittent and hard to reproduce when it does occur, precisely because it depends
+on exactly what the mainline code happened to be doing at the moment the interrupt
+fired.</simpara>
+<simpara><emphasis role="strong">2. The order interrupt causes are tested in.</emphasis> On chips with a single shared
+interrupt vector, GCBASIC compiles the interrupt-handling code&#8217;s cause checks (each
+<literal>On Interrupt</literal>/flag test) in the order they are written, and tests them sequentially -
+each untested cause ahead of the one that actually fired costs a further comparison
+before the real handling code runs. Where one interrupt source fires far more often
+than the others, checking it first minimises the average latency across all the
+interrupts the program actually receives, even though the worst case - the
+least-frequent cause, tested last - does not change.</simpara>
+<simpara><emphasis role="strong">3. What the handler code does once it starts.</emphasis> Everything covered earlier on this
+page - avoiding runtime division, not recomputing constants, short-circuiting nested
+<literal>If</literal> statements - matters more inside an interrupt handler than almost anywhere else
+in a program, because it runs on every occurrence of whatever event triggers it,
+often while the rest of the program is waiting for it to finish.</simpara>
+<simpara><emphasis role="strong">See Also:</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><link linkend="_development_guide_for_gcbasic_exe_compiler">Development Guide for GCBASIC.EXE compiler</link>&#8201;&#8212;&#8201;the compiler&#8217;s own automatic optimisation steps</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_rotate">Rotate</link>&#8201;&#8212;&#8201;the through-Carry behaviour behind lesson 1 above</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_readad">ReadAD</link>&#8201;&#8212;&#8201;the ADSPEED constant for tuning ADC performance</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_repeat">Repeat</link> / <link linkend="_for">For</link>&#8201;&#8212;&#8201;the fixed-count versus general-purpose loop choice above</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_program_memory_pages">Program Memory Pages</link>&#8201;&#8212;&#8201;the NOCONTEXTSAVE trade-off in full, and how page 0 is packed</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_if">If</link> / <link linkend="_conditions">Conditions</link>&#8201;&#8212;&#8201;nested versus combined condition compilation above</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_dim">Dim</link>&#8201;&#8212;&#8201;the <literal>Alias</literal> declaration used for both aliasing techniques above</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_on_interrupt">On Interrupt</link>&#8201;&#8212;&#8201;declaring the interrupt-cause handlers whose order affects latency above</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_constraints_and_error_messages_overview">Constraints and Error Messages</link>&#8201;&#8212;&#8201;structural limits to bear in mind alongside performance choices</simpara>
+</listitem>
+</itemizedlist>
+</section>
+</section>
 <section xml:id="_gcbasic_maintenance_and_development">
 <title>GCBASIC Maintenance and Development</title>
 <simpara>This is the GCBASIC maintenance section of the Help file.  Please refer the sub-sections for details using the contents/folder view.</simpara>
@@ -57732,15 +59130,19 @@ The GCBASIC header files are the following:</simpara>
     6. string.bi - the FreeBASIC string library</programlisting>
 <simpara>The supporting files are:</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    1. messages.dat - the English messages source file.  All user messages from the compiler are sourced from this file.
-    2. reservedwords.dat - the list of system reserved words</programlisting>
+    2. reservedwords.dat - the list of system reserved words
+    3. lowlevel.dat - the list of header files, from include\lowlevel\, that are included by default</programlisting>
 <simpara><?asciidoc-br?>
-<?asciidoc-br?>
+<?asciidoc-br?></simpara>
+<simpara><literal>lowlevel.dat</literal> is a plain text file, one file name per line, such as <literal>usart.h</literal>, <literal>hwspi.h</literal> and
+<literal>string.h</literal>. Every header file it lists is loaded into every compile by default, without the user
+needing an explicit <literal>#include</literal> - see Note #6 below for exactly where and how this happens.
 The compiler process is simple.
 The process, shown below, generates the ASM source and the HEX file from the user source program.</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    1. Create the indexes
     2. Declare the methods, arrays and variables
     3. Process the user source programs using PreProcessor method. This includes
-        i.     Loading of all source files including include files
+        i.     Loading of all source files including include files (see Note #6 below)
         ii.    Translate files, if needed
         iii.   Examine source for comments, tables, asm, rawasm, functions;subs;macros, set origin of valid code
                     Origin = ";?F" + Str(RF) + "L" + Str(LC) + "S" + Str(SBC) + "?"
@@ -57760,7 +59162,8 @@ The process, shown below, generates the ASM source and the HEX file from the use
         xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program.
         xv.    Prepare programmer, need to know chip model and need to do this before checking config
         xvi.   Replace Constants
-        xvii.  Replace table value.  Replace constants and calculations in tables with actual values
+        xvii.  ExpandShifts.  Normalise shift-operator (&lt;&lt;, &gt;&gt;) expressions in the source so they parse correctly, ahead of table/constant substitution.  Also enforces a bitwise-comparison complexity limit - a line combining more than two AND/OR operations is rejected (see Note #5 below).
+        xviii. Replace table value.  Replace constants and calculations in tables with actual values
     4. Compile the program using the CompileProgram method
          i.    Compile calls to other subroutines, insert macros
          ii.   Compile DIMs again, in case any come through from macros
@@ -57781,16 +59184,18 @@ The process, shown below, generates the ASM source and the HEX file from the use
          xvii. Compile If(s)
          xviii Compile Exit Sub
          xix.  Compile Goto(s)
+         xx.   FindAssembly.  Anything not matched by the steps above is checked against the target chip's real instruction set and, if recognised, passed through as assembly (see Note #4 below).
     5. Allocate RAM using the AllocateRAM method
     6. Optimise the generated code using the TidyProgram method
     7. Combine and locate the subroutines and functions for the selected chip using the MergeSubroutines method
     8. Complete the final optimisation using the FinalOptimise method
-    9. Write the assembly using the WriteAssembly method
-    10. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other defined Assembler
-    11. Optionally, pass programming operations to the programmer
-    12. Write compilation report using the WriteCompilationReport method
-    13. If needed, write the error and warning log using the WriteErrorLog method
-    14. Exit, setting the ERRORLEVEL</programlisting>
+    9. Recalculate subroutine sizes using the RecalcSubSizes method, so that program-memory usage reflects the actual post-optimisation word counts (Step 8's call-to-rcall optimisation, for example, changes instruction sizes)
+    10. Write the assembly using the WriteAssembly method
+    11. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other defined Assembler
+    12. Optionally, pass programming operations to the programmer
+    13. Write compilation report using the WriteCompilationReport method
+    14. If needed, write the error and warning log using the WriteErrorLog method
+    15. Exit, setting the ERRORLEVEL</programlisting>
 <simpara>Note #1: Constants can be created in many places, and the order is critical when trying to understand the process.</simpara>
 <simpara>Step 3.iv; Step 3.xi, 3.xiv and xvi. These are Find compiler directives; RunScripts, process IFDEFs, and replace Constants values, respectively.
 This means constants that are not created by the Find compiler directives step are clearly not available in the RunScripts step, and the same applies to the process IFDEFs step. So, please consider the order of constant creation in terms of these steps. Always think about the precedence of constant creation.</simpara>
@@ -57802,6 +59207,30 @@ This means constants that are not created by the Find compiler directives step a
   END IF</programlisting>
 <simpara>This will create the constant AD_DELAY only when the user program does not define a value.
 <?asciidoc-br?></simpara>
+<simpara>Note #4: GCBASIC has no reference grammar that every line of source must match. Step 3.x (<literal>PrepareBuiltIn</literal>) indexes every Sub and Function the compiler recognizes - the built-in commands, plus everything defined by the libraries the program has loaded - before a single line of the user&#8217;s code is compiled. From that point, compiling a line of code (Step 4) works by elimination: if the line is a recognized GCBASIC command, or a call to one of the indexed Subs/Functions, it is compiled as such. If it is neither, the compiler assumes the line must be assembly and passes it to the target chip&#8217;s assembler unchanged (aside from substituting any GCBASIC constants/variables it recognizes on the line). This check is performed by <literal>IsASM</literal> (<literal>assembly.bi</literal>), which looks the line&#8217;s leading word up in the real instruction table for the selected chip family - so a line such as <literal>MOVWF Display,ACCESS</literal> needs no <literal>Asm</literal> or <literal>#asmraw</literal> keyword at all; it is recognized as a genuine instruction for the target chip and passed straight through. <literal>#asmraw</literal> is the one exception to this lookup - a <literal>#asmraw</literal> line is always treated as assembly unconditionally, regardless of whether its content matches a known instruction.
+<?asciidoc-br?></simpara>
+<simpara>This is also why the compilation summary&#8217;s <literal>Subroutines</literal> line can look surprising, for example:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    Summary:
+         Compiled:
+              Program lines: 2
+              Subroutines:  User: 0 ; System: 1 of 486 ; Total: 1</programlisting>
+<simpara>The <literal>486</literal> is the total number of system Subs/Functions indexed in Step 3.x for this compile (built-in commands plus whatever the loaded libraries define) - not how many were actually used. <literal>System: 1 of 486</literal> means only 1 of those 486 indexed routines was actually called by this particular two-line program; the rest were indexed (so the compiler could recognize a call to any of them) but never referenced, and so contribute nothing to the compiled output.
+<?asciidoc-br?></simpara>
+<simpara>One direct consequence: because unrecognized lines fall through to assembly rather than being rejected outright, GCBASIC&#8217;s own compile step is not a full syntax check. A line with a typo in an intended command name, or a genuine assembly mnemonic used incorrectly, can compile without error at the GCBASIC stage and only surface as a failure when GCASM, MPASM, PIC-AS, or AVR2ASM actually assembles the generated ASM into the HEX file. Treat a successful GCBASIC compile as "no unrecognized commands, and everything that looked like assembly was valid enough to pass through" - the true syntax check is the assembler step that follows.
+<?asciidoc-br?></simpara>
+<simpara>Note #5: Step 3.xvii (<literal>ExpandShifts</literal>) is also where the compiler enforces a hard limit on bitwise-comparison complexity - a line combining more than two AND/OR operations is rejected with "More than two AND/OR statements - reduce complexity." This is not an arbitrary restriction the current team could simply lift; see <link linkend="_historical_design_constraints">Historical Design Constraints</link> below for why.
+<?asciidoc-br?></simpara>
+<simpara>Note #6: Step 3.i (loading of all source files) is implemented in <literal>preprocessor.bi</literal>, not <literal>gcbasic.bas</literal> itself. It first resolves every explicit <literal>#include</literal> in the user&#8217;s own program, and every <literal>#include</literal> found inside those files in turn, repeating until a pass discovers no new files. Only once that is exhausted does it load <literal>lowlevel.dat</literal>: it opens <literal>include\lowlevel.dat</literal> (the extension is normally <literal>.dat</literal>, but can be overridden with <literal>overridelowleveldatfileextextension</literal> for testing), reads it one line at a time, skips comment lines (starting with <literal>'</literal>), and for every other line builds the path <literal>include\lowlevel\&lt;filename&gt;</literal> and adds that file to the source-file list with <literal>SystemInclude = -1</literal>, unless it is already loaded or listed in the compiler&#8217;s ignore-file list. This means every file <literal>lowlevel.dat</literal> names - <literal>usart.h</literal>, <literal>hwspi.h</literal>, <literal>string.h</literal>, and the rest - is loaded into every single compile unconditionally; there is no check here for whether the user actually defined <literal>USART_BAUD_RATE</literal> or any other enabling constant. It is the conditional-compilation guards inside each of those header files (their own <literal>#IF</literal>/<literal>#IFDEF</literal> checks against the user&#8217;s constants) that decide whether any of the loaded code actually ends up in the compiled program. This is also why a command like <literal>HSerSend</literal> needs no explicit <literal>#include</literal>: <literal>usart.h</literal> is already loaded by the time the user&#8217;s program is compiled, purely because it is listed in <literal>lowlevel.dat</literal>. If one of these listed files cannot be found on disk - a broken or incomplete installation - the compiler reports it immediately with "Essential file missing" and stops, naming the missing file, rather than silently continuing without it (see <link linkend="_constraints_and_error_messages_overview">Constraints and Error Messages</link>).
+<?asciidoc-br?></simpara>
+</section>
+<section xml:id="_historical_design_constraints">
+<title>Historical Design Constraints</title>
+<simpara>This is a passing thought for whoever comes this way in the future, to understand why some things about the compiler are the way they are.</simpara>
+<simpara>GCBASIC was not originally written to be programmed by typing free-form text. It was originally constrained, controlled, and syntax-checked by Great Cow Graphical BASIC (GCGB) - see <emphasis role="strong">BACKGROUND</emphasis> above for GCGB&#8217;s origin. In GCGB, a program is built by dragging and connecting graphical blocks, each corresponding to a GCBASIC command. Because the palette of blocks and the ways they can be connected are both fixed by the graphical tool, GCGB inherently limited both what a program could express and how complex any single expression could become - you simply could not drag together a combination the tool didn&#8217;t support. That constraint doubled as a syntax check: if GCGB would let you build it, it was valid GCBASIC by construction.</simpara>
+<simpara>Moving to a freehand, text-based IDE removed that built-in ceiling. Users could now type any combination of operators and conditions they liked, whether or not anything resembling it had ever been produced by GCGB. Responsibility for validating what is typed therefore shifted from GCGB&#8217;s graphical constraints onto the compiler itself - and, as Note #4 above describes, the compiler was never built around a complete reference grammar; it grew up assuming inputs shaped like what GCGB could produce. A great deal of the compiler&#8217;s ongoing development has been - and continues to be - closing that gap, adding syntax checking for cases free-text users reach that GCGB&#8217;s graphical constraints made impossible.</simpara>
+<simpara>Some of these gaps, though, are not simply unfinished work - they are places where the underlying calculation and parsing logic was never designed to handle the complexity a free-text user can now type, because GCGB could never have produced that complexity in the first place. The bitwise-comparison limit enforced in <literal>ExpandShifts</literal> (Note #5 above) is a clear example: GCGB&#8217;s graphical blocks never allowed chaining more than two AND/OR conditions into a single bitwise compare, so the expression-evaluation logic underneath was never engineered to resolve deeper nesting correctly. A free-text user can type such an expression today, but the compiler cannot reliably evaluate it - and fixing that is not a small correction to an existing check, it would mean re-engineering a foundational part of the expression evaluator. That is a substantially larger undertaking than the current development team can take on, so this particular limit is enforced rather than supported.</simpara>
+<simpara>The practical lesson: when something in GCBASIC seems arbitrarily restrictive rather than simply buggy, it is worth asking whether the restriction traces back to what GCGB could originally produce. If so, treat it as a structural constraint inherited from the compiler&#8217;s origins, not an oversight waiting for a quick fix.</simpara>
+<simpara><?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">FreeBASIC COMPILATION OF GCBASIC SOURCE CODE</emphasis></simpara>
 <simpara>The compiler is relatively simple in terms of the compilation.</simpara>
 <simpara>Use the following versions of the FreeBASIC compiler to compile the GCBASIC source code.</simpara>
@@ -58180,6 +59609,37 @@ The list shows the installation of the SharpDevelop IDE.</simpara>
 <?asciidoc-br?>
 <?asciidoc-br?>
 <?asciidoc-br?></simpara>
+</section>
+</section>
+<section xml:id="_regression_testing_the_compiler_against_the_demos">
+<title>Regression Testing the Compiler Against the Demos</title>
+<simpara>Before publishing a compiler change, run it against the full demo corpus to catch regressions. The <literal>testcompilealldemos.bat</literal> script walks a target folder (the demos repository by default) and compiles every <literal>.gcb</literal> file it finds, logging the outcome of each into four files: <literal>test.log</literal> (files with real errors/warnings, or that failed to produce ASM/HEX), <literal>success.log</literal>, <literal>invalidsources.log</literal> (files with no <literal>#chip</literal>/recognised chip include, so not a compilable source), and <literal>skipped.log</literal>.</simpara>
+<simpara><emphasis role="strong">Excluding files and folders from the run:</emphasis></simpara>
+<simpara>There are two independent ways to keep a source out of a regression run:</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="50*"/>
+<colspec colname="col_2" colwidth="50*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Mechanism</entry>
+<entry align="left" valign="top">Effect</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>A file named <literal>skiptest</literal> or <literal>skiptest.txt</literal> placed in a folder</simpara></entry>
+<entry align="left" valign="top"><simpara>Skips every <literal>.gcb</literal> file in that folder <emphasis role="strong">and all its subfolders</emphasis>. The script walks up from each file&#8217;s folder toward the target root looking for this marker, so placing one at a high-level folder (e.g. a whole <literal>TestSolutions</literal>-style scratch area) excludes everything beneath it.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>The <literal>#SKIPTEST</literal> directive inside a <literal>.gcb</literal> file</simpara></entry>
+<entry align="left" valign="top"><simpara>Skips only that individual file, wherever it lives. The script detects it with a plain text search for <literal>#SKIPTEST</literal> in the source, so it does not need to sit in any particular location in the file.</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara>Neither mechanism is understood by <literal>GCBASIC.EXE</literal> itself - <literal>#SKIPTEST</literal> is not a compiler directive; the compiler never inspects it. Both are conventions read only by the regression-test script, used to exclude demos that are intentionally non-compiling (work in progress, illustrative snippets, or requiring build options the batch run doesn&#8217;t set).</simpara>
+<simpara><?asciidoc-br?></simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -58191,8 +59651,10 @@ The list shows the installation of the SharpDevelop IDE.</simpara>
 <listitem>
 <simpara><link linkend="_command_line_parameters">Command Line Parameters</link>&#8201;&#8212;&#8201;the use.ini settings this compiler reads</simpara>
 </listitem>
+<listitem>
+<simpara><link linkend="_performance_overview">Performance</link>&#8201;&#8212;&#8201;the user-facing guide to writing fast GCBASIC code</simpara>
+</listitem>
 </itemizedlist>
-</section>
 </section>
 <section xml:id="_code_documentation">
 <title>Code Documentation</title>
@@ -58576,13 +60038,13 @@ The Windows driver must be <literal>libusbK</literal>, not the <literal>libusb</
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-09-06<?asciidoc-br?>
-14:28:33 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-09-08<?asciidoc-br?>
+14:19:48 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-09-06<?asciidoc-br?>
-07:21:53 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-09-07<?asciidoc-br?>
+15:10:53 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>

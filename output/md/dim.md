@@ -83,6 +83,8 @@ microcontrollers.
     variable’s state after declaring it
 -   <a href="constants" class="link" title="Constants">Constants</a> — fixed,
     named values as an alternative to a variable
+-   <a href="performance_overview" class="link" title="Performance Overview">Performance</a> — using
+    Alias to remove runtime addressing cost
 -   <a href="rotate" class="link" title="Rotate">Rotate</a> — bit-rotating
     a declared variable’s value
 

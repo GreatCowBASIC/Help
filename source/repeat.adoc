@@ -54,3 +54,4 @@ immediately.
 
 * <<_for,For>> -- a counted loop that also exposes the current iteration number
 * <<_do,Do>> -- an unbounded loop, for when the iteration count is not known in advance
+* <<_performance_overview,Performance>> -- why Repeat compiles to less overhead per pass than For for a fixed count

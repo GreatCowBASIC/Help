@@ -69,6 +69,8 @@ loop-counter variable the way `For` would.
     loop that also exposes the current iteration number
 -   <a href="do" class="link" title="Do">Do</a> — an unbounded
     loop, for when the iteration count is not known in advance
+-   <a href="performance_overview" class="link" title="Performance Overview">Performance</a> — why
+    Repeat compiles to less overhead per pass than For for a fixed count
 
 </div>
 

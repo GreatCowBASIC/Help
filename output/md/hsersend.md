@@ -48,6 +48,9 @@ number.
 This command will send a byte given by <span
 class="emphasis">*user\_byte*</span> using the hardware RS232 module.
 
+To send several bytes in one call, see
+<a href="hsersendbytes" class="link" title="HSerSendBytes">HSerSendBytes</a>.
+
 <span class="strong">**Example:**</span>
 
 ``` programlisting
@@ -86,6 +89,8 @@ hardware serial connection.
 
 <div class="itemizedlist">
 
+-   <a href="hsersendbytes" class="link" title="HSerSendBytes">HSerSendBytes</a> — sending
+    2 to 16 bytes in a single call
 -   <a href="hserprint" class="link" title="HSerPrint">HSerPrint</a> — sending
     a string, integer, word, or long, rather than a single raw byte
 -   <a href="hserreceive" class="link" title="HSerReceive">HSerReceive</a> — the

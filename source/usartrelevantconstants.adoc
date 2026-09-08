@@ -179,6 +179,13 @@ To print a variable value to usart 2. Note the additional parameter for the usar
 
 `HSerSend` ( user_byte, 2 )
 
+|*Serially send 2 to 16 bytes in a single call, using the default usart port.* | |
+|`HSerSendBytes` |byte1, byte2 [, byte3 ... up to byte16] |This subroutine sends each byte in turn, in the order given, using the same enabling constants as `HSerSend`. There is no usart-address parameter; it always sends on the default/currently configured usart.
+
+To send three bytes on the default usart
+
+`HSerSendBytes` ( byte1, byte2, byte3 )
+
 |*Serially send a byte and a CR&LF using any of the usart ports*| |
 |`HSerPrintByteCRLF` |Byte or byte_variable +  [,optional usart address] The optional usart address is microcontroller specific buy can be 1, 2, 3 or 4. |This subroutine sends a byte value to usart 1.
 

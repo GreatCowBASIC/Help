@@ -43,6 +43,9 @@ parameter in the declaration is given a default value, the parameter is
 optional. Array parameters are specified by following an identifier with
 an empty set of parentheses.
 
+A function call can have at most 50 parameters; a call with more fails
+to compile with "Maximum number of parameters (50) exceeded."
+
 Returning values: `return_type` specifies the data type returned by a
 function upon exit. If no data type is specified, then the function will
 return the default data type, which is a byte. Functions return values
@@ -102,6 +105,12 @@ If statement.
     non-value-returning counterpart to functions
 -   <a href="exit" class="link" title="Exit">Exit</a> — exiting a
     function or subroutine early
+-   <a href="program_memory_pages" class="link" title="Program Memory Pages">Program Memory Pages</a> — how
+    Functions are packed into program memory pages, and the errors that
+    result if they do not fit
+-   <a href="constraints_and_error_messages_overview" class="link" title="Constraints and Error Messages Overview">Constraints and Error Messages</a> — the
+    full list of compiler constraints and error messages, including the
+    parameter-count limit above
 
 </div>
 

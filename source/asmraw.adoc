@@ -84,4 +84,5 @@ This example will generate the following in the ASM source file.
 
 **See Also:**
 
+* <<_asm,Asm>> -- the equivalent command that substitutes GCBASIC constants before inserting the line
 * <<_compiler_insights,Compiler Insights>> -- forcing regular (non-raw) assembly comments into the ASM output

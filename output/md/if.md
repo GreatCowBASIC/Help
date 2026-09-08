@@ -123,6 +123,8 @@ Supported:
     loop alternative to Do
 -   <a href="readad" class="link" title="ReadAD">ReadAD</a> — reading
     the sensor value tested in the example above
+-   <a href="performance_overview" class="link" title="Performance Overview">Performance</a> — why
+    nested If can outperform a combined And/Or condition
 
 </div>
 

@@ -126,3 +126,4 @@ This example show casting the step value as an integer.&#160;&#160;The step valu
 * <<_dim,Dim>> -- declaring the loop counter/variable types used above
 * <<_pulseout,PulseOut>> -- generating a timed pulse, as used in the example above
 * <<_if,If>> -- conditionally exiting the loop with `Exit For`
+* <<_performance_overview,Performance>> -- when Repeat is cheaper than For for a fixed count

@@ -151,6 +151,8 @@ in this example is the integer value of 2.
     a timed pulse, as used in the example above
 -   <a href="if" class="link" title="If">If</a> — conditionally
     exiting the loop with `Exit For`
+-   <a href="performance_overview" class="link" title="Performance Overview">Performance</a> — when
+    Repeat is cheaper than For for a fixed count
 
 </div>
 

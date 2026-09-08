@@ -105,3 +105,4 @@ Supported:
 * <<_do,Do>> -- looping construct used to repeat the check in the example above
 * <<_for,For>> -- fixed-count loop alternative to Do
 * <<_readad,ReadAD>> -- reading the sensor value tested in the example above
+* <<_performance_overview,Performance>> -- why nested If can outperform a combined And/Or condition

@@ -1,0 +1,27 @@
+==== Let
+
+(((Variables Operations,Let)))
+
+{empty} +
+*Syntax:*
+[subs="specialcharacters,quotes"]
+----
+    Let _Variable_ = _data_
+----
+{empty} +
+*Explanation:*
+{empty} +
+If you prefer, you can add `Let` to the start of a <<_setting_variables,variable assignment>>. &#160;&#160;It will not alter the execution of the program, but is included for those who are used to including it in other BASIC dialects.
+{empty} +
+{empty} +
+
+*Example:*
+
+[source,gcbasic]
+----
+    Let Chipmunk = 46    'Identical to: Chipmunk = 46
+----
+
+**See Also:**
+
+* <<_setting_variables,Setting Variables>> -- the assignment syntax `Let` is an optional prefix for

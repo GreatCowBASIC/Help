@@ -496,6 +496,10 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | Serial Communications
 | HSerSend _user_byte_ [,1\|2\|3\|4] 'Choose comport with optional parameter
 
+| <<_hsersendbytes,HSerSendBytes>>
+| Serial Communications
+| HSerSendBytes(_byte1_, _byte2_ [, _byte3_ ... up to _byte16_])
+
 | <<_hx8347g_controllers,HX8347G Controllers>>
 | Graphical LCD
 | This section covers GLCD devices that use the HX8347G graphics controller.
@@ -2113,6 +2117,9 @@ This page is the definitive, browsable index of every documented GCBASIC command
 
 | <<_hsersend,HSerSend>>
 | HSerSend _user_byte_ [,1\|2\|3\|4] 'Choose comport with optional parameter
+
+| <<_hsersendbytes,HSerSendBytes>>
+| HSerSendBytes(_byte1_, _byte2_ [, _byte3_ ... up to _byte16_])
 
 | <<_initser,InitSer>>
 | InitSer _channel, rate, start, data, stop, parity, invert_

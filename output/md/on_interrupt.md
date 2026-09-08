@@ -905,6 +905,11 @@ whenever the external interrupt 0 pin detects the configured edge.
     control a motor
 -   <a href="inittimer1" class="link" title="InitTimer1">InitTimer1</a> — configuring
     Timer1, as used in Example 1 above
+-   <a href="performance_overview" class="link" title="Performance Overview">Performance</a> — how
+    the order you check interrupt causes in affects latency
+-   <a href="program_memory_pages" class="link" title="Program Memory Pages">Program Memory Pages</a> — why
+    the interrupt handler is always pinned to page 0, and how to avoid a
+    full-first-page error
 
 </div>
 

@@ -123,6 +123,8 @@ continuously.
     command in the same category
 -   <a href="set" class="link" title="Set">Set</a> — clearing the
     STATUS.C / carry flag before rotating, as recommended above
+-   <a href="performance_overview" class="link" title="Performance Overview">Performance</a> — using
+    Rotate to replace a runtime division by a power of two
 
 </div>
 

@@ -13,10 +13,10 @@
       <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_gcbasic_maintenance_and_development.html" title="GCBASIC Maintenance and Development" />
       <link rel="prev" href="_development_guide.html" title="Development Guide" />
-      <link rel="next" href="_compiler_source_insights.html" title="Compiler Source Insights" />
+      <link rel="next" href="_historical_design_constraints.html" title="Historical Design Constraints" />
       <meta name="Section-title" content="Development Guide for GCBASIC.EXE compiler" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-90303";
+            var treeCookieId = "treeview-93974";
             var language = "en";
             var w = new Object();
             //Localization
@@ -168,7 +168,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="_gcbasic_maintenance_and_development.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_compiler_source_insights.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_historical_design_constraints.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -184,8 +184,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><a id="d0e89158" class="indexterm"></a>
-               <a id="d0e89164" class="indexterm"></a></p>
+            <p><a id="d0e92571" class="indexterm"></a>
+               <a id="d0e92577" class="indexterm"></a></p>
             <p>There are lots of ways to contribute to the GCBASIC project: coding, testing, improving the build process and tools, or contributing
                to the documentation.
                This guide provides information that will not only help you get started as a GCBASIC contributor, but that will also be useful
@@ -291,14 +291,18 @@ border: none; background: none; font-weight: none; color: none; }
     4. assembly.bi - methods specific to the generation of GCAssembler (GCASM)
     5. file.bi - the FreeBASIC files library
     6. string.bi - the FreeBASIC string library</pre><p>The supporting files are:</p><pre class="programlisting">    1. messages.dat - the English messages source file.  All user messages from the compiler are sourced from this file.
-    2. reservedwords.dat - the list of system reserved words</pre><p><br />
-               <br />
+    2. reservedwords.dat - the list of system reserved words
+    3. lowlevel.dat - the list of header files, from include\lowlevel\, that are included by default</pre><p><br />
+               <br /></p>
+            <p><code class="literal">lowlevel.dat</code> is a plain text file, one file name per line, such as <code class="literal">usart.h</code>, <code class="literal">hwspi.h</code> and
+               <code class="literal">string.h</code>. Every header file it lists is loaded into every compile by default, without the user
+               needing an explicit <code class="literal">#include</code> - see Note #6 below for exactly where and how this happens.
                The compiler process is simple.
                The process, shown below, generates the ASM source and the HEX file from the user source program.
             </p><pre class="programlisting">    1. Create the indexes
     2. Declare the methods, arrays and variables
     3. Process the user source programs using PreProcessor method. This includes
-        i.     Loading of all source files including include files
+        i.     Loading of all source files including include files (see Note #6 below)
         ii.    Translate files, if needed
         iii.   Examine source for comments, tables, asm, rawasm, functions;subs;macros, set origin of valid code
                     Origin = ";?F" + Str(RF) + "L" + Str(LC) + "S" + Str(SBC) + "?"
@@ -318,7 +322,8 @@ border: none; background: none; font-weight: none; color: none; }
         xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program.
         xv.    Prepare programmer, need to know chip model and need to do this before checking config
         xvi.   Replace Constants
-        xvii.  Replace table value.  Replace constants and calculations in tables with actual values
+        xvii.  ExpandShifts.  Normalise shift-operator (&lt;&lt;, &gt;&gt;) expressions in the source so they parse correctly, ahead of table/constant substitution.  Also enforces a bitwise-comparison complexity limit - a line combining more than two AND/OR operations is rejected (see Note #5 below).
+        xviii. Replace table value.  Replace constants and calculations in tables with actual values
     4. Compile the program using the CompileProgram method
          i.    Compile calls to other subroutines, insert macros
          ii.   Compile DIMs again, in case any come through from macros
@@ -339,16 +344,18 @@ border: none; background: none; font-weight: none; color: none; }
          xvii. Compile If(s)
          xviii Compile Exit Sub
          xix.  Compile Goto(s)
+         xx.   FindAssembly.  Anything not matched by the steps above is checked against the target chip's real instruction set and, if recognised, passed through as assembly (see Note #4 below).
     5. Allocate RAM using the AllocateRAM method
     6. Optimise the generated code using the TidyProgram method
     7. Combine and locate the subroutines and functions for the selected chip using the MergeSubroutines method
     8. Complete the final optimisation using the FinalOptimise method
-    9. Write the assembly using the WriteAssembly method
-    10. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other defined Assembler
-    11. Optionally, pass programming operations to the programmer
-    12. Write compilation report using the WriteCompilationReport method
-    13. If needed, write the error and warning log using the WriteErrorLog method
-    14. Exit, setting the ERRORLEVEL</pre><p>Note #1: Constants can be created in many places, and the order is critical when trying to understand the process.</p>
+    9. Recalculate subroutine sizes using the RecalcSubSizes method, so that program-memory usage reflects the actual post-optimisation word counts (Step 8's call-to-rcall optimisation, for example, changes instruction sizes)
+    10. Write the assembly using the WriteAssembly method
+    11. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other defined Assembler
+    12. Optionally, pass programming operations to the programmer
+    13. Write compilation report using the WriteCompilationReport method
+    14. If needed, write the error and warning log using the WriteErrorLog method
+    15. Exit, setting the ERRORLEVEL</pre><p>Note #1: Constants can be created in many places, and the order is critical when trying to understand the process.</p>
             <p>Step 3.iv; Step 3.xi, 3.xiv and xvi. These are Find compiler directives; RunScripts, process IFDEFs, and replace Constants
                values, respectively.
                This means constants that are not created by the Find compiler directives step are clearly not available in the RunScripts
@@ -367,55 +374,38 @@ border: none; background: none; font-weight: none; color: none; }
      AD_DELAY = 2 10US
   END IF</pre><p>This will create the constant AD_DELAY only when the user program does not define a value.
                <br /></p>
-            <p><span class="strong"><strong>FreeBASIC COMPILATION OF GCBASIC SOURCE CODE</strong></span></p>
-            <p>The compiler is relatively simple in terms of the compilation.</p>
-            <p>Use the following versions of the FreeBASIC compiler to compile the GCBASIC source code.</p>
-            <p>For Windows 32 bit</p><pre class="programlisting">    FreeBASIC Compiler - Version 1.07.1 (2019-09-27), built for win32 (32bit)
-    Copyright (C) 2004-2019 The FreeBASIC development team.</pre><p>For Windows 64 bit</p><pre class="programlisting">    FreeBASIC Compiler - Version 1.07.1 (2019-09-27), built for win64 (64bit)
-    Copyright (C) 2004-2019 The FreeBASIC development team.</pre><p>Using other versions of the Windows FreeBASIC compiler is NOT tested and may fail.
-               Use the specific versions shown above.
-            </p>
-            <p>The compiler uses the following command lines.
-               Where <code class="literal">%ProgramFiles%</code> is the root location of the FreeBASIC installation, and
-               <code class="literal">$SF</code> is the location of the source files and the destination of the compiled executable.
-            </p>
-            <p>For Windows 32 bit</p><pre class="programlisting">    "%ProgramFiles%\FreeBASIC\win32\fbc.exe"  $SF\gcbasic.bas   -exx -arch 586 -x $SF\gcbasic32.exe</pre><p>For Windows 64 bit</p><pre class="programlisting">    "%ProgramFiles%\FreeBASIC\win64\fbc.exe"  $SF\gcbasic.bas   -x $SF\gcbasic64.exe -ex</pre><p>Linux, FreeBSD, and Pi OS are also supported.
-               Please see <a class="link" href="https://gcbasic.sourceforge.net/help/" target="_top">Online Help</a> and search for the specific operating system.
-            </p>
-            <p><br />
+            <p>Note #4: GCBASIC has no reference grammar that every line of source must match. Step 3.x (<code class="literal">PrepareBuiltIn</code>) indexes every Sub and Function the compiler recognizes - the built-in commands, plus everything defined by the libraries
+               the program has loaded - before a single line of the user’s code is compiled. From that point, compiling a line of code (Step
+               4) works by elimination: if the line is a recognized GCBASIC command, or a call to one of the indexed Subs/Functions, it is
+               compiled as such. If it is neither, the compiler assumes the line must be assembly and passes it to the target chip’s assembler
+               unchanged (aside from substituting any GCBASIC constants/variables it recognizes on the line). This check is performed by
+               <code class="literal">IsASM</code> (<code class="literal">assembly.bi</code>), which looks the line’s leading word up in the real instruction table for the selected chip family - so a line such as <code class="literal">MOVWF Display,ACCESS</code> needs no <code class="literal">Asm</code> or <code class="literal">#asmraw</code> keyword at all; it is recognized as a genuine instruction for the target chip and passed straight through. <code class="literal">#asmraw</code> is the one exception to this lookup - a <code class="literal">#asmraw</code> line is always treated as assembly unconditionally, regardless of whether its content matches a known instruction.
                <br /></p>
-            <p><span class="strong"><strong>FreeBASIC COMPILER TOOLCHAIN</strong></span></p>
-            <p>To simplify the establishment of a development environment, download a complete installation from <a class="link" href="https://sourceforge.net/projects/gcbasic/files/Support%20Files/GCBASICWindowsToolchain/FreeBASIC.zip/download" target="_top">here</a>.
-               This includes the correct version of FreeBASIC and the libraries - all ready for use.
-               Simply unzip the ZIP to a folder, and the toolchain is ready for use.
-               For an IDE, please see the information above.
-            </p>
-            <p><br />
+            <p>This is also why the compilation summary’s <code class="literal">Subroutines</code> line can look surprising, for example:
+            </p><pre class="programlisting">    Summary:
+         Compiled:
+              Program lines: 2
+              Subroutines:  User: 0 ; System: 1 of 486 ; Total: 1</pre><p>The <code class="literal">486</code> is the total number of system Subs/Functions indexed in Step 3.x for this compile (built-in commands plus whatever the loaded
+               libraries define) - not how many were actually used. <code class="literal">System: 1 of 486</code> means only 1 of those 486 indexed routines was actually called by this particular two-line program; the rest were indexed
+               (so the compiler could recognize a call to any of them) but never referenced, and so contribute nothing to the compiled output.
                <br /></p>
-            <p><span class="strong"><strong>BUILDING THE GCBASIC EXECUTABLE USING THE FBEDIT IDE</strong></span></p>
-            <p>To build GCBASIC from the source files.
-               The list shows the installation of the FBEdit IDE.
-            </p>
-            <p>Complete the following:</p><pre class="programlisting">        1. Download and install FreeBASIC from the url shown above.
-        2. Download and install fbedit from https://sourceforge.net/projects/fbedit/?source=dlp[SourceForge]
-        3. Download the GCBASIC source using SVN into a gcbasic source folder.
-        4. Run fbedit (installed at step #2).  Load project  GCBASIC.fbp  from the GCBASIC source folder.
-        5. Hit &lt;f5&gt; to compile.</pre><p><br />
+            <p>One direct consequence: because unrecognized lines fall through to assembly rather than being rejected outright, GCBASIC’s
+               own compile step is not a full syntax check. A line with a typo in an intended command name, or a genuine assembly mnemonic
+               used incorrectly, can compile without error at the GCBASIC stage and only surface as a failure when GCASM, MPASM, PIC-AS,
+               or AVR2ASM actually assembles the generated ASM into the HEX file. Treat a successful GCBASIC compile as "no unrecognized
+               commands, and everything that looked like assembly was valid enough to pass through" - the true syntax check is the assembler
+               step that follows.
                <br /></p>
-            <p><span class="strong"><strong>CODING STYLES</strong></span></p>
-            <p>Remember, Hugh was 12 when he started this project.
-               You must forgive him for being a genius, but he did not implement many programming styles and conventions that are commonplace
-               today.
-            </p>
-            <p>There is a general lack of documentation.
-               We are adding documentation as we progress.
-               This can make the source frustrating initially, but you can find the code segments, as they are clearly within method blocks.
-            </p>
-            <p>The following rules are recommended.</p><pre class="programlisting">    1. All CONSTANTS are capitalized
-    2. Do not use TAB - use two spaces
-    3. You can rename a variable to a meaningful name.  Hugh used a lot of single character variables many years ago.  This should be avoided in new code.
-    4. Document as you progress.
-    5. Ask for help.</pre><p><br /></p>
+            <p>Note #5: Step 3.xvii (<code class="literal">ExpandShifts</code>) is also where the compiler enforces a hard limit on bitwise-comparison complexity - a line combining more than two AND/OR
+               operations is rejected with "More than two AND/OR statements - reduce complexity." This is not an arbitrary restriction the
+               current team could simply lift; see <a class="link" href="_historical_design_constraints.html" title="Historical Design Constraints">Historical Design Constraints</a> below for why.
+               <br /></p>
+            <p>Note #6: Step 3.i (loading of all source files) is implemented in <code class="literal">preprocessor.bi</code>, not <code class="literal">gcbasic.bas</code> itself. It first resolves every explicit <code class="literal">#include</code> in the user’s own program, and every <code class="literal">#include</code> found inside those files in turn, repeating until a pass discovers no new files. Only once that is exhausted does it load
+               <code class="literal">lowlevel.dat</code>: it opens <code class="literal">include\lowlevel.dat</code> (the extension is normally <code class="literal">.dat</code>, but can be overridden with <code class="literal">overridelowleveldatfileextextension</code> for testing), reads it one line at a time, skips comment lines (starting with <code class="literal">'</code>), and for every other line builds the path <code class="literal">include\lowlevel\&lt;filename&gt;</code> and adds that file to the source-file list with <code class="literal">SystemInclude = -1</code>, unless it is already loaded or listed in the compiler’s ignore-file list. This means every file <code class="literal">lowlevel.dat</code> names - <code class="literal">usart.h</code>, <code class="literal">hwspi.h</code>, <code class="literal">string.h</code>, and the rest - is loaded into every single compile unconditionally; there is no check here for whether the user actually
+               defined <code class="literal">USART_BAUD_RATE</code> or any other enabling constant. It is the conditional-compilation guards inside each of those header files (their own <code class="literal">#IF</code>/<code class="literal">#IFDEF</code> checks against the user’s constants) that decide whether any of the loaded code actually ends up in the compiled program.
+               This is also why a command like <code class="literal">HSerSend</code> needs no explicit <code class="literal">#include</code>: <code class="literal">usart.h</code> is already loaded by the time the user’s program is compiled, purely because it is listed in <code class="literal">lowlevel.dat</code>. If one of these listed files cannot be found on disk - a broken or incomplete installation - the compiler reports it immediately
+               with "Essential file missing" and stops, naming the missing file, rather than silently continuing without it (see <a class="link" href="_constraints_and_error_messages_overview.html" title="Constraints and Error Messages Overview">Constraints and Error Messages</a>).
+               <br /></p>
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -425,7 +415,7 @@ border: none; background: none; font-weight: none; color: none; }
                   <td width="40%" align="left"><a accesskey="p" href="_development_guide.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="_gcbasic_maintenance_and_development.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="_compiler_source_insights.html">Next</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="_historical_design_constraints.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -875,6 +865,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_hserreceive.html" tabindex="1">HSerReceive</a></span></li>
                                           <li><span class="file"><a href="_hserreceivefrom.html" tabindex="1">HSerReceiveFrom</a></span></li>
                                           <li><span class="file"><a href="_hsersend.html" tabindex="1">HSerSend</a></span></li>
+                                          <li><span class="file"><a href="_hsersendbytes.html" tabindex="1">HSerSendBytes</a></span></li>
                                           <li><span class="file"><a href="_hserprintbytecrlf.html" tabindex="1">HserPrintByteCRLF</a></span></li>
                                           <li><span class="file"><a href="_hserprintcrlf.html" tabindex="1">HserPrintCRLF</a></span></li>
                                        </ul>
@@ -970,6 +961,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_using_variables.html" tabindex="1">Using Variables</a></span></li>
                                     <li><span class="file"><a href="_more_on_setting_variables_and_constants.html" tabindex="1">More on setting Variables and Constants</a></span></li>
                                     <li><span class="file"><a href="_setting_variables.html" tabindex="1">Setting Variables</a></span></li>
+                                    <li><span class="file"><a href="_let.html" tabindex="1">Let</a></span></li>
                                     <li><span class="file"><a href="_variable_lifecycle.html" tabindex="1">Variable Lifecycle</a></span></li>
                                     <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span><ul>
                                           <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
@@ -1070,6 +1062,7 @@ border: none; background: none; font-weight: none; color: none; }
                         </li>
                         <li><span class="file"><a href="_compiler_directives.html" tabindex="1">Compiler Directives</a></span><ul>
                               <li><span class="file"><a href="__asmraw.html" tabindex="1">#asmraw</a></span></li>
+                              <li><span class="file"><a href="_asm.html" tabindex="1">Asm</a></span></li>
                               <li><span class="file"><a href="__chip.html" tabindex="1">#chip</a></span></li>
                               <li><span class="file"><a href="__config.html" tabindex="1">#config</a></span></li>
                               <li><span class="file"><a href="__define.html" tabindex="1">#DEFINE</a></span></li>
@@ -1142,16 +1135,27 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_constraints_and_error_messages.html" tabindex="1">Constraints and Error Messages</a></span><ul>
+                              <li><span class="file"><a href="_constraints_and_error_messages_overview.html" tabindex="1">Constraints and Error Messages Overview</a></span></li>
+                              <li><span class="file"><a href="_program_memory_pages.html" tabindex="1">Program Memory Pages</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_performance.html" tabindex="1">Performance</a></span><ul>
+                              <li><span class="file"><a href="_performance_overview.html" tabindex="1">Performance Overview</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
                               <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li id="webhelp-currentid"><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
+                              <li><span class="file"><a href="_historical_design_constraints.html" tabindex="1">Historical Design Constraints</a></span></li>
                               <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">Compiler Source Insights</a></span></li>
                               <li><span class="file"><a href="_about_glcd_library_support.html" tabindex="1">ABOUT GLCD Library Support</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span><ul>
                                     <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">About the Preferences Editor</a></span></li>
                                  </ul>
                               </li>
+                              <li><span class="file"><a href="_regression_testing_the_compiler_against_the_demos.html" tabindex="1">Regression Testing the Compiler Against the Demos</a></span></li>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_gcbasic_documentation_toolchain.html" tabindex="1">GCBASIC Documentation Toolchain</a></span></li>
                            </ul>

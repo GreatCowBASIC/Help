@@ -117,9 +117,14 @@ The supporting files are:
 ----
     1. messages.dat - the English messages source file.  All user messages from the compiler are sourced from this file.
     2. reservedwords.dat - the list of system reserved words
+    3. lowlevel.dat - the list of header files, from include\lowlevel\, that are included by default
 ----
 {empty} +
 {empty} +
+
+`lowlevel.dat` is a plain text file, one file name per line, such as `usart.h`, `hwspi.h` and
+`string.h`. Every header file it lists is loaded into every compile by default, without the user
+needing an explicit `#include` - see Note #6 below for exactly where and how this happens.
 The compiler process is simple.
 The process, shown below, generates the ASM source and the HEX file from the user source program.
 
@@ -128,7 +133,7 @@ The process, shown below, generates the ASM source and the HEX file from the use
     1. Create the indexes
     2. Declare the methods, arrays and variables
     3. Process the user source programs using PreProcessor method. This includes
-        i.     Loading of all source files including include files
+        i.     Loading of all source files including include files (see Note #6 below)
         ii.    Translate files, if needed
         iii.   Examine source for comments, tables, asm, rawasm, functions;subs;macros, set origin of valid code
                     Origin = ";?F" + Str(RF) + "L" + Str(LC) + "S" + Str(SBC) + "?"
@@ -148,7 +153,8 @@ The process, shown below, generates the ASM source and the HEX file from the use
         xiv.   RemIfDefs.  Remove any #IFDEFs that do not apply to the program.
         xv.    Prepare programmer, need to know chip model and need to do this before checking config
         xvi.   Replace Constants
-        xvii.  Replace table value.  Replace constants and calculations in tables with actual values
+        xvii.  ExpandShifts.  Normalise shift-operator (<<, >>) expressions in the source so they parse correctly, ahead of table/constant substitution.  Also enforces a bitwise-comparison complexity limit - a line combining more than two AND/OR operations is rejected (see Note #5 below).
+        xviii. Replace table value.  Replace constants and calculations in tables with actual values
     4. Compile the program using the CompileProgram method
          i.    Compile calls to other subroutines, insert macros
          ii.   Compile DIMs again, in case any come through from macros
@@ -169,16 +175,18 @@ The process, shown below, generates the ASM source and the HEX file from the use
          xvii. Compile If(s)
          xviii Compile Exit Sub
          xix.  Compile Goto(s)
+         xx.   FindAssembly.  Anything not matched by the steps above is checked against the target chip's real instruction set and, if recognised, passed through as assembly (see Note #4 below).
     5. Allocate RAM using the AllocateRAM method
     6. Optimise the generated code using the TidyProgram method
     7. Combine and locate the subroutines and functions for the selected chip using the MergeSubroutines method
     8. Complete the final optimisation using the FinalOptimise method
-    9. Write the assembly using the WriteAssembly method
-    10. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other defined Assembler
-    11. Optionally, pass programming operations to the programmer
-    12. Write compilation report using the WriteCompilationReport method
-    13. If needed, write the error and warning log using the WriteErrorLog method
-    14. Exit, setting the ERRORLEVEL
+    9. Recalculate subroutine sizes using the RecalcSubSizes method, so that program-memory usage reflects the actual post-optimisation word counts (Step 8's call-to-rcall optimisation, for example, changes instruction sizes)
+    10. Write the assembly using the WriteAssembly method
+    11. Assemble and generate the hex file using GCASM, MPASM, PICAS or some other defined Assembler
+    12. Optionally, pass programming operations to the programmer
+    13. Write compilation report using the WriteCompilationReport method
+    14. If needed, write the error and warning log using the WriteErrorLog method
+    15. Exit, setting the ERRORLEVEL
 ----
 
 Note #1: Constants can be created in many places, and the order is critical when trying to understand the process.
@@ -199,6 +207,45 @@ Note #3: Good practice is NOT to create constants in a library where the user ca
 ----
 
 This will create the constant AD_DELAY only when the user program does not define a value.
+{empty} +
+
+Note #4: GCBASIC has no reference grammar that every line of source must match. Step 3.x (`PrepareBuiltIn`) indexes every Sub and Function the compiler recognizes - the built-in commands, plus everything defined by the libraries the program has loaded - before a single line of the user's code is compiled. From that point, compiling a line of code (Step 4) works by elimination: if the line is a recognized GCBASIC command, or a call to one of the indexed Subs/Functions, it is compiled as such. If it is neither, the compiler assumes the line must be assembly and passes it to the target chip's assembler unchanged (aside from substituting any GCBASIC constants/variables it recognizes on the line). This check is performed by `IsASM` (`assembly.bi`), which looks the line's leading word up in the real instruction table for the selected chip family - so a line such as `MOVWF Display,ACCESS` needs no `Asm` or `#asmraw` keyword at all; it is recognized as a genuine instruction for the target chip and passed straight through. `#asmraw` is the one exception to this lookup - a `#asmraw` line is always treated as assembly unconditionally, regardless of whether its content matches a known instruction.
+{empty} +
+
+This is also why the compilation summary's `Subroutines` line can look surprising, for example:
+
+[source,gcbasic]
+----
+    Summary:
+         Compiled:
+              Program lines: 2
+              Subroutines:  User: 0 ; System: 1 of 486 ; Total: 1
+----
+
+The `486` is the total number of system Subs/Functions indexed in Step 3.x for this compile (built-in commands plus whatever the loaded libraries define) - not how many were actually used. `System: 1 of 486` means only 1 of those 486 indexed routines was actually called by this particular two-line program; the rest were indexed (so the compiler could recognize a call to any of them) but never referenced, and so contribute nothing to the compiled output.
+{empty} +
+
+One direct consequence: because unrecognized lines fall through to assembly rather than being rejected outright, GCBASIC's own compile step is not a full syntax check. A line with a typo in an intended command name, or a genuine assembly mnemonic used incorrectly, can compile without error at the GCBASIC stage and only surface as a failure when GCASM, MPASM, PIC-AS, or AVR2ASM actually assembles the generated ASM into the HEX file. Treat a successful GCBASIC compile as "no unrecognized commands, and everything that looked like assembly was valid enough to pass through" - the true syntax check is the assembler step that follows.
+{empty} +
+
+Note #5: Step 3.xvii (`ExpandShifts`) is also where the compiler enforces a hard limit on bitwise-comparison complexity - a line combining more than two AND/OR operations is rejected with "More than two AND/OR statements - reduce complexity." This is not an arbitrary restriction the current team could simply lift; see <<_historical_design_constraints,Historical Design Constraints>> below for why.
+{empty} +
+
+Note #6: Step 3.i (loading of all source files) is implemented in `preprocessor.bi`, not `gcbasic.bas` itself. It first resolves every explicit `#include` in the user's own program, and every `#include` found inside those files in turn, repeating until a pass discovers no new files. Only once that is exhausted does it load `lowlevel.dat`: it opens `include\lowlevel.dat` (the extension is normally `.dat`, but can be overridden with `overridelowleveldatfileextextension` for testing), reads it one line at a time, skips comment lines (starting with `'`), and for every other line builds the path `include\lowlevel\<filename>` and adds that file to the source-file list with `SystemInclude = -1`, unless it is already loaded or listed in the compiler's ignore-file list. This means every file `lowlevel.dat` names - `usart.h`, `hwspi.h`, `string.h`, and the rest - is loaded into every single compile unconditionally; there is no check here for whether the user actually defined `USART_BAUD_RATE` or any other enabling constant. It is the conditional-compilation guards inside each of those header files (their own `#IF`/`#IFDEF` checks against the user's constants) that decide whether any of the loaded code actually ends up in the compiled program. This is also why a command like `HSerSend` needs no explicit `#include`: `usart.h` is already loaded by the time the user's program is compiled, purely because it is listed in `lowlevel.dat`. If one of these listed files cannot be found on disk - a broken or incomplete installation - the compiler reports it immediately with "Essential file missing" and stops, naming the missing file, rather than silently continuing without it (see <<_constraints_and_error_messages_overview,Constraints and Error Messages>>).
+{empty} +
+
+=== Historical Design Constraints
+
+This is a passing thought for whoever comes this way in the future, to understand why some things about the compiler are the way they are.
+
+GCBASIC was not originally written to be programmed by typing free-form text. It was originally constrained, controlled, and syntax-checked by Great Cow Graphical BASIC (GCGB) - see *BACKGROUND* above for GCGB's origin. In GCGB, a program is built by dragging and connecting graphical blocks, each corresponding to a GCBASIC command. Because the palette of blocks and the ways they can be connected are both fixed by the graphical tool, GCGB inherently limited both what a program could express and how complex any single expression could become - you simply could not drag together a combination the tool didn't support. That constraint doubled as a syntax check: if GCGB would let you build it, it was valid GCBASIC by construction.
+
+Moving to a freehand, text-based IDE removed that built-in ceiling. Users could now type any combination of operators and conditions they liked, whether or not anything resembling it had ever been produced by GCGB. Responsibility for validating what is typed therefore shifted from GCGB's graphical constraints onto the compiler itself - and, as Note #4 above describes, the compiler was never built around a complete reference grammar; it grew up assuming inputs shaped like what GCGB could produce. A great deal of the compiler's ongoing development has been - and continues to be - closing that gap, adding syntax checking for cases free-text users reach that GCGB's graphical constraints made impossible.
+
+Some of these gaps, though, are not simply unfinished work - they are places where the underlying calculation and parsing logic was never designed to handle the complexity a free-text user can now type, because GCGB could never have produced that complexity in the first place. The bitwise-comparison limit enforced in `ExpandShifts` (Note #5 above) is a clear example: GCGB's graphical blocks never allowed chaining more than two AND/OR conditions into a single bitwise compare, so the expression-evaluation logic underneath was never engineered to resolve deeper nesting correctly. A free-text user can type such an expression today, but the compiler cannot reliably evaluate it - and fixing that is not a small correction to an existing check, it would mean re-engineering a foundational part of the expression evaluator. That is a substantially larger undertaking than the current development team can take on, so this particular limit is enforced rather than supported.
+
+The practical lesson: when something in GCBASIC seems arbitrarily restrictive rather than simply buggy, it is worth asking whether the restriction traces back to what GCGB could originally produce. If so, treat it as a structural constraint inherited from the compiler's origins, not an oversight waiting for a quick fix.
+
 {empty} +
 
 *FreeBASIC COMPILATION OF GCBASIC SOURCE CODE*
@@ -722,8 +769,33 @@ Complete the following:
 {empty} +
 {empty} +
 
+=== Regression Testing the Compiler Against the Demos
+
+Before publishing a compiler change, run it against the full demo corpus to catch regressions. The `testcompilealldemos.bat` script walks a target folder (the demos repository by default) and compiles every `.gcb` file it finds, logging the outcome of each into four files: `test.log` (files with real errors/warnings, or that failed to produce ASM/HEX), `success.log`, `invalidsources.log` (files with no `#chip`/recognised chip include, so not a compilable source), and `skipped.log`.
+
+*Excluding files and folders from the run:*
+
+There are two independent ways to keep a source out of a regression run:
+
+[cols="2", options="header,autowidth"]
+|===
+|Mechanism
+|Effect
+
+|A file named `skiptest` or `skiptest.txt` placed in a folder
+|Skips every `.gcb` file in that folder *and all its subfolders*. The script walks up from each file's folder toward the target root looking for this marker, so placing one at a high-level folder (e.g. a whole `TestSolutions`-style scratch area) excludes everything beneath it.
+
+|The `#SKIPTEST` directive inside a `.gcb` file
+|Skips only that individual file, wherever it lives. The script detects it with a plain text search for `#SKIPTEST` in the source, so it does not need to sit in any particular location in the file.
+|===
+
+Neither mechanism is understood by `GCBASIC.EXE` itself - `#SKIPTEST` is not a compiler directive; the compiler never inspects it. Both are conventions read only by the regression-test script, used to exclude demos that are intentionally non-compiling (work in progress, illustrative snippets, or requiring build options the batch run doesn't set).
+
+{empty} +
+
 **See Also:**
 
 * <<_development_guide,Development Guide>> -- the equivalent contributor guide for GCBASIC libraries
 * <<_gcbasic_maintenance,GCBASIC Maintenance>> -- the release/build/DAT-file maintenance process
 * <<_command_line_parameters,Command Line Parameters>> -- the use.ini settings this compiler reads
+* <<_performance_overview,Performance>> -- the user-facing guide to writing fast GCBASIC code

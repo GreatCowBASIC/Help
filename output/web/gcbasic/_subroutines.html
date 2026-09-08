@@ -16,7 +16,7 @@
       <link rel="next" href="_converters.html" title="Converters" />
       <meta name="Section-title" content="Subroutines" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-90303";
+            var treeCookieId = "treeview-93974";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,8 +184,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><a id="d0e10499" class="indexterm"></a>
-               <a id="d0e10505" class="indexterm"></a></p>
+            <p><a id="d0e10552" class="indexterm"></a>
+               <a id="d0e10558" class="indexterm"></a></p>
             <p><span class="strong"><strong>About Subroutines</strong></span></p>
             <p>A subroutine is a small program inside of the main program. Subroutines
                are typically used when a task needs to be repeated several times in
@@ -265,19 +265,21 @@ border: none; background: none; font-weight: none; color: none; }
                subroutines, so you should always allow for 2 or 3 more subroutine calls
                than your program has.
             </p>
-            <p>On 16F chips, program memory is divided into pages. Each page holds 2048 instructions.
-               If the program jumps from code on one page to code on another, the compiler has to select the new page.
-               Having to do this makes the program bigger, so try to avoid it.
-               To keep jumps between pages down, GCBASIC imposes a rule that each subroutine must be entirely within one page, so that only
-               jumps to other subroutines require the page selection.
-               As an example, say you have two pages of memory, each 2048 instructions (words) long.<br />
-               If you have a main sub that is 1500 words, and four other subroutines each 600 words long, your total program size would be
-               3900 words, and you might expect it to fit into the 4096 words available.
-               The problem, though, is that once the main routine takes 1500 words from page 1, nothing else will fit after it. Three of
-               the 600-word subroutines would fit onto page 2, but that leaves one 600-word subroutine that will not fit into the 500 left
-               on page 1 or the 200 left on page 2.
-               If you want to reduce the chance of this happening, the best option is to keep your subroutines smaller - move anything out
-               of the main routine and into another one - this will resolve memory page constraints.
+            <p>On baseline and mid-range PIC chips (the 10F/12F/14F/16F families - 12-bit and
+               14-bit core), program memory is divided into pages, each holding 2048 instructions.
+               This does not apply to 18F/18C chips or to AVR chips, which do not have this
+               page-packing restriction at all. If the program jumps from code on one page to code
+               on another, the compiler has to select the new page. Having to do this makes the
+               program bigger, so try to avoid it. To keep jumps between pages down, GCBASIC imposes
+               a rule that each subroutine must be entirely within one page, so that only jumps to
+               other subroutines require the page selection.
+            </p>
+            <p>This is not only a Subroutines topic: Functions, the main body of the program, and
+               the interrupt handler are all packed into pages the same way, and the main body and
+               interrupt handler are always pinned to the first page. See
+               <a class="link" href="_program_memory_pages.html" title="Program Memory Pages">Program Memory Pages</a> for the full explanation, including
+               what always goes on page 0 and how to avoid a "First page of program memory is full"
+               error.
             </p>
             <p>Atmel AVR microcontrollers have no fixed limit on how many subroutines can be
                called at a time, but if too many are called, some variables on the
@@ -378,6 +380,9 @@ border: none; background: none; font-weight: none; color: none; }
                middle, then you must insert commas to allow GCBASIC to tell where the
                optional parameters are.
             </p>
+            <p>A subroutine call can have at most 50 parameters; a call with more fails to compile with "Maximum number of parameters (50)
+               exceeded."
+            </p>
             <p><span class="strong"><strong>Overloading</strong></span></p>
             <p>It is possible to have 2 subroutines with the same name, but different
                parameters. This is known as overloading, and GCBASIC will automatically
@@ -396,12 +401,29 @@ border: none; background: none; font-weight: none; color: none; }
             </p><pre class="programlisting">    Print PORTB.0</pre><p>the byte print will be used. This is because byte is the closest type to
                the single-bit parameter.
             </p>
+            <p>A single-character string literal, such as <code class="literal">"R"</code>, can be passed to whichever
+               overload fits best: it matches a <code class="literal">String</code> parameter (as a one-character
+               string) and equally matches a <code class="literal">Byte</code> or <code class="literal">Bit</code> parameter (as its ASCII value),
+               the same way <code class="literal">Dim x As Byte = "R"</code> already works. If none of the overloads of
+               a subroutine or function fit the arguments given at all — for example,
+               passing a multi-character string where every overload expects a number — the call fails to compile with "No matching overload
+               found for <code class="literal"><span class="emphasis"><em>name</em></span></code> with
+               these argument types."
+            </p>
             <p><span class="strong"><strong>See Also:</strong></span></p>
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">
                   <li class="listitem"><a class="link" href="_functions.html" title="Functions">Functions</a> — the value-returning counterpart to subroutines
                   </li>
                   <li class="listitem"><a class="link" href="_exit.html" title="Exit">Exit</a> — exiting a subroutine or function early
+                  </li>
+                  <li class="listitem"><a class="link" href="_constraints_and_error_messages_overview.html" title="Constraints and Error Messages Overview">Constraints and Error Messages</a> — the full list of compiler constraints and error messages, including the parameter-count limit above
+                  </li>
+                  <li class="listitem"><a class="link" href="_program_memory_pages.html" title="Program Memory Pages">Program Memory Pages</a> — the full explanation of page 0 and how to avoid a full-first-page error
+                  </li>
+                  <li class="listitem"><a class="link" href="_on_interrupt.html" title="On Interrupt">On Interrupt</a> — writing the interrupt handler that shares page 0 with the main body
+                  </li>
+                  <li class="listitem"><a class="link" href="_performance_overview.html" title="Performance Overview">Performance</a> — the NOCONTEXTSAVE trade-off mentioned above, and other performance guidance
                   </li>
                </ul>
             </div>
@@ -864,6 +886,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_hserreceive.html" tabindex="1">HSerReceive</a></span></li>
                                           <li><span class="file"><a href="_hserreceivefrom.html" tabindex="1">HSerReceiveFrom</a></span></li>
                                           <li><span class="file"><a href="_hsersend.html" tabindex="1">HSerSend</a></span></li>
+                                          <li><span class="file"><a href="_hsersendbytes.html" tabindex="1">HSerSendBytes</a></span></li>
                                           <li><span class="file"><a href="_hserprintbytecrlf.html" tabindex="1">HserPrintByteCRLF</a></span></li>
                                           <li><span class="file"><a href="_hserprintcrlf.html" tabindex="1">HserPrintCRLF</a></span></li>
                                        </ul>
@@ -959,6 +982,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_using_variables.html" tabindex="1">Using Variables</a></span></li>
                                     <li><span class="file"><a href="_more_on_setting_variables_and_constants.html" tabindex="1">More on setting Variables and Constants</a></span></li>
                                     <li><span class="file"><a href="_setting_variables.html" tabindex="1">Setting Variables</a></span></li>
+                                    <li><span class="file"><a href="_let.html" tabindex="1">Let</a></span></li>
                                     <li><span class="file"><a href="_variable_lifecycle.html" tabindex="1">Variable Lifecycle</a></span></li>
                                     <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span><ul>
                                           <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
@@ -1059,6 +1083,7 @@ border: none; background: none; font-weight: none; color: none; }
                         </li>
                         <li><span class="file"><a href="_compiler_directives.html" tabindex="1">Compiler Directives</a></span><ul>
                               <li><span class="file"><a href="__asmraw.html" tabindex="1">#asmraw</a></span></li>
+                              <li><span class="file"><a href="_asm.html" tabindex="1">Asm</a></span></li>
                               <li><span class="file"><a href="__chip.html" tabindex="1">#chip</a></span></li>
                               <li><span class="file"><a href="__config.html" tabindex="1">#config</a></span></li>
                               <li><span class="file"><a href="__define.html" tabindex="1">#DEFINE</a></span></li>
@@ -1131,16 +1156,27 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_constraints_and_error_messages.html" tabindex="1">Constraints and Error Messages</a></span><ul>
+                              <li><span class="file"><a href="_constraints_and_error_messages_overview.html" tabindex="1">Constraints and Error Messages Overview</a></span></li>
+                              <li><span class="file"><a href="_program_memory_pages.html" tabindex="1">Program Memory Pages</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_performance.html" tabindex="1">Performance</a></span><ul>
+                              <li><span class="file"><a href="_performance_overview.html" tabindex="1">Performance Overview</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
                               <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
+                              <li><span class="file"><a href="_historical_design_constraints.html" tabindex="1">Historical Design Constraints</a></span></li>
                               <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">Compiler Source Insights</a></span></li>
                               <li><span class="file"><a href="_about_glcd_library_support.html" tabindex="1">ABOUT GLCD Library Support</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span><ul>
                                     <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">About the Preferences Editor</a></span></li>
                                  </ul>
                               </li>
+                              <li><span class="file"><a href="_regression_testing_the_compiler_against_the_demos.html" tabindex="1">Regression Testing the Compiler Against the Demos</a></span></li>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_gcbasic_documentation_toolchain.html" tabindex="1">GCBASIC Documentation Toolchain</a></span></li>
                            </ul>

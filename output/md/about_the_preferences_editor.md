@@ -86,17 +86,4 @@ Complete the following:
   
   
 
-<span class="strong">**See Also:**</span>
-
-<div class="itemizedlist">
-
--   <a href="development_guide" class="link" title="Development Guide">Development Guide</a> — the
-    equivalent contributor guide for GCBASIC libraries
--   <a href="gcbasic_maintenance" class="link" title="GCBASIC Maintenance">GCBASIC Maintenance</a> — the
-    release/build/DAT-file maintenance process
--   <a href="command_line_parameters" class="link" title="Command Line Parameters">Command Line Parameters</a> — the
-    use.ini settings this compiler reads
-
-</div>
-
 </div>

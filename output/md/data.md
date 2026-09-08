@@ -271,6 +271,9 @@ byte of the `DataSet1` block using its compile-time address
     alternative table-based approach
 -   <a href="dataset_for_eeprom" class="link" title="Dataset for EEPROM">Dataset for EEPROM</a> — the
     equivalent construct for EEPROM-backed data
+-   <a href="constraints_and_error_messages_overview" class="link" title="Constraints and Error Messages Overview">Constraints and Error Messages</a> — the
+    full list of compiler constraints and error messages, including the
+    DATA block value-size limit above
 
 </div>
 

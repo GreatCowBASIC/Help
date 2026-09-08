@@ -39,6 +39,7 @@ consist of the following commands:
     Assignment (=)
     Error
     Warning
+    Info
     Int()
 ```
 
@@ -57,6 +58,11 @@ error log for the program.
 `Warning` is used to display a warning message. Anything after the
 `Warning` command is displayed at the end of compilation, but a warning
 does not halt compilation.
+
+`Info` is used to display an informational message. Anything after the
+`Info` command is displayed at the end of compilation; unlike `Warning`,
+it is not saved as a warning, and unlike `Error`, it never halts
+compilation.
 
 `Int()` calculates the integer value of a calculation. Using `Int()` is
 critical to set the <span class="emphasis">*constant*</span> to the

@@ -12,6 +12,10 @@
 
 The `#config` directive is used to specify configuration options for the chip. There is a detailed explanation of `#config` in the <<_configuration,Configuration>> section of the help.
 
+**XC8-style `#pragma config` syntax:**
+
+For compatibility with source ported from Microchip's XC8 compiler, GCBASIC also accepts `#pragma config __option1__, __option2__, ... , __optionN__`. The preprocessor rewrites any line starting with `#pragma config` (case-insensitive) directly into an equivalent `#config` line before compilation, so the two forms are interchangeable and `#pragma config` options follow the same rules as `#config` above.
+
 **See Also:**
 
 * <<_configuration,Configuration>> -- the full explanation of PIC CONFIG words, AVR fuses, and GCBASIC's automatic defaults

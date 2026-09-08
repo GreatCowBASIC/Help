@@ -221,6 +221,18 @@ user_byte_variable = <code class="literal">HSerReceiveFrom</code> (2)</p></td>
 <p><code class="literal">HSerSend</code> ( user_byte, 2 )</p></td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;"><p><span class="strong"><strong>Serially send 2 to 16 bytes in a single call, using the default usart port.</strong></span></p></td>
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">HSerSendBytes</code></p></td>
+<td style="text-align: left;"><p>byte1, byte2 [, byte3 …​ up to byte16]</p></td>
+<td style="text-align: left;"><p>This subroutine sends each byte in turn, in the order given, using the same enabling constants as <code class="literal">HSerSend</code>. There is no usart-address parameter; it always sends on the default/currently configured usart.</p>
+<p>To send three bytes on the default usart</p>
+<p><code class="literal">HSerSendBytes</code> ( byte1, byte2, byte3 )</p></td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;"><p><span class="strong"><strong>Serially send a byte and a CR&amp;LF using any of the usart ports</strong></span></p></td>
 <td style="text-align: left;"> </td>
 <td style="text-align: left;"> </td>

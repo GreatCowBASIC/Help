@@ -16,7 +16,7 @@
       <link rel="next" href="_wait.html" title="Wait" />
       <meta name="Section-title" content="Select" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-90303";
+            var treeCookieId = "treeview-93974";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,8 +184,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><a id="d0e27854" class="indexterm"></a>
-               <a id="d0e27860" class="indexterm"></a></p>
+            <p><a id="d0e28021" class="indexterm"></a>
+               <a id="d0e28027" class="indexterm"></a></p>
             <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    Select Case <span class="emphasis"><em>var</em></span>
 
     Case <span class="emphasis"><em>value1</em></span>
@@ -212,6 +212,16 @@ border: none; background: none; font-weight: none; color: none; }
             </p>
             <p><code class="literal">Case <span class="emphasis"><em>var</em></span> TO <span class="emphasis"><em>var</em></span></code> is a range of values. If the value is within the range the code section will be executed.
             </p>
+            <p><code class="literal">Case <span class="emphasis"><em>value1</em></span>, <span class="emphasis"><em>value2</em></span>, …​</code> is a list of values, separated by commas. If <code class="literal"><span class="emphasis"><em>var</em></span></code> equals <span class="strong"><strong>any</strong></span> of the listed values, that Case’s code section is run. Values can be numbers, characters, or strings; a single <code class="literal">Case</code> may list at most 64 values (see <a class="link" href="_constraints_and_error_messages_overview.html" title="Constraints and Error Messages Overview">Constraints and Error Messages</a>).
+            </p><pre class="programlisting">    Select Case Temp
+      Case 0, 1, 2
+        Print "Low"
+      Case 3, 4, 5
+        Print "Medium"
+      Case Else
+        Print "High"
+    End Select</pre><p><span class="strong"><strong>Key line:</strong></span> <code class="literal">Case 0, 1, 2</code> — runs <code class="literal">Print "Low"</code> if <code class="literal">Temp</code> is 0, 1, <span class="strong"><strong>or</strong></span> 2; only one of the three values needs to match.
+            </p>
             <p><code class="literal">Case Else</code> is optional, and the program will function correctly without
                it.
             </p>
@@ -222,8 +232,7 @@ border: none; background: none; font-weight: none; color: none; }
             <p>It is important to note that <span class="strong"><strong>only one section of code will be run</strong></span> when
                using <code class="literal">Select Case</code>.
             </p>
-            <p>There are two examples shown below.</p>
-            <p><span class="strong"><strong>Example 1:</strong></span></p><pre class="programlisting">    'Program to read a value from a potentiometer, and display a
+            <p><span class="strong"><strong>Example:</strong></span></p><pre class="programlisting">    'Program to read a value from a potentiometer, and display a
     'different word based on the result
 
       #chip 16F877a, 4
@@ -259,165 +268,6 @@ border: none; background: none; font-weight: none; color: none; }
       Wait 250 ms
     Loop</pre><p><span class="strong"><strong>Key line:</strong></span> <code class="literal">Select Case Temp</code> — only the single <code class="literal">Case</code> branch matching <code class="literal">Temp</code> runs, then execution continues after <code class="literal">End Select</code>.
             </p>
-            <p><span class="strong"><strong>Example 2:</strong></span></p>
-            <p>This code demonstrates how to receive codes from a handheld remote
-               control unit. This has been tested and supports a Sony TV remote and
-               also a universal remote set to Sony TV mode.
-            </p>
-            <p>The program gets both the device number and the key number, and also
-               translates the key number to English. The received results are displayed
-               on an LCD.
-            </p>
-            <p>The circuit for the IR receiver and the chip is shown below.</p><pre class="screen">    'A program to receive IR codes sent by a Sony
-    'compatible handheld remote control.
-
-    #chip 16F88, 8                    'PIC16F88 running at 8 MHz
-    #config mclr=off                  'reset handled internally
-
-    '----- Constants
-
-    #define LCD_IO      4             '4-bit mode
-    #define LCD_WIDTH 20                ;specified lcd width for clarity only.  20 is the default width
-    #define LCD_RS      PortB.2       'pin 8 is Register Select
-    #define LCD_ENABLE  PortB.3       'pin 9 is Enable
-    #define LCD_DB4     PortB.4       'DB4 on pin 10
-    #define LCD_DB5     PortB.5       'DB5 on pin 11
-    #define LCD_DB6     PortB.6       'DB6 on pin 12
-    #define LCD_DB7     PortB.7       'DB7 on pin 13
-    #define LCD_NO_RW                 'ground RW line on LCD
-    #define IR          PortA.0       'sensor on pin 17
-
-    '----- Variables
-
-    dim device, cmd, count, i as byte
-    dim pulse(12)                     'pulse count array
-    dim button as string              'ASCII for button label
-
-    '----- Program
-
-    dir PortA in                      'A.0 is IR input
-    dir PortB out                     'B.2 - B.6 for LCD
-
-    cls                               'clear the LCD
-    print "Dev:    Cmd:"              'logo for top line
-    locate 1,0
-    print "Button:"                   'logo for second line
-
-    do
-      getIR, cmd                      'wait for IR signal
-      printCmd                        'show device and command
-      printKey                        'show key label
-      wait 10 mS                      'ignore any repeats
-    loop                              'repeat forever
-
-    '----- Subroutines
-
-    sub getIR
-      tarry1:
-        count = 0                     'wait for start bit
-        do while IR = 0               'measure width (active low)
-          wait 100 uS                 '24 X 100 uS = 2.4 mS
-          count += 1
-        loop
-      if count &lt; 20 then goto tarry1  'less than this so wait
-
-      for i=1 to 12                   'read/store the 12 pulses
-        tarry2:
-          count = 0
-          do while IR = 0             'zero = 6 units = 0.6 mS
-            wait 100 uS               'one = 12 units = 1.2 mS
-            count += 1
-          loop
-        if count &lt; 4 then goto tarry2 'too small to be legit
-        pulse(i) = count              'else store pulse width
-      next
-
-      cmd = 0                         'command built up here
-      for i = 1 to 7                  '1st seven bits are the cmd
-        cmd = cmd / 2                 'shift into place
-        if pulse(i) &gt; 10 then         'longer than 10 mS
-           cmd = cmd + 64             'so call it a one
-        end if
-      next
-
-      device = 0                      'device number built up here
-      for i=8 to 12                   'next 5 bits are device number
-        device = device / 2
-        if pulse(i) &gt; 10 then
-           device = device + 16
-        end if
-      next
-    end sub
-
-    sub printCmd            'print device number
-      locate 0,5
-      print "   "
-      locate 0,5
-      print device
-
-      locate 0,13           'print raw command number
-      print "   "
-      locate 0,13
-      print cmd
-    end sub
-
-    sub PrintKey            'print translated button
-      locate 1,9
-      print "       "
-      locate 1,9
-
-      select case cmd       'translate command code
-        case 0
-          button = "One"
-        case 1
-          button = "Two"
-        case 2
-          button = "Three"
-        case 3
-          button = "Four"
-        case 4
-          button = "Five"
-        case 5
-          button = "Six"
-        case 6
-          button = "Seven"
-        case 7
-          button = "Eight"
-        case 8
-          button = "Nine"
-        case 9
-          button = "Zero"
-        case 10
-          button = "#####"
-        case 11
-          button = "Enter"
-        case 12
-          button = "#####"
-        case 13
-          button = "#####"
-        case 14
-          button = "#####"
-        case 15
-          button = "#####"
-        case 16
-          button = "Chan+"
-        case 17
-          button = "Chan-"
-        case 18
-          button = "Vol+"
-        case 19
-          button = "Vol-"
-        case 20
-          button = "Mute"
-        case 21
-          button = "Power"
-        case else
-          button = "     "
-      end select
-      print button
-    end sub</pre><div class="informalfigure">
-               <div class="mediaobject" align="center"><img src="./images/selectb1.PNG" align="middle" alt="graphic" /></div>
-            </div>
             <p><span class="strong"><strong>See Also:</strong></span></p>
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">
@@ -430,6 +280,8 @@ border: none; background: none; font-weight: none; color: none; }
                   <li class="listitem"><a class="link" href="_cls.html" title="CLS">CLS</a> — clearing the LCD before printing a result, as used in Example 1
                   </li>
                   <li class="listitem"><a class="link" href="_print.html" title="Print">Print</a> — displaying the selected branch’s text, as used in Example 1
+                  </li>
+                  <li class="listitem"><a class="link" href="_constraints_and_error_messages_overview.html" title="Constraints and Error Messages Overview">Constraints and Error Messages</a> — the 64-value Case list limit, and other compiler constraints
                   </li>
                </ul>
             </div>
@@ -892,6 +744,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_hserreceive.html" tabindex="1">HSerReceive</a></span></li>
                                           <li><span class="file"><a href="_hserreceivefrom.html" tabindex="1">HSerReceiveFrom</a></span></li>
                                           <li><span class="file"><a href="_hsersend.html" tabindex="1">HSerSend</a></span></li>
+                                          <li><span class="file"><a href="_hsersendbytes.html" tabindex="1">HSerSendBytes</a></span></li>
                                           <li><span class="file"><a href="_hserprintbytecrlf.html" tabindex="1">HserPrintByteCRLF</a></span></li>
                                           <li><span class="file"><a href="_hserprintcrlf.html" tabindex="1">HserPrintCRLF</a></span></li>
                                        </ul>
@@ -987,6 +840,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_using_variables.html" tabindex="1">Using Variables</a></span></li>
                                     <li><span class="file"><a href="_more_on_setting_variables_and_constants.html" tabindex="1">More on setting Variables and Constants</a></span></li>
                                     <li><span class="file"><a href="_setting_variables.html" tabindex="1">Setting Variables</a></span></li>
+                                    <li><span class="file"><a href="_let.html" tabindex="1">Let</a></span></li>
                                     <li><span class="file"><a href="_variable_lifecycle.html" tabindex="1">Variable Lifecycle</a></span></li>
                                     <li><span class="file"><a href="_dim.html" tabindex="1">Dim</a></span><ul>
                                           <li><span class="file"><a href="_variable_declaration.html" tabindex="1">Variable Declaration</a></span></li>
@@ -1087,6 +941,7 @@ border: none; background: none; font-weight: none; color: none; }
                         </li>
                         <li><span class="file"><a href="_compiler_directives.html" tabindex="1">Compiler Directives</a></span><ul>
                               <li><span class="file"><a href="__asmraw.html" tabindex="1">#asmraw</a></span></li>
+                              <li><span class="file"><a href="_asm.html" tabindex="1">Asm</a></span></li>
                               <li><span class="file"><a href="__chip.html" tabindex="1">#chip</a></span></li>
                               <li><span class="file"><a href="__config.html" tabindex="1">#config</a></span></li>
                               <li><span class="file"><a href="__define.html" tabindex="1">#DEFINE</a></span></li>
@@ -1159,16 +1014,27 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_windows_net_support.html" tabindex="1">Windows .NET Support</a></span></li>
                            </ul>
                         </li>
+                        <li><span class="file"><a href="_constraints_and_error_messages.html" tabindex="1">Constraints and Error Messages</a></span><ul>
+                              <li><span class="file"><a href="_constraints_and_error_messages_overview.html" tabindex="1">Constraints and Error Messages Overview</a></span></li>
+                              <li><span class="file"><a href="_program_memory_pages.html" tabindex="1">Program Memory Pages</a></span></li>
+                           </ul>
+                        </li>
+                        <li><span class="file"><a href="_performance.html" tabindex="1">Performance</a></span><ul>
+                              <li><span class="file"><a href="_performance_overview.html" tabindex="1">Performance Overview</a></span></li>
+                           </ul>
+                        </li>
                         <li><span class="file"><a href="_gcbasic_maintenance_and_development.html" tabindex="1">GCBASIC Maintenance and Development</a></span><ul>
                               <li><span class="file"><a href="_gcbasic_maintenance.html" tabindex="1">GCBASIC Maintenance</a></span></li>
                               <li><span class="file"><a href="_development_guide.html" tabindex="1">Development Guide</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_exe_compiler.html" tabindex="1">Development Guide for GCBASIC.EXE compiler</a></span></li>
+                              <li><span class="file"><a href="_historical_design_constraints.html" tabindex="1">Historical Design Constraints</a></span></li>
                               <li><span class="file"><a href="_compiler_source_insights.html" tabindex="1">Compiler Source Insights</a></span></li>
                               <li><span class="file"><a href="_about_glcd_library_support.html" tabindex="1">ABOUT GLCD Library Support</a></span></li>
                               <li><span class="file"><a href="_development_guide_for_gcbasic_preferences_editor.html" tabindex="1">Development Guide for GCBASIC Preferences Editor</a></span><ul>
                                     <li><span class="file"><a href="_about_the_preferences_editor.html" tabindex="1">About the Preferences Editor</a></span></li>
                                  </ul>
                               </li>
+                              <li><span class="file"><a href="_regression_testing_the_compiler_against_the_demos.html" tabindex="1">Regression Testing the Compiler Against the Demos</a></span></li>
                               <li><span class="file"><a href="_code_documentation.html" tabindex="1">Code Documentation</a></span></li>
                               <li><span class="file"><a href="_gcbasic_documentation_toolchain.html" tabindex="1">GCBASIC Documentation Toolchain</a></span></li>
                            </ul>

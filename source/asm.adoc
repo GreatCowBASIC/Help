@@ -1,0 +1,35 @@
+=== Asm
+
+(((Compiler Directives,Asm)))
+
+
+*Syntax:*
+[subs="specialcharacters,quotes"]
+----
+    Asm [label]
+    Asm [Mnemonics | Directives | Macros] [Operands] ['comments]
+----
+
+*Explanation:*
+
+`Asm` inserts a single line of raw assembly into the generated ASM source, in the same way as <<__asmraw,#asmraw>> - but with one key difference: `Asm` first replaces any GCBASIC constant (from `#define`, `#script`, or a system constant) found on the line with its value, exactly as it would in ordinary GCBASIC source. `#asmraw` does not do this - it inserts the line completely unchanged, with only leading/trailing whitespace trimmed.
+
+Use `Asm` whenever the assembly line needs to reference a GCBASIC-defined constant. Use `#asmraw` when the line must be passed to the assembler exactly as written, with no substitution.
+
+{empty} +
+{empty} +
+
+*Example*
+[source,gcbasic]
+----
+    #define MY_DELAY_COUNT 200
+
+    Asm movlw MY_DELAY_COUNT          ' <<< MY_DELAY_COUNT is replaced with 200 before this line reaches the assembler
+    #asmraw movlw MY_DELAY_COUNT      ' <<< inserted unchanged; the assembler will not recognize MY_DELAY_COUNT
+----
+*Key line:* `Asm movlw MY_DELAY_COUNT` -- because this is `Asm`, not `#asmraw`, GCBASIC substitutes the constant's value before writing the line, producing `movlw 200` in the ASM output; the `#asmraw` line below it is written out verbatim and will fail to assemble.
+
+**See Also:**
+
+* <<__asmraw,#asmraw>> -- the equivalent directive that inserts a line with no constant substitution
+* <<_compiler_insights,Compiler Insights>> -- forcing regular (non-raw) assembly comments into the ASM output

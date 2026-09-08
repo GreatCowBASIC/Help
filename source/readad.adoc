@@ -146,4 +146,5 @@ AN0 and AN2 are used for the diffential ADC reading.
 * <<_epwrite,EPWrite>> -- logging a reading to EEPROM, as used in the examples above
 * <<_dir,Dir>> -- setting the ADC pin's direction before reading it
 * <<_pwmout,PWMOut>> -- a common consumer of a ReadAD reading, as a live duty cycle
+* <<_performance_overview,Performance>> -- tuning ADC speed with ADSPEED, and more on ASM-level performance
 * <<_wait,Wait>> -- pausing between readings, as used in the examples above

@@ -193,6 +193,8 @@ AN0 and AN2 are used for the diffential ADC reading.
     ADC pin’s direction before reading it
 -   <a href="pwmout" class="link" title="PWMOut">PWMOut</a> — a
     common consumer of a ReadAD reading, as a live duty cycle
+-   <a href="performance_overview" class="link" title="Performance Overview">Performance</a> — tuning
+    ADC speed with ADSPEED, and more on ASM-level performance
 -   <a href="wait" class="link" title="Wait">Wait</a> — pausing
     between readings, as used in the examples above
 

@@ -65,6 +65,7 @@ Available on all microcontrollers.
 * <<_variable_types,Variable Types>> -- more information on variable types
 * <<_set,Set>> -- setting a bit variable's state after declaring it
 * <<_constants,Constants>> -- fixed, named values as an alternative to a variable
+* <<_performance_overview,Performance>> -- using Alias to remove runtime addressing cost
 * <<_rotate,Rotate>> -- bit-rotating a declared variable's value
 
 ---

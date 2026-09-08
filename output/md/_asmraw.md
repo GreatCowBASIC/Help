@@ -111,6 +111,9 @@ This example will generate the following in the ASM source file.
 
 <div class="itemizedlist">
 
+-   <a href="asm" class="link" title="Asm">Asm</a> — the
+    equivalent command that substitutes GCBASIC constants before
+    inserting the line
 -   <a href="compiler_insights" class="link" title="Compiler Insights">Compiler Insights</a> — forcing
     regular (non-raw) assembly comments into the ASM output
 
