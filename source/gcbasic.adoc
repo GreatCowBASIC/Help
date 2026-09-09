@@ -1137,7 +1137,6 @@ include::abs.adoc[]
 
 include::average.adoc[]
 
-include::difference.adoc[]
 
 include::int.adoc[]
 

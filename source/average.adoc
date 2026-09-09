@@ -28,4 +28,3 @@ It provides a very fast way to calculate the average of two 8-bit numbers.
 **See Also:**
 
 * <<_abs,Abs>> -- related command in the same category
-* <<_difference,Difference>> -- related command in the same category

@@ -27,4 +27,3 @@ The `Abs` function computes the absolute value of an integer number, in the rang
 **See Also:**
 
 * <<_average,Average>> -- related command in the same category
-* <<_difference,Difference>> -- related command in the same category

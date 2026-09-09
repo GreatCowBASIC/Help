@@ -136,10 +136,6 @@ This page is the definitive, browsable index of every documented GCBASIC command
 | PROGMEM ( MCU Configuration )
 | deviceconfigurationRead (_location, store_)
 
-| <<_difference,Difference>>
-| Maths
-| Difference ( word_variable1 , word_variable2 ) or
-
 | <<_dim,Dim>>
 | Variables Operations
 | Dim _variable_ // will define a Byte variable
@@ -2588,9 +2584,6 @@ This page is the definitive, browsable index of every documented GCBASIC command
 
 | <<_average,Average>>
 | integer_variable = Average(__byte_variable1__ , __byte_variable2__)
-
-| <<_difference,Difference>>
-| Difference ( word_variable1 , word_variable2 ) or
 
 | <<_int,Int>>
 | integer_variable = Int( single_variable )
