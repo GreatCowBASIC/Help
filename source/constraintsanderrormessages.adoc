@@ -538,8 +538,8 @@ ifdef::backend-pdf[<<<]
 |Add the missing comma between Table source items.
 
 |NoClosingQuote
-|Missing closing double quote in Table source
-|Add the missing closing `"` in the Table source string.
+|Missing closing double quote in String or Table source
+|Add the missing closing `"` - this fires for an unterminated string literal anywhere in your source, not only inside a Table.
 
 |NoDelayUnits
 |Delay units not specified
