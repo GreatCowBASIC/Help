@@ -78,6 +78,8 @@ Exposed in SoftSerial.h authored by Frank Steinberg
 
 <div class="itemizedlist">
 
+-   <a href="sernprintlist" class="link" title="SerNPrintList">SerNPrintList</a> — sending
+    two or more mixed-type values in a single statement
 -   <a href="sernsend" class="link" title="SerNSend">SerNSend</a> — sending
     a single raw byte on the same channel
 -   <a href="sernreceive" class="link" title="SerNReceive">SerNReceive</a> — reading

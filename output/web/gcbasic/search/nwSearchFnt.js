@@ -131,7 +131,8 @@ function Effectuer_recherche(expressionInput) {
     //The above expression was error prone because it did not deal with words that have a . as part of the word correctly, for example, document.txt
     
     //Do not automatically replace a . with a space
-    searchFor = expressionInput.toLowerCase().replace(/<\//g, "_st_").replace(/\$_/g, "_di_").replace(/%2C|%3B|%21|%3A|@|\/|\*/g, " ").replace(/(%20)+/g, " ").replace(/_st_/g, "</").replace(/_di_/g, "%24_");
+    //Do not strip '*' here either - it is a wildcard character, handled by expandSearchTerms() below
+    searchFor = expressionInput.toLowerCase().replace(/<\//g, "_st_").replace(/\$_/g, "_di_").replace(/%2C|%3B|%21|%3A|@|\//g, " ").replace(/(%20)+/g, " ").replace(/_st_/g, "</").replace(/_di_/g, "%24_");
     
     //If it ends with a period, replace it with a space
     searchFor = searchFor.replace(/[.]$/,"");
@@ -143,6 +144,12 @@ function Effectuer_recherche(expressionInput) {
 
     wordsList = searchFor.split(" ");
     wordsList.sort();
+
+    // Allow a leading '#' (e.g. "#define") to match the index, since the
+    // build-time indexer already strips '#' from page content before indexing,
+    // and expand any '*'/'?' wildcard word into the literal words it matches
+    // in the already-loaded index (w).
+    wordsList = expandSearchTerms(wordsList);
 
     //set the tokenizing method
     useCJKTokenizing = typeof indexerLanguage != "undefined" && (indexerLanguage == "zh" || indexerLanguage == "ja" || indexerLanguage == "ko");
@@ -368,6 +375,43 @@ function wordsStartsWith(searchedValue){
 	return toReturn.length > 0 ? toReturn : undefined;
 }
 
+
+// Strip a leading '#' (mirrors the build-time indexer's punctuation stripping)
+// and expand any '*'/'?' wildcard word into the literal indexed words it
+// matches, so both flow into the normal stemming/lookup pipeline unchanged.
+function expandSearchTerms(words) {
+	var result = [];
+	for (var i = 0; i < words.length; i++) {
+		var word = words[i].replace(/^#+/, "");
+		if (word.length == 0) {
+			continue;
+		}
+		if (word.indexOf("*") != -1 || word.indexOf("?") != -1) {
+			var matches = wildcardMatches(word);
+			for (var m = 0; m < matches.length; m++) {
+				result.push(matches[m]);
+			}
+		} else {
+			result.push(word);
+		}
+	}
+	return result;
+}
+
+// Match a '*'/'?' glob pattern (case-insensitive) against every word
+// currently in the loaded index (w), returning the literal matching words.
+function wildcardMatches(pattern) {
+	var escaped = pattern.replace(/[.+^${}()|[\]\\]/g, "\\$&");
+	escaped = escaped.replace(/\*/g, ".*").replace(/\?/g, ".");
+	var re = new RegExp("^" + escaped + "$", "i");
+	var matches = [];
+	for (var key in w) {
+		if (re.test(key)) {
+			matches.push(key);
+		}
+	}
+	return matches;
+}
 
 function tokenize(wordsList){
     var stemmedWordsList = new Array(); // Array with the words to look for after removing spaces

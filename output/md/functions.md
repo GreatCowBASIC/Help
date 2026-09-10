@@ -53,6 +53,15 @@ by assigning the Function keyword, or the function’s `identifier`, to
 the desired return value; this assignment does not cause the function to
 exit, however.
 
+<span class="strong">**Constraint:**</span> the compiler does not check
+that a Function actually makes this assignment somewhere in its body
+before it ends. A Function that reaches `End Function` without ever
+assigning its own identifier compiles without warning, and its caller
+receives whatever value happened to already be sitting in that memory
+location - an unpredictable, effectively random result. Always assign
+the identifier on every code path through the Function, including any
+early `Exit Function`.
+
 Since functions return values, function calls evaluate to expressions.
 Thus, function calls can be made wherever an expression is expected,
 such as in assignments or If statements. Parentheses surrounding the

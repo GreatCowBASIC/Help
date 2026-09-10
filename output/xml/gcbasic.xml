@@ -4,7 +4,7 @@
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>GCBASIC documentation</title>
-<date>2026-09-07</date>
+<date>2026-09-09</date>
 <author>
 <personname>
 <firstname>The GCBASIC development team. Copyright 2005 - 2026</firstname>
@@ -5644,6 +5644,13 @@ The only exception is that brackets are required around any parameters when call
 <simpara>A function call can have at most 50 parameters; a call with more fails to compile with "Maximum number of parameters (50) exceeded."</simpara>
 <simpara>Returning values: <literal>return_type</literal> specifies the data type returned by a function upon exit. If no data type is specified, then the function will return the default data type, which is a byte.
 Functions return values by assigning the Function keyword, or the function&#8217;s <literal>identifier</literal>, to the desired return value; this assignment does not cause the function to exit, however.</simpara>
+<simpara><emphasis role="strong">Constraint:</emphasis> the compiler does not check that a Function actually makes
+this assignment somewhere in its body before it ends. A Function that
+reaches <literal>End Function</literal> without ever assigning its own identifier compiles
+without warning, and its caller receives whatever value happened to
+already be sitting in that memory location - an unpredictable, effectively
+random result. Always assign the identifier on every code path through
+the Function, including any early <literal>Exit Function</literal>.</simpara>
 <simpara>Since functions return values, function calls evaluate to expressions. Thus, function calls can be made wherever an expression is expected, such as in assignments or If statements. Parentheses surrounding the argument list are required on function calls in expressions, and are highly recommended even if there are no arguments.</simpara>
 <simpara><emphasis role="strong">Using Functions</emphasis></simpara>
 <simpara>This program uses a function called <literal>AverageAD</literal> to take two analog
@@ -6360,6 +6367,15 @@ no value needs to be specified. If they are at the start or in the
 middle, then you must insert commas to allow GCBASIC to tell where the
 optional parameters are.</simpara>
 <simpara>A subroutine call can have at most 50 parameters; a call with more fails to compile with "Maximum number of parameters (50) exceeded."</simpara>
+<simpara><emphasis role="strong">Constraint:</emphasis> the compiler checks a call for too <emphasis role="strong">few</emphasis> arguments (a
+missing required parameter fails to compile with "Missing value for
+parameter"), but not for too <emphasis role="strong">many</emphasis>. A call that passes more arguments
+than the subroutine declares compiles without warning, and the extra
+argument(s) are silently discarded - for example, calling
+<literal>Sub Foo(In first As Byte, In second As Byte)</literal> as <literal>Foo(1, 2, 3)</literal> compiles
+cleanly and simply never uses the <literal>3</literal>. Double-check argument counts by
+hand, especially after editing a subroutine&#8217;s parameter list, since the
+compiler will not catch a call site that was not updated to match.</simpara>
 <simpara><emphasis role="strong">Overloading</emphasis></simpara>
 <simpara>It is possible to have 2 subroutines with the same name, but different
 parameters. This is known as overloading, and GCBASIC will automatically
@@ -6773,11 +6789,6 @@ The converter requires the following files - these are included with your instal
 <entry align="left" valign="top"><simpara><link linkend="_deviceconfigurationread">DeviceConfigurationRead</link></simpara></entry>
 <entry align="left" valign="top"><simpara>PROGMEM ( MCU Configuration )</simpara></entry>
 <entry align="left" valign="top"><simpara>deviceconfigurationRead (<emphasis>location, store</emphasis>)</simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara><link linkend="_difference">Difference</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Maths</simpara></entry>
-<entry align="left" valign="top"><simpara>Difference ( word_variable1 , word_variable2 ) or</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_dim">Dim</link></simpara></entry>
@@ -10085,10 +10096,6 @@ The converter requires the following files - these are included with your instal
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_average">Average</link></simpara></entry>
 <entry align="left" valign="top"><simpara>integer_variable = Average(<emphasis>byte_variable1</emphasis> , <emphasis>byte_variable2</emphasis>)</simpara></entry>
-</row>
-<row>
-<entry align="left" valign="top"><simpara><link linkend="_difference">Difference</link></simpara></entry>
-<entry align="left" valign="top"><simpara>Difference ( word_variable1 , word_variable2 ) or</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara><link linkend="_int">Int</link></simpara></entry>
@@ -39220,10 +39227,80 @@ value can be a string, integer, long, word or byte.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
+<simpara><link linkend="_sernprintlist">SerNPrintList</link>&#8201;&#8212;&#8201;sending two or more mixed-type values in a single statement</simpara>
+</listitem>
+<listitem>
 <simpara><link linkend="_sernsend">SerNSend</link>&#8201;&#8212;&#8201;sending a single raw byte on the same channel</simpara>
 </listitem>
 <listitem>
 <simpara><link linkend="_sernreceive">SerNReceive</link>&#8201;&#8212;&#8201;reading a byte back on the same channel</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_sernprintlist">
+<title>SerNPrintList</title>
+<simpara><indexterm>
+<primary>Serial Communications</primary><secondary>SerNPrintList</secondary>
+</indexterm>
+<indexterm>
+<primary>SerNPrintList</primary>
+</indexterm></simpara>
+<simpara><emphasis role="strong">Ser1PrintList, Ser2PrintList, Ser3PrintList</emphasis></simpara>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    Ser1PrintList value1, value2 [, value3 ... ]
+    Ser2PrintList value1, value2 [, value3 ... ]
+    Ser3PrintList value1, value2 [, value3 ... ]</screen>
+<simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
+<simpara>Available anywhere the matching <link linkend="_sernprint">SerNPrint</link> command
+(<literal>Ser1Print</literal>, <literal>Ser2Print</literal> or <literal>Ser3Print</literal>) is available.</simpara>
+<simpara><emphasis role="strong">Explanation:</emphasis></simpara>
+<simpara>This command sends two or more values, in the order given, using the
+channel referred to as Ser1.., Ser2.., Ser3.. according to the rules set by
+the related defines&#8201;&#8212;&#8201;instead of writing one <literal>SerNPrint</literal> call per value.
+Each value can be a string, integer, long, word or byte, and each is sent
+using the matching typed <literal>SerNPrint</literal> call for that channel, so mixing types
+in one statement works exactly as if each value had been sent with its own
+<literal>SerNPrint</literal> statement.</simpara>
+<simpara><emphasis role="strong">Example:</emphasis></simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    'This program will send a heading, a label and an incrementing value
+    'using PORTB.1
+
+    ; ----- Configuration
+    #chip 16F886, 16
+    #option Explicit
+
+    ; ----- Include library
+    #include &lt;SoftSerial.h&gt;
+
+    ; ----- Config Serial UART :
+    #define SER1_BAUD 115200   ; baudrate must be defined
+    ; Config I/O ports for transmitting:
+    #define SER1_TXPORT PORTB  ; I/O port (without .bit) must be defined
+    #define SER1_TXPIN 1       ; portbit  must be defined
+
+    ; ----- Variables
+    Dim xx As Word
+    xx = 1000
+
+    ; ----- Main body of program commences here.
+    Do Forever
+      Wait 1 s       'time to enjoy the result
+      Ser1PrintList "Software-UART: ", xx, 13, 10   ' &lt;&lt;&lt; the Ser1PrintList instruction
+      xx += 1
+    Loop</programlisting>
+<simpara><emphasis role="strong">Key line:</emphasis> <literal>Ser1PrintList "Software-UART: ", xx, 13, 10</literal>&#8201;&#8212;&#8201;sends the label
+string, the current value of <literal>xx</literal>, and a CR/LF pair, all in one statement.</simpara>
+<simpara>Exposed in SoftSerial.h authored by Frank Steinberg</simpara>
+<simpara><emphasis role="strong">See Also:</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><link linkend="_sernprint">SerNPrint</link>&#8201;&#8212;&#8201;sending a single value on the same channel</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_sernsend">SerNSend</link>&#8201;&#8212;&#8201;sending a single raw byte on the same channel</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_hserprintlist">HSerPrintList</link>&#8201;&#8212;&#8201;the same mixed-type list, on the hardware USART</simpara>
 </listitem>
 </itemizedlist>
 </section>
@@ -39986,6 +40063,9 @@ to a terminal, these commands should follow every <literal>HSerPrint</literal> :
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
+<simpara><link linkend="_hserprintlist">HSerPrintList</link>&#8201;&#8212;&#8201;sending two or more mixed-type values in a single statement</simpara>
+</listitem>
+<listitem>
 <simpara><link linkend="_hserprintbytecrlf">HserPrintByteCRLF</link>&#8201;&#8212;&#8201;sends a byte then a CRLF terminator</simpara>
 </listitem>
 <listitem>
@@ -40002,6 +40082,69 @@ to a terminal, these commands should follow every <literal>HSerPrint</literal> :
 </listitem>
 <listitem>
 <simpara><link linkend="_hsergetstring">HSerGetString</link>&#8201;&#8212;&#8201;reading a whole string from the serial connection in one call</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_hserprintlist">
+<title>HSerPrintList</title>
+<simpara><indexterm>
+<primary>Serial Communications</primary><secondary>HSerPrintList</secondary>
+</indexterm>
+<indexterm>
+<primary>HSerPrintList</primary>
+</indexterm></simpara>
+<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
+<screen>    HSerPrintList <emphasis>value1</emphasis>, <emphasis>value2</emphasis> [, <emphasis>value3</emphasis> ... ]</screen>
+<simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
+<simpara>Available anywhere <link linkend="_hserprint">HSerPrint</link> is available.</simpara>
+<simpara><emphasis role="strong">Enabling Constants:</emphasis></simpara>
+<simpara>The same enabling constants as <link linkend="_hserprint">HSerPrint</link> apply.</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    'USART settings for USART1
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF</programlisting>
+<simpara><emphasis role="strong">Explanation:</emphasis></simpara>
+<simpara><literal>HSerPrintList</literal> sends two or more values in a single statement, instead of
+writing one <literal>HSerPrint</literal> call per value. Each <literal><emphasis>value</emphasis></literal> can be a string,
+integer, long, word or byte, and each is sent using the matching typed
+<literal>HSerPrint</literal> call, in the order given, to the default comport. Because the
+compiler expands the list into ordinary <literal>HSerPrint</literal> calls, mixing types in
+one statement&#8201;&#8212;&#8201;a string, then a byte, then a word, and so on&#8201;&#8212;&#8201;works
+exactly as if each value had been sent with its own <literal>HSerPrint</literal> statement.</simpara>
+<simpara><literal>HSerPrintList</literal> does not send any new line characters. As with <literal>HSerPrint</literal>,
+follow the statement with <literal>HSerPrint 13</literal> and <literal>HSerPrint 10</literal> if the receiving
+terminal needs a new line.</simpara>
+<simpara>There is no comport argument; a value that must go to a specific comport
+should still be sent with <literal>HSerPrint(<emphasis>user_value</emphasis>, <emphasis>comport</emphasis>)</literal>.</simpara>
+<simpara><emphasis role="strong">Example:</emphasis></simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #chip 16F877A, 20
+
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF
+
+    Dim Txt_Heading As String * 12 = "K9AY North"
+    Dim SignalLevel As Byte = 87
+    Dim SampleCount As Word = 4213
+
+    Do
+      HSerPrintList "{STAT,", Txt_Heading, ",", SignalLevel, ",", SampleCount, "}", 13, 10   ' &lt;&lt;&lt; the HSerPrintList instruction
+      Wait 1 s
+    Loop</programlisting>
+<simpara><emphasis role="strong">Key line:</emphasis> the single <literal>HSerPrintList</literal> call above sends a string literal, a
+string variable, another string literal, a byte, another string literal, a
+word, a closing brace and a CR/LF pair&#8201;&#8212;&#8201;nine values in total&#8201;&#8212;&#8201;as nine
+typed <literal>HSerPrint</literal> calls, without writing any of them out by hand.</simpara>
+<simpara><emphasis role="strong">See Also:</emphasis></simpara>
+<itemizedlist>
+<listitem>
+<simpara><link linkend="_hserprint">HSerPrint</link>&#8201;&#8212;&#8201;sending a single value, or a value to a specific comport</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_hsersendbytes">HSerSendBytes</link>&#8201;&#8212;&#8201;sending 2 to 16 raw bytes in one call, rather than typed values</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="_sernprintlist">Ser1PrintList, Ser2PrintList, Ser3PrintList</link>&#8201;&#8212;&#8201;the same mixed-type list, on a software-serial channel</simpara>
 </listitem>
 </itemizedlist>
 </section>
@@ -49139,6 +49282,13 @@ Fixed strings are not null-terminated and do not resize automatically.</simpara>
     Dim &lt;Name&gt; * &lt;Length&gt;</programlisting>
 <simpara>This allocates a 16-byte string (plus one extra byte internally).
 Fixed strings are not null-terminated and do not resize automatically.</simpara>
+<simpara><emphasis role="strong">Constraint:</emphasis> assigning a literal string longer than a fixed-length
+string&#8217;s declared <literal>&lt;Length&gt;</literal> compiles without warning, even though the
+literal&#8217;s length is already known at compile time. For example,
+<literal>Dim s As String * 4</literal> followed by <literal>s = "ThisIsWayTooLong"</literal> raises no
+error or warning; the assignment will not fit in the allocated buffer at
+runtime. Keep fixed-length strings comfortably larger than the longest
+value you plan to assign to them.</simpara>
 <simpara><emphasis role="strong">String Escape Sequences</emphasis></simpara>
 <simpara>String literals in GCBASIC source support escape sequences, allowing arbitrary
 byte values to be embedded directly in strings without workarounds.
@@ -52272,9 +52422,6 @@ These functions do not support conversion of hexadecimal number strings.
 <listitem>
 <simpara><link linkend="_average">Average</link>&#8201;&#8212;&#8201;related command in the same category</simpara>
 </listitem>
-<listitem>
-<simpara><link linkend="_difference">Difference</link>&#8201;&#8212;&#8201;related command in the same category</simpara>
-</listitem>
 </itemizedlist>
 </section>
 <section xml:id="_average">
@@ -52299,38 +52446,6 @@ These functions do not support conversion of hexadecimal number strings.
 <itemizedlist>
 <listitem>
 <simpara><link linkend="_abs">Abs</link>&#8201;&#8212;&#8201;related command in the same category</simpara>
-</listitem>
-<listitem>
-<simpara><link linkend="_difference">Difference</link>&#8201;&#8212;&#8201;related command in the same category</simpara>
-</listitem>
-</itemizedlist>
-</section>
-<section xml:id="_difference">
-<title>Difference</title>
-<simpara><indexterm>
-<primary>Maths</primary><secondary>Difference</secondary>
-</indexterm>
-<indexterm>
-<primary>Difference</primary>
-</indexterm></simpara>
-<simpara><emphasis role="strong">Syntax:</emphasis></simpara>
-<screen>    <literal>Difference ( word_variable1 , word_variable2 )</literal> or
-    <literal>Difference ( byte_variable1 , byte_variable2 )</literal></screen>
-<simpara><emphasis role="strong">Command Availability:</emphasis></simpara>
-<simpara>Available on all microcontrollers.</simpara>
-<simpara><emphasis role="strong">Explanation:</emphasis></simpara>
-<simpara>A function that returns the difference between two numbers. This only supports byte or word variables.</simpara>
-<simpara><emphasis role="strong">Example:</emphasis></simpara>
-<programlisting language="gcbasic" linenumbering="unnumbered">    Difference( 8 ,4 ) ' Will return 4          ' &lt;&lt;&lt; the Difference instruction
-    Difference( 0xff01 , 0xfffa ) ' Will return 0xf9 or 249d</programlisting>
-<simpara><emphasis role="strong">Key line:</emphasis> <literal>Difference( 8 ,4 )</literal>&#8201;&#8212;&#8201;returns the unsigned distance between the two values (<literal>4</literal>), regardless of which argument is larger.</simpara>
-<simpara><emphasis role="strong">See Also:</emphasis></simpara>
-<itemizedlist>
-<listitem>
-<simpara><link linkend="_abs">Abs</link>&#8201;&#8212;&#8201;related command in the same category</simpara>
-</listitem>
-<listitem>
-<simpara><link linkend="_average">Average</link>&#8201;&#8212;&#8201;related command in the same category</simpara>
 </listitem>
 </itemizedlist>
 </section>
@@ -57787,6 +57902,11 @@ points to.</simpara>
 <entry align="left" valign="top"><simpara>Move the <literal>Else</literal> inside a matching <literal>If &#8230;&#8203; End If</literal> block.</simpara></entry>
 </row>
 <row>
+<entry align="left" valign="top"><simpara>EmptyListArgs</simpara></entry>
+<entry align="left" valign="top"><simpara>No arguments given to a List command</simpara></entry>
+<entry align="left" valign="top"><simpara>Give <literal>HSerPrintList</literal>/<literal>SerNPrintList</literal> (or similar) at least one value to send, or remove the empty statement.</simpara></entry>
+</row>
+<row>
 <entry align="left" valign="top"><simpara>EndWithoutRepeat</simpara></entry>
 <entry align="left" valign="top"><simpara>End Repeat without matching Repeat</simpara></entry>
 <entry align="left" valign="top"><simpara>Add the matching <literal>Repeat</literal> for this <literal>End Repeat</literal>, or remove the stray <literal>End Repeat</literal>.</simpara></entry>
@@ -57932,6 +58052,11 @@ points to.</simpara>
 <entry align="left" valign="top"><simpara>Add the matching <literal>Do</literal> for this <literal>Loop</literal>, or remove the stray <literal>Loop</literal>.</simpara></entry>
 </row>
 <row>
+<entry align="left" valign="top"><simpara>MaxListArgsExceeded</simpara></entry>
+<entry align="left" valign="top"><simpara>Too many arguments in a List command (maximum %param%)</simpara></entry>
+<entry align="left" valign="top"><simpara>Split the values across two or more <literal>HSerPrintList</literal>/<literal>SerNPrintList</literal> (or similar) statements so no single statement exceeds the limit.</simpara></entry>
+</row>
+<row>
 <entry align="left" valign="top"><simpara>MissingCoreFile</simpara></entry>
 <entry align="left" valign="top"><simpara>Cannot find file %core%, which is required for %chip%</simpara></entry>
 <entry align="left" valign="top"><simpara>Reinstall/repair the GCBASIC installation so the missing core file is restored.</simpara></entry>
@@ -58008,8 +58133,8 @@ points to.</simpara>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>NoClosingQuote</simpara></entry>
-<entry align="left" valign="top"><simpara>Missing closing double quote in Table source</simpara></entry>
-<entry align="left" valign="top"><simpara>Add the missing closing <literal>"</literal> in the Table source string.</simpara></entry>
+<entry align="left" valign="top"><simpara>Missing closing double quote in String or Table source</simpara></entry>
+<entry align="left" valign="top"><simpara>Add the missing closing <literal>"</literal> - this fires for an unterminated string literal anywhere in your source, not only inside a Table.</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>NoDelayUnits</simpara></entry>
@@ -60038,13 +60163,13 @@ The Windows driver must be <literal>libusbK</literal>, not the <literal>libusb</
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-09-08<?asciidoc-br?>
-14:19:48 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-09-09<?asciidoc-br?>
+12:34:25 GMT Summer Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-09-07<?asciidoc-br?>
-15:10:53 GMT Summer Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-09-09<?asciidoc-br?>
+09:43:54 GMT Summer Time</simpara></entry>
 </row>
 </tbody>
 </tgroup>

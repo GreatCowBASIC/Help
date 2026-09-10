@@ -46,8 +46,6 @@ whether the input was positive or negative.
 
 -   <a href="average" class="link" title="Average">Average</a> — related
     command in the same category
--   <a href="difference" class="link" title="Difference">Difference</a> — related
-    command in the same category
 
 </div>
 

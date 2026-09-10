@@ -8410,6 +8410,15 @@ The only exception is that brackets are required around any parameters when call
 Functions return values by assigning the Function keyword, or the function&#8217;s <code>identifier</code>, to the desired return value; this assignment does not cause the function to exit, however.</p>
 </div>
 <div class="paragraph">
+<p><strong>Constraint:</strong> the compiler does not check that a Function actually makes
+this assignment somewhere in its body before it ends. A Function that
+reaches <code>End Function</code> without ever assigning its own identifier compiles
+without warning, and its caller receives whatever value happened to
+already be sitting in that memory location - an unpredictable, effectively
+random result. Always assign the identifier on every code path through
+the Function, including any early <code>Exit Function</code>.</p>
+</div>
+<div class="paragraph">
 <p>Since functions return values, function calls evaluate to expressions. Thus, function calls can be made wherever an expression is expected, such as in assignments or If statements. Parentheses surrounding the argument list are required on function calls in expressions, and are highly recommended even if there are no arguments.</p>
 </div>
 <div class="paragraph">
@@ -9484,6 +9493,17 @@ optional parameters are.</p>
 <p>A subroutine call can have at most 50 parameters; a call with more fails to compile with "Maximum number of parameters (50) exceeded."</p>
 </div>
 <div class="paragraph">
+<p><strong>Constraint:</strong> the compiler checks a call for too <strong>few</strong> arguments (a
+missing required parameter fails to compile with "Missing value for
+parameter"), but not for too <strong>many</strong>. A call that passes more arguments
+than the subroutine declares compiles without warning, and the extra
+argument(s) are silently discarded - for example, calling
+<code>Sub Foo(In first As Byte, In second As Byte)</code> as <code>Foo(1, 2, 3)</code> compiles
+cleanly and simply never uses the <code>3</code>. Double-check argument counts by
+hand, especially after editing a subroutine&#8217;s parameter list, since the
+compiler will not catch a call site that was not updated to match.</p>
+</div>
+<div class="paragraph">
 <p><strong>Overloading</strong></p>
 </div>
 <div class="paragraph">
@@ -10086,11 +10106,6 @@ The converter requires the following files - these are included with your instal
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_deviceconfigurationread">DeviceConfigurationRead</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PROGMEM ( MCU Configuration )</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">deviceconfigurationRead (<em>location, store</em>)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_difference">Difference</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maths</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Difference ( word_variable1 , word_variable2 ) or</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_dim">Dim</a></p></td>
@@ -13464,10 +13479,6 @@ The converter requires the following files - these are included with your instal
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_average">Average</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">integer_variable = Average(<em>byte_variable1</em> , <em>byte_variable2</em>)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_difference">Difference</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Difference ( word_variable1 , word_variable2 ) or</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#_int">Int</a></p></td>
@@ -50204,10 +50215,107 @@ value can be a string, integer, long, word or byte.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><a href="#_sernprintlist">SerNPrintList</a>&#8201;&#8212;&#8201;sending two or more mixed-type values in a single statement</p>
+</li>
+<li>
 <p><a href="#_sernsend">SerNSend</a>&#8201;&#8212;&#8201;sending a single raw byte on the same channel</p>
 </li>
 <li>
 <p><a href="#_sernreceive">SerNReceive</a>&#8201;&#8212;&#8201;reading a byte back on the same channel</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_sernprintlist">SerNPrintList</h5>
+<div class="paragraph">
+<p></p>
+</div>
+<div class="paragraph">
+<p><strong>Ser1PrintList, Ser2PrintList, Ser3PrintList</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Ser1PrintList value1, value2 [, value3 ... ]
+    Ser2PrintList value1, value2 [, value3 ... ]
+    Ser3PrintList value1, value2 [, value3 ... ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available anywhere the matching <a href="#_sernprint">SerNPrint</a> command
+(<code>Ser1Print</code>, <code>Ser2Print</code> or <code>Ser3Print</code>) is available.</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p>This command sends two or more values, in the order given, using the
+channel referred to as Ser1.., Ser2.., Ser3.. according to the rules set by
+the related defines&#8201;&#8212;&#8201;instead of writing one <code>SerNPrint</code> call per value.
+Each value can be a string, integer, long, word or byte, and each is sent
+using the matching typed <code>SerNPrint</code> call for that channel, so mixing types
+in one statement works exactly as if each value had been sent with its own
+<code>SerNPrint</code> statement.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    'This program will send a heading, a label and an incrementing value
+    'using PORTB.1
+
+    ; ----- Configuration
+    #chip 16F886, 16
+    #option Explicit
+
+    ; ----- Include library
+    #include &lt;SoftSerial.h&gt;
+
+    ; ----- Config Serial UART :
+    #define SER1_BAUD 115200   ; baudrate must be defined
+    ; Config I/O ports for transmitting:
+    #define SER1_TXPORT PORTB  ; I/O port (without .bit) must be defined
+    #define SER1_TXPIN 1       ; portbit  must be defined
+
+    ; ----- Variables
+    Dim xx As Word
+    xx = 1000
+
+    ; ----- Main body of program commences here.
+    Do Forever
+      Wait 1 s       'time to enjoy the result
+      Ser1PrintList "Software-UART: ", xx, 13, 10   ' &lt;&lt;&lt; the Ser1PrintList instruction
+      xx += 1
+    Loop</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key line:</strong> <code>Ser1PrintList "Software-UART: ", xx, 13, 10</code>&#8201;&#8212;&#8201;sends the label
+string, the current value of <code>xx</code>, and a CR/LF pair, all in one statement.</p>
+</div>
+<div class="paragraph">
+<p>Exposed in SoftSerial.h authored by Frank Steinberg</p>
+</div>
+<div class="paragraph">
+<p><strong>See Also:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#_sernprint">SerNPrint</a>&#8201;&#8212;&#8201;sending a single value on the same channel</p>
+</li>
+<li>
+<p><a href="#_sernsend">SerNSend</a>&#8201;&#8212;&#8201;sending a single raw byte on the same channel</p>
+</li>
+<li>
+<p><a href="#_hserprintlist">HSerPrintList</a>&#8201;&#8212;&#8201;the same mixed-type list, on the hardware USART</p>
 </li>
 </ul>
 </div>
@@ -51145,6 +51253,9 @@ to a terminal, these commands should follow every <code>HSerPrint</code> :</p>
 <div class="ulist">
 <ul>
 <li>
+<p><a href="#_hserprintlist">HSerPrintList</a>&#8201;&#8212;&#8201;sending two or more mixed-type values in a single statement</p>
+</li>
+<li>
 <p><a href="#_hserprintbytecrlf">HserPrintByteCRLF</a>&#8201;&#8212;&#8201;sends a byte then a CRLF terminator</p>
 </li>
 <li>
@@ -51161,6 +51272,104 @@ to a terminal, these commands should follow every <code>HSerPrint</code> :</p>
 </li>
 <li>
 <p><a href="#_hsergetstring">HSerGetString</a>&#8201;&#8212;&#8201;reading a whole string from the serial connection in one call</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_hserprintlist">HSerPrintList</h5>
+<div class="paragraph">
+<p></p>
+</div>
+<div class="paragraph">
+<p><strong>Syntax:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    HSerPrintList <em>value1</em>, <em>value2</em> [, <em>value3</em> ... ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Command Availability:</strong></p>
+</div>
+<div class="paragraph">
+<p>Available anywhere <a href="#_hserprint">HSerPrint</a> is available.</p>
+</div>
+<div class="paragraph">
+<p><strong>Enabling Constants:</strong></p>
+</div>
+<div class="paragraph">
+<p>The same enabling constants as <a href="#_hserprint">HSerPrint</a> apply.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    'USART settings for USART1
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>HSerPrintList</code> sends two or more values in a single statement, instead of
+writing one <code>HSerPrint</code> call per value. Each <code><em>value</em></code> can be a string,
+integer, long, word or byte, and each is sent using the matching typed
+<code>HSerPrint</code> call, in the order given, to the default comport. Because the
+compiler expands the list into ordinary <code>HSerPrint</code> calls, mixing types in
+one statement&#8201;&#8212;&#8201;a string, then a byte, then a word, and so on&#8201;&#8212;&#8201;works
+exactly as if each value had been sent with its own <code>HSerPrint</code> statement.</p>
+</div>
+<div class="paragraph">
+<p><code>HSerPrintList</code> does not send any new line characters. As with <code>HSerPrint</code>,
+follow the statement with <code>HSerPrint 13</code> and <code>HSerPrint 10</code> if the receiving
+terminal needs a new line.</p>
+</div>
+<div class="paragraph">
+<p>There is no comport argument; a value that must go to a specific comport
+should still be sent with <code>HSerPrint(<em>user_value</em>, <em>comport</em>)</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    #chip 16F877A, 20
+
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF
+
+    Dim Txt_Heading As String * 12 = "K9AY North"
+    Dim SignalLevel As Byte = 87
+    Dim SampleCount As Word = 4213
+
+    Do
+      HSerPrintList "{STAT,", Txt_Heading, ",", SignalLevel, ",", SampleCount, "}", 13, 10   ' &lt;&lt;&lt; the HSerPrintList instruction
+      Wait 1 s
+    Loop</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key line:</strong> the single <code>HSerPrintList</code> call above sends a string literal, a
+string variable, another string literal, a byte, another string literal, a
+word, a closing brace and a CR/LF pair&#8201;&#8212;&#8201;nine values in total&#8201;&#8212;&#8201;as nine
+typed <code>HSerPrint</code> calls, without writing any of them out by hand.</p>
+</div>
+<div class="paragraph">
+<p><strong>See Also:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#_hserprint">HSerPrint</a>&#8201;&#8212;&#8201;sending a single value, or a value to a specific comport</p>
+</li>
+<li>
+<p><a href="#_hsersendbytes">HSerSendBytes</a>&#8201;&#8212;&#8201;sending 2 to 16 raw bytes in one call, rather than typed values</p>
+</li>
+<li>
+<p><a href="#_sernprintlist">Ser1PrintList, Ser2PrintList, Ser3PrintList</a>&#8201;&#8212;&#8201;the same mixed-type list, on a software-serial channel</p>
 </li>
 </ul>
 </div>
@@ -63442,6 +63651,15 @@ Fixed strings are not null-terminated and do not resize automatically.</p>
 Fixed strings are not null-terminated and do not resize automatically.</p>
 </div>
 <div class="paragraph">
+<p><strong>Constraint:</strong> assigning a literal string longer than a fixed-length
+string&#8217;s declared <code>&lt;Length&gt;</code> compiles without warning, even though the
+literal&#8217;s length is already known at compile time. For example,
+<code>Dim s As String * 4</code> followed by <code>s = "ThisIsWayTooLong"</code> raises no
+error or warning; the assignment will not fit in the allocated buffer at
+runtime. Keep fixed-length strings comfortably larger than the longest
+value you plan to assign to them.</p>
+</div>
+<div class="paragraph">
 <p><strong>String Escape Sequences</strong></p>
 </div>
 <div class="paragraph">
@@ -68074,9 +68292,6 @@ These functions do not support conversion of hexadecimal number strings.
 <li>
 <p><a href="#_average">Average</a>&#8201;&#8212;&#8201;related command in the same category</p>
 </li>
-<li>
-<p><a href="#_difference">Difference</a>&#8201;&#8212;&#8201;related command in the same category</p>
-</li>
 </ul>
 </div>
 </div>
@@ -68126,61 +68341,6 @@ These functions do not support conversion of hexadecimal number strings.
 <ul>
 <li>
 <p><a href="#_abs">Abs</a>&#8201;&#8212;&#8201;related command in the same category</p>
-</li>
-<li>
-<p><a href="#_difference">Difference</a>&#8201;&#8212;&#8201;related command in the same category</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_difference">Difference</h4>
-<div class="paragraph">
-<p></p>
-</div>
-<div class="paragraph">
-<p><strong>Syntax:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    <code>Difference ( word_variable1 , word_variable2 )</code> or
-    <code>Difference ( byte_variable1 , byte_variable2 )</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Command Availability:</strong></p>
-</div>
-<div class="paragraph">
-<p>Available on all microcontrollers.</p>
-</div>
-<div class="paragraph">
-<p><strong>Explanation:</strong></p>
-</div>
-<div class="paragraph">
-<p>A function that returns the difference between two numbers. This only supports byte or word variables.</p>
-</div>
-<div class="paragraph">
-<p><strong>Example:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    Difference( 8 ,4 ) ' Will return 4          ' &lt;&lt;&lt; the Difference instruction
-    Difference( 0xff01 , 0xfffa ) ' Will return 0xf9 or 249d</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Key line:</strong> <code>Difference( 8 ,4 )</code>&#8201;&#8212;&#8201;returns the unsigned distance between the two values (<code>4</code>), regardless of which argument is larger.</p>
-</div>
-<div class="paragraph">
-<p><strong>See Also:</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#_abs">Abs</a>&#8201;&#8212;&#8201;related command in the same category</p>
-</li>
-<li>
-<p><a href="#_average">Average</a>&#8201;&#8212;&#8201;related command in the same category</p>
 </li>
 </ul>
 </div>
@@ -75760,6 +75920,11 @@ points to.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Move the <code>Else</code> inside a matching <code>If &#8230;&#8203; End If</code> block.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EmptyListArgs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No arguments given to a List command</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Give <code>HSerPrintList</code>/<code>SerNPrintList</code> (or similar) at least one value to send, or remove the empty statement.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EndWithoutRepeat</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">End Repeat without matching Repeat</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>Repeat</code> for this <code>End Repeat</code>, or remove the stray <code>End Repeat</code>.</p></td>
@@ -75905,6 +76070,11 @@ points to.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Add the matching <code>Do</code> for this <code>Loop</code>, or remove the stray <code>Loop</code>.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MaxListArgsExceeded</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Too many arguments in a List command (maximum %param%)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Split the values across two or more <code>HSerPrintList</code>/<code>SerNPrintList</code> (or similar) statements so no single statement exceeds the limit.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MissingCoreFile</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cannot find file %core%, which is required for %chip%</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Reinstall/repair the GCBASIC installation so the missing core file is restored.</p></td>
@@ -75981,8 +76151,8 @@ points to.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NoClosingQuote</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Missing closing double quote in Table source</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add the missing closing <code>"</code> in the Table source string.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Missing closing double quote in String or Table source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the missing closing <code>"</code> - this fires for an unterminated string literal anywhere in your source, not only inside a Table.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NoDelayUnits</p></td>
@@ -78909,13 +79079,13 @@ If you use AVRDUDE, you must ensure the Windows device driver is <code>libusbK</
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-09-08<br>
-14:19:50 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-09-09<br>
+12:34:28 GMT Summer Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-09-07<br>
-15:10:53 GMT Summer Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-09-09<br>
+09:43:54 GMT Summer Time</p></td>
 </tr>
 </tbody>
 </table>
@@ -78927,7 +79097,7 @@ If you use AVRDUDE, you must ensure the Windows device driver is <code>libusbK</
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-07 15:10:53 GMT Summer Time
+Last updated 2026-09-09 09:43:54 GMT Summer Time
 </div>
 </div>
 </body>

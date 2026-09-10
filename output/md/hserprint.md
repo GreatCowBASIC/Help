@@ -174,6 +174,8 @@ accepted directly, with no manual conversion required.
 
 <div class="itemizedlist">
 
+-   <a href="hserprintlist" class="link" title="HSerPrintList">HSerPrintList</a> — sending
+    two or more mixed-type values in a single statement
 -   <a href="hserprintbytecrlf" class="link" title="HserPrintByteCRLF">HserPrintByteCRLF</a> — sends
     a byte then a CRLF terminator
 -   <a href="hserprintstringcrlf" class="link" title="HSerPrintStringCRLF">HserPrintStringCRLF</a> — sends

@@ -246,6 +246,18 @@ optional parameters are.
 A subroutine call can have at most 50 parameters; a call with more fails
 to compile with "Maximum number of parameters (50) exceeded."
 
+<span class="strong">**Constraint:**</span> the compiler checks a call
+for too <span class="strong">**few**</span> arguments (a missing
+required parameter fails to compile with "Missing value for parameter"),
+but not for too <span class="strong">**many**</span>. A call that passes
+more arguments than the subroutine declares compiles without warning,
+and the extra argument(s) are silently discarded - for example, calling
+`Sub Foo(In first As Byte, In second As Byte)` as `Foo(1, 2, 3)`
+compiles cleanly and simply never uses the `3`. Double-check argument
+counts by hand, especially after editing a subroutine’s parameter list,
+since the compiler will not catch a call site that was not updated to
+match.
+
 <span class="strong">**Overloading**</span>
 
 It is possible to have 2 subroutines with the same name, but different

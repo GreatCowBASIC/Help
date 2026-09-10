@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Difference -  - GCBASIC documentation</title>
+      <title>HSerPrintList -  - GCBASIC documentation</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
       <link rel="home" href="index.html" title="GCBASIC documentation" />
-      <link rel="up" href="_maths.html" title="Maths" />
-      <link rel="prev" href="_average.html" title="Average" />
-      <link rel="next" href="_int.html" title="Int" />
-      <meta name="Section-title" content="Difference" /><script type="text/javascript">
+      <link rel="up" href="_rs232_hardware.html" title="RS232 (hardware)" />
+      <link rel="prev" href="_hserprint.html" title="HSerPrint" />
+      <link rel="next" href="_hserprintstringcrlf.html" title="HSerPrintStringCRLF" />
+      <meta name="Section-title" content="HSerPrintList" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-93974";
+            var treeCookieId = "treeview-94181";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />Maths
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>GCBASIC documentation<br />RS232 (hardware)
          </h1>
          <div id="navheader">
             <!---->
@@ -164,11 +164,11 @@ border: none; background: none; font-weight: none; color: none; }
                <tr>
                   <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
                                                     </a></td>
-                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_average.html">Prev</a>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_hserprint.html">Prev</a>
                                                              |
-                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="_maths.html">Up</a>
+                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="_rs232_hardware.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_int.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_hserprintstringcrlf.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -179,27 +179,63 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="_difference"></a>Difference
-                     </h4>
+                     <h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="_hserprintlist"></a>HSerPrintList
+                     </h5>
                   </div>
                </div>
             </div>
-            <p><a id="d0e82483" class="indexterm"></a>
-               <a id="d0e82489" class="indexterm"></a></p>
-            <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    <code class="literal">Difference ( word_variable1 , word_variable2 )</code> or
-    <code class="literal">Difference ( byte_variable1 , byte_variable2 )</code></pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
-            <p>Available on all microcontrollers.</p>
-            <p><span class="strong"><strong>Explanation:</strong></span></p>
-            <p>A function that returns the difference between two numbers. This only supports byte or word variables.</p>
-            <p><span class="strong"><strong>Example:</strong></span></p><pre class="programlisting">    Difference( 8 ,4 ) ' Will return 4          ' &lt;&lt;&lt; the Difference instruction
-    Difference( 0xff01 , 0xfffa ) ' Will return 0xf9 or 249d</pre><p><span class="strong"><strong>Key line:</strong></span> <code class="literal">Difference( 8 ,4 )</code> — returns the unsigned distance between the two values (<code class="literal">4</code>), regardless of which argument is larger.
+            <p><a id="d0e63341" class="indexterm"></a>
+               <a id="d0e63347" class="indexterm"></a></p>
+            <p><span class="strong"><strong>Syntax:</strong></span></p><pre class="screen">    HSerPrintList <span class="emphasis"><em>value1</em></span>, <span class="emphasis"><em>value2</em></span> [, <span class="emphasis"><em>value3</em></span> ... ]</pre><p><span class="strong"><strong>Command Availability:</strong></span></p>
+            <p>Available anywhere <a class="link" href="_hserprint.html" title="HSerPrint">HSerPrint</a> is available.
+            </p>
+            <p><span class="strong"><strong>Enabling Constants:</strong></span></p>
+            <p>The same enabling constants as <a class="link" href="_hserprint.html" title="HSerPrint">HSerPrint</a> apply.
+            </p><pre class="programlisting">    'USART settings for USART1
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF</pre><p><span class="strong"><strong>Explanation:</strong></span></p>
+            <p><code class="literal">HSerPrintList</code> sends two or more values in a single statement, instead of
+               writing one <code class="literal">HSerPrint</code> call per value. Each <code class="literal"><span class="emphasis"><em>value</em></span></code> can be a string,
+               integer, long, word or byte, and each is sent using the matching typed
+               <code class="literal">HSerPrint</code> call, in the order given, to the default comport. Because the
+               compiler expands the list into ordinary <code class="literal">HSerPrint</code> calls, mixing types in
+               one statement — a string, then a byte, then a word, and so on — works
+               exactly as if each value had been sent with its own <code class="literal">HSerPrint</code> statement.
+            </p>
+            <p><code class="literal">HSerPrintList</code> does not send any new line characters. As with <code class="literal">HSerPrint</code>,
+               follow the statement with <code class="literal">HSerPrint 13</code> and <code class="literal">HSerPrint 10</code> if the receiving
+               terminal needs a new line.
+            </p>
+            <p>There is no comport argument; a value that must go to a specific comport
+               should still be sent with <code class="literal">HSerPrint(<span class="emphasis"><em>user_value</em></span>, <span class="emphasis"><em>comport</em></span>)</code>.
+            </p>
+            <p><span class="strong"><strong>Example:</strong></span></p><pre class="programlisting">    #chip 16F877A, 20
+
+    #define USART_BAUD_RATE 9600
+    #define USART_TX_BLOCKING
+    #define USART_DELAY OFF
+
+    Dim Txt_Heading As String * 12 = "K9AY North"
+    Dim SignalLevel As Byte = 87
+    Dim SampleCount As Word = 4213
+
+    Do
+      HSerPrintList "{STAT,", Txt_Heading, ",", SignalLevel, ",", SampleCount, "}", 13, 10   ' &lt;&lt;&lt; the HSerPrintList instruction
+      Wait 1 s
+    Loop</pre><p><span class="strong"><strong>Key line:</strong></span> the single <code class="literal">HSerPrintList</code> call above sends a string literal, a
+               string variable, another string literal, a byte, another string literal, a
+               word, a closing brace and a CR/LF pair — nine values in total — as nine
+               typed <code class="literal">HSerPrint</code> calls, without writing any of them out by hand.
             </p>
             <p><span class="strong"><strong>See Also:</strong></span></p>
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">
-                  <li class="listitem"><a class="link" href="_abs.html" title="Abs">Abs</a> — related command in the same category
+                  <li class="listitem"><a class="link" href="_hserprint.html" title="HSerPrint">HSerPrint</a> — sending a single value, or a value to a specific comport
                   </li>
-                  <li class="listitem"><a class="link" href="_average.html" title="Average">Average</a> — related command in the same category
+                  <li class="listitem"><a class="link" href="_hsersendbytes.html" title="HSerSendBytes">HSerSendBytes</a> — sending 2 to 16 raw bytes in one call, rather than typed values
+                  </li>
+                  <li class="listitem"><a class="link" href="_sernprintlist.html" title="SerNPrintList">Ser1PrintList, Ser2PrintList, Ser3PrintList</a> — the same mixed-type list, on a software-serial channel
                   </li>
                </ul>
             </div>
@@ -209,10 +245,10 @@ border: none; background: none; font-weight: none; color: none; }
             <hr />
             <table width="100%" summary="Navigation footer">
                <tr>
-                  <td width="40%" align="left"><a accesskey="p" href="_average.html">Prev</a> 
+                  <td width="40%" align="left"><a accesskey="p" href="_hserprint.html">Prev</a> 
                   </td>
-                  <td width="20%" align="center"><a accesskey="u" href="_maths.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="_int.html">Next</a></td>
+                  <td width="20%" align="center"><a accesskey="u" href="_rs232_hardware.html">Up</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="_hserprintstringcrlf.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -650,6 +686,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_rs232_software_overview_optimised.html" tabindex="1">RS232 Software Overview - Optimised</a></span></li>
                                           <li><span class="file"><a href="_sernsend.html" tabindex="1">SerNSend</a></span></li>
                                           <li><span class="file"><a href="_sernprint.html" tabindex="1">SerNPrint</a></span></li>
+                                          <li><span class="file"><a href="_sernprintlist.html" tabindex="1">SerNPrintList</a></span></li>
                                           <li><span class="file"><a href="_sernreceive.html" tabindex="1">SerNReceive</a></span></li>
                                        </ul>
                                     </li>
@@ -658,6 +695,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_hsergetnum.html" tabindex="1">HSerGetNum</a></span></li>
                                           <li><span class="file"><a href="_hsergetstring.html" tabindex="1">HSerGetString</a></span></li>
                                           <li><span class="file"><a href="_hserprint.html" tabindex="1">HSerPrint</a></span></li>
+                                          <li id="webhelp-currentid"><span class="file"><a href="_hserprintlist.html" tabindex="1">HSerPrintList</a></span></li>
                                           <li><span class="file"><a href="_hserprintstringcrlf.html" tabindex="1">HSerPrintStringCRLF</a></span></li>
                                           <li><span class="file"><a href="_hserreceive.html" tabindex="1">HSerReceive</a></span></li>
                                           <li><span class="file"><a href="_hserreceivefrom.html" tabindex="1">HSerReceiveFrom</a></span></li>
@@ -831,7 +869,6 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="_maths.html" tabindex="1">Maths</a></span><ul>
                                     <li><span class="file"><a href="_abs.html" tabindex="1">Abs</a></span></li>
                                     <li><span class="file"><a href="_average.html" tabindex="1">Average</a></span></li>
-                                    <li id="webhelp-currentid"><span class="file"><a href="_difference.html" tabindex="1">Difference</a></span></li>
                                     <li><span class="file"><a href="_int.html" tabindex="1">Int</a></span></li>
                                     <li><span class="file"><a href="_logarithms.html" tabindex="1">Logarithms</a></span><ul>
                                           <li><span class="file"><a href="_log2.html" tabindex="1">Log2</a></span></li>
