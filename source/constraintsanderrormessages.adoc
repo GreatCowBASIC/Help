@@ -32,6 +32,10 @@ points to.
 |At most 40 elements (operators and operands combined) in one calculation
 |Fails with "TYPECHECKSIZE exceed - reduce complexity." Break the calculation into steps using intermediate variables. See <<_setting_variables,Setting Variables>>.
 
+|Self-referencing assignment on baseline/mid-range PIC (14-bit core)
+|An assignment where the target variable also appears in its own calculation (e.g. `Delay_time = (Descend_start - Delay_time)`)
+|On these chip families this pattern can corrupt the target variable if written directly; the compiler automatically routes it through a temporary variable instead. Disable this protection with `#DEFINE DISABLE1094` (not recommended - only useful for isolating whether it is the cause of an unrelated problem). See <<_setting_variables,Setting Variables>>.
+
 |Sub/Function parameter count
 |At most 50 parameters per call
 |Fails with "Maximum number of parameters (50) exceeded." See <<_subroutines,Subroutines>> / <<_functions,Functions>>.
@@ -39,6 +43,10 @@ points to.
 |DATA block value size
 |0x3FFF (14-bit PIC families) / 0xFFFF (PIC18, AVR)
 |A value exceeding this for the target family fails to fit in one program-memory word. See <<_data,DATA>>'s Maximum Stored Value tables.
+
+|Large all-Byte DATA table storage on AVR
+|A DATA table with more than 255 all-Byte items, read with `#DEFINE`d single-byte output
+|By default such a table keeps its declared type. Opt in with `#DEFINE ENABLE1591` to force it back to `BYTE` storage instead, reducing program memory use for large byte-only tables. See <<_data,DATA>>.
 
 |Program memory pages (baseline/mid-range PIC only)
 |2048 words per page; page 0 has a little less
@@ -567,7 +575,7 @@ ifdef::backend-pdf[<<<]
 
 |NoMatchingOverload
 |No matching overload found for %subname% with these argument types
-|None of the overloaded Sub/Function's declared parameter lists fit the argument types given. See <<_subroutines,Subroutines>> for how single-character string literals and Byte/Bit parameters are matched.
+|The call supplies more arguments than any overload of that Sub/Function declares, counting optional parameters - no overload could accept that many values. `#DEFINE DISABLE1637` before the call downgrades this to a warning instead of a compile error. See <<_subroutines,Subroutines>> for how single-character string literals and Byte/Bit parameters are matched.
 
 |NoMatchingSig
 |No subroutine found with matching parameters

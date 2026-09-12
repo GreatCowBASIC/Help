@@ -296,10 +296,12 @@ A single-character string literal, such as `"R"`, can be passed to
 whichever overload fits best: it matches a `String` parameter (as a
 one-character string) and equally matches a `Byte` or `Bit` parameter
 (as its ASCII value), the same way `Dim x As Byte = "R"` already works.
-If none of the overloads of a subroutine or function fit the arguments
-given at all — for example, passing a multi-character string where every
-overload expects a number — the call fails to compile with "No matching
-overload found for `name` with these argument types."
+If a call supplies more arguments than any overload of that subroutine
+or function declares — counting optional parameters, so no overload
+could possibly accept that many values — the call fails to compile with
+"No matching overload found for `name` with these argument types." To
+downgrade this from a compile error to a warning instead (compiling
+anyway), add `#DEFINE DISABLE1637` before the call.
 
 <span class="strong">**See Also:**</span>
 

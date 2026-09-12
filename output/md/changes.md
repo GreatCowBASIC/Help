@@ -32,8 +32,8 @@ v1.xx.xx**</span>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;"><p>ASCIIDOCs rendered</p></td>
-<td style="text-align: center;"><p>2026-09-09<br />
-12:30:20 GMT Summer Time</p></td>
+<td style="text-align: center;"><p>2026-09-12<br />
+11:02:12 GMT Summer Time</p></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><p>Master ToC information</p></td>
