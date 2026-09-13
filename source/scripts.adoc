@@ -31,6 +31,7 @@ consist of the following commands:
 ----
 `If` is similar to the If command in normal GCBASIC code, and can optionally include an `Else` clause.
 It is used to compare the values of the script constants.
+`Else` support in scripts is available from build 1638.
 
 The `=` sign is identical to that in GCBASIC programs.
 The _constant_ that is to be set goes on the left side of the `=`, and the new value goes on the right of the `=`.
