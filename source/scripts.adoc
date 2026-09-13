@@ -29,7 +29,7 @@ consist of the following commands:
     Info
     Int()
 ----
-`If` is similar to the If command in normal GCBASIC code, except that it does not have an `Else` clause.
+`If` is similar to the If command in normal GCBASIC code, and can optionally include an `Else` clause.
 It is used to compare the values of the script constants.
 
 The `=` sign is identical to that in GCBASIC programs.
@@ -102,6 +102,23 @@ During the execution of the script, the calculations and assignments use the con
 After this script has completed, the _constants_ `PR2Temp`, `DutyCycleH`, and `DutyCycleL` are set using the constants and/or the calculations above.
 
 The _constants_ assigned in this script - `PR2Temp`, `DutyCycleH`, and `DutyCycleL` - are made available as _constants_ in the user program.
+
+*Example Script with Else*
+
+An `If` inside a script may include an `Else` clause, used when the calculation or constant needs a different value depending on the condition:
+
+[source,gcbasic]
+----
+    #script
+        If ChipMHz > 16 Then
+            ClockDivider = 4
+        Else
+            ClockDivider = 1
+        End If
+    #endscript
+----
+
+Here, `ClockDivider` is set to `4` when the chip's clock speed (`ChipMHz`) is greater than 16, and to `1` otherwise.
 
 **See Also:**
 
