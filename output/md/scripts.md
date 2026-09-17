@@ -43,9 +43,10 @@ consist of the following commands:
     Int()
 ```
 
-`If` is similar to the If command in normal GCBASIC code, except that it
-does not have an `Else` clause. It is used to compare the values of the
-script constants.
+`If` is similar to the If command in normal GCBASIC code, and can
+optionally include an `Else` clause. It is used to compare the values of
+the script constants. `Else` support in scripts is available from build
+1638.
 
 The `=` sign is identical to that in GCBASIC programs. The <span
 class="emphasis">*constant*</span> that is to be set goes on the left
@@ -148,6 +149,25 @@ class="emphasis">*constants*</span> `PR2Temp`, `DutyCycleH`, and
 The <span class="emphasis">*constants*</span> assigned in this script -
 `PR2Temp`, `DutyCycleH`, and `DutyCycleL` - are made available as <span
 class="emphasis">*constants*</span> in the user program.
+
+<span class="strong">**Example Script with Else**</span>
+
+An `If` inside a script may include an `Else` clause, used when the
+calculation or constant needs a different value depending on the
+condition:
+
+``` programlisting
+    #script
+        If ChipMHz > 16 Then
+            ClockDivider = 4
+        Else
+            ClockDivider = 1
+        End If
+    #endscript
+```
+
+Here, `ClockDivider` is set to `4` when the chip’s clock speed
+(`ChipMHz`) is greater than 16, and to `1` otherwise.
 
 <span class="strong">**See Also:**</span>
 
