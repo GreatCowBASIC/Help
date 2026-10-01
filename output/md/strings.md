@@ -37,6 +37,19 @@ Declared as:
 This allocates a 16-byte string (plus one extra byte internally). Fixed
 strings are not null-terminated and do not resize automatically.
 
+<span class="strong">**Element 0 and the "extra byte"**</span>
+
+The "extra byte" mentioned above is element 0 of the string’s own
+memory: it holds the string’s <span class="strong">**current
+length**</span>, in characters. Character data itself starts at element
+1, so a string declared `As String * 10` reserves 11 bytes in total — 1
+length byte plus 10 usable characters. This is why
+<a href="len" class="link" title="Len">Len</a> can return a
+string’s length instantly, without scanning for a terminator: there is
+no null terminator in GCBASIC strings at all, only this leading length
+byte. Copying, reading, and comparing strings all rely on this same
+convention internally.
+
 <span class="strong">**Constraint:**</span> assigning a literal string
 longer than a fixed-length string’s declared `<Length>` compiles without
 warning, even though the literal’s length is already known at compile

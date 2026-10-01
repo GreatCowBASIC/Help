@@ -39,3 +39,4 @@ Another example: this code loops through the `For`-`Next` loop 12 times, as dete
 
 * <<_mid,Mid>> -- extracting characters using a position derived from `Len`
 * <<_asc,Asc>> -- related command in the same category
+* <<_ubound,UBound>> -- a string's declared maximum length, as opposed to `Len`'s current length

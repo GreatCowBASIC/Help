@@ -1080,6 +1080,8 @@ include::rtrim.adoc[]
 
 include::trim.adoc[]
 
+include::ubound.adoc[]
+
 include::ucase.adoc[]
 
 include::varsingletobin.adoc[]

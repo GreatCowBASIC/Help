@@ -1,0 +1,70 @@
+==== UBound
+
+(((Arrays,UBound)))
+(((Syntax,UBound)))
+
+
+*Syntax:*
+[subs="specialcharacters,quotes"]
+----
+    __output__ = UBound( array_name )
+----
+
+*Command Availability:*
+
+Available on all microcontrollers. From build 1644.
+
+*Explanation:*
+
+The `UBound` function returns the number of elements declared for an array, exactly as
+written in its `Dim` statement. Because an array's size is fixed at compile time, `UBound`
+is resolved entirely by the compiler -- the call is replaced with a plain numeric constant
+before the program is assembled. It costs no RAM and no runtime instructions to use.
+
+[source,gcbasic]
+----
+    Dim Buffer(512) As Byte
+    Dim BufferSize As Word
+
+    BufferSize = UBound(Buffer)          ' <<< resolves to the literal 512
+----
+*Key line:* `UBound(Buffer)` -- compiles directly to the constant `512`; nothing is read from
+memory at runtime.
+
+This replaces the older workaround of maintaining a separate `#Define` constant purely to
+remember an array's size:
+
+[source,gcbasic]
+----
+    Dim MySensorReadings(10) As Word
+
+    For i = 1 to UBound(MySensorReadings)
+        MySensorReadings(i) = 0
+    Next
+----
+*Key line:* `UBound(MySensorReadings)` -- always matches the array's actual declared size, even
+if the `Dim` line above it is edited later, because it reads the size from the declaration
+itself rather than from a second, hand-maintained constant that could drift out of sync.
+
+`UBound` also works on a fixed-length `String` variable, returning its declared maximum
+length in characters -- see <<_dim,Dim>> for why strings and arrays share this size
+mechanism internally.
+
+[source,gcbasic]
+----
+    Dim Greeting As String * 20
+    Dim MaxChars As Byte
+
+    MaxChars = UBound(Greeting)          ' <<< resolves to the literal 20
+----
+
+*Constraint:* `UBound` only accepts the name of an array or a `String` variable. Using it on
+a plain scalar variable (a `Byte`, `Word`, etc. that was not declared with array brackets)
+raises a compile-time error, since a scalar has no declared element count to return.
+
+**See Also:**
+
+* <<_arrays,Arrays>> -- declaring arrays, and how element 0 is used (or not used)
+* <<_dim,Dim>> -- declaring arrays and strings
+* <<_len,Len>> -- the runtime length of a string's current contents, as opposed to its
+  declared maximum size

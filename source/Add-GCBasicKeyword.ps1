@@ -238,6 +238,8 @@ AddKeywords -Keyword CHIPUSART          -Type Constant -HelpPage _other_directiv
 AddKeywords -Keyword CHIPUSERIDADDRESS  -Type Constant -HelpPage _other_directives.html
 AddKeywords -Keyword CHIPUSERIDLENGTH   -Type Constant -HelpPage _other_directives.html
 AddKeywords -Keyword CHIPVECTORS_END    -Type Constant -HelpPage _other_directives.html
+AddKeywords -Keyword IGNORECOMPILE      -Type Constant -HelpPage _ignorecompile.html
+AddKeywords -Keyword UBOUND             -Type MathFunction -HelpPage _ubound.html
 
 # =====================================================================================
 # END OF TABLE - nothing below this line needs to change to add or update a keyword.

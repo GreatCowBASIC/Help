@@ -26,7 +26,34 @@ index is a value in brackets immediately after the name of the array.
 All the numbers stored in an array must be of the same type. For
 instance, you cannot store bytes and words in the same array.
 
-Arrays are 0-based. The first element is element zero.
+Element 0 exists in every array’s reserved memory, but it is not a
+usable data slot in ordinary code. Elements are addressed starting at
+index 1 — `Fish(1)` is the first element you should read or write.
+Element 0 is reserved rather than removed, for two different reasons
+depending on how the array is used:
+
+<div class="itemizedlist">
+
+-   For ordinary element-by-element access (`Fish(1) = 10`), element 0
+    is simply unused padding — reserved by the compiler when it
+    allocates RAM for the array, but never read or written by the
+    generated code.
+-   For the byte-array bulk-assignment shortcut described below
+    (`TestVar = 1, 2, 3, …​`), element 0 is deliberately repurposed to
+    hold the count of items assigned — see <span
+    class="strong">**Assigning values to an array**</span> below.
+
+</div>
+
+This mirrors, but is not identical to, how a fixed-length `String`
+variable uses its own element 0 (see
+<a href="dim" class="link" title="Dim">Dim</a>): a string’s
+element 0 always holds its <span class="strong">**current
+length**</span>, as an ongoing part of how the string is represented in
+memory, not only when a particular assignment shortcut is used. Both
+conventions exist so common operations (the item count for a bulk-loaded
+array; the current length for a string) can be read back without
+scanning the whole buffer.
 
 Examples of array names are:
 
@@ -105,12 +132,26 @@ If each element has the same value, this can be shortened using a loop:
 
 <span class="strong">**Array Length**</span>
 
-Element 0 should not be used to obtain the length of the array. Element
-0 is only consistent with respect to the length of the array when the
-array is set using the bulk-assignment method shown above.
+Element 0 should not be used to obtain the length of the array. As
+explained above, element 0 only holds the item count when the array was
+populated using the bulk-assignment method; otherwise it is unused
+padding and does not reflect the array’s length at all.
 
-The correct method is to use a constant to set the array size, and to
-use that constant within your code to obtain the array length.
+From build 1644, the correct method is the built-in
+<a href="ubound" class="link" title="UBound">UBound</a> function,
+which returns the array’s declared element count as a compile-time
+constant — no extra `#Define` needed, and it can never drift out of sync
+with the `Dim` line, because it reads the size directly from the
+declaration itself:
+
+``` programlisting
+    Dim TestVar(500) As Byte
+
+    SerPrint UBound(TestVar)     'or, other usage
+```
+
+Before build 1644, the equivalent approach was to maintain a separate
+constant by hand:
 
 ``` programlisting
     #Define ArraySizeConstant 500
@@ -118,6 +159,10 @@ use that constant within your code to obtain the array length.
 
     SerPrint ArraySizeConstant     'or, other usage
 ```
+
+This still works, but requires remembering to update the constant if the
+array’s size ever changes — `UBound` has no such risk, since there is
+nothing to keep in sync.
 
 <span class="strong">**Using Arrays**</span>
 
@@ -194,6 +239,8 @@ smaller array as needed.
 
 -   <a href="dim" class="link" title="Dim">Dim</a> — declaring
     arrays
+-   <a href="ubound" class="link" title="UBound">UBound</a> — getting
+    an array’s declared length as a compile-time constant
 -   <a href="alloc" class="link" title="Alloc">Alloc</a> — declaring
     memory directly
 -   <a href="efficient_implementation_of_lookup_reference_tables_in_gcbasic" class="link" title="Efficient Implementation of Lookup Reference Tables in GCBASIC">Efficient Implementation of Lookup Reference Tables in GCBASIC</a> — an

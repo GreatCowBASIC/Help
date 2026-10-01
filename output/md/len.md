@@ -58,6 +58,9 @@ once per character regardless of how the string’s declared size changes.
     characters using a position derived from `Len`
 -   <a href="asc" class="link" title="Asc">Asc</a> — related
     command in the same category
+-   <a href="ubound" class="link" title="UBound">UBound</a> — a
+    string’s declared maximum length, as opposed to \`Len’s current
+    length
 
 </div>
 
