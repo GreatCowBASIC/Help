@@ -135,6 +135,26 @@ points to.
 |`Select Case` multi-value `Case` list
 |At most 64 values per `Case`
 |A `Case` combining more than 64 comma-separated values fails with "Too many values in Case list (maximum 64)." See <<_select,Select>>.
+
+|`Repeat For` time value
+|A whole-number constant followed by a unit
+|A variable, an expression such as `10*9`, a fraction, zero, a negative number, a `&H` hex value, leading zeros or a missing unit is rejected. A `#define`d name, a `0x` hex literal and a binary literal are accepted. See <<_repeat_for,Repeat For>>.
+
+|`Repeat For` passes and padding
+|At most 65535 passes, and at most 56,000,000 clock cycles of padding in each pass
+|The compiler fits as many passes as it can and shares the left-over time between them as padding. A time that needs more padding than this fails with "Repeat For: this time needs more than 56,000,000 cycles of padding in every pass"; a time too short for one pass fails with "Repeat For: requested time is too short for even one pass of this loop body". See <<_repeat_for,Repeat For>>.
+
+|`Repeat For` loop body
+|Only code whose time is fixed and known
+|`Goto`, `Gosub`, `Select Case`, calls to a `Sub` or `Function`, `Exit Sub`, `Exit Function`, nested `Repeat`, `For`, `Do` and `Wait While`/`Wait Until` loops, `Else` and `Else If`, `IntOn`/`IntOff`, and anything the compiler builds as a library call (strings, division, `Word` comparisons) are rejected. `If` with no `Else`, `Exit Repeat` and constant `Wait` are allowed. See <<_repeat_for,Repeat For>>.
+
+|`Wait` inside `Repeat For`
+|A constant time of at most 8,000,000 clock cycles
+|A constant `Wait` in any unit is built into the loop as an exact inline delay. A variable time is rejected as a call, and a longer constant fails with "Repeat For: this Wait is too long to build inline inside the loop body". At 8 MHz on a PIC the limit is about 4 s, and at 16 MHz on an AVR about 0.5 s; use several shorter `Wait` statements to go beyond it.
+
+|`Repeat For` chip support
+|PIC (12-bit, 14-bit, enhanced mid-range and PIC18) and AVR
+|Other architectures fail with "Repeat For is not supported on this chip family".
 |===
 
 {empty} +
@@ -644,6 +664,50 @@ ifdef::backend-pdf[<<<]
 |RecursiveDefine
 |Recursive define
 |Break the circular `#define` chain - a constant cannot be defined in terms of itself.
+
+|RepeatForCostMismatch
+|Repeat For could not reach an exact total time after final code generation - the loop's cycle count changed in a way the compiler could not correct
+|The final code check found that the loop's time had changed after code generation. Simplify the loop body (for example keep its variables together so no bank changes are needed) and report the program if it persists.
+
+|RepeatForIfElseUnsupported
+|Repeat For does not support If/Else inside its body - only If with no Else is supported
+|Remove the `Else` or `Else If`, or make the choice outside the `Repeat For`. Only `If` with no `Else` is allowed in the loop.
+
+|RepeatForNoUnit
+|Repeat For requires a time unit (e.g. us) after the value
+|Add a unit after the time, for example `Repeat For 100 us`.
+
+|RepeatForNotSupportedOnCore
+|Repeat For is not supported on this chip family - it works on PIC (12-bit, 14-bit, enhanced mid-range and PIC18 cores) and AVR
+|`Repeat For` works on PIC and AVR chips only.
+
+|RepeatForRequiresConstant
+|Repeat For requires a constant, non-negative, non-zero whole number value
+|Give a plain whole-number constant (a number or a `#define`d name), not a variable, expression, fraction, zero or negative number.
+
+|RepeatForTimeTooLong
+|Repeat For: this time needs more than 56,000,000 cycles of padding in every pass - use a shorter time, or a loop body that does more work per pass
+|Use a shorter time, make each pass of the loop do more work, or wrap the `Repeat For` in an ordinary loop.
+
+|RepeatForTimeTooShort
+|Repeat For: requested time is too short for even one pass of this loop body
+|Make the time longer, or shorten the code in the loop: one pass of the code plus the loop overhead has to fit into the time.
+
+|RepeatForUnknownInstruction
+|Repeat For cannot compute an exact cycle cost for an instruction inside its body
+|The loop body produced an instruction whose time the compiler cannot work out. Simplify the statement or move it outside the loop.
+
+|RepeatForUnsupportedConstruct
+|Repeat For cannot use this construct inside its body because its timing is not fixed: a Call, a Wait with a variable time, Goto, Gosub, Exit Sub, Exit Function, Select Case, nested Repeat, For/Do/Wait Until loops and instructions with data-dependent timing are not allowed
+|Remove the construct from the loop or move it outside it (see the list under <<_repeat_for,Repeat For>>). A constant `Wait` is allowed; a `Wait` with a variable time is not.
+
+|RepeatForUnsupportedUnit
+|Repeat For does not support this time unit - supported units are us, 10us, ms, 10ms, s, m, h (and their usec/msec/sec/min/hour variants)
+|Use us, 10us, ms, 10ms, s, m or h (or the usec, msec, sec, min and hour spellings).
+
+|RepeatForWaitTooLong
+|Repeat For: this Wait is too long to build inline inside the loop body (limit 8,000,000 clock cycles at this clock speed) - use a shorter Wait
+|Use a shorter `Wait` inside the loop, or split it into several shorter `Wait` statements.
 
 |RepeatMissingCount
 |No value given for Repeat

@@ -138,5 +138,6 @@ To suppress warnings when using US.
 
 * <<_conditions,Conditions>> -- the comparisons used in `Wait While`/`Wait Until`
 * <<_repeat,Repeat>> -- looping a fixed number of times, as combined with `Wait` above
+* <<_repeat_for,Repeat For>> -- running code for an exact length of time; a constant `Wait` can be used inside it
 * <<_pulseout,PulseOut>> -- timed pin pulses, often used alongside `Wait`
 * <<_pause,Pause>> -- the older, milliseconds-only equivalent to a fixed-length `Wait`

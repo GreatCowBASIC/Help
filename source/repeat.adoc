@@ -32,6 +32,9 @@ immediately.
 
 `Repeat` has a maximum repeat value of 65535.
 
+To repeat code for a length of time instead of a number of times, use
+<<_repeat_for,Repeat For>>.
+
 *Example:*
 
 [source,gcbasic]
@@ -53,5 +56,6 @@ immediately.
 **See Also:**
 
 * <<_for,For>> -- a counted loop that also exposes the current iteration number
+* <<_repeat_for,Repeat For>> -- repeating code for an exact length of time instead of a count
 * <<_do,Do>> -- an unbounded loop, for when the iteration count is not known in advance
 * <<_performance_overview,Performance>> -- why Repeat compiles to less overhead per pass than For for a fixed count

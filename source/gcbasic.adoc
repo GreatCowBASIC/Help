@@ -299,6 +299,8 @@ include::pause.adoc[]
 
 include::repeat.adoc[]
 
+include::repeatfor.adoc[]
+
 include::select.adoc[]
 
 include::wait.adoc[]
