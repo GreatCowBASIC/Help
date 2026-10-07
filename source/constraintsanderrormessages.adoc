@@ -325,6 +325,10 @@ ifdef::backend-pdf[<<<]
 |Reserved Words cannot be labels: %label%
 |Rename the label to something that is not a GCBASIC command/keyword.
 
+|CannotUseAsmInstructionAsName
+|%name% is an assembler instruction for this chip and cannot be used as a sub, function or macro name, rename method
+|Library code relies on assembler mnemonics resolving as real instructions. Rename the `Sub`/`Function`/`Macro` to something that is not an assembler instruction for the target chip.
+
 |CannotUseIncludeInsideInsert
 |#INCLUDE not permitted within #INSERT, move to main program
 |Move the `#INCLUDE` line out of the `#INSERT` block and into the main program.
