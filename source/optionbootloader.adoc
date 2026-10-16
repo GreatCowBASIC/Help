@@ -25,6 +25,14 @@ image::optionbootloaderb1.PNG[graphic,align="center"]
 
 See https://sourceforge.net/projects/tinypicbootload/files/[example bootload software.]
 
+The space taken by the bootloader itself (everything below `address`) is now counted against
+the chip's available program memory, the same way <<__option_reservehighprog,#Option
+ReserveHighProg>> is - the "program too large" check, and the `Program Memory: n/total words`
+line, both include it. If the bootloader also needs to keep a region free at the *top* of
+flash (for its own HEF/SAF data, or for configuration words on the last page), still add
+`#option ReserveHighProg` for that separate region; the two options now add together correctly
+rather than one of them being silently ignored by the size check.
+
 *Example:*
 [source,gcbasic]
 ----
@@ -34,3 +42,4 @@ See https://sourceforge.net/projects/tinypicbootload/files/[example bootload sof
 **See Also:**
 
 * <<__option_noconfig,#Option NoConfig>> -- another option commonly used alongside a bootloader
+* <<__option_reservehighprog,#Option ReserveHighProg>> -- reserving space at the top of flash, counted alongside the bootloader's own space at the bottom

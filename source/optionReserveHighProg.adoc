@@ -17,6 +17,13 @@ in the project configuration.
 
 Using `#option ReserveHighProg [words]` exposes the constant `ChipReserveHighProg` in the user program.
 
+If the program also uses <<__option_bootloader,#Option Bootloader>> (a bootloader that sits
+*below* the application, rather than the OptiBoot-style bootloader above it that Example 2
+protects), both options now add together in the "program too large" check and the
+`Program Memory:` report: the bootloader's own space at the bottom, plus whatever
+`ReserveHighProg` reserves at the top, are both subtracted from the chip's real total before
+the application's code is measured against it.
+
 *Defined constants*
 
 The compiler has constants that can be used as an alternative to the parameter `[words]`.
