@@ -12,15 +12,15 @@
 *Explanation:*
 
 <<__option_bootloader,#Option Bootloader>> builds an _application_ that runs above a bootloader:
-its reset and interrupt vectors are moved to `__address__`, `__address__+8` and `__address__+0x18`.
+its reset and interrupt vectors are moved to `address`, `address+8` and `address+0x18`.
 `#option bootloaderhost` builds the _bootloader itself_ (the "host"):
 
 * it sits at the reset vector;
 * it does not use interrupts itself;
-* it forwards the chip's interrupt vectors to the application at `__address__`.
+* it forwards the chip's interrupt vectors to the application at `address`.
 
 Without either option, GCBASIC puts the reset vector at `0x0000` and the program's own interrupt
-code at `0x0008` - so an application built separately and placed at `__address__` would never see
+code at `0x0008` - so an application built separately and placed at `address` would never see
 its own interrupts fire, because the host's vectors are still pointing at the host's own code.
 `#option bootloaderhost` fixes this by placing two `GOTO` instructions at the chip's real vector
 addresses, pointing into the application:
@@ -39,7 +39,7 @@ addresses, pointing into the application:
 BASPROGRAMSTART
 ----
 
-`__address__` is the same value the application uses with `#option bootloader __address__`.
+`address` is the same value the application uses with `#option bootloader address`.
 
 Currently supported on PIC18 (14-bit and other PIC families are not yet supported). AVR is not
 supported - the AVR boot section works differently and a bootloader built this way is unlikely to
@@ -57,7 +57,7 @@ belong to the application
 an interrupt handler`
 
 |The host's own code (and tables) must end below the application address
-|`#option bootloaderhost: program reaches __address__, the application area starts at __address__`
+|`#option bootloaderhost: program reaches address, the application area starts at address`
 
 |`#option bootloader` and `#option bootloaderhost` cannot both be used in the same program
 |`use either #option bootloader (an application) or #option bootloaderhost (a bootloader)`
@@ -67,8 +67,7 @@ an interrupt handler`
 |===
 
 Configuration words are emitted as normal - the host owns them. `InitSys` and
-<<__option_startupmethodsdisabled,#Option StartupMethodsDisabled>> behave exactly as they do
-without this option.
+`#option StartupMethodsDisabled` behave exactly as they do without this option.
 
 *Example:*
 [source,gcbasic]

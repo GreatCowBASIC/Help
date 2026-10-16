@@ -42,5 +42,5 @@ option is ignored with a warning (`WarningStringLimitCheck`).
 
 **See Also:**
 
-* <<__dim,Dim>> -- declaring a fixed-length string with `As String * Length`
-* <<__ubound,UBound>> -- for finding a string's declared length at runtime
+* <<_dim,Dim>> -- declaring a fixed-length string with `As String * Length`
+* <<_ubound,UBound>> -- for finding a string's declared length at runtime

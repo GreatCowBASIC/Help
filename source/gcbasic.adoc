@@ -382,6 +382,8 @@ include::sdd1289controllers.adoc[]
 
 include::sh1106controllers.adoc[]
 
+include::sh1101acontrollers.adoc[]
+
 include::ssd1306controllers.adoc[]
 
 include::ssd1309controllers.adoc[]

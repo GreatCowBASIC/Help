@@ -609,6 +609,34 @@ SPI requires typically 6 in total.
 |SPI requires typically 6 in total.
 |Very good large e-Paper display; note the slower refresh typical of larger e-Paper panels.
 
+|39
+|SH1101A
+|1.5inch
+|128 * 64 (132 * 64 RAM, panel visible from column 2)
+|Small
+|Mono
+|OLED
+|8080 parallel or 4-wire SPI (write-only - the serial interface cannot read the display)
+|PIC and AVR: software 8080 parallel bus, or software 4-wire SPI. No I2C - the SH1101A has none.
+|Typically operates at VCC 3.3. Always check voltage specifications.
+|Selected using the constant GLCD_TYPE_SH1101A. See <<_sh1101a_controllers,SH1101A Controllers>> for wiring and the full set of options, including the Microchip PIC18F Starter Kit 1's own 8080 bus.
+|8080 bus requires 8 data lines plus WR, RD, CS, DC (optionally RESET) -- 12 or 13 in total. SPI requires DO, SCK, DC, CS (optionally RESET) -- 4 or 5 in total.
+|Good small OLED display; the 8080 bus variant needs more pins but is notably faster than the SPI (software, write-only) alternative.
+
+|40
+|ST7789 (170 * 320 variant)
+|1.9inch
+|170 * 320
+|Small
+|Color
+|TFT LCD
+|4-wire SPI
+|PIC and AVR: hardware and software SPI
+|Typically operates at VCC 3.3. Always check voltage specifications.
+|Selected using the constant GLCD_TYPE_ST7789_170_320 alongside the existing GLCD_TYPE_ST7789_240_240 / GLCD_TYPE_ST7789_320_240 (row 17 area) -- see <<_st7789_controllers,ST7789 Controllers>>. Tested on the Waveshare 1.9inch panel; confirm the initial X offset (35) on your own physical panel.
+|SPI requires 4 ports plus 2 ports. Typically 6 in total.
+|Good small colour TFT; same driver family and commands as the other ST7789 geometries.
+
 |===
 
 
