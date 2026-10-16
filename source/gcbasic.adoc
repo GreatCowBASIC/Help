@@ -1240,6 +1240,10 @@ include::optionnoconfig.adoc[]
 
 include::optionbootloader.adoc[]
 
+include::optionbootloaderhost.adoc[]
+
+include::optionstringlimitcheck.adoc[]
+
 // removed 10022024 include::optionfloat.adoc[]
 
 include::optionnocontextsave.adoc[]

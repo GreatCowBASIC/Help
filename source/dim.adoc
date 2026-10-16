@@ -250,7 +250,8 @@ literal's length is already known at compile time. For example,
 `Dim s As String * 4` followed by `s = "ThisIsWayTooLong"` raises no
 error or warning; the assignment will not fit in the allocated buffer at
 runtime. Keep fixed-length strings comfortably larger than the longest
-value you plan to assign to them.
+value you plan to assign to them, or add <<__option_stringlimitcheck,#Option StringLimitCheck>>
+to clamp every assignment to the destination's declared length instead of overrunning it.
 
 *String Escape Sequences*
 

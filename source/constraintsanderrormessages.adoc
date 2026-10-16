@@ -12,6 +12,16 @@ very likely a normal syntax error (a missing `Then`, a mismatched bracket, an
 undeclared variable) rather than a structural limit - re-check the line the compiler
 points to.
 
+*Message severities*
+
+The compiler reports three severities. **Error** stops compilation. **Warning** does not,
+but is worth checking (it can be promoted to an Error with `#option WarningsAsErrors`).
+**Information** is advisory only - it never stops compilation, is never counted as a Warning,
+and is unaffected by `#option WarningsAsErrors`; the compiler shows an "Information" summary
+line only when there are zero Errors and zero Warnings. For example, `BadIntFreq` (the chip's
+`#chip` frequency not matching any of its internal-oscillator speeds) is Information, not a
+Warning, since it is often an intentional, working setup.
+
 *Constraints*
 
 [cols="2,3,3", options="header"]
@@ -208,6 +218,22 @@ ifdef::backend-pdf[<<<]
 |BadBitRead
 |Cannot read bit %bit% of %var%
 |Check that the bit number is valid for the variable's type/size.
+
+|BootloaderConflict
+|use either #option bootloader (an application) or #option bootloaderhost (a bootloader)
+|Use only one of the two options in the same program - `#option bootloader` for the application, `#option bootloaderhost` for the bootloader itself.
+
+|BootloaderHostInterruptHandler
+|#option bootloaderhost: interrupts are forwarded to the application; the bootloader cannot have an interrupt handler
+|Remove the `Sub Interrupt`/`On Interrupt` handler from the bootloader - interrupts belong to the application it forwards to.
+
+|BootloaderHostInvalidAddress
+|#option bootloaderhost: invalid application address
+|Use an even address greater than `0x001C`, matching the address the application uses with `#option bootloader`.
+
+|BootloaderHostOverflow
+|#option bootloaderhost: program reaches %reached%, the application area starts at %appaddr%
+|Shrink the bootloader's own code/tables, or move the application to a higher address, so the host ends below it.
 
 |BadBitSet
 |Cannot set bit %bit% of %var%

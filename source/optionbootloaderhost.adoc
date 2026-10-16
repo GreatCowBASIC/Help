@@ -1,0 +1,93 @@
+=== #Option BootloaderHost
+
+(((Compiler Options,#Option BootloaderHost)))
+
+
+*Syntax:*
+[subs="specialcharacters,quotes"]
+----
+    #option bootloaderhost __address__
+----
+
+*Explanation:*
+
+<<__option_bootloader,#Option Bootloader>> builds an _application_ that runs above a bootloader:
+its reset and interrupt vectors are moved to `__address__`, `__address__+8` and `__address__+0x18`.
+`#option bootloaderhost` builds the _bootloader itself_ (the "host"):
+
+* it sits at the reset vector;
+* it does not use interrupts itself;
+* it forwards the chip's interrupt vectors to the application at `__address__`.
+
+Without either option, GCBASIC puts the reset vector at `0x0000` and the program's own interrupt
+code at `0x0008` - so an application built separately and placed at `__address__` would never see
+its own interrupts fire, because the host's vectors are still pointing at the host's own code.
+`#option bootloaderhost` fixes this by placing two `GOTO` instructions at the chip's real vector
+addresses, pointing into the application:
+
+[source]
+----
+;Vectors
+    ORG    0
+    goto    BASPROGRAMSTART
+    ORG    8
+    goto    <address>+0x08          ;high-priority interrupt: to the application
+    ORG    24
+    goto    <address>+0x18          ;low-priority interrupt: to the application
+;Program_memory_page: 0
+    ORG    28
+BASPROGRAMSTART
+----
+
+`__address__` is the same value the application uses with `#option bootloader __address__`.
+
+Currently supported on PIC18 (14-bit and other PIC families are not yet supported). AVR is not
+supported - the AVR boot section works differently and a bootloader built this way is unlikely to
+need it.
+
+*Rules and checks:*
+
+[cols="1,3"]
+|===
+|Rule |Error if broken
+
+|The host cannot have its own interrupt handler (`Sub Interrupt`, `On Interrupt`) - its vectors
+belong to the application
+|`#option bootloaderhost: interrupts are forwarded to the application; the bootloader cannot have
+an interrupt handler`
+
+|The host's own code (and tables) must end below the application address
+|`#option bootloaderhost: program reaches __address__, the application area starts at __address__`
+
+|`#option bootloader` and `#option bootloaderhost` cannot both be used in the same program
+|`use either #option bootloader (an application) or #option bootloaderhost (a bootloader)`
+
+|The address must be even, and above the host's own vector area (greater than `0x001C`)
+|`#option bootloaderhost: invalid application address`
+|===
+
+Configuration words are emitted as normal - the host owns them. `InitSys` and
+<<__option_startupmethodsdisabled,#Option StartupMethodsDisabled>> behave exactly as they do
+without this option.
+
+*Example:*
+[source,gcbasic]
+----
+    'The bootloader itself - sits at the reset vector, forwards both interrupt
+    'vectors to an application that will be loaded at 0xA000
+    #chip 18F4550, 20
+    #option bootloaderhost 0xA000
+
+    'bootloader code goes here - receive the application over a serial/USB
+    'link and write it into flash starting at 0xA000, then jump there
+
+    Do
+    Loop
+----
+
+**See Also:**
+
+* <<__option_bootloader,#Option Bootloader>> -- builds the application that runs at the forwarded
+address
+* <<__option_reservehighprog,#Option ReserveHighProg>> -- an alternative way to protect a
+bootloader area already written with an external programmer
