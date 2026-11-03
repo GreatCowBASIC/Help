@@ -146,6 +146,9 @@ To suppress warnings when using US.
     comparisons used in `Wait While`/`Wait Until`
 -   <a href="repeat" class="link" title="Repeat">Repeat</a> — looping
     a fixed number of times, as combined with `Wait` above
+-   <a href="repeat_for" class="link" title="Repeat For">Repeat For</a> — running
+    code for an exact length of time; a constant `Wait` can be used
+    inside it
 -   <a href="pulseout" class="link" title="PulseOut">PulseOut</a> — timed
     pin pulses, often used alongside `Wait`
 -   <a href="pause" class="link" title="Pause">Pause</a> — the

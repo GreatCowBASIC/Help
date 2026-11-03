@@ -19,7 +19,10 @@
 ### Warning
 
 Installing the USB driver is only required when using the GCBASIC USB
-library.
+library without `USB_WCID`. With `USB_WCID` defined, Windows 8.1 and
+later install their own WinUSB driver: see
+<a href="usb_without_a_driver_winusb" class="link" title="USB without a driver (WinUSB)">USB without a driver (WinUSB)</a>
+below.
 
 </div>
 
@@ -125,14 +128,5 @@ hardware, not the driver).
     Windows 10 pro x64 secureboot disabled, os build stable 20H2 19042.867
     Windows 7 pro x86 secureboot disabled, os service pack 1 build 6.1.7601
 ```
-
-<span class="strong">**See Also:**</span>
-
-<div class="itemizedlist">
-
--   <a href="inputs_outputs" class="link" title="Inputs/Outputs">Inputs/Outputs</a> — category
-    overview
-
-</div>
 
 </div>

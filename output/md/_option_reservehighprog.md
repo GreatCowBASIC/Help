@@ -32,6 +32,16 @@ compiler option (shown above) in the project configuration.
 Using `#option ReserveHighProg [words]` exposes the constant
 `ChipReserveHighProg` in the user program.
 
+If the program also uses
+<a href="_option_bootloader" class="link" title="#Option Bootloader">#Option Bootloader</a>
+(a bootloader that sits <span class="strong">**below**</span> the
+application, rather than the OptiBoot-style bootloader above it that
+Example 2 protects), both options now add together in the "program too
+large" check and the `Program Memory:` report: the bootloader’s own
+space at the bottom, plus whatever `ReserveHighProg` reserves at the
+top, are both subtracted from the chip’s real total before the
+application’s code is measured against it.
+
 <span class="strong">**Defined constants**</span>
 
 The compiler has constants that can be used as an alternative to the

@@ -1022,6 +1022,8 @@ include::dectobcd.adoc[]
 
 include::rotate.adoc[]
 
+include::shift.adoc[]
+
 include::set.adoc[]
 
 include::swap4.adoc[]
@@ -1244,6 +1246,8 @@ include::optionbootloader.adoc[]
 
 include::optionbootloaderhost.adoc[]
 
+include::optionincludepath.adoc[]
+
 include::optionstringlimitcheck.adoc[]
 
 // removed 10022024 include::optionfloat.adoc[]
@@ -1259,6 +1263,8 @@ include::optionshadowregister.adoc[]
 include::optionremoveavrvectors.adoc[]
 
 include::optionusermodeonly.adoc[]
+
+include::optionstartupmethodsdisabled.adoc[]
 
 include::optionvolatile.adoc[]
 

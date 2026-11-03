@@ -73,10 +73,27 @@ at a time.
 masks the result down to 4 bits so the pattern wraps within \`LEDPORT’s
 lower nibble instead of drifting into unrelated bits.
 
+<span class="strong">**Constants and the result type:**</span> the
+result is as wide as `BitsIn`, and a constant is a Byte unless it is
+larger than 255. So `WordVariable = FnLSR(0x01, 13)` is a Byte shift:
+the bits shifted past bit 7 are lost, and `WordVariable` is set to 0.
+Give the constant its type with a cast:
+`WordVariable = FnLSR([word]0x01, 13)`. A variable is shifted as its own
+type, so this applies to constants only.
+
+<span class="strong">**Faster alternative:**</span> for a shift of one
+place, or a few places,
+<a href="shift" class="link" title="Shift">Shift</a> is faster. It
+is compiled in line, with no function call, and changes the variable in
+place: `Shift Value, Right`. `Shift` moves one bit each time, so it does
+not replace `FnLSR` when the number of places is held in a variable.
+
 <span class="strong">**See Also:**</span>
 
 <div class="itemizedlist">
 
+-   <a href="shift" class="link" title="Shift">Shift</a> — a
+    faster shift of one place, in line, changing the variable in place
 -   <a href="bitwise_operations_overview" class="link" title="Bitwise Operations Overview">Bitwise Operations Overview</a> — background
     on GCBASIC’s bitwise operations
 -   <a href="fnlsl" class="link" title="FnLSL">FnLSL</a> — the

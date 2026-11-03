@@ -22,13 +22,13 @@
     Dim variable [As type]
     Dim variable [As type] [= initialvalue]
     Dim variable[, variable2 [, variable3]] [As type] [Alias othervar [, othervar2]]  [= initialvalue]
-    Dim variable[, variable2 [, variable3]] [As type] [At location] [= initialvalue]
+    Dim variable[, variable2 [, variable3]] [As type] [At location [Shared]] [= initialvalue]
 
     For Arrays:
-    Dim array(size) [As type] [At location]
+    Dim array(size) [As type] [At location [Shared]]
 
     For Strings:
-    Dim string [* size] [At location]
+    Dim string [* size] [At location [Shared]]
 ```
 
 <span class="strong">**Explanation:**</span>

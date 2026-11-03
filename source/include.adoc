@@ -22,6 +22,8 @@ Absolute is used to refer to files in the `..\GCBASIC\include` directory. The na
     #include <srf04.h>
 ----
 
+With <<__option_includepath,#option IncludePath>> (build 1661), the folders it names are searched first, in their order, and then the `..\GCBASIC\include` directory. A project can keep its own libraries in a folder of its own and still include them with `<` and `>`.
+
 Relative is used to read files in the same folder as the currently selected program. Filenames are given enclosed in quotation marks, such as where `mycode.h` is the name of the file that is to be read.
 
 [source,gcbasic]
@@ -37,4 +39,5 @@ Those who are familiar with `#include` in assembly or C should bear in mind that
 **See Also:**
 
 * <<__insert,#insert>> -- inserting code at the exact location of the directive instead
+* <<__option_includepath,#option IncludePath>> -- more folders for `#include <...>`
 * <<_converters,Converters>> -- converting non-GCBASIC data files before including them

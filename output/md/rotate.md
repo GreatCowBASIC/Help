@@ -117,6 +117,9 @@ continuously.
 
 <div class="itemizedlist">
 
+-   <a href="shift" class="link" title="Shift">Shift</a> — shifts
+    a variable one bit and shifts a 0 in, with no carry bit fed back
+    (Rotate feeds the carry back into the variable)
 -   <a href="using_variables" class="link" title="Using Variables">Using Variables</a> — related
     command in the same category
 -   <a href="more_on_setting_variables_and_constants" class="link" title="More on setting Variables and Constants">More on setting Variables and Constants</a> — related

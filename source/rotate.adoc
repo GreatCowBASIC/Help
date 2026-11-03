@@ -106,6 +106,7 @@ Use `Set C Off` before using the `Rotate` command to clear the flag.
 
 **See Also:**
 
+* <<_shift,Shift>> -- shifts a variable one bit and shifts a 0 in, with no carry bit fed back (Rotate feeds the carry back into the variable)
 * <<_using_variables,Using Variables>> -- related command in the same category
 * <<_more_on_setting_variables_and_constants,More on setting Variables and Constants>> -- related command in the same category
 * <<_set,Set>> -- clearing the STATUS.C / carry flag before rotating, as recommended above

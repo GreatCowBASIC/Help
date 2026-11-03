@@ -61,6 +61,18 @@ then, once the bootloader has initialised, execution of the start code.
 See [example bootload
 software.](https://sourceforge.net/projects/tinypicbootload/files/)
 
+The space taken by the bootloader itself (everything below `address`) is
+now counted against the chip’s available program memory, the same way
+<a href="_option_reservehighprog" class="link" title="#Option ReserveHighProg">#Option ReserveHighProg</a>
+is - the "program too large" check, and the
+`Program Memory: n/total words` line, both include it. If the bootloader
+also needs to keep a region free at the <span
+class="strong">**top**</span> of flash (for its own HEF/SAF data, or for
+configuration words on the last page), still add
+`#option ReserveHighProg` for that separate region; the two options now
+add together correctly rather than one of them being silently ignored by
+the size check.
+
 <span class="strong">**Example:**</span>
 
 ``` programlisting
@@ -73,6 +85,9 @@ software.](https://sourceforge.net/projects/tinypicbootload/files/)
 
 -   <a href="_option_noconfig" class="link" title="#Option NoConfig">#Option NoConfig</a> — another
     option commonly used alongside a bootloader
+-   <a href="_option_reservehighprog" class="link" title="#Option ReserveHighProg">#Option ReserveHighProg</a> — reserving
+    space at the top of flash, counted alongside the bootloader’s own
+    space at the bottom
 
 </div>
 

@@ -162,38 +162,43 @@ the table below.
 <td style="text-align: left;"><p>Not defined</p></td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"><p><code class="literal">GLCD_SSD1306_CONTRAST</code></p></td>
+<td style="text-align: left;"><p>The contrast that <code class="literal">InitGLCD</code> sets, 0 to 255. <code class="literal">GLCDSetContrast</code> changes it while the program runs.</p></td>
+<td style="text-align: left;"><p><code class="literal">0xCF</code></p></td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;"><p><span class="strong"><strong>Rotate GCLD Constants</strong></span></p></td>
 <td style="text-align: left;"> </td>
 <td style="text-align: left;"> </td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><code class="literal">GLCDYFLIP</code></p></td>
 <td style="text-align: left;"><p>Define this constant to rotate the GLCD display</p></td>
 <td style="text-align: left;"><p>Not defined</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><code class="literal">GLCDXFLIP</code></p></td>
 <td style="text-align: left;"><p>Define this constant to rotate the GLCD display</p></td>
 <td style="text-align: left;"><p>Not defined</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><code class="literal">GLCDXYFLIP</code></p></td>
 <td style="text-align: left;"><p>Define this constant to rotate the GLCD display</p></td>
 <td style="text-align: left;"><p>Not defined</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><span class="strong"><strong>Memory Management Constants</strong></span></p></td>
 <td style="text-align: left;"> </td>
 <td style="text-align: left;"> </td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"><p><code class="literal">GLCD_TYPE_SSD1306_CHARACTER_MODE_ONLY</code></p></td>
 <td style="text-align: left;"><p>Specifies that the display controller will operate in text mode and BMP draw mode only.<br />
 For microcontrollers with low RAM this will be set be default.<br />
 When selected ONLY text related commands are suppored. For grapical commands you must have sufficient memory to use Full GLCD mode or use <code class="literal">GLCD_TYPE_SSD1306_LOWMEMORY_GLCD_MODE</code></p></td>
 <td style="text-align: left;"><p>Optional</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;"><p><code class="literal">GLCD_TYPE_SSD1306_LOWMEMORY_GLCD_MODE</code></p></td>
 <td style="text-align: left;"><p>Specifies that the display controller will operate in Low Memory mode.</p></td>
 <td style="text-align: left;"><p>Optional</p></td>
@@ -337,10 +342,33 @@ Parameters are <code class="literal">Start row</code>,<code class="literal">End 
 <td style="text-align: left;"><p>Sets the constrast between 0 and 255. The contrast increases as the value increases.<br />
 Parameter is dim value</p></td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;"><p><code class="literal">GLCDRotate ( LANDSCAPE | LANDSCAPE_REV )</code></p></td>
+<td style="text-align: left;"><p>Rotates the display by 180 degrees in the controller. <code class="literal">LANDSCAPE</code> is the orientation <code class="literal">InitGLCD</code> sets.<br />
+Draw the screen again after a rotate (for example <code class="literal">GLCDCLS</code> and the drawing commands): the controller applies the new column order to data written after the change.</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">GLCDSetDisplayInvertMode</code></p></td>
+<td style="text-align: left;"><p>Inverts the display: a set pixel is dark. The screen buffer does not change.</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p><code class="literal">GLCDSetDisplayNormalMode</code></p></td>
+<td style="text-align: left;"><p>Sets the display to normal mode: a set pixel is lit (as <code class="literal">InitGLCD</code> sets it).</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p><code class="literal">SSD1306_SendBufferRun ( col1, col2, page )</code></p></td>
+<td style="text-align: left;"><p>Full GLCD mode only. Sends the screen buffer’s bytes <code class="literal">col1</code> to <code class="literal">col2</code> of one page (0 to 7) to the display in one transaction. For a program that changes the screen buffer <code class="literal">SSD1306_BufferAlias</code> itself (the byte for a column and page is <code class="literal">page * GLCD_WIDTH + column + 1</code>, bit 0 the top row of the page) and then sends only the span that changed - much less I2C traffic than one <code class="literal">PSet</code> per pixel. The 16F18326 demonstration <code class="literal">26_GLCD_I2C_Devices_SSD1306.gcb</code> uses it to move a ball at over 200 frames per second.</p></td>
+</tr>
 </tbody>
 </table>
 
 </div>
+
+In Full GLCD mode, `Line` (horizontal and vertical lines), `Box` and
+`FilledBox` write whole bytes: each page they span is checked against
+the screen buffer, and only a page whose bytes change is sent, as one
+I2C transaction. Every other line, and every drawing command in Low
+Memory mode, draws through `PSet`.
 
 For a SSD1306 datasheet, please refer
 [here](https://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf).

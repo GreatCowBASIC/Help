@@ -629,6 +629,34 @@ The NT7108C is very sensitive with respect to clock timing.   You may have to
 <td style="text-align: left;"><p>Selected using the constant GLCD_TYPE_EPD_EPD7in5. See <a href="e_paper_controllers" class="link" title="e-Paper Controllers">e-Paper Controllers</a> for the full set of e-Paper-specific constants and guidance.</p></td>
 <td style="text-align: left;"><p>SPI requires typically 6 in total.</p></td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;"><p>Very good large e-Paper display; note the slower refresh typical of larger e-Paper panels.</p></td>
+<td style="text-align: left;"><p>39</p></td>
+<td style="text-align: left;"><p>SH1101A</p></td>
+<td style="text-align: left;"><p>1.5inch</p></td>
+<td style="text-align: left;"><p>128 * 64 (132 * 64 RAM, panel visible from column 2)</p></td>
+<td style="text-align: left;"><p>Small</p></td>
+<td style="text-align: left;"><p>Mono</p></td>
+<td style="text-align: left;"><p>OLED</p></td>
+<td style="text-align: left;"><p>8080 parallel or 4-wire SPI (write-only - the serial interface cannot read the display)</p></td>
+<td style="text-align: left;"><p>PIC and AVR: software 8080 parallel bus, or software 4-wire SPI. No I2C - the SH1101A has none.</p></td>
+<td style="text-align: left;"><p>Typically operates at VCC 3.3. Always check voltage specifications.</p></td>
+<td style="text-align: left;"><p>Selected using the constant GLCD_TYPE_SH1101A. See <a href="sh1101a_controllers" class="link" title="SH1101A Controllers">SH1101A Controllers</a> for wiring and the full set of options, including the Microchip PIC18F Starter Kit 1’s own 8080 bus.</p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p>8080 bus requires 8 data lines plus WR, RD, CS, DC (optionally RESET) — 12 or 13 in total. SPI requires DO, SCK, DC, CS (optionally RESET) — 4 or 5 in total.</p></td>
+<td style="text-align: left;"><p>Good small OLED display; the 8080 bus variant needs more pins but is notably faster than the SPI (software, write-only) alternative.</p></td>
+<td style="text-align: left;"><p>40</p></td>
+<td style="text-align: left;"><p>ST7789 (170 * 320 variant)</p></td>
+<td style="text-align: left;"><p>1.9inch</p></td>
+<td style="text-align: left;"><p>170 * 320</p></td>
+<td style="text-align: left;"><p>Small</p></td>
+<td style="text-align: left;"><p>Color</p></td>
+<td style="text-align: left;"><p>TFT LCD</p></td>
+<td style="text-align: left;"><p>4-wire SPI</p></td>
+<td style="text-align: left;"><p>PIC and AVR: hardware and software SPI</p></td>
+<td style="text-align: left;"><p>Typically operates at VCC 3.3. Always check voltage specifications.</p></td>
+</tr>
 </tbody>
 </table>
 

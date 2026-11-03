@@ -56,7 +56,11 @@ warning, even though the literal’s length is already known at compile
 time. For example, `Dim s As String * 4` followed by
 `s = "ThisIsWayTooLong"` raises no error or warning; the assignment will
 not fit in the allocated buffer at runtime. Keep fixed-length strings
-comfortably larger than the longest value you plan to assign to them.
+comfortably larger than the longest value you plan to assign to them, or
+add
+<a href="_option_stringlimitcheck" class="link" title="#Option StringLimitCheck">#Option StringLimitCheck</a>
+to clamp every assignment to the destination’s declared length instead
+of overrunning it.
 
 <span class="strong">**String Escape Sequences**</span>
 

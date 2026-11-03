@@ -12,11 +12,11 @@
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
       <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_glcd_overview.html" title="GLCD Overview" />
-      <link rel="prev" href="_sh1106_controllers.html" title="SH1106 Controllers" />
+      <link rel="prev" href="_sh1101a_controllers.html" title="SH1101A Controllers" />
       <link rel="next" href="_ssd1309_controllers.html" title="SSD1309 Controllers" />
       <meta name="Section-title" content="SSD1306 Controllers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-94181";
+            var treeCookieId = "treeview-97106";
             var language = "en";
             var w = new Object();
             //Localization
@@ -164,7 +164,7 @@ border: none; background: none; font-weight: none; color: none; }
                <tr>
                   <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
                                                     </a></td>
-                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_sh1106_controllers.html">Prev</a>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="_sh1101a_controllers.html">Prev</a>
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="_glcd_overview.html">Up</a>
                                                          |
@@ -184,8 +184,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><a id="d0e40747" class="indexterm"></a>
-               <a id="d0e40753" class="indexterm"></a></p>
+            <p><a id="d0e41845" class="indexterm"></a>
+               <a id="d0e41851" class="indexterm"></a></p>
             <p>This section covers GLCD devices that use the SSD1306 graphics controller.</p>
             <p>The SSD1306 is a single-chip CMOS OLED/PLED driver with controller for organic / polymer light emitting diode dot-matrix graphic
                display system. It consists of 128 segments and 64 commons. This IC is designed for Common Cathode type OLED panel.
@@ -433,6 +433,18 @@ border: none; background: none; font-weight: none; color: none; }
                         </td>
                         <td align="left" valign="top">
                            <p>Not defined</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCD_SSD1306_CONTRAST</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>The contrast that <code class="literal">InitGLCD</code> sets, 0 to 255. <code class="literal">GLCDSetContrast</code> changes it while the program runs.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><code class="literal">0xCF</code></p>
                         </td>
                      </tr>
                      <tr>
@@ -860,9 +872,54 @@ border: none; background: none; font-weight: none; color: none; }
                            </p>
                         </td>
                      </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCDRotate ( LANDSCAPE | LANDSCAPE_REV )</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Rotates the display by 180 degrees in the controller. <code class="literal">LANDSCAPE</code> is the orientation <code class="literal">InitGLCD</code> sets.<br />
+                              Draw the screen again after a rotate (for example <code class="literal">GLCDCLS</code> and the drawing commands): the controller applies the new
+                              column order to data written after the change.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCDSetDisplayInvertMode</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Inverts the display: a set pixel is dark. The screen buffer does not change.</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">GLCDSetDisplayNormalMode</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Sets the display to normal mode: a set pixel is lit (as <code class="literal">InitGLCD</code> sets it).
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">SSD1306_SendBufferRun ( col1, col2, page )</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Full GLCD mode only. Sends the screen buffer’s bytes <code class="literal">col1</code> to <code class="literal">col2</code> of one page (0 to 7) to the display in one
+                              transaction. For a program that changes the screen buffer <code class="literal">SSD1306_BufferAlias</code> itself (the byte for a column and page
+                              is <code class="literal">page * GLCD_WIDTH + column + 1</code>, bit 0 the top row of the page) and then sends only the span that changed - much
+                              less I2C traffic than one <code class="literal">PSet</code> per pixel. The 16F18326 demonstration <code class="literal">26_GLCD_I2C_Devices_SSD1306.gcb</code> uses it to
+                              move a ball at over 200 frames per second.
+                           </p>
+                        </td>
+                     </tr>
                   </tbody>
                </table>
             </div>
+            <p>In Full GLCD mode, <code class="literal">Line</code> (horizontal and vertical lines), <code class="literal">Box</code> and <code class="literal">FilledBox</code> write whole bytes: each page they span
+               is checked against the screen buffer, and only a page whose bytes change is sent, as one I2C transaction. Every other
+               line, and every drawing command in Low Memory mode, draws through <code class="literal">PSet</code>.
+            </p>
             <p>For a SSD1306 datasheet, please refer <a class="link" href="https://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf" target="_top">here</a>.
             </p>
             <p>This example shows how to drive a SSD1306 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode
@@ -1138,7 +1195,7 @@ border: none; background: none; font-weight: none; color: none; }
             <hr />
             <table width="100%" summary="Navigation footer">
                <tr>
-                  <td width="40%" align="left"><a accesskey="p" href="_sh1106_controllers.html">Prev</a> 
+                  <td width="40%" align="left"><a accesskey="p" href="_sh1101a_controllers.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="_glcd_overview.html">Up</a></td>
                   <td width="40%" align="right"> <a accesskey="n" href="_ssd1309_controllers.html">Next</a></td>
@@ -1184,7 +1241,10 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="_microcontroller_fundamentals.html" tabindex="1">Microcontroller Fundamentals</a></span><ul>
                               <li><span class="file"><a href="_inputs_outputs.html" tabindex="1">Inputs/Outputs</a></span></li>
                               <li><span class="file"><a href="_configuration.html" tabindex="1">Configuration</a></span></li>
-                              <li><span class="file"><a href="_usb_drivers_installer.html" tabindex="1">USB Drivers Installer</a></span></li>
+                              <li><span class="file"><a href="_usb_drivers_installer.html" tabindex="1">USB Drivers Installer</a></span><ul>
+                                    <li><span class="file"><a href="_usb_without_a_driver_winusb.html" tabindex="1">USB without a driver (WinUSB)</a></span></li>
+                                 </ul>
+                              </li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_variables.html" tabindex="1">Variables</a></span><ul>
@@ -1315,6 +1375,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_indcall.html" tabindex="1">IndCall</a></span></li>
                                     <li><span class="file"><a href="_pause.html" tabindex="1">Pause</a></span></li>
                                     <li><span class="file"><a href="_repeat.html" tabindex="1">Repeat</a></span></li>
+                                    <li><span class="file"><a href="_repeat_for.html" tabindex="1">Repeat For</a></span></li>
                                     <li><span class="file"><a href="_select.html" tabindex="1">Select</a></span></li>
                                     <li><span class="file"><a href="_wait.html" tabindex="1">Wait</a></span></li>
                                  </ul>
@@ -1355,6 +1416,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_pcd8544_controllers.html" tabindex="1">PCD8544 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1289_controllers.html" tabindex="1">SSD1289 Controllers</a></span></li>
                                           <li><span class="file"><a href="_sh1106_controllers.html" tabindex="1">SH1106 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_sh1101a_controllers.html" tabindex="1">SH1101A Controllers</a></span></li>
                                           <li id="webhelp-currentid"><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1309_controllers.html" tabindex="1">SSD1309 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
@@ -1696,6 +1758,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
                                           <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
                                           <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
+                                          <li><span class="file"><a href="_shared_an_intended_overlap_of_a_fixed_location.html" tabindex="1">Shared (an intended overlap of a fixed location)</a></span></li>
                                           <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
                                        </ul>
                                     </li>
@@ -1703,6 +1766,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_bcdtodec_gcb.html" tabindex="1">BcdToDec_GCB</a></span></li>
                                     <li><span class="file"><a href="_dectobcd_gcb.html" tabindex="1">DecToBcd_GCB</a></span></li>
                                     <li><span class="file"><a href="_rotate.html" tabindex="1">Rotate</a></span></li>
+                                    <li><span class="file"><a href="_shift.html" tabindex="1">Shift</a></span></li>
                                     <li><span class="file"><a href="_set.html" tabindex="1">Set</a></span></li>
                                     <li><span class="file"><a href="_swap4.html" tabindex="1">SWAP4</a></span></li>
                                     <li><span class="file"><a href="_swap.html" tabindex="1">SWAP</a></span></li>
@@ -1734,6 +1798,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_right.html" tabindex="1">Right</a></span></li>
                                     <li><span class="file"><a href="_rtrim.html" tabindex="1">Rtrim</a></span></li>
                                     <li><span class="file"><a href="_trim.html" tabindex="1">Trim</a></span></li>
+                                    <li><span class="file"><a href="_ubound.html" tabindex="1">UBound</a></span></li>
                                     <li><span class="file"><a href="_ucase.html" tabindex="1">UCase</a></span></li>
                                     <li><span class="file"><a href="_singletobin.html" tabindex="1">SingleToBin</a></span></li>
                                     <li><span class="file"><a href="_singletohex.html" tabindex="1">SingleToHex</a></span></li>
@@ -1813,12 +1878,16 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="__option_noconfig.html" tabindex="1">#Option NoConfig</a></span></li>
                               <li><span class="file"><a href="__option_startupmethoddisabled.html" tabindex="1">#Option StartupMethodDisabled</a></span></li>
                               <li><span class="file"><a href="__option_bootloader.html" tabindex="1">#Option Bootloader</a></span></li>
+                              <li><span class="file"><a href="__option_bootloaderhost.html" tabindex="1">#Option BootloaderHost</a></span></li>
+                              <li><span class="file"><a href="__option_includepath.html" tabindex="1">#Option IncludePath</a></span></li>
+                              <li><span class="file"><a href="__option_stringlimitcheck.html" tabindex="1">#Option StringLimitCheck</a></span></li>
                               <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
                               <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
                               <li><span class="file"><a href="__option_required.html" tabindex="1">#Option Required</a></span></li>
                               <li><span class="file"><a href="__option_shadowregister.html" tabindex="1">#Option Shadowregister</a></span></li>
                               <li><span class="file"><a href="__option_removeavrvectors.html" tabindex="1">#Option removeAVRvectors</a></span></li>
                               <li><span class="file"><a href="__option_usercodeonly.html" tabindex="1">#Option UserCodeOnly</a></span></li>
+                              <li><span class="file"><a href="__option_startupmethodsdisabled.html" tabindex="1">#Option StartupMethodsDisabled</a></span></li>
                               <li><span class="file"><a href="__option_volatile.html" tabindex="1">#Option Volatile</a></span></li>
                               <li><span class="file"><a href="__option_reservehighprog.html" tabindex="1">#Option ReserveHighProg</a></span></li>
                            </ul>

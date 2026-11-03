@@ -63,9 +63,25 @@ types in one statement — a string, then a byte, then a word, and so
 on — works exactly as if each value had been sent with its own
 `HSerPrint` statement.
 
-`HSerPrintList` does not send any new line characters. As with
-`HSerPrint`, follow the statement with `HSerPrint 13` and `HSerPrint 10`
-if the receiving terminal needs a new line.
+`HSerPrintList` does not send any new line characters. If the receiving
+terminal needs a new line, end the list with a string holding a carriage
+return and a line feed, written with the `\r` and `\n` escape sequences
+- `HSerPrintList "Count: ", xx, "\r\n"` - or follow the statement with
+<a href="hserprintcrlf" class="link" title="HserPrintCRLF">HSerPrintCRLF</a>.
+See <a href="dim" class="link" title="Dim">Dim</a> for the string
+escape sequences.
+
+A number in the list is sent as its digits, as `HSerPrint` sends it:
+`13, 10` sends the four characters `1310`, not a carriage return and a
+line feed.
+
+The list may also be written in brackets, as a sub call may be:
+`HSerPrintList ("d", inchar, ":")` and `HSerPrintList("d", inchar, ":")`
+are the same as `HSerPrintList "d", inchar, ":"`. The brackets are taken
+off only when they hold the whole list, so
+`HSerPrintList (a + 1) * 2, b` sends two values, `(a + 1) * 2` and then
+`b`. A leading `[comport]` goes inside the brackets:
+`HSerPrintList ([2], a, b)`.
 
 An optional leading `[comport]` argument sends every value in the list
 to that comport instead of the default. `comport` must be a number or a
@@ -108,16 +124,17 @@ alone.
     Dim SampleCount As Word = 4213
 
     Do
-      HSerPrintList "{STAT,", Txt_Heading, ",", SignalLevel, ",", SampleCount, "}", 13, 10   ' <<< the HSerPrintList instruction
+      HSerPrintList "{STAT,", Txt_Heading, ",", SignalLevel, ",", SampleCount, "}\r\n"   ' <<< the HSerPrintList instruction
       Wait 1 s
     Loop
 ```
 
 <span class="strong">**Key line:**</span> the single `HSerPrintList`
 call above sends a string literal, a string variable, another string
-literal, a byte, another string literal, a word, a closing brace and a
-CR/LF pair — nine values in total — as nine typed `HSerPrint` calls,
-without writing any of them out by hand.
+literal, a byte, another string literal, a word, and a closing brace
+followed by a carriage return and a line feed (`"}\r\n"`) — seven values
+in total — as seven typed `HSerPrint` calls, without writing any of them
+out by hand.
 
 <span class="strong">**Example with a comport:**</span>
 
@@ -134,7 +151,7 @@ without writing any of them out by hand.
     Dim SampleCount As Word = 4213
 
     Do
-      HSerPrintList [MyPort], SignalLevel, ",", SampleCount, 13, 10   ' <<< sends to MyPort (2)
+      HSerPrintList [MyPort], SignalLevel, ",", SampleCount, "\r\n"   ' <<< sends to MyPort (2)
       Wait 1 s
     Loop
 ```

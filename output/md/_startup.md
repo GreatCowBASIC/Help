@@ -44,6 +44,10 @@ are:
 
 No parameters can be passed to the subroutine that is specified.
 
+`#option StartupMethodsDisabled` stops the startup subroutines being
+called (and, from build 1662, being compiled unless the program calls
+them itself).
+
 <span class="strong">**Example 1:**</span>
 
 This example, from the hardware I2C library, sets the subroutine with

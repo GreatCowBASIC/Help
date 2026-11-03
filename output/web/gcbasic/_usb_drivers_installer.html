@@ -13,10 +13,10 @@
       <link rel="home" href="index.html" title="GCBASIC documentation" />
       <link rel="up" href="_microcontroller_fundamentals.html" title="Microcontroller Fundamentals" />
       <link rel="prev" href="_configuration.html" title="Configuration" />
-      <link rel="next" href="_variables.html" title="Variables" />
+      <link rel="next" href="_usb_without_a_driver_winusb.html" title="USB without a driver (WinUSB)" />
       <meta name="Section-title" content="USB Drivers Installer" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-94181";
+            var treeCookieId = "treeview-97106";
             var language = "en";
             var w = new Object();
             //Localization
@@ -168,7 +168,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="_microcontroller_fundamentals.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_variables.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="_usb_without_a_driver_winusb.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -184,11 +184,17 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
+            <div class="toc">
+               <dl class="toc">
+                  <dt><span class="section"><a href="_usb_without_a_driver_winusb.html">USB without a driver (WinUSB)</a></span></dt>
+               </dl>
+            </div>
             <p><a id="d0e4208" class="indexterm"></a>
                <a id="d0e4214" class="indexterm"></a></p>
             <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
                <h3 class="title">Warning</h3>
-               <p>Installing the USB driver is only required when using the GCBASIC USB library.</p>
+               <p>Installing the USB driver is only required when using the GCBASIC USB library without <code class="literal">USB_WCID</code>. With <code class="literal">USB_WCID</code> defined, Windows 8.1 and later install their own WinUSB driver: see <a class="link" href="_usb_without_a_driver_winusb.html" title="USB without a driver (WinUSB)">USB without a driver (WinUSB)</a> below.
+               </p>
             </div>
             <p><span class="strong"><strong>Description:</strong></span></p>
             <p>The drivers for Windows x86 and x64 correspond to the USB LIBKWIN capability of GCBASIC for supported PIC microcontrollers.</p>
@@ -242,14 +248,7 @@ border: none; background: none; font-weight: none; color: none; }
             <p><span class="strong"><strong>Tested on (but not limited to)</strong></span></p><pre class="programlisting">    Windows 11 pro x64 secureboot disabled, os build Dev 21H2 22000.194
     Windows 11 pro x64 secureboot enabled, os build Dev rs_prerelease 22458.1000
     Windows 10 pro x64 secureboot disabled, os build stable 20H2 19042.867
-    Windows 7 pro x86 secureboot disabled, os service pack 1 build 6.1.7601</pre><p><span class="strong"><strong>See Also:</strong></span></p>
-            <div class="itemizedlist">
-               <ul class="itemizedlist" style="list-style-type: disc; ">
-                  <li class="listitem"><a class="link" href="_inputs_outputs.html" title="Inputs/Outputs">Inputs/Outputs</a> — category overview
-                  </li>
-               </ul>
-            </div>
-         </div><script type="text/javascript" src="common/main.js">
+    Windows 7 pro x86 secureboot disabled, os service pack 1 build 6.1.7601</pre></div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
@@ -258,7 +257,7 @@ border: none; background: none; font-weight: none; color: none; }
                   <td width="40%" align="left"><a accesskey="p" href="_configuration.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="_microcontroller_fundamentals.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="_variables.html">Next</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="_usb_without_a_driver_winusb.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -301,7 +300,10 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="_microcontroller_fundamentals.html" tabindex="1">Microcontroller Fundamentals</a></span><ul>
                               <li><span class="file"><a href="_inputs_outputs.html" tabindex="1">Inputs/Outputs</a></span></li>
                               <li><span class="file"><a href="_configuration.html" tabindex="1">Configuration</a></span></li>
-                              <li id="webhelp-currentid"><span class="file"><a href="_usb_drivers_installer.html" tabindex="1">USB Drivers Installer</a></span></li>
+                              <li id="webhelp-currentid"><span class="file"><a href="_usb_drivers_installer.html" tabindex="1">USB Drivers Installer</a></span><ul>
+                                    <li><span class="file"><a href="_usb_without_a_driver_winusb.html" tabindex="1">USB without a driver (WinUSB)</a></span></li>
+                                 </ul>
+                              </li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_variables.html" tabindex="1">Variables</a></span><ul>
@@ -432,6 +434,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_indcall.html" tabindex="1">IndCall</a></span></li>
                                     <li><span class="file"><a href="_pause.html" tabindex="1">Pause</a></span></li>
                                     <li><span class="file"><a href="_repeat.html" tabindex="1">Repeat</a></span></li>
+                                    <li><span class="file"><a href="_repeat_for.html" tabindex="1">Repeat For</a></span></li>
                                     <li><span class="file"><a href="_select.html" tabindex="1">Select</a></span></li>
                                     <li><span class="file"><a href="_wait.html" tabindex="1">Wait</a></span></li>
                                  </ul>
@@ -472,6 +475,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_pcd8544_controllers.html" tabindex="1">PCD8544 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1289_controllers.html" tabindex="1">SSD1289 Controllers</a></span></li>
                                           <li><span class="file"><a href="_sh1106_controllers.html" tabindex="1">SH1106 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_sh1101a_controllers.html" tabindex="1">SH1101A Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1309_controllers.html" tabindex="1">SSD1309 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
@@ -813,6 +817,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
                                           <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
                                           <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
+                                          <li><span class="file"><a href="_shared_an_intended_overlap_of_a_fixed_location.html" tabindex="1">Shared (an intended overlap of a fixed location)</a></span></li>
                                           <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
                                        </ul>
                                     </li>
@@ -820,6 +825,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_bcdtodec_gcb.html" tabindex="1">BcdToDec_GCB</a></span></li>
                                     <li><span class="file"><a href="_dectobcd_gcb.html" tabindex="1">DecToBcd_GCB</a></span></li>
                                     <li><span class="file"><a href="_rotate.html" tabindex="1">Rotate</a></span></li>
+                                    <li><span class="file"><a href="_shift.html" tabindex="1">Shift</a></span></li>
                                     <li><span class="file"><a href="_set.html" tabindex="1">Set</a></span></li>
                                     <li><span class="file"><a href="_swap4.html" tabindex="1">SWAP4</a></span></li>
                                     <li><span class="file"><a href="_swap.html" tabindex="1">SWAP</a></span></li>
@@ -851,6 +857,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_right.html" tabindex="1">Right</a></span></li>
                                     <li><span class="file"><a href="_rtrim.html" tabindex="1">Rtrim</a></span></li>
                                     <li><span class="file"><a href="_trim.html" tabindex="1">Trim</a></span></li>
+                                    <li><span class="file"><a href="_ubound.html" tabindex="1">UBound</a></span></li>
                                     <li><span class="file"><a href="_ucase.html" tabindex="1">UCase</a></span></li>
                                     <li><span class="file"><a href="_singletobin.html" tabindex="1">SingleToBin</a></span></li>
                                     <li><span class="file"><a href="_singletohex.html" tabindex="1">SingleToHex</a></span></li>
@@ -930,12 +937,16 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="__option_noconfig.html" tabindex="1">#Option NoConfig</a></span></li>
                               <li><span class="file"><a href="__option_startupmethoddisabled.html" tabindex="1">#Option StartupMethodDisabled</a></span></li>
                               <li><span class="file"><a href="__option_bootloader.html" tabindex="1">#Option Bootloader</a></span></li>
+                              <li><span class="file"><a href="__option_bootloaderhost.html" tabindex="1">#Option BootloaderHost</a></span></li>
+                              <li><span class="file"><a href="__option_includepath.html" tabindex="1">#Option IncludePath</a></span></li>
+                              <li><span class="file"><a href="__option_stringlimitcheck.html" tabindex="1">#Option StringLimitCheck</a></span></li>
                               <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
                               <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
                               <li><span class="file"><a href="__option_required.html" tabindex="1">#Option Required</a></span></li>
                               <li><span class="file"><a href="__option_shadowregister.html" tabindex="1">#Option Shadowregister</a></span></li>
                               <li><span class="file"><a href="__option_removeavrvectors.html" tabindex="1">#Option removeAVRvectors</a></span></li>
                               <li><span class="file"><a href="__option_usercodeonly.html" tabindex="1">#Option UserCodeOnly</a></span></li>
+                              <li><span class="file"><a href="__option_startupmethodsdisabled.html" tabindex="1">#Option StartupMethodsDisabled</a></span></li>
                               <li><span class="file"><a href="__option_volatile.html" tabindex="1">#Option Volatile</a></span></li>
                               <li><span class="file"><a href="__option_reservehighprog.html" tabindex="1">#Option ReserveHighProg</a></span></li>
                            </ul>

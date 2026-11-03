@@ -41,6 +41,9 @@ Optionally, you can specify a condition to `Exit Repeat` immediately.
 
 `Repeat` has a maximum repeat value of 65535.
 
+To repeat code for a length of time instead of a number of times, use
+<a href="repeat_for" class="link" title="Repeat For">Repeat For</a>.
+
 <span class="strong">**Example:**</span>
 
 ``` programlisting
@@ -67,6 +70,8 @@ loop-counter variable the way `For` would.
 
 -   <a href="for" class="link" title="For">For</a> — a counted
     loop that also exposes the current iteration number
+-   <a href="repeat_for" class="link" title="Repeat For">Repeat For</a> — repeating
+    code for an exact length of time instead of a count
 -   <a href="do" class="link" title="Do">Do</a> — an unbounded
     loop, for when the iteration count is not known in advance
 -   <a href="performance_overview" class="link" title="Performance Overview">Performance</a> — why

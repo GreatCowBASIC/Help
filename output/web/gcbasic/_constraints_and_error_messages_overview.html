@@ -16,7 +16,7 @@
       <link rel="next" href="_program_memory_pages.html" title="Program Memory Pages" />
       <meta name="Section-title" content="Constraints and Error Messages Overview" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-94181";
+            var treeCookieId = "treeview-97106";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,8 +184,8 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
-            <p><a id="d0e89234" class="indexterm"></a>
-               <a id="d0e89240" class="indexterm"></a></p>
+            <p><a id="d0e91644" class="indexterm"></a>
+               <a id="d0e91650" class="indexterm"></a></p>
             <p><span class="strong"><strong>About this page</strong></span></p>
             <p>This page collects two things in one place: structural limits built into the compiler
                that no amount of correct-looking code can work around (<span class="strong"><strong>Constraints</strong></span>), and the
@@ -194,6 +194,15 @@ border: none; background: none; font-weight: none; color: none; }
                very likely a normal syntax error (a missing <code class="literal">Then</code>, a mismatched bracket, an
                undeclared variable) rather than a structural limit - re-check the line the compiler
                points to.
+            </p>
+            <p><span class="strong"><strong>Message severities</strong></span></p>
+            <p>The compiler reports three severities. <span class="strong"><strong>Error</strong></span> stops compilation. <span class="strong"><strong>Warning</strong></span> does not,
+               but is worth checking (it can be promoted to an Error with <code class="literal">#option WarningsAsErrors</code>).
+               <span class="strong"><strong>Information</strong></span> is advisory only - it never stops compilation, is never counted as a Warning,
+               and is unaffected by <code class="literal">#option WarningsAsErrors</code>; the compiler shows an "Information" summary
+               line only when there are zero Errors and zero Warnings. For example, <code class="literal">BadIntFreq</code> (the chip’s
+               <code class="literal">#chip</code> frequency not matching any of its internal-oscillator speeds) is Information, not a
+               Warning, since it is often an intentional, working setup.
             </p>
             <p><span class="strong"><strong>Constraints</strong></span></p>
             <div class="informaltable">
@@ -253,6 +262,37 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
+                           <p>Self-referencing assignment on baseline/mid-range PIC (14-bit core)</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>An assignment where the target variable also appears in its own calculation (e.g. <code class="literal">Delay_time = (Descend_start - Delay_time)</code>)
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>On these chip families this pattern can corrupt the target variable if written directly; the compiler automatically routes
+                              it through a temporary variable instead. Disable this protection with <code class="literal">#DEFINE DISABLE1094</code> (not recommended - only useful for isolating whether it is the cause of an unrelated problem). See <a class="link" href="_setting_variables.html" title="Setting Variables">Setting Variables</a>.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Variable or parameter named as a chip bit</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>A variable or Sub/Function parameter must not have the name of a bit in one of the chip’s registers (for example <code class="literal">CON</code>, bit 7 of <code class="literal">CM1CON</code> on the PIC18F46J50)
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>The compiler would use the bit, not a variable, so an assignment would set or clear a bit in a register. From build 1663 this
+                              fails with "Variable name CON is the name of bit CM1CON.7 on the current chip: the compiler would use that bit, not a variable.
+                              Rename it" ("Parameter name …​" for a parameter). <code class="literal">#DEFINE DISABLE1663</code> makes it the earlier warning "Variable name …​ is used for a system bit on the current chip" (not recommended - the compiler
+                              still uses the bit). An assembler error "GCASM: CON is defined twice, as 7 and as 1 …​" is the same problem found by the assembler.
+                              Rename the variable.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
                            <p>Sub/Function parameter count</p>
                         </td>
                         <td align="left" valign="top">
@@ -272,6 +312,18 @@ border: none; background: none; font-weight: none; color: none; }
                         </td>
                         <td align="left" valign="top">
                            <p>A value exceeding this for the target family fails to fit in one program-memory word. See <a class="link" href="_data.html" title="DATA">DATA</a>'s Maximum Stored Value tables.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Large all-Byte DATA table storage on AVR</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>A DATA table with more than 255 all-Byte items, read with `#DEFINE`d single-byte output</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>By default such a table keeps its declared type. Opt in with <code class="literal">#DEFINE ENABLE1591</code> to force it back to <code class="literal">BYTE</code> storage instead, reducing program memory use for large byte-only tables. See <a class="link" href="_data.html" title="DATA">DATA</a>.
                            </p>
                         </td>
                      </tr>
@@ -451,6 +503,19 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
+                           <p><code class="literal">Shared</code> in a <code class="literal">Dim</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Only after <code class="literal">At</code> <span class="emphasis"><em>location</em></span>, and before an initial value
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><code class="literal">Shared</code> marks an intended overlap of a fixed location, for that one <code class="literal">Dim</code>; every overlapping <code class="literal">Dim</code> must have its own. See <a class="link" href="_dim.html" title="Dim">Dim</a>.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
                            <p>Bit variable arithmetic</p>
                         </td>
                         <td align="left" valign="top">
@@ -543,6 +608,73 @@ border: none; background: none; font-weight: none; color: none; }
                         <td align="left" valign="top">
                            <p>A <code class="literal">Case</code> combining more than 64 comma-separated values fails with "Too many values in Case list (maximum 64)." See <a class="link" href="_select.html" title="Select">Select</a>.
                            </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">Repeat For</code> time value
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>A whole-number constant followed by a unit</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>A variable, an expression such as <code class="literal">10*9</code>, a fraction, zero, a negative number, a <code class="literal">&amp;H</code> hex value, leading zeros or a missing unit is rejected. A <code class="literal">#define`d name, a `0x</code> hex literal and a binary literal are accepted. See <a class="link" href="_repeat_for.html" title="Repeat For">Repeat For</a>.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">Repeat For</code> passes and padding
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>At most 65535 passes, and at most 56,000,000 clock cycles of padding in each pass</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>The compiler fits as many passes as it can and shares the left-over time between them as padding. A time that needs more padding
+                              than this fails with "Repeat For: this time needs more than 56,000,000 cycles of padding in every pass"; a time too short
+                              for one pass fails with "Repeat For: requested time is too short for even one pass of this loop body". See <a class="link" href="_repeat_for.html" title="Repeat For">Repeat For</a>.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">Repeat For</code> loop body
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Only code whose time is fixed and known</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><code class="literal">Goto</code>, <code class="literal">Gosub</code>, <code class="literal">Select Case</code>, calls to a <code class="literal">Sub</code> or <code class="literal">Function</code>, <code class="literal">Exit Sub</code>, <code class="literal">Exit Function</code>, nested <code class="literal">Repeat</code>, <code class="literal">For</code>, <code class="literal">Do</code> and <code class="literal">Wait While</code>/<code class="literal">Wait Until</code> loops, <code class="literal">Else</code> and <code class="literal">Else If</code>, <code class="literal">IntOn</code>/<code class="literal">IntOff</code>, and anything the compiler builds as a library call (strings, division, <code class="literal">Word</code> comparisons) are rejected. <code class="literal">If</code> with no <code class="literal">Else</code>, <code class="literal">Exit Repeat</code> and constant <code class="literal">Wait</code> are allowed. See <a class="link" href="_repeat_for.html" title="Repeat For">Repeat For</a>.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">Wait</code> inside <code class="literal">Repeat For</code></p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>A constant time of at most 8,000,000 clock cycles</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>A constant <code class="literal">Wait</code> in any unit is built into the loop as an exact inline delay. A variable time is rejected as a call, and a longer constant
+                              fails with "Repeat For: this Wait is too long to build inline inside the loop body". At 8 MHz on a PIC the limit is about
+                              4 s, and at 16 MHz on an AVR about 0.5 s; use several shorter <code class="literal">Wait</code> statements to go beyond it.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p><code class="literal">Repeat For</code> chip support
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>PIC (12-bit, 14-bit, enhanced mid-range and PIC18) and AVR</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Other architectures fail with "Repeat For is not supported on this chip family".</p>
                         </td>
                      </tr>
                   </tbody>
@@ -677,6 +809,53 @@ border: none; background: none; font-weight: none; color: none; }
                         </td>
                         <td align="left" valign="top">
                            <p>Check that the bit number is valid for the variable’s type/size.</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>BootloaderConflict</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>use either #option bootloader (an application) or #option bootloaderhost (a bootloader)</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Use only one of the two options in the same program - <code class="literal">#option bootloader</code> for the application, <code class="literal">#option bootloaderhost</code> for the bootloader itself.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>BootloaderHostInterruptHandler</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>#option bootloaderhost: interrupts are forwarded to the application; the bootloader cannot have an interrupt handler</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Remove the <code class="literal">Sub Interrupt</code>/<code class="literal">On Interrupt</code> handler from the bootloader - interrupts belong to the application it forwards to.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>BootloaderHostInvalidAddress</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>#option bootloaderhost: invalid application address</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Use an even address greater than <code class="literal">0x001C</code>, matching the address the application uses with <code class="literal">#option bootloader</code>.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>BootloaderHostOverflow</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>#option bootloaderhost: program reaches %reached%, the application area starts at %appaddr%</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Shrink the bootloader’s own code/tables, or move the application to a higher address, so the host ends below it.</p>
                         </td>
                      </tr>
                      <tr>
@@ -1007,6 +1186,18 @@ border: none; background: none; font-weight: none; color: none; }
                         </td>
                         <td align="left" valign="top">
                            <p>Rename the label to something that is not a GCBASIC command/keyword.</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>CannotUseAsmInstructionAsName</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>%name% is an assembler instruction for this chip and cannot be used as a sub, function or macro name, rename method</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Library code relies on assembler mnemonics resolving as real instructions. Rename the <code class="literal">Sub</code>/<code class="literal">Function</code>/<code class="literal">Macro</code> to something that is not an assembler instruction for the target chip.
+                           </p>
                         </td>
                      </tr>
                      <tr>
@@ -1800,7 +1991,8 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>No matching overload found for %subname% with these argument types</p>
                         </td>
                         <td align="left" valign="top">
-                           <p>None of the overloaded Sub/Function’s declared parameter lists fit the argument types given. See <a class="link" href="_subroutines.html" title="Subroutines">Subroutines</a> for how single-character string literals and Byte/Bit parameters are matched.
+                           <p>The call supplies more arguments than any overload of that Sub/Function declares, counting optional parameters - no overload
+                              could accept that many values. <code class="literal">#DEFINE DISABLE1637</code> before the call downgrades this to a warning instead of a compile error. See <a class="link" href="_subroutines.html" title="Subroutines">Subroutines</a> for how single-character string literals and Byte/Bit parameters are matched.
                            </p>
                         </td>
                      </tr>
@@ -1969,6 +2161,18 @@ border: none; background: none; font-weight: none; color: none; }
                      </tr>
                      <tr>
                         <td align="left" valign="top">
+                           <p>SharedWithoutAt</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>SHARED can only follow AT &lt;location&gt; in a DIM: it marks an intended overlap of a fixed location</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Add <code class="literal">At</code> <span class="emphasis"><em>location</em></span> before <code class="literal">Shared</code>, or remove <code class="literal">Shared</code>: without a fixed location there is nothing to share. See <a class="link" href="_dim.html" title="Dim">Dim</a>.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
                            <p>PICASFailtoLaunch</p>
                         </td>
                         <td align="left" valign="top">
@@ -2007,6 +2211,152 @@ border: none; background: none; font-weight: none; color: none; }
                         </td>
                         <td align="left" valign="top">
                            <p>Break the circular <code class="literal">#define</code> chain - a constant cannot be defined in terms of itself.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>RepeatForCostMismatch</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Repeat For could not reach an exact total time after final code generation - the loop’s cycle count changed in a way the compiler
+                              could not correct
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>The final code check found that the loop’s time had changed after code generation. Simplify the loop body (for example keep
+                              its variables together so no bank changes are needed) and report the program if it persists.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>RepeatForIfElseUnsupported</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Repeat For does not support If/Else inside its body - only If with no Else is supported</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Remove the <code class="literal">Else</code> or <code class="literal">Else If</code>, or make the choice outside the <code class="literal">Repeat For</code>. Only <code class="literal">If</code> with no <code class="literal">Else</code> is allowed in the loop.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>RepeatForNoUnit</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Repeat For requires a time unit (e.g. us) after the value</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Add a unit after the time, for example <code class="literal">Repeat For 100 us</code>.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>RepeatForNotSupportedOnCore</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Repeat For is not supported on this chip family - it works on PIC (12-bit, 14-bit, enhanced mid-range and PIC18 cores) and
+                              AVR
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p><code class="literal">Repeat For</code> works on PIC and AVR chips only.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>RepeatForRequiresConstant</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Repeat For requires a constant, non-negative, non-zero whole number value</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Give a plain whole-number constant (a number or a `#define`d name), not a variable, expression, fraction, zero or negative
+                              number.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>RepeatForTimeTooLong</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Repeat For: this time needs more than 56,000,000 cycles of padding in every pass - use a shorter time, or a loop body that
+                              does more work per pass
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Use a shorter time, make each pass of the loop do more work, or wrap the <code class="literal">Repeat For</code> in an ordinary loop.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>RepeatForTimeTooShort</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Repeat For: requested time is too short for even one pass of this loop body</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Make the time longer, or shorten the code in the loop: one pass of the code plus the loop overhead has to fit into the time.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>RepeatForUnknownInstruction</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Repeat For cannot compute an exact cycle cost for an instruction inside its body</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>The loop body produced an instruction whose time the compiler cannot work out. Simplify the statement or move it outside the
+                              loop.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>RepeatForUnsupportedConstruct</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Repeat For cannot use this construct inside its body because its timing is not fixed: a Call, a Wait with a variable time,
+                              Goto, Gosub, Exit Sub, Exit Function, Select Case, nested Repeat, For/Do/Wait Until loops and instructions with data-dependent
+                              timing are not allowed
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Remove the construct from the loop or move it outside it (see the list under <a class="link" href="_repeat_for.html" title="Repeat For">Repeat For</a>). A constant <code class="literal">Wait</code> is allowed; a <code class="literal">Wait</code> with a variable time is not.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>RepeatForUnsupportedUnit</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Repeat For does not support this time unit - supported units are us, 10us, ms, 10ms, s, m, h (and their usec/msec/sec/min/hour
+                              variants)
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Use us, 10us, ms, 10ms, s, m or h (or the usec, msec, sec, min and hour spellings).</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>RepeatForWaitTooLong</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Repeat For: this Wait is too long to build inline inside the loop body (limit 8,000,000 clock cycles at this clock speed)
+                              - use a shorter Wait
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Use a shorter <code class="literal">Wait</code> inside the loop, or split it into several shorter <code class="literal">Wait</code> statements.
                            </p>
                         </td>
                         <td align="left" valign="top">
@@ -2334,7 +2684,10 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="_microcontroller_fundamentals.html" tabindex="1">Microcontroller Fundamentals</a></span><ul>
                               <li><span class="file"><a href="_inputs_outputs.html" tabindex="1">Inputs/Outputs</a></span></li>
                               <li><span class="file"><a href="_configuration.html" tabindex="1">Configuration</a></span></li>
-                              <li><span class="file"><a href="_usb_drivers_installer.html" tabindex="1">USB Drivers Installer</a></span></li>
+                              <li><span class="file"><a href="_usb_drivers_installer.html" tabindex="1">USB Drivers Installer</a></span><ul>
+                                    <li><span class="file"><a href="_usb_without_a_driver_winusb.html" tabindex="1">USB without a driver (WinUSB)</a></span></li>
+                                 </ul>
+                              </li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_variables.html" tabindex="1">Variables</a></span><ul>
@@ -2465,6 +2818,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_indcall.html" tabindex="1">IndCall</a></span></li>
                                     <li><span class="file"><a href="_pause.html" tabindex="1">Pause</a></span></li>
                                     <li><span class="file"><a href="_repeat.html" tabindex="1">Repeat</a></span></li>
+                                    <li><span class="file"><a href="_repeat_for.html" tabindex="1">Repeat For</a></span></li>
                                     <li><span class="file"><a href="_select.html" tabindex="1">Select</a></span></li>
                                     <li><span class="file"><a href="_wait.html" tabindex="1">Wait</a></span></li>
                                  </ul>
@@ -2505,6 +2859,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_pcd8544_controllers.html" tabindex="1">PCD8544 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1289_controllers.html" tabindex="1">SSD1289 Controllers</a></span></li>
                                           <li><span class="file"><a href="_sh1106_controllers.html" tabindex="1">SH1106 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_sh1101a_controllers.html" tabindex="1">SH1101A Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1309_controllers.html" tabindex="1">SSD1309 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
@@ -2846,6 +3201,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
                                           <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
                                           <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
+                                          <li><span class="file"><a href="_shared_an_intended_overlap_of_a_fixed_location.html" tabindex="1">Shared (an intended overlap of a fixed location)</a></span></li>
                                           <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
                                        </ul>
                                     </li>
@@ -2853,6 +3209,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_bcdtodec_gcb.html" tabindex="1">BcdToDec_GCB</a></span></li>
                                     <li><span class="file"><a href="_dectobcd_gcb.html" tabindex="1">DecToBcd_GCB</a></span></li>
                                     <li><span class="file"><a href="_rotate.html" tabindex="1">Rotate</a></span></li>
+                                    <li><span class="file"><a href="_shift.html" tabindex="1">Shift</a></span></li>
                                     <li><span class="file"><a href="_set.html" tabindex="1">Set</a></span></li>
                                     <li><span class="file"><a href="_swap4.html" tabindex="1">SWAP4</a></span></li>
                                     <li><span class="file"><a href="_swap.html" tabindex="1">SWAP</a></span></li>
@@ -2884,6 +3241,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_right.html" tabindex="1">Right</a></span></li>
                                     <li><span class="file"><a href="_rtrim.html" tabindex="1">Rtrim</a></span></li>
                                     <li><span class="file"><a href="_trim.html" tabindex="1">Trim</a></span></li>
+                                    <li><span class="file"><a href="_ubound.html" tabindex="1">UBound</a></span></li>
                                     <li><span class="file"><a href="_ucase.html" tabindex="1">UCase</a></span></li>
                                     <li><span class="file"><a href="_singletobin.html" tabindex="1">SingleToBin</a></span></li>
                                     <li><span class="file"><a href="_singletohex.html" tabindex="1">SingleToHex</a></span></li>
@@ -2963,12 +3321,16 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="__option_noconfig.html" tabindex="1">#Option NoConfig</a></span></li>
                               <li><span class="file"><a href="__option_startupmethoddisabled.html" tabindex="1">#Option StartupMethodDisabled</a></span></li>
                               <li><span class="file"><a href="__option_bootloader.html" tabindex="1">#Option Bootloader</a></span></li>
+                              <li><span class="file"><a href="__option_bootloaderhost.html" tabindex="1">#Option BootloaderHost</a></span></li>
+                              <li><span class="file"><a href="__option_includepath.html" tabindex="1">#Option IncludePath</a></span></li>
+                              <li><span class="file"><a href="__option_stringlimitcheck.html" tabindex="1">#Option StringLimitCheck</a></span></li>
                               <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
                               <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
                               <li><span class="file"><a href="__option_required.html" tabindex="1">#Option Required</a></span></li>
                               <li><span class="file"><a href="__option_shadowregister.html" tabindex="1">#Option Shadowregister</a></span></li>
                               <li><span class="file"><a href="__option_removeavrvectors.html" tabindex="1">#Option removeAVRvectors</a></span></li>
                               <li><span class="file"><a href="__option_usercodeonly.html" tabindex="1">#Option UserCodeOnly</a></span></li>
+                              <li><span class="file"><a href="__option_startupmethodsdisabled.html" tabindex="1">#Option StartupMethodsDisabled</a></span></li>
                               <li><span class="file"><a href="__option_volatile.html" tabindex="1">#Option Volatile</a></span></li>
                               <li><span class="file"><a href="__option_reservehighprog.html" tabindex="1">#Option ReserveHighProg</a></span></li>
                            </ul>

@@ -20,7 +20,8 @@
     Dim SerialBuffer As Byte At 0x20
 ```
 
-If the location is already used or invalid, a warning is generated.
+If the location is already used or invalid, a warning is generated:
+`Memory location specified for name may be invalid`.
 
 `At` and `Alias` are mutually exclusive.
 

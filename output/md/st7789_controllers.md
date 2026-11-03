@@ -18,6 +18,13 @@ This section covers GLCD devices that use the ST7789 graphics
 controller. The ST7789 is a TFT LCD Single Chip Driver with 240x240 or
 320x240 Resolution and 65K colors.
 
+A third geometry, `GLCD_TYPE_ST7789_170_320` (170 x 320 pixels), is also
+supported - tested on the Waveshare 1.9inch panel. It uses the same pin
+mappings and commands as the two geometries above; the only difference
+is the panel’s initial X offset (35), which is set for that specific
+panel - check it against your own physical hardware if colours or
+graphics appear shifted horizontally.
+
 GCBASIC supports 65K-color mode operations.
 
 The GCBASIC constants shown below control the configuration of the
@@ -66,7 +73,7 @@ the table below.
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><p><code class="literal">GLCD_TYPE</code></p></td>
-<td style="text-align: left;"><p><code class="literal">GLCD_TYPE_ST7789_240_240</code> or <code class="literal">GLCD_TYPE_ST7789_320_240</code></p></td>
+<td style="text-align: left;"><p><code class="literal">GLCD_TYPE_ST7789_240_240</code>, <code class="literal">GLCD_TYPE_ST7789_320_240</code>, or <code class="literal">GLCD_TYPE_ST7789_170_320</code></p></td>
 <td style="text-align: left;"><p>Select one option to set geometry</p></td>
 </tr>
 <tr class="even">
@@ -381,8 +388,8 @@ This example shows how to drive a ST7789 using a PIC with PPS.
 
 <span class="strong">**Example \#3**</span>
 
-This example shows how to drive a ILI3941 with the OLED fonts. Note the
-use of the `GLCDfntDefaultSize` to select the size of the OLED font in
+This example shows how to drive a GLCD with the OLED fonts. Note the use
+of the `GLCDfntDefaultSize` to select the size of the OLED font in
 use.  
 
 ``` programlisting

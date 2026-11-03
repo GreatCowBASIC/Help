@@ -16,7 +16,7 @@
       <link rel="next" href="_fonts_and_characters.html" title="Fonts and Characters" />
       <meta name="Section-title" content="GLCD Overview" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-94181";
+            var treeCookieId = "treeview-97106";
             var language = "en";
             var w = new Object();
             //Localization
@@ -201,6 +201,7 @@ border: none; background: none; font-weight: none; color: none; }
                   <dt><span class="section"><a href="_pcd8544_controllers.html">PCD8544 Controllers</a></span></dt>
                   <dt><span class="section"><a href="_ssd1289_controllers.html">SSD1289 Controllers</a></span></dt>
                   <dt><span class="section"><a href="_sh1106_controllers.html">SH1106 Controllers</a></span></dt>
+                  <dt><span class="section"><a href="_sh1101a_controllers.html">SH1101A Controllers</a></span></dt>
                   <dt><span class="section"><a href="_ssd1306_controllers.html">SSD1306 Controllers</a></span></dt>
                   <dt><span class="section"><a href="_ssd1309_controllers.html">SSD1309 Controllers</a></span></dt>
                   <dt><span class="section"><a href="_ssd1331_controllers.html">SSD1331 Controllers</a></span></dt>
@@ -213,8 +214,8 @@ border: none; background: none; font-weight: none; color: none; }
                   <dt><span class="section"><a href="_uc1601_controllers.html">UC1601 Controllers</a></span></dt>
                </dl>
             </div>
-            <p><a id="d0e31535" class="indexterm"></a>
-               <a id="d0e31541" class="indexterm"></a></p>
+            <p><a id="d0e32256" class="indexterm"></a>
+               <a id="d0e32262" class="indexterm"></a></p>
             <p>The GLCD commands are used to control a Graphical Liquid Crystal Display (GLCD)
                based on a number of GLCD chipsets. These are often 128x64 pixel displays, but the size can vary.
                GLCD devices draw graphical elements by enabling or disabling pixels.
@@ -1837,6 +1838,85 @@ border: none; background: none; font-weight: none; color: none; }
                            <p>SPI requires typically 6 in total.</p>
                         </td>
                      </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>Very good large e-Paper display; note the slower refresh typical of larger e-Paper panels.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>39</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>SH1101A</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>1.5inch</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>128 * 64 (132 * 64 RAM, panel visible from column 2)</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Small</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Mono</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>OLED</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>8080 parallel or 4-wire SPI (write-only - the serial interface cannot read the display)</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>PIC and AVR: software 8080 parallel bus, or software 4-wire SPI. No I2C - the SH1101A has none.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Typically operates at VCC 3.3. Always check voltage specifications.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Selected using the constant GLCD_TYPE_SH1101A. See <a class="link" href="_sh1101a_controllers.html" title="SH1101A Controllers">SH1101A Controllers</a> for wiring and the full set of options, including the Microchip PIC18F Starter Kit 1’s own 8080 bus.
+                           </p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p>8080 bus requires 8 data lines plus WR, RD, CS, DC (optionally RESET) — 12 or 13 in total. SPI requires DO, SCK, DC, CS (optionally
+                              RESET) — 4 or 5 in total.
+                           </p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Good small OLED display; the 8080 bus variant needs more pins but is notably faster than the SPI (software, write-only) alternative.</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>40</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>ST7789 (170 * 320 variant)</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>1.9inch</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>170 * 320</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Small</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Color</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>TFT LCD</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>4-wire SPI</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>PIC and AVR: hardware and software SPI</p>
+                        </td>
+                        <td align="left" valign="top">
+                           <p>Typically operates at VCC 3.3. Always check voltage specifications.</p>
+                        </td>
+                     </tr>
                   </tbody>
                </table>
             </div>
@@ -2203,7 +2283,10 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="_microcontroller_fundamentals.html" tabindex="1">Microcontroller Fundamentals</a></span><ul>
                               <li><span class="file"><a href="_inputs_outputs.html" tabindex="1">Inputs/Outputs</a></span></li>
                               <li><span class="file"><a href="_configuration.html" tabindex="1">Configuration</a></span></li>
-                              <li><span class="file"><a href="_usb_drivers_installer.html" tabindex="1">USB Drivers Installer</a></span></li>
+                              <li><span class="file"><a href="_usb_drivers_installer.html" tabindex="1">USB Drivers Installer</a></span><ul>
+                                    <li><span class="file"><a href="_usb_without_a_driver_winusb.html" tabindex="1">USB without a driver (WinUSB)</a></span></li>
+                                 </ul>
+                              </li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="_variables.html" tabindex="1">Variables</a></span><ul>
@@ -2334,6 +2417,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_indcall.html" tabindex="1">IndCall</a></span></li>
                                     <li><span class="file"><a href="_pause.html" tabindex="1">Pause</a></span></li>
                                     <li><span class="file"><a href="_repeat.html" tabindex="1">Repeat</a></span></li>
+                                    <li><span class="file"><a href="_repeat_for.html" tabindex="1">Repeat For</a></span></li>
                                     <li><span class="file"><a href="_select.html" tabindex="1">Select</a></span></li>
                                     <li><span class="file"><a href="_wait.html" tabindex="1">Wait</a></span></li>
                                  </ul>
@@ -2374,6 +2458,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_pcd8544_controllers.html" tabindex="1">PCD8544 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1289_controllers.html" tabindex="1">SSD1289 Controllers</a></span></li>
                                           <li><span class="file"><a href="_sh1106_controllers.html" tabindex="1">SH1106 Controllers</a></span></li>
+                                          <li><span class="file"><a href="_sh1101a_controllers.html" tabindex="1">SH1101A Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1306_controllers.html" tabindex="1">SSD1306 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1309_controllers.html" tabindex="1">SSD1309 Controllers</a></span></li>
                                           <li><span class="file"><a href="_ssd1331_controllers.html" tabindex="1">SSD1331 Controllers</a></span></li>
@@ -2715,6 +2800,7 @@ border: none; background: none; font-weight: none; color: none; }
                                           <li><span class="file"><a href="_initial_values.html" tabindex="1">Initial Values</a></span></li>
                                           <li><span class="file"><a href="_alias.html" tabindex="1">Alias</a></span></li>
                                           <li><span class="file"><a href="_at_fixed_memory_location.html" tabindex="1">At (Fixed Memory Location)</a></span></li>
+                                          <li><span class="file"><a href="_shared_an_intended_overlap_of_a_fixed_location.html" tabindex="1">Shared (an intended overlap of a fixed location)</a></span></li>
                                           <li><span class="file"><a href="_strings.html" tabindex="1">Strings</a></span></li>
                                        </ul>
                                     </li>
@@ -2722,6 +2808,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_bcdtodec_gcb.html" tabindex="1">BcdToDec_GCB</a></span></li>
                                     <li><span class="file"><a href="_dectobcd_gcb.html" tabindex="1">DecToBcd_GCB</a></span></li>
                                     <li><span class="file"><a href="_rotate.html" tabindex="1">Rotate</a></span></li>
+                                    <li><span class="file"><a href="_shift.html" tabindex="1">Shift</a></span></li>
                                     <li><span class="file"><a href="_set.html" tabindex="1">Set</a></span></li>
                                     <li><span class="file"><a href="_swap4.html" tabindex="1">SWAP4</a></span></li>
                                     <li><span class="file"><a href="_swap.html" tabindex="1">SWAP</a></span></li>
@@ -2753,6 +2840,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="_right.html" tabindex="1">Right</a></span></li>
                                     <li><span class="file"><a href="_rtrim.html" tabindex="1">Rtrim</a></span></li>
                                     <li><span class="file"><a href="_trim.html" tabindex="1">Trim</a></span></li>
+                                    <li><span class="file"><a href="_ubound.html" tabindex="1">UBound</a></span></li>
                                     <li><span class="file"><a href="_ucase.html" tabindex="1">UCase</a></span></li>
                                     <li><span class="file"><a href="_singletobin.html" tabindex="1">SingleToBin</a></span></li>
                                     <li><span class="file"><a href="_singletohex.html" tabindex="1">SingleToHex</a></span></li>
@@ -2832,12 +2920,16 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="__option_noconfig.html" tabindex="1">#Option NoConfig</a></span></li>
                               <li><span class="file"><a href="__option_startupmethoddisabled.html" tabindex="1">#Option StartupMethodDisabled</a></span></li>
                               <li><span class="file"><a href="__option_bootloader.html" tabindex="1">#Option Bootloader</a></span></li>
+                              <li><span class="file"><a href="__option_bootloaderhost.html" tabindex="1">#Option BootloaderHost</a></span></li>
+                              <li><span class="file"><a href="__option_includepath.html" tabindex="1">#Option IncludePath</a></span></li>
+                              <li><span class="file"><a href="__option_stringlimitcheck.html" tabindex="1">#Option StringLimitCheck</a></span></li>
                               <li><span class="file"><a href="__option_nocontextsave.html" tabindex="1">#Option NoContextSave</a></span></li>
                               <li><span class="file"><a href="__option_nolatch.html" tabindex="1">#Option NoLatch</a></span></li>
                               <li><span class="file"><a href="__option_required.html" tabindex="1">#Option Required</a></span></li>
                               <li><span class="file"><a href="__option_shadowregister.html" tabindex="1">#Option Shadowregister</a></span></li>
                               <li><span class="file"><a href="__option_removeavrvectors.html" tabindex="1">#Option removeAVRvectors</a></span></li>
                               <li><span class="file"><a href="__option_usercodeonly.html" tabindex="1">#Option UserCodeOnly</a></span></li>
+                              <li><span class="file"><a href="__option_startupmethodsdisabled.html" tabindex="1">#Option StartupMethodsDisabled</a></span></li>
                               <li><span class="file"><a href="__option_volatile.html" tabindex="1">#Option Volatile</a></span></li>
                               <li><span class="file"><a href="__option_reservehighprog.html" tabindex="1">#Option ReserveHighProg</a></span></li>
                            </ul>

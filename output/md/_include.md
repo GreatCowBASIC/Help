@@ -36,6 +36,13 @@ symbols. For instance, to include the file `srf04.h`, the directive is:
     #include <srf04.h>
 ```
 
+With
+<a href="_option_includepath" class="link" title="#Option IncludePath">#option IncludePath</a>
+(build 1661), the folders it names are searched first, in their order,
+and then the `..\GCBASIC\include` directory. A project can keep its own
+libraries in a folder of its own and still include them with `<` and
+`>`.
+
 Relative is used to read files in the same folder as the currently
 selected program. Filenames are given enclosed in quotation marks, such
 as where `mycode.h` is the name of the file that is to be read.
@@ -59,6 +66,8 @@ other languages - code is not inserted at the location of the
 
 -   <a href="_insert" class="link" title="#insert">#insert</a> — inserting
     code at the exact location of the directive instead
+-   <a href="_option_includepath" class="link" title="#Option IncludePath">#option IncludePath</a> — more
+    folders for `#include <…​>`
 -   <a href="converters" class="link" title="Converters">Converters</a> — converting
     non-GCBASIC data files before including them
 

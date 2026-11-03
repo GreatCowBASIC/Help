@@ -1,0 +1,65 @@
+==== Shift
+
+(((Variables Operations,Shift)))
+
+*Syntax:*
+[subs="specialcharacters,quotes"]
+----
+    Shift _variable_ [,] { Left | Right }
+----
+
+*Command Availability:*
+
+Available on PIC and AVR microcontrollers.
+
+*Explanation:*
+
+The `Shift` command performs a logical shift of `_variable_` by one bit in the direction given. `_variable_` can be a Byte, Word or Long and is changed in place.
+
+* A `0` is always shifted into the vacated bit: the least significant bit on `Left`, the most significant bit on `Right`.
+* The bit shifted out is discarded. Unlike <<_rotate,Rotate>>, `Shift` does not feed the carry bit (`STATUS.C`) back into the variable, and the carry flag should not be relied on after the command.
+* A `Left` shift multiplies an unsigned value by 2, and a `Right` shift divides it by 2.
+* For a Word or Long the shift runs through every byte, so the bit shifted out of one byte is shifted into the next.
+* `Left` and `Right` can be written `L` and `R`. The comma, and brackets round the variable, are optional: `Shift Value Left`, `Shift Value, Left` and `Shift (Value) Left` are the same.
+
+`Shift` moves one bit each time it is used. To shift by several places, repeat it:
+
+[source,gcbasic]
+----
+    Repeat 4
+        Shift Value, Left
+    End Repeat
+----
+
+`Shift` is faster than <<_fnlsl,FnLSL>> and <<_fnlsr,FnLSR>> for a shift of one place or a few places, because it is compiled in line and does not call a function. Use `FnLSL` or `FnLSR` when the number of places is held in a variable and the shifted value is needed inside an expression.
+
+*Example:*
+
+[source,gcbasic]
+----
+    ' Shift a byte and a word, left then right.
+    ' Look at the values in the simulator, or send them to a terminal.
+
+    #chip 16F18855, 32
+
+    Dim TestByte As Byte
+    Dim TestWord As Word
+
+    TestByte = 0b10010010
+    Shift TestByte, Left        ' <<< the Shift instruction: 0b00100100, the top bit is lost
+    Shift TestByte, Right       ' 0b00010010, a 0 enters at the top
+
+    TestWord = 0x0080
+    Shift TestWord, Left        ' 0x0100: the bit moves from the low byte to the high byte
+    Shift TestWord, Right       ' 0x0080
+
+    End
+----
+*Key line:* `Shift TestWord, Left` -- moves every bit of the Word one place left through both bytes, a `0` entering at the bottom, with no carry fed back.
+
+**See Also:**
+
+* <<_rotate,Rotate>> -- rotates a variable through the carry bit instead of shifting in a 0
+* <<_fnlsl,FnLSL>> -- a left shift by any number of places, as a function
+* <<_fnlsr,FnLSR>> -- a right shift by any number of places, as a function
+* <<_bitwise_operations_overview,Bitwise Operations Overview>> -- background on GCBASIC's bitwise operations

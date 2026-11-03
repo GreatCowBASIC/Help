@@ -27,6 +27,10 @@ Rotate the GLCD display to a relative position.
 GLCD rotation needs to be supported by the GLCD chipset. <span
 class="strong">**NOT**</span> all GLCD chipset support these commands.
 
+The SSD1306 supports `LANDSCAPE` and `LANDSCAPE_REV` (180 degrees), in
+the controller: draw the screen again after a rotate. See
+<a href="ssd1306_controllers" class="link" title="SSD1306 Controllers">SSD1306 Controllers</a>.
+
 The options are:
 
 ``` programlisting

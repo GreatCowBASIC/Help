@@ -145,6 +145,9 @@ The GCBASIC constants for control display characteristics are shown in the table
 |`GLCD_PROTECTOVERRUN`
 |Define this constant to restrict pixel operations with the pixel limits
 |Not defined
+|`GLCD_SSD1306_CONTRAST`
+|The contrast that `InitGLCD` sets, 0 to 255. `GLCDSetContrast` changes it while the program runs.
+|`0xCF`
 
 |*Rotate GCLD Constants*
 |
@@ -335,7 +338,30 @@ Parameters are `Start row`,`End row`, optionally `Scrollspeed`
 |`GLCDSetContrast ( dim_state )`
 |Sets the constrast between 0 and 255. The contrast increases as the value increases. +
 Parameter is dim value
+
+|`GLCDRotate ( LANDSCAPE \| LANDSCAPE_REV )`
+|Rotates the display by 180 degrees in the controller. `LANDSCAPE` is the orientation `InitGLCD` sets. +
+Draw the screen again after a rotate (for example `GLCDCLS` and the drawing commands): the controller applies the new
+column order to data written after the change.
+
+|`GLCDSetDisplayInvertMode`
+|Inverts the display: a set pixel is dark. The screen buffer does not change.
+
+|`GLCDSetDisplayNormalMode`
+|Sets the display to normal mode: a set pixel is lit (as `InitGLCD` sets it).
+
+|`SSD1306_SendBufferRun ( col1, col2, page )`
+|Full GLCD mode only. Sends the screen buffer's bytes `col1` to `col2` of one page (0 to 7) to the display in one
+transaction. For a program that changes the screen buffer `SSD1306_BufferAlias` itself (the byte for a column and page
+is `page * GLCD_WIDTH + column + 1`, bit 0 the top row of the page) and then sends only the span that changed - much
+less I2C traffic than one `PSet` per pixel. The 16F18326 demonstration `26_GLCD_I2C_Devices_SSD1306.gcb` uses it to
+move a ball at over 200 frames per second.
 |===
+
+In Full GLCD mode, `Line` (horizontal and vertical lines), `Box` and `FilledBox` write whole bytes: each page they span
+is checked against the screen buffer, and only a page whose bytes change is sent, as one I2C transaction. Every other
+line, and every drawing command in Low Memory mode, draws through `PSet`.
+
 For a SSD1306 datasheet, please refer https://gcbasic.sourceforge.net/library/DISPLAY/SSD1306.pdf[here].
 
 This example shows how to drive a SSD1306 based Graphic I2C LCD module with the built in commands of GCBASIC using Full Mode GLCD

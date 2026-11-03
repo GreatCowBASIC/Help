@@ -43,12 +43,20 @@ can be a string, integer, long, word or byte. `HSerPrint` is very similar
 to `Print`. The data will be sent out the hardware serial module.
 
 `HSerPrint` will not send any new line characters. If the chip is sending
-to a terminal, these commands should follow every `HSerPrint` :
+to a terminal, end the string with a carriage return and a line feed, written
+with the `\r` and `\n` escape sequences (see <<_dim,Dim>>), or follow the
+`HSerPrint` with <<_hserprintcrlf,HSerPrintCRLF>>:
 [subs="specialcharacters,quotes"]
 ----
-  HSerPrint 13
-  HSerPrint 10
+  HSerPrint "Hello\r\n"
+
+  HSerPrint "Hello"
+  HSerPrintCRLF
 ----
+
+A number is sent as its digits: `HSerPrint 13` sends the two characters `1`
+and `3`, not a carriage return. To send a single byte, use
+<<_hsersend,HSerSend>> - `HSerSend 13`.
 
 *Example:*
 [source,gcbasic]

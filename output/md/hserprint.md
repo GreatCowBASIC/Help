@@ -58,12 +58,23 @@ is very similar to `Print`. The data will be sent out the hardware
 serial module.
 
 `HSerPrint` will not send any new line characters. If the chip is
-sending to a terminal, these commands should follow every `HSerPrint` :
+sending to a terminal, end the string with a carriage return and a line
+feed, written with the `\r` and `\n` escape sequences (see
+<a href="dim" class="link" title="Dim">Dim</a>), or follow the
+`HSerPrint` with
+<a href="hserprintcrlf" class="link" title="HserPrintCRLF">HSerPrintCRLF</a>:
 
 ``` screen
-  HSerPrint 13
-  HSerPrint 10
+  HSerPrint "Hello\r\n"
+
+  HSerPrint "Hello"
+  HSerPrintCRLF
 ```
+
+A number is sent as its digits: `HSerPrint 13` sends the two characters
+`1` and `3`, not a carriage return. To send a single byte, use
+<a href="hsersend" class="link" title="HSerSend">HSerSend</a> -
+`HSerSend 13`.
 
 <span class="strong">**Example:**</span>
 

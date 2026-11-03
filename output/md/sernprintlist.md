@@ -41,6 +41,18 @@ is sent using the matching typed `SerNPrint` call for that channel, so
 mixing types in one statement works exactly as if each value had been
 sent with its own `SerNPrint` statement.
 
+The list may also be written in brackets, as a sub call may be:
+`Ser1PrintList ("Count: ", xx, "\r\n")` is the same as
+`Ser1PrintList "Count: ", xx, "\r\n"`. The brackets are taken off only
+when they hold the whole list, so `Ser1PrintList (a + 1) * 2, b` sends
+two values.
+
+For a new line, end the list with a string holding a carriage return and
+a line feed, written with the `\r` and `\n` escape sequences, as above
+(see <a href="dim" class="link" title="Dim">Dim</a> for the string
+escape sequences). A number in the list is sent as its digits: `13, 10`
+sends the four characters `1310`, not a carriage return and a line feed.
+
 <span class="strong">**Example:**</span>
 
 ``` programlisting
@@ -67,14 +79,15 @@ sent with its own `SerNPrint` statement.
     ; ----- Main body of program commences here.
     Do Forever
       Wait 1 s       'time to enjoy the result
-      Ser1PrintList "Software-UART: ", xx, 13, 10   ' <<< the Ser1PrintList instruction
+      Ser1PrintList "Software-UART: ", xx, "\r\n"   ' <<< the Ser1PrintList instruction
       xx += 1
     Loop
 ```
 
 <span class="strong">**Key line:**</span>
-`Ser1PrintList "Software-UART: ", xx, 13, 10` — sends the label string,
-the current value of `xx`, and a CR/LF pair, all in one statement.
+`Ser1PrintList "Software-UART: ", xx, "\r\n"` — sends the label string,
+the current value of `xx`, and a carriage return and line feed, all in
+one statement.
 
 Exposed in SoftSerial.h authored by Frank Steinberg
 

@@ -52,8 +52,13 @@ It is useful for mathematical and logical operations, as well as for creating se
 ----
 *Key line:* `FnLSR(LEDMask, 1) & 0x0F` -- shifts the lit LED one position right, then masks the result down to 4 bits so the pattern wraps within `LEDPORT`'s lower nibble instead of drifting into unrelated bits.
 
+*Constants and the result type:* the result is as wide as `BitsIn`, and a constant is a Byte unless it is larger than 255. So `WordVariable = FnLSR(0x01, 13)` is a Byte shift: the bits shifted past bit 7 are lost, and `WordVariable` is set to 0. Give the constant its type with a cast: `WordVariable = FnLSR([word]0x01, 13)`. A variable is shifted as its own type, so this applies to constants only.
+
+*Faster alternative:* for a shift of one place, or a few places, <<_shift,Shift>> is faster. It is compiled in line, with no function call, and changes the variable in place: `Shift Value, Right`. `Shift` moves one bit each time, so it does not replace `FnLSR` when the number of places is held in a variable.
+
 **See Also:**
 
+* <<_shift,Shift>> -- a faster shift of one place, in line, changing the variable in place
 * <<_bitwise_operations_overview,Bitwise Operations Overview>> -- background on GCBASIC's bitwise operations
 * <<_fnlsl,FnLSL>> -- the equivalent left-shift function
 * <<_conditions,Conditions>> -- the `if` test used to restart the sequence in the example above
