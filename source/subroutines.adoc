@@ -158,6 +158,9 @@ routines - there is no point copying a data value into the read
 subroutine, so `Out` is used to avoid wasting time and memory. The
 EPRead routine is defined as `Sub EPRead(In Address, Out Data)`.
 
+`Out` is for subroutines only. A Function's parameters are input only - it returns its value through its name - so a
+Function with an `Out` parameter fails to compile. See <<_functions,Functions>>.
+
 Many older sections of code use `#NR` at the end of the line where the
 parameters are specified. `#NR` means "No Return", and when used has
 the same effect as adding `In` before every parameter. Use of `#NR` is
@@ -267,6 +270,32 @@ many values -- the call fails to compile with "No matching overload found
 for `_name_` with these argument types." To downgrade this from a compile
 error to a warning instead (compiling anyway), add `#DEFINE DISABLE1637`
 before the call.
+
+**Call stack depth**
+
+Every call uses one level of the chip's return stack until the subroutine
+returns, so subroutines that call subroutines add up. On a PIC the stack is
+in hardware and small (8, 16 or 31 levels on most chips); on an AVR it is in
+RAM. The compilation summary shows the worst case the program can reach, for
+example:
+
+----
+Stack: 15 of 16 levels (main 12, interrupt 1 + 2)
+----
+
+`main` is the longest chain of calls from the main program. The interrupt part
+is the interrupt entry plus the deepest chain inside the interrupt handler,
+because an interrupt can arrive while the main program is at its deepest
+point. On an AVR the figures are bytes of the free RAM. When the total is more
+than the chip has, the compiler warns "Worst-case call stack ... exceeds the
+... available" and names the chain. On a PIC an overflow resets the chip,
+often only rarely, when an interrupt arrives at that deepest point.
+
+To reduce the depth, write small helpers that are called from deep inside
+other routines as a `Macro`, so they are placed inline and use no stack. Do
+not call a large routine, such as a full service routine, from inside a wait
+loop that is already several calls deep, and keep interrupt handlers short.
+`#DEFINE DISABLE1668` silences the warning; it does not change the program.
 
 **See Also:**
 
