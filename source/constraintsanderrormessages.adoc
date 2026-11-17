@@ -54,6 +54,18 @@ Warning, since it is often an intentional, working setup.
 |A Function may not declare an `Out` parameter
 |A Function returns its value through its name; an `Out` value would never reach the caller. Fails with "Invalid syntax: Function _name_ declares Out parameter _parameter_ ...". Use a Sub with `Out` parameters. Every Function is checked, including one inside an `#if` block that is not compiled. See <<_functions,Functions>>.
 
+|Sub/Function of the same name in `#ifdef` blocks
+|One copy of a Sub, Function or Macro in each of several `#ifdef` blocks that exclude each other
+|Since build 1670 the copy in the block whose condition is true is used. Before, the first copy read was always used, with no warning. `#DEFINE DISABLE1670` goes back to that behaviour (not recommended). See <<__ifdef,#ifdef>>.
+
+|String constant before a function call in a parameter list
+|A call where a parameter after a string constant calls a function that also takes a string constant, e.g. `Check("Change directory", FatChDir("LOGS"), FAT_OK)`
+|Since build 1671 the function in the later parameter is called first, then the string constant is copied, so each routine receives its own string. Before, both strings used the same temporary variable and `Check` silently received `"LOGS"`. `#DEFINE DISABLE1671` goes back to that behaviour (not recommended). See <<_subroutines,Subroutines>>.
+
+|String function result before a function call in a parameter list
+|A call where a parameter after a string function's result also calls a function, e.g. `CallSub("1.", Echo(" yyyy"), Echo(" xxxxx"))`
+|Since build 1672 the earlier result is copied into a temporary string of its own (RAM the size of the function's string), so each parameter keeps its value. Before, every such parameter referred to the function's own variable and silently received the last result (`" xxxxx"` twice). `#DEFINE DISABLE1672` goes back to that behaviour (not recommended). See <<_subroutines,Subroutines>>.
+
 |Call stack depth
 |The chip's return stack: PIC 8, 16 or 31 levels (more on some PIC18 - the chip data's `Stacks=` value, also the constant `ChipStacks`); AVR the RAM left free by variables
 |Since build 1668 the compilation summary shows the worst case, e.g. `Stack: 15 of 16 levels (main 12, interrupt 1 + 2)` - on AVR in bytes of free RAM. It is the longest chain of calls the final code allows from the main program, plus the interrupt entry and the interrupt routine's own chain; a `goto` costs nothing, a table read on PIC16 one level. Over the limit warns "Worst-case call stack ... exceeds the ... available" with the chain (suppressible with `#DEFINE DISABLE1668`). On a PIC an overflow resets the chip (stack overflow reset, PCON0.STKOVF), usually only when an interrupt arrives at the deepest point. To reduce it: inline small helper routines with `Macro`, avoid calling the full receive or service routine from inside a wait loop several levels deep, and keep interrupt handlers shallow. See <<_subroutines,Subroutines>>.

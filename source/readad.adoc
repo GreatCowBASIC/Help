@@ -36,6 +36,10 @@ ReadAD is a function that can be used to read the built-in analog to digital con
 
 Other functions that are similar are *ReadAD10* and *ReadAD12*.&#160;&#160;See the relevant Help page for the specific usage of each function.
 
+On the ATmega16U4, ATmega32U4, ATmega640, ATmega1280 and ATmega2560, `AN8` to `AN15` (`ADC8` to `ADC15`) read the single ended channels ADC8 to ADC15.
+
+On AVR microcontrollers the digital input of the channel being read is turned off during the reading.&#160;&#160;Define `AD_NO_DIDR` to leave the DIDR registers alone and save program memory.&#160;&#160;See <<_analog_digital_conversion_code_optimisation,Analog/Digital Conversion Code Optimisation>>.
+
 
 The constant *AD_DELAY* controls is the acquisition delay.&#160;&#160;The default value is 20 us.&#160;&#160;This can be changed by adding the following constant.
 ----

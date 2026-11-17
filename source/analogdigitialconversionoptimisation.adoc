@@ -8,10 +8,11 @@
 
 The analog-to-digital converter (ADC or A/D) module support is implemented by GCBASIC to provide 8-bit, 10-bit, and 12-bit single-channel measurement mode and differential-channel measurement mode, with support for up to 34 channels. For compatibility, all channels are supported by default.
 
-There are two methods to optimise the code:
+There are three methods to optimise the code:
 
 1. Minimise the code by using constants to disable support for specific channels.
 2. Adapt the ADC configuration by inserting specific commands to set registers or register bits.
+3. On AVR microcontrollers, leave the digital input disable (DIDR) registers alone with `AD_NO_DIDR`.
 
 *1. Minimise the Code*
 
@@ -398,6 +399,24 @@ This generates the following assembly.
     ENDIF2:
 
 ----
+
+*3. AVR Digital Input Disable (DIDR)*
+
+On AVR microcontrollers `ReadAD`, `ReadAD10` and `ReadAD12` turn off the digital input of the channel being read while the reading is taken.
+They set the channel's `ADCnD` bit in `DIDR0`, `DIDR1` or `DIDR2` (for example `AN11` sets `ADC11D`, bit 3 of `DIDR2`).
+The DIDR registers are saved before the reading and put back after it, so DIDR bits that your program sets are kept.
+
+This adds code to each ADC function, and three or four bytes of RAM.
+On a microcontroller with little program memory, define `AD_NO_DIDR` to leave the DIDR registers alone and remove this code.
+
+[source,gcbasic]
+----
+    #define AD_NO_DIDR
+----
+
+The `USE_ADn` constants in the first table also remove the DIDR code for each channel that is set to `FALSE`.
+`AD_NO_DIDR` removes all of it, which saves more program memory.
+For example, an ATtiny13A program reading `ADC2` needs 15 more words of program memory when only `USE_AD0`, `USE_AD1` and `USE_AD3` are `FALSE`, and 30 more words with no constants. With `AD_NO_DIDR` it needs none.
 
 **See Also:**
 

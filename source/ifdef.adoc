@@ -94,6 +94,29 @@ The above section of code has been copied directly from a-d.h. It is used to dis
 
 Similar to above, except with `Bit` and `NoBit` in place of `Var` and `NoVar` respectively.
 
+*Example 5: _One copy of a Sub for each `#ifdef` block_*
+
+A program or library can have a Sub, Function or Macro of the same name in each of several `#ifdef` blocks, one for each case. The copy in the block whose condition is true is the one compiled.
+
+[source,gcbasic]
+----
+    #define USE_SPI
+
+    #ifdef USE_SPI
+      Sub SendCommand(In Cmd)
+        SPITransfer Cmd, Reply      ' <<< this copy is used
+      End Sub
+    #endif
+    #ifdef USE_UART
+      Sub SendCommand(In Cmd)
+        HSerSend Cmd
+      End Sub
+    #endif
+----
+*Key line:* `#define USE_SPI` -- only the first block's condition is true, so every call to `SendCommand` uses the SPI copy. The copy in the `USE_UART` block is removed.
+
+`#DEFINE DISABLE1670` goes back to the behaviour of builds before 1670: the first copy read was always used, whichever block it was in.
+
 **See Also:**
 
 * <<_constants,Constants>> -- the general constants/precedence reference

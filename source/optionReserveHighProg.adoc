@@ -24,6 +24,12 @@ protects), both options now add together in the "program too large" check and th
 `ReserveHighProg` reserves at the top, are both subtracted from the chip's real total before
 the application's code is measured against it.
 
+On AVR chips the `Program Memory:` count is every word the program takes in flash, the same as the
+assembler's `Code Segment:` count (plus the words reserved here). This includes the interrupt vector
+table: each vector has a two-word slot, and a one-word `reti` or `rjmp` in a slot leaves a word that
+the program cannot use (26 words on the ATmega328P). So a program that fits by the compiler's count
+fits in the chip.
+
 *Defined constants*
 
 The compiler has constants that can be used as an alternative to the parameter `[words]`.

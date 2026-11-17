@@ -8,13 +8,19 @@
 ----
     #option volatile `bit`
 ----
-This option ensures port settings are glitch-free.
+This option makes the setting of an output bit glitch-free.
 
 *Explanation:*
 
 `#option volatile bit`, where `bit` is an I/O bit, like `PORTB.0`, appended.
 
-This will cause the compiler to set the bit without any glitches when copying a value from another variable, but will increase code size slightly.
+When a bit is set from another bit or from a variable, for example `PORTB.0 = !PORTB.0` or `PORTC.2 = PORTA.1`, the compiler normally clears the bit and then sets it again if the new value is 1. If the new value is 1, the output goes low for a few instructions. With `#option volatile`, the compiler sets the bit only when the new value is 1 and clears it only when the new value is 0, so the output never changes when it does not need to. This increases code size slightly.
+
+The option has no effect when a bit is set to a constant, for example `PORTB.0 = 1` or `PORTB.0 = 0`. These are always a single instruction, so they cannot glitch.
+
+On a chip with `LATx` registers, writes to `PORTx` go to `LATx`. The bit can be named with either register: `#option volatile PORTC.0` and `#option volatile LATC.0` both protect writes to `PORTC.0` and to `LATC.0`. When the `LATx` name is used, the compiler shows an Information message, for example `#option Volatile LATC.0 also applied to writes to PORTC.0`. This applies from build 1676. In earlier builds the bit must be named as the program writes it, usually `PORTx.n`.
+
+The option can be used once for each bit that needs it.
 
 *Example:*
 [source,gcbasic]
@@ -23,7 +29,7 @@ This will cause the compiler to set the bit without any glitches when copying a 
     #chip 16f877a
 
     'Example command
-    #option volatile portb.0          ' <<< marking this pin for glitch-free read-modify-write
+    #option volatile portb.0          ' <<< marking this pin for glitch-free setting
 
     dir portb.0 out
 
@@ -33,9 +39,10 @@ This will cause the compiler to set the bit without any glitches when copying a 
 
     loop
 ----
-*Key line:* `#option volatile portb.0` -- without this, `portb.0 = !portb.0` compiles to a plain read-modify-write on `PORTB` that can glitch other bits of the port for an instant; with it, the compiler generates the extra instructions needed to toggle only bit 0 cleanly.
+*Key line:* `#option volatile portb.0` -- without this, `portb.0 = !portb.0` clears bit 0 and then sets it again when the new value is 1, so the output goes low for an instant; with it, the compiler tests the new value first and only sets or clears the bit, so the output changes once, cleanly.
 
 **See Also:**
 
-* <<__option_nolatch,#Option NoLatch>> -- a related fix for whole-port read-modify-write glitches via LATx
+* <<__option_nolatch,#Option NoLatch>> -- turns off the automatic use of the LATx registers for PORTx writes
 * <<__option_shadowregister,#Option Shadowregister>> -- a whole-port shadow-latch alternative on chips without LATx
+* <<__define,#DEFINE>> -- naming a pin with a constant, as used with this option

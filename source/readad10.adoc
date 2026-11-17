@@ -37,6 +37,10 @@ When using `ReadAD10( ANpX , TRUE )` to force a 10-bit reading, the returned val
 
 Other functions with similar behaviour are `ReadAD` and `ReadAD12` -- see their Help pages for the specific usage of each.
 
+On the ATmega16U4, ATmega32U4, ATmega640, ATmega1280 and ATmega2560, `AN8` to `AN15` (`ADC8` to `ADC15`) read the single ended channels ADC8 to ADC15.
+
+On AVR microcontrollers the digital input of the channel being read is turned off during the reading. Define `AD_NO_DIDR` to leave the DIDR registers alone and save program memory. See <<_analog_digital_conversion_code_optimisation,Analog/Digital Conversion Code Optimisation>>.
+
 `AD_DELAY` controls the acquisition delay: the time the ADC's internal holding capacitor is given to charge to the input voltage before the reading is taken. The default value is 20 us. If a reading looks noisy or consistently off -- especially from a high-impedance sensor, such as a bare voltage divider without a buffer -- increasing this delay is often the fix, since the capacitor needs more time to settle. Change it with:
 [source,gcbasic]
 ----

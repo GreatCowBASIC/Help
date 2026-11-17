@@ -7990,6 +7990,15 @@ Multiline comments are supported for large text descriptions of code, or to comm
     */</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>A <code>/<strong></code> starts a block comment only when it is part of the code. A <code>/</strong></code> inside a string, or after an apostrophe, semi-colon or <code>//</code> comment on the same line, is just text:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    HSerPrint "Path: /*.txt"      ' the /* here is part of the string
+    PORTB = 0   ' see /* below    ' the /* here is part of the comment</code></pre>
+</div>
+</div>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -8541,7 +8550,10 @@ put the value into the line of code in place of the variable.</p>
 </div>
 <div class="paragraph">
 <p>Functions may have parameters - these are treated in exactly the
-same way as parameters for subroutines.
+same way as parameters for subroutines, except that a function&#8217;s parameters are input only: a function returns its
+value through its name. A Function that declares an <code>Out</code> parameter fails to compile with "Invalid syntax: Function <em>name</em> declares Out parameter <em>parameter</em> - a Function returns its value through its name and its parameters are input only, so an Out value never reaches the caller. Use a Sub with Out parameters". Use a Sub
+with <code>Out</code> parameters to hand back more than one value. The check covers every Function in the program, including one
+inside an <code>#if</code> block that is not compiled.
 The only exception is that brackets are required around any parameters when calling a function. The argument&#8217;s type is given by "As type" following the parameter. If a parameter in the declaration is given a default value, the parameter is optional. Array parameters are specified by following an identifier with an empty set of parentheses.</p>
 </div>
 <div class="paragraph">
@@ -9577,6 +9589,10 @@ subroutine, so <code>Out</code> is used to avoid wasting time and memory. The
 EPRead routine is defined as <code>Sub EPRead(In Address, Out Data)</code>.</p>
 </div>
 <div class="paragraph">
+<p><code>Out</code> is for subroutines only. A Function&#8217;s parameters are input only - it returns its value through its name - so a
+Function with an <code>Out</code> parameter fails to compile. See <a href="#_functions">Functions</a>.</p>
+</div>
+<div class="paragraph">
 <p>Many older sections of code use <code>#NR</code> at the end of the line where the
 parameters are specified. <code>#NR</code> means "No Return", and when used has
 the same effect as adding <code>In</code> before every parameter. Use of <code>#NR</code> is
@@ -9719,6 +9735,77 @@ many values&#8201;&#8212;&#8201;the call fails to compile with "No matching over
 for <code><em>name</em></code> with these argument types." To downgrade this from a compile
 error to a warning instead (compiling anyway), add <code>#DEFINE DISABLE1637</code>
 before the call.</p>
+</div>
+<div class="paragraph">
+<p><strong>Passing string constants</strong></p>
+</div>
+<div class="paragraph">
+<p>A string constant passed to a <code>String</code> parameter, such as <code>"Change directory"</code>
+below, is copied into a temporary string variable just before the call. A
+later parameter can call a function that takes a string constant too:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    Check("Change directory", FatChDir("LOGS"), FAT_OK)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The function in the later parameter is called first, and the string constant
+for <code>Check</code> is copied after it, so each routine receives its own string. This
+is so from build 1671; in earlier builds both strings used the same temporary
+variable and <code>Check</code> received <code>"LOGS"</code>. <code>#DEFINE DISABLE1671</code> goes back to the
+behaviour of earlier builds (not recommended).</p>
+</div>
+<div class="paragraph">
+<p><strong>Passing string function results</strong></p>
+</div>
+<div class="paragraph">
+<p>A string function returns its value in a variable with the function&#8217;s own
+name, and a <code>String</code> parameter is passed a reference to that variable. When a
+later parameter calls a function as well, the earlier result is first copied
+into a temporary string of its own, so each parameter keeps its value:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    CallSub("1.", Echo(" yyyy"), Echo(" xxxxx"))   ' CallSub receives "1.", " yyyy" and " xxxxx"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is so from build 1672; in earlier builds the second call of <code>Echo</code>
+changed the first result too, and <code>CallSub</code> received <code>" xxxxx"</code> twice. The
+copy uses RAM the size of the function&#8217;s string. <code>#DEFINE DISABLE1672</code> goes
+back to the behaviour of earlier builds (not recommended).</p>
+</div>
+<div class="paragraph">
+<p><strong>Call stack depth</strong></p>
+</div>
+<div class="paragraph">
+<p>Every call uses one level of the chip&#8217;s return stack until the subroutine
+returns, so subroutines that call subroutines add up. On a PIC the stack is
+in hardware and small (8, 16 or 31 levels on most chips); on an AVR it is in
+RAM. The compilation summary shows the worst case the program can reach, for
+example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Stack: 15 of 16 levels (main 12, interrupt 1 + 2)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>main</code> is the longest chain of calls from the main program. The interrupt part
+is the interrupt entry plus the deepest chain inside the interrupt handler,
+because an interrupt can arrive while the main program is at its deepest
+point. On an AVR the figures are bytes of the free RAM. When the total is more
+than the chip has, the compiler warns "Worst-case call stack &#8230;&#8203; exceeds the
+&#8230;&#8203; available" and names the chain. On a PIC an overflow resets the chip,
+often only rarely, when an interrupt arrives at that deepest point.</p>
+</div>
+<div class="paragraph">
+<p>To reduce the depth, write small helpers that are called from deep inside
+other routines as a <code>Macro</code>, so they are placed inline and use no stack. Do
+not call a large routine, such as a full service routine, from inside a wait
+loop that is already several calls deep, and keep interrupt handlers short.
+<code>#DEFINE DISABLE1668</code> silences the warning; it does not change the program.</p>
 </div>
 <div class="paragraph">
 <p><strong>See Also:</strong></p>
@@ -14111,6 +14198,12 @@ The converter requires the following files - these are included with your instal
 <p>Other functions that are similar are <strong>ReadAD10</strong> and <strong>ReadAD12</strong>.&#160;&#160;See the relevant Help page for the specific usage of each function.</p>
 </div>
 <div class="paragraph">
+<p>On the ATmega16U4, ATmega32U4, ATmega640, ATmega1280 and ATmega2560, <code>AN8</code> to <code>AN15</code> (<code>ADC8</code> to <code>ADC15</code>) read the single ended channels ADC8 to ADC15.</p>
+</div>
+<div class="paragraph">
+<p>On AVR microcontrollers the digital input of the channel being read is turned off during the reading.&#160;&#160;Define <code>AD_NO_DIDR</code> to leave the DIDR registers alone and save program memory.&#160;&#160;See <a href="#_analog_digital_conversion_code_optimisation">Analog/Digital Conversion Code Optimisation</a>.</p>
+</div>
+<div class="paragraph">
 <p>The constant <strong>AD_DELAY</strong> controls is the acquisition delay.&#160;&#160;The default value is 20 us.&#160;&#160;This can be changed by adding the following constant.</p>
 </div>
 <div class="listingblock">
@@ -14308,6 +14401,12 @@ holding capacitor remains connected to AD channel from the instant the read is c
 </div>
 <div class="paragraph">
 <p>Other functions with similar behaviour are <code>ReadAD</code> and <code>ReadAD12</code>&#8201;&#8212;&#8201;see their Help pages for the specific usage of each.</p>
+</div>
+<div class="paragraph">
+<p>On the ATmega16U4, ATmega32U4, ATmega640, ATmega1280 and ATmega2560, <code>AN8</code> to <code>AN15</code> (<code>ADC8</code> to <code>ADC15</code>) read the single ended channels ADC8 to ADC15.</p>
+</div>
+<div class="paragraph">
+<p>On AVR microcontrollers the digital input of the channel being read is turned off during the reading. Define <code>AD_NO_DIDR</code> to leave the DIDR registers alone and save program memory. See <a href="#_analog_digital_conversion_code_optimisation">Analog/Digital Conversion Code Optimisation</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>AD_DELAY</code> controls the acquisition delay: the time the ADC&#8217;s internal holding capacitor is given to charge to the input voltage before the reading is taken. The default value is 20 us. If a reading looks noisy or consistently off&#8201;&#8212;&#8201;especially from a high-impedance sensor, such as a bare voltage divider without a buffer&#8201;&#8212;&#8201;increasing this delay is often the fix, since the capacitor needs more time to settle. Change it with:</p>
@@ -14510,6 +14609,12 @@ holding capacitor remains connected to AD channel from the instant the read is c
 <p>Other functions with similar behaviour are <code>ReadAD</code> and <code>ReadAD10</code>&#8201;&#8212;&#8201;see their Help pages for the specific usage of each.</p>
 </div>
 <div class="paragraph">
+<p>On the ATmega16U4, ATmega32U4, ATmega640, ATmega1280 and ATmega2560, <code>AN8</code> to <code>AN15</code> (<code>ADC8</code> to <code>ADC15</code>) read the single ended channels ADC8 to ADC15.</p>
+</div>
+<div class="paragraph">
+<p>On AVR microcontrollers the digital input of the channel being read is turned off during the reading. Define <code>AD_NO_DIDR</code> to leave the DIDR registers alone and save program memory. See <a href="#_analog_digital_conversion_code_optimisation">Analog/Digital Conversion Code Optimisation</a>.</p>
+</div>
+<div class="paragraph">
 <p><code>AD_DELAY</code> controls the acquisition delay: the time the ADC&#8217;s internal holding capacitor is given to charge to the input voltage before the reading is taken. The default value is 20 us. If a reading looks noisy or consistently off&#8201;&#8212;&#8201;especially from a high-impedance sensor, such as a bare voltage divider without a buffer&#8201;&#8212;&#8201;increasing this delay is often the fix, since the capacitor needs more time to settle. Change it with:</p>
 </div>
 <div class="listingblock">
@@ -14653,7 +14758,7 @@ holding capacitor remains connected to AD channel from the instant the read is c
 <p>The analog-to-digital converter (ADC or A/D) module support is implemented by GCBASIC to provide 8-bit, 10-bit, and 12-bit single-channel measurement mode and differential-channel measurement mode, with support for up to 34 channels. For compatibility, all channels are supported by default.</p>
 </div>
 <div class="paragraph">
-<p>There are two methods to optimise the code:</p>
+<p>There are three methods to optimise the code:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -14662,6 +14767,9 @@ holding capacitor remains connected to AD channel from the instant the read is c
 </li>
 <li>
 <p>Adapt the ADC configuration by inserting specific commands to set registers or register bits.</p>
+</li>
+<li>
+<p>On AVR microcontrollers, leave the digital input disable (DIDR) registers alone with <code>AD_NO_DIDR</code>.</p>
 </li>
 </ol>
 </div>
@@ -15293,6 +15401,28 @@ holding capacitor remains connected to AD channel from the instant the read is c
       rcall Delay_MS
     ENDIF2:</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>3. AVR Digital Input Disable (DIDR)</strong></p>
+</div>
+<div class="paragraph">
+<p>On AVR microcontrollers <code>ReadAD</code>, <code>ReadAD10</code> and <code>ReadAD12</code> turn off the digital input of the channel being read while the reading is taken.
+They set the channel&#8217;s <code>ADCnD</code> bit in <code>DIDR0</code>, <code>DIDR1</code> or <code>DIDR2</code> (for example <code>AN11</code> sets <code>ADC11D</code>, bit 3 of <code>DIDR2</code>).
+The DIDR registers are saved before the reading and put back after it, so DIDR bits that your program sets are kept.</p>
+</div>
+<div class="paragraph">
+<p>This adds code to each ADC function, and three or four bytes of RAM.
+On a microcontroller with little program memory, define <code>AD_NO_DIDR</code> to leave the DIDR registers alone and remove this code.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    #define AD_NO_DIDR</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>USE_ADn</code> constants in the first table also remove the DIDR code for each channel that is set to <code>FALSE</code>.
+<code>AD_NO_DIDR</code> removes all of it, which saves more program memory.
+For example, an ATtiny13A program reading <code>ADC2</code> needs 15 more words of program memory when only <code>USE_AD0</code>, <code>USE_AD1</code> and <code>USE_AD3</code> are <code>FALSE</code>, and 30 more words with no constants. With <code>AD_NO_DIDR</code> it needs none.</p>
 </div>
 <div class="paragraph">
 <p><strong>See Also:</strong></p>
@@ -40203,6 +40333,13 @@ R/W pin can be disabled*.</p></td>
 <code>#DEFINE LCD_OCULAR_OM1614</code>
 </p><p class="tableblock">The OCULAR devices requires LCD_RW</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LCD_OLED1602</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies a 16x2 OLED display with a WS0010 controller.  After the standard initialisation the display is initialised again with the WS0010 sequence, which ends by selecting character mode with the internal power on.  This adds about 345 ms at start up.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To specify WS0010 OLED support
+<code>#DEFINE LCD_OLED1602</code>
+</p><p class="tableblock">Only applicable when using LCD_IO 4</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -54277,6 +54414,12 @@ data in <code><em>tx</em></code> whilst reading the transmission from the master
 <code><em>rx</em></code> variable.</p>
 </div>
 <div class="paragraph">
+<p>On the LGT8F328P the SPI module has a read buffer and a write buffer (FIFOs).
+<code>SPITransfer</code> empties both buffers before it sends the byte, waits until the
+received byte is in the read buffer, and empties the buffers again after reading it.
+So <code><em>rx</em></code> is always the byte received during this transfer, not an older byte left in the buffer.</p>
+</div>
+<div class="paragraph">
 <p><strong>Example:</strong></p>
 </div>
 <div class="paragraph">
@@ -54410,6 +54553,11 @@ SPI protocol. This command only supports master mode.</p>
 <div class="paragraph">
 <p>As a master, <code>FastHWSPITransfer</code> will initiate a transfer. The
 data in <code><em>tx</em></code> will be sent to the slave.</p>
+</div>
+<div class="paragraph">
+<p>On the LGT8F328P the SPI module has a read buffer and a write buffer (FIFOs).
+<code>FastHWSPITransfer</code> empties both buffers before it sends the byte, and waits until the
+byte has been sent before it returns.</p>
 </div>
 <div class="paragraph">
 <p><strong>Example:</strong></p>
@@ -71326,6 +71474,9 @@ If you set the internal oscillator to 4 MHz, a "wait 1 ms" will still be 1 ms.</
 <p>To ensure evaluation of a calculation, a <code>=</code> must be used. This is strict.</p>
 </div>
 <div class="paragraph">
+<p>The <code>=</code> is only needed for a calculation. A pin, a port, a register or any other name does not need it: write <code>#define RelayLaser PORTC.3</code>. If <code>=</code> is used with a value that is not a calculation, for example <code>#define RelayLaser = PORTC.3</code>, the value is kept as it is written (build 1676 and later). Earlier builds changed it to lower case, so writes to the pin were not changed to <code>LATx</code> and <code>#option Volatile</code> did not match the pin.</p>
+</div>
+<div class="paragraph">
 <p><code>#UNDEFINE</code> can be used to make the compiler delete an existing constant.</p>
 </div>
 <div class="paragraph">
@@ -71789,6 +71940,34 @@ The code in the following sections will not compile, as it is missing <code>#chi
 </div>
 <div class="paragraph">
 <p>Similar to above, except with <code>Bit</code> and <code>NoBit</code> in place of <code>Var</code> and <code>NoVar</code> respectively.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example 5: <em>One copy of a Sub for each <code>#ifdef</code> block</em></strong></p>
+</div>
+<div class="paragraph">
+<p>A program or library can have a Sub, Function or Macro of the same name in each of several <code>#ifdef</code> blocks, one for each case. The copy in the block whose condition is true is the one compiled.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    #define USE_SPI
+
+    #ifdef USE_SPI
+      Sub SendCommand(In Cmd)
+        SPITransfer Cmd, Reply      ' &lt;&lt;&lt; this copy is used
+      End Sub
+    #endif
+    #ifdef USE_UART
+      Sub SendCommand(In Cmd)
+        HSerSend Cmd
+      End Sub
+    #endif</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key line:</strong> <code>#define USE_SPI</code>&#8201;&#8212;&#8201;only the first block&#8217;s condition is true, so every call to <code>SendCommand</code> uses the SPI copy. The copy in the <code>USE_UART</code> block is removed.</p>
+</div>
+<div class="paragraph">
+<p><code>#DEFINE DISABLE1670</code> goes back to the behaviour of builds before 1670: the first copy read was always used, whichever block it was in.</p>
 </div>
 <div class="paragraph">
 <p><strong>See Also:</strong></p>
@@ -73865,7 +74044,7 @@ routines although nothing called them (for example 66 bytes on a PIC18F46J50).</
 </div>
 </div>
 <div class="paragraph">
-<p>This option ensures port settings are glitch-free.</p>
+<p>This option makes the setting of an output bit glitch-free.</p>
 </div>
 <div class="paragraph">
 <p><strong>Explanation:</strong></p>
@@ -73874,7 +74053,16 @@ routines although nothing called them (for example 66 bytes on a PIC18F46J50).</
 <p><code>#option volatile bit</code>, where <code>bit</code> is an I/O bit, like <code>PORTB.0</code>, appended.</p>
 </div>
 <div class="paragraph">
-<p>This will cause the compiler to set the bit without any glitches when copying a value from another variable, but will increase code size slightly.</p>
+<p>When a bit is set from another bit or from a variable, for example <code>PORTB.0 = !PORTB.0</code> or <code>PORTC.2 = PORTA.1</code>, the compiler normally clears the bit and then sets it again if the new value is 1. If the new value is 1, the output goes low for a few instructions. With <code>#option volatile</code>, the compiler sets the bit only when the new value is 1 and clears it only when the new value is 0, so the output never changes when it does not need to. This increases code size slightly.</p>
+</div>
+<div class="paragraph">
+<p>The option has no effect when a bit is set to a constant, for example <code>PORTB.0 = 1</code> or <code>PORTB.0 = 0</code>. These are always a single instruction, so they cannot glitch.</p>
+</div>
+<div class="paragraph">
+<p>On a chip with <code>LATx</code> registers, writes to <code>PORTx</code> go to <code>LATx</code>. The bit can be named with either register: <code>#option volatile PORTC.0</code> and <code>#option volatile LATC.0</code> both protect writes to <code>PORTC.0</code> and to <code>LATC.0</code>. When the <code>LATx</code> name is used, the compiler shows an Information message, for example <code>#option Volatile LATC.0 also applied to writes to PORTC.0</code>. This applies from build 1676. In earlier builds the bit must be named as the program writes it, usually <code>PORTx.n</code>.</p>
+</div>
+<div class="paragraph">
+<p>The option can be used once for each bit that needs it.</p>
 </div>
 <div class="paragraph">
 <p><strong>Example:</strong></p>
@@ -73885,7 +74073,7 @@ routines although nothing called them (for example 66 bytes on a PIC18F46J50).</
     #chip 16f877a
 
     'Example command
-    #option volatile portb.0          ' &lt;&lt;&lt; marking this pin for glitch-free read-modify-write
+    #option volatile portb.0          ' &lt;&lt;&lt; marking this pin for glitch-free setting
 
     dir portb.0 out
 
@@ -73897,7 +74085,7 @@ routines although nothing called them (for example 66 bytes on a PIC18F46J50).</
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Key line:</strong> <code>#option volatile portb.0</code>&#8201;&#8212;&#8201;without this, <code>portb.0 = !portb.0</code> compiles to a plain read-modify-write on <code>PORTB</code> that can glitch other bits of the port for an instant; with it, the compiler generates the extra instructions needed to toggle only bit 0 cleanly.</p>
+<p><strong>Key line:</strong> <code>#option volatile portb.0</code>&#8201;&#8212;&#8201;without this, <code>portb.0 = !portb.0</code> clears bit 0 and then sets it again when the new value is 1, so the output goes low for an instant; with it, the compiler tests the new value first and only sets or clears the bit, so the output changes once, cleanly.</p>
 </div>
 <div class="paragraph">
 <p><strong>See Also:</strong></p>
@@ -73905,10 +74093,13 @@ routines although nothing called them (for example 66 bytes on a PIC18F46J50).</
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#__option_nolatch">#Option NoLatch</a>&#8201;&#8212;&#8201;a related fix for whole-port read-modify-write glitches via LATx</p>
+<p><a href="#__option_nolatch">#Option NoLatch</a>&#8201;&#8212;&#8201;turns off the automatic use of the LATx registers for PORTx writes</p>
 </li>
 <li>
 <p><a href="#__option_shadowregister">#Option Shadowregister</a>&#8201;&#8212;&#8201;a whole-port shadow-latch alternative on chips without LATx</p>
+</li>
+<li>
+<p><a href="#__define">#DEFINE</a>&#8201;&#8212;&#8201;naming a pin with a constant, as used with this option</p>
 </li>
 </ul>
 </div>
@@ -73945,6 +74136,13 @@ protects), both options now add together in the "program too large" check and th
 <code>Program Memory:</code> report: the bootloader&#8217;s own space at the bottom, plus whatever
 <code>ReserveHighProg</code> reserves at the top, are both subtracted from the chip&#8217;s real total before
 the application&#8217;s code is measured against it.</p>
+</div>
+<div class="paragraph">
+<p>On AVR chips the <code>Program Memory:</code> count is every word the program takes in flash, the same as the
+assembler&#8217;s <code>Code Segment:</code> count (plus the words reserved here). This includes the interrupt vector
+table: each vector has a two-word slot, and a one-word <code>reti</code> or <code>rjmp</code> in a slot leaves a word that
+the program cannot use (26 words on the ATmega328P). So a program that fits by the compiler&#8217;s count
+fits in the chip.</p>
 </div>
 <div class="paragraph">
 <p><strong>Defined constants</strong></p>
@@ -77123,6 +77321,31 @@ Warning, since it is often an intentional, working setup.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The compiler would use the bit, not a variable, so an assignment would set or clear a bit in a register. From build 1663 this fails with "Variable name CON is the name of bit CM1CON.7 on the current chip: the compiler would use that bit, not a variable. Rename it" ("Parameter name &#8230;&#8203;" for a parameter). <code>#DEFINE DISABLE1663</code> makes it the earlier warning "Variable name &#8230;&#8203; is used for a system bit on the current chip" (not recommended - the compiler still uses the bit). An assembler error "GCASM: CON is defined twice, as 7 and as 1 &#8230;&#8203;" is the same problem found by the assembler. Rename the variable.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Function parameters are input only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A Function may not declare an <code>Out</code> parameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A Function returns its value through its name; an <code>Out</code> value would never reach the caller. Fails with "Invalid syntax: Function <em>name</em> declares Out parameter <em>parameter</em> &#8230;&#8203;". Use a Sub with <code>Out</code> parameters. Every Function is checked, including one inside an <code>#if</code> block that is not compiled. See <a href="#_functions">Functions</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sub/Function of the same name in <code>#ifdef</code> blocks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One copy of a Sub, Function or Macro in each of several <code>#ifdef</code> blocks that exclude each other</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since build 1670 the copy in the block whose condition is true is used. Before, the first copy read was always used, with no warning. <code>#DEFINE DISABLE1670</code> goes back to that behaviour (not recommended). See <a href="#__ifdef">#ifdef</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String constant before a function call in a parameter list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A call where a parameter after a string constant calls a function that also takes a string constant, e.g. <code>Check("Change directory", FatChDir("LOGS"), FAT_OK)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since build 1671 the function in the later parameter is called first, then the string constant is copied, so each routine receives its own string. Before, both strings used the same temporary variable and <code>Check</code> silently received <code>"LOGS"</code>. <code>#DEFINE DISABLE1671</code> goes back to that behaviour (not recommended). See <a href="#_subroutines">Subroutines</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String function result before a function call in a parameter list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A call where a parameter after a string function&#8217;s result also calls a function, e.g. <code>CallSub("1.", Echo(" yyyy"), Echo(" xxxxx"))</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since build 1672 the earlier result is copied into a temporary string of its own (RAM the size of the function&#8217;s string), so each parameter keeps its value. Before, every such parameter referred to the function&#8217;s own variable and silently received the last result (<code>" xxxxx"</code> twice). <code>#DEFINE DISABLE1672</code> goes back to that behaviour (not recommended). See <a href="#_subroutines">Subroutines</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Call stack depth</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The chip&#8217;s return stack: PIC 8, 16 or 31 levels (more on some PIC18 - the chip data&#8217;s <code>Stacks=</code> value, also the constant <code>ChipStacks</code>); AVR the RAM left free by variables</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since build 1668 the compilation summary shows the worst case, e.g. <code>Stack: 15 of 16 levels (main 12, interrupt 1 + 2)</code> - on AVR in bytes of free RAM. It is the longest chain of calls the final code allows from the main program, plus the interrupt entry and the interrupt routine&#8217;s own chain; a <code>goto</code> costs nothing, a table read on PIC16 one level. Over the limit warns "Worst-case call stack &#8230;&#8203; exceeds the &#8230;&#8203; available" with the chain (suppressible with <code>#DEFINE DISABLE1668</code>). On a PIC an overflow resets the chip (stack overflow reset, PCON0.STKOVF), usually only when an interrupt arrives at the deepest point. To reduce it: inline small helper routines with <code>Macro</code>, avoid calling the full receive or service routine from inside a wait loop several levels deep, and keep interrupt handlers shallow. See <a href="#_subroutines">Subroutines</a>.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Sub/Function parameter count</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">At most 50 parameters per call</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Fails with "Maximum number of parameters (50) exceeded." See <a href="#_subroutines">Subroutines</a> / <a href="#_functions">Functions</a>.</p></td>
@@ -77618,6 +77841,21 @@ Warning, since it is often an intentional, working setup.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ExtraENDIF</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">End If without If</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Remove the extra <code>End If</code>, or add the missing <code>If</code> it was meant to close.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FunctionOutParam</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Invalid syntax: Function %fn% declares Out parameter %param% - a Function returns its value through its name and its parameters are input only, so an Out value never reaches the caller. Use a Sub with Out parameters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change the Function to a Sub with an <code>Out</code> parameter for each value it hands back, or remove <code>Out</code> if the parameter is only read. See <a href="#_functions">Functions</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">StackOverflowRisk</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Worst-case call stack %used% exceeds the %total% available: %chain% - #DEFINE DISABLE1668 to silence this warning</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A Warning (build 1668). The chain shown is the deepest one from the main program. Shorten it: inline small helpers with <code>Macro</code>, do not call a deep routine from inside a wait loop, keep interrupt handlers shallow. <code>#DEFINE DISABLE1668</code> silences the warning only. See the Call stack depth constraint above.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UsedStack / UsedStackAVR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stack: %used% of %total% levels (main %main%, interrupt %int%) - on AVR: &#8230;&#8203; bytes of free RAM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Information in the compilation summary (build 1668): the worst-case call stack. The interrupt part is the entry plus the interrupt routine&#8217;s own chain, or "none" when the program has no interrupt code.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FirstPageFull</p></td>
@@ -80809,8 +81047,8 @@ If you use AVRDUDE, you must ensure the Windows device driver is <code>libusbK</
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-11-03<br>
-15:23:26 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-11-17<br>
+10:28:09 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>

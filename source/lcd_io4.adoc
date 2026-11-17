@@ -77,6 +77,13 @@ Only applicable when using LCD_IO 4
 `#DEFINE LCD_OCULAR_OM1614`
 
 The OCULAR devices requires LCD_RW
+
+|`LCD_OLED1602`
+|Specifies a 16x2 OLED display with a WS0010 controller.  After the standard initialisation the display is initialised again with the WS0010 sequence, which ends by selecting character mode with the internal power on.  This adds about 345 ms at start up.
+|To specify WS0010 OLED support
+`#DEFINE LCD_OLED1602`
+
+Only applicable when using LCD_IO 4
 |===
 
 The `R/W` pin can be disabled by setting the `LCD_NO_RW` constant. If this

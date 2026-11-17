@@ -25,6 +25,11 @@ transfer is initiated by the master. At this point, it will send the
 data in `_tx_` whilst reading the transmission from the master into the
 `_rx_` variable.
 
+On the LGT8F328P the SPI module has a read buffer and a write buffer (FIFOs).
+`SPITransfer` empties both buffers before it sends the byte, waits until the
+received byte is in the read buffer, and empties the buffers again after reading it.
+So `_rx_` is always the byte received during this transfer, not an older byte left in the buffer.
+
 *Example:*
 
 There are two example programs for this command - one to run on the

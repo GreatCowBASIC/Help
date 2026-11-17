@@ -26,6 +26,8 @@ The use of an existing constant is supported. The order of constants when using 
 
 To ensure evaluation of a calculation, a `=` must be used. This is strict.
 
+The `=` is only needed for a calculation. A pin, a port, a register or any other name does not need it: write `#define RelayLaser PORTC.3`. If `=` is used with a value that is not a calculation, for example `#define RelayLaser = PORTC.3`, the value is kept as it is written (build 1676 and later). Earlier builds changed it to lower case, so writes to the pin were not changed to `LATx` and `#option Volatile` did not match the pin.
+
 `#UNDEFINE` can be used to make the compiler delete an existing constant.
 
 

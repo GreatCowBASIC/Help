@@ -271,6 +271,40 @@ for `_name_` with these argument types." To downgrade this from a compile
 error to a warning instead (compiling anyway), add `#DEFINE DISABLE1637`
 before the call.
 
+**Passing string constants**
+
+A string constant passed to a `String` parameter, such as `"Change directory"`
+below, is copied into a temporary string variable just before the call. A
+later parameter can call a function that takes a string constant too:
+
+[source,gcbasic]
+----
+    Check("Change directory", FatChDir("LOGS"), FAT_OK)
+----
+
+The function in the later parameter is called first, and the string constant
+for `Check` is copied after it, so each routine receives its own string. This
+is so from build 1671; in earlier builds both strings used the same temporary
+variable and `Check` received `"LOGS"`. `#DEFINE DISABLE1671` goes back to the
+behaviour of earlier builds (not recommended).
+
+**Passing string function results**
+
+A string function returns its value in a variable with the function's own
+name, and a `String` parameter is passed a reference to that variable. When a
+later parameter calls a function as well, the earlier result is first copied
+into a temporary string of its own, so each parameter keeps its value:
+
+[source,gcbasic]
+----
+    CallSub("1.", Echo(" yyyy"), Echo(" xxxxx"))   ' CallSub receives "1.", " yyyy" and " xxxxx"
+----
+
+This is so from build 1672; in earlier builds the second call of `Echo`
+changed the first result too, and `CallSub` received `" xxxxx"` twice. The
+copy uses RAM the size of the function's string. `#DEFINE DISABLE1672` goes
+back to the behaviour of earlier builds (not recommended).
+
 **Call stack depth**
 
 Every call uses one level of the chip's return stack until the subroutine

@@ -20,6 +20,10 @@ SPI protocol. This command only supports master mode.
 As a master, `FastHWSPITransfer` will initiate a transfer. The
 data in `_tx_` will be sent to the slave.
 
+On the LGT8F328P the SPI module has a read buffer and a write buffer (FIFOs).
+`FastHWSPITransfer` empties both buffers before it sends the byte, and waits until the
+byte has been sent before it returns.
+
 
 *Example:*
 

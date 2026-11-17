@@ -5333,6 +5333,9 @@ Multiline comments are supported for large text descriptions of code, or to comm
 <programlisting language="gcbasic" linenumbering="unnumbered">    /*
       block comment
     */</programlisting>
+<simpara>A <literal>/<emphasis role="strong"></literal> starts a block comment only when it is part of the code. A <literal>/</emphasis></literal> inside a string, or after an apostrophe, semi-colon or <literal>//</literal> comment on the same line, is just text:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    HSerPrint "Path: /*.txt"      ' the /* here is part of the string
+    PORTB = 0   ' see /* below    ' the /* here is part of the comment</programlisting>
 <warning>
 <simpara>Graphical GCBASIC uses semi-colons to mark comments that it has
 inserted automatically. It does not read these comments when opening a file, so any
@@ -5745,7 +5748,10 @@ variable, GCBASIC will call the function, get a value from it, and then
 put the value into the line of code in place of the variable.</simpara>
 <simpara>Functions are strict. The function&#8217;s return value MUST be assigned to an appropriate variable, or passed to another subroutine. Calling a function with no assignment or use of the returned value will raise an error condition.</simpara>
 <simpara>Functions may have parameters - these are treated in exactly the
-same way as parameters for subroutines.
+same way as parameters for subroutines, except that a function&#8217;s parameters are input only: a function returns its
+value through its name. A Function that declares an <literal>Out</literal> parameter fails to compile with "Invalid syntax: Function <emphasis>name</emphasis> declares Out parameter <emphasis>parameter</emphasis> - a Function returns its value through its name and its parameters are input only, so an Out value never reaches the caller. Use a Sub with Out parameters". Use a Sub
+with <literal>Out</literal> parameters to hand back more than one value. The check covers every Function in the program, including one
+inside an <literal>#if</literal> block that is not compiled.
 The only exception is that brackets are required around any parameters when calling a function. The argument&#8217;s type is given by "As type" following the parameter. If a parameter in the declaration is given a default value, the parameter is optional. Array parameters are specified by following an identifier with an empty set of parentheses.</simpara>
 <simpara>A function call can have at most 50 parameters; a call with more fails to compile with "Maximum number of parameters (50) exceeded."</simpara>
 <simpara>Returning values: <literal>return_type</literal> specifies the data type returned by a function upon exit. If no data type is specified, then the function will return the default data type, which is a byte.
@@ -6447,6 +6453,8 @@ them back.</simpara>
 routines - there is no point copying a data value into the read
 subroutine, so <literal>Out</literal> is used to avoid wasting time and memory. The
 EPRead routine is defined as <literal>Sub EPRead(In Address, Out Data)</literal>.</simpara>
+<simpara><literal>Out</literal> is for subroutines only. A Function&#8217;s parameters are input only - it returns its value through its name - so a
+Function with an <literal>Out</literal> parameter fails to compile. See <link linkend="_functions">Functions</link>.</simpara>
 <simpara>Many older sections of code use <literal>#NR</literal> at the end of the line where the
 parameters are specified. <literal>#NR</literal> means "No Return", and when used has
 the same effect as adding <literal>In</literal> before every parameter. Use of <literal>#NR</literal> is
@@ -6521,6 +6529,45 @@ many values&#8201;&#8212;&#8201;the call fails to compile with "No matching over
 for <literal><emphasis>name</emphasis></literal> with these argument types." To downgrade this from a compile
 error to a warning instead (compiling anyway), add <literal>#DEFINE DISABLE1637</literal>
 before the call.</simpara>
+<simpara><emphasis role="strong">Passing string constants</emphasis></simpara>
+<simpara>A string constant passed to a <literal>String</literal> parameter, such as <literal>"Change directory"</literal>
+below, is copied into a temporary string variable just before the call. A
+later parameter can call a function that takes a string constant too:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    Check("Change directory", FatChDir("LOGS"), FAT_OK)</programlisting>
+<simpara>The function in the later parameter is called first, and the string constant
+for <literal>Check</literal> is copied after it, so each routine receives its own string. This
+is so from build 1671; in earlier builds both strings used the same temporary
+variable and <literal>Check</literal> received <literal>"LOGS"</literal>. <literal>#DEFINE DISABLE1671</literal> goes back to the
+behaviour of earlier builds (not recommended).</simpara>
+<simpara><emphasis role="strong">Passing string function results</emphasis></simpara>
+<simpara>A string function returns its value in a variable with the function&#8217;s own
+name, and a <literal>String</literal> parameter is passed a reference to that variable. When a
+later parameter calls a function as well, the earlier result is first copied
+into a temporary string of its own, so each parameter keeps its value:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    CallSub("1.", Echo(" yyyy"), Echo(" xxxxx"))   ' CallSub receives "1.", " yyyy" and " xxxxx"</programlisting>
+<simpara>This is so from build 1672; in earlier builds the second call of <literal>Echo</literal>
+changed the first result too, and <literal>CallSub</literal> received <literal>" xxxxx"</literal> twice. The
+copy uses RAM the size of the function&#8217;s string. <literal>#DEFINE DISABLE1672</literal> goes
+back to the behaviour of earlier builds (not recommended).</simpara>
+<simpara><emphasis role="strong">Call stack depth</emphasis></simpara>
+<simpara>Every call uses one level of the chip&#8217;s return stack until the subroutine
+returns, so subroutines that call subroutines add up. On a PIC the stack is
+in hardware and small (8, 16 or 31 levels on most chips); on an AVR it is in
+RAM. The compilation summary shows the worst case the program can reach, for
+example:</simpara>
+<screen>Stack: 15 of 16 levels (main 12, interrupt 1 + 2)</screen>
+<simpara><literal>main</literal> is the longest chain of calls from the main program. The interrupt part
+is the interrupt entry plus the deepest chain inside the interrupt handler,
+because an interrupt can arrive while the main program is at its deepest
+point. On an AVR the figures are bytes of the free RAM. When the total is more
+than the chip has, the compiler warns "Worst-case call stack &#8230;&#8203; exceeds the
+&#8230;&#8203; available" and names the chain. On a PIC an overflow resets the chip,
+often only rarely, when an interrupt arrives at that deepest point.</simpara>
+<simpara>To reduce the depth, write small helpers that are called from deep inside
+other routines as a <literal>Macro</literal>, so they are placed inline and use no stack. Do
+not call a large routine, such as a full service routine, from inside a wait
+loop that is already several calls deep, and keep interrupt handlers short.
+<literal>#DEFINE DISABLE1668</literal> silences the warning; it does not change the program.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -10569,6 +10616,8 @@ The converter requires the following files - these are included with your instal
 <simpara>When using <emphasis role="strong">ReadAD</emphasis> ( ANpX , TRUE ) the returned value is an integer, but you should treat as a byte.</simpara>
 <simpara>ReadAD is a function that can be used to read the built-in analog to digital converter that many microcontroller chips include.&#160;&#160;port should be specified as AN0, AN1, AN2, etc., up to the number of analog inputs available on the chip that is in use.&#160;&#160;Those familiar with Atmel AVR microcontrollers can also refer to the ports as ADC0, ADC1, etc.&#160;&#160;Refer to the datasheet for the microcontroller chip to find the number of ports available.&#160;&#160;(Note: it is perfectly acceptable to use ANx on AVR, or ADCx on the microcontroller)</simpara>
 <simpara>Other functions that are similar are <emphasis role="strong">ReadAD10</emphasis> and <emphasis role="strong">ReadAD12</emphasis>.&#160;&#160;See the relevant Help page for the specific usage of each function.</simpara>
+<simpara>On the ATmega16U4, ATmega32U4, ATmega640, ATmega1280 and ATmega2560, <literal>AN8</literal> to <literal>AN15</literal> (<literal>ADC8</literal> to <literal>ADC15</literal>) read the single ended channels ADC8 to ADC15.</simpara>
+<simpara>On AVR microcontrollers the digital input of the channel being read is turned off during the reading.&#160;&#160;Define <literal>AD_NO_DIDR</literal> to leave the DIDR registers alone and save program memory.&#160;&#160;See <link linkend="_analog_digital_conversion_code_optimisation">Analog/Digital Conversion Code Optimisation</link>.</simpara>
 <simpara>The constant <emphasis role="strong">AD_DELAY</emphasis> controls is the acquisition delay.&#160;&#160;The default value is 20 us.&#160;&#160;This can be changed by adding the following constant.</simpara>
 <screen>    #define AD_DELAY 2 10us</screen>
 <simpara><emphasis role="strong">ADSPEED</emphasis> controls the source of the clock for the ADC module.&#160;&#160; It varies from one chip to another.&#160;&#160; InternalClock is a Microchip PIC microcontroller only option that will drive the ADC from an internal RC oscillator.&#160;&#160;The default value is 128.</simpara>
@@ -10685,6 +10734,8 @@ holding capacitor remains connected to AD channel from the instant the read is c
 <simpara>When using <literal>ReadAD10( ANpX , ANnY )</literal> for a differential reading, the returned value is an integer, since negative values can be returned.</simpara>
 <simpara>When using <literal>ReadAD10( ANpX , TRUE )</literal> to force a 10-bit reading, the returned value is also an integer.</simpara>
 <simpara>Other functions with similar behaviour are <literal>ReadAD</literal> and <literal>ReadAD12</literal>&#8201;&#8212;&#8201;see their Help pages for the specific usage of each.</simpara>
+<simpara>On the ATmega16U4, ATmega32U4, ATmega640, ATmega1280 and ATmega2560, <literal>AN8</literal> to <literal>AN15</literal> (<literal>ADC8</literal> to <literal>ADC15</literal>) read the single ended channels ADC8 to ADC15.</simpara>
+<simpara>On AVR microcontrollers the digital input of the channel being read is turned off during the reading. Define <literal>AD_NO_DIDR</literal> to leave the DIDR registers alone and save program memory. See <link linkend="_analog_digital_conversion_code_optimisation">Analog/Digital Conversion Code Optimisation</link>.</simpara>
 <simpara><literal>AD_DELAY</literal> controls the acquisition delay: the time the ADC&#8217;s internal holding capacitor is given to charge to the input voltage before the reading is taken. The default value is 20 us. If a reading looks noisy or consistently off&#8201;&#8212;&#8201;especially from a high-impedance sensor, such as a bare voltage divider without a buffer&#8201;&#8212;&#8201;increasing this delay is often the fix, since the capacitor needs more time to settle. Change it with:</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    #define AD_DELAY 4 10us</programlisting>
 <simpara><literal>ADSPEED</literal> controls the source of the clock for the ADC module; it varies from one chip to another. <literal>InternalClock</literal> is a microcontroller-only option that drives the ADC from an internal RC oscillator. The default value is 128.</simpara>
@@ -10798,6 +10849,8 @@ holding capacitor remains connected to AD channel from the instant the read is c
 <simpara>When using <literal>ReadAD12( ANpX , ANnY )</literal>, the returned value is an integer, since negative values can be returned.</simpara>
 <simpara><literal>ReadAD12</literal> is a function that reads the built-in analog-to-digital converter (ADC) that most microcontroller chips include. The port is specified as <literal>AN0</literal>, <literal>AN1</literal>, <literal>AN2</literal>, and so on, up to the number of analog inputs available on the chip in use. Those familiar with Atmel AVR microcontrollers can also refer to the ports as <literal>ADC0</literal>, <literal>ADC1</literal>, and so on&#8201;&#8212;&#8201;refer to the chip&#8217;s datasheet to find the number of ports available. (Note: it is perfectly acceptable to use <literal>ANx</literal> on AVR, or <literal>ADCx</literal> on a Microchip PIC.)</simpara>
 <simpara>Other functions with similar behaviour are <literal>ReadAD</literal> and <literal>ReadAD10</literal>&#8201;&#8212;&#8201;see their Help pages for the specific usage of each.</simpara>
+<simpara>On the ATmega16U4, ATmega32U4, ATmega640, ATmega1280 and ATmega2560, <literal>AN8</literal> to <literal>AN15</literal> (<literal>ADC8</literal> to <literal>ADC15</literal>) read the single ended channels ADC8 to ADC15.</simpara>
+<simpara>On AVR microcontrollers the digital input of the channel being read is turned off during the reading. Define <literal>AD_NO_DIDR</literal> to leave the DIDR registers alone and save program memory. See <link linkend="_analog_digital_conversion_code_optimisation">Analog/Digital Conversion Code Optimisation</link>.</simpara>
 <simpara><literal>AD_DELAY</literal> controls the acquisition delay: the time the ADC&#8217;s internal holding capacitor is given to charge to the input voltage before the reading is taken. The default value is 20 us. If a reading looks noisy or consistently off&#8201;&#8212;&#8201;especially from a high-impedance sensor, such as a bare voltage divider without a buffer&#8201;&#8212;&#8201;increasing this delay is often the fix, since the capacitor needs more time to settle. Change it with:</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    #define AD_DELAY 4 10us</programlisting>
 <simpara><literal>ADSPEED</literal> controls the source of the clock for the ADC module; it varies from one microcontroller to another. <literal>InternalClock</literal> is a Microchip PIC-only option that drives the ADC from an internal RC oscillator. The default value is 128.</simpara>
@@ -10890,13 +10943,16 @@ holding capacitor remains connected to AD channel from the instant the read is c
 </indexterm></simpara>
 <simpara><emphasis role="strong">About Analog/Digital Conversion Code Optimisation</emphasis></simpara>
 <simpara>The analog-to-digital converter (ADC or A/D) module support is implemented by GCBASIC to provide 8-bit, 10-bit, and 12-bit single-channel measurement mode and differential-channel measurement mode, with support for up to 34 channels. For compatibility, all channels are supported by default.</simpara>
-<simpara>There are two methods to optimise the code:</simpara>
+<simpara>There are three methods to optimise the code:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
 <simpara>Minimise the code by using constants to disable support for specific channels.</simpara>
 </listitem>
 <listitem>
 <simpara>Adapt the ADC configuration by inserting specific commands to set registers or register bits.</simpara>
+</listitem>
+<listitem>
+<simpara>On AVR microcontrollers, leave the digital input disable (DIDR) registers alone with <literal>AD_NO_DIDR</literal>.</simpara>
 </listitem>
 </orderedlist>
 <simpara><emphasis role="strong">1. Minimise the Code</emphasis></simpara>
@@ -11464,6 +11520,16 @@ holding capacitor remains connected to AD channel from the instant the read is c
       ldi SysWaitTempMS_H,0
       rcall Delay_MS
     ENDIF2:</programlisting>
+<simpara><emphasis role="strong">3. AVR Digital Input Disable (DIDR)</emphasis></simpara>
+<simpara>On AVR microcontrollers <literal>ReadAD</literal>, <literal>ReadAD10</literal> and <literal>ReadAD12</literal> turn off the digital input of the channel being read while the reading is taken.
+They set the channel&#8217;s <literal>ADCnD</literal> bit in <literal>DIDR0</literal>, <literal>DIDR1</literal> or <literal>DIDR2</literal> (for example <literal>AN11</literal> sets <literal>ADC11D</literal>, bit 3 of <literal>DIDR2</literal>).
+The DIDR registers are saved before the reading and put back after it, so DIDR bits that your program sets are kept.</simpara>
+<simpara>This adds code to each ADC function, and three or four bytes of RAM.
+On a microcontroller with little program memory, define <literal>AD_NO_DIDR</literal> to leave the DIDR registers alone and remove this code.</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #define AD_NO_DIDR</programlisting>
+<simpara>The <literal>USE_ADn</literal> constants in the first table also remove the DIDR code for each channel that is set to <literal>FALSE</literal>.
+<literal>AD_NO_DIDR</literal> removes all of it, which saves more program memory.
+For example, an ATtiny13A program reading <literal>ADC2</literal> needs 15 more words of program memory when only <literal>USE_AD0</literal>, <literal>USE_AD1</literal> and <literal>USE_AD3</literal> are <literal>FALSE</literal>, and 30 more words with no constants. With <literal>AD_NO_DIDR</literal> it needs none.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -31672,6 +31738,13 @@ R/W pin can be disabled*.</simpara></entry>
 <literal>#DEFINE LCD_OCULAR_OM1614</literal>
 </simpara><simpara>The OCULAR devices requires LCD_RW</simpara></entry>
 </row>
+<row>
+<entry align="left" valign="top"><simpara><literal>LCD_OLED1602</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Specifies a 16x2 OLED display with a WS0010 controller.  After the standard initialisation the display is initialised again with the WS0010 sequence, which ends by selecting character mode with the internal power on.  This adds about 345 ms at start up.</simpara></entry>
+<entry align="left" valign="top"><simpara>To specify WS0010 OLED support
+<literal>#DEFINE LCD_OLED1602</literal>
+</simpara><simpara>Only applicable when using LCD_IO 4</simpara></entry>
+</row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -42213,6 +42286,10 @@ In slave mode, the <literal>SPITransfer</literal> command will pause the program
 transfer is initiated by the master. At this point, it will send the
 data in <literal><emphasis>tx</emphasis></literal> whilst reading the transmission from the master into the
 <literal><emphasis>rx</emphasis></literal> variable.</simpara>
+<simpara>On the LGT8F328P the SPI module has a read buffer and a write buffer (FIFOs).
+<literal>SPITransfer</literal> empties both buffers before it sends the byte, waits until the
+received byte is in the read buffer, and empties the buffers again after reading it.
+So <literal><emphasis>rx</emphasis></literal> is always the byte received during this transfer, not an older byte left in the buffer.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <simpara>There are two example programs for this command - one to run on the
 slave microcontroller , and one on the master. A reading is taken from a sensor on
@@ -42315,6 +42392,9 @@ screen.</simpara>
 SPI protocol. This command only supports master mode.</simpara>
 <simpara>As a master, <literal>FastHWSPITransfer</literal> will initiate a transfer. The
 data in <literal><emphasis>tx</emphasis></literal> will be sent to the slave.</simpara>
+<simpara>On the LGT8F328P the SPI module has a read buffer and a write buffer (FIFOs).
+<literal>FastHWSPITransfer</literal> empties both buffers before it sends the byte, and waits until the
+byte has been sent before it returns.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <simpara>This is an example for this command.</simpara>
 <simpara><emphasis role="strong">Master Program:</emphasis></simpara>
@@ -54434,6 +54514,7 @@ If you set the internal oscillator to 4 MHz, a "wait 1 ms" will still be 1 ms.</
 <simpara>The expansion is done recursively, until there is nothing more to expand and the compiler can continue analysing the resulting code.</simpara>
 <simpara>The use of an existing constant is supported. The order of constants when using an existing constant is strict. The constant must exist prior to use.</simpara>
 <simpara>To ensure evaluation of a calculation, a <literal>=</literal> must be used. This is strict.</simpara>
+<simpara>The <literal>=</literal> is only needed for a calculation. A pin, a port, a register or any other name does not need it: write <literal>#define RelayLaser PORTC.3</literal>. If <literal>=</literal> is used with a value that is not a calculation, for example <literal>#define RelayLaser = PORTC.3</literal>, the value is kept as it is written (build 1676 and later). Earlier builds changed it to lower case, so writes to the pin were not changed to <literal>LATx</literal> and <literal>#option Volatile</literal> did not match the pin.</simpara>
 <simpara><literal>#UNDEFINE</literal> can be used to make the compiler delete an existing constant.</simpara>
 <simpara>Using the directive with no <literal>string</literal> causes a definition of <literal>name</literal> to be noted internally, and it may be tested for using the <literal>#ifdef</literal> directive/conditional processing. See the examples below.</simpara>
 <simpara>Constants defined with this method are available for viewing in the CDF file. Creation of the CDF file is controlled with the Preferences Editor.</simpara>
@@ -54767,6 +54848,22 @@ The code in the following sections will not compile, as it is missing <literal>#
 <simpara>The above section of code has been copied directly from a-d.h. It is used to disable the A/D function of pins, so that they can be used as standard digital I/O ports. If <literal>ANSEL</literal> is not declared as a system variable for a particular chip, then the program uses <literal>ADCON1</literal> to control the port modes. If <literal>ANSEL</literal> is defined, then the chip is newer, and its ports can be set to digital by clearing <literal>ANSEL</literal>.</simpara>
 <simpara><emphasis role="strong">Example 4: <emphasis>Enabling code if a system bit is defined</emphasis></emphasis></simpara>
 <simpara>Similar to above, except with <literal>Bit</literal> and <literal>NoBit</literal> in place of <literal>Var</literal> and <literal>NoVar</literal> respectively.</simpara>
+<simpara><emphasis role="strong">Example 5: <emphasis>One copy of a Sub for each <literal>#ifdef</literal> block</emphasis></emphasis></simpara>
+<simpara>A program or library can have a Sub, Function or Macro of the same name in each of several <literal>#ifdef</literal> blocks, one for each case. The copy in the block whose condition is true is the one compiled.</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #define USE_SPI
+
+    #ifdef USE_SPI
+      Sub SendCommand(In Cmd)
+        SPITransfer Cmd, Reply      ' &lt;&lt;&lt; this copy is used
+      End Sub
+    #endif
+    #ifdef USE_UART
+      Sub SendCommand(In Cmd)
+        HSerSend Cmd
+      End Sub
+    #endif</programlisting>
+<simpara><emphasis role="strong">Key line:</emphasis> <literal>#define USE_SPI</literal>&#8201;&#8212;&#8201;only the first block&#8217;s condition is true, so every call to <literal>SendCommand</literal> uses the SPI copy. The copy in the <literal>USE_UART</literal> block is removed.</simpara>
+<simpara><literal>#DEFINE DISABLE1670</literal> goes back to the behaviour of builds before 1670: the first copy read was always used, whichever block it was in.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -56184,16 +56281,19 @@ routines although nothing called them (for example 66 bytes on a PIC18F46J50).</
 </indexterm></simpara>
 <simpara><emphasis role="strong">Syntax:</emphasis></simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    #option volatile `bit`</programlisting>
-<simpara>This option ensures port settings are glitch-free.</simpara>
+<simpara>This option makes the setting of an output bit glitch-free.</simpara>
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara><literal>#option volatile bit</literal>, where <literal>bit</literal> is an I/O bit, like <literal>PORTB.0</literal>, appended.</simpara>
-<simpara>This will cause the compiler to set the bit without any glitches when copying a value from another variable, but will increase code size slightly.</simpara>
+<simpara>When a bit is set from another bit or from a variable, for example <literal>PORTB.0 = !PORTB.0</literal> or <literal>PORTC.2 = PORTA.1</literal>, the compiler normally clears the bit and then sets it again if the new value is 1. If the new value is 1, the output goes low for a few instructions. With <literal>#option volatile</literal>, the compiler sets the bit only when the new value is 1 and clears it only when the new value is 0, so the output never changes when it does not need to. This increases code size slightly.</simpara>
+<simpara>The option has no effect when a bit is set to a constant, for example <literal>PORTB.0 = 1</literal> or <literal>PORTB.0 = 0</literal>. These are always a single instruction, so they cannot glitch.</simpara>
+<simpara>On a chip with <literal>LATx</literal> registers, writes to <literal>PORTx</literal> go to <literal>LATx</literal>. The bit can be named with either register: <literal>#option volatile PORTC.0</literal> and <literal>#option volatile LATC.0</literal> both protect writes to <literal>PORTC.0</literal> and to <literal>LATC.0</literal>. When the <literal>LATx</literal> name is used, the compiler shows an Information message, for example <literal>#option Volatile LATC.0 also applied to writes to PORTC.0</literal>. This applies from build 1676. In earlier builds the bit must be named as the program writes it, usually <literal>PORTx.n</literal>.</simpara>
+<simpara>The option can be used once for each bit that needs it.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    'Set chip model
     #chip 16f877a
 
     'Example command
-    #option volatile portb.0          ' &lt;&lt;&lt; marking this pin for glitch-free read-modify-write
+    #option volatile portb.0          ' &lt;&lt;&lt; marking this pin for glitch-free setting
 
     dir portb.0 out
 
@@ -56202,14 +56302,17 @@ routines although nothing called them (for example 66 bytes on a PIC18F46J50).</
       portb.0 = !portb.0
 
     loop</programlisting>
-<simpara><emphasis role="strong">Key line:</emphasis> <literal>#option volatile portb.0</literal>&#8201;&#8212;&#8201;without this, <literal>portb.0 = !portb.0</literal> compiles to a plain read-modify-write on <literal>PORTB</literal> that can glitch other bits of the port for an instant; with it, the compiler generates the extra instructions needed to toggle only bit 0 cleanly.</simpara>
+<simpara><emphasis role="strong">Key line:</emphasis> <literal>#option volatile portb.0</literal>&#8201;&#8212;&#8201;without this, <literal>portb.0 = !portb.0</literal> clears bit 0 and then sets it again when the new value is 1, so the output goes low for an instant; with it, the compiler tests the new value first and only sets or clears the bit, so the output changes once, cleanly.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
-<simpara><link linkend="__option_nolatch">#Option NoLatch</link>&#8201;&#8212;&#8201;a related fix for whole-port read-modify-write glitches via LATx</simpara>
+<simpara><link linkend="__option_nolatch">#Option NoLatch</link>&#8201;&#8212;&#8201;turns off the automatic use of the LATx registers for PORTx writes</simpara>
 </listitem>
 <listitem>
 <simpara><link linkend="__option_shadowregister">#Option Shadowregister</link>&#8201;&#8212;&#8201;a whole-port shadow-latch alternative on chips without LATx</simpara>
+</listitem>
+<listitem>
+<simpara><link linkend="__define">#DEFINE</link>&#8201;&#8212;&#8201;naming a pin with a constant, as used with this option</simpara>
 </listitem>
 </itemizedlist>
 </section>
@@ -56235,6 +56338,11 @@ protects), both options now add together in the "program too large" check and th
 <literal>Program Memory:</literal> report: the bootloader&#8217;s own space at the bottom, plus whatever
 <literal>ReserveHighProg</literal> reserves at the top, are both subtracted from the chip&#8217;s real total before
 the application&#8217;s code is measured against it.</simpara>
+<simpara>On AVR chips the <literal>Program Memory:</literal> count is every word the program takes in flash, the same as the
+assembler&#8217;s <literal>Code Segment:</literal> count (plus the words reserved here). This includes the interrupt vector
+table: each vector has a two-word slot, and a one-word <literal>reti</literal> or <literal>rjmp</literal> in a slot leaves a word that
+the program cannot use (26 words on the ATmega328P). So a program that fits by the compiler&#8217;s count
+fits in the chip.</simpara>
 <simpara><emphasis role="strong">Defined constants</emphasis></simpara>
 <simpara>The compiler has constants that can be used as an alternative to the parameter <literal>[words]</literal>.</simpara>
 <simpara>The compiler constants are: OPTIBOOT, OPTIBOOTUSB, ARDUINONANO, ARDUINOMEGA2560, or TINYBOOTLOADER.</simpara>
@@ -58690,6 +58798,31 @@ Warning, since it is often an intentional, working setup.</simpara>
 <entry align="left" valign="top"><simpara>The compiler would use the bit, not a variable, so an assignment would set or clear a bit in a register. From build 1663 this fails with "Variable name CON is the name of bit CM1CON.7 on the current chip: the compiler would use that bit, not a variable. Rename it" ("Parameter name &#8230;&#8203;" for a parameter). <literal>#DEFINE DISABLE1663</literal> makes it the earlier warning "Variable name &#8230;&#8203; is used for a system bit on the current chip" (not recommended - the compiler still uses the bit). An assembler error "GCASM: CON is defined twice, as 7 and as 1 &#8230;&#8203;" is the same problem found by the assembler. Rename the variable.</simpara></entry>
 </row>
 <row>
+<entry align="left" valign="top"><simpara>Function parameters are input only</simpara></entry>
+<entry align="left" valign="top"><simpara>A Function may not declare an <literal>Out</literal> parameter</simpara></entry>
+<entry align="left" valign="top"><simpara>A Function returns its value through its name; an <literal>Out</literal> value would never reach the caller. Fails with "Invalid syntax: Function <emphasis>name</emphasis> declares Out parameter <emphasis>parameter</emphasis> &#8230;&#8203;". Use a Sub with <literal>Out</literal> parameters. Every Function is checked, including one inside an <literal>#if</literal> block that is not compiled. See <link linkend="_functions">Functions</link>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Sub/Function of the same name in <literal>#ifdef</literal> blocks</simpara></entry>
+<entry align="left" valign="top"><simpara>One copy of a Sub, Function or Macro in each of several <literal>#ifdef</literal> blocks that exclude each other</simpara></entry>
+<entry align="left" valign="top"><simpara>Since build 1670 the copy in the block whose condition is true is used. Before, the first copy read was always used, with no warning. <literal>#DEFINE DISABLE1670</literal> goes back to that behaviour (not recommended). See <link linkend="__ifdef">#ifdef</link>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>String constant before a function call in a parameter list</simpara></entry>
+<entry align="left" valign="top"><simpara>A call where a parameter after a string constant calls a function that also takes a string constant, e.g. <literal>Check("Change directory", FatChDir("LOGS"), FAT_OK)</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Since build 1671 the function in the later parameter is called first, then the string constant is copied, so each routine receives its own string. Before, both strings used the same temporary variable and <literal>Check</literal> silently received <literal>"LOGS"</literal>. <literal>#DEFINE DISABLE1671</literal> goes back to that behaviour (not recommended). See <link linkend="_subroutines">Subroutines</link>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>String function result before a function call in a parameter list</simpara></entry>
+<entry align="left" valign="top"><simpara>A call where a parameter after a string function&#8217;s result also calls a function, e.g. <literal>CallSub("1.", Echo(" yyyy"), Echo(" xxxxx"))</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Since build 1672 the earlier result is copied into a temporary string of its own (RAM the size of the function&#8217;s string), so each parameter keeps its value. Before, every such parameter referred to the function&#8217;s own variable and silently received the last result (<literal>" xxxxx"</literal> twice). <literal>#DEFINE DISABLE1672</literal> goes back to that behaviour (not recommended). See <link linkend="_subroutines">Subroutines</link>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Call stack depth</simpara></entry>
+<entry align="left" valign="top"><simpara>The chip&#8217;s return stack: PIC 8, 16 or 31 levels (more on some PIC18 - the chip data&#8217;s <literal>Stacks=</literal> value, also the constant <literal>ChipStacks</literal>); AVR the RAM left free by variables</simpara></entry>
+<entry align="left" valign="top"><simpara>Since build 1668 the compilation summary shows the worst case, e.g. <literal>Stack: 15 of 16 levels (main 12, interrupt 1 + 2)</literal> - on AVR in bytes of free RAM. It is the longest chain of calls the final code allows from the main program, plus the interrupt entry and the interrupt routine&#8217;s own chain; a <literal>goto</literal> costs nothing, a table read on PIC16 one level. Over the limit warns "Worst-case call stack &#8230;&#8203; exceeds the &#8230;&#8203; available" with the chain (suppressible with <literal>#DEFINE DISABLE1668</literal>). On a PIC an overflow resets the chip (stack overflow reset, PCON0.STKOVF), usually only when an interrupt arrives at the deepest point. To reduce it: inline small helper routines with <literal>Macro</literal>, avoid calling the full receive or service routine from inside a wait loop several levels deep, and keep interrupt handlers shallow. See <link linkend="_subroutines">Subroutines</link>.</simpara></entry>
+</row>
+<row>
 <entry align="left" valign="top"><simpara>Sub/Function parameter count</simpara></entry>
 <entry align="left" valign="top"><simpara>At most 50 parameters per call</simpara></entry>
 <entry align="left" valign="top"><simpara>Fails with "Maximum number of parameters (50) exceeded." See <link linkend="_subroutines">Subroutines</link> / <link linkend="_functions">Functions</link>.</simpara></entry>
@@ -59181,6 +59314,21 @@ Warning, since it is often an intentional, working setup.</simpara>
 <entry align="left" valign="top"><simpara>ExtraENDIF</simpara></entry>
 <entry align="left" valign="top"><simpara>End If without If</simpara></entry>
 <entry align="left" valign="top"><simpara>Remove the extra <literal>End If</literal>, or add the missing <literal>If</literal> it was meant to close.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>FunctionOutParam</simpara></entry>
+<entry align="left" valign="top"><simpara>Invalid syntax: Function %fn% declares Out parameter %param% - a Function returns its value through its name and its parameters are input only, so an Out value never reaches the caller. Use a Sub with Out parameters</simpara></entry>
+<entry align="left" valign="top"><simpara>Change the Function to a Sub with an <literal>Out</literal> parameter for each value it hands back, or remove <literal>Out</literal> if the parameter is only read. See <link linkend="_functions">Functions</link>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>StackOverflowRisk</simpara></entry>
+<entry align="left" valign="top"><simpara>Worst-case call stack %used% exceeds the %total% available: %chain% - #DEFINE DISABLE1668 to silence this warning</simpara></entry>
+<entry align="left" valign="top"><simpara>A Warning (build 1668). The chain shown is the deepest one from the main program. Shorten it: inline small helpers with <literal>Macro</literal>, do not call a deep routine from inside a wait loop, keep interrupt handlers shallow. <literal>#DEFINE DISABLE1668</literal> silences the warning only. See the Call stack depth constraint above.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>UsedStack / UsedStackAVR</simpara></entry>
+<entry align="left" valign="top"><simpara>Stack: %used% of %total% levels (main %main%, interrupt %int%) - on AVR: &#8230;&#8203; bytes of free RAM</simpara></entry>
+<entry align="left" valign="top"><simpara>Information in the compilation summary (build 1668): the worst-case call stack. The interrupt part is the entry plus the interrupt routine&#8217;s own chain, or "none" when the program has no interrupt code.</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>FirstPageFull</simpara></entry>
@@ -61474,8 +61622,8 @@ The Windows driver must be <literal>libusbK</literal>, not the <literal>libusb</
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-11-03<?asciidoc-br?>
-15:23:24 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-11-17<?asciidoc-br?>
+10:28:06 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>

@@ -28,6 +28,14 @@ Multiline comments are supported for large text descriptions of code, or to comm
     */
 ----
 
+A `/*` starts a block comment only when it is part of the code. A `/*` inside a string, or after an apostrophe, semi-colon or `//` comment on the same line, is just text:
+
+[source,gcbasic]
+----
+    HSerPrint "Path: /*.txt"      ' the /* here is part of the string
+    PORTB = 0   ' see /* below    ' the /* here is part of the comment
+----
+
 
 WARNING: Graphical GCBASIC uses semi-colons to mark comments that it has
 inserted automatically. It does not read these comments when opening a file, so any
