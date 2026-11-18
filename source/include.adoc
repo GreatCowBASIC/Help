@@ -24,6 +24,8 @@ Absolute is used to refer to files in the `..\GCBASIC\include` directory. The na
 
 With <<__option_includepath,#option IncludePath>> (build 1661), the folders it names are searched first, in their order, and then the `..\GCBASIC\include` directory. A project can keep its own libraries in a folder of its own and still include them with `<` and `>`.
 
+A program can also include its own copy of a system library (a file listed in `..\GCBASIC\include\lowlevel.dat`, such as `usart.h`). That copy is used in place of the system library, and the compiler shows an Information message. See <<__option_includepath,#option IncludePath>>.
+
 Relative is used to read files in the same folder as the currently selected program. Filenames are given enclosed in quotation marks, such as where `mycode.h` is the name of the file that is to be read.
 
 [source,gcbasic]

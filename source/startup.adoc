@@ -26,7 +26,7 @@ Limitations on this directive are:
 
 No parameters can be passed to the subroutine that is specified.
 
-`<<_option_startupmethodsdisabled,#option StartupMethodsDisabled>>` stops the startup subroutines being called (and, from build 1662, being compiled unless the program calls them itself).
+`<<__option_startupmethodsdisabled,#option StartupMethodsDisabled>>` stops the startup subroutines being called (and, from build 1662, being compiled unless the program calls them itself).
 
 *Example 1:*
 

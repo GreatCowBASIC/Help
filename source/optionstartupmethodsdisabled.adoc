@@ -13,7 +13,7 @@
 
 `#option StartupMethodsDisabled` stops GCBASIC calling the startup routines at the start of the program. These are
 `InitSys` (the chip setup: ports digital, the oscillator, the A/D off and so on) and the routines that libraries add
-with `<<_startup,#startup>>`, for example `InitRandom`, `HI2CInit`, `InitGLCD` or the USB library's startup routine.
+with `<<__startup,#startup>>`, for example `InitRandom`, `HI2CInit`, `InitGLCD` or the USB library's startup routine.
 
 Use it when the program must decide what happens first, and when. For example:
 
@@ -23,7 +23,7 @@ Use it when the program must decide what happens first, and when. For example:
 * a program that starts a display or a USB connection only after its own power-up sequence.
 
 The rest of the program is compiled as usual: the stack, the interrupt vectors and the main program are not changed
-(compare `<<_option_usercodeonly,#option UserCodeOnly>>`, which also leaves out the start-up code before the main program).
+(compare `<<__option_usercodeonly,#option UserCodeOnly>>`, which also leaves out the start-up code before the main program).
 
 *What the option does:*
 
@@ -80,4 +80,4 @@ does not call `InitSys` (which would clear PORTC) and starts the display itself.
 * Build 1661 and later: `InitSys` is no longer requested with this option.
 * The option works for PIC and AVR.
 
-*See also* <<_startup,#startup>>, <<_option_usercodeonly,#Option UserCodeOnly>>, <<_option_bootloader,#Option Bootloader>>
+*See also* <<__startup,#startup>>, <<__option_usercodeonly,#Option UserCodeOnly>>, <<__option_bootloader,#Option Bootloader>>

@@ -28,7 +28,7 @@ Multiline comments are supported for large text descriptions of code, or to comm
     */
 ----
 
-A `/*` starts a block comment only when it is part of the code. A `/*` inside a string, or after an apostrophe, semi-colon or `//` comment on the same line, is just text:
+A `+/*+` starts a block comment only when it is part of the code. A `+/*+` inside a string, or after an apostrophe, semi-colon or `//` comment on the same line, is just text:
 
 [source,gcbasic]
 ----

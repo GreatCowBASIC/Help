@@ -18,7 +18,7 @@ When a bit is set from another bit or from a variable, for example `PORTB.0 = !P
 
 The option has no effect when a bit is set to a constant, for example `PORTB.0 = 1` or `PORTB.0 = 0`. These are always a single instruction, so they cannot glitch.
 
-On a chip with `LATx` registers, writes to `PORTx` go to `LATx`. The bit can be named with either register: `#option volatile PORTC.0` and `#option volatile LATC.0` both protect writes to `PORTC.0` and to `LATC.0`. When the `LATx` name is used, the compiler shows an Information message, for example `#option Volatile LATC.0 also applied to writes to PORTC.0`. This applies from build 1676. In earlier builds the bit must be named as the program writes it, usually `PORTx.n`.
+On a chip with `LATx` registers, writes to `PORTx` go to `LATx`. The bit can be named with either register: `#option volatile PORTC.0` and `#option volatile LATC.0` both protect writes to `PORTC.0` and to `LATC.0`. When the `LATx` name is used, the compiler shows an Information message, for example `#option Volatile LATC.0 also applied to writes to PORTC.0`.
 
 The option can be used once for each bit that needs it.
 
