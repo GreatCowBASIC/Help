@@ -27,6 +27,34 @@ include folder.
 * The option is read from the main program only (not from an include file).
 * Without the option, `#include <...>` reads only GCBASIC's include folder, as in earlier builds.
 
+*A local copy of a system library:*
+
+GCBASIC always loads its system libraries, the files listed in `..\GCBASIC\include\lowlevel.dat` (for example
+`usart.h`, `a-d.h`, `hwspi.h`, `hwi2c.h`, `lcd.h`, `random.h`, `string.h`, `system.h` and `timer.h`), from its
+`include\lowlevel` folder. You do not include them.
+
+From build 1677, when the program includes a file with the same name as one of these libraries, the program's
+file is used in place of the system library. The file can be found with `#include <...>` in an
+`#option IncludePath` folder, or with `#include "..."`. Only that copy is loaded, so only its `#script` runs
+and the constants it sets are the ones used, and each of its methods exists once. The compiler shows an
+Information message, for example
+`C:\Project\libraries\usart.h is used in place of the system library usart.h`.
+
+[source,gcbasic]
+----
+    #chip 16F1825, 32
+    #option IncludePath "libraries"
+
+    #include <usart.h>                // libraries\usart.h is used in place of include\lowlevel\usart.h
+----
+
+The local copy replaces the whole system library, so start from a copy of the system library of the same
+GCBASIC build and keep every method the program, or another library, uses.
+
+In earlier builds both copies were loaded: both `#script` blocks ran, so the system library's script could
+overwrite the constants set by the local copy, and every method was compiled twice. Programs usually failed to
+compile.
+
 *Example:*
 
 The program `BOOTLOADER_GCB.gcb` with its libraries in the folder `libraries` next to it:
