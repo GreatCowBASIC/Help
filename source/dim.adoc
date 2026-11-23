@@ -202,6 +202,8 @@ Example4:
 
 If the location is already used or invalid, a warning is generated: `Memory location specified for _name_ may be invalid`.
 
+On PIC18 chips, keep all the bytes of a multi-byte variable in one RAM bank. `Dim VW As Word At 0x7FF`, for example, puts the high byte at 0x800 in the next bank, and gives the warning `Fixed location of _name_ puts its bytes in two RAM banks: each use of it needs a bank change`. The program works, but each use of the variable needs a bank change. The compiler does not place a multi-byte variable of its own across a bank boundary. See the Multi-byte variable constraint in <<_constraints_and_error_messages_overview,Constraints and Error Messages>>.
+
 `At` and `Alias` are mutually exclusive.
 
 ===== Shared (an intended overlap of a fixed location)

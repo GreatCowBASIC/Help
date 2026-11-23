@@ -66,6 +66,10 @@ Warning, since it is often an intentional, working setup.
 |A call where a parameter after a string function's result also calls a function, e.g. `CallSub("1.", Echo(" yyyy"), Echo(" xxxxx"))`
 |Since build 1672 the earlier result is copied into a temporary string of its own (RAM the size of the function's string), so each parameter keeps its value. Before, every such parameter referred to the function's own variable and silently received the last result (`" xxxxx"` twice). `#DEFINE DISABLE1672` goes back to that behaviour (not recommended). See <<_subroutines,Subroutines>>.
 
+|Multi-byte variable with bytes in two RAM banks
+|A Word, Integer, Long or other multi-byte variable whose bytes are in two RAM banks (on PIC18 also: partly in the access bank and partly banked). Only a fixed location (`At`) or an `Alias` of bytes in different banks can do this
+|Since build 1680 the compiler does not place a multi-byte variable of its own across a bank boundary on PIC18 chips, and a fixed location that does gives the warning "Fixed location of ... puts its bytes in two RAM banks". When an increment of such a variable (`VW++`, `X = X + 1`) needs a bank change between a skip instruction (`btfsc STATUS,Z`) and the instruction it skips, the compiler puts the bank change in front of the skip. Before build 1680 it was put after the skip, so the skip jumped over the bank change only, and the upper byte was written in the wrong bank (for example a millis counter at 0x5FF changed 0x500-0x502 every millisecond). If the skip itself tests a banked variable the bank change cannot be moved, and that is the error "Bank change for ... falls between a skip instruction ...". `#DEFINE DISABLE1680` goes back to the code of earlier builds, with a warning (not recommended). See <<_dim,Dim>>.
+
 |Call stack depth
 |The chip's return stack: PIC 8, 16 or 31 levels (more on some PIC18 - the chip data's `Stacks=` value, also the constant `ChipStacks`); AVR the RAM left free by variables
 |Since build 1668 the compilation summary shows the worst case, e.g. `Stack: 15 of 16 levels (main 12, interrupt 1 + 2)` - on AVR in bytes of free RAM. It is the longest chain of calls the final code allows from the main program, plus the interrupt entry and the interrupt routine's own chain; a `goto` costs nothing, a table read on PIC16 one level. Over the limit warns "Worst-case call stack ... exceeds the ... available" with the chain (suppressible with `#DEFINE DISABLE1668`). On a PIC an overflow resets the chip (stack overflow reset, PCON0.STKOVF), usually only when an interrupt arrives at the deepest point. To reduce it: inline small helper routines with `Macro`, avoid calling the full receive or service routine from inside a wait loop several levels deep, and keep interrupt handlers shallow. See <<_subroutines,Subroutines>>.
@@ -242,6 +246,10 @@ ifdef::backend-pdf[<<<]
 |BadAliasSize
 |Size of alias variable (%size%) does not match number of RAM locations for [%locations%]%target% variable, increase aliased bytes
 |Increase the alias's byte count to match the target variable's size.
+
+|BankselAfterSkip
+|Bank change for %var% falls between a skip instruction and the instruction it skips (%instruction% in %sub%), and the skip needs a bank of its own, so the bank change cannot go before it: the code would use the wrong bank. A multi-byte variable has bytes in two banks (a fixed location, or an alias)
+|An Error (build 1680). The skip tests a bit of a banked variable, so the bank change for the next instruction cannot be moved in front of it. Put all the bytes of the variable named in one bank: change or remove its `At` location, or the `Alias`. With `#DEFINE DISABLE1680` it is a warning and the code is generated as in earlier builds, which uses the wrong bank. See the Multi-byte variable with bytes in two RAM banks constraint above.
 
 |BadBitRead
 |Cannot read bit %bit% of %var%
@@ -874,6 +882,10 @@ ifdef::backend-pdf[<<<]
 |UseSYSDEFAULTCONCATSTRING
 |COMPILER INFORMATION: DIMension of SYSSTRINGPARAM%param1%*%param2%. Use constant SYSDEFAULTCONCATSTRING to specify size
 |Define `SYSDEFAULTCONCATSTRING` to control the concatenation buffer size instead of relying on the compiler's default.
+
+|WarningFixedLocStraddle
+|Fixed location of %var% puts its bytes in two RAM banks: each use of it needs a bank change
+|A Warning (build 1680, PIC18). The program works, but each use of the variable needs a bank change, so the code is larger and slower. Choose a location where all its bytes are in one bank (a PIC18 bank is 256 bytes, 0xn00 to 0xnFF, and must not cross the end of the access bank either). See <<_dim,Dim>>.
 |===
 
 **See Also:**
