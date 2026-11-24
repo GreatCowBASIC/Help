@@ -17,6 +17,13 @@ still include them with `<` and `>`, the same way as GCBASIC's libraries, withou
 include folder.
 
 * The folders are separated by `;`. A folder can be relative to the program's folder, or a full path.
+* A folder can start with a variable for a GCBASIC folder (build 1679), so the path is right on every
+  install, wherever GCBASIC is installed:
+** `%instdir%` - GCBASIC's own folder, the folder of the compiler (for example `C:\GCstudio\gcbasic`).
+** `%GCSTUDIO_INSTALL_PATH%` - the folder above it (for example `C:\GCstudio`).
++
+The names can be in capitals or lower case. These are GCBASIC's own variables, not Windows environment
+variables.
 * The folders are searched in the order given; the first one that has the file is used. When none of them
   has it, GCBASIC's include folder is used, as without the option.
 * The option applies to every `#include <...>` after it: in the program, and in every file the program
@@ -74,15 +81,28 @@ Two folders, the first one searched first:
     #option IncludePath "libraries;..\SharedLibraries"
 ----
 
+A project folder, then the `AdditionalLibraries` folder beside GCBASIC's include folder, named with
+`%instdir%`, not a fixed path:
+
+[source,gcbasic]
+----
+    #option IncludePath "..\GCBASICLibraries;%instdir%\AdditionalLibraries"
+
+    #include <sd_card.h>              // C:\GCstudio\gcbasic\AdditionalLibraries\sd_card.h
+----
+
 *Errors and warnings:*
 
 * A file found in none of the folders gives the error `Cannot find ...`, followed by the folders that were
   searched, for example
   `Cannot find C:\GCstudio\gcbasic\include\not_there.h (searched: C:\Project\libraries; C:\GCstudio\gcbasic\include)`.
 * A folder in the option that does not exist gives the warning
-  `#option IncludePath: folder not found: ...`; the other folders are still searched.
+  `#option IncludePath: folder not found: ...`; the other folders are still searched. A folder named with
+  `%instdir%` is shown with the variable replaced, for example
+  `#option IncludePath: folder not found: C:\GCstudio\gcbasic\NoSuchFolder`.
 
-This option was added in build 1661.
+This option was added in build 1661. The `%instdir%` and `%GCSTUDIO_INSTALL_PATH%` variables were added in
+build 1679.
 
 **See Also:**
 

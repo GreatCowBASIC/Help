@@ -99,6 +99,35 @@ The generated assembly will be as follows - this assumes verbose mode is not sel
       banksel OSCCON1
 ----
 
+[[_bit_variables_in_the_asm]]
+*Where are BIT variables in the ASM?*
+
+GCBASIC packs `BIT` variables into system byte variables called `SYSBITVAR0`, `SYSBITVAR1` and so on, eight bits to a byte. The ASM file shows where each one lives in the `;Bit aliases to system variables` section, after the variable and alias sections and before `;Vectors`. Each line gives the bit variable's name, then the byte and the bit number.
+
+Only bit variables that the program reads, tests, sets or clears are listed. A bit variable that is declared but never used is left out. The lines are comments, so they do not change the program. The section heading is always there, even when the program has no bit variables.
+
+User Code
+
+[source,gcbasic]
+----
+    Dim FlagA As Bit
+    Dim FlagB As Bit
+    Dim UnusedFlag As Bit
+
+    FlagA = !FlagA
+    If FlagA = 1 Then FlagB = 0
+----
+
+ASM
+
+[source,gcbasic]
+----
+;Bit aliases to system variables
+; FLAGA = SYSBITVAR0.0
+; FLAGB = SYSBITVAR0.1
+----
+*Key line:* `; FLAGA = SYSBITVAR0.0` -- `FlagA` is bit 0 of `SYSBITVAR0`. Use this to find a bit variable in a debugger or in the program's own assembly. `UnusedFlag` is not listed because no code uses it.
+
 *Constants, variables, subs, functions, and labels*
 
 GCBASIC uses a single namespace. A namespace is the set of names used to identify and refer to objects of various kinds. In GCBASIC these can be constants, variables, methods, and labels, where a label is a true label like the start of a sub, function, or macro. A namespace ensures that all of a given set of objects have unique names, so that they can be identified. This organises constants, variables, methods, labels, etc. into a single list - the single namespace.

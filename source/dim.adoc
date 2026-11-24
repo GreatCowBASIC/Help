@@ -126,6 +126,8 @@ Alias and At cannot be used together on the same declaration line.&#160;&#160; A
 
 Aliases are always shown in the ASM source in the ;ALIAS VARIABLES section.
 
+Bit variables that the program uses are shown in the ASM source in the ;Bit aliases to system variables section, for example `; FLAGA = SYSBITVAR0.0`. See <<_bit_variables_in_the_asm,Where are BIT variables in the ASM?>>.
+
 The coding approach should be to DIMension the variable (word, integer, or long) first, then create the byte aliases:
 
 Example 1:

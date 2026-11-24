@@ -1,0 +1,83 @@
+<div class="section">
+
+<div class="titlepage">
+
+<div>
+
+<div>
+
+### <span id="acknowledgements"></span>Acknowledgements
+
+</div>
+
+</div>
+
+</div>
+
+<span class="strong">**Developers and Contributors:**</span>
+
+Hugh Considine - Main developer of GCBASIC
+
+Stefano Bonomi - Two-wire LCD subroutines
+
+Geordie Millar - Swap and Swap4 subroutines
+
+Jacques Nilo - HEFM and help file conversion to AsciiDoc
+
+Finn Stokes - 8-bit multiply routine, program memory access code
+
+Evan Venn - Utilities, revised I2C routines, this help file, and
+generally everything else
+
+<span class="strong">**Translation Contributors:**</span>
+
+Stefano Delfiore - Italian
+
+Pablo Curvelo - Spanish
+
+Murat Inceer - Turkish
+
+<span class="strong">**Other Contributors:**</span>
+
+Russ Hensel - GCBASIC Notes.
+
+Chuck Hellebuyck - His documentation for the GLCD and other pieces, see
+[www.elproducts.com](https://www.elproducts.com).
+
+Frank Steinberg - GCode IDE for GCBASIC.
+
+Alexy T. - SynWrite IDE used for the GCB IDE, see [SynWrite
+website](https://www.uvviewsoft.com/synwrite)
+
+Thomas Henry for the Select Case and the Sine Table examples.
+
+William Roth for the LCD code and supporting diagrams.
+
+Theo Loermans for the revised LCD sections and the serial library.
+
+Chris Roper for the bitwise methods, including the library featuring
+FnEquBit, FnNotBit, FnlslBit, FnlsrBit, SetWith, and 47xxx.
+
+Jberg2024 for the adaptation of the Software Serial routines to improve
+usage.
+
+Angel Mier for the USB driver installation.
+
+<span class="strong">**Conversion of AsciiDoc documentation
+files**</span>:
+
+See the [asciidoctor Web site](https://asciidoctor.org/) and the
+[support forum](https://discuss.asciidoctor.org/).
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="libraries_overview" class="link" title="Libraries Overview">Libraries Overview</a> — the
+    libraries these contributors built
+-   <a href="tricks_and_tips" class="link" title="Tricks and Tips">Tricks and Tips</a> — category
+    overview
+
+</div>
+
+</div>

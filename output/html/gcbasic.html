@@ -1822,6 +1822,41 @@ particular line of code?</p></td>
       banksel OSCCON1</code></pre>
 </div>
 </div>
+<div id="_bit_variables_in_the_asm" class="paragraph">
+<p><strong>Where are BIT variables in the ASM?</strong></p>
+</div>
+<div class="paragraph">
+<p>GCBASIC packs <code>BIT</code> variables into system byte variables called <code>SYSBITVAR0</code>, <code>SYSBITVAR1</code> and so on, eight bits to a byte. The ASM file shows where each one lives in the <code>;Bit aliases to system variables</code> section, after the variable and alias sections and before <code>;Vectors</code>. Each line gives the bit variable&#8217;s name, then the byte and the bit number.</p>
+</div>
+<div class="paragraph">
+<p>Only bit variables that the program reads, tests, sets or clears are listed. A bit variable that is declared but never used is left out. The lines are comments, so they do not change the program. The section heading is always there, even when the program has no bit variables.</p>
+</div>
+<div class="paragraph">
+<p>User Code</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    Dim FlagA As Bit
+    Dim FlagB As Bit
+    Dim UnusedFlag As Bit
+
+    FlagA = !FlagA
+    If FlagA = 1 Then FlagB = 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>ASM</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">;Bit aliases to system variables
+; FLAGA = SYSBITVAR0.0
+; FLAGB = SYSBITVAR0.1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key line:</strong> <code>; FLAGA = SYSBITVAR0.0</code>&#8201;&#8212;&#8201;<code>FlagA</code> is bit 0 of <code>SYSBITVAR0</code>. Use this to find a bit variable in a debugger or in the program&#8217;s own assembly. <code>UnusedFlag</code> is not listed because no code uses it.</p>
+</div>
 <div class="paragraph">
 <p><strong>Constants, variables, subs, functions, and labels</strong></p>
 </div>
@@ -7991,7 +8026,7 @@ Multiline comments are supported for large text descriptions of code, or to comm
 </div>
 </div>
 <div class="paragraph">
-<p>A <code>/<strong></code> starts a block comment only when it is part of the code. A <code>/</strong></code> inside a string, or after an apostrophe, semi-colon or <code>//</code> comment on the same line, is just text:</p>
+<p>A <code>/*</code> starts a block comment only when it is part of the code. A <code>/*</code> inside a string, or after an apostrophe, semi-colon or <code>//</code> comment on the same line, is just text:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -64540,6 +64575,9 @@ When reading or writing to this variable, it is effectively the aliases that are
 <p>Aliases are always shown in the ASM source in the ;ALIAS VARIABLES section.</p>
 </div>
 <div class="paragraph">
+<p>Bit variables that the program uses are shown in the ASM source in the ;Bit aliases to system variables section, for example <code>; FLAGA = SYSBITVAR0.0</code>. See <a href="#_bit_variables_in_the_asm">Where are BIT variables in the ASM?</a>.</p>
+</div>
+<div class="paragraph">
 <p>The coding approach should be to DIMension the variable (word, integer, or long) first, then create the byte aliases:</p>
 </div>
 <div class="paragraph">
@@ -64617,6 +64655,9 @@ When reading or writing to this variable, it is effectively the aliases that are
 </div>
 <div class="paragraph">
 <p>If the location is already used or invalid, a warning is generated: <code>Memory location specified for <em>name</em> may be invalid</code>.</p>
+</div>
+<div class="paragraph">
+<p>On PIC18 chips, keep all the bytes of a multi-byte variable in one RAM bank. <code>Dim VW As Word At 0x7FF</code>, for example, puts the high byte at 0x800 in the next bank, and gives the warning <code>Fixed location of <em>name</em> puts its bytes in two RAM banks: each use of it needs a bank change</code>. The program works, but each use of the variable needs a bank change. The compiler does not place a multi-byte variable of its own across a bank boundary. See the Multi-byte variable constraint in <a href="#_constraints_and_error_messages_overview">Constraints and Error Messages</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>At</code> and <code>Alias</code> are mutually exclusive.</p>
@@ -71474,7 +71515,7 @@ If you set the internal oscillator to 4 MHz, a "wait 1 ms" will still be 1 ms.</
 <p>To ensure evaluation of a calculation, a <code>=</code> must be used. This is strict.</p>
 </div>
 <div class="paragraph">
-<p>The <code>=</code> is only needed for a calculation. A pin, a port, a register or any other name does not need it: write <code>#define RelayLaser PORTC.3</code>. If <code>=</code> is used with a value that is not a calculation, for example <code>#define RelayLaser = PORTC.3</code>, the value is kept as it is written (build 1676 and later). Earlier builds changed it to lower case, so writes to the pin were not changed to <code>LATx</code> and <code>#option Volatile</code> did not match the pin.</p>
+<p>The <code>=</code> is only needed for a calculation. A pin, a port, a register or any other name does not need it: write <code>#define RelayLaser PORTC.3</code>. If <code>=</code> is used with a value that is not a calculation, for example <code>#define RelayLaser = PORTC.3</code>, the value is kept as it is written.</p>
 </div>
 <div class="paragraph">
 <p><code>#UNDEFINE</code> can be used to make the compiler delete an existing constant.</p>
@@ -72057,6 +72098,9 @@ The code in the following sections will not compile, as it is missing <code>#chi
 <p>With <a href="#__option_includepath">#option IncludePath</a> (build 1661), the folders it names are searched first, in their order, and then the <code>..\GCBASIC\include</code> directory. A project can keep its own libraries in a folder of its own and still include them with <code>&lt;</code> and <code>&gt;</code>.</p>
 </div>
 <div class="paragraph">
+<p>A program can also include its own copy of a system library (a file listed in <code>..\GCBASIC\include\lowlevel.dat</code>, such as <code>usart.h</code>). That copy is used in place of the system library, and the compiler shows an Information message. See <a href="#__option_includepath">#option IncludePath</a>.</p>
+</div>
+<div class="paragraph">
 <p>Relative is used to read files in the same folder as the currently selected program. Filenames are given enclosed in quotation marks, such as where <code>mycode.h</code> is the name of the file that is to be read.</p>
 </div>
 <div class="listingblock">
@@ -72294,7 +72338,7 @@ Limitations on this directive are:</p>
 <p>No parameters can be passed to the subroutine that is specified.</p>
 </div>
 <div class="paragraph">
-<p><code><a href="#_option_startupmethodsdisabled">#option StartupMethodsDisabled</a></code> stops the startup subroutines being called (and, from build 1662, being compiled unless the program calls them itself).</p>
+<p><code><a href="#__option_startupmethodsdisabled">#option StartupMethodsDisabled</a></code> stops the startup subroutines being called (and, from build 1662, being compiled unless the program calls them itself).</p>
 </div>
 <div class="paragraph">
 <p><strong>Example 1:</strong></p>
@@ -73277,6 +73321,24 @@ include folder.</p>
 <p>The folders are separated by <code>;</code>. A folder can be relative to the program&#8217;s folder, or a full path.</p>
 </li>
 <li>
+<p>A folder can start with a variable for a GCBASIC folder (build 1679), so the path is right on every
+install, wherever GCBASIC is installed:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>%instdir%</code> - GCBASIC&#8217;s own folder, the folder of the compiler (for example <code>C:\GCstudio\gcbasic</code>).</p>
+</li>
+<li>
+<p><code>%GCSTUDIO_INSTALL_PATH%</code> - the folder above it (for example <code>C:\GCstudio</code>).</p>
+<div class="paragraph">
+<p>The names can be in capitals or lower case. These are GCBASIC&#8217;s own variables, not Windows environment
+variables.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
 <p>The folders are searched in the order given; the first one that has the file is used. When none of them
 has it, GCBASIC&#8217;s include folder is used, as without the option.</p>
 </li>
@@ -73298,6 +73360,34 @@ Put the option before the first <code>#include</code> that needs it.</p>
 <p>Without the option, <code>#include &lt;&#8230;&#8203;&gt;</code> reads only GCBASIC&#8217;s include folder, as in earlier builds.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><strong>A local copy of a system library:</strong></p>
+</div>
+<div class="paragraph">
+<p>GCBASIC always loads its system libraries, the files listed in <code>..\GCBASIC\include\lowlevel.dat</code> (for example
+<code>usart.h</code>, <code>a-d.h</code>, <code>hwspi.h</code>, <code>hwi2c.h</code>, <code>lcd.h</code>, <code>random.h</code>, <code>string.h</code>, <code>system.h</code> and <code>timer.h</code>), from its
+<code>include\lowlevel</code> folder. You do not include them.</p>
+</div>
+<div class="paragraph">
+<p>When the program includes a file with the same name as one of these libraries, the program&#8217;s
+file is used in place of the system library. The file can be found with <code>#include &lt;&#8230;&#8203;&gt;</code> in an
+<code>#option IncludePath</code> folder, or with <code>#include "&#8230;&#8203;"</code>. Only that copy is loaded, so only its <code>#script</code> runs
+and the constants it sets are the ones used, and each of its methods exists once. The compiler shows an
+Information message, for example
+<code>C:\Project\libraries\usart.h is used in place of the system library usart.h</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    #chip 16F1825, 32
+    #option IncludePath "libraries"
+
+    #include &lt;usart.h&gt;                // libraries\usart.h is used in place of include\lowlevel\usart.h</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The local copy replaces the whole system library, so start from a copy of the system library of the same
+GCBASIC build and keep every method the program, or another library, uses.</p>
 </div>
 <div class="paragraph">
 <p><strong>Example:</strong></p>
@@ -73327,6 +73417,17 @@ Put the option before the first <code>#include</code> that needs it.</p>
 </div>
 </div>
 <div class="paragraph">
+<p>A project folder, then the <code>AdditionalLibraries</code> folder beside GCBASIC&#8217;s include folder, named with
+<code>%instdir%</code>, not a fixed path:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-gcbasic" data-lang="gcbasic">    #option IncludePath "..\GCBASICLibraries;%instdir%\AdditionalLibraries"
+
+    #include &lt;sd_card.h&gt;              // C:\GCstudio\gcbasic\AdditionalLibraries\sd_card.h</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p><strong>Errors and warnings:</strong></p>
 </div>
 <div class="ulist">
@@ -73338,12 +73439,15 @@ searched, for example
 </li>
 <li>
 <p>A folder in the option that does not exist gives the warning
-<code>#option IncludePath: folder not found: &#8230;&#8203;</code>; the other folders are still searched.</p>
+<code>#option IncludePath: folder not found: &#8230;&#8203;</code>; the other folders are still searched. A folder named with
+<code>%instdir%</code> is shown with the variable replaced, for example
+<code>#option IncludePath: folder not found: C:\GCstudio\gcbasic\NoSuchFolder</code>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>This option was added in build 1661.</p>
+<p>This option was added in build 1661. The <code>%instdir%</code> and <code>%GCSTUDIO_INSTALL_PATH%</code> variables were added in
+build 1679.</p>
 </div>
 <div class="paragraph">
 <p><strong>See Also:</strong></p>
@@ -73922,7 +74026,7 @@ MainLoop:
 <div class="paragraph">
 <p><code>#option StartupMethodsDisabled</code> stops GCBASIC calling the startup routines at the start of the program. These are
 <code>InitSys</code> (the chip setup: ports digital, the oscillator, the A/D off and so on) and the routines that libraries add
-with <code><a href="#_startup">#startup</a></code>, for example <code>InitRandom</code>, <code>HI2CInit</code>, <code>InitGLCD</code> or the USB library&#8217;s startup routine.</p>
+with <code><a href="#__startup">#startup</a></code>, for example <code>InitRandom</code>, <code>HI2CInit</code>, <code>InitGLCD</code> or the USB library&#8217;s startup routine.</p>
 </div>
 <div class="paragraph">
 <p>Use it when the program must decide what happens first, and when. For example:</p>
@@ -73943,7 +74047,7 @@ the wrong moment;</p>
 </div>
 <div class="paragraph">
 <p>The rest of the program is compiled as usual: the stack, the interrupt vectors and the main program are not changed
-(compare <code><a href="#_option_usercodeonly">#option UserCodeOnly</a></code>, which also leaves out the start-up code before the main program).</p>
+(compare <code><a href="#__option_usercodeonly">#option UserCodeOnly</a></code>, which also leaves out the start-up code before the main program).</p>
 </div>
 <div class="paragraph">
 <p><strong>What the option does:</strong></p>
@@ -74027,7 +74131,7 @@ routines although nothing called them (for example 66 bytes on a PIC18F46J50).</
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>See also</strong> <a href="#_startup">#startup</a>, <a href="#_option_usercodeonly">#Option UserCodeOnly</a>, <a href="#_option_bootloader">#Option Bootloader</a></p>
+<p><strong>See also</strong> &lt;&lt;<em>startup,#startup&gt;&gt;, &lt;&lt;</em>option_usercodeonly,#Option UserCodeOnly&gt;&gt;, <a href="#__option_bootloader">#Option Bootloader</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -74059,7 +74163,7 @@ routines although nothing called them (for example 66 bytes on a PIC18F46J50).</
 <p>The option has no effect when a bit is set to a constant, for example <code>PORTB.0 = 1</code> or <code>PORTB.0 = 0</code>. These are always a single instruction, so they cannot glitch.</p>
 </div>
 <div class="paragraph">
-<p>On a chip with <code>LATx</code> registers, writes to <code>PORTx</code> go to <code>LATx</code>. The bit can be named with either register: <code>#option volatile PORTC.0</code> and <code>#option volatile LATC.0</code> both protect writes to <code>PORTC.0</code> and to <code>LATC.0</code>. When the <code>LATx</code> name is used, the compiler shows an Information message, for example <code>#option Volatile LATC.0 also applied to writes to PORTC.0</code>. This applies from build 1676. In earlier builds the bit must be named as the program writes it, usually <code>PORTx.n</code>.</p>
+<p>On a chip with <code>LATx</code> registers, writes to <code>PORTx</code> go to <code>LATx</code>. The bit can be named with either register: <code>#option volatile PORTC.0</code> and <code>#option volatile LATC.0</code> both protect writes to <code>PORTC.0</code> and to <code>LATC.0</code>. When the <code>LATx</code> name is used, the compiler shows an Information message, for example <code>#option Volatile LATC.0 also applied to writes to PORTC.0</code>.</p>
 </div>
 <div class="paragraph">
 <p>The option can be used once for each bit that needs it.</p>
@@ -77341,6 +77445,11 @@ Warning, since it is often an intentional, working setup.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Since build 1672 the earlier result is copied into a temporary string of its own (RAM the size of the function&#8217;s string), so each parameter keeps its value. Before, every such parameter referred to the function&#8217;s own variable and silently received the last result (<code>" xxxxx"</code> twice). <code>#DEFINE DISABLE1672</code> goes back to that behaviour (not recommended). See <a href="#_subroutines">Subroutines</a>.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multi-byte variable with bytes in two RAM banks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A Word, Integer, Long or other multi-byte variable whose bytes are in two RAM banks (on PIC18 also: partly in the access bank and partly banked). Only a fixed location (<code>At</code>) or an <code>Alias</code> of bytes in different banks can do this</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since build 1680 the compiler does not place a multi-byte variable of its own across a bank boundary on PIC18 chips, and a fixed location that does gives the warning "Fixed location of &#8230;&#8203; puts its bytes in two RAM banks". When an increment of such a variable (<code>VW++</code>, <code>X = X + 1</code>) needs a bank change between a skip instruction (<code>btfsc STATUS,Z</code>) and the instruction it skips, the compiler puts the bank change in front of the skip. Before build 1680 it was put after the skip, so the skip jumped over the bank change only, and the upper byte was written in the wrong bank (for example a millis counter at 0x5FF changed 0x500-0x502 every millisecond). If the skip itself tests a banked variable the bank change cannot be moved, and that is the error "Bank change for &#8230;&#8203; falls between a skip instruction &#8230;&#8203;". <code>#DEFINE DISABLE1680</code> goes back to the code of earlier builds, with a warning (not recommended). See <a href="#_dim">Dim</a>.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Call stack depth</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The chip&#8217;s return stack: PIC 8, 16 or 31 levels (more on some PIC18 - the chip data&#8217;s <code>Stacks=</code> value, also the constant <code>ChipStacks</code>); AVR the RAM left free by variables</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Since build 1668 the compilation summary shows the worst case, e.g. <code>Stack: 15 of 16 levels (main 12, interrupt 1 + 2)</code> - on AVR in bytes of free RAM. It is the longest chain of calls the final code allows from the main program, plus the interrupt entry and the interrupt routine&#8217;s own chain; a <code>goto</code> costs nothing, a table read on PIC16 one level. Over the limit warns "Worst-case call stack &#8230;&#8203; exceeds the &#8230;&#8203; available" with the chain (suppressible with <code>#DEFINE DISABLE1668</code>). On a PIC an overflow resets the chip (stack overflow reset, PCON0.STKOVF), usually only when an interrupt arrives at the deepest point. To reduce it: inline small helper routines with <code>Macro</code>, avoid calling the full receive or service routine from inside a wait loop several levels deep, and keep interrupt handlers shallow. See <a href="#_subroutines">Subroutines</a>.</p></td>
@@ -77566,6 +77675,11 @@ Warning, since it is often an intentional, working setup.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BadAliasSize</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Size of alias variable (%size%) does not match number of RAM locations for [%locations%]%target% variable, increase aliased bytes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Increase the alias&#8217;s byte count to match the target variable&#8217;s size.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BankselAfterSkip</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bank change for %var% falls between a skip instruction and the instruction it skips (%instruction% in %sub%), and the skip needs a bank of its own, so the bank change cannot go before it: the code would use the wrong bank. A multi-byte variable has bytes in two banks (a fixed location, or an alias)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An Error (build 1680). The skip tests a bit of a banked variable, so the bank change for the next instruction cannot be moved in front of it. Put all the bytes of the variable named in one bank: change or remove its <code>At</code> location, or the <code>Alias</code>. With <code>#DEFINE DISABLE1680</code> it is a warning and the code is generated as in earlier builds, which uses the wrong bank. See the Multi-byte variable with bytes in two RAM banks constraint above.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BadBitRead</p></td>
@@ -78356,6 +78470,11 @@ Warning, since it is often an intentional, working setup.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">USART baud rate is too low</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Choose a higher baud rate achievable at the chip&#8217;s clock speed.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">UseSYSDEFAULTCONCATSTRING</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">COMPILER INFORMATION: DIMension of SYSSTRINGPARAM%param1%*%param2%. Use constant SYSDEFAULTCONCATSTRING to specify size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Define <code>SYSDEFAULTCONCATSTRING</code> to control the concatenation buffer size instead of relying on the compiler&#8217;s default.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WarningFixedLocStraddle</p></td>
 </tr>
 </tbody>
 </table>
@@ -81047,8 +81166,8 @@ If you use AVRDUDE, you must ensure the Windows device driver is <code>libusbK</
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-11-17<br>
-10:28:09 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-11-23<br>
+20:00:58 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>

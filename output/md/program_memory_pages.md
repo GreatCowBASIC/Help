@@ -1,0 +1,106 @@
+<div class="section">
+
+<div class="titlepage">
+
+<div>
+
+<div>
+
+### <span id="program_memory_pages"></span>Program Memory Pages
+
+</div>
+
+</div>
+
+</div>
+
+<span class="strong">**About program memory pages**</span>
+
+On baseline and mid-range PIC chips (the 10F/12F/14F/16F families -
+12-bit and 14-bit core), program memory is divided into pages, each
+holding 2048 instructions. This does not apply to 18F/18C chips or to
+AVR chips, which do not have this page-packing restriction at all.
+
+This affects every code unit the compiler places: Subs, Functions, the
+main body of the program, and the interrupt handler. If the program
+jumps from code on one page to code on another, the compiler has to
+select the new page, which makes the program bigger, so it tries to
+avoid doing so. To keep page-select jumps down, GCBASIC imposes a rule
+that each Sub or Function must be entirely within one page, so that only
+calls between routines on different pages require a page selection.
+
+<span class="strong">**What always goes on page 0**</span>
+
+Three things are always placed on the first page, and the compiler has
+no freedom to move them elsewhere:
+
+<div class="itemizedlist">
+
+-   The main body of the program (everything outside any Sub/Function).
+-   The interrupt handler (the code compiled from `On Interrupt`).
+-   The automatic interrupt context save/restore code, unless
+    `#OPTION NOCONTEXTSAVE` is used to disable it (see
+    <a href="performance_overview" class="link" title="Performance Overview">Performance</a>
+    for the trade-off involved).
+
+</div>
+
+This is because the reset vector and the interrupt vector are both
+fixed, low addresses in program memory, and code reachable from them
+without needing an extra page-select jump has to live on that same first
+page. A handful of words at the very start of page 0 are reserved for
+the vector jumps themselves, so its usable capacity is slightly less
+than a full 2048-word page.
+
+Every other Sub and Function is free to be placed on any page - the
+compiler decides automatically, generally favouring the page that calls
+it most often, to minimise the number of page-select jumps needed
+overall.
+
+<span class="strong">**Avoiding a full first page**</span>
+
+If the main body and the interrupt handler (plus the context
+save/restore code, if enabled) do not fit together on page 0,
+compilation fails with "First page of program memory is full, please
+reduce size of Main and Interrupt routines." For example, if the main
+body is 1500 words and the interrupt handler is 600 words, that is 2100
+words combined - more than page 0 can hold, even though a second page
+with plenty of free space is sitting right there unused. That spare
+space on page 2 cannot help, because nothing can be moved off page 0.
+
+Since only the main body and the interrupt handler themselves are pinned
+- not whatever they call - the fix is to move logic out of both of them
+and into ordinary Subs or Functions instead of writing it inline. A Sub
+or Function called from the main body or from the interrupt handler is
+free to be placed on any page, so moving code into one immediately
+relieves the pressure on page 0. Keep the main body and the interrupt
+handler themselves as short as calling out to other Subs/Functions, and
+let the compiler place everything else wherever it fits.
+
+A related but different error, "Subroutine …​ is too large," is not
+about page 0 specifically - it means one single Sub or Function,
+wherever it ends up, is larger than 2047 words and therefore cannot fit
+on any page at all, since a page itself is only 2048 words. The fix
+there is to split that one routine into smaller pieces, not to move it
+around.
+
+<span class="strong">**See Also:**</span>
+
+<div class="itemizedlist">
+
+-   <a href="subroutines" class="link" title="Subroutines">Subroutines</a> — declaring
+    and calling Subs, including the separate subroutine-call-depth limit
+    on baseline PIC chips
+-   <a href="functions" class="link" title="Functions">Functions</a> — declaring
+    Functions, which are packed into pages the same way as Subs
+-   <a href="on_interrupt" class="link" title="On Interrupt">On Interrupt</a> — writing
+    the interrupt handler that shares page 0 with the main body
+-   <a href="performance_overview" class="link" title="Performance Overview">Performance</a> — the
+    NOCONTEXTSAVE trade-off mentioned above, and other performance
+    guidance
+-   <a href="constraints_and_error_messages_overview" class="link" title="Constraints and Error Messages Overview">Constraints and Error Messages</a> — the
+    full list of compiler constraints and error messages
+
+</div>
+
+</div>

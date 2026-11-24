@@ -883,6 +883,21 @@ particular line of code?</simpara></entry>
     ;osccon type is 100
       movlw 96
       banksel OSCCON1</programlisting>
+<simpara xml:id="_bit_variables_in_the_asm"><emphasis role="strong">Where are BIT variables in the ASM?</emphasis></simpara>
+<simpara>GCBASIC packs <literal>BIT</literal> variables into system byte variables called <literal>SYSBITVAR0</literal>, <literal>SYSBITVAR1</literal> and so on, eight bits to a byte. The ASM file shows where each one lives in the <literal>;Bit aliases to system variables</literal> section, after the variable and alias sections and before <literal>;Vectors</literal>. Each line gives the bit variable&#8217;s name, then the byte and the bit number.</simpara>
+<simpara>Only bit variables that the program reads, tests, sets or clears are listed. A bit variable that is declared but never used is left out. The lines are comments, so they do not change the program. The section heading is always there, even when the program has no bit variables.</simpara>
+<simpara>User Code</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    Dim FlagA As Bit
+    Dim FlagB As Bit
+    Dim UnusedFlag As Bit
+
+    FlagA = !FlagA
+    If FlagA = 1 Then FlagB = 0</programlisting>
+<simpara>ASM</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">;Bit aliases to system variables
+; FLAGA = SYSBITVAR0.0
+; FLAGB = SYSBITVAR0.1</programlisting>
+<simpara><emphasis role="strong">Key line:</emphasis> <literal>; FLAGA = SYSBITVAR0.0</literal>&#8201;&#8212;&#8201;<literal>FlagA</literal> is bit 0 of <literal>SYSBITVAR0</literal>. Use this to find a bit variable in a debugger or in the program&#8217;s own assembly. <literal>UnusedFlag</literal> is not listed because no code uses it.</simpara>
 <simpara><emphasis role="strong">Constants, variables, subs, functions, and labels</emphasis></simpara>
 <simpara>GCBASIC uses a single namespace. A namespace is the set of names used to identify and refer to objects of various kinds. In GCBASIC these can be constants, variables, methods, and labels, where a label is a true label like the start of a sub, function, or macro. A namespace ensures that all of a given set of objects have unique names, so that they can be identified. This organises constants, variables, methods, labels, etc. into a single list - the single namespace.</simpara>
 <simpara>The namespace includes all libraries and source GCBASIC source files. If using MPASM, this expands to the chip-specific INF file. If using PIC-AS, then all of the PIC-AS toolchain, including non-chip-specific files. There are changes already in place to resolve an issue with PIC-AS, since HEX and LINE are reserved with the PIC-AS toolchain and these conflict with GCBASIC methods. These are automatically resolved by the GCBASIC compiler.</simpara>
@@ -5333,7 +5348,7 @@ Multiline comments are supported for large text descriptions of code, or to comm
 <programlisting language="gcbasic" linenumbering="unnumbered">    /*
       block comment
     */</programlisting>
-<simpara>A <literal>/<emphasis role="strong"></literal> starts a block comment only when it is part of the code. A <literal>/</emphasis></literal> inside a string, or after an apostrophe, semi-colon or <literal>//</literal> comment on the same line, is just text:</simpara>
+<simpara>A <literal>/*</literal> starts a block comment only when it is part of the code. A <literal>/*</literal> inside a string, or after an apostrophe, semi-colon or <literal>//</literal> comment on the same line, is just text:</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    HSerPrint "Path: /*.txt"      ' the /* here is part of the string
     PORTB = 0   ' see /* below    ' the /* here is part of the comment</programlisting>
 <warning>
@@ -49957,6 +49972,7 @@ When reading or writing to this variable, it is effectively the aliases that are
 <simpara>When setting a register/variable bit ( i.e  my_variable.my_bit_address_variable ) and using a alias for the variable then you must ensure the bytes that construct the variable are consecutive.</simpara>
 <simpara>Alias and At cannot be used together on the same declaration line.&#160;&#160; Alias does not support Bit variables. &#160;&#160; For bit‑level aliasing, use constants or #Define macros.</simpara>
 <simpara>Aliases are always shown in the ASM source in the ;ALIAS VARIABLES section.</simpara>
+<simpara>Bit variables that the program uses are shown in the ASM source in the ;Bit aliases to system variables section, for example <literal>; FLAGA = SYSBITVAR0.0</literal>. See <link linkend="_bit_variables_in_the_asm">Where are BIT variables in the ASM?</link>.</simpara>
 <simpara>The coding approach should be to DIMension the variable (word, integer, or long) first, then create the byte aliases:</simpara>
 <simpara>Example 1:</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    Dim my_variable as LONG
@@ -50000,6 +50016,7 @@ When reading or writing to this variable, it is effectively the aliases that are
 <simpara><literal>At</literal> places a variable at a specific RAM location:</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    Dim SerialBuffer As Byte At 0x20</programlisting>
 <simpara>If the location is already used or invalid, a warning is generated: <literal>Memory location specified for <emphasis>name</emphasis> may be invalid</literal>.</simpara>
+<simpara>On PIC18 chips, keep all the bytes of a multi-byte variable in one RAM bank. <literal>Dim VW As Word At 0x7FF</literal>, for example, puts the high byte at 0x800 in the next bank, and gives the warning <literal>Fixed location of <emphasis>name</emphasis> puts its bytes in two RAM banks: each use of it needs a bank change</literal>. The program works, but each use of the variable needs a bank change. The compiler does not place a multi-byte variable of its own across a bank boundary. See the Multi-byte variable constraint in <link linkend="_constraints_and_error_messages_overview">Constraints and Error Messages</link>.</simpara>
 <simpara><literal>At</literal> and <literal>Alias</literal> are mutually exclusive.</simpara>
 </section>
 <section xml:id="_shared_an_intended_overlap_of_a_fixed_location">
@@ -54514,7 +54531,7 @@ If you set the internal oscillator to 4 MHz, a "wait 1 ms" will still be 1 ms.</
 <simpara>The expansion is done recursively, until there is nothing more to expand and the compiler can continue analysing the resulting code.</simpara>
 <simpara>The use of an existing constant is supported. The order of constants when using an existing constant is strict. The constant must exist prior to use.</simpara>
 <simpara>To ensure evaluation of a calculation, a <literal>=</literal> must be used. This is strict.</simpara>
-<simpara>The <literal>=</literal> is only needed for a calculation. A pin, a port, a register or any other name does not need it: write <literal>#define RelayLaser PORTC.3</literal>. If <literal>=</literal> is used with a value that is not a calculation, for example <literal>#define RelayLaser = PORTC.3</literal>, the value is kept as it is written (build 1676 and later). Earlier builds changed it to lower case, so writes to the pin were not changed to <literal>LATx</literal> and <literal>#option Volatile</literal> did not match the pin.</simpara>
+<simpara>The <literal>=</literal> is only needed for a calculation. A pin, a port, a register or any other name does not need it: write <literal>#define RelayLaser PORTC.3</literal>. If <literal>=</literal> is used with a value that is not a calculation, for example <literal>#define RelayLaser = PORTC.3</literal>, the value is kept as it is written.</simpara>
 <simpara><literal>#UNDEFINE</literal> can be used to make the compiler delete an existing constant.</simpara>
 <simpara>Using the directive with no <literal>string</literal> causes a definition of <literal>name</literal> to be noted internally, and it may be tested for using the <literal>#ifdef</literal> directive/conditional processing. See the examples below.</simpara>
 <simpara>Constants defined with this method are available for viewing in the CDF file. Creation of the CDF file is controlled with the Preferences Editor.</simpara>
@@ -54917,6 +54934,7 @@ The code in the following sections will not compile, as it is missing <literal>#
 <simpara>Absolute is used to refer to files in the <literal>..\GCBASIC\include</literal> directory. The name of the file is specified between <literal>&lt;</literal> and <literal>&gt;</literal> symbols. For instance, to include the file <literal>srf04.h</literal>, the directive is:</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    #include &lt;srf04.h&gt;</programlisting>
 <simpara>With <link linkend="__option_includepath">#option IncludePath</link> (build 1661), the folders it names are searched first, in their order, and then the <literal>..\GCBASIC\include</literal> directory. A project can keep its own libraries in a folder of its own and still include them with <literal>&lt;</literal> and <literal>&gt;</literal>.</simpara>
+<simpara>A program can also include its own copy of a system library (a file listed in <literal>..\GCBASIC\include\lowlevel.dat</literal>, such as <literal>usart.h</literal>). That copy is used in place of the system library, and the compiler shows an Information message. See <link linkend="__option_includepath">#option IncludePath</link>.</simpara>
 <simpara>Relative is used to read files in the same folder as the currently selected program. Filenames are given enclosed in quotation marks, such as where <literal>mycode.h</literal> is the name of the file that is to be read.</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    #include "mycode.h"</programlisting>
 <simpara><emphasis role="strong">NOTES:</emphasis>
@@ -55046,7 +55064,7 @@ All other subroutines default to 100.</literallayout>
 Limitations on this directive are:</simpara>
 <simpara><literal>#startup</literal> may only occur once within a source file.</simpara>
 <simpara>No parameters can be passed to the subroutine that is specified.</simpara>
-<simpara><literal><link linkend="_option_startupmethodsdisabled">#option StartupMethodsDisabled</link></literal> stops the startup subroutines being called (and, from build 1662, being compiled unless the program calls them itself).</simpara>
+<simpara><literal><link linkend="__option_startupmethodsdisabled">#option StartupMethodsDisabled</link></literal> stops the startup subroutines being called (and, from build 1662, being compiled unless the program calls them itself).</simpara>
 <simpara><emphasis role="strong">Example 1:</emphasis></simpara>
 <simpara>This example, from the hardware I2C library, sets the subroutine with the priority of 90.</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    #startup HI2CInit, 90</programlisting>
@@ -55787,6 +55805,20 @@ include folder.</simpara>
 <simpara>The folders are separated by <literal>;</literal>. A folder can be relative to the program&#8217;s folder, or a full path.</simpara>
 </listitem>
 <listitem>
+<simpara>A folder can start with a variable for a GCBASIC folder (build 1679), so the path is right on every
+install, wherever GCBASIC is installed:</simpara>
+<itemizedlist>
+<listitem>
+<simpara><literal>%instdir%</literal> - GCBASIC&#8217;s own folder, the folder of the compiler (for example <literal>C:\GCstudio\gcbasic</literal>).</simpara>
+</listitem>
+<listitem>
+<simpara><literal>%GCSTUDIO_INSTALL_PATH%</literal> - the folder above it (for example <literal>C:\GCstudio</literal>).</simpara>
+<simpara>The names can be in capitals or lower case. These are GCBASIC&#8217;s own variables, not Windows environment
+variables.</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
 <simpara>The folders are searched in the order given; the first one that has the file is used. When none of them
 has it, GCBASIC&#8217;s include folder is used, as without the option.</simpara>
 </listitem>
@@ -55808,6 +55840,22 @@ Put the option before the first <literal>#include</literal> that needs it.</simp
 <simpara>Without the option, <literal>#include &lt;&#8230;&#8203;&gt;</literal> reads only GCBASIC&#8217;s include folder, as in earlier builds.</simpara>
 </listitem>
 </itemizedlist>
+<simpara><emphasis role="strong">A local copy of a system library:</emphasis></simpara>
+<simpara>GCBASIC always loads its system libraries, the files listed in <literal>..\GCBASIC\include\lowlevel.dat</literal> (for example
+<literal>usart.h</literal>, <literal>a-d.h</literal>, <literal>hwspi.h</literal>, <literal>hwi2c.h</literal>, <literal>lcd.h</literal>, <literal>random.h</literal>, <literal>string.h</literal>, <literal>system.h</literal> and <literal>timer.h</literal>), from its
+<literal>include\lowlevel</literal> folder. You do not include them.</simpara>
+<simpara>When the program includes a file with the same name as one of these libraries, the program&#8217;s
+file is used in place of the system library. The file can be found with <literal>#include &lt;&#8230;&#8203;&gt;</literal> in an
+<literal>#option IncludePath</literal> folder, or with <literal>#include "&#8230;&#8203;"</literal>. Only that copy is loaded, so only its <literal>#script</literal> runs
+and the constants it sets are the ones used, and each of its methods exists once. The compiler shows an
+Information message, for example
+<literal>C:\Project\libraries\usart.h is used in place of the system library usart.h</literal>.</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #chip 16F1825, 32
+    #option IncludePath "libraries"
+
+    #include &lt;usart.h&gt;                // libraries\usart.h is used in place of include\lowlevel\usart.h</programlisting>
+<simpara>The local copy replaces the whole system library, so start from a copy of the system library of the same
+GCBASIC build and keep every method the program, or another library, uses.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <simpara>The program <literal>BOOTLOADER_GCB.gcb</literal> with its libraries in the folder <literal>libraries</literal> next to it:</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    #chip 18F46J50, 48
@@ -55819,6 +55867,11 @@ Put the option before the first <literal>#include</literal> that needs it.</simp
 <simpara><literal>usb_msd_polled.h</literal> itself has <literal>#include &lt;usb_debug.h&gt;</literal>: that is found in <literal>libraries</literal> too.</simpara>
 <simpara>Two folders, the first one searched first:</simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    #option IncludePath "libraries;..\SharedLibraries"</programlisting>
+<simpara>A project folder, then the <literal>AdditionalLibraries</literal> folder beside GCBASIC&#8217;s include folder, named with
+<literal>%instdir%</literal>, not a fixed path:</simpara>
+<programlisting language="gcbasic" linenumbering="unnumbered">    #option IncludePath "..\GCBASICLibraries;%instdir%\AdditionalLibraries"
+
+    #include &lt;sd_card.h&gt;              // C:\GCstudio\gcbasic\AdditionalLibraries\sd_card.h</programlisting>
 <simpara><emphasis role="strong">Errors and warnings:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -55828,10 +55881,13 @@ searched, for example
 </listitem>
 <listitem>
 <simpara>A folder in the option that does not exist gives the warning
-<literal>#option IncludePath: folder not found: &#8230;&#8203;</literal>; the other folders are still searched.</simpara>
+<literal>#option IncludePath: folder not found: &#8230;&#8203;</literal>; the other folders are still searched. A folder named with
+<literal>%instdir%</literal> is shown with the variable replaced, for example
+<literal>#option IncludePath: folder not found: C:\GCstudio\gcbasic\NoSuchFolder</literal>.</simpara>
 </listitem>
 </itemizedlist>
-<simpara>This option was added in build 1661.</simpara>
+<simpara>This option was added in build 1661. The <literal>%instdir%</literal> and <literal>%GCSTUDIO_INSTALL_PATH%</literal> variables were added in
+build 1679.</simpara>
 <simpara><emphasis role="strong">See Also:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -56194,7 +56250,7 @@ MainLoop:
 <simpara><emphasis role="strong">Explanation:</emphasis></simpara>
 <simpara><literal>#option StartupMethodsDisabled</literal> stops GCBASIC calling the startup routines at the start of the program. These are
 <literal>InitSys</literal> (the chip setup: ports digital, the oscillator, the A/D off and so on) and the routines that libraries add
-with <literal><link linkend="_startup">#startup</link></literal>, for example <literal>InitRandom</literal>, <literal>HI2CInit</literal>, <literal>InitGLCD</literal> or the USB library&#8217;s startup routine.</simpara>
+with <literal><link linkend="__startup">#startup</link></literal>, for example <literal>InitRandom</literal>, <literal>HI2CInit</literal>, <literal>InitGLCD</literal> or the USB library&#8217;s startup routine.</simpara>
 <simpara>Use it when the program must decide what happens first, and when. For example:</simpara>
 <itemizedlist>
 <listitem>
@@ -56209,7 +56265,7 @@ the wrong moment;</simpara>
 </listitem>
 </itemizedlist>
 <simpara>The rest of the program is compiled as usual: the stack, the interrupt vectors and the main program are not changed
-(compare <literal><link linkend="_option_usercodeonly">#option UserCodeOnly</link></literal>, which also leaves out the start-up code before the main program).</simpara>
+(compare <literal><link linkend="__option_usercodeonly">#option UserCodeOnly</link></literal>, which also leaves out the start-up code before the main program).</simpara>
 <simpara><emphasis role="strong">What the option does:</emphasis></simpara>
 <itemizedlist>
 <listitem>
@@ -56269,7 +56325,7 @@ routines although nothing called them (for example 66 bytes on a PIC18F46J50).</
 <simpara>The option works for PIC and AVR.</simpara>
 </listitem>
 </itemizedlist>
-<simpara><emphasis role="strong">See also</emphasis> <link linkend="_startup">#startup</link>, <link linkend="_option_usercodeonly">#Option UserCodeOnly</link>, <link linkend="_option_bootloader">#Option Bootloader</link></simpara>
+<simpara><emphasis role="strong">See also</emphasis> &lt;&lt;<emphasis>startup,#startup&gt;&gt;, &lt;&lt;</emphasis>option_usercodeonly,#Option UserCodeOnly&gt;&gt;, <link linkend="__option_bootloader">#Option Bootloader</link></simpara>
 </section>
 <section xml:id="__option_volatile">
 <title>#Option Volatile</title>
@@ -56286,7 +56342,7 @@ routines although nothing called them (for example 66 bytes on a PIC18F46J50).</
 <simpara><literal>#option volatile bit</literal>, where <literal>bit</literal> is an I/O bit, like <literal>PORTB.0</literal>, appended.</simpara>
 <simpara>When a bit is set from another bit or from a variable, for example <literal>PORTB.0 = !PORTB.0</literal> or <literal>PORTC.2 = PORTA.1</literal>, the compiler normally clears the bit and then sets it again if the new value is 1. If the new value is 1, the output goes low for a few instructions. With <literal>#option volatile</literal>, the compiler sets the bit only when the new value is 1 and clears it only when the new value is 0, so the output never changes when it does not need to. This increases code size slightly.</simpara>
 <simpara>The option has no effect when a bit is set to a constant, for example <literal>PORTB.0 = 1</literal> or <literal>PORTB.0 = 0</literal>. These are always a single instruction, so they cannot glitch.</simpara>
-<simpara>On a chip with <literal>LATx</literal> registers, writes to <literal>PORTx</literal> go to <literal>LATx</literal>. The bit can be named with either register: <literal>#option volatile PORTC.0</literal> and <literal>#option volatile LATC.0</literal> both protect writes to <literal>PORTC.0</literal> and to <literal>LATC.0</literal>. When the <literal>LATx</literal> name is used, the compiler shows an Information message, for example <literal>#option Volatile LATC.0 also applied to writes to PORTC.0</literal>. This applies from build 1676. In earlier builds the bit must be named as the program writes it, usually <literal>PORTx.n</literal>.</simpara>
+<simpara>On a chip with <literal>LATx</literal> registers, writes to <literal>PORTx</literal> go to <literal>LATx</literal>. The bit can be named with either register: <literal>#option volatile PORTC.0</literal> and <literal>#option volatile LATC.0</literal> both protect writes to <literal>PORTC.0</literal> and to <literal>LATC.0</literal>. When the <literal>LATx</literal> name is used, the compiler shows an Information message, for example <literal>#option Volatile LATC.0 also applied to writes to PORTC.0</literal>.</simpara>
 <simpara>The option can be used once for each bit that needs it.</simpara>
 <simpara><emphasis role="strong">Example:</emphasis></simpara>
 <programlisting language="gcbasic" linenumbering="unnumbered">    'Set chip model
@@ -58818,6 +58874,11 @@ Warning, since it is often an intentional, working setup.</simpara>
 <entry align="left" valign="top"><simpara>Since build 1672 the earlier result is copied into a temporary string of its own (RAM the size of the function&#8217;s string), so each parameter keeps its value. Before, every such parameter referred to the function&#8217;s own variable and silently received the last result (<literal>" xxxxx"</literal> twice). <literal>#DEFINE DISABLE1672</literal> goes back to that behaviour (not recommended). See <link linkend="_subroutines">Subroutines</link>.</simpara></entry>
 </row>
 <row>
+<entry align="left" valign="top"><simpara>Multi-byte variable with bytes in two RAM banks</simpara></entry>
+<entry align="left" valign="top"><simpara>A Word, Integer, Long or other multi-byte variable whose bytes are in two RAM banks (on PIC18 also: partly in the access bank and partly banked). Only a fixed location (<literal>At</literal>) or an <literal>Alias</literal> of bytes in different banks can do this</simpara></entry>
+<entry align="left" valign="top"><simpara>Since build 1680 the compiler does not place a multi-byte variable of its own across a bank boundary on PIC18 chips, and a fixed location that does gives the warning "Fixed location of &#8230;&#8203; puts its bytes in two RAM banks". When an increment of such a variable (<literal>VW++</literal>, <literal>X = X + 1</literal>) needs a bank change between a skip instruction (<literal>btfsc STATUS,Z</literal>) and the instruction it skips, the compiler puts the bank change in front of the skip. Before build 1680 it was put after the skip, so the skip jumped over the bank change only, and the upper byte was written in the wrong bank (for example a millis counter at 0x5FF changed 0x500-0x502 every millisecond). If the skip itself tests a banked variable the bank change cannot be moved, and that is the error "Bank change for &#8230;&#8203; falls between a skip instruction &#8230;&#8203;". <literal>#DEFINE DISABLE1680</literal> goes back to the code of earlier builds, with a warning (not recommended). See <link linkend="_dim">Dim</link>.</simpara></entry>
+</row>
+<row>
 <entry align="left" valign="top"><simpara>Call stack depth</simpara></entry>
 <entry align="left" valign="top"><simpara>The chip&#8217;s return stack: PIC 8, 16 or 31 levels (more on some PIC18 - the chip data&#8217;s <literal>Stacks=</literal> value, also the constant <literal>ChipStacks</literal>); AVR the RAM left free by variables</simpara></entry>
 <entry align="left" valign="top"><simpara>Since build 1668 the compilation summary shows the worst case, e.g. <literal>Stack: 15 of 16 levels (main 12, interrupt 1 + 2)</literal> - on AVR in bytes of free RAM. It is the longest chain of calls the final code allows from the main program, plus the interrupt entry and the interrupt routine&#8217;s own chain; a <literal>goto</literal> costs nothing, a table read on PIC16 one level. Over the limit warns "Worst-case call stack &#8230;&#8203; exceeds the &#8230;&#8203; available" with the chain (suppressible with <literal>#DEFINE DISABLE1668</literal>). On a PIC an overflow resets the chip (stack overflow reset, PCON0.STKOVF), usually only when an interrupt arrives at the deepest point. To reduce it: inline small helper routines with <literal>Macro</literal>, avoid calling the full receive or service routine from inside a wait loop several levels deep, and keep interrupt handlers shallow. See <link linkend="_subroutines">Subroutines</link>.</simpara></entry>
@@ -59039,6 +59100,11 @@ Warning, since it is often an intentional, working setup.</simpara>
 <entry align="left" valign="top"><simpara>BadAliasSize</simpara></entry>
 <entry align="left" valign="top"><simpara>Size of alias variable (%size%) does not match number of RAM locations for [%locations%]%target% variable, increase aliased bytes</simpara></entry>
 <entry align="left" valign="top"><simpara>Increase the alias&#8217;s byte count to match the target variable&#8217;s size.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>BankselAfterSkip</simpara></entry>
+<entry align="left" valign="top"><simpara>Bank change for %var% falls between a skip instruction and the instruction it skips (%instruction% in %sub%), and the skip needs a bank of its own, so the bank change cannot go before it: the code would use the wrong bank. A multi-byte variable has bytes in two banks (a fixed location, or an alias)</simpara></entry>
+<entry align="left" valign="top"><simpara>An Error (build 1680). The skip tests a bit of a banked variable, so the bank change for the next instruction cannot be moved in front of it. Put all the bytes of the variable named in one bank: change or remove its <literal>At</literal> location, or the <literal>Alias</literal>. With <literal>#DEFINE DISABLE1680</literal> it is a warning and the code is generated as in earlier builds, which uses the wrong bank. See the Multi-byte variable with bytes in two RAM banks constraint above.</simpara></entry>
 </row>
 <row>
 <entry align="left" valign="top"><simpara>BadBitRead</simpara></entry>
@@ -59829,6 +59895,11 @@ Warning, since it is often an intentional, working setup.</simpara>
 <entry align="left" valign="top"><simpara>USART baud rate is too low</simpara></entry>
 <entry align="left" valign="top"><simpara>Choose a higher baud rate achievable at the chip&#8217;s clock speed.</simpara></entry>
 <entry align="left" valign="top"><simpara>UseSYSDEFAULTCONCATSTRING</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>COMPILER INFORMATION: DIMension of SYSSTRINGPARAM%param1%*%param2%. Use constant SYSDEFAULTCONCATSTRING to specify size</simpara></entry>
+<entry align="left" valign="top"><simpara>Define <literal>SYSDEFAULTCONCATSTRING</literal> to control the concatenation buffer size instead of relying on the compiler&#8217;s default.</simpara></entry>
+<entry align="left" valign="top"><simpara>WarningFixedLocStraddle</simpara></entry>
 </row>
 </tbody>
 </tgroup>
@@ -61622,8 +61693,8 @@ The Windows driver must be <literal>libusbK</literal>, not the <literal>libusb</
 <tbody>
 <row>
 <entry align="center" valign="top"><simpara>ASCIIDOCs rendered</simpara></entry>
-<entry align="center" valign="top"><simpara>2026-11-17<?asciidoc-br?>
-10:28:06 GMT Standard Time</simpara></entry>
+<entry align="center" valign="top"><simpara>2026-11-23<?asciidoc-br?>
+20:00:55 GMT Standard Time</simpara></entry>
 </row>
 <row>
 <entry align="center" valign="top"><simpara>Master ToC information</simpara></entry>
