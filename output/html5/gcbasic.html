@@ -24459,6 +24459,7 @@ Specific GLCDs require different configurations of a microcontroller. Parameters
 <col>
 <col>
 <col>
+<col>
 </colgroup>
 <thead>
 <tr>
@@ -24466,6 +24467,7 @@ Specific GLCDs require different configurations of a microcontroller. Parameters
 <th class="tableblock halign-left valign-top"><strong>ChipSet</strong></th>
 <th class="tableblock halign-left valign-top"><strong>Size</strong></th>
 <th class="tableblock halign-left valign-top"><strong>Pixels</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Class</strong></th>
 <th class="tableblock halign-left valign-top"><strong>Depth</strong></th>
 <th class="tableblock halign-left valign-top"><strong>Type</strong></th>
 <th class="tableblock halign-left valign-top"><strong>I/O</strong></th>
@@ -24480,70 +24482,74 @@ Specific GLCDs require different configurations of a microcontroller. Parameters
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">KS0108</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.9 inch and less. various sizes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.9 inch and less, various sizes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">128 * 64</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LCD typically with backlight</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel PIC and AVR: Software device specific protocol</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bit 7 of the bus is read/write&#8201;&#8212;&#8201;this could cause potential lockup&#8201;&#8212;&#8201;this is low risk.&#160;&#160;&#160;Uses the KS0107B (or NT7107C) a 64-channel common driver which generates the timing signal to control the two KS0108B segment drivers.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software device specific protocol</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit bus required. Bit 7 of the bus is read/write&#8201;&#8212;&#8201;this could cause potential lockup&#8201;&#8212;&#8201;this is low risk. Uses the KS0107B (or NT7107C), a 64-channel common driver which generates the timing signal to control the two KS0108B segment drivers.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Requires 12 ports/connections.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">These are low cost mono devices.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ILI9481</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3.2inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.2 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">320 * 240</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD  8-bit parallel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC: Set per bit. AVR: via Shield set via AND PORT command</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+VCC from 2.7 to  5. Always check voltage specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+VCC from 2.7 to 5. Always check voltage specifications.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">UNO shield is excellent. Very fast display.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit bus requires 8 ports plus control ports.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good GLCD with very good GLCD performance.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PCD8544</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.77inch</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Nokia 3310 or 5110</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">160 * 128</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Small  Mono  LCD with LED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nokia 3310 or 5110 module</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">84 * 48</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Small</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD with LED backlight</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Device specific SPI command, all in software.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Display can operate in text mode only for low RAM microcontrollers as full GLCD capabilities requires 512bytes of RAM. +VCC 3.3.  Always check voltage specifications  Nice display.
-Sensitive to operating voltages.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Minimum RAM required is 512 bytes then add user variables for graphics mode, this display can operate in text mode only for low RAM microcontrollers.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+VCC 3.3. Always check voltage specifications. Sensitive to operating voltages.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Full GLCD capabilities require 512 bytes of RAM, then add user variables for graphics mode. The display can operate in text mode only for low RAM microcontrollers. Nice display.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good for cost and performance</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ILI9341</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.8 Inch or 3.2 Inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.8 inch or 3.2 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">320 * 240</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Color TFT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI  PIC and AVR: Hardware and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+VCC from 2.7 to 5. Always check voltage specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+VCC from 2.7 to 5. Always check voltage specifications.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Very nice display.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Good  for cost and performance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good for cost and performance</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSD1289</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3.2inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.2 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">240 * 320</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">16-bit parallel  AVR: Software device specific protocol.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16-bit parallel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVR: Software device specific protocol.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mega2560 shield required.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Connectivity requires 20 ports.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good for Mega2560 type shields</p></td>
@@ -24551,392 +24557,390 @@ Sensitive to operating voltages.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ST7735</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.8 Inch</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">128 * 64</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications Very nice display.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Good for cost and performance</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ST7735R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.8 Inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.8 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">128 * 160</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications Very nice display.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Very nice display.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good for cost and performance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ST7735R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.8 inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128 * 160</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Very nice display.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good for cost and performance</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ST7735R_160_80</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.8 Inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.8 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">160 * 80</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications Very nice display.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Very nice display.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good for cost and performance</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ILI9340</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.2 Inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.2 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">240 * 320</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good for cost and performance</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ILI9486L or ILI9486</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4inch</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RPI   240 * 320</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RPI 240 * 320</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI and 8Bit Bus</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI
-AVR: 8Bit Bus using an UNO Shield.  PIC: 8bit port supported.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications Great pixel display.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.
-8Bit Bus requires 8 ports plus 4 control ports. Typically 13 in total using an 8bit bus solution.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI and 8-bit bus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI. AVR: 8-bit bus using an UNO Shield. PIC: 8-bit port supported.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Great pixel display.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total. 8-bit bus requires 8 ports plus 4 control ports. Typically 13 in total using an 8-bit bus solution.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An expensive option</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Nextion</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ITEAD Nextion</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">240 * 320 to
-800 * 480</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Large - 2.4 to 7inches</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ITEAD Nextion, 2.4 to 7 inches</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">240 * 320 to 800 * 480</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Serial - hardware or software serial is supported.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Nextion specific and GLCD command set</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5 with external power supply. Always check voltage specifications  Great command set, you need to learn the GUI and then interface to GCBASIC.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5 with external power supply. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Great command set, you need to learn the GUI and then interface to GCBASIC.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2 ports for the read/write serial operations.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A very nice option but if you need flexibility then the best!</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SH1106</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.3 inch or 0.96inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.3 inch or 0.96 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">128 * 64</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Small</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Mono OLED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OLED</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">I2C</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software I2C</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Always at 3.3v. Always check voltage specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Always at 3.3v. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode, then add user variables for graphics mode.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">I2C requires 2 ports.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good OLED display, excellent value for money</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">13</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSD1306</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.96inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.96 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">128 * 64</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Small</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OLED</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">I2C and SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software I2C, and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode.
-Typically operates at VCC 5. Always check voltage specifications  Very good OLED display. Driver supports gaming. Minimum RAM required is  1024 bytes then add user variables for graphics mode.
-</p><p class="tableblock">Display can operate in text mode only for low RAM microcontrollers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.
-</p><p class="tableblock">I2C requires 2 ports.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode, then add user variables for graphics mode. The display can operate in text mode only for low RAM microcontrollers. Very good OLED display. Driver supports gaming.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total. I2C requires 2 ports.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good OLED display, excellent value for money</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSD1306 Twin Screen</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.96inch * 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.96 inch * 2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">128 * 128</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Small</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OLED</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">I2C and SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software I2C, and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RAM for Full Mode GLCD is 2048 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode.
-Typically operates at VCC 5. Always check voltage specifications  Very good OLED display. Driver supports gaming. Minimum RAM required is  1024 bytes then add user variables for graphics mode.
-</p><p class="tableblock">Display can operate in text mode only for low RAM microcontrollers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 3 ports. Typically 7 in total.
-</p><p class="tableblock">I2C requires 2 ports.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RAM for Full Mode GLCD is 2048 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode, then add user variables for graphics mode. The display can operate in text mode only for low RAM microcontrollers. Very good OLED display. Driver supports gaming.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 3 ports. Typically 7 in total. I2C requires 2 ports.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good OLED display, excellent value for money</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSD1306_32</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.96inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.96 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">128 * 32</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Very small</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OLED</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">I2C and SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software I2C, and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RAM for Full Mode GLCD is 512 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode.
-Typically operates at VCC 5. Always check voltage specifications  Best small OLED display. Driver supports gaming.  Minimum RAM required is  512 bytes then add user variables for graphics mode, this display can operate in text mode only for low RAM microcontrollers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.
-</p><p class="tableblock">I2C requires 2 ports.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RAM for Full Mode GLCD is 512 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode, then add user variables for graphics mode. The display can operate in text mode only for low RAM microcontrollers. Best small OLED display. Driver supports gaming.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total. I2C requires 2 ports.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good OLED display, excellent value for money</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ST7920</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.9inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.9 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">128 * 64</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LCD typically with backlight 8-bit parallel</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR:  Software device specific protocol.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit bus required.  Bit 7 of the bus is read/write&#8201;&#8212;&#8201;this could cause potential lockup&#8201;&#8212;&#8201;this is low risk.
-</p><p class="tableblock">This looks like a KS0108 but it is NOT! Supports Chinese font set.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD typically with backlight</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software device specific protocol.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit bus required. Bit 7 of the bus is read/write&#8201;&#8212;&#8201;this could cause potential lockup&#8201;&#8212;&#8201;this is low risk. This looks like a KS0108 but it is NOT! Supports Chinese font set.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Requires 12 ports.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A very slow device.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">HX8347G</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.2inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.2 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">240 * 320</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AVR 8 bit bus</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications Great pixel display.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit bus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVR: 8-bit bus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Great pixel display.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Controller requires 8 ports plus 5 control ports. Typically 13 in total with an UNO shield.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A very nice display</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">18</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSD1331</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.96inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.96 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">96 * 48</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Small</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OLED</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software I2C, and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires typically 6 in total.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Very good color OLED display, excellent value for money</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">19</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ILI9326</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3.00inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.0 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">400 * 320</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OLED</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8 bit bus</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: 8 bit bus</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3. Always check voltage specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit bus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: 8-bit bus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The LED is typically connected to ground. You can solder the GND connection to make the backlight permanently on.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Requires typically 13 in total plus 0v, VCC and LED.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Good color OLED display, good value for money as it is fast.  But, the rotate is all executed in software and this does slow down processing.
-</p><p class="tableblock"><br>
-The LED connected is typically to ground.  You can solder the GND connect to make the backlight permanently on.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good color display, good value for money as it is fast. But, the rotate is all executed in software and this does slow down processing.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">20</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NT7108C</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.9 inch and less. various sizes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.9 inch and less, various sizes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">128 * 64</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LCD typically with backlight</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel PIC and AVR: Software device specific protocol</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Looks similar to KS0108, but it is NOT the same, hence this driver.&#160;&#160;&#160;Uses the Winstar WDG0151-TMI module, which is a 128x64 pixel monochromatic display.&#160;&#160;&#160;This uses two Novatek display controller chips: NT7108C and NT7107C. The WDG0151 module contains two sets of these to drive 128 segments.&#160;&#160;&#160;On the other hand, the KS0107B (or NT7107C) is a 64-channel common driver which generates the timing signal to control the two KS0108B segment drivers.
-<br>
-<br>
-The NT7108C is very sensitive with respect to clock timing.&#160;&#160;&#160;You may have to adjust it to ensure the display operates correctly.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software device specific protocol</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit bus required. Looks similar to KS0108, but it is NOT the same, hence this driver. Uses the Winstar WDG0151-TMI module, which is a 128x64 pixel monochromatic display. This uses two Novatek display controller chips: NT7108C and NT7107C. The WDG0151 module contains two sets of these to drive 128 segments. On the other hand, the KS0107B (or NT7107C) is a 64-channel common driver which generates the timing signal to control the two KS0108B segment drivers. The NT7108C is very sensitive with respect to clock timing. You may have to adjust it to ensure the display operates correctly.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Requires 12 ports/connections.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">These are medium cost mono devices.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">21</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">T6963_64</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4inches by 2inches</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 inches by 2 inches</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">240 * 64</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LCD typically with backlight</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel PIC and AVR: Software device specific protocol</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Operates similarly to a KS0108 and an LCD segment driver.
-<br>
-<br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software device specific protocol</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit bus required. Operates similarly to a KS0108 and an LCD segment driver.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Requires 12 ports/connections.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">These are medium cost mono devices.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">22</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">T6963_128</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4inches by 2inches</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 inches by 2 inches</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">240 * 128</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LCD typically with backlight</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel PIC and AVR: Software device specific protocol</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Operates similarly to a KS0108 and an LCD segment driver.
-<br>
-<br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software device specific protocol</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit bus required. Operates similarly to a KS0108 and an LCD segment driver.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Requires 12 ports/connections.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">These are medium cost mono devices.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">23</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">UC1601</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4.00inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.0 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">132 * 22</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OLED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LCD</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">I2C and SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software I2C, and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RAM for Full Mode GLCD is 396 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode.
-Typically operates at VCC 2.8v. Always check voltage specifications  Very good display. Driver supports gaming. Minimum RAM required is 396 bytes then add user variables for graphics mode.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 2.8v. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RAM for Full Mode GLCD is 396 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode, then add user variables for graphics mode. Very good display. Driver supports gaming.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Requires up to 5 ports/connections.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Low cost device</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">24</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSD1351</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.50inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.5 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">128 * 128</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Small</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OLED</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software I2C, and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3 or 5. Always check voltage specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3 or 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires typically 6 in total.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Very good color OLED display, excellent value for money</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">25</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Waveshare e-Paper</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Various Size from 2.13 to 7.5 inches</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Various sizes from 2.13 to 7.5 inches</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">104 * 112 to 640 * 384</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Small to very large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Black and White</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Microencapsulated Electrophoretic Display</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software I2C, and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3. Always check voltage specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The display can operate in text mode only for low RAM microcontrollers using the SRAM solution.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires typically 6 in total.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Very good color e-Paper displays, excellent value for money
-Display can operate in text mode only for low RAM microcontrollers using SRAM solution.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Very good e-Paper displays, excellent value for money</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">26</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ST7789</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.0 Inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.0 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">240 * 240 or 320 * 240</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Color TFT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI  PIC and AVR: Hardware and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at 3v3. Always check voltage specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+VCC from 3v3. Always check voltage specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+VCC 3.3. Always check voltage specifications.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Very nice display.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 3 ports (data, clock &amp; command/data) plus 1 port ( reset ). Typically 4 in total.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Good  for cost and performance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 3 ports (data, clock and command/data) plus 1 port (reset). Typically 4 in total.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good for cost and performance</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">27</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ILI9488</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3.2inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.2 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">320 * 240</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD  SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PIC/&amp;AVR: SPI Only</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+VCC from 3v3 to  5. GLCD I/O is ONLY 3v3. Always check voltage specifications.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Display is good, however, slower than comparable (size) GLCDs as the color definitions are four bytes ( typical color definitions are two bytes)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: SPI only</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+VCC from 3.3 to 5. GLCD I/O is ONLY 3.3v. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Display is good, however, slower than comparable (size) GLCDs as the color definitions are four bytes (typical color definitions are two bytes).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Acceptable GLCD performance.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">28</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ST7567</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.9inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.9 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">128 * 64</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LCD</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">I2C and SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software I2C, and hardware/software SPI.  Hardware I2C fails, as the ST7567 does not comply with the I2C standard.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+VCC from 3v3 to  5. GLCD I/O is ONLY 3v3. Always check voltage specifications.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.
-</p><p class="tableblock">I2C requires 2 ports.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3v3 but may support 5v0. Always check voltage specifications  Very good LCD display. Driver supports gaming. Minimum RAM required is 1024 bytes then add user variables for graphics mode.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software I2C, and hardware/software SPI. Hardware I2C fails, as the ST7567 does not comply with the I2C standard.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+VCC from 3.3 to 5. GLCD I/O is ONLY 3.3v. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Very good LCD display. Driver supports gaming. Minimum RAM required is 1024 bytes, then add user variables for graphics mode.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total. I2C requires 2 ports.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good for cost and performance</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">29</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSD1309</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.96inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.96 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">128 * 64</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Small</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OLED</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">I2C and SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software I2C, and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode.
-Typically operates at VCC 3.3. Always check voltage specifications  Command-compatible and pin-compatible replacement for the SSD1306 (row 13)&#8201;&#8212;&#8201;the same connections and code work, just using GLCD_TYPE_SSD1309 in place of GLCD_TYPE_SSD1306. All three SSD1306 panel sizes are supported: 128 x 64 (GLCD_TYPE_SSD1309, default), 128 x 32 (GLCD_TYPE_SSD1309_32), and 64 x 32 (GLCD_TYPE_SSD1309_64x32).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.
-</p><p class="tableblock">I2C requires 2 ports.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode, then add user variables for graphics mode. Command-compatible and pin-compatible replacement for the SSD1306 (row 13)&#8201;&#8212;&#8201;the same connections and code work, just using GLCD_TYPE_SSD1309 in place of GLCD_TYPE_SSD1306. All three SSD1306 panel sizes are supported: 128 x 64 (GLCD_TYPE_SSD1309, default), 128 x 32 (GLCD_TYPE_SSD1309_32), and 64 x 32 (GLCD_TYPE_SSD1309_64x32).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total. I2C requires 2 ports.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good OLED display, excellent value for money; use where a SSD1306 panel is unavailable or has been substituted with a SSD1309-based module.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">30</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSD1306_64x32</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.96inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.96 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">64 * 32</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Very small</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OLED</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">I2C and SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software I2C, and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RAM usage is smaller again than the 128x32 variant, since the panel has fewer pixels.
-Typically operates at VCC 5. Always check voltage specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.
-</p><p class="tableblock">I2C requires 2 ports.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RAM usage is smaller again than the 128x32 variant, since the panel has fewer pixels.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total. I2C requires 2 ports.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good OLED display for the smallest panel size in the SSD1306 family.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">31</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">T6963</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4inches by 2inches</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 inches by 2 inches</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Varies by panel</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Large</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LCD typically with backlight</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel PIC and AVR: Software device specific protocol</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The base GLCD_TYPE_T6963 constant; use GLCD_TYPE_T6963_64 or GLCD_TYPE_T6963_128 (rows 21-22) instead when the panel&#8217;s exact pixel height is known, since those variants set the correct dimensions automatically.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software device specific protocol</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit bus required. The base GLCD_TYPE_T6963 constant; use GLCD_TYPE_T6963_64 or GLCD_TYPE_T6963_128 (rows 21-22) instead when the panel&#8217;s exact pixel height is known, since those variants set the correct dimensions automatically.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Requires 12 ports/connections.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">These are medium cost mono devices.</p></td>
 </tr>
@@ -24950,10 +24954,10 @@ Typically operates at VCC 5. Always check voltage specifications</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LCD</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel or serial, device specific</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software device specific protocol</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 5. Always check voltage specifications.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A less common controller; check the datasheet for your specific module against the glcd_uc8230.h driver before wiring.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Requires connections specific to the panel; see the driver source for pin requirements.
-A niche option, useful when a KS0108/T6963-style panel uses this specific controller.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A niche option, useful when a KS0108/T6963-style panel uses this specific controller.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">33</p></td>
@@ -24965,9 +24969,9 @@ A niche option, useful when a KS0108/T6963-style panel uses this specific contro
 <td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8-bit parallel or SPI, device specific</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software device specific protocol</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3 to 5. Always check voltage specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Shares its driver file with UC8230 (glcd_uc8230.h handles both GLCD_TYPE_ILI9320 and GLCD_TYPE_UC8230).
-Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3 to 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shares its driver file with UC8230 (glcd_uc8230.h handles both GLCD_TYPE_ILI9320 and GLCD_TYPE_UC8230).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A niche option for older 8-bit-bus TFT panels using this specific controller.</p></td>
 </tr>
 <tr>
@@ -24980,9 +24984,9 @@ Requires connections specific to the panel; see the driver source for pin requir
 <td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Device specific, see glcd_lt7686.h</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software device specific protocol</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3 to 5. Always check voltage specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Selected using the constant LT7686_800_480_BLUE (note: this family uses plain LT7686_&#8230;&#8203; constant names, not the usual GLCD_TYPE_LT7686&#8230;&#8203; pattern used elsewhere in this table).
-Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3 to 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selected using the constant LT7686_800_480_BLUE (note: this family uses plain LT7686_&#8230;&#8203; constant names, not the usual GLCD_TYPE_LT7686&#8230;&#8203; pattern used elsewhere in this table).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A large, higher-resolution panel option for projects with more available RAM and I/O.</p></td>
 </tr>
 <tr>
@@ -24995,9 +24999,9 @@ Requires connections specific to the panel; see the driver source for pin requir
 <td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Device specific, see glcd_lt7686.h</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software device specific protocol</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3 to 5. Always check voltage specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Selected using the constant LT7686_1024_600_BLUE.
-Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3 to 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selected using the constant LT7686_1024_600_BLUE.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A large, higher-resolution panel option for projects with more available RAM and I/O.</p></td>
 </tr>
 <tr>
@@ -25010,9 +25014,9 @@ Requires connections specific to the panel; see the driver source for pin requir
 <td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Device specific, see glcd_lt7686.h</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Software device specific protocol</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3 to 5. Always check voltage specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Selected using the constant LT7686_1024_600_BLACK&#8201;&#8212;&#8201;identical to row 35 except for the backlight/panel variant selected.
-Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3 to 5. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selected using the constant LT7686_1024_600_BLACK&#8201;&#8212;&#8201;identical to row 35 except for the backlight/panel variant selected.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires connections specific to the panel; see the driver source for pin requirements.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A large, higher-resolution panel option for projects with more available RAM and I/O.</p></td>
 </tr>
 <tr>
@@ -25025,9 +25029,9 @@ Requires connections specific to the panel; see the driver source for pin requir
 <td class="tableblock halign-left valign-top"><p class="tableblock">Microencapsulated Electrophoretic Display</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3. Always check voltage specifications</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Selected using the constant GLCD_TYPE_EPD_EPD2in13D. See <a href="#_e_paper_controllers">e-Paper Controllers</a> for the full set of e-Paper-specific constants and guidance.
-SPI requires typically 6 in total.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selected using the constant GLCD_TYPE_EPD_EPD2in13D. See <a href="#_e_paper_controllers">e-Paper Controllers</a> for the full set of e-Paper-specific constants and guidance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires typically 6 in total.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Very good e-Paper display, excellent value for money.</p></td>
 </tr>
 <tr>
@@ -25040,15 +25044,15 @@ SPI requires typically 6 in total.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Microencapsulated Electrophoretic Display</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3. Always check voltage specifications</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3. Always check voltage specifications.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Selected using the constant GLCD_TYPE_EPD_EPD7in5. See <a href="#_e_paper_controllers">e-Paper Controllers</a> for the full set of e-Paper-specific constants and guidance.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires typically 6 in total.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Very good large e-Paper display; note the slower refresh typical of larger e-Paper panels.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Very good large e-Paper display; note the slower refresh typical of larger e-Paper panels.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">39</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SH1101A</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.5inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.5 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">128 * 64 (132 * 64 RAM, panel visible from column 2)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Small</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Mono</p></td>
@@ -25057,20 +25061,23 @@ SPI requires typically 6 in total.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: software 8080 parallel bus, or software 4-wire SPI. No I2C - the SH1101A has none.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3. Always check voltage specifications.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Selected using the constant GLCD_TYPE_SH1101A. See <a href="#_sh1101a_controllers">SH1101A Controllers</a> for wiring and the full set of options, including the Microchip PIC18F Starter Kit 1&#8217;s own 8080 bus.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8080 bus requires 8 data lines plus WR, RD, CS, DC (optionally RESET)&#8201;&#8212;&#8201;12 or 13 in total. SPI requires DO, SCK, DC, CS (optionally RESET)&#8201;&#8212;&#8201;4 or 5 in total.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Good small OLED display; the 8080 bus variant needs more pins but is notably faster than the SPI (software, write-only) alternative.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">40</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ST7789 (170 * 320 variant)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.9inch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.9 inch</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">170 * 320</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Small</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Color</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TFT LCD</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4-wire SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: hardware and software SPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PIC and AVR: Hardware and software SPI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Typically operates at VCC 3.3. Always check voltage specifications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selected using the constant GLCD_TYPE_ST7789_170_320 alongside the existing GLCD_TYPE_ST7789_240_240 / GLCD_TYPE_ST7789_320_240 (row 26)&#8201;&#8212;&#8201;see <a href="#_st7789_controllers">ST7789 Controllers</a>. Tested on the Waveshare 1.9inch panel; confirm the initial X offset (35) on your own physical panel.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SPI requires 4 ports plus 2 ports. Typically 6 in total.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good small colour TFT; same driver family and commands as the other ST7789 geometries.</p></td>
 </tr>
 </tbody>
 </table>
@@ -81384,8 +81391,8 @@ If you use AVRDUDE, you must ensure the Windows device driver is <code>libusbK</
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">ASCIIDOCs rendered</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2026-11-23<br>
-20:01:00 GMT Standard Time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2026-11-24<br>
+07:40:43 GMT Standard Time</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Master ToC information</p></td>

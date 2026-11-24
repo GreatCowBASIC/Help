@@ -38,12 +38,13 @@ Specific GLCDs require different configurations of a microcontroller. Parameters
 
 Review your choice of microcontroller and GLCD carefully before commencing your project.
 
-[cols=12, options="header,autowidth"]
+[cols=13, options="header,autowidth"]
 |===
 |*#*
 |*ChipSet*
 |*Size*
 |*Pixels*
+|*Class*
 |*Depth*
 |*Type*
 |*I/O*
@@ -53,461 +54,437 @@ Review your choice of microcontroller and GLCD carefully before commencing your 
 |*Requirements*
 |*Assessment*
 
-
 |1
 |KS0108
-|2.9 inch and less. various sizes
+|2.9 inch and less, various sizes
 |128 * 64
 |Large
 |Mono
 |LCD typically with backlight
-|8-bit parallel PIC and AVR: Software device specific protocol
-|Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.
-|Bit 7 of the bus is read/write -- this could cause potential lockup -- this is low risk.&#160;&#160;&#160;Uses the KS0107B (or NT7107C) a 64-channel common driver which generates the timing signal to control the two KS0108B segment drivers.
+|8-bit parallel
+|PIC and AVR: Software device specific protocol
+|Typically operates at VCC 5. Always check voltage specifications.
+|8-bit bus required. Bit 7 of the bus is read/write -- this could cause potential lockup -- this is low risk. Uses the KS0107B (or NT7107C), a 64-channel common driver which generates the timing signal to control the two KS0108B segment drivers.
 |Requires 12 ports/connections.
 |These are low cost mono devices.
 
-
 |2
 |ILI9481
-|3.2inch
+|3.2 inch
 |320 * 240
 |Large
 |Color
-|TFT LCD  8-bit parallel
+|TFT LCD
+|8-bit parallel
 |PIC: Set per bit. AVR: via Shield set via AND PORT command
-|+VCC from 2.7 to  5. Always check voltage specifications
+|+VCC from 2.7 to 5. Always check voltage specifications.
 |UNO shield is excellent. Very fast display.
-|SPI requires 4 ports plus 2 ports. Typically 6 in total.
+|8-bit bus requires 8 ports plus control ports.
 |Good GLCD with very good GLCD performance.
 
 |3
 |PCD8544
-|1.77inch
-|Nokia 3310 or 5110
-|160 * 128
-|Small  Mono  LCD with LED
+|Nokia 3310 or 5110 module
+|84 * 48
+|Small
+|Mono
+|LCD with LED backlight
 |SPI
 |PIC and AVR: Device specific SPI command, all in software.
-|Display can operate in text mode only for low RAM microcontrollers as full GLCD capabilities requires 512bytes of RAM. +VCC 3.3.  Always check voltage specifications  Nice display.
-Sensitive to operating voltages.
-|Minimum RAM required is 512 bytes then add user variables for graphics mode, this display can operate in text mode only for low RAM microcontrollers.
+|+VCC 3.3. Always check voltage specifications. Sensitive to operating voltages.
+|Full GLCD capabilities require 512 bytes of RAM, then add user variables for graphics mode. The display can operate in text mode only for low RAM microcontrollers. Nice display.
 |SPI requires 4 ports plus 2 ports. Typically 6 in total.
 |Good for cost and performance
 
 |4
 |ILI9341
-|2.8 Inch or 3.2 Inch
+|2.8 inch or 3.2 inch
 |320 * 240
 |Medium
-|Color TFT
-|SPI  PIC and AVR: Hardware and software SPI
-|Typically operates at VCC 5. Always check voltage specifications
-|+VCC from 2.7 to 5. Always check voltage specifications
+|Color
+|TFT LCD
+|SPI
+|PIC and AVR: Hardware and software SPI
+|+VCC from 2.7 to 5. Always check voltage specifications.
 |Very nice display.
 |SPI requires 4 ports plus 2 ports. Typically 6 in total.
-|Good  for cost and performance
-
+|Good for cost and performance
 
 |5
 |SSD1289
-|3.2inch
+|3.2 inch
 |240 * 320
 |Large
 |Color
 |TFT LCD
-|16-bit parallel  AVR: Software device specific protocol.
-|Typically operates at VCC 5. Always check voltage specifications
+|16-bit parallel
+|AVR: Software device specific protocol.
+|Typically operates at VCC 5. Always check voltage specifications.
 |Mega2560 shield required.
 |Connectivity requires 20 ports.
 |Good for Mega2560 type shields
 
 |6
 |ST7735
-|1.8 Inch
-|128 * 64
-|Large
-|Color
-|TFT LCD
-|SPI
-|PIC and AVR: Hardware and software SPI
-|Typically operates at VCC 5. Always check voltage specifications Very nice display.
-|SPI requires 4 ports plus 2 ports. Typically 6 in total.
-|Good for cost and performance
-
-|7
-|ST7735R
-|1.8 Inch
+|1.8 inch
 |128 * 160
 |Large
 |Color
 |TFT LCD
 |SPI
 |PIC and AVR: Hardware and software SPI
-|Typically operates at VCC 5. Always check voltage specifications Very nice display.
+|Typically operates at VCC 5. Always check voltage specifications.
+|Very nice display.
+|SPI requires 4 ports plus 2 ports. Typically 6 in total.
+|Good for cost and performance
+
+|7
+|ST7735R
+|1.8 inch
+|128 * 160
+|Large
+|Color
+|TFT LCD
+|SPI
+|PIC and AVR: Hardware and software SPI
+|Typically operates at VCC 5. Always check voltage specifications.
+|Very nice display.
 |SPI requires 4 ports plus 2 ports. Typically 6 in total.
 |Good for cost and performance
 
 |8
 |ST7735R_160_80
-|1.8 Inch
+|1.8 inch
 |160 * 80
 |Large
 |Color
 |TFT LCD
 |SPI
 |PIC and AVR: Hardware and software SPI
-|Typically operates at VCC 5. Always check voltage specifications Very nice display.
+|Typically operates at VCC 5. Always check voltage specifications.
+|Very nice display.
 |SPI requires 4 ports plus 2 ports. Typically 6 in total.
 |Good for cost and performance
-
-
 
 |9
 |ILI9340
-|2.2 Inch
+|2.2 inch
 |240 * 320
 |Medium
-|Mono
+|Color
 |TFT LCD
 |SPI
 |PIC and AVR: Hardware and software SPI
-|Typically operates at VCC 5. Always check voltage specifications
+|Typically operates at VCC 5. Always check voltage specifications.
+|
 |SPI requires 4 ports plus 2 ports. Typically 6 in total.
 |Good for cost and performance
 
-
 |10
 |ILI9486L or ILI9486
-| 4inch
-|RPI   240 * 320
+|4 inch
+|RPI 240 * 320
 |Large
 |Color
 |TFT LCD
-|SPI and 8Bit Bus
-|PIC and AVR: Hardware and software SPI
-AVR: 8Bit Bus using an UNO Shield.  PIC: 8bit port supported.
-|Typically operates at VCC 5. Always check voltage specifications Great pixel display.
-|SPI requires 4 ports plus 2 ports. Typically 6 in total.
-8Bit Bus requires 8 ports plus 4 control ports. Typically 13 in total using an 8bit bus solution.
+|SPI and 8-bit bus
+|PIC and AVR: Hardware and software SPI. AVR: 8-bit bus using an UNO Shield. PIC: 8-bit port supported.
+|Typically operates at VCC 5. Always check voltage specifications.
+|Great pixel display.
+|SPI requires 4 ports plus 2 ports. Typically 6 in total. 8-bit bus requires 8 ports plus 4 control ports. Typically 13 in total using an 8-bit bus solution.
 |An expensive option
 
 |11
 |Nextion
-|ITEAD Nextion
-|240 * 320 to
-800 * 480
-|Large - 2.4 to 7inches
+|ITEAD Nextion, 2.4 to 7 inches
+|240 * 320 to 800 * 480
+|Large
 |Color
 |TFT LCD
 |Serial - hardware or software serial is supported.
 |Nextion specific and GLCD command set
-|Typically operates at VCC 5 with external power supply. Always check voltage specifications  Great command set, you need to learn the GUI and then interface to GCBASIC.
+|Typically operates at VCC 5 with external power supply. Always check voltage specifications.
+|Great command set, you need to learn the GUI and then interface to GCBASIC.
 |2 ports for the read/write serial operations.
 |A very nice option but if you need flexibility then the best!
 
 |12
 |SH1106
-|1.3 inch or 0.96inch
+|1.3 inch or 0.96 inch
 |128 * 64
 |Small
-|Mono OLED
+|Mono
+|OLED
 |I2C
 |PIC and AVR: Hardware and software I2C
-|Always at 3.3v. Always check voltage specifications
-|RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode.
+|Always at 3.3v. Always check voltage specifications.
+|RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode, then add user variables for graphics mode.
 |I2C requires 2 ports.
 |Good OLED display, excellent value for money
 
 |13
 |SSD1306
-|0.96inch
+|0.96 inch
 |128 * 64
 |Small
 |Mono
 |OLED
 |I2C and SPI
 |PIC and AVR: Hardware and software I2C, and software SPI
-|RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode.
-Typically operates at VCC 5. Always check voltage specifications  Very good OLED display. Driver supports gaming. Minimum RAM required is  1024 bytes then add user variables for graphics mode.
-
-Display can operate in text mode only for low RAM microcontrollers
-
-|SPI requires 4 ports plus 2 ports. Typically 6 in total.
-
-I2C requires 2 ports.
+|Typically operates at VCC 5. Always check voltage specifications.
+|RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode, then add user variables for graphics mode. The display can operate in text mode only for low RAM microcontrollers. Very good OLED display. Driver supports gaming.
+|SPI requires 4 ports plus 2 ports. Typically 6 in total. I2C requires 2 ports.
 |Good OLED display, excellent value for money
 
 |14
 |SSD1306 Twin Screen
-|0.96inch * 2
+|0.96 inch * 2
 |128 * 128
 |Small
 |Mono
 |OLED
 |I2C and SPI
 |PIC and AVR: Hardware and software I2C, and software SPI
-|RAM for Full Mode GLCD is 2048 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode.
-Typically operates at VCC 5. Always check voltage specifications  Very good OLED display. Driver supports gaming. Minimum RAM required is  1024 bytes then add user variables for graphics mode.
-
-Display can operate in text mode only for low RAM microcontrollers
-
-|SPI requires 4 ports plus 3 ports. Typically 7 in total.
-
-I2C requires 2 ports.
+|Typically operates at VCC 5. Always check voltage specifications.
+|RAM for Full Mode GLCD is 2048 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode, then add user variables for graphics mode. The display can operate in text mode only for low RAM microcontrollers. Very good OLED display. Driver supports gaming.
+|SPI requires 4 ports plus 3 ports. Typically 7 in total. I2C requires 2 ports.
 |Good OLED display, excellent value for money
-
 
 |15
 |SSD1306_32
-|0.96inch
+|0.96 inch
 |128 * 32
 |Very small
 |Mono
 |OLED
 |I2C and SPI
 |PIC and AVR: Hardware and software I2C, and software SPI
-
-|RAM for Full Mode GLCD is 512 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode.
-Typically operates at VCC 5. Always check voltage specifications  Best small OLED display. Driver supports gaming.  Minimum RAM required is  512 bytes then add user variables for graphics mode, this display can operate in text mode only for low RAM microcontrollers
-
-|SPI requires 4 ports plus 2 ports. Typically 6 in total.
-
-I2C requires 2 ports.
+|Typically operates at VCC 5. Always check voltage specifications.
+|RAM for Full Mode GLCD is 512 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode, then add user variables for graphics mode. The display can operate in text mode only for low RAM microcontrollers. Best small OLED display. Driver supports gaming.
+|SPI requires 4 ports plus 2 ports. Typically 6 in total. I2C requires 2 ports.
 |Good OLED display, excellent value for money
 
 |16
 |ST7920
-|2.9inch
+|2.9 inch
 |128 * 64
 |Large
 |Mono
-|LCD typically with backlight 8-bit parallel
-|PIC and AVR:  Software device specific protocol.
-|Typically operates at VCC 5. Always check voltage specifications
-|8-bit bus required.  Bit 7 of the bus is read/write -- this could cause potential lockup -- this is low risk.
-
-This looks like a KS0108 but it is NOT! Supports Chinese font set.
+|LCD typically with backlight
+|8-bit parallel
+|PIC and AVR: Software device specific protocol.
+|Typically operates at VCC 5. Always check voltage specifications.
+|8-bit bus required. Bit 7 of the bus is read/write -- this could cause potential lockup -- this is low risk. This looks like a KS0108 but it is NOT! Supports Chinese font set.
 |Requires 12 ports.
 |A very slow device.
 
 |17
 |HX8347G
-|2.2inch
+|2.2 inch
 |240 * 320
 |Large
 |Color
 |TFT LCD
-|SPI
-|AVR 8 bit bus
-|Typically operates at VCC 5. Always check voltage specifications Great pixel display.
+|8-bit bus
+|AVR: 8-bit bus
+|Typically operates at VCC 5. Always check voltage specifications.
+|Great pixel display.
 |Controller requires 8 ports plus 5 control ports. Typically 13 in total with an UNO shield.
 |A very nice display
 
 |18
 |SSD1331
-|0.96inch
+|0.96 inch
 |96 * 48
 |Small
 |Color
 |OLED
 |SPI
-|PIC and AVR: Hardware and software I2C, and software SPI
-|Typically operates at VCC 5. Always check voltage specifications
+|PIC and AVR: Hardware and software SPI
+|Typically operates at VCC 5. Always check voltage specifications.
+|
 |SPI requires typically 6 in total.
 |Very good color OLED display, excellent value for money
 
-
 |19
 |ILI9326
-|3.00inch
+|3.0 inch
 |400 * 320
 |Large
 |Color
-|OLED
-|8 bit bus
-|PIC and AVR: 8 bit bus
-|Typically operates at VCC 3.3. Always check voltage specifications
+|TFT LCD
+|8-bit bus
+|PIC and AVR: 8-bit bus
+|Typically operates at VCC 3.3. Always check voltage specifications.
+|The LED is typically connected to ground. You can solder the GND connection to make the backlight permanently on.
 |Requires typically 13 in total plus 0v, VCC and LED.
-|Good color OLED display, good value for money as it is fast.  But, the rotate is all executed in software and this does slow down processing.
-
-{empty} +
-The LED connected is typically to ground.  You can solder the GND connect to make the backlight permanently on.
-
+|Good color display, good value for money as it is fast. But, the rotate is all executed in software and this does slow down processing.
 
 |20
 |NT7108C
-|2.9 inch and less. various sizes
+|2.9 inch and less, various sizes
 |128 * 64
 |Large
 |Mono
 |LCD typically with backlight
-|8-bit parallel PIC and AVR: Software device specific protocol
-|Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.
-|Looks similar to KS0108, but it is NOT the same, hence this driver.&#160;&#160;&#160;Uses the Winstar WDG0151-TMI module, which is a 128x64 pixel monochromatic display.&#160;&#160;&#160;This uses two Novatek display controller chips: NT7108C and NT7107C. The WDG0151 module contains two sets of these to drive 128 segments.&#160;&#160;&#160;On the other hand, the KS0107B (or NT7107C) is a 64-channel common driver which generates the timing signal to control the two KS0108B segment drivers.
-{empty} +
-{empty} +
-The NT7108C is very sensitive with respect to clock timing.&#160;&#160;&#160;You may have to adjust it to ensure the display operates correctly.
+|8-bit parallel
+|PIC and AVR: Software device specific protocol
+|Typically operates at VCC 5. Always check voltage specifications.
+|8-bit bus required. Looks similar to KS0108, but it is NOT the same, hence this driver. Uses the Winstar WDG0151-TMI module, which is a 128x64 pixel monochromatic display. This uses two Novatek display controller chips: NT7108C and NT7107C. The WDG0151 module contains two sets of these to drive 128 segments. On the other hand, the KS0107B (or NT7107C) is a 64-channel common driver which generates the timing signal to control the two KS0108B segment drivers. The NT7108C is very sensitive with respect to clock timing. You may have to adjust it to ensure the display operates correctly.
 |Requires 12 ports/connections.
 |These are medium cost mono devices.
 
 |21
 |T6963_64
-|4inches by 2inches
+|4 inches by 2 inches
 |240 * 64
 |Large
 |Mono
 |LCD typically with backlight
-|8-bit parallel PIC and AVR: Software device specific protocol
-|Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.
-|Operates similarly to a KS0108 and an LCD segment driver.
-{empty} +
-{empty} +
+|8-bit parallel
+|PIC and AVR: Software device specific protocol
+|Typically operates at VCC 5. Always check voltage specifications.
+|8-bit bus required. Operates similarly to a KS0108 and an LCD segment driver.
 |Requires 12 ports/connections.
 |These are medium cost mono devices.
 
 |22
 |T6963_128
-|4inches by 2inches
+|4 inches by 2 inches
 |240 * 128
 |Large
 |Mono
 |LCD typically with backlight
-|8-bit parallel PIC and AVR: Software device specific protocol
-|Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.
-|Operates similarly to a KS0108 and an LCD segment driver.
-{empty} +
-{empty} +
+|8-bit parallel
+|PIC and AVR: Software device specific protocol
+|Typically operates at VCC 5. Always check voltage specifications.
+|8-bit bus required. Operates similarly to a KS0108 and an LCD segment driver.
 |Requires 12 ports/connections.
 |These are medium cost mono devices.
 
 |23
 |UC1601
-|4.00inch
+|4.0 inch
 |132 * 22
 |Medium
 |Mono
-|OLED
+|LCD
 |I2C and SPI
 |PIC and AVR: Hardware and software I2C, and software SPI
-|RAM for Full Mode GLCD is 396 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode.
-Typically operates at VCC 2.8v. Always check voltage specifications  Very good display. Driver supports gaming. Minimum RAM required is 396 bytes then add user variables for graphics mode.
+|Typically operates at VCC 2.8v. Always check voltage specifications.
+|RAM for Full Mode GLCD is 396 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode, then add user variables for graphics mode. Very good display. Driver supports gaming.
 |Requires up to 5 ports/connections.
 |Low cost device
 
 |24
 |SSD1351
-|1.50inch
+|1.5 inch
 |128 * 128
 |Small
 |Color
 |OLED
 |SPI
-|PIC and AVR: Hardware and software I2C, and software SPI
-|Typically operates at VCC 3.3 or 5. Always check voltage specifications
+|PIC and AVR: Hardware and software SPI
+|Typically operates at VCC 3.3 or 5. Always check voltage specifications.
+|
 |SPI requires typically 6 in total.
 |Very good color OLED display, excellent value for money
 
-
 |25
 |Waveshare e-Paper
-|Various Size from 2.13 to 7.5 inches
+|Various sizes from 2.13 to 7.5 inches
 |104 * 112 to 640 * 384
 |Small to very large
 |Black and White
 |Microencapsulated Electrophoretic Display
 |SPI
-|PIC and AVR: Hardware and software I2C, and software SPI
-|Typically operates at VCC 3.3. Always check voltage specifications
+|PIC and AVR: Hardware and software SPI
+|Typically operates at VCC 3.3. Always check voltage specifications.
+|The display can operate in text mode only for low RAM microcontrollers using the SRAM solution.
 |SPI requires typically 6 in total.
-|Very good color e-Paper displays, excellent value for money
-Display can operate in text mode only for low RAM microcontrollers using SRAM solution.
+|Very good e-Paper displays, excellent value for money
 
 |26
 |ST7789
-|2.0 Inch
-|240 * 240 or 320 * 240 
+|2.0 inch
+|240 * 240 or 320 * 240
 |Medium
-|Color TFT
-|SPI  PIC and AVR: Hardware and software SPI
-|Typically operates at 3v3. Always check voltage specifications
-|+VCC from 3v3. Always check voltage specifications
+|Color
+|TFT LCD
+|SPI
+|PIC and AVR: Hardware and software SPI
+|+VCC 3.3. Always check voltage specifications.
 |Very nice display.
-|SPI requires 3 ports (data, clock & command/data) plus 1 port ( reset ). Typically 4 in total.
-|Good  for cost and performance
-
+|SPI requires 3 ports (data, clock and command/data) plus 1 port (reset). Typically 4 in total.
+|Good for cost and performance
 
 |27
 |ILI9488
-|3.2inch
+|3.2 inch
 |320 * 240
 |Large
 |Color
-|TFT LCD  SPI
-|PIC/&AVR: SPI Only
-|+VCC from 3v3 to  5. GLCD I/O is ONLY 3v3. Always check voltage specifications.
-|Display is good, however, slower than comparable (size) GLCDs as the color definitions are four bytes ( typical color definitions are two bytes)
+|TFT LCD
+|SPI
+|PIC and AVR: SPI only
+|+VCC from 3.3 to 5. GLCD I/O is ONLY 3.3v. Always check voltage specifications.
+|Display is good, however, slower than comparable (size) GLCDs as the color definitions are four bytes (typical color definitions are two bytes).
 |SPI requires 4 ports plus 2 ports. Typically 6 in total.
 |Acceptable GLCD performance.
 
 |28
 |ST7567
-|1.9inch
+|1.9 inch
 |128 * 64
 |Medium
 |Mono
 |LCD
 |I2C and SPI
-|PIC and AVR: Software I2C, and hardware/software SPI.  Hardware I2C fails, as the ST7567 does not comply with the I2C standard.
-|+VCC from 3v3 to  5. GLCD I/O is ONLY 3v3. Always check voltage specifications.
-|SPI requires 4 ports plus 2 ports. Typically 6 in total.
-
-I2C requires 2 ports.
-|Typically operates at VCC 3v3 but may support 5v0. Always check voltage specifications  Very good LCD display. Driver supports gaming. Minimum RAM required is 1024 bytes then add user variables for graphics mode.
-
+|PIC and AVR: Software I2C, and hardware/software SPI. Hardware I2C fails, as the ST7567 does not comply with the I2C standard.
+|+VCC from 3.3 to 5. GLCD I/O is ONLY 3.3v. Always check voltage specifications.
+|Very good LCD display. Driver supports gaming. Minimum RAM required is 1024 bytes, then add user variables for graphics mode.
+|SPI requires 4 ports plus 2 ports. Typically 6 in total. I2C requires 2 ports.
+|Good for cost and performance
 
 |29
 |SSD1309
-|0.96inch
+|0.96 inch
 |128 * 64
 |Small
 |Mono
 |OLED
 |I2C and SPI
 |PIC and AVR: Hardware and software I2C, and software SPI
-|RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode then add user variables for graphics mode.
-Typically operates at VCC 3.3. Always check voltage specifications  Command-compatible and pin-compatible replacement for the SSD1306 (row 13) -- the same connections and code work, just using GLCD_TYPE_SSD1309 in place of GLCD_TYPE_SSD1306. All three SSD1306 panel sizes are supported: 128 x 64 (GLCD_TYPE_SSD1309, default), 128 x 32 (GLCD_TYPE_SSD1309_32), and 64 x 32 (GLCD_TYPE_SSD1309_64x32).
-|SPI requires 4 ports plus 2 ports. Typically 6 in total.
-
-I2C requires 2 ports.
+|Typically operates at VCC 3.3. Always check voltage specifications.
+|RAM for Full Mode GLCD is 1024 bytes or Low Memory GLCD is 128 bytes or 0 bytes for Text GLCD Mode, then add user variables for graphics mode. Command-compatible and pin-compatible replacement for the SSD1306 (row 13) -- the same connections and code work, just using GLCD_TYPE_SSD1309 in place of GLCD_TYPE_SSD1306. All three SSD1306 panel sizes are supported: 128 x 64 (GLCD_TYPE_SSD1309, default), 128 x 32 (GLCD_TYPE_SSD1309_32), and 64 x 32 (GLCD_TYPE_SSD1309_64x32).
+|SPI requires 4 ports plus 2 ports. Typically 6 in total. I2C requires 2 ports.
 |Good OLED display, excellent value for money; use where a SSD1306 panel is unavailable or has been substituted with a SSD1309-based module.
 
 |30
 |SSD1306_64x32
-|0.96inch
+|0.96 inch
 |64 * 32
 |Very small
 |Mono
 |OLED
 |I2C and SPI
 |PIC and AVR: Hardware and software I2C, and software SPI
+|Typically operates at VCC 5. Always check voltage specifications.
 |RAM usage is smaller again than the 128x32 variant, since the panel has fewer pixels.
-Typically operates at VCC 5. Always check voltage specifications
-|SPI requires 4 ports plus 2 ports. Typically 6 in total.
-
-I2C requires 2 ports.
+|SPI requires 4 ports plus 2 ports. Typically 6 in total. I2C requires 2 ports.
 |Good OLED display for the smallest panel size in the SSD1306 family.
 
 |31
 |T6963
-|4inches by 2inches
+|4 inches by 2 inches
 |Varies by panel
 |Large
 |Mono
 |LCD typically with backlight
-|8-bit parallel PIC and AVR: Software device specific protocol
-|Typically operates at VCC 5. Always check voltage specifications 8-bit bus required.
-|The base GLCD_TYPE_T6963 constant; use GLCD_TYPE_T6963_64 or GLCD_TYPE_T6963_128 (rows 21-22) instead when the panel's exact pixel height is known, since those variants set the correct dimensions automatically.
+|8-bit parallel
+|PIC and AVR: Software device specific protocol
+|Typically operates at VCC 5. Always check voltage specifications.
+|8-bit bus required. The base GLCD_TYPE_T6963 constant; use GLCD_TYPE_T6963_64 or GLCD_TYPE_T6963_128 (rows 21-22) instead when the panel's exact pixel height is known, since those variants set the correct dimensions automatically.
 |Requires 12 ports/connections.
 |These are medium cost mono devices.
 
@@ -520,10 +497,10 @@ I2C requires 2 ports.
 |LCD
 |8-bit parallel or serial, device specific
 |PIC and AVR: Software device specific protocol
-|Typically operates at VCC 5. Always check voltage specifications
+|Typically operates at VCC 5. Always check voltage specifications.
 |A less common controller; check the datasheet for your specific module against the glcd_uc8230.h driver before wiring.
 |Requires connections specific to the panel; see the driver source for pin requirements.
-A niche option, useful when a KS0108/T6963-style panel uses this specific controller.
+|A niche option, useful when a KS0108/T6963-style panel uses this specific controller.
 
 |33
 |ILI9320
@@ -534,9 +511,9 @@ A niche option, useful when a KS0108/T6963-style panel uses this specific contro
 |TFT LCD
 |8-bit parallel or SPI, device specific
 |PIC and AVR: Software device specific protocol
-|Typically operates at VCC 3.3 to 5. Always check voltage specifications
+|Typically operates at VCC 3.3 to 5. Always check voltage specifications.
 |Shares its driver file with UC8230 (glcd_uc8230.h handles both GLCD_TYPE_ILI9320 and GLCD_TYPE_UC8230).
-Requires connections specific to the panel; see the driver source for pin requirements.
+|Requires connections specific to the panel; see the driver source for pin requirements.
 |A niche option for older 8-bit-bus TFT panels using this specific controller.
 
 |34
@@ -548,9 +525,9 @@ Requires connections specific to the panel; see the driver source for pin requir
 |TFT LCD
 |Device specific, see glcd_lt7686.h
 |PIC and AVR: Software device specific protocol
-|Typically operates at VCC 3.3 to 5. Always check voltage specifications
+|Typically operates at VCC 3.3 to 5. Always check voltage specifications.
 |Selected using the constant LT7686_800_480_BLUE (note: this family uses plain LT7686_... constant names, not the usual GLCD_TYPE_LT7686... pattern used elsewhere in this table).
-Requires connections specific to the panel; see the driver source for pin requirements.
+|Requires connections specific to the panel; see the driver source for pin requirements.
 |A large, higher-resolution panel option for projects with more available RAM and I/O.
 
 |35
@@ -562,9 +539,9 @@ Requires connections specific to the panel; see the driver source for pin requir
 |TFT LCD
 |Device specific, see glcd_lt7686.h
 |PIC and AVR: Software device specific protocol
-|Typically operates at VCC 3.3 to 5. Always check voltage specifications
+|Typically operates at VCC 3.3 to 5. Always check voltage specifications.
 |Selected using the constant LT7686_1024_600_BLUE.
-Requires connections specific to the panel; see the driver source for pin requirements.
+|Requires connections specific to the panel; see the driver source for pin requirements.
 |A large, higher-resolution panel option for projects with more available RAM and I/O.
 
 |36
@@ -576,9 +553,9 @@ Requires connections specific to the panel; see the driver source for pin requir
 |TFT LCD
 |Device specific, see glcd_lt7686.h
 |PIC and AVR: Software device specific protocol
-|Typically operates at VCC 3.3 to 5. Always check voltage specifications
+|Typically operates at VCC 3.3 to 5. Always check voltage specifications.
 |Selected using the constant LT7686_1024_600_BLACK -- identical to row 35 except for the backlight/panel variant selected.
-Requires connections specific to the panel; see the driver source for pin requirements.
+|Requires connections specific to the panel; see the driver source for pin requirements.
 |A large, higher-resolution panel option for projects with more available RAM and I/O.
 
 |37
@@ -590,9 +567,9 @@ Requires connections specific to the panel; see the driver source for pin requir
 |Microencapsulated Electrophoretic Display
 |SPI
 |PIC and AVR: Hardware and software SPI
-|Typically operates at VCC 3.3. Always check voltage specifications
+|Typically operates at VCC 3.3. Always check voltage specifications.
 |Selected using the constant GLCD_TYPE_EPD_EPD2in13D. See <<_e_paper_controllers,e-Paper Controllers>> for the full set of e-Paper-specific constants and guidance.
-SPI requires typically 6 in total.
+|SPI requires typically 6 in total.
 |Very good e-Paper display, excellent value for money.
 
 |38
@@ -604,14 +581,14 @@ SPI requires typically 6 in total.
 |Microencapsulated Electrophoretic Display
 |SPI
 |PIC and AVR: Hardware and software SPI
-|Typically operates at VCC 3.3. Always check voltage specifications
+|Typically operates at VCC 3.3. Always check voltage specifications.
 |Selected using the constant GLCD_TYPE_EPD_EPD7in5. See <<_e_paper_controllers,e-Paper Controllers>> for the full set of e-Paper-specific constants and guidance.
 |SPI requires typically 6 in total.
 |Very good large e-Paper display; note the slower refresh typical of larger e-Paper panels.
 
 |39
 |SH1101A
-|1.5inch
+|1.5 inch
 |128 * 64 (132 * 64 RAM, panel visible from column 2)
 |Small
 |Mono
@@ -625,15 +602,15 @@ SPI requires typically 6 in total.
 
 |40
 |ST7789 (170 * 320 variant)
-|1.9inch
+|1.9 inch
 |170 * 320
 |Small
 |Color
 |TFT LCD
 |4-wire SPI
-|PIC and AVR: hardware and software SPI
+|PIC and AVR: Hardware and software SPI
 |Typically operates at VCC 3.3. Always check voltage specifications.
-|Selected using the constant GLCD_TYPE_ST7789_170_320 alongside the existing GLCD_TYPE_ST7789_240_240 / GLCD_TYPE_ST7789_320_240 (row 17 area) -- see <<_st7789_controllers,ST7789 Controllers>>. Tested on the Waveshare 1.9inch panel; confirm the initial X offset (35) on your own physical panel.
+|Selected using the constant GLCD_TYPE_ST7789_170_320 alongside the existing GLCD_TYPE_ST7789_240_240 / GLCD_TYPE_ST7789_320_240 (row 26) -- see <<_st7789_controllers,ST7789 Controllers>>. Tested on the Waveshare 1.9inch panel; confirm the initial X offset (35) on your own physical panel.
 |SPI requires 4 ports plus 2 ports. Typically 6 in total.
 |Good small colour TFT; same driver family and commands as the other ST7789 geometries.
 
